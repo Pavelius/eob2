@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="logic">
+      <UniqueIdentifier>{bad1ca87-23e8-4256-87b0-0f9aad036895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="support">
+      <UniqueIdentifier>{adcd349f-4899-41fd-922b-227789a5be0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform">
+      <UniqueIdentifier>{d42c1dcc-946d-4fb1-8629-ad98befaf37f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ability.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="creature.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="dice.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="math.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="nameable.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="stringbuilder.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="locale.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="array.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="io_stream.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="log.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="win_io_file.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="szdup.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="class.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="levelable.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="unit.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="draw.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="color.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="point.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="win_draw.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="win_time.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="scale.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="resid.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="widget.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="answers.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ability.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="creature.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="adat.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="dice.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="pushvalue.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="rand.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="slice.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="levelable.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="feat.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="statable.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="class.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="nameable.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="stringbuilder.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="array.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="io_stream.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="log.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="win.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="bsdata.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="unit.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="draw.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="color.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="point.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="rect.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="seqlink.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="timer.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="resid.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="answers.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="widget.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

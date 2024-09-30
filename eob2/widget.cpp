@@ -4,7 +4,16 @@
 
 using namespace draw;
 
+static void *current_focus, *pressed_focus;
+
 namespace {
+struct pushscene {
+	void* focus;
+	pushscene(void* new_focus) : focus(current_focus) {
+		current_focus = new_focus;
+	}
+	~pushscene() { current_focus = focus; }
+};
 struct renderi {
 	void* av;
 	rect rc;
@@ -26,7 +35,6 @@ static color hilite = main.mix(dark, 160);
 static color focus(250, 100, 100);
 }
 
-static void *current_focus, *pressed_focus;
 static renderi render_objects[48];
 static renderi*	render_current;
 
@@ -79,18 +87,18 @@ static point center(const rect& rc) {
 	return{(short)rc.x1, (short)rc.y1};
 }
 
-static void focusing(void* av) {
+static void focusing(const void* av) {
 	if(!av)
 		return;
 	if(!render_current
 		|| render_current >= render_objects + sizeof(render_objects) / sizeof(render_objects[0]))
 		render_current = render_objects;
 	render_current[0].rc = {caret.x, caret.y, caret.x + width, caret.y + height};
-	render_current[0].av = av;
+	render_current[0].av = (void*)av;
 	render_current++;
 	render_current->clear();
 	if(!current_focus)
-		current_focus = av;
+		current_focus = (void*)av;
 }
 
 static renderi* getby(void* av) {
@@ -250,7 +258,10 @@ static bool paint_button(const char* title, void* button_data, unsigned key, uns
 
 static void center_text_button(int index, const void* data, const char* format, fnevent proc) {
 	auto push_fore = fore;
+	focusing(data);
 	fore = colors::white;
+	if(current_focus == data)
+		fore = colors::focus;
 	texta(format, AlignCenter | TextBold);
 	caret.y += texth() + 1;
 	fore = push_fore;
@@ -270,6 +281,7 @@ static void paint_background(resid v, int frame) {
 
 void* choose_answer(point origin, resid background, int frame, int column_width) {
 	rectpush push;
+	pushscene push_scene(0);
 	while(ismodal()) {
 		paint_background(background, frame);
 		caret = origin;

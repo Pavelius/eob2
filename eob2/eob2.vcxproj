@@ -160,6 +160,7 @@
     <ClInclude Include="slice.h" />
     <ClInclude Include="statable.h" />
     <ClInclude Include="stringbuilder.h" />
+    <ClInclude Include="view_focus.h" />
     <ClInclude Include="widget.h" />
     <ClInclude Include="win.h" />
   </ItemGroup>
@@ -172,6 +173,7 @@
     <ClCompile Include="creature.cpp" />
     <ClCompile Include="dice.cpp" />
     <ClCompile Include="draw.cpp" />
+    <ClCompile Include="view_focus.cpp" />
     <ClCompile Include="io_stream.cpp" />
     <ClCompile Include="levelable.cpp" />
     <ClCompile Include="locale.cpp" />

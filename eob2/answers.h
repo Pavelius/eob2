@@ -13,8 +13,6 @@ struct answers {
 	char buffer[2048];
 	stringbuilder sc;
 	adat<element, 32> elements;
-	static bool interactive;
-	static int column_count;
 	answers() : sc(buffer) {}
 	constexpr operator bool() const { return elements.count != 0; }
 	void			add(const void* value, const char* name, ...) { addv(value, name, xva_start(name)); }
@@ -24,6 +22,7 @@ struct answers {
 	void			clear();
 	static int		compare(const void* v1, const void* v2);
 	const element*	end() const { return elements.end(); }
+	bool			have(const void* pv) const { return elements.have(pv); }
 	int				getcount() const { return elements.getcount(); }
 	const char*		getname(void* v);
 	int				indexof(const void* v) const { return elements.indexof(v); }
@@ -32,3 +31,4 @@ struct answers {
 	void			sort();
 };
 extern answers an;
+extern bool show_interactive;

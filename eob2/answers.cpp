@@ -1,8 +1,7 @@
 #include "answers.h"
 #include "rand.h"
 
-bool answers::interactive = true;
-int answers::column_count = 1;
+bool show_interactive = true;
 answers an;
 
 int answers::compare(const void* v1, const void* v2) {

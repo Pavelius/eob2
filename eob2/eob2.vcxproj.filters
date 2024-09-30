@@ -87,6 +87,9 @@
     <ClCompile Include="answers.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="view_focus.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -174,6 +177,9 @@
       <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="widget.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="view_focus.h">
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>

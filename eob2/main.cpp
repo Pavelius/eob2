@@ -7,11 +7,20 @@
 #include "timer.h"
 #include "widget.h"
 
+extern "C" void exit(int code);
+
+static void exit_game() {
+	exit(0);
+}
+
+static void start_game() {
+}
+
 static void main_menu() {
 	auto push = an;
 	an.clear();
-	an.add(0, "Begin new game");
-	an.add(0, "Load saved game");
+	an.add(start_game, "Begin new game");
+	an.add(exit_game, "Load saved game");
 	auto p = choose_answer({80, 110}, MENU, 0, 166);
 }
 

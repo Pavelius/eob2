@@ -161,9 +161,25 @@ static int get_best_index(char* result, size_t size) {
 	return result_index;
 }
 
+static void apply_minimal(char* minimal) {
+	for(auto i = 0; i < 6; i++) {
+		if(minimal[i] && player->abilities[Strenght + i] < minimal[i])
+			player->abilities[Strenght + i] = minimal[i];
+	}
+}
+
+static void apply_maximal(char* maximal) {
+	for(auto i = 0; i < 6; i++) {
+		if(maximal[i] && player->abilities[Strenght + i] > maximal[i])
+			player->abilities[Strenght + i] = maximal[i];
+	}
+}
+
 static void generate_abilities() {
+	auto pc = bsdata<classi>::elements + player->type;
+	auto pr = bsdata<racei>::elements + player->race;
 	char result[12] = {};
-	if(false) {
+	if(true) {
 		for(size_t i = 0; i < sizeof(result) / sizeof(result[0]); i++)
 			result[i] = (rand() % 6) + (rand() % 6) + (rand() % 6) + 3;
 		qsort(result, sizeof(result) / sizeof(result[0]), sizeof(result[0]), compare_char_desc);
@@ -174,8 +190,10 @@ static void generate_abilities() {
 	}
 	for(size_t i = 0; i < 6; i++)
 		player->abilities[Strenght + i] = result[i];
-	auto pc = bsdata<classi>::elements + player->type;
 	iswap(player->abilities[get_best_index(player->abilities + Strenght, 6)], player->abilities[pc->primary]);
+	apply_minimal(pc->minimal);
+	apply_minimal(pr->minimal);
+	apply_maximal(pr->maximal);
 	player->abilities[ExeptionalStrenght] = d100() + 1;
 }
 

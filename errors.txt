@@ -1,24 +1,7 @@
-﻿Error in file `rules/Avatars.txt`:
- Line 1: Can't find gender, class or race named `Ranger`
- Line 3: Can't find gender, class or race named `Ranger`
- Line 5: Can't find gender, class or race named `Ranger`
- Line 6: Can't find gender, class or race named `Ranger`
- Line 8: Can't find gender, class or race named `Ranger`
- Line 9: Can't find gender, class or race named `Ranger`
- Line 14: Can't find gender, class or race named `Paladin`
- Line 16: Can't find gender, class or race named `Paladin`
- Line 17: Can't find gender, class or race named `Ranger`
- Line 18: Can't find gender, class or race named `Paladin`
- Line 19: Can't find gender, class or race named `Paladin`
- Line 20: Can't find gender, class or race named `Paladin`
- Line 21: Can't find gender, class or race named `Paladin`
- Line 23: Can't find gender, class or race named `Paladin`
- Line 23: Can't find gender, class or race named `Ranger`
- Line 31: Can't find gender, class or race named `Ranger`
- Line 35: Can't find gender, class or race named `Ranger`
- Line 36: Can't find gender, class or race named `Paladin`
- Line 36: Can't find gender, class or race named `Ranger`
- Line 43: Can't find gender, class or race named `Paladin`
- Line 44: Can't find gender, class or race named `Paladin`
- Line 46: Can't find gender, class or race named `Paladin`
- Line 55: Can't find gender, class or race named `Ranger`
+﻿Error in file `rules/Classes.txt`:
+ Line 3: Not found requisit `primary`
+ Line 6: Not found requisit `primary`
+ Line 8: Not found requisit `primary`
+ Line 10: Not found requisit `primary`
+ Line 12: Not found requisit `primary`
+ Line 14: Not found requisit `primary`

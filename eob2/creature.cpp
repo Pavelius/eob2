@@ -140,7 +140,43 @@ void update_player() {
 	player->hpm = get_maximum_hits();
 }
 
+static int compare_char_desc(const void* v1, const void* v2) {
+	return *((char*)v2) - *((char*)v1);
+}
+
+static int get_best_4d6() {
+	char result[4];
+	for(size_t i = 0; i < sizeof(result) / sizeof(result[0]); i++)
+		result[i] = (rand() % 6) + 1;
+	qsort(result, sizeof(result) / sizeof(result[0]), sizeof(result[0]), compare_char_desc);
+	return result[0] + result[1] + result[2];
+}
+
+static int get_best_index(char* result, size_t size) {
+	auto result_index = 0;
+	for(size_t i = 0; i < size; i++) {
+		if(result[i] > result[result_index])
+			result_index = i;
+	}
+	return result_index;
+}
+
 static void generate_abilities() {
+	char result[12] = {};
+	if(false) {
+		for(size_t i = 0; i < sizeof(result) / sizeof(result[0]); i++)
+			result[i] = (rand() % 6) + (rand() % 6) + (rand() % 6) + 3;
+		qsort(result, sizeof(result) / sizeof(result[0]), sizeof(result[0]), compare_char_desc);
+		zshuffle(result, 6);
+	} else {
+		for(size_t i = 0; i < 6; i++)
+			result[i] = get_best_4d6();
+	}
+	for(size_t i = 0; i < 6; i++)
+		player->abilities[Strenght + i] = result[i];
+	auto pc = bsdata<classi>::elements + player->type;
+	iswap(player->abilities[get_best_index(player->abilities + Strenght, 6)], player->abilities[pc->primary]);
+	player->abilities[ExeptionalStrenght] = d100() + 1;
 }
 
 static size_t party_avatars(unsigned char* result) {
@@ -165,7 +201,7 @@ void create_player(const racei* pr, gendern gender, const classi* pc) {
 	player->clear();
 	player->race = (racen)bsdata<racei>::source.indexof(pr);
 	player->gender = gender;
-	player->type = (classn)bsdata<racei>::source.indexof(pc);
+	player->type = (classn)bsdata<classi>::source.indexof(pc);
 	generate_abilities();
 	player->avatar = get_avatar(player->race, gender, player->type);
 	update_player();

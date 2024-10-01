@@ -54,9 +54,6 @@
     <ClCompile Include="szdup.cpp">
       <Filter>support</Filter>
     </ClCompile>
-    <ClCompile Include="class.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="levelable.cpp">
       <Filter>logic</Filter>
     </ClCompile>

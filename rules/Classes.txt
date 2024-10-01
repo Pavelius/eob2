@@ -1,19 +1,22 @@
 #Class
 
-Fighter
+Fighter minimal(9 0 0 0 0 0) primary(Strenght)
  classes Fighter
-Cleric
+ wears WearMetal WearLeather WearMartial WearElf WearRogue
+Cleric minimal(0 0 0 0 9 0) primary(Wisdow)
  classes Cleric
-Mage
+Mage minimal(0 0 0 9 0 0) primary(Intellegence)
  classes Mage
-Theif
+Theif minimal(0 9 0 0 0 0) primary(Dexterity)
  classes Theif
-Ranger
+Ranger minimal(13 13 14 0 14 0) primary(Strenght)
  classes Ranger
-Paladin
+Paladin minimal(12 0 9 0 13 17) primary(Strenght)
  classes Paladin
 
 FighterTheif
  classes Fighter Theif
+ wears WearLeather WearMartial WearElf WearRogue
 FighterMage
  classes Fighter Mage
+ wears WearLeather WearMartial WearElf WearRogue

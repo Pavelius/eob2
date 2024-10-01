@@ -1,3 +1,4 @@
+#include "ability.h"
 #include "bsreq.h"
 #include "class.h"
 #include "color.h"
@@ -11,10 +12,16 @@ NOBSDATA(point)
 BSDATAC(classi, 32)
 BSDATAC(racei, 16)
 
+BSMETA(abilityi) = {
+	BSREQ(id),
+	{}};
 BSMETA(classi) = {
 	BSREQ(id),
 	BSCST(classes, KindADat, classn, classi, 3),
 	BSFLG(feats, feati),
+	BSFLG(wears, feati),
+	BSREQ(minimal),
+	BSENM(primary, abilityi),
 	{}};
 BSMETA(feati) = {
 	BSREQ(id),

@@ -16,6 +16,28 @@ static struct avatari {
 	aflags classes;
 } portrait_data[256];
 
+static bool contain(unsigned char* result, size_t result_size, unsigned char value) {
+	auto pe = result + result_size;
+	for(auto p = result; p < pe; p++) {
+		if(*p == value)
+			return true;
+	}
+	return false;
+}
+
+static size_t filter(unsigned char* result, size_t result_size, unsigned char* source, size_t source_size) {
+	if(!source_size)
+		return result_size;
+	auto pe = result + result_size;
+	auto ps = result;
+	for(auto p = result; p < pe; p++) {
+		if(contain(source, source_size, *p))
+			continue;
+		*ps++ = *p;
+	}
+	return ps - result;
+}
+
 static size_t get_avatars_ex(unsigned char* result, racen race, gendern gender, classn cls) {
 	auto p = result;
 	for(auto& e : portrait_data) {
@@ -42,16 +64,27 @@ static size_t get_avatars_ex(unsigned char* result, racen race, gendern gender) 
 	return p - result;
 }
 
-size_t get_avatars(unsigned char* result, racen race, gendern gender, classn cls) {
+size_t get_avatars(unsigned char* result, racen race, gendern gender, classn cls, unsigned char* exclude, size_t exclude_size) {
 	auto c = get_avatars_ex(result, race, gender, cls);
-	if(c < 4)
+	c = filter(result, c, exclude, exclude_size);
+	if(c < 4) {
 		c = get_avatars_ex(result, race, gender);
+		c = filter(result, c, exclude, exclude_size);
+	}
 	return c;
 }
 
 unsigned char get_avatar(racen race, gendern gender, classn cls) {
 	unsigned char result[256];
-	auto c = get_avatars(result, race, gender, cls);
+	auto c = get_avatars(result, race, gender, cls, 0, 0);
+	if(!c)
+		return 0;
+	return result[rand() % c];
+}
+
+unsigned char get_avatar(racen race, gendern gender, classn cls, unsigned char* exclude, size_t exclude_size) {
+	unsigned char result[256];
+	auto c = get_avatars(result, race, gender, cls, exclude, exclude_size);
 	if(!c)
 		return 0;
 	return result[rand() % c];

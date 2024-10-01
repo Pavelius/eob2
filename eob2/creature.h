@@ -17,6 +17,7 @@ struct creaturei : statable, levelable {
 	classn			type;
 	gendern			gender;
 	unsigned char	avatar = 0xFF;
+	void			clear();
 	int				get(abilityn v) const { return abilities[v]; }
 };
 extern creaturei* player;

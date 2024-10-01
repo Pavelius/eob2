@@ -1,7 +1,9 @@
 #include "answers.h"
+#include "creature.h"
 #include "direction.h"
 #include "draw.h"
 #include "resid.h"
+#include "unit.h"
 #include "view_focus.h"
 
 using namespace draw;
@@ -255,10 +257,41 @@ static void paint_menu(point position, int object_width, int object_height) {
 	button_frame(2, false, false);
 }
 
+static void paint_avatar() {
+	if(player->avatar == 0xFF)
+		return;
+	image(gres(PORTM), player->avatar, 0);
+}
+
+static void paint_character() {
+	auto push_caret = caret;
+	caret.x += 2;
+	caret.y += 10;
+	paint_avatar();
+	caret = push_caret;
+}
+
+static void paint_avatars() {
+	static point points[] = {{183, 1}, {255, 1}, {183, 53}, {255, 53}, {183, 105}, {255, 105}};
+	rectpush push;
+	auto push_player = player;
+	if(party.units[4])
+		copy_image({183, 53}, {183, 105}, 65, 52);
+	if(party.units[5])
+		copy_image({255, 53}, {255, 105}, 65, 52);
+	for(auto i = 0; i < 6; i++) {
+		caret = points[i];
+		player = party.units[i];
+		if(!player)
+			continue;
+		paint_character();
+	}
+	player = push_player;
+}
+
 void paint_adventure_menu() {
 	paint_background(PLAYFLD, 0);
-	copy_image({183, 53}, {183, 105}, 65, 52);
-	copy_image({255, 53}, {255, 105}, 65, 52);
+	paint_avatars();
 }
 
 static void paint_title(const char* title) {

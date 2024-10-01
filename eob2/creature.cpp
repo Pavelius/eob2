@@ -7,6 +7,7 @@
 #include "race.h"
 #include "rand.h"
 #include "slice.h"
+#include "unit.h"
 
 BSDATAC(creaturei, 256)
 
@@ -60,6 +61,11 @@ static char dwarven_bonus[] = {
 //	30, 30, 30, 35, 40, 45, 50, 55, 60, 65,
 //	70, 75, 80, 85, 88, 91, 95, 97, 99
 //};
+
+void creaturei::clear() {
+	memset(this, 0, sizeof(*this));
+	avatar = 0xFF;
+}
 
 static void update_basic() {
 	memcpy(player->abilities, player->basic.abilities, sizeof(player->abilities));
@@ -137,10 +143,26 @@ void update_player() {
 static void generate_abilities() {
 }
 
+static size_t party_avatars(unsigned char* result) {
+	auto ps = result;
+	for(auto p : party.units) {
+		if(p->avatar != 0xFF)
+			*ps++ = p->avatar;
+	}
+	return ps - result;
+}
+
+static void generate_avatar() {
+	unsigned char exclude[6];
+	auto size = party_avatars(exclude);
+	player->avatar = get_avatar(player->race, player->gender, player->type, exclude, size);
+}
+
 void create_player(const racei* pr, gendern gender, const classi* pc) {
 	if(!pr || !pc)
 		return;
 	player = bsdata<creaturei>::add();
+	player->clear();
 	player->race = (racen)bsdata<racei>::source.indexof(pr);
 	player->gender = gender;
 	player->type = (classn)bsdata<racei>::source.indexof(pc);

@@ -30,6 +30,8 @@ static void main_menu() {
 	join_party();
 	create_player(bsdata<racei>::find("Dwarf"), Male, bsdata<classi>::find("Cleric"));
 	join_party();
+	create_player(bsdata<racei>::find("Halfling"), Female, bsdata<classi>::find("Theif"));
+	join_party();
 	an.clear();
 	an.add(start_game, "Begin new game");
 	an.add(exit_game, "Load saved game");

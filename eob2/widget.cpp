@@ -1,4 +1,5 @@
 #include "answers.h"
+#include "direction.h"
 #include "draw.h"
 #include "resid.h"
 #include "view_focus.h"
@@ -6,12 +7,7 @@
 using namespace draw;
 
 namespace {
-struct pushscene {
-	void* focus;
-	pushscene(void* new_focus) : focus(current_focus) {
-		current_focus = new_focus;
-	}
-	~pushscene() { current_focus = focus; }
+struct pushscene : pushfocus {
 };
 struct renderi {
 	void* av;
@@ -82,36 +78,54 @@ static void set_big_font() {
 	font = gres(FONT8);
 }
 
+static void copy_image(point origin, point dest, int w, int h) {
+	auto scan_size = sizeof(color) * w;
+	for(auto i = 0; i < h; i++)
+		memcpy(canvas->ptr(dest.x, dest.y + i), canvas->ptr(origin.x, origin.y + i), scan_size);
+}
+
 static void paint_background(resid v, int frame) {
 	draw::image(gres(v), frame, 0);
 }
 
 static void button_back(bool focused) {
+	rectpush push;
 	auto push_fore = fore;
 	fore = focused ? colors::hilite : colors::main;
+	width++;
+	height++;
 	rectf();
 	fore = push_fore;
 }
 
 static void border_up() {
-	rectpush push;
-	fore = colors::dark;
-	line(caret.x, caret.y + height);
-	line(caret.x + width, caret.y);
+	auto push_fore = fore;
+	auto push_caret = caret;
 	fore = colors::light;
-	//draw::line(rc.x2, rc.y1, rc.x2, rc.y2 - 1);
-	//draw::line(rc.x1 + 1, rc.y1, rc.x2 - 1, rc.y1);
+	line(caret.x + width, caret.y);
+	line(caret.x, caret.y + height);
+	fore = colors::dark;
+	line(caret.x - width, caret.y);
+	line(caret.x, caret.y - height + 1);
+	caret = push_caret;
+	fore = push_fore;
 }
 
 static void border_down() {
-	rectpush push;
-	fore = colors::light;
-	line(caret.x, caret.y + height);
+	auto push_fore = fore;
+	auto push_caret = caret;
+	fore = colors::dark;
 	line(caret.x + width, caret.y);
+	line(caret.x, caret.y + height);
 	fore = colors::light;
+	line(caret.x - width, caret.y);
+	line(caret.x, caret.y - height + 1);
+	caret = push_caret;
+	fore = push_fore;
 }
 
 static void button_frame(int count, bool focused, bool pressed) {
+	rectpush push;
 	for(int i = 0; i < count; i++) {
 		if(pressed)
 			border_down();
@@ -134,23 +148,36 @@ static bool button_input(const void* button_data, unsigned key) {
 	return false;
 }
 
-static bool paint_button(const char* title, void* button_data, unsigned key, unsigned flags = TextBold) {
+static bool paint_button(const char* title, const void* button_data, unsigned key, unsigned flags = TextBold) {
+	rectpush push;
+	auto push_fore = fore;
 	if(!button_data)
 		button_data = (void*)title;
 	focusing(button_data);
 	auto run = button_input(button_data, key);
-	button_frame(1, false, pressed_focus == button_data);
+	auto pressed = (pressed_focus == button_data);
+	button_frame(1, false, pressed);
 	if(current_focus == button_data)
 		fore = colors::focus;
+	caret.y += 2;
+	caret.x += 4;
+	width -= 4 * 2;
+	if(pressed) {
+		caret.x++;
+		caret.y++;
+	}
 	text(title, -1, flags);
-	caret.y += height + 3;
+	fore = push_fore;
 	return run;
 }
 
-static void paint_answers(fnanswer paintcell, fnevent pushbutton) {
+static void paint_answers(fnanswer paintcell, fnevent pushbutton, int height_grid) {
+	if(!paintcell)
+		return;
 	auto index = 0;
 	for(auto& e : an.elements) {
 		paintcell(index, &e, e.text, pushbutton);
+		caret.y += height_grid;
 		index++;
 	}
 }
@@ -161,7 +188,7 @@ static unsigned get_key(int index) {
 	return 0;
 }
 
-static void center_text_label(int index, const void* data, const char* format, fnevent proc) {
+void text_label(int index, const void* data, const char* format, fnevent proc) {
 	auto push_fore = fore;
 	focusing(data);
 	if(button_input(data, get_key(index)))
@@ -172,20 +199,25 @@ static void center_text_label(int index, const void* data, const char* format, f
 	if(pressed_focus == data)
 		fore = fore.darken();
 	texta(format, AlignCenter | TextBold);
-	caret.y += texth() + 1;
 	fore = push_fore;
+}
+
+void button_label(int index, const void* data, const char* format, fnevent proc) {
+	if(paint_button(format, data, get_key(index)))
+		execute(proc, (long)proc);
 }
 
 void* choose_answer(point origin, resid background, int frame, int column_width) {
 	if(!show_interactive)
 		return an.random();
 	rectpush push;
-	pushscene push_scene(0);
+	pushscene push_scene;
 	while(ismodal()) {
 		paint_background(background, frame);
 		caret = origin;
 		width = column_width;
-		paint_answers(center_text_label, buttonparam);
+		height = texth();
+		paint_answers(text_label, buttonparam, height);
 		domodal();
 		if(hot.key == KeyEscape)
 			breakmodal(0);
@@ -195,6 +227,74 @@ void* choose_answer(point origin, resid background, int frame, int column_width)
 	return (void*)getresult();
 }
 
+static int get_compass_index(directions d) {
+	switch(d) {
+	case Right: return 1; // East
+	case Down: return 2; // South
+	case Left: return 3; // West
+	default: return 0; // North
+	}
+}
+
+static void paint_compass(directions d) {
+	auto push_fore = fore;
+	fore = colors::white;
+	auto i = get_compass_index(d);
+	image(114, 132, gres(COMPASS), i, 0);
+	image(79, 158, gres(COMPASS), 4 + i, 0);
+	image(150, 158, gres(COMPASS), 8 + i, 0);
+}
+
+void paint_adventure() {
+	paint_background(PLAYFLD, 0);
+	paint_compass(Right);
+}
+
+static void paint_menu(point position, int object_width, int object_height) {
+	rectpush push;
+	caret = position;
+	width = object_width;
+	height = object_height;
+	button_frame(2, false, false);
+}
+
+void paint_adventure_menu() {
+	paint_background(PLAYFLD, 0);
+	copy_image({183, 53}, {183, 105}, 65, 52);
+	copy_image({255, 53}, {255, 105}, 65, 52);
+}
+
+static void paint_title(const char* title) {
+	if(!title)
+		return;
+	auto push_fore = fore;
+	text(title, -1, TextBold);
+	caret.y += texth() + 4;
+	fore = push_fore;
+}
+
+void* choose_answer(const char* title, fnevent before_paint) {
+	if(!show_interactive)
+		return an.random();
+	const auto column_width = 166;
+	rectpush push;
+	pushscene push_scene;
+	while(ismodal()) {
+		if(before_paint)
+			before_paint();
+		paint_menu({0, 0}, 178, 174);
+		caret = {6, 6};
+		paint_title(title);
+		width = column_width;
+		height = texth() + 3;
+		paint_answers(button_label, buttonparam, height + 2);
+		domodal();
+		focus_input();
+	}
+	return (void*)getresult();
+}
+
 void initialize_gui() {
 	set_big_font();
+	fore = colors::white;
 }

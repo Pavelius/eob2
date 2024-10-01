@@ -90,6 +90,15 @@
     <ClCompile Include="view_focus.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="direction.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="avatar.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="gender.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -180,6 +189,21 @@
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="view_focus.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="direction.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="gender.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="my_initialize_list.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="cflags.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="race.h">
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>

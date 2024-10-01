@@ -150,6 +150,7 @@
     <ClInclude Include="draw.h" />
     <ClInclude Include="feat.h" />
     <ClInclude Include="gender.h" />
+    <ClInclude Include="item.h" />
     <ClInclude Include="logvalue.h" />
     <ClInclude Include="my_initialize_list.h" />
     <ClInclude Include="point.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="dice.cpp" />
     <ClCompile Include="direction.cpp" />
     <ClCompile Include="draw.cpp" />
+    <ClCompile Include="feat.cpp" />
     <ClCompile Include="gender.cpp" />
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="logvalue.cpp" />
@@ -214,7 +216,9 @@
   <ItemGroup>
     <Text Include="..\errors.txt" />
     <Text Include="..\rules\Avatars.txt" />
+    <Text Include="..\rules\Classes.txt" />
     <Text Include="..\rules\Core.txt" />
+    <Text Include="..\rules\Items.txt" />
     <Text Include="..\rules\Races.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

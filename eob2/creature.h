@@ -7,6 +7,9 @@ enum racen : unsigned char;
 enum gendern : unsigned char;
 enum classn : unsigned char;
 
+struct classi;
+struct racei;
+
 struct creaturei : statable, levelable {
 	statable		basic;
 	short			hp, hpm;
@@ -18,5 +21,5 @@ struct creaturei : statable, levelable {
 };
 extern creaturei* player;
 
-void create_player(racen race, gendern gender, classn cls);
+void create_player(const racei* pr, gendern gender, const classi* pc);
 void update_player();

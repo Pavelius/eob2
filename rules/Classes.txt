@@ -1,0 +1,19 @@
+#Class
+
+Fighter
+ classes Fighter
+Cleric
+ classes Cleric
+Mage
+ classes Mage
+Theif
+ classes Theif
+Ranger
+ classes Ranger
+Paladin
+ classes Paladin
+
+FighterTheif
+ classes Fighter Theif
+FighterMage
+ classes Fighter Mage

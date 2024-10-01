@@ -11,7 +11,7 @@ meta_count<decltype(data_type::fn)>::value,\
 bsmeta<meta_decoy<decltype(data_type::fn)>::value>::meta,\
 meta_kind<decltype(data_type::fn)>::value,\
 bsdata<meta_decoy<decltype(data_type::fn)>::value>::source_ptr}
-#define	BSCST(fn, K, TM, TE, C) {#fn, FO(data_type, fn), sizeof(TM), sizeof(data_type::fn), C, bsmeta<TM>::meta, K, bsdata<TE>::source_ptr}
+#define	BSCST(fn, K, TM, TI, C) {#fn, FO(data_type, fn), sizeof(TM), sizeof(data_type::fn), C, bsmeta<TI>::meta, K, bsdata<TI>::source_ptr}
 #define	BSDST(fn, TE) {#fn, FO(data_type, fn), sizeof(data_type::fn[0]), sizeof(data_type::fn), sizeof(data_type::fn)/sizeof(data_type::fn[0]), bsmeta<TE>::meta, KindDSet, bsdata<TE>::source_ptr}
 #define	BSFLG(fn, T) {#fn, FO(data_type, fn), sizeof(data_type::fn), sizeof(data_type::fn), 1, bsmeta<T>::meta, KindFlags, bsdata<T>::source_ptr}
 #define	BSENM(fn, T) {#fn, FO(data_type, fn), sizeof(meta_size<decltype(data_type::fn)>::value), sizeof(data_type::fn), meta_count<decltype(data_type::fn)>::value, bsmeta<T>::meta, KindEnum, bsdata<T>::source_ptr}

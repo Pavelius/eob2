@@ -117,6 +117,9 @@
     <ClCompile Include="logvalue.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="feat.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -242,6 +245,9 @@
     <ClInclude Include="aflags.h">
       <Filter>support</Filter>
     </ClInclude>
+    <ClInclude Include="item.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -254,6 +260,12 @@
       <Filter>rules</Filter>
     </Text>
     <Text Include="..\rules\Avatars.txt">
+      <Filter>rules</Filter>
+    </Text>
+    <Text Include="..\rules\Classes.txt">
+      <Filter>rules</Filter>
+    </Text>
+    <Text Include="..\rules\Items.txt">
       <Filter>rules</Filter>
     </Text>
   </ItemGroup>

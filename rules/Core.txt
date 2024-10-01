@@ -1,1 +1,2 @@
 #include "rules/Races.txt"
+#include "rules/Classes.txt"

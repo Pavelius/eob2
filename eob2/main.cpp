@@ -3,10 +3,12 @@
 #include "bsreq.h"
 #include "creature.h"
 #include "draw.h"
+#include "gender.h"
 #include "log.h"
 #include "rand.h"
 #include "resid.h"
 #include "timer.h"
+#include "unit.h"
 #include "widget.h"
 
 extern "C" void exit(int code);
@@ -19,7 +21,15 @@ static void start_game() {
 }
 
 static void main_menu() {
-	auto push = an;
+	pushanswer push;
+	create_player(bsdata<racei>::find("Human"), Male, bsdata<classi>::find("Fighter"));
+	join_party();
+	create_player(bsdata<racei>::find("Elf"), Male, bsdata<classi>::find("Fighter"));
+	join_party();
+	create_player(bsdata<racei>::find("Human"), Female, bsdata<classi>::find("Fighter"));
+	join_party();
+	create_player(bsdata<racei>::find("Dwarf"), Male, bsdata<classi>::find("Cleric"));
+	join_party();
 	an.clear();
 	an.add(start_game, "Begin new game");
 	an.add(exit_game, "Load saved game");

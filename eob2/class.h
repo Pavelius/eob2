@@ -4,12 +4,9 @@
 #include "feat.h"
 #include "nameable.h"
 
-enum classn : unsigned char {
-	NoClass,
-	Cleric, Fighter, Mage, Paladin, Ranger, Theif,
-	FighterCleric, FighterMage, FighterTheif, FighterMageTheif,
-	ClericTheif, MageTheif,
-};
+enum classn : unsigned char;
+
 struct classi : nameable, featable {
 	adat<classn, 3> classes;
+	featable		wears;
 };

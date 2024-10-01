@@ -31,4 +31,9 @@ struct answers {
 	void			sort();
 };
 extern answers an;
+struct pushanswer {
+	answers			answer;
+	pushanswer() : answer(an) {}
+	~pushanswer() { an = answer; }
+};
 extern bool show_interactive;

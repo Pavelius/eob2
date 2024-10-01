@@ -1,15 +1,17 @@
 #pragma once
 
+#include "nameable.h"
+
 enum featn : unsigned char {
 	NoExeptionalStrenght,
 	BonusSaveVsPoison, BonusSaveVsSpells,
 	BonusVsElfWeapon, BonusAttackVsGoblinoid, BonusDamageVsEnemy, BonusACVsLargeEnemy, BonusHP,
+	WearMetal, WearLeather,
 	Ambidextrity, Undead,
 	ResistBludgeon, ResistSlashing, ResistPierce, ResistFire, ResistCold, ResistCharm, ResistSpells,
 	ImmuneNormalWeapon, ImmuneFire, ImmuneCold, ImmuneCharm, ImmuneSpells, ImmuneDisease,
 };
-struct feati {
-	const char* id;
+struct feati : nameable {
 };
 struct featable {
 	unsigned feats;

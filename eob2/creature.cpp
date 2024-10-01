@@ -1,8 +1,10 @@
 #include "avatar.h"
 #include "bsdata.h"
+#include "class.h"
 #include "creature.h"
 #include "math.h"
 #include "pushvalue.h"
+#include "race.h"
 #include "rand.h"
 #include "slice.h"
 
@@ -135,12 +137,14 @@ void update_player() {
 static void generate_abilities() {
 }
 
-void create_player(racen race, gendern gender, classn cls) {
+void create_player(const racei* pr, gendern gender, const classi* pc) {
+	if(!pr || !pc)
+		return;
 	player = bsdata<creaturei>::add();
-	player->race = race;
+	player->race = (racen)bsdata<racei>::source.indexof(pr);
 	player->gender = gender;
-	player->type = cls;
+	player->type = (classn)bsdata<racei>::source.indexof(pc);
 	generate_abilities();
-	player->avatar = get_avatar(race, gender, cls);
+	player->avatar = get_avatar(player->race, gender, player->type);
 	update_player();
 }

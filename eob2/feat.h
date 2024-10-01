@@ -1,7 +1,7 @@
 #pragma once
 
 enum featn : unsigned char {
-	AllowExeptionalStrenght,
+	NoExeptionalStrenght,
 	BonusSaveVsPoison, BonusSaveVsSpells,
 	BonusVsElfWeapon, BonusAttackVsGoblinoid, BonusDamageVsEnemy, BonusACVsLargeEnemy, BonusHP,
 	Ambidextrity, Undead,

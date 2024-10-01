@@ -1,74 +1,20 @@
-#include "cflags.h"
+#include "aflags.h"
+#include "avatar.h"
+#include "bsdata.h"
 #include "class.h"
+#include "log.h"
 #include "gender.h"
 #include "race.h"
 #include "rand.h"
+#include "stringbuilder.h"
 
-static struct portraiti {
-	gendern			gender;
-	cflags<racen>	races;
-	cflags<classn>	classes;
-} portrait_data[] = {
-	{Male, {Human, Halfling}, {Fighter, Ranger}},
-	{Male, {Human}, {Mage, Cleric}},
-	{Male, {Human}, {Mage, Cleric, Ranger}},
-	{Male, {Human, Halfling}, {Theif}},
-	{Male, {Elf}, {Theif, Mage, Fighter, Ranger}},
-	{Male, {Elf, HalfElf}, {Theif, Fighter, Ranger}},
-	{Male, {Dwarf}, {Cleric, Fighter}},
-	{Male, {Human}, {Theif, Mage, Ranger}},
-	{Male, {Human, Halfling}, {Theif, Fighter, Ranger, Cleric}},
-	{NoGender, {Halfling}, {Theif, Fighter}},
-	{Male, {Elf, HalfElf}, {Mage}},
-	{Male, {Human}, {Theif}},
-	{Male, {Human}, {Mage, Cleric}},
-	{Male, {Elf, Human}, {Fighter, Paladin, Cleric}},
-	{Male, {HalfElf, Human}, {Mage}},
-	{Male, {Human}, {Fighter, Paladin}},
-	{Male, {Elf, HalfElf}, {Mage, Ranger}},
-	{Male, {Human}, {Fighter, Paladin}},
-	{Male, {Human}, {Fighter, Paladin, Cleric}},
-	{Male, {Human}, {Fighter, Paladin}},
-	{Male, {Elf, HalfElf}, {Fighter, Paladin}},
-	{Male, {Dwarf}, {Fighter}},
-	{Male, {Elf, HalfElf}, {Fighter, Paladin, Ranger}},
-	{Male, {Human}, {Fighter}},
-	{Male, {Dwarf}, {Fighter}},
-	{Male, {Human}, {Fighter}},
-	{NoGender, {Human, Elf, HalfElf}, {Mage}},
-	{NoGender, {Human}, {Mage}},
-	{NoGender, {Human, Dwarf}, {Cleric}},
-	{Female, {Elf}, {Mage, Cleric}},
-	{Female, {Human}, {Theif, Ranger, Fighter}},
-	{Female, {Human}, {Fighter, Cleric}},
-	{Female, {Human}, {Fighter, Cleric}},
-	{Female, {Human, Elf}, {Cleric, Mage}},
-	{Female, {Elf, HalfElf}, {Cleric, Mage, Ranger}},
-	{Female, {Human, HalfElf}, {Fighter, Paladin, Ranger}},
-	{Female, {Human}, {Fighter, Cleric, Mage}},
-	{Female, {Dwarf, Human}, {Cleric, Mage}},
-	{Female, {Dwarf, Human}, {Cleric, Mage}},
-	{Female, {Dwarf, Human}, {Fighter, Cleric, Mage}},
-	{Female, {Human}, {Fighter, Cleric, Mage}},
-	{Female, {Human, HalfElf}, {Cleric, Mage}},
-	{Female, {Human, HalfElf, Elf}, {Cleric, Mage, Paladin}},
-	{Female, {Human, HalfElf, Elf}, {Cleric, Mage, Paladin, Theif}},
-	{Female, {Human}, {Fighter}},
-	{Male, {Human}, {Fighter, Paladin}},
-	{Female, {Human, HalfElf, Elf}, {Cleric, Mage}},
-	{Female, {Human}, {Cleric, Mage}},
-	{Female, {Human}, {Cleric, Mage, Theif}},
-	{NoGender, {Halfling}, {Theif, Fighter}},
-	{Male, {Dwarf}, {Fighter}},
-	{Male, {Dwarf}, {Fighter, Cleric}},
-	{Male, {Dwarf}, {Fighter, Cleric, Theif}},
-	{Male, {Halfling}, {Fighter, Cleric, Theif}},
-	{Female, {Human}, {Fighter, Cleric, Ranger}},
-	{Male, {Dwarf}, {Cleric}},
-	{Male, {Human, Elf, HalfElf}, {Mage}},
-	{Male, {Dwarf}, {Fighter, Cleric}},
-	{Female, {Human}, {Cleric, Mage}},
-};
+using namespace log;
+
+static struct avatari {
+	gendern gender;
+	aflags races;
+	aflags classes;
+} portrait_data[256];
 
 static size_t get_avatars_ex(unsigned char* result, racen race, gendern gender, classn cls) {
 	auto p = result;
@@ -109,4 +55,40 @@ unsigned char get_avatar(racen race, gendern gender, classn cls) {
 	if(!c)
 		return 0;
 	return result[rand() % c];
+}
+
+void avatar_read(const char* url) {
+	auto p = log::read(url);
+	if(!p)
+		return;
+	char temp[260]; stringbuilder sb(temp);
+	auto line_number = 0;
+	while(*p && allowparse) {
+		if(*p == '\n' || *p=='\r') {
+			p = skipcr(p);
+			line_number++;
+		} else {
+			auto pe = portrait_data + line_number;
+			sb.clear();
+			p = sb.psidf(p);
+			p = skipsp(p);
+			auto p1 = bsdata<racei>::find(temp);
+			if(p1) {
+				pe->races.set((racen)(bsdata<racei>::source.indexof(p1)));
+				continue;
+			}
+			auto p2 = bsdata<classi>::find(temp);
+			if(p2) {
+				pe->classes.set((classn)(bsdata<classi>::source.indexof(p2)));
+				continue;
+			}
+			auto p3 = bsdata<genderi>::find(temp);
+			if(p3) {
+				pe->gender = (gendern)(bsdata<genderi>::source.indexof(p3));
+				continue;
+			}
+			log::errorp(p, "Can't find gender, class or race named `%1`", temp);
+		}
+	}
+	log::close();
 }

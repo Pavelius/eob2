@@ -10,6 +10,9 @@
     <Filter Include="platform">
       <UniqueIdentifier>{d42c1dcc-946d-4fb1-8629-ad98befaf37f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="rules">
+      <UniqueIdentifier>{43afc25c-041d-4b25-bcb8-c2465084ca77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ability.cpp">
@@ -98,6 +101,21 @@
     </ClCompile>
     <ClCompile Include="gender.cpp">
       <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="bsreq.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="variant.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="metadata.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="io_bsreq.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="logvalue.cpp">
+      <Filter>support</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,5 +227,34 @@
     <ClInclude Include="avatar.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="bsreq.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="variant.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="logvalue.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="aflags.h">
+      <Filter>support</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\rules\Races.txt">
+      <Filter>rules</Filter>
+    </Text>
+    <Text Include="..\rules\Core.txt">
+      <Filter>rules</Filter>
+    </Text>
+    <Text Include="..\errors.txt">
+      <Filter>rules</Filter>
+    </Text>
+    <Text Include="..\rules\Avatars.txt">
+      <Filter>rules</Filter>
+    </Text>
   </ItemGroup>
 </Project>

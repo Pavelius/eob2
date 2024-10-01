@@ -2,7 +2,7 @@
 #include "gender.h"
 
 BSDATA(genderi) = {
-	{"Transgender"},
+	{"NoGender"},
 	{"Male"},
 	{"Female"},
 };

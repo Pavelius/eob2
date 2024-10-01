@@ -1,4 +1,6 @@
 #include "answers.h"
+#include "avatar.h"
+#include "bsreq.h"
 #include "creature.h"
 #include "draw.h"
 #include "log.h"
@@ -29,6 +31,8 @@ int main() {
 	srand(getcputime());
 	initialize_gui();
 	initialize_translation();
+	bsreq::read("rules/Core.txt");
+	avatar_read("rules/Avatars.txt");
 	if(log::errors > 0)
 		return -1;
 #ifdef _DEBUG

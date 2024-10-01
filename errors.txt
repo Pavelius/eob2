@@ -1,0 +1,6 @@
+﻿Error in file `rules/Avatars.txt`:
+ Line 10: Can't find gender, class or race named `NoGender`
+ Line 27: Can't find gender, class or race named `NoGender`
+ Line 28: Can't find gender, class or race named `NoGender`
+ Line 29: Can't find gender, class or race named `NoGender`
+ Line 50: Can't find gender, class or race named `NoGender`

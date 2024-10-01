@@ -75,7 +75,7 @@ static int get_maximum_hits() {
 static int get_modified_strenght() {
 	auto a = player->get(Strenght);
 	auto e = player->get(ExeptionalStrenght);
-	if(!player->is(AllowExeptionalStrenght))
+	if(player->is(NoExeptionalStrenght))
 		e = 0;
 	if(a > 18)
 		a += 6;

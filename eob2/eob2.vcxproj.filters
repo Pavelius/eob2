@@ -206,5 +206,8 @@
     <ClInclude Include="race.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="avatar.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

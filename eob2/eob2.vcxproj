@@ -137,6 +137,7 @@
     <ClInclude Include="adat.h" />
     <ClInclude Include="answers.h" />
     <ClInclude Include="array.h" />
+    <ClInclude Include="avatar.h" />
     <ClInclude Include="bsdata.h" />
     <ClInclude Include="cflags.h" />
     <ClInclude Include="class.h" />

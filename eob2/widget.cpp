@@ -6,14 +6,9 @@
 
 using namespace draw;
 
-namespace {
 struct pushscene : pushfocus {
 };
-struct renderi {
-	void* av;
-	rect rc;
-	void clear() { memset(this, 0, sizeof(*this)); }
-};
+namespace {
 struct fxt {
 	short int filesize; // the size of the file
 	short int charoffset[128]; // the offset of the pixel data from the beginning of the file, the index is the ascii value
@@ -29,9 +24,6 @@ static color dark(52, 52, 80);
 static color hilite = main.mix(dark, 160);
 static color focus(250, 100, 100);
 }
-
-static renderi render_objects[48];
-static renderi*	render_current;
 
 int draw::texth() {
 	if(!font)
@@ -207,6 +199,11 @@ void button_label(int index, const void* data, const char* format, fnevent proc)
 		execute(proc, (long)proc);
 }
 
+static void update_buttonparam() {
+	updatewindow();
+	buttonparam();
+}
+
 void* choose_answer(point origin, resid background, int frame, int column_width) {
 	if(!show_interactive)
 		return an.random();
@@ -217,7 +214,7 @@ void* choose_answer(point origin, resid background, int frame, int column_width)
 		caret = origin;
 		width = column_width;
 		height = texth();
-		paint_answers(text_label, buttonparam, height);
+		paint_answers(text_label, update_buttonparam, height);
 		domodal();
 		if(hot.key == KeyEscape)
 			breakmodal(0);
@@ -287,7 +284,7 @@ void* choose_answer(const char* title, fnevent before_paint) {
 		paint_title(title);
 		width = column_width;
 		height = texth() + 3;
-		paint_answers(button_label, buttonparam, height + 2);
+		paint_answers(button_label, update_buttonparam, height + 2);
 		domodal();
 		focus_input();
 	}

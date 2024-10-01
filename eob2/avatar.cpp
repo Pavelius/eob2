@@ -70,7 +70,7 @@ static struct portraiti {
 	{Female, {Human}, {Cleric, Mage}},
 };
 
-static size_t get_avatars_ex(unsigned short* result, racen race, gendern gender, classn cls) {
+static size_t get_avatars_ex(unsigned char* result, racen race, gendern gender, classn cls) {
 	auto p = result;
 	for(auto& e : portrait_data) {
 		if(e.gender != NoGender && e.gender != gender)
@@ -84,7 +84,7 @@ static size_t get_avatars_ex(unsigned short* result, racen race, gendern gender,
 	return p - result;
 }
 
-static size_t get_avatars_ex(unsigned short* result, racen race, gendern gender) {
+static size_t get_avatars_ex(unsigned char* result, racen race, gendern gender) {
 	auto p = result;
 	for(auto& e : portrait_data) {
 		if(e.gender != NoGender && e.gender != gender)
@@ -96,15 +96,15 @@ static size_t get_avatars_ex(unsigned short* result, racen race, gendern gender)
 	return p - result;
 }
 
-size_t get_avatars(unsigned short* result, racen race, gendern gender, classn cls) {
+size_t get_avatars(unsigned char* result, racen race, gendern gender, classn cls) {
 	auto c = get_avatars_ex(result, race, gender, cls);
 	if(c < 4)
 		c = get_avatars_ex(result, race, gender);
 	return c;
 }
 
-int get_avatar(racen race, gendern gender, classn cls) {
-	short unsigned result[256];
+unsigned char get_avatar(racen race, gendern gender, classn cls) {
+	unsigned char result[256];
 	auto c = get_avatars(result, race, gender, cls);
 	if(!c)
 		return 0;

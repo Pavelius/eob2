@@ -1,8 +1,12 @@
+#include "avatar.h"
+#include "bsdata.h"
 #include "creature.h"
 #include "math.h"
 #include "pushvalue.h"
 #include "rand.h"
 #include "slice.h"
+
+BSDATAC(creaturei, 256)
 
 creaturei* player;
 
@@ -126,4 +130,17 @@ void update_player() {
 	update_combat_stats();
 	update_bonus_saves();
 	player->hpm = get_maximum_hits();
+}
+
+static void generate_abilities() {
+}
+
+void create_player(racen race, gendern gender, classn cls) {
+	player = bsdata<creaturei>::add();
+	player->race = race;
+	player->gender = gender;
+	player->type = cls;
+	generate_abilities();
+	player->avatar = get_avatar(race, gender, cls);
+	update_player();
 }

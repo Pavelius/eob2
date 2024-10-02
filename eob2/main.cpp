@@ -10,7 +10,7 @@
 #include "resid.h"
 #include "timer.h"
 #include "unit.h"
-#include "widget.h"
+#include "view.h"
 
 extern "C" void exit(int code);
 
@@ -36,8 +36,8 @@ static void main_menu() {
 	an.clear();
 	an.add(start_game, "Begin new game");
 	an.add(exit_game, "Load saved game");
-	auto p = choose_answer("Game options:", paint_adventure_menu);
-	// auto p = choose_answer({80, 110}, MENU, 0, 166);
+	auto p = choose_answer("Game options:", paint_adventure_menu, button_label, 1);
+	//auto p = choose_answer(0, paint_main_menu, text_label, 1);
 }
 
 int main() {

@@ -2,6 +2,7 @@
 #include "creature.h"
 #include "direction.h"
 #include "draw.h"
+#include "picture.h"
 #include "resid.h"
 #include "unit.h"
 #include "view_focus.h"
@@ -80,6 +81,10 @@ static void copy_image(point origin, point dest, int w, int h) {
 
 static void paint_background(resid v, int frame) {
 	draw::image(gres(v), frame, 0);
+}
+
+static void paint_picture() {
+	draw::image(gres(picture.id), picture.frame, 0);
 }
 
 static void button_back(bool focused) {
@@ -206,26 +211,6 @@ static void update_buttonparam() {
 	buttonparam();
 }
 
-void* choose_answer(point origin, resid background, int frame, int column_width) {
-	if(!show_interactive)
-		return an.random();
-	rectpush push;
-	pushscene push_scene;
-	while(ismodal()) {
-		paint_background(background, frame);
-		caret = origin;
-		width = column_width;
-		height = texth();
-		paint_answers(text_label, update_buttonparam, height);
-		domodal();
-		if(hot.key == KeyEscape)
-			breakmodal(0);
-		else
-			focus_input();
-	}
-	return (void*)getresult();
-}
-
 static int get_compass_index(directions d) {
 	switch(d) {
 	case Right: return 1; // East
@@ -263,11 +248,31 @@ static void paint_avatar() {
 	image(gres(PORTM), player->avatar, 0);
 }
 
+static void textjf(const char* format, int x, int y, int text_width, unsigned flags) {
+	rectpush push;
+	caret.x += x;
+	caret.y += y;
+	width = text_width;
+	texta(format, AlignCenter);
+}
+
+static void paint_character_name() {
+}
+
 static void paint_character() {
+	auto push_font = font;
 	auto push_caret = caret;
+	auto push_fore = fore; fore = colors::black;
+	set_small_font();
+	textjf(player->getname(), 0, 3, 65, AlignCenter);
 	caret.x += 2;
 	caret.y += 10;
 	paint_avatar();
+	caret.x -= 2;
+	caret.y += 31;
+	textjf(str("%1i of %2i", player->hp, player->hpm), 0, 3, 65, AlignCenter);
+	fore = push_fore;
+	font = push_font;
 	caret = push_caret;
 }
 
@@ -292,6 +297,17 @@ static void paint_avatars() {
 void paint_adventure_menu() {
 	paint_background(PLAYFLD, 0);
 	paint_avatars();
+	paint_menu({0, 0}, 178, 174);
+	caret = {6, 6};
+	width = 166;
+	height = texth() + 3;
+}
+
+void paint_main_menu() {
+	paint_background(MENU, 0);
+	caret = {80, 110};
+	width = 166;
+	height = texth();
 }
 
 static void paint_title(const char* title) {
@@ -303,21 +319,16 @@ static void paint_title(const char* title) {
 	fore = push_fore;
 }
 
-void* choose_answer(const char* title, fnevent before_paint) {
+void* choose_answer(const char* title, fnevent before_paint, fnanswer answer_paint, int padding) {
 	if(!show_interactive)
 		return an.random();
-	const auto column_width = 166;
 	rectpush push;
 	pushscene push_scene;
 	while(ismodal()) {
 		if(before_paint)
 			before_paint();
-		paint_menu({0, 0}, 178, 174);
-		caret = {6, 6};
 		paint_title(title);
-		width = column_width;
-		height = texth() + 3;
-		paint_answers(button_label, update_buttonparam, height + 2);
+		paint_answers(answer_paint, update_buttonparam, height + padding);
 		domodal();
 		focus_input();
 	}

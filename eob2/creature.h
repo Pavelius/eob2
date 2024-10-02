@@ -5,14 +5,13 @@
 
 enum racen : unsigned char;
 enum gendern : unsigned char;
-enum classn : unsigned char;
 
 struct classi;
 struct racei;
 
 struct creaturei : statable, levelable {
 	statable		basic;
-	short			hp, hpm;
+	short			hp, hpm, hpr;
 	racen			race;
 	classn			type;
 	gendern			gender;
@@ -20,6 +19,7 @@ struct creaturei : statable, levelable {
 	unsigned char	avatar;
 	void			clear();
 	int				get(abilityn v) const { return abilities[v]; }
+	const char*		getname() const;
 };
 extern creaturei* player;
 

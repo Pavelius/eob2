@@ -84,7 +84,7 @@
     <ClCompile Include="resid.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="widget.cpp">
+    <ClCompile Include="view.cpp">
       <Filter>logic</Filter>
     </ClCompile>
     <ClCompile Include="answers.cpp">
@@ -122,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="groupname.cpp">
       <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="picture.cpp">
+      <Filter>logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,7 +212,7 @@
     <ClInclude Include="answers.h">
       <Filter>support</Filter>
     </ClInclude>
-    <ClInclude Include="widget.h">
+    <ClInclude Include="view.h">
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="view_focus.h">
@@ -253,6 +256,12 @@
     </ClInclude>
     <ClInclude Include="groupname.h">
       <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="picture.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="advancement.h">
+      <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

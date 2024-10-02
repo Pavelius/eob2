@@ -6,6 +6,7 @@ template<class T, size_t count_max = 128>
 struct adat {
 	typedef T data_type;
 	size_t count;
+	constexpr static size_t count_maximum = count_max;
 	T data[count_max];
 	adat() : count(0) {}
 	constexpr const T& operator[](unsigned index) const { return data[index]; }

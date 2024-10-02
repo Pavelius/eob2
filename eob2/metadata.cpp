@@ -17,11 +17,12 @@ BSMETA(abilityi) = {
 	{}};
 BSMETA(classi) = {
 	BSREQ(id),
-	BSCST(classes, KindADat, classn, classi, 3),
+	BSCST(classes, KindADat, char, classi, 3),
 	BSFLG(feats, feati),
 	BSFLG(wears, feati),
 	BSREQ(minimal),
 	BSENM(primary, abilityi),
+	BSREQ(hd),
 	{}};
 BSMETA(feati) = {
 	BSREQ(id),

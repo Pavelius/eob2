@@ -1,3 +1,4 @@
+#include "advancement.h"
 #include "avatar.h"
 #include "bsdata.h"
 #include "class.h"
@@ -222,7 +223,7 @@ static void generate_name() {
 	unsigned short name = 0xFFFF;
 	if(name == 0xFFFF)
 		name = random_group_namei(ids(pr->id, pg->id));
-	if(szstart(pr->id, "Half"))
+	if(name == 0xFFFF && szstart(pr->id, "Half"))
 		name = random_group_namei(ids(pr->id + 4, pg->id));
 	player->name = name;
 }
@@ -239,4 +240,10 @@ void create_player(const racei* pr, gendern gender, const classi* pc) {
 	generate_name();
 	player->avatar = get_avatar(player->race, gender, player->type);
 	update_player();
+}
+
+const char*	creaturei::getname() const {
+	if(name == 0xFFFF)
+		return "None";
+	return get_group_name(name);
 }

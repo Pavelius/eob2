@@ -38,7 +38,7 @@ static size_t filter(unsigned char* result, size_t result_size, unsigned char* s
 	return ps - result;
 }
 
-static size_t get_avatars_ex(unsigned char* result, racen race, gendern gender, classn cls) {
+static size_t get_avatars_ex(unsigned char* result, racen race, gendern gender, char cls) {
 	auto p = result;
 	for(auto& e : portrait_data) {
 		if(e.gender != NoGender && e.gender != gender)
@@ -64,7 +64,7 @@ static size_t get_avatars_ex(unsigned char* result, racen race, gendern gender) 
 	return p - result;
 }
 
-size_t get_avatars(unsigned char* result, racen race, gendern gender, classn cls, unsigned char* exclude, size_t exclude_size) {
+size_t get_avatars(unsigned char* result, racen race, gendern gender, char cls, unsigned char* exclude, size_t exclude_size) {
 	auto c = get_avatars_ex(result, race, gender, cls);
 	c = filter(result, c, exclude, exclude_size);
 	if(c < 4) {
@@ -74,7 +74,7 @@ size_t get_avatars(unsigned char* result, racen race, gendern gender, classn cls
 	return c;
 }
 
-unsigned char get_avatar(racen race, gendern gender, classn cls) {
+unsigned char get_avatar(racen race, gendern gender, char cls) {
 	unsigned char result[256];
 	auto c = get_avatars(result, race, gender, cls, 0, 0);
 	if(!c)
@@ -82,7 +82,7 @@ unsigned char get_avatar(racen race, gendern gender, classn cls) {
 	return result[rand() % c];
 }
 
-unsigned char get_avatar(racen race, gendern gender, classn cls, unsigned char* exclude, size_t exclude_size) {
+unsigned char get_avatar(racen race, gendern gender, char cls, unsigned char* exclude, size_t exclude_size) {
 	unsigned char result[256];
 	auto c = get_avatars(result, race, gender, cls, exclude, exclude_size);
 	if(!c)
@@ -112,7 +112,7 @@ void avatar_read(const char* url) {
 			}
 			auto p2 = bsdata<classi>::find(temp);
 			if(p2) {
-				pe->classes.set((classn)(bsdata<classi>::source.indexof(p2)));
+				pe->classes.set(bsdata<classi>::source.indexof(p2));
 				continue;
 			}
 			auto p3 = bsdata<genderi>::find(temp);

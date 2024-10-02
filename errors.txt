@@ -1,7 +1,7 @@
 ﻿Error in file `rules/Classes.txt`:
- Line 3: Not found requisit `primary`
- Line 6: Not found requisit `primary`
- Line 8: Not found requisit `primary`
- Line 10: Not found requisit `primary`
- Line 12: Not found requisit `primary`
- Line 14: Not found requisit `primary`
+ Line 3: Not found requisit `hd`
+ Line 6: Not found requisit `hd`
+ Line 8: Not found requisit `hd`
+ Line 10: Not found requisit `hd`
+ Line 12: Not found requisit `hd`
+ Line 14: Not found requisit `hd`

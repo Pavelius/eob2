@@ -1,19 +1,24 @@
-#Class
+#Item
 
-Fighter
- classes Fighter
-Cleric
- classes Cleric
-Mage
- classes Mage
-Theif
- classes Theif
-Ranger
- classes Ranger
-Paladin
- classes Paladin
+NoItem
 
-FighterTheif
- classes Fighter Theif
-FighterMage
- classes Fighter Mage
+BattleAxe damage(1 8)
+Axe damage(1 6)
+Club damage(1 6)
+Dagger damage(1 4)
+Flail damage(1 6 1)
+Halberd
+ feats TwoHanded
+Warhammer damage(1 4 2)
+Mace damage(1 6 1)
+Spear damage(1 6)
+Staff damage(1 6)
+ feats TwoHanded
+BastardSword damage(1 10)
+Longsword damage(1 8)
+ShortSword damage(1 6)
+TwoHandedSword damage(1 10) damage_large(3 18)
+ feats TwoHanded
+Bow damage(1 8)
+ feats TwoHanded
+Sling damage(1 4)

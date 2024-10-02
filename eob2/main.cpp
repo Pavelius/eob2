@@ -36,7 +36,7 @@ static void main_menu() {
 	an.clear();
 	an.add(start_game, "Begin new game");
 	an.add(exit_game, "Load saved game");
-	auto p = choose_answer("Game options:", paint_adventure_menu, button_label, 1);
+	auto p = choose_answer("Game options:", paint_adventure_menu, button_label, 2);
 	//auto p = choose_answer(0, paint_main_menu, text_label, 1);
 }
 

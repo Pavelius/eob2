@@ -16,7 +16,10 @@ BSDATA(feati) = {
 	{"UseMartial"},
 	{"UseElvish"},
 	{"UseRogish"},
+	{"TwoHanded"},
 	{"Ambidextrity"},
+	{"Small"},
+	{"Large"},
 	{"Undead"},
 	{"ResistBludgeon"},
 	{"ResistSlashing"},
@@ -31,5 +34,8 @@ BSDATA(feati) = {
 	{"ImmuneCharm"},
 	{"ImmuneSpells"},
 	{"ImmuneDisease"},
+	{"SeeMagical"},
+	{"SeeCursed"},
+	{"SeeIllusionary"},
 };
-assert_enum(feati, ImmuneDisease)
+assert_enum(feati, SeeIllusionary)

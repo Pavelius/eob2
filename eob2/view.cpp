@@ -4,6 +4,7 @@
 #include "draw.h"
 #include "picture.h"
 #include "resid.h"
+#include "timer.h"
 #include "unit.h"
 #include "view_focus.h"
 
@@ -63,6 +64,19 @@ void draw::glyph(int sym, unsigned flags) {
 			bit = bit >> 1;
 		}
 	}
+}
+
+static unsigned get_frame_tick() {
+	return getcputime() / 10;
+}
+
+static int get_alpha(int base, unsigned range) {
+	auto seed = get_frame_tick() % range;
+	auto half = range / 2;
+	if(seed < half)
+		return base * seed / half;
+	else
+		return base * (range - seed) / half;
 }
 
 static void set_small_font() {
@@ -242,10 +256,25 @@ static void paint_menu(point position, int object_width, int object_height) {
 	button_frame(2, false, false);
 }
 
+static void paint_blend(color new_color, unsigned new_alpha) {
+	auto push_alpha = alpha;
+	auto push_fore = fore;
+	fore = new_color;
+	alpha = new_alpha;
+	rectf();
+	fore = push_fore;
+	alpha = push_alpha;
+}
+
 static void paint_avatar() {
 	if(player->avatar == 0xFF)
 		return;
+	rectpush push; width = 31; height = 31;
 	image(gres(PORTM), player->avatar, 0);
+	//static color blink_colors[] = {colors::green, colors::red, colors::blue, colors::form};
+	//const unsigned range = 256;
+	//auto index = (get_frame_tick() / range) % (sizeof(blink_colors) / sizeof(blink_colors[0]));
+	//paint_blend(blink_colors[index], get_alpha(64, range));
 }
 
 static void textjf(const char* format, int x, int y, int text_width, unsigned flags) {

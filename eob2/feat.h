@@ -7,15 +7,16 @@ enum featn : unsigned char {
 	BonusSaveVsPoison, BonusSaveVsSpells,
 	BonusVsElfWeapon, BonusAttackVsGoblinoid, BonusDamageVsEnemy, BonusACVsLargeEnemy, BonusHP,
 	UseMetal, UseLeather, UseShield,
-	UseMartial, UseElvish, UseRogish,
-	Ambidextrity, Undead,
+	UseMartial, UseElvish, UseRogish, TwoHanded,
+	Ambidextrity, Small, Large, Undead,
 	ResistBludgeon, ResistSlashing, ResistPierce, ResistFire, ResistCold, ResistCharm, ResistSpells,
 	ImmuneNormalWeapon, ImmuneFire, ImmuneCold, ImmuneCharm, ImmuneSpells, ImmuneDisease,
+	SeeMagical, SeeCursed, SeeIllusionary,
 };
 struct feati : nameable {
 };
 struct featable {
-	unsigned feats;
-	bool is(featn v) const { return (feats & (1 << v)) != 0; }
-	void setfeat(featn v) { feats |= (1 << v); }
+	unsigned feats[2];
+	bool is(featn v) const { return (feats[v / 32] & (1 << (v % 32))) != 0; }
+	void setfeat(featn v) { feats[v / 32] |= (1 << (v % 32)); }
 };

@@ -1,11 +1,10 @@
 #pragma once
 
-enum classn : unsigned char;
-
 struct levelable {
-	classn character_class;
+	char character_class;
 	char levels[3];
 	int	experience;
+	int getclassindex(int id) const;
 	int getlevel() const { return levels[0]; }
-	int getlevel(classn v) const;
+	int getlevel(int v) const;
 };

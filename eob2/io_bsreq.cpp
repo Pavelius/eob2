@@ -535,6 +535,7 @@ static bool parse_directives() {
 }
 
 static void parse() {
+	p = skipwscr(p);
 	while(*p && allowparse) {
 		skip("#");
 		if(!allowparse)

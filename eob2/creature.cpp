@@ -6,9 +6,11 @@
 #include "gender.h"
 #include "groupname.h"
 #include "math.h"
+#include "modifier.h"
 #include "pushvalue.h"
 #include "race.h"
 #include "rand.h"
+#include "script.h"
 #include "slice.h"
 #include "stringbuilder.h"
 #include "unit.h"
@@ -77,9 +79,10 @@ static void update_basic() {
 }
 
 static int get_maximum_hits() {
+	int n = bsdata<classi>::elements[player->type].count;
 	auto m = player->getlevel();
 	auto a = player->get(Constitution);
-	auto r = player->get(Hits) + maptbl(hit_points_adjustment, a) * m;
+	auto r = player->get(Hits) + maptbl(hit_points_adjustment, a) * m + player->hpr / imax(1, n);
 	if(r < m)
 		r = m;
 	return r;
@@ -166,17 +169,17 @@ static int get_best_index(char* result, size_t size) {
 	return result_index;
 }
 
-static void apply_minimal(char* minimal) {
+static void apply_minimal(char* abilities, const char* minimal) {
 	for(auto i = 0; i < 6; i++) {
-		if(minimal[i] && player->abilities[Strenght + i] < minimal[i])
-			player->abilities[Strenght + i] = minimal[i];
+		if(minimal[i] && abilities[Strenght + i] < minimal[i])
+			abilities[Strenght + i] = minimal[i];
 	}
 }
 
-static void apply_maximal(char* maximal) {
+static void apply_maximal(char* abilities, const char* maximal) {
 	for(auto i = 0; i < 6; i++) {
-		if(maximal[i] && player->abilities[Strenght + i] > maximal[i])
-			player->abilities[Strenght + i] = maximal[i];
+		if(maximal[i] && abilities[Strenght + i] > maximal[i])
+			abilities[Strenght + i] = maximal[i];
 	}
 }
 
@@ -194,12 +197,12 @@ static void generate_abilities() {
 			result[i] = get_best_4d6();
 	}
 	for(size_t i = 0; i < 6; i++)
-		player->abilities[Strenght + i] = result[i];
-	iswap(player->abilities[get_best_index(player->abilities + Strenght, 6)], player->abilities[pc->primary]);
-	apply_minimal(pc->minimal);
-	apply_minimal(pr->minimal);
-	apply_maximal(pr->maximal);
-	player->abilities[ExeptionalStrenght] = d100() + 1;
+		player->basic.abilities[Strenght + i] = result[i];
+	iswap(player->basic.abilities[get_best_index(player->basic.abilities + Strenght, 6)], player->basic.abilities[pc->primary]);
+	apply_minimal(player->basic.abilities, pc->minimal);
+	apply_minimal(player->basic.abilities, pr->minimal);
+	apply_maximal(player->basic.abilities, pr->maximal);
+	player->basic.abilities[ExeptionalStrenght] = d100() + 1;
 }
 
 static size_t party_avatars(unsigned char* result) {
@@ -228,6 +231,46 @@ static void generate_name() {
 	player->name = name;
 }
 
+static void advance_level(int value, int level) {
+	variant id = bsdata<classi>::elements + value;
+	id.counter = level;
+	auto push_modifier = modifier;
+	modifier = Permanent;
+	for(auto& e : bsdata<advancement>()) {
+		if(e.type == id)
+			script_run(e.elements);
+	}
+	modifier = push_modifier;
+}
+
+static void raise_level(int value) {
+	auto index = player->getclassindex(value);
+	if(index == -1)
+		return;
+	auto pc = bsdata<classi>::elements + value;
+	// Raise level and roll hits
+	if(pc->hd)
+		player->hpr += 1 + rand() % pc->hd;
+	player->levels[index]++;
+	// Raise abilities
+	advance_level(value, player->levels[index]);
+}
+
+static void set_starting_ability() {
+	auto pc = bsdata<classi>::elements + player->type;
+	// Roll for hits first time
+	for(char i = 0; i < pc->count; i++) {
+		auto pd = bsdata<classi>::elements + pc->classes[i];
+		if(pd->hd) {
+			player->hpr = rand() % pd->hd;
+			if(player->hpr < pd->hd / 2)
+				player->hpr = pd->hd / 2;
+		}
+	}
+	// Raise ability for multiclass
+	advance_level(player->type, 1);
+}
+
 void create_player(const racei* pr, gendern gender, const classi* pc) {
 	if(!pr || !pc)
 		return;
@@ -235,11 +278,13 @@ void create_player(const racei* pr, gendern gender, const classi* pc) {
 	player->clear();
 	player->race = (racen)bsdata<racei>::source.indexof(pr);
 	player->gender = gender;
-	player->type = (classn)bsdata<classi>::source.indexof(pc);
+	player->type = bsdata<classi>::source.indexof(pc);
 	generate_abilities();
+	set_starting_ability();
 	generate_name();
 	player->avatar = get_avatar(player->race, gender, player->type);
 	update_player();
+	player->hp = player->hpm;
 }
 
 const char*	creaturei::getname() const {

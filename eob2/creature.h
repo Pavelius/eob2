@@ -13,7 +13,7 @@ struct creaturei : statable, levelable {
 	statable		basic;
 	short			hp, hpm, hpr;
 	racen			race;
-	classn			type;
+	char			type;
 	gendern			gender;
 	unsigned short	name;
 	unsigned char	avatar;

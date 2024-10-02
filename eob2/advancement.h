@@ -5,6 +5,5 @@
 struct advancement {
 	const char*		id;
 	variant			type;
-	char			level;
 	variants		elements;
 };

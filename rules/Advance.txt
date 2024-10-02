@@ -1,0 +1,80 @@
+///////////////////////////////////
+// CONVERT SAVING THROWS TO PERCENT
+///////////////////////////////////
+// 20 - 5%
+// 19 - 10%
+// 18 - 15%
+// 17 - 20%
+// 16 - 25%
+// 15 - 30%
+// 14 - 35%
+// 13 - 40%
+// 12 - 45%
+// 11 - 50%
+// 10 - 55%
+//  9 - 60%
+//  8 - 65%
+
+#Advance
+
+Fighter+1 AllowedEquipment
+ elements UseMetal UseLeather UseShield UseMartial BonusHP
+
+Fighter+2 CombatSkills
+ elements Attack+1
+Fighter+3 CombatSkills
+ elements Attack+1
+Fighter+4 CombatSkills
+ elements Attack+1
+Fighter+5 CombatSkills
+ elements Attack+1
+Fighter+6 CombatSkills
+ elements Attack+1
+Fighter+7 CombatSkills
+ elements Attack+1
+Fighter+8 CombatSkills
+ elements Attack+1
+Fighter+9 CombatSkills
+ elements Attack+1
+Fighter+10 CombatSkills
+ elements Attack+1
+
+Fighter+1 SaveThrow
+ elements SaveVsParalization+35 SaveVsPoison+35 SaveVsTraps+25 SaveVsMagic+20
+Fighter+3 SaveThrow
+ elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
+Fighter+5 SaveThrow
+ elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
+Fighter+7 SaveThrow
+ elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
+
+Paladin+1 AllowedEquipment
+ elements UseMetal UseLeather UseShield UseMartial BonusHP
+
+Paladin+2 CombatSkills
+ elements Attack+1
+Paladin+3 CombatSkills
+ elements Attack+1
+Paladin+4 CombatSkills
+ elements Attack+1
+Paladin+5 CombatSkills
+ elements Attack+1
+Paladin+6 CombatSkills
+ elements Attack+1
+Paladin+7 CombatSkills
+ elements Attack+1
+Paladin+8 CombatSkills
+ elements Attack+1
+Paladin+9 CombatSkills
+ elements Attack+1
+Paladin+10 CombatSkills
+ elements Attack+1
+
+Paladin+1 SaveThrow
+ elements SaveVsParalization+45 SaveVsPoison+45 SaveVsTraps+35 SaveVsMagic+30
+Paladin+3 SaveThrow
+ elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
+Paladin+5 SaveThrow
+ elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
+Paladin+7 SaveThrow
+ elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5

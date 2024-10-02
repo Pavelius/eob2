@@ -7,10 +7,8 @@
 enum abilityn : unsigned char;
 typedef char abilitya[6];
 
-struct classi : nameable, featable {
-	adat<char, 3> classes;
-	int			hd;
-	featable	wears;
-	abilitya	minimal;
-	abilityn	primary;
+struct classi : nameable {
+	char classes[3], count, hd;
+	abilitya minimal;
+	abilityn primary;
 };

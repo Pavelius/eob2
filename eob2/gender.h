@@ -4,5 +4,5 @@ enum gendern : unsigned char {
 	NoGender, Male, Female,
 };
 struct genderi {
-	const char*	name;
+	const char*	id;
 };

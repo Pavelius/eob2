@@ -1,0 +1,35 @@
+#DwarfMale
+Adrik, Baern, Baerrom, Balmur, Barendd, Beldar,	Bhalrik, Bhelnum, Bharthrun, Brottor, Dain, Darrak, Delg, Durin, Eberk, Einkil,\
+Fargrim, Flint, Granron, Gulkahm, Harbek, Hormir, Kildrak, Magmin, Morgran, Muirrig, Orsik, Oskar, Rangrim, Rurik, Rusk,\
+Taklinn, Thoradin, Thorin, Tordek, Travok, Ulfgar, Vondal
+
+#DarfFemale
+Amber, Artin, Audhild, Bardryn, Dagnal, Diesa, Eldeth, Falkrunn, Finellen, Gunnloda, Gurdis, Helja,\
+Hlin, Kathra, Kristryd, Ilde, Liftrasa, Mardred, Riswynn, Sannl, Torbera, Torgga, Vistra
+
+#ElfMale
+Adran, Aelar, Aramil, Arannis, Aust, Beiro, Berrian, Carric, Enialis, Erdan, Erevan, Erevan,\
+Galinndan, Hadarai, Heian, Himo, Immeral, Ivellios, Laucian, Mindartis, Paelias, Peren,\
+Quarion, Riardon, Rolen, Soveliss, Thamior, Tharivol, Theren, Varis
+
+#ElfFemale
+Adrie, Althaea,	Anastrianna, Andraste, Antinua, Bethrynna, Birel, Caelynn, Drusilia, Enna,\
+Felosial, Ielenia, Jelenneth, Keyleth, Leshanna, Lia, Meriele, Mialee, Naivara, Quelenna,\
+Quillathe, Sariel, Shanairra, Shava, Silaqui, Theirastra, Thia, Vadania, Valanthe, Xanaphia
+
+#HalflingMale
+Alton, Ander, Cade, Corrin, Eldon, Errich, Finnan, Garret, Lindal, Lyle, Merric, Milo,\
+Osborn, Perrin, Reed, Roscoe, Wellby,
+
+#HalflingFemale
+Andry, Bree, Callie, Cora, Euphemia, Jillian, Kithri, Lavinia, Lidda, Merla, Nedda, Paela,\
+Portia, Seraphina, Shaena, Trym, Vani, Verna
+
+#HumanMale
+Darvin, Dorn, Evendur, Gorstag, Grim, Helm, Malark, Morn, Randal, Stedd, Bor, Fodel, Glar, Grigor,\
+Igan, Ivor, Kosef, Mival, Orel, Pavel, Sergor, Borivik, Faurgar, Jandar, Kanithar, Madislak, Ralmevik,\
+Shaumar, Vladislav
+
+#HumanFemale
+Arveene, Esvele, Jhessail, Kerri, Lureene, Miri, Rowan, Shandri, Tessele, Alethra, Kara, Katernin,\
+Mara, Natali, Olma, Tana, Zora, Fyevarra, Hulmarra, Immith, Imzel, Navarra, Shevarra, Tammith, Yuldra

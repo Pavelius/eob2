@@ -4,6 +4,7 @@
 #include "creature.h"
 #include "draw.h"
 #include "gender.h"
+#include "groupname.h"
 #include "log.h"
 #include "rand.h"
 #include "resid.h"
@@ -43,6 +44,7 @@ int main() {
 	srand(getcputime());
 	initialize_gui();
 	initialize_translation();
+	log::readlf(read_group_names, "names", "*.txt");
 	bsreq::read("rules/Core.txt");
 	avatar_read("rules/Avatars.txt");
 	if(log::errors > 0)

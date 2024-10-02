@@ -2,11 +2,14 @@
 #include "bsdata.h"
 #include "class.h"
 #include "creature.h"
+#include "gender.h"
+#include "groupname.h"
 #include "math.h"
 #include "pushvalue.h"
 #include "race.h"
 #include "rand.h"
 #include "slice.h"
+#include "stringbuilder.h"
 #include "unit.h"
 
 BSDATAC(creaturei, 256)
@@ -65,6 +68,7 @@ static char dwarven_bonus[] = {
 void creaturei::clear() {
 	memset(this, 0, sizeof(*this));
 	avatar = 0xFF;
+	name = 0xFFFF;
 }
 
 static void update_basic() {
@@ -212,6 +216,17 @@ static void generate_avatar() {
 	player->avatar = get_avatar(player->race, player->gender, player->type, exclude, size);
 }
 
+static void generate_name() {
+	auto pr = bsdata<racei>::elements + player->race;
+	auto pg = bsdata<genderi>::elements + player->gender;
+	unsigned short name = 0xFFFF;
+	if(name == 0xFFFF)
+		name = random_group_namei(ids(pr->id, pg->id));
+	if(szstart(pr->id, "Half"))
+		name = random_group_namei(ids(pr->id + 4, pg->id));
+	player->name = name;
+}
+
 void create_player(const racei* pr, gendern gender, const classi* pc) {
 	if(!pr || !pc)
 		return;
@@ -221,6 +236,7 @@ void create_player(const racei* pr, gendern gender, const classi* pc) {
 	player->gender = gender;
 	player->type = (classn)bsdata<classi>::source.indexof(pc);
 	generate_abilities();
+	generate_name();
 	player->avatar = get_avatar(player->race, gender, player->type);
 	update_player();
 }

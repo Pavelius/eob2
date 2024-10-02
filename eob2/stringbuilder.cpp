@@ -1,7 +1,7 @@
 #include "stringbuilder.h"
 #include "slice.h"
 
-char current_locale[4] = {"ru"};
+char current_locale[4] = {"en"};
 static const char spaces[] = " \n\t\r.,!?;:";
 
 stringbuilder::fncustom stringbuilder::custom = default_string;

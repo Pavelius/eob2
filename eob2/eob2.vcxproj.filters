@@ -13,6 +13,9 @@
     <Filter Include="rules">
       <UniqueIdentifier>{43afc25c-041d-4b25-bcb8-c2465084ca77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="locale">
+      <UniqueIdentifier>{aaeec2c7-2126-4873-a9df-f65511a697fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ability.cpp">
@@ -116,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="feat.cpp">
       <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="groupname.cpp">
+      <Filter>support</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +251,9 @@
     <ClInclude Include="item.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="groupname.h">
+      <Filter>support</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -264,6 +273,9 @@
     </Text>
     <Text Include="..\rules\Items.txt">
       <Filter>rules</Filter>
+    </Text>
+    <Text Include="..\names\en\Names.txt">
+      <Filter>locale</Filter>
     </Text>
   </ItemGroup>
 </Project>

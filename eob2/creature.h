@@ -16,7 +16,8 @@ struct creaturei : statable, levelable {
 	racen			race;
 	classn			type;
 	gendern			gender;
-	unsigned char	avatar = 0xFF;
+	unsigned short	name;
+	unsigned char	avatar;
 	void			clear();
 	int				get(abilityn v) const { return abilities[v]; }
 };

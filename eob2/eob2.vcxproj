@@ -150,6 +150,7 @@
     <ClInclude Include="draw.h" />
     <ClInclude Include="feat.h" />
     <ClInclude Include="gender.h" />
+    <ClInclude Include="groupname.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="logvalue.h" />
     <ClInclude Include="my_initialize_list.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="feat.cpp" />
     <ClCompile Include="gender.cpp" />
+    <ClCompile Include="groupname.cpp" />
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="logvalue.cpp" />
     <ClCompile Include="metadata.cpp" />
@@ -214,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\errors.txt" />
+    <Text Include="..\names\en\Names.txt" />
     <Text Include="..\rules\Avatars.txt" />
     <Text Include="..\rules\Classes.txt" />
     <Text Include="..\rules\Core.txt" />

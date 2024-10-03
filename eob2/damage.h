@@ -1,7 +1,7 @@
 #pragma once
 
 enum damagen : unsigned char {
-	Bludgeon, Slashing, Pierce,
+	Bludgeon, Slashing, Piercing,
 	Fire, Cold, Acid,
 };
 struct damagei {

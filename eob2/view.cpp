@@ -293,12 +293,24 @@ static void textjf(const char* format, int x, int y, int text_width, unsigned fl
 static void paint_character_name() {
 }
 
+static void paint_item(int x, int y, int w, item& it, wearn id) {
+	rectpush push;
+	width = w; height = 16;
+	caret.x += x; caret.y += y;
+	auto avatar = it.geti().avatar;
+	if(!it && id == LeftHand)
+		avatar -= 1;
+	image(caret.x + w / 2, caret.y + 16 / 2, gres(ITEMS), avatar, 0);
+}
+
 static void paint_character() {
 	auto push_font = font;
 	auto push_caret = caret;
 	auto push_fore = fore; fore = colors::black;
 	set_small_font();
 	textjf(player->getname(), 0, 3, 65, AlignCenter);
+	paint_item(34, 10, 31, player->wears[RightHand], RightHand);
+	paint_item(34, 26, 31, player->wears[LeftHand], LeftHand);
 	caret.x += 2;
 	caret.y += 10;
 	paint_avatar();
@@ -353,13 +365,14 @@ static void paint_title(const char* title) {
 	fore = push_fore;
 }
 
-static void paint_sprites(resid id, point offset, int& focus) {
+static void paint_sprites(resid id, point offset, int& focus, int per_line) {
 	auto p = gres(id);
 	if(!p)
 		return;
 	auto index = 0;
 	auto push_caret = caret;
 	auto push_line = caret;
+	auto count = per_line;
 	while(index < p->count) {
 		image(p, index, 0);
 		if(focus == index) {
@@ -370,7 +383,8 @@ static void paint_sprites(resid id, point offset, int& focus) {
 		}
 		index++;
 		caret.x += width;
-		if((caret.x + width) > getwidth()) {
+		if((--count)==0) {
+			count = per_line;
 			caret.y += height;
 			caret.x = push_line.x;
 		}
@@ -383,8 +397,10 @@ static void show_sprites(resid id, point start, point size) {
 	rectpush push;
 	auto push_fore = fore;
 	auto push_font = font;
+	set_small_font();
 	int focus = 0;
 	auto maximum = gres(id)->count;
+	auto per_line = 320 / size.x;
 	while(ismodal()) {
 		if(focus < 0)
 			focus = 0;
@@ -396,11 +412,15 @@ static void show_sprites(resid id, point start, point size) {
 		height = size.y;
 		caret = start;
 		fore = colors::white;
-		paint_sprites(id, start, focus);
+		paint_sprites(id, start, focus, per_line);
+		caret = {0, 192};
+		text(str("index %1i", focus), -1, TextBold);
 		domodal();
 		switch(hot.key) {
 		case KeyRight: focus++; break;
 		case KeyLeft: focus--; break;
+		case KeyDown: focus += per_line; break;
+		case KeyUp: focus -= per_line; break;
 		case KeyEscape: breakmodal(0); break;
 		}
 		focus_input();

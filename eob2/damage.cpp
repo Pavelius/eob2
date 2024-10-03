@@ -4,7 +4,7 @@
 BSDATA(damagei) = {
 	{"Bludgeon"},
 	{"Slashing"},
-	{"Pierce"},
+	{"Piercing"},
 	{"Fire"},
 	{"Cold"},
 	{"Acid"},

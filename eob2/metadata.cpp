@@ -49,7 +49,9 @@ BSMETA(itemi) = {
 	BSREQ(attack), BSREQ(number_attacks),
 	BSREQ(damage), BSREQ(damage_large),
 	BSFLG(feats, feati),
+	BSREQ(avatar),
 	BSREQ(ammo),
+	BSREQ(wearing), BSREQ(use),
 	{}};
 BSMETA(racei) = {
 	BSREQ(id),

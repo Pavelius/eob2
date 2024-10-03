@@ -222,6 +222,7 @@
     <ClCompile Include="szdup.cpp" />
     <ClCompile Include="unit.cpp" />
     <ClCompile Include="view.cpp" />
+    <ClCompile Include="wearable.cpp" />
     <ClCompile Include="win_draw.cpp" />
     <ClCompile Include="win_io_file.cpp" />
     <ClCompile Include="win_time.cpp" />

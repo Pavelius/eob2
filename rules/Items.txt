@@ -1,46 +1,70 @@
 #Item
 
-NoItem
+NoItem damage(1 2) avatar(84)
 
-Arrow
-Stone
-Dart
+Arrow avatar(16)
+Stone avatar(19)
+Dart avatar(14)
 
-BattleAxe harm(Slashing) damage(1 8)
+BattleAxe harm(Slashing) damage(1 8) avatar(3)
  feats UseMartial
-Axe harm(Slashing) damage(1 6)
+Axe harm(Slashing) damage(1 6) avatar(7)
  feats UseMartial
-Club damage(1 6)
-Dagger harm(Piercing) damage(1 4)
-Flail damage(1 6 1)
+Club damage(1 6) avatar(76)
+Dagger harm(Piercing) damage(1 4) avatar(15)
+Flail damage(1 6 1) avatar(5)
  feats UseMartial
-Halberd harm(Slashing)
+Halberd harm(Slashing) avatar(9)
  feats TwoHanded UseMartial
-Warhammer damage(1 4 2)
-Mace damage(1 6 1)
-Spear harm(Piercing) damage(1 6)
-Staff damage(1 6)
+Warhammer damage(1 4 2) avatar(99)
+ feats UseMartial
+Mace damage(1 6 1) avatar(4)
+ feats UseMartial
+Spear harm(Piercing) damage(1 6) avatar(6)
+ feats UseMartial
+Staff damage(1 6) avatar(8)
  feats TwoHanded
-BastardSword harm(Slashing) damage(1 10)
+BastardSword harm(Slashing) damage(1 10) avatar(1)
  feats UseMartial
-Longsword harm(Slashing) damage(1 8)
+Longsword harm(Slashing) damage(1 8) avatar(1)
  feats UseElvish UseMartial
-ShortSword harm(Slashing) damage(1 6)
+ShortSword harm(Slashing) damage(1 6) avatar(2)
  feats UseRogish UseElvish UseMartial
-TwoHandedSword harm(Slashing) damage(1 10) damage_large(3 18)
+TwoHandedSword harm(Slashing) damage(1 10) damage_large(3 18) avatar(42)
  feats TwoHanded UseMartial
-Bow harm(Piercing) damage(1 8) ammo(Arrow)
+Bow harm(Piercing) damage(1 6) ammo(Arrow) avatar(10)
  feats TwoHanded UseRogish
-Sling damage(1 4)
+Sling damage(1 4) ammo(Stone) avatar(18)
 
-Robe
-LeatherArmor
-StuddedLeatherArmor
-ScaleMail
-ChainMail
-BandedMail
-PlateMail
+Robe avatar(32)
+LeatherArmor avatar(31)
+ wearing AC+2
+StuddedLeatherArmor avatar(31)
+ wearing AC+3
+ScaleMail avatar(30)
+ wearing AC+4
+ChainMail avatar(29)
+ wearing AC+5
+BandedMail avatar(28)
+ wearing AC+6
+PlateMail avatar(26)
+ wearing AC+8
 
-Helm
-Shield
-Boots
+Helm avatar(20)
+Shield avatar(23)
+Boots avatar(21)
+
+RedRing avatar(55)
+GreenRing avatar(79)
+BlueRing avatar(78)
+
+RedPotion avatar(39)
+GreenRing avatar(41)
+BlueRing avatar(40)
+
+LargeRation avatar(37)
+Ration avatar(38)
+
+MageScroll avatar(36)
+PriestScroll avatar(85)
+MagicMap avatar(86)

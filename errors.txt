@@ -1,2 +1,4 @@
-﻿Error in file `rules/Advance.txt`:
- Line 0: Expected token `#`
+﻿Error in file `rules/Items.txt`:
+ Line 14: Not found identifier `Piercing`
+ Line 21: Not found identifier `Piercing`
+ Line 32: Not found identifier `Piercing`

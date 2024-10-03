@@ -289,6 +289,6 @@ void create_player(const racei* pr, gendern gender, const classi* pc) {
 
 const char*	creaturei::getname() const {
 	if(name == 0xFFFF)
-		return "None";
+		return "Noname";
 	return get_group_name(name);
 }

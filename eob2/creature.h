@@ -2,6 +2,7 @@
 
 #include "statable.h"
 #include "levelable.h"
+#include "wearable.h"
 
 enum racen : unsigned char;
 enum gendern : unsigned char;
@@ -9,7 +10,7 @@ enum gendern : unsigned char;
 struct classi;
 struct racei;
 
-struct creaturei : statable, levelable {
+struct creaturei : statable, levelable, wearable {
 	statable		basic;
 	short			hp, hpm, hpr;
 	racen			race;

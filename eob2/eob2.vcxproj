@@ -146,6 +146,7 @@
     <ClInclude Include="class.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="creature.h" />
+    <ClInclude Include="damage.h" />
     <ClInclude Include="dice.h" />
     <ClInclude Include="direction.h" />
     <ClInclude Include="draw.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="vector.h" />
     <ClInclude Include="view_focus.h" />
     <ClInclude Include="view.h" />
+    <ClInclude Include="wearable.h" />
     <ClInclude Include="win.h" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +191,7 @@
     <ClCompile Include="bsreq.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="creature.cpp" />
+    <ClCompile Include="damage.cpp" />
     <ClCompile Include="dice.cpp" />
     <ClCompile Include="direction.cpp" />
     <ClCompile Include="draw.cpp" />
@@ -196,6 +199,7 @@
     <ClCompile Include="gender.cpp" />
     <ClCompile Include="groupname.cpp" />
     <ClCompile Include="io_bsreq.cpp" />
+    <ClCompile Include="item.cpp" />
     <ClCompile Include="logvalue.cpp" />
     <ClCompile Include="metadata.cpp" />
     <ClCompile Include="modifier.cpp" />

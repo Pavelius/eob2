@@ -22,9 +22,11 @@ public:
 	typedef T data_type;
 	constexpr slice() : data(0), count(0) {}
 	template<size_t N> constexpr slice(T(&v)[N]) : data(v), count(N) {}
+	constexpr T& operator[](size_t index) { return data[index]; }
+	explicit operator bool() const { return count != 0; }
+	constexpr const T& operator[](size_t index) const { return data[index]; }
 	constexpr slice(T* data, unsigned count) : data(data), count(count) {}
 	constexpr slice(T* p1, const T* p2) : data(p1), count(p2 - p1) {}
-	explicit operator bool() const { return count != 0; }
 	constexpr T* begin() const { return data; }
 	constexpr T* end() const { return data + count; }
 	constexpr unsigned size() const { return count; }

@@ -2,23 +2,45 @@
 
 NoItem
 
-BattleAxe damage(1 8)
-Axe damage(1 6)
+Arrow
+Stone
+Dart
+
+BattleAxe harm(Slashing) damage(1 8)
+ feats UseMartial
+Axe harm(Slashing) damage(1 6)
+ feats UseMartial
 Club damage(1 6)
-Dagger damage(1 4)
+Dagger harm(Piercing) damage(1 4)
 Flail damage(1 6 1)
-Halberd
- feats TwoHanded
+ feats UseMartial
+Halberd harm(Slashing)
+ feats TwoHanded UseMartial
 Warhammer damage(1 4 2)
 Mace damage(1 6 1)
-Spear damage(1 6)
+Spear harm(Piercing) damage(1 6)
 Staff damage(1 6)
  feats TwoHanded
-BastardSword damage(1 10)
-Longsword damage(1 8)
-ShortSword damage(1 6)
-TwoHandedSword damage(1 10) damage_large(3 18)
- feats TwoHanded
-Bow damage(1 8)
- feats TwoHanded
+BastardSword harm(Slashing) damage(1 10)
+ feats UseMartial
+Longsword harm(Slashing) damage(1 8)
+ feats UseElvish UseMartial
+ShortSword harm(Slashing) damage(1 6)
+ feats UseRogish UseElvish UseMartial
+TwoHandedSword harm(Slashing) damage(1 10) damage_large(3 18)
+ feats TwoHanded UseMartial
+Bow harm(Piercing) damage(1 8) ammo(Arrow)
+ feats TwoHanded UseRogish
 Sling damage(1 4)
+
+Robe
+LeatherArmor
+StuddedLeatherArmor
+ScaleMail
+ChainMail
+BandedMail
+PlateMail
+
+Helm
+Shield
+Boots

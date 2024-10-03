@@ -135,6 +135,12 @@
     <ClCompile Include="modifier.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="item.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="damage.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -276,6 +282,12 @@
       <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="modifier.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="wearable.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="damage.h">
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>

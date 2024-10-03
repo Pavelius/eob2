@@ -34,6 +34,9 @@ BSMETA(classi) = {
 	BSREQ(hd),
 	BSENM(classes, classi), BSREQ(count),
 	{}};
+BSMETA(damagei) = {
+	BSREQ(id),
+	{}};
 BSMETA(dice) = {
 	BSREQ(c), BSREQ(d), BSREQ(b), BSREQ(m),
 	{}};
@@ -42,9 +45,11 @@ BSMETA(feati) = {
 	{}};
 BSMETA(itemi) = {
 	BSREQ(id),
+	BSENM(harm, damagei),
 	BSREQ(attack), BSREQ(number_attacks),
 	BSREQ(damage), BSREQ(damage_large),
 	BSFLG(feats, feati),
+	BSREQ(ammo),
 	{}};
 BSMETA(racei) = {
 	BSREQ(id),

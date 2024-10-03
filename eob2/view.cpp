@@ -266,15 +266,20 @@ static void paint_blend(color new_color, unsigned new_alpha) {
 	alpha = push_alpha;
 }
 
+static void blend_avatar(slice<color> source, unsigned char intensity = 64, unsigned range = 256) {
+	if(!source)
+		return;
+	auto index = (get_frame_tick() / range) % source.size();
+	paint_blend(source[index], get_alpha(intensity, range));
+}
+
 static void paint_avatar() {
 	if(player->avatar == 0xFF)
 		return;
 	rectpush push; width = 31; height = 31;
 	image(gres(PORTM), player->avatar, 0);
 	//static color blink_colors[] = {colors::green, colors::red, colors::blue, colors::form};
-	//const unsigned range = 256;
-	//auto index = (get_frame_tick() / range) % (sizeof(blink_colors) / sizeof(blink_colors[0]));
-	//paint_blend(blink_colors[index], get_alpha(64, range));
+	//blend_avatar(blink_colors);
 }
 
 static void textjf(const char* format, int x, int y, int text_width, unsigned flags) {
@@ -348,6 +353,71 @@ static void paint_title(const char* title) {
 	fore = push_fore;
 }
 
+static void paint_sprites(resid id, point offset, int& focus) {
+	auto p = gres(id);
+	if(!p)
+		return;
+	auto index = 0;
+	auto push_caret = caret;
+	auto push_line = caret;
+	while(index < p->count) {
+		image(p, index, 0);
+		if(focus == index) {
+			auto push_caret = caret;
+			caret = caret - offset;
+			rectb();
+			caret = push_caret;
+		}
+		index++;
+		caret.x += width;
+		if((caret.x + width) > getwidth()) {
+			caret.y += height;
+			caret.x = push_line.x;
+		}
+		if((caret.y + height) > getheight())
+			break;
+	}
+}
+
+static void show_sprites(resid id, point start, point size) {
+	rectpush push;
+	auto push_fore = fore;
+	auto push_font = font;
+	int focus = 0;
+	auto maximum = gres(id)->count;
+	while(ismodal()) {
+		if(focus < 0)
+			focus = 0;
+		else if(focus > maximum - 1)
+			focus = maximum - 1;
+		fore = colors::black;
+		rectf();
+		width = size.x;
+		height = size.y;
+		caret = start;
+		fore = colors::white;
+		paint_sprites(id, start, focus);
+		domodal();
+		switch(hot.key) {
+		case KeyRight: focus++; break;
+		case KeyLeft: focus--; break;
+		case KeyEscape: breakmodal(0); break;
+		}
+		focus_input();
+	}
+	font = push_font;
+	fore = push_fore;
+}
+
+static void debug_input() {
+#ifdef _DEBUG
+	switch(hot.key) {
+	case Ctrl + 'I': show_sprites(ITEMS, {8, 8}, {16, 16}); break;
+	case Ctrl + 'A': show_sprites(PORTM, {0, 0}, {32, 32}); break;
+	}
+#endif
+}
+
 void* choose_answer(const char* title, fnevent before_paint, fnanswer answer_paint, int padding) {
 	if(!show_interactive)
 		return an.random();
@@ -360,6 +430,7 @@ void* choose_answer(const char* title, fnevent before_paint, fnanswer answer_pai
 		paint_answers(answer_paint, update_buttonparam, height + padding);
 		domodal();
 		focus_input();
+		debug_input();
 	}
 	return (void*)getresult();
 }

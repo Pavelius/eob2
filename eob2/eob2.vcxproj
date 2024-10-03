@@ -164,6 +164,7 @@
     <ClInclude Include="resid.h" />
     <ClInclude Include="script.h" />
     <ClInclude Include="seqlink.h" />
+    <ClInclude Include="spell.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="unit.h" />
     <ClInclude Include="io_stream.h" />
@@ -236,6 +237,7 @@
     <Text Include="..\rules\Core.txt" />
     <Text Include="..\rules\Items.txt" />
     <Text Include="..\rules\Races.txt" />
+    <Text Include="..\rules\Spells.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

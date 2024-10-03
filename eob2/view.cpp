@@ -290,33 +290,44 @@ static void textjf(const char* format, int x, int y, int text_width, unsigned fl
 	texta(format, AlignCenter);
 }
 
-static void paint_character_name() {
+static void paint_focus_rect() {
+	auto push_fore = fore;
+	fore = colors::white;
+	rectb();
+	fore = push_fore;
 }
 
-static void paint_item(int x, int y, int w, item& it, wearn id) {
+static void paint_item(item& it, wearn id) {
 	rectpush push;
-	width = w; height = 16;
-	caret.x += x; caret.y += y;
+	height = 16;
 	auto avatar = it.geti().avatar;
 	if(!it && id == LeftHand)
 		avatar -= 1;
-	image(caret.x + w / 2, caret.y + 16 / 2, gres(ITEMS), avatar, 0);
+	image(caret.x + width / 2, caret.y + 16 / 2, gres(ITEMS), avatar, 0);
 }
 
 static void paint_character() {
+	rectpush push;
 	auto push_font = font;
 	auto push_caret = caret;
 	auto push_fore = fore; fore = colors::black;
 	set_small_font();
-	textjf(player->getname(), 0, 3, 65, AlignCenter);
-	paint_item(34, 10, 31, player->wears[RightHand], RightHand);
-	paint_item(34, 26, 31, player->wears[LeftHand], LeftHand);
-	caret.x += 2;
-	caret.y += 10;
+	caret.y = push.caret.y + 3;
+	width = 65;
+	texta(player->getname(), AlignCenter);
+	width = 30;
+	caret.x = push.caret.x + 34;
+	caret.y = push.caret.y + 10;
+	paint_item(player->wears[RightHand], RightHand);
+	caret.y = push.caret.y + 26;
+	paint_item(player->wears[LeftHand], LeftHand);
+	caret.x = push.caret.x + 2;
+	caret.y = push.caret.y + 10;
+	width = 31;
 	paint_avatar();
-	caret.x -= 2;
-	caret.y += 31;
-	textjf(str("%1i of %2i", player->hp, player->hpm), 0, 3, 65, AlignCenter);
+	caret.y = push.caret.y + 44;
+	width = 65;
+	texta(str("%1i of %2i", player->hp, player->hpm), AlignCenter);
 	fore = push_fore;
 	font = push_font;
 	caret = push_caret;

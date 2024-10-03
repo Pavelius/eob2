@@ -293,6 +293,9 @@
     <ClInclude Include="damage.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="spell.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -317,6 +320,9 @@
       <Filter>locale</Filter>
     </Text>
     <Text Include="..\rules\Advance.txt">
+      <Filter>rules</Filter>
+    </Text>
+    <Text Include="..\rules\Spells.txt">
       <Filter>rules</Filter>
     </Text>
   </ItemGroup>

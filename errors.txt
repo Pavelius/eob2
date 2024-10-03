@@ -1,4 +1,3 @@
-﻿Error in file `rules/Items.txt`:
- Line 14: Not found identifier `Piercing`
- Line 21: Not found identifier `Piercing`
- Line 32: Not found identifier `Piercing`
+﻿Error in file `rules/Spells.txt`:
+ Line 11: Invalid source array where read identifier `Enemy`
+ Line 11: Invalid source array where read identifier `AdditionTargets`

@@ -8,6 +8,7 @@
 #include "script.h"
 #include "point.h"
 #include "race.h"
+#include "spell.h"
 #include "variant.h"
 
 NOBSDATA(color)
@@ -18,6 +19,7 @@ BSDATAC(advancement, 256)
 BSDATAC(classi, 32)
 BSDATAC(itemi, 256)
 BSDATAC(racei, 16)
+BSDATAC(spelli, 256)
 
 BSMETA(abilityi) = {
 	BSREQ(id),
@@ -57,6 +59,13 @@ BSMETA(racei) = {
 	BSREQ(id),
 	BSREQ(minimal), BSREQ(maximal),
 	{}};
+BSMETA(spelli) = {
+	BSREQ(id),
+	BSREQ(levels),
+	BSREQ(effect), BSREQ(effect_add), BSREQ(effect_progress),
+	BSFLG(feats, feati),
+	BSREQ(summon), BSREQ(wearing),
+	{}};
 BSDATA(varianti) = {
 	{"NoVariant"},
 	{"Ability", VAR(abilityi, 1), 0, 0, ftscript<abilityi>},
@@ -66,6 +75,7 @@ BSDATA(varianti) = {
 	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>},
 	{"Modifier", VAR(modifieri, 1), 0, 0, ftscript<modifieri>},
 	{"Script", VAR(script, 1), 0, 0, ftscript<script>},
+	{"Spell", VAR(spelli, 1)},
 	{"Race", VAR(racei, 1)},
 };
 BSDATAF(varianti);

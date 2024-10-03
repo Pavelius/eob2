@@ -1,0 +1,18 @@
+#Spell
+
+Armor levels(0 1)
+BurningHands levels(0 1)
+ChillTouch levels(0 1)
+ComprehendLanguages levels(0 1)
+DetectMagic levels(0 1)
+ feats Ally Group
+ wearing SeeMagical
+Friends levels(0 1)
+Identify levels(0 1)
+MagicMissile levels(0 1) effect(1 4 1) effect_progress(3 2 9) effect_add(1 4 1)
+ feats Enemy AdditionTargets
+Mending levels(0 1)
+ProtectionFromEvil levels(0 1)
+ShieldSpell levels(0 1)
+ wearing AC+5
+ShockingGrasp levels(0 1)

@@ -6,35 +6,35 @@ Arrow avatar(16)
 Stone avatar(19)
 Dart avatar(14)
 
-BattleAxe harm(Slashing) damage(1 8) avatar(3)
+BattleAxe harm(Slashing) damage(1 8) avatar(3) wear(RightHand)
  feats UseMartial
-Axe harm(Slashing) damage(1 6) avatar(7)
+Axe harm(Slashing) damage(1 6) avatar(7) wear(RightHand)
  feats UseMartial
-Club damage(1 6) avatar(76)
-Dagger harm(Piercing) damage(1 4) avatar(15)
-Flail damage(1 6 1) avatar(5)
+Club damage(1 6) avatar(76) wear(RightHand)
+Dagger harm(Piercing) damage(1 4) avatar(15) wear(RightHand)
+Flail damage(1 6 1) avatar(5) wear(RightHand)
  feats UseMartial
-Halberd harm(Slashing) avatar(9)
+Halberd harm(Slashing) avatar(9) wear(RightHand)
  feats TwoHanded UseMartial
-Warhammer damage(1 4 2) avatar(99)
+Warhammer damage(1 4 2) avatar(99) wear(RightHand)
  feats UseMartial
-Mace damage(1 6 1) avatar(4)
+Mace damage(1 6 1) avatar(4) wear(RightHand)
  feats UseMartial
-Spear harm(Piercing) damage(1 6) avatar(6)
+Spear harm(Piercing) damage(1 6) avatar(6) wear(RightHand)
  feats UseMartial
-Staff damage(1 6) avatar(8)
+Staff damage(1 6) avatar(8) wear(RightHand)
  feats TwoHanded
-BastardSword harm(Slashing) damage(1 10) avatar(1)
+BastardSword harm(Slashing) damage(1 10) avatar(1) wear(RightHand)
  feats UseMartial
-Longsword harm(Slashing) damage(1 8) avatar(1)
+Longsword harm(Slashing) damage(1 8) avatar(1) wear(RightHand)
  feats UseElvish UseMartial
-ShortSword harm(Slashing) damage(1 6) avatar(2)
+ShortSword harm(Slashing) damage(1 6) avatar(2) wear(RightHand)
  feats UseRogish UseElvish UseMartial
-TwoHandedSword harm(Slashing) damage(1 10) damage_large(3 18) avatar(42)
+TwoHandedSword harm(Slashing) damage(1 10) damage_large(3 18) avatar(42) wear(RightHand)
  feats TwoHanded UseMartial
-Bow harm(Piercing) damage(1 6) ammo(Arrow) avatar(10)
+Bow harm(Piercing) damage(1 6) ammo(Arrow) avatar(10) wear(RightHand)
  feats TwoHanded UseRogish
-Sling damage(1 4) ammo(Stone) avatar(18)
+Sling damage(1 4) ammo(Stone) avatar(18) wear(RightHand)
 
 Robe avatar(32)
 LeatherArmor avatar(31)

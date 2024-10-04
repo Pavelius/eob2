@@ -13,6 +13,7 @@
 #include "view.h"
 
 extern "C" void exit(int code);
+void util_main();
 
 static void exit_game() {
 	exit(0);
@@ -30,6 +31,7 @@ static void main_menu() {
 	player->hp = -2;
 	create_player(bsdata<racei>::find("Human"), Female, bsdata<classi>::find("Fighter"));
 	join_party();
+	player->hp = -12;
 	create_player(bsdata<racei>::find("Dwarf"), Male, bsdata<classi>::find("Cleric"));
 	join_party();
 	create_player(bsdata<racei>::find("Halfling"), Female, bsdata<classi>::find("Theif"));
@@ -51,6 +53,7 @@ int main() {
 	if(log::errors > 0)
 		return -1;
 #ifdef _DEBUG
+	util_main();
 #endif
 	if(log::errors > 0)
 		return -1;

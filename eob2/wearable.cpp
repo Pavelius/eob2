@@ -31,3 +31,27 @@ BSDATA(weari) = {
 	{"LastBelt"},
 };
 assert_enum(weari, LastBelt)
+
+void wearable::equip(item& v) {
+	for(auto i = Head; i <= LastBelt; i = (wearn)(i + 1)) {
+		if(wears[i])
+			continue;
+		if(!v.isallow(i))
+			continue;
+		wears[i] = v;
+		last_item = &wears[i];
+		v.clear();
+		break;
+	}
+}
+
+void wearable::additem(item& v) {
+	for(auto& e : backpack()) {
+		if(e)
+			continue;
+		e = v;
+		last_item = &e;
+		v.clear();
+		break;
+	}
+}

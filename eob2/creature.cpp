@@ -292,3 +292,24 @@ const char*	creaturei::getname() const {
 		return "Noname";
 	return get_group_name(name);
 }
+
+bool creaturei::isallow(const item& it) const {
+	// One of this
+	const unsigned m0 = FG(UseMartial) | FG(UseElvish) | FG(UseRogish);
+	if(((it.geti().feats[0] & m0) & (feats[0] & m0)) == 0)
+		return false;
+	// All of this
+	const unsigned m1 = FG(UseMetal) | FG(UseLeather) | FG(UseShield);
+	auto v1 = it.geti().feats[0] & m1;
+	if(((feats[0] & m1) & v1) != v1)
+		return false;
+	return true;
+}
+
+void creaturei::additem(item& it) {
+	if(!isallow(it))
+		return;
+	equip(it);
+	if(it)
+		wearable::additem(it);
+}

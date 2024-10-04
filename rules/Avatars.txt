@@ -1,3 +1,4 @@
+Male Female
 Male Human Halfling Fighter Ranger
 Male Human Mage Cleric
 Male Human Mage Cleric Ranger

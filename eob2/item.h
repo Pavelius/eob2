@@ -6,12 +6,15 @@
 #include "nameable.h"
 #include "variant.h"
 
+enum wearn : unsigned char;
+
 struct itemi : nameable, featable {
 	damagen		harm;
 	char		attack, number_attacks;
 	dice		damage, damage_large;
 	itemi*		ammo;
 	variants	wearing, use;
+	wearn		wear;
 	char		avatar, avatar_ground;
 };
 class item {
@@ -28,6 +31,8 @@ class item {
 	unsigned char count; // this one can be broken, charges, count.
 public:
 	explicit operator bool() const { return type != 0; }
+	void			clear();
 	const itemi&	geti() const;
+	bool			isallow(wearn v) const;
 };
 extern item* last_item;

@@ -16,6 +16,9 @@
     <Filter Include="locale">
       <UniqueIdentifier>{aaeec2c7-2126-4873-a9df-f65511a697fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{92473ad3-c53f-43ec-95ce-ca21ab36e21f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ability.cpp">
@@ -146,6 +149,15 @@
     </ClCompile>
     <ClCompile Include="randomeffect.cpp">
       <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="main_util.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="sprite_util.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_util.cpp">
+      <Filter>util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +313,9 @@
     </ClInclude>
     <ClInclude Include="randomeffect.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite_util.h">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

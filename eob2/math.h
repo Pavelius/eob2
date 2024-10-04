@@ -9,4 +9,4 @@ int isqrt(int num);
 float sqrt(const float x);
 
 #define maptbl(t, v) (t[imax((size_t)0, imin((size_t)v, sizeof(t)/sizeof(t[0])-1))])
-
+#define FG(v) (1<<v)

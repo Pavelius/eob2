@@ -11,6 +11,7 @@
 #include "randomeffect.h"
 #include "spell.h"
 #include "variant.h"
+#include "wearable.h"
 
 NOBSDATA(color)
 NOBSDATA(dice)
@@ -49,6 +50,7 @@ BSMETA(feati) = {
 	{}};
 BSMETA(itemi) = {
 	BSREQ(id),
+	BSENM(wear, weari),
 	BSENM(harm, damagei),
 	BSREQ(attack), BSREQ(number_attacks),
 	BSREQ(damage), BSREQ(damage_large),
@@ -71,6 +73,9 @@ BSMETA(spelli) = {
 	BSREQ(effect), BSREQ(duration),
 	BSFLG(feats, feati),
 	BSREQ(summon), BSREQ(wearing),
+	{}};
+BSMETA(weari) = {
+	BSREQ(id),
 	{}};
 BSDATA(varianti) = {
 	{"NoVariant"},

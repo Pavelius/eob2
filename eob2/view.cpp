@@ -277,7 +277,10 @@ static void paint_avatar() {
 	if(player->avatar == 0xFF)
 		return;
 	rectpush push; width = 31; height = 31;
-	image(gres(PORTM), player->avatar, 0);
+	if(player->isdead())
+		image(gres(PORTM), 0, 0);
+	else
+		image(gres(PORTM), player->avatar, 0);
 	//static color blink_colors[] = {colors::green, colors::red, colors::blue, colors::form};
 	//blend_avatar(blink_colors);
 }

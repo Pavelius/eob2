@@ -18,9 +18,11 @@ struct creaturei : statable, levelable, wearable {
 	gendern			gender;
 	unsigned short	name;
 	unsigned char	avatar;
+	void			additem(item& it);
 	void			clear();
 	int				get(abilityn v) const { return abilities[v]; }
 	const char*		getname() const;
+	bool			isallow(const item& it) const;
 	bool			isdead() const { return hp <= -10; }
 	bool			isdisabled() const { return hp <= 0; }
 };

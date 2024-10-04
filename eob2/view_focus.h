@@ -1,6 +1,7 @@
 #pragma once
 
 extern void *current_focus, *pressed_focus;
+extern bool disable_input;
 
 struct pushfocus {
 	void* focus;
@@ -8,6 +9,7 @@ struct pushfocus {
 	~pushfocus() { current_focus = focus; }
 };
 
+void clear_focus_data();
 void focusing(const void* focus_data);
 void focus_input();
 

@@ -1,17 +1,26 @@
+#RandomEffect
+
+Damage1d4p1x1d4p1s3p2c9 base(1 4 1) raise(1 4 1) perlevel(3 2 9)
+
 #Spell
 
 Armor levels(0 1)
 BurningHands levels(0 1)
 ChillTouch levels(0 1)
 ComprehendLanguages levels(0 1)
+DetectEvil levels(0 1)
+ feats Ally Group
+ wearing SeeCursed
 DetectMagic levels(0 1)
  feats Ally Group
  wearing SeeMagical
 Friends levels(0 1)
 Identify levels(0 1)
-MagicMissile levels(0 1) effect(1 4 1) effect_progress(3 2 9) effect_add(1 4 1)
- feats Enemy AdditionTargets
+MagicMissile levels(0 1) effect(Damage1d4p1x1d4p1s3p2c9)
+ feats Enemy
 Mending levels(0 1)
+ feats Ally
+ wearing SeeCursed
 ProtectionFromEvil levels(0 1)
 ShieldSpell levels(0 1)
  wearing AC+5

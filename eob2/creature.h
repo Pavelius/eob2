@@ -21,6 +21,8 @@ struct creaturei : statable, levelable, wearable {
 	void			clear();
 	int				get(abilityn v) const { return abilities[v]; }
 	const char*		getname() const;
+	bool			isdead() const { return hp <= -10; }
+	bool			isdisabled() const { return hp <= 0; }
 };
 extern creaturei* player;
 

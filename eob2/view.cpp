@@ -300,10 +300,23 @@ static void paint_focus_rect() {
 static void paint_item(item& it, wearn id) {
 	rectpush push;
 	height = 16;
+	focusing(&it);
+	if(current_focus == &it)
+		paint_focus_rect();
 	auto avatar = it.geti().avatar;
 	if(!it && id == LeftHand)
 		avatar -= 1;
 	image(caret.x + width / 2, caret.y + 16 / 2, gres(ITEMS), avatar, 0);
+}
+
+static void paint_disabled() {
+	auto push_alpha = alpha;
+	auto push_fore = fore;
+	alpha = 128;
+	fore = colors::black;
+	rectf();
+	fore = push_fore;
+	alpha = push_alpha;
 }
 
 static void paint_character() {
@@ -315,8 +328,8 @@ static void paint_character() {
 	caret.y = push.caret.y + 3;
 	width = 65;
 	texta(player->getname(), AlignCenter);
-	width = 30;
-	caret.x = push.caret.x + 34;
+	width = 31;
+	caret.x = push.caret.x + 33;
 	caret.y = push.caret.y + 10;
 	paint_item(player->wears[RightHand], RightHand);
 	caret.y = push.caret.y + 26;
@@ -333,6 +346,18 @@ static void paint_character() {
 	caret = push_caret;
 }
 
+static void paint_character(bool disabled) {
+	rectpush push;
+	auto push_disabled = disable_input;
+	if(disabled)
+		disable_input = true;
+	width = 65; height = 52;
+	paint_character();
+	if(disabled)
+		paint_disabled();
+	disable_input = push_disabled;
+}
+
 static void paint_avatars() {
 	static point points[] = {{183, 1}, {255, 1}, {183, 53}, {255, 53}, {183, 105}, {255, 105}};
 	rectpush push;
@@ -346,7 +371,7 @@ static void paint_avatars() {
 		player = party.units[i];
 		if(!player)
 			continue;
-		paint_character();
+		paint_character(player->isdisabled());
 	}
 	player = push_player;
 }
@@ -466,7 +491,12 @@ void* choose_answer(const char* title, fnevent before_paint, fnanswer answer_pai
 	return (void*)getresult();
 }
 
+static void main_beforemodal() {
+	clear_focus_data();
+}
+
 void initialize_gui() {
 	set_big_font();
 	fore = colors::white;
+	pbeforemodal = main_beforemodal;
 }

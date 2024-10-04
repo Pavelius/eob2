@@ -16,9 +16,10 @@ static renderi render_objects[48];
 static renderi*	render_current;
 
 void *current_focus, *pressed_focus;
+bool disable_input;
 
 void focusing(const void* av) {
-	if(!av)
+	if(!av || disable_input)
 		return;
 	if(!render_current
 		|| render_current >= render_objects + sizeof(render_objects) / sizeof(render_objects[0]) - 1)
@@ -146,4 +147,8 @@ void focus_input() {
 	case KeyDown: apply_focus(KeyDown); break;
 	default: return;
 	}
+}
+
+void clear_focus_data() {
+	render_current = 0;
 }

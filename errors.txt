@@ -1,3 +1,3 @@
 ﻿Error in file `rules/Spells.txt`:
- Line 11: Invalid source array where read identifier `Enemy`
- Line 11: Invalid source array where read identifier `AdditionTargets`
+ Line 12: Not found requisit `effect_progress`
+ Line 12: Not found requisit `effect_add`

@@ -8,6 +8,7 @@
 #include "script.h"
 #include "point.h"
 #include "race.h"
+#include "randomeffect.h"
 #include "spell.h"
 #include "variant.h"
 
@@ -19,6 +20,7 @@ BSDATAC(advancement, 256)
 BSDATAC(classi, 32)
 BSDATAC(itemi, 256)
 BSDATAC(racei, 16)
+BSDATAC(randomeffecti, 128)
 BSDATAC(spelli, 256)
 
 BSMETA(abilityi) = {
@@ -59,10 +61,14 @@ BSMETA(racei) = {
 	BSREQ(id),
 	BSREQ(minimal), BSREQ(maximal),
 	{}};
+BSMETA(randomeffecti) = {
+	BSREQ(id),
+	BSREQ(base), BSREQ(raise), BSREQ(perlevel), BSREQ(multiplier),
+	{}};
 BSMETA(spelli) = {
 	BSREQ(id),
 	BSREQ(levels),
-	BSREQ(effect), BSREQ(effect_add), BSREQ(effect_progress),
+	BSREQ(effect),
 	BSFLG(feats, feati),
 	BSREQ(summon), BSREQ(wearing),
 	{}};
@@ -74,6 +80,7 @@ BSDATA(varianti) = {
 	{"Item", VAR(itemi, 1)},
 	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>},
 	{"Modifier", VAR(modifieri, 1), 0, 0, ftscript<modifieri>},
+	{"RandomEffect", VAR(randomeffecti, 1)},
 	{"Script", VAR(script, 1), 0, 0, ftscript<script>},
 	{"Spell", VAR(spelli, 1)},
 	{"Race", VAR(racei, 1)},

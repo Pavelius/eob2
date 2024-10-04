@@ -160,6 +160,7 @@
     <ClInclude Include="picture.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="race.h" />
+    <ClInclude Include="randomeffect.h" />
     <ClInclude Include="rect.h" />
     <ClInclude Include="resid.h" />
     <ClInclude Include="script.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="metadata.cpp" />
     <ClCompile Include="modifier.cpp" />
     <ClCompile Include="picture.cpp" />
+    <ClCompile Include="randomeffect.cpp" />
     <ClCompile Include="script.cpp" />
     <ClCompile Include="scripting.cpp" />
     <ClCompile Include="variant.cpp" />

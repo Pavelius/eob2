@@ -144,6 +144,9 @@
     <ClCompile Include="wearable.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="randomeffect.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -294,6 +297,9 @@
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="spell.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="randomeffect.h">
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>

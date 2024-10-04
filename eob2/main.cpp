@@ -27,6 +27,7 @@ static void main_menu() {
 	join_party();
 	create_player(bsdata<racei>::find("Elf"), Male, bsdata<classi>::find("Fighter"));
 	join_party();
+	player->hp = -2;
 	create_player(bsdata<racei>::find("Human"), Female, bsdata<classi>::find("Fighter"));
 	join_party();
 	create_player(bsdata<racei>::find("Dwarf"), Male, bsdata<classi>::find("Cleric"));

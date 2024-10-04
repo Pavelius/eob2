@@ -2,6 +2,7 @@
 
 Damage1d4p1x1d4p1s3p2c9 base(1 4 1) raise(1 4 1) perlevel(3 2 9)
 Minute5x1 base(5) raise(1) perlevel(2 1)
+Minute0x2 raise(2) perlevel(0 1)
 
 #Spell
 
@@ -9,10 +10,10 @@ Armor levels(0 1)
 BurningHands levels(0 1)
 ChillTouch levels(0 1)
 ComprehendLanguages levels(0 1)
-DetectEvil levels(0 1) duration(Minute5x1)
+DetectEvil levels(0 1) duration(Minute0x2)
  feats Ally Group
  wearing SeeCursed
-DetectMagic levels(0 1) duration(Minute5x1)
+DetectMagic levels(0 1) duration(Minute0x2)
  feats Ally Group
  wearing SeeMagical
 Friends levels(0 1)

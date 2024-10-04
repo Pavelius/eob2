@@ -68,3 +68,10 @@ Ration avatar(38)
 MageScroll avatar(36)
 PriestScroll avatar(85)
 MagicMap avatar(86)
+
+#List
+
+DwarfFighter
+ elements BattleAxe ScaleMail
+HumanFighter
+ elements Longsword LeatherArmor Shield

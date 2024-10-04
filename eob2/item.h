@@ -32,6 +32,7 @@ class item {
 public:
 	explicit operator bool() const { return type != 0; }
 	void			clear();
+	void			create(int value);
 	const itemi&	geti() const;
 	bool			isallow(wearn v) const;
 };

@@ -1,3 +1,2 @@
-﻿Error in file `rules/Spells.txt`:
- Line 12: Not found requisit `effect_progress`
- Line 12: Not found requisit `effect_add`
+﻿Error in file `rules/Items.txt`:
+ Line 77: Can't find variant `LongSword`

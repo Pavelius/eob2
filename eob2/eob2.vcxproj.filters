@@ -159,6 +159,9 @@
     <ClCompile Include="surface_util.cpp">
       <Filter>util</Filter>
     </ClCompile>
+    <ClCompile Include="list.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -317,6 +320,9 @@
     <ClInclude Include="sprite_util.h">
       <Filter>util</Filter>
     </ClInclude>
+    <ClInclude Include="list.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -346,5 +352,10 @@
     <Text Include="..\rules\Spells.txt">
       <Filter>rules</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint">
+      <Filter>support</Filter>
+    </None>
   </ItemGroup>
 </Project>

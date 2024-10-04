@@ -4,6 +4,7 @@
 #include "class.h"
 #include "color.h"
 #include "item.h"
+#include "list.h"
 #include "feat.h"
 #include "script.h"
 #include "point.h"
@@ -82,7 +83,8 @@ BSDATA(varianti) = {
 	{"Ability", VAR(abilityi, 1), 0, 0, ftscript<abilityi>},
 	{"Advance", VAR(advancement, 2)},
 	{"Class", VAR(classi, 1)},
-	{"Item", VAR(itemi, 1)},
+	{"Item", VAR(itemi, 1), 0, 0, ftscript<itemi>},
+	{"List", VAR(listi, 1)},
 	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>},
 	{"Modifier", VAR(modifieri, 1), 0, 0, ftscript<modifieri>},
 	{"RandomEffect", VAR(randomeffecti, 1)},

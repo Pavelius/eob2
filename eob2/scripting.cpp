@@ -24,6 +24,11 @@ template<> void ftscript<abilityi>(int value, int bonus) {
 	}
 }
 
+template<> void ftscript<itemi>(int value, int bonus) {
+	item v; v.create(value);
+	player->additem(v);
+}
+
 static void attack_modify(int bonus) {
 	ftscript<abilityi>(AttackMelee, bonus);
 	ftscript<abilityi>(AttackRange, bonus);

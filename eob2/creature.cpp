@@ -5,6 +5,7 @@
 #include "creature.h"
 #include "gender.h"
 #include "groupname.h"
+#include "list.h"
 #include "math.h"
 #include "modifier.h"
 #include "pushvalue.h"
@@ -76,6 +77,7 @@ void creaturei::clear() {
 
 static void update_basic() {
 	memcpy(player->abilities, player->basic.abilities, sizeof(player->abilities));
+	memcpy(player->feats, player->basic.feats, sizeof(player->basic.feats));
 }
 
 static int get_maximum_hits() {
@@ -271,6 +273,16 @@ static void set_starting_ability() {
 	advance_level(player->type, 1);
 }
 
+static void set_starting_equipment() {
+	auto pc = bsdata<classi>::elements + player->type;
+	auto pr = bsdata<racei>::elements + player->race;
+	auto p = bsdata<listi>::find(str("%1%2", pr->id, pc->id));
+	if(!p)
+		p = bsdata<listi>::find(pr->id);
+	if(p)
+		script_run(p->elements);
+}
+
 void create_player(const racei* pr, gendern gender, const classi* pc) {
 	if(!pr || !pc)
 		return;
@@ -284,6 +296,8 @@ void create_player(const racei* pr, gendern gender, const classi* pc) {
 	generate_name();
 	player->avatar = get_avatar(player->race, gender, player->type);
 	update_player();
+	set_starting_equipment();
+	update_player();
 	player->hp = player->hpm;
 }
 
@@ -296,7 +310,9 @@ const char*	creaturei::getname() const {
 bool creaturei::isallow(const item& it) const {
 	// One of this
 	const unsigned m0 = FG(UseMartial) | FG(UseElvish) | FG(UseRogish);
-	if(((it.geti().feats[0] & m0) & (feats[0] & m0)) == 0)
+	auto item_feats = it.geti().feats[0];
+	auto player_feats = feats[0];
+	if(((item_feats & m0) & (player_feats & m0)) == 0)
 		return false;
 	// All of this
 	const unsigned m1 = FG(UseMetal) | FG(UseLeather) | FG(UseShield);
@@ -307,9 +323,8 @@ bool creaturei::isallow(const item& it) const {
 }
 
 void creaturei::additem(item& it) {
-	if(!isallow(it))
-		return;
-	equip(it);
+	if(isallow(it))
+		equip(it);
 	if(it)
 		wearable::additem(it);
 }

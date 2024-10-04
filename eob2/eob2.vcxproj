@@ -154,6 +154,7 @@
     <ClInclude Include="gender.h" />
     <ClInclude Include="groupname.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="list.h" />
     <ClInclude Include="logvalue.h" />
     <ClInclude Include="modifier.h" />
     <ClInclude Include="my_initialize_list.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="groupname.cpp" />
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="item.cpp" />
+    <ClCompile Include="list.cpp" />
     <ClCompile Include="logvalue.cpp" />
     <ClCompile Include="main_util.cpp" />
     <ClCompile Include="metadata.cpp" />
@@ -244,6 +246,9 @@
     <Text Include="..\rules\Items.txt" />
     <Text Include="..\rules\Races.txt" />
     <Text Include="..\rules\Spells.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

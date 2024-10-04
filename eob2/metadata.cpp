@@ -68,7 +68,7 @@ BSMETA(randomeffecti) = {
 BSMETA(spelli) = {
 	BSREQ(id),
 	BSREQ(levels),
-	BSREQ(effect),
+	BSREQ(effect), BSREQ(duration),
 	BSFLG(feats, feati),
 	BSREQ(summon), BSREQ(wearing),
 	{}};

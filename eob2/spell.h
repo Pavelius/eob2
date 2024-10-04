@@ -9,8 +9,10 @@
 struct itemi;
 
 struct spelli : nameable, featable {
-	char		levels[3];
-	const randomeffecti* effect;
+	char levels[3];
+	char thrown;
+	const randomeffecti* effect; // Damage or other effect
+	const randomeffecti* duration; // Enchantment spell
 	const itemi* summon; // Which item summoned in hand
-	variants	wearing;
+	variants wearing;
 };

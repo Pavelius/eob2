@@ -53,7 +53,7 @@ BSMETA(itemi) = {
 	BSREQ(id),
 	BSENM(wear, weari),
 	BSENM(harm, damagei),
-	BSREQ(attack), BSREQ(number_attacks),
+	BSREQ(attack), BSREQ(number_attacks), BSREQ(speed),
 	BSREQ(damage), BSREQ(damage_large),
 	BSFLG(feats, feati),
 	BSREQ(avatar),

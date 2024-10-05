@@ -21,8 +21,7 @@ BSDATAC(creaturei, 256)
 creaturei* player;
 
 static char hit_points_adjustment[] = {
-	-4,
-	-3, -2, -2, -1, -1, -1, 0, 0, 0,
+	-4, -3, -2, -2, -1, -1, -1, 0, 0, 0,
 	0, 0, 0, 0, 0, 1, 2, 3, 4, 5,
 	5, 6, 6, 6, 7, 7
 };
@@ -47,6 +46,11 @@ static char damage_adjustment[] = {
 	0, 0, 0, 0, 0, 0, 1, 1, 2,
 	3, 3, 4, 5, 6,
 	7, 8, 9, 10, 11, 12, 14
+};
+static char cha_reaction_adjustment[] = {
+	-10, -7, -6, -5, -4, -3, -2, -1, 0, 0,
+	0, 0, 0, 1, 2, 3, 5, 6, 7,
+	8, 9, 10, 11, 12, 13, 14
 };
 static char dwarven_bonus[] = {
 	0, 0, 0, 0, 1, 1, 1, 2, 2, 2,
@@ -81,10 +85,13 @@ static void update_basic() {
 }
 
 static int get_maximum_hits() {
-	int n = bsdata<classi>::elements[player->type].count;
+	auto n = bsdata<classi>::elements[player->type].count;
 	auto m = player->getlevel();
 	auto a = player->get(Constitution);
-	auto r = player->get(Hits) + maptbl(hit_points_adjustment, a) * m + player->hpr / imax(1, n);
+	auto h = maptbl(hit_points_adjustment, a);
+	if(h > 2 && !player->is(BonusHP))
+		h = 2;
+	auto r = player->get(Hits) + h * m + player->hpr / imax(1, (int)n);
 	if(r < m)
 		r = m;
 	return r;
@@ -119,12 +126,17 @@ static void all_saves(int v) {
 	player->abilities[SaveVsMagic] += v;
 }
 
-static void update_combat_stats() {
+static void update_stats() {
 	auto k = get_modified_strenght();
 	player->abilities[AttackMelee] += maptbl(hit_probability, k);
 	player->abilities[AttackRange] += maptbl(reaction_adjustment, player->abilities[Dexterity]);
 	player->abilities[DamageMelee] += maptbl(damage_adjustment, k);
 	player->abilities[AC] += maptbl(defence_adjustment, player->abilities[Dexterity]);
+	player->abilities[ReactionBonus] += maptbl(cha_reaction_adjustment, player->abilities[Charisma]);
+	if(player->wears[RightHand])
+		player->abilities[Speed] -= player->wears[RightHand].geti().speed;
+	else
+		player->abilities[Speed] -= player->wears[LeftHand].geti().speed;
 }
 
 static void update_bonus_saves() {
@@ -145,7 +157,7 @@ void update_player() {
 	update_basic();
 	update_wear();
 	update_duration();
-	update_combat_stats();
+	update_stats();
 	update_bonus_saves();
 	player->hpm = get_maximum_hits();
 }
@@ -233,8 +245,7 @@ static void generate_name() {
 	player->name = name;
 }
 
-static void advance_level(int value, int level) {
-	variant id = bsdata<classi>::elements + value;
+static void advance_level(variant id, int level) {
 	id.counter = level;
 	auto push_modifier = modifier;
 	modifier = Permanent;
@@ -245,32 +256,24 @@ static void advance_level(int value, int level) {
 	modifier = push_modifier;
 }
 
-static void raise_level(int value) {
-	auto index = player->getclassindex(value);
-	if(index == -1)
-		return;
-	auto pc = bsdata<classi>::elements + value;
-	// Raise level and roll hits
-	if(pc->hd)
-		player->hpr += 1 + rand() % pc->hd;
-	player->levels[index]++;
-	// Raise abilities
-	advance_level(value, player->levels[index]);
-}
-
-static void set_starting_ability() {
+static void set_class_ability() {
 	auto pc = bsdata<classi>::elements + player->type;
+	advance_level(pc, 0);
 	// Roll for hits first time
 	for(char i = 0; i < pc->count; i++) {
 		auto pd = bsdata<classi>::elements + pc->classes[i];
+		player->levels[i]++;
 		if(pd->hd) {
-			player->hpr = rand() % pd->hd;
+			player->hpr = 1 + rand() % pd->hd;
 			if(player->hpr < pd->hd / 2)
 				player->hpr = pd->hd / 2;
 		}
+		advance_level(pd, player->levels[i]);
 	}
-	// Raise ability for multiclass
-	advance_level(player->type, 1);
+}
+
+static void set_race_ability() {
+	advance_level(bsdata<racei>::elements + player->race, 0);
 }
 
 static void set_starting_equipment() {
@@ -292,7 +295,8 @@ void create_player(const racei* pr, gendern gender, const classi* pc) {
 	player->gender = gender;
 	player->type = bsdata<classi>::source.indexof(pc);
 	generate_abilities();
-	set_starting_ability();
+	set_race_ability();
+	set_class_ability();
 	generate_name();
 	player->avatar = get_avatar(player->race, gender, player->type);
 	update_player();

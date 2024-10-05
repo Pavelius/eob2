@@ -6,35 +6,35 @@ Arrow avatar(16)
 Stone avatar(19)
 Dart avatar(14)
 
-BattleAxe harm(Slashing) damage(1 8) avatar(3) wear(RightHand)
+BattleAxe harm(Slashing) speed(7) damage(1 8) avatar(3) wear(RightHand)
  feats UseMartial
-Axe harm(Slashing) damage(1 6) avatar(7) wear(RightHand)
+Axe harm(Slashing) speed(4) damage(1 6) avatar(7) wear(RightHand)
  feats UseMartial
-Club damage(1 6) avatar(76) wear(RightHand)
-Dagger harm(Piercing) damage(1 4) avatar(15) wear(RightHand)
-Flail damage(1 6 1) avatar(5) wear(RightHand)
+Club speed(4) damage(1 6) avatar(76) wear(RightHand)
+Dagger harm(Piercing) speed(2) damage(1 4) avatar(15) wear(RightHand)
+Flail speed(7) damage(1 6 1) avatar(5) wear(RightHand)
  feats UseMartial
-Halberd harm(Slashing) avatar(9) wear(RightHand)
+Halberd harm(Slashing) speed(9) avatar(9) wear(RightHand)
  feats TwoHanded UseMartial
-Warhammer damage(1 4 2) avatar(99) wear(RightHand)
+Warhammer speed(4) damage(1 4 2) avatar(99) wear(RightHand)
  feats UseMartial
-Mace damage(1 6 1) avatar(4) wear(RightHand)
+Mace speed(7) damage(1 6 1) avatar(4) wear(RightHand)
  feats UseMartial
-Spear harm(Piercing) damage(1 6) avatar(6) wear(RightHand)
+Spear harm(Piercing) speed(6) damage(1 6) avatar(6) wear(RightHand)
  feats UseMartial
-Staff damage(1 6) avatar(8) wear(RightHand)
+Staff speed(4) damage(1 6) avatar(8) wear(RightHand)
  feats TwoHanded
-BastardSword harm(Slashing) damage(1 10) avatar(1) wear(RightHand)
+BastardSword harm(Slashing) speed(6) damage(1 10) avatar(1) wear(RightHand)
  feats UseMartial
-Longsword harm(Slashing) damage(1 8) avatar(1) wear(RightHand)
+Longsword harm(Slashing) speed(5) damage(1 8) avatar(1) wear(RightHand)
  feats UseElvish UseMartial
-ShortSword harm(Slashing) damage(1 6) avatar(2) wear(RightHand)
+ShortSword harm(Slashing) speed(4) damage(1 6) avatar(2) wear(RightHand)
  feats UseRogish UseElvish UseMartial
-TwoHandedSword harm(Slashing) damage(1 10) damage_large(3 18) avatar(42) wear(RightHand)
+TwoHandedSword harm(Slashing) speed(10) damage(1 10) damage_large(3 18) avatar(42) wear(RightHand)
  feats TwoHanded UseMartial
-Bow harm(Piercing) damage(1 6) ammo(Arrow) avatar(10) wear(RightHand)
+Bow harm(Piercing) speed(8) damage(1 6) ammo(Arrow) avatar(10) wear(RightHand)
  feats TwoHanded UseRogish
-Sling damage(1 4) ammo(Stone) avatar(18) wear(RightHand)
+Sling speed(6) damage(1 4) ammo(Stone) avatar(18) wear(RightHand)
 
 Robe avatar(32)
 LeatherArmor avatar(31)

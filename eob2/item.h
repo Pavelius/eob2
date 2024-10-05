@@ -10,7 +10,7 @@ enum wearn : unsigned char;
 
 struct itemi : nameable, featable {
 	damagen		harm;
-	char		attack, number_attacks;
+	char		attack, number_attacks, speed;
 	dice		damage, damage_large;
 	itemi*		ammo;
 	variants	wearing, use;

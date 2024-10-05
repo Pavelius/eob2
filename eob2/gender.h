@@ -1,8 +1,9 @@
 #pragma once
 
+#include "nameable.h"
+
 enum gendern : unsigned char {
 	NoGender, Male, Female,
 };
-struct genderi {
-	const char*	id;
+struct genderi : nameable {
 };

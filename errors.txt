@@ -1,4 +1,16 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `ACShort`
- Define translation for `AttackMeleeShort`
- Define translation for `DamageMeleeShort`
+ Define translation for `CharacterSkills`
+ Define translation for `ClimbWalls`
+ Define translation for `CriticalDeflect`
+ Define translation for `DetectSecrets`
+ Define translation for `HearNoise`
+ Define translation for `LearnSpell`
+ Define translation for `MoveSilently`
+ Define translation for `OpenLocks`
+ Define translation for `ReadLanguages`
+ Define translation for `RemoveTraps`
+ Define translation for `ResistMagic`
+ Define translation for `SaveVsMagic`
+ Define translation for `SaveVsParalization`
+ Define translation for `SaveVsPoison`
+ Define translation for `SaveVsTraps`

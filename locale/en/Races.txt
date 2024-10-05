@@ -1,4 +1,5 @@
-﻿Characterinfo: Character information
+﻿Characterinfo: Character Information
+CharacterSkills: Character Skills
 
 Fighter: Fighter
 Cleric: Cleric
@@ -9,6 +10,9 @@ Dwarf: Dwarf
 Elf: Elf
 Halfling: Halfling
 
+Male: Male
+Female: Female
+
 Charisma: Charisma
 Constitution: Constitution
 Dexterity: Dexterity
@@ -18,4 +22,22 @@ Wisdow: Wisdow
 
 ACShort: AC
 AttackMeleeShort: Att
-DamageMeleeShort: Dam
+DamageMeleeShort: Dm
+HitsShort: HP
+SpeedShort: Spd
+ReactionBonusShort: Ra
+
+ClimbWalls: Climb Walls
+CriticalDeflect: Critical deflect
+DetectSecrets: Detect Secrets
+HearNoise: Hear Noise
+LearnSpell: Learn Spells
+MoveSilently: Move Silently
+OpenLocks: Open locks
+ReadLanguages: Read Languages
+RemoveTraps: Remove traps
+ResistMagic: Resist magic
+SaveVsMagic: Save vs Magic
+SaveVsParalization: Save vs Paralize
+SaveVsPoison: Save vs Poison
+SaveVsTraps: Save vs Traps

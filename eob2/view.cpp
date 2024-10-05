@@ -3,6 +3,7 @@
 #include "class.h"
 #include "direction.h"
 #include "draw.h"
+#include "gender.h"
 #include "picture.h"
 #include "race.h"
 #include "resid.h"
@@ -338,7 +339,7 @@ static void paint_sheet_head() {
 }
 
 static void paint_blank() {
-	rectpush push;
+	auto push_caret = caret;
 	auto push_fore = fore;
 	fore = color(164, 164, 184);
 	rectf();
@@ -350,6 +351,8 @@ static void paint_blank() {
 	caret.x = 178;
 	line(319, caret.y);
 	fore = push_fore;
+	caret = push_caret;
+	caret.x += 1; caret.y += 2;
 }
 
 static void textn(const char* format) {
@@ -391,6 +394,15 @@ static void textn(abilityn id) {
 	case AC:
 		sb.add("%1i", 10 - player->get(id));
 		break;
+	case Hits:
+		sb.add("%1i", player->hpm);
+		break;
+	case Speed:
+		sb.add("%1i", -player->get(id));
+		break;
+	case ReactionBonus:
+		sb.add("%+1i", player->get(id));
+		break;
 	default:
 		sb.add("%1i", player->get(id));
 		break;
@@ -425,7 +437,10 @@ static void paint_ability() {
 static void paint_stats() {
 	textn(AttackMelee);
 	textn(AC);
+	textn(Hits);
 	textn(DamageMelee);
+	textn(Speed);
+	textn(ReactionBonus);
 }
 
 static void paint_sheet() {
@@ -434,17 +449,34 @@ static void paint_sheet() {
 	auto push_fore = fore;
 	paint_sheet_head();
 	paint_blank();
-	caret.x += 2; caret.y += 2;
 	header(getnm("Characterinfo"));
 	textn(getnm(bsdata<classi>::elements[player->type].id));
 	//text(bsdata<alignmenti>::elements[pc->getalignment()].name); y1 += draw::texth();
-	textn(getnm(bsdata<racei>::elements[player->race].id));
+	textn(str("%1 %2", bsdata<racei>::elements[player->race].getname(), bsdata<genderi>::elements[player->gender].getname()));
 	caret.y += texth();
 	width = 88;
 	paint_ability();
 	caret.x += 6 * 15 + 3;
 	width = 44;
 	paint_stats();
+	font = push_font;
+	fore = push_fore;
+}
+
+static void paint_skills() {
+	rectpush push;
+	auto push_font = font;
+	auto push_fore = fore;
+	paint_sheet_head();
+	paint_blank();
+	header(getnm("CharacterSkills"));
+	width = 134;
+	for(auto i = (abilityn)SaveVsParalization; i <= DetectSecrets; i = (abilityn)(i + 1)) {
+		auto value = player->get(i);
+		if(value <= 0)
+			continue;
+		textn(bsdata<abilityi>::elements[i].getname(), player->get(i), "%1i%%");
+	}
 	font = push_font;
 	fore = push_fore;
 }
@@ -632,6 +664,11 @@ static void character_input() {
 	switch(hot.key) {
 	case 'I': switch_page(paint_inventory); break;
 	case 'C': switch_page(paint_sheet); break;
+	case 'X': switch_page(paint_skills); break;
+	case KeyEscape:
+		if(character_view_proc)
+			clear_page();
+		break;
 	}
 }
 

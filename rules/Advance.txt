@@ -1,3 +1,8 @@
+//////////////////
+// CLASSES ADVANCE
+//////////////////
+// Set rules to advance ablity for each classes when gaining level of experience.
+
 ///////////////////////////////////
 // CONVERT SAVING THROWS TO PERCENT
 ///////////////////////////////////
@@ -14,8 +19,20 @@
 // 10 - 55%
 //  9 - 60%
 //  8 - 65%
+//  7 - 70%
+//  6 - 75%
+//  5 - 80%
+//  4 - 85%
+//  3 - 90%
 
 #Advance
+
+Dwarf AbilityAdjustment
+ elements Constitution+1 Charisma-1
+Elf AbilityAdjustment
+ elements Dexterity+1 Constitution-1
+Halfling AbilityAdjustment
+ elements Dexterity+1 Strenght-1
 
 Fighter+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UseMartial BonusHP

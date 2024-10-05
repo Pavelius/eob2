@@ -25,7 +25,7 @@ static void start_game() {
 static void main_menu() {
 	pushanswer push;
 	create_player(bsdata<racei>::find("Human"), Male, bsdata<classi>::find("Fighter"));
-	player->basic.abilities[Strenght] = 18;
+	player->basic.abilities[Constitution] = 18;
 	update_player();
 	join_party();
 	create_player(bsdata<racei>::find("Elf"), Male, bsdata<classi>::find("Fighter"));

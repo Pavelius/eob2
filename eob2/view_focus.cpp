@@ -1,4 +1,5 @@
 #include "draw.h"
+#include "math.h"
 #include "slice.h"
 #include "view_focus.h"
 
@@ -62,6 +63,14 @@ static renderi* getlast() {
 	return p;
 }
 
+static bool is_horiz(point p1, point p2) {
+	return iabs(p1.x - p2.x) >= iabs(p1.y - p2.y);
+}
+
+static bool is_vert(point p1, point p2) {
+	return iabs(p1.x - p2.x) <= iabs(p1.y - p2.y);
+}
+
 static renderi* next_focus(void* ev, int key) {
 	if(!key)
 		return 0;
@@ -73,8 +82,8 @@ static renderi* next_focus(void* ev, int key) {
 	auto pe = pc;
 	auto pl = getlast();
 	int inc = 1;
-	if(key == KeyLeft || key == KeyUp)
-		inc = -1;
+	//if(key == KeyLeft || key == KeyUp)
+	//	inc = -1;
 	renderi* r1 = 0;
 	auto p1 = pe->pt;
 	while(true) {
@@ -89,39 +98,53 @@ static renderi* next_focus(void* ev, int key) {
 			return pe;
 		}
 		auto p2 = pc->pt;
-		renderi* r2 = 0;
+		auto dx = iabs(p1.x - p2.x);
+		auto dy = iabs(p1.y - p2.y);
 		switch(key) {
-		case KeyRight:
-			if((pe->pt.x < pc->pt.x)
-				&& (pe->pt.y >= pc->pt.y))
-				r2 = pc;
-			break;
 		case KeyLeft:
-			if((pe->pt.x > pc->pt.x)
-				&& (pe->pt.y >= pc->pt.y))
-				r2 = pc;
+			if(p2.x >= p1.x)
+				continue;
+			if(r1) {
+				if(dy > iabs(p1.y - r1->pt.y))
+					continue;
+				if(distance(pe->pt, pc->pt) > distance(pe->pt, r1->pt))
+					continue;
+			}
+			break;
+		case KeyRight:
+			if(p2.x <= p1.x)
+				continue;
+			if(r1) {
+				if(dy > iabs(p1.y - r1->pt.y))
+					continue;
+				if(distance(pe->pt, pc->pt) > distance(pe->pt, r1->pt))
+					continue;
+			}
 			break;
 		case KeyDown:
-			if(p1.y < p2.y)
-				r2 = pc;
+			if(p2.y <= p1.y)
+				continue;
+			if(r1) {
+				if(dx > iabs(p1.x - r1->pt.x))
+					continue;
+				if(distance(pe->pt, pc->pt) > distance(pe->pt, r1->pt))
+					continue;
+			}
 			break;
 		case KeyUp:
-			if(p2.y < p1.y)
-				r2 = pc;
+			if(p2.y >= p1.y)
+				continue;
+			if(r1) {
+				if(dx > iabs(p1.x - r1->pt.x))
+					continue;
+				if(distance(pe->pt, pc->pt) > distance(pe->pt, r1->pt))
+					continue;
+			}
 			break;
 		default:
 			return pc;
 		}
-		if(r2) {
-			if(!r1)
-				r1 = r2;
-			else {
-				int d1 = distance(p1, r1->pt);
-				int d2 = distance(p1, r2->pt);
-				if(d2 < d1)
-					r1 = r2;
-			}
-		}
+		r1 = pc;
 	}
 }
 

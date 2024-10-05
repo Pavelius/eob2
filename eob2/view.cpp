@@ -501,7 +501,10 @@ static void warning(const char* format, unsigned flags) {
 }
 
 static void paint_states() {
-
+	if(player->isdead())
+		warning(getnm("Dead"), AlignCenter);
+	else if(player->isdisabled())
+		warning(getnm("Disabled"), AlignCenter);
 }
 
 static void paint_inventory() {
@@ -552,10 +555,6 @@ static void paint_inventory() {
 		id = (wearn)(id + 1);
 	}
 	caret.x = 219; caret.y = 159; width = 80; height = texth();
-	if(player->isdead())
-		warning(getnm("Dead"), AlignCenter);
-	else if(player->isdisabled())
-		warning(getnm("Disabled"), AlignCenter);
 	paint_states();
 	font = push_font;
 	fore = push_fore;

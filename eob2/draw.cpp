@@ -19,9 +19,9 @@ using namespace draw;
 
 // Default theme colors
 color				colors::active;
-color				colors::button;
-color				colors::form;
-color				colors::window;
+//color				colors::button;
+//color				colors::form;
+//color				colors::window;
 color				colors::text;
 color				colors::border;
 color				colors::h1;
@@ -2351,20 +2351,6 @@ void draw::cbsetptr() {
 	*p = (void*)hot.param;
 }
 
-void draw::fillform() {
-	auto push_fore = fore;
-	fore = colors::form;
-	rectf();
-	fore = push_fore;
-}
-
-void draw::fillwindow() {
-	auto push_fore = fore;
-	fore = colors::window;
-	rectf();
-	fore = push_fore;
-}
-
 void draw::strokeout(fnevent proc, int dx) {
 	rectpush push;
 	if(!dx)
@@ -2473,21 +2459,6 @@ void draw::fire(bool run, fnevent proc, long value, long value2, const void* obj
 		return;
 	if(run)
 		execute(proc, value, value2, object);
-}
-
-void draw::dropshadow() {
-	int size = 4;
-	rectpush push;
-	auto push_fore = fore;
-	auto push_alpha = alpha;
-	fore = colors::form;
-	alpha = 32;
-	setpos(push.caret.x + push.width + 1, push.caret.y + size, size, push.height);
-	rectf();
-	setpos(push.caret.x + size, push.caret.y + push.height + 1, push.width - size, size);
-	rectf();
-	alpha = push_alpha;
-	fore = push_fore;
 }
 
 void draw::set(int x, int y) {

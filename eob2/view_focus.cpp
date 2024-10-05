@@ -125,7 +125,7 @@ static renderi* next_focus(void* ev, int key) {
 	}
 }
 
-static void apply_focus(int key) {
+void apply_focus(int key) {
 	auto p = next_focus(current_focus, key);
 	if(!p)
 		return;

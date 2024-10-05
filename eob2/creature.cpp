@@ -328,3 +328,9 @@ void creaturei::additem(item& it) {
 	if(it)
 		wearable::additem(it);
 }
+
+dice creaturei::getdamage(wearn id) const {
+	dice result = wears[id].geti().damage;
+	result.b += player->get(DamageMelee);
+	return result;
+}

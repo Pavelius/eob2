@@ -162,6 +162,9 @@
     <ClCompile Include="list.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="draw_text.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -351,6 +354,12 @@
     </Text>
     <Text Include="..\rules\Spells.txt">
       <Filter>rules</Filter>
+    </Text>
+    <Text Include="..\locale\en\Races.txt">
+      <Filter>locale</Filter>
+    </Text>
+    <Text Include="..\locale\en\UnknownNames.txt">
+      <Filter>locale</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

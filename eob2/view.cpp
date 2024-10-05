@@ -1,8 +1,10 @@
 #include "answers.h"
 #include "creature.h"
+#include "class.h"
 #include "direction.h"
 #include "draw.h"
 #include "picture.h"
+#include "race.h"
 #include "resid.h"
 #include "timer.h"
 #include "unit.h"
@@ -12,59 +14,17 @@ using namespace draw;
 
 struct pushscene : pushfocus {
 };
-namespace {
-struct fxt {
-	short int filesize; // the size of the file
-	short int charoffset[128]; // the offset of the pixel data from the beginning of the file, the index is the ascii value
-	unsigned char height; // the height of a character in pixel
-	unsigned char width; // the width of a character in pixel
-	unsigned char data[1]; // the pixel data, one byte per line 
-};
-}
 namespace colors {
 static color main(108, 108, 136);
+static color info(64, 64, 64);
 static color light(148, 148, 172);
 static color dark(52, 52, 80);
 static color hilite = main.mix(dark, 160);
 static color focus(250, 100, 100);
+static color down(81, 85, 166);
 }
 
-int draw::texth() {
-	if(!font)
-		return 0;
-	return ((fxt*)font)->height;
-}
-
-int draw::textw(int sym) {
-	if(!font)
-		return 0;
-	return ((fxt*)font)->width;
-}
-
-void draw::glyph(int sym, unsigned flags) {
-	if(flags & TextBold) {
-		auto push_caret = caret;
-		auto push_fore = fore;
-		fore = colors::black;
-		caret.x += 1;
-		caret.y += 1;
-		glyph(sym, 0);
-		fore = push_fore;
-		caret = push_caret;
-	}
-	auto f = (fxt*)font;
-	int height = f->height;
-	int width = f->width;
-	for(int h = 0; h < height; h++) {
-		unsigned char line = *((unsigned char*)font + ((fxt*)font)->charoffset[sym] + h);
-		unsigned char bit = 0x80;
-		for(int w = 0; w < width; w++) {
-			if((line & bit) == bit)
-				pixel(caret.x + w, caret.y + h);
-			bit = bit >> 1;
-		}
-	}
-}
+static fnevent character_view_proc;
 
 static unsigned get_frame_tick() {
 	return getcputime() / 10;
@@ -77,6 +37,13 @@ static int get_alpha(int base, unsigned range) {
 		return base * seed / half;
 	else
 		return base * (range - seed) / half;
+}
+
+static const char* namesh(const char* id) {
+	auto p = getnme(ids(id, "Short"));
+	if(!p)
+		p = "XXX";
+	return p;
 }
 
 static void set_small_font() {
@@ -225,6 +192,25 @@ static void update_buttonparam() {
 	buttonparam();
 }
 
+static void set_player_by_focus() {
+	auto i = bsdata<creaturei>::source.indexof(current_focus);
+	if(i != -1)
+		player = bsdata<creaturei>::elements + i;
+}
+
+static void switch_page(fnevent proc) {
+	if(character_view_proc == proc)
+		character_view_proc = 0;
+	else {
+		set_player_by_focus();
+		character_view_proc = proc;
+	}
+}
+
+static void clear_page() {
+	character_view_proc = 0;
+}
+
 static int get_compass_index(directions d) {
 	switch(d) {
 	case Right: return 1; // East
@@ -285,12 +271,25 @@ static void paint_avatar() {
 	//blend_avatar(blink_colors);
 }
 
-static void textjf(const char* format, int x, int y, int text_width, unsigned flags) {
+static void greenbar(int vc, int vm) {
+	if(!vm)
+		return;
+	if(vc < 0)
+		vc = 0;
+	auto push_fore = fore;
 	rectpush push;
-	caret.x += x;
-	caret.y += y;
-	width = text_width;
-	texta(format, AlignCenter);
+	color c1 = colors::green.darken().mix(colors::red, vc * 255 / vm);
+	border_down();
+	caret.x++; caret.y++;
+	width--; height--;
+	fore = colors::down;
+	rectf();
+	if(vc) {
+		width = vc * width / vm;
+		fore = c1;
+		rectf();
+	}
+	fore = push_fore;
 }
 
 static void paint_focus_rect() {
@@ -310,6 +309,153 @@ static void paint_item(item& it, wearn id) {
 	if(!it && id == LeftHand)
 		avatar -= 1;
 	image(caret.x + width / 2, caret.y + 16 / 2, gres(ITEMS), avatar, 0);
+}
+
+static void paint_sheet_head() {
+	const point origin = {178, 0};
+	caret = origin;
+	set_small_font();
+	image(gres(INVENT), 0, 0);
+	caret.x = origin.x + 4;
+	caret.y = origin.y + 4;
+	paint_avatar();
+	caret.x = origin.x + 38;
+	caret.y = origin.y + 6;
+	width = 98; height = texth();
+	fore = colors::black;
+	texta(player->getname(), AlignCenter);
+	caret.x = origin.x + 70;
+	caret.y = origin.y + 16;
+	width = 65;
+	height = 5;
+	greenbar(player->hp, player->hpm);
+	caret.y = origin.y + 25;
+	greenbar(25, 100);
+	caret.x = origin.x + 2;
+	caret.y = origin.y + 36;
+	width = 140; height = 131;
+	fore = colors::info;
+}
+
+static void paint_blank() {
+	rectpush push;
+	auto push_fore = fore;
+	fore = color(164, 164, 184);
+	rectf();
+	fore = color(208, 208, 216);
+	caret.x = 274; caret.y = 35;
+	line(319, caret.y);
+	line(319, 166);
+	fore = color(88, 88, 116);
+	caret.x = 178;
+	line(319, caret.y);
+	fore = push_fore;
+}
+
+static void textn(const char* format) {
+	text(format);
+	caret.y += texth() + 1;
+}
+
+static void textr(const char* format) {
+	auto push_caret = caret;
+	caret.x = caret.x + width - textw(format);
+	text(format);
+	caret = push_caret;
+}
+
+static void textn(const char* format, int value, const char* value_format = 0) {
+	char temp[260]; stringbuilder sb(temp);
+	if(!value_format)
+		value_format = "%1i";
+	sb.add(value_format, value);
+	textr(temp);
+	text(format);
+	caret.y += texth() + 1;
+}
+
+static void addv(stringbuilder& sb, const dice& value) {
+	sb.add("%1i-%2i", value.minimum(), value.maximum());
+}
+
+static void textn(abilityn id) {
+	char temp[260]; stringbuilder sb(temp);
+	int value = 0;
+	switch(id) {
+	case AttackMelee:
+		sb.add("%1i", 20 - player->get(id));
+		break;
+	case DamageMelee:
+		addv(sb, player->getdamage(RightHand));
+		break;
+	case AC:
+		sb.add("%1i", 10 - player->get(id));
+		break;
+	default:
+		sb.add("%1i", player->get(id));
+		break;
+	}
+	textr(temp);
+	textn(namesh(bsdata<abilityi>::elements[id].id));
+}
+
+static void header(const char* format) {
+	auto push_fore = fore;
+	auto push_stroke = fore_stroke;
+	fore_stroke = fore;
+	fore = colors::yellow;
+	text(format, -1, TextBold);
+	caret.y += texth() * 2;
+	fore = push_fore;
+	fore_stroke = push_stroke;
+}
+
+static void paint_ability() {
+	rectpush push;
+	for(auto i = Strenght; i <= Charisma; i = (abilityn)(i + 1)) {
+		auto value = player->get(i);
+		auto name = bsdata<abilityi>::elements[i].getname();
+		if(i == Strenght && value == 18)
+			textn(name, player->get(ExeptionalStrenght), "18/%01i");
+		else
+			textn(name, value);
+	}
+}
+
+static void paint_stats() {
+	textn(AttackMelee);
+	textn(AC);
+	textn(DamageMelee);
+}
+
+static void paint_sheet() {
+	rectpush push;
+	auto push_font = font;
+	auto push_fore = fore;
+	paint_sheet_head();
+	paint_blank();
+	caret.x += 2; caret.y += 2;
+	header(getnm("Characterinfo"));
+	textn(getnm(bsdata<classi>::elements[player->type].id));
+	//text(bsdata<alignmenti>::elements[pc->getalignment()].name); y1 += draw::texth();
+	textn(getnm(bsdata<racei>::elements[player->race].id));
+	caret.y += texth();
+	width = 88;
+	paint_ability();
+	caret.x += 6 * 15 + 3;
+	width = 44;
+	paint_stats();
+	font = push_font;
+	fore = push_fore;
+}
+
+static void paint_inventory() {
+	rectpush push;
+	auto push_font = font;
+	auto push_fore = fore;
+	paint_sheet_head();
+	font = push_font;
+	fore = push_fore;
 }
 
 static void paint_disabled() {
@@ -352,8 +498,6 @@ static void paint_character() {
 static void paint_character(bool disabled) {
 	rectpush push;
 	auto push_disabled = disable_input;
-	if(disabled)
-		disable_input = true;
 	width = 65; height = 52;
 	paint_character();
 	if(disabled)
@@ -379,12 +523,19 @@ static void paint_avatars() {
 	player = push_player;
 }
 
+static void paint_party_sheets() {
+	if(character_view_proc)
+		character_view_proc();
+	else
+		paint_avatars();
+}
+
 void paint_adventure_menu() {
 	paint_background(PLAYFLD, 0);
-	paint_avatars();
-	paint_menu({0, 0}, 178, 174);
+	paint_party_sheets();
+	paint_menu({0, 0}, 177, 174);
 	caret = {6, 6};
-	width = 166;
+	width = 165;
 	height = texth() + 3;
 }
 
@@ -422,7 +573,7 @@ static void paint_sprites(resid id, point offset, int& focus, int per_line) {
 		}
 		index++;
 		caret.x += width;
-		if((--count)==0) {
+		if((--count) == 0) {
 			count = per_line;
 			caret.y += height;
 			caret.x = push_line.x;
@@ -477,6 +628,23 @@ static void debug_input() {
 #endif
 }
 
+static void character_input() {
+	switch(hot.key) {
+	case 'I': switch_page(paint_inventory); break;
+	case 'C': switch_page(paint_sheet); break;
+	}
+}
+
+static void alternate_focus_input() {
+	switch(hot.key) {
+	case 'A': apply_focus(KeyLeft); break;
+	case 'S': apply_focus(KeyRight); break;
+	case 'W': apply_focus(KeyUp); break;
+	case 'Z': apply_focus(KeyDown); break;
+	default: return;
+	}
+}
+
 void* choose_answer(const char* title, fnevent before_paint, fnanswer answer_paint, int padding) {
 	if(!show_interactive)
 		return an.random();
@@ -489,7 +657,9 @@ void* choose_answer(const char* title, fnevent before_paint, fnanswer answer_pai
 		paint_answers(answer_paint, update_buttonparam, height + padding);
 		domodal();
 		focus_input();
+		alternate_focus_input();
 		debug_input();
+		character_input();
 	}
 	return (void*)getresult();
 }

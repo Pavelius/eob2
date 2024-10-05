@@ -1,2 +1,4 @@
-﻿Error in file `rules/Items.txt`:
- Line 77: Can't find variant `LongSword`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `ACShort`
+ Define translation for `AttackMeleeShort`
+ Define translation for `DamageMeleeShort`

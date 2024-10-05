@@ -17,3 +17,7 @@ int dice::maximum() const {
 		return c;
 	return c * d + b;
 }
+
+int dice::minimum() const {
+	return c + b;
+}

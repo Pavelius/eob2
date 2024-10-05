@@ -89,7 +89,6 @@ struct sprite : pma {
 	const unsigned char* ptr(unsigned o) const { return (unsigned char*)this + o; }
 };
 namespace colors {
-extern color			button, form, window;
 extern color			border, active;
 extern color			text, h1, h2, h3, special;
 namespace tips {
@@ -180,11 +179,8 @@ void					blit(surface& dest, int x, int y, int width, int height, unsigned flags
 void					circle(int size);
 void					circlef(int size);
 void					create(int x, int y, int width, int height, unsigned flags, int bpp);
-void					dropshadow();
 void					execute(fnevent proc, long value = 0, long value2 = 0, const void* object = 0);
 void					fhexagon();
-void					fillform();
-void					fillwindow();
 int						getbpp();
 inline rect				getrect() { return {caret.x, caret.y, caret.x + width, caret.y + height}; }
 int						getheight();
@@ -234,12 +230,10 @@ void					strokeline();
 void					strokeout(fnevent proc, int dx = 0);
 void					syscursor(bool enable);
 void					text(const char* string, int count = -1, unsigned flags = 0);
-int						text(rect rc, const char* string, unsigned state = 0, int* max_width = 0);
 void					texta(const char* string, unsigned state = 0);
 void					textas(const char* string);
 void					textc(const char* string, int count = -1, unsigned flags = 0);
 int						textbc(const char* string, int width, bool* line_feed = 0);
-int						texte(rect rc, const char* string, unsigned flags, int i1, int i2);
 void					textf(const char* string);
 void					textf(const char* string, int& cashe_origin, int& cashe_string);
 void					textfs(const char* string);
@@ -248,8 +242,6 @@ int						texth(const char* string, int width);
 int						textw(int sym);
 int						textw(const char* string, int count = -1);
 int						textw(rect& rc, const char* string);
-int						textw(const sprite* font);
-void					tipspos();
 void					updatewindow();
 void					write(const char* url, unsigned char* bits, int width, int height, int bpp, int scanline, color* pallette);
 void					vertical(fnevent proc);

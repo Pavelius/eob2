@@ -1,5 +1,7 @@
 #pragma once
 
+#include "nameable.h"
+
 enum abilityn : unsigned char {
 	Strenght, Dexterity, Constitution, Intellegence, Wisdow, Charisma,
 	SaveVsParalization, SaveVsPoison, SaveVsTraps, SaveVsMagic,
@@ -15,8 +17,7 @@ enum abilityn : unsigned char {
 	ExeptionalStrenght,
 	Hits
 };
-struct abilityi {
-	const char* id;
+struct abilityi : nameable {
 	int minimal = 0;
 	int maximal = 100;
 };

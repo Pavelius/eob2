@@ -9,6 +9,7 @@ struct pushfocus {
 	~pushfocus() { current_focus = focus; }
 };
 
+void apply_focus(int key);
 void clear_focus_data();
 void focusing(const void* focus_data);
 void focus_input();

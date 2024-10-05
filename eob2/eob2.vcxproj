@@ -199,6 +199,7 @@
     <ClCompile Include="dice.cpp" />
     <ClCompile Include="direction.cpp" />
     <ClCompile Include="draw.cpp" />
+    <ClCompile Include="draw_text.cpp" />
     <ClCompile Include="feat.cpp" />
     <ClCompile Include="gender.cpp" />
     <ClCompile Include="groupname.cpp" />
@@ -238,6 +239,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\errors.txt" />
+    <Text Include="..\locale\en\Races.txt" />
+    <Text Include="..\locale\en\UnknownNames.txt" />
     <Text Include="..\names\en\Names.txt" />
     <Text Include="..\rules\Advance.txt" />
     <Text Include="..\rules\Avatars.txt" />

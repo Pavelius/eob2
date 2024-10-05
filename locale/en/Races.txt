@@ -1,0 +1,21 @@
+﻿Characterinfo: Character information
+
+Fighter: Fighter
+Cleric: Cleric
+Theif: Theif
+
+Human: Human
+Dwarf: Dwarf
+Elf: Elf
+Halfling: Halfling
+
+Charisma: Charisma
+Constitution: Constitution
+Dexterity: Dexterity
+Intellegence: Intellegence
+Strenght: Strenght
+Wisdow: Wisdow
+
+ACShort: AC
+AttackMeleeShort: Att
+DamageMeleeShort: Dam

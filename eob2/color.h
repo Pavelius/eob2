@@ -7,6 +7,7 @@ struct color {
 	constexpr color(unsigned char r, unsigned char g, unsigned char b, unsigned char a) : b(b), g(g), r(r), a(a) {}
 	constexpr bool operator==(const color& e) const { return b == e.b && g == e.g && r == e.r && a == e.a; }
 	constexpr bool operator!=(const color& e) const { return b != e.b || g != e.g || r != e.r || a != e.a; }
+	explicit operator bool() const { return *((int*)this) != 0; }
 	void	clear() { *((int*)this) = 0; }
 	color	darken() const;
 	int		find(const void* pallette, int count) const;

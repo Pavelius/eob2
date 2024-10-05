@@ -1,0 +1,34 @@
+﻿Charisma: Charisma
+Constitution: Constitution
+Dexterity: Dexterity
+Intellegence: Intellegence
+Strenght: Strenght
+Wisdow: Wisdow
+
+ACShort: AC
+AttackMeleeShort: Att
+DamageMeleeShort: Dm
+HitsShort: HP
+SpeedShort: Spd
+ReactionBonusShort: Ra
+
+ClimbWalls: Climb Walls
+CriticalDeflect: Critical deflect
+DetectSecrets: Detect Secrets
+HearNoise: Hear Noise
+LearnSpell: Learn Spells
+MoveSilently: Move Silently
+OpenLocks: Open locks
+ReadLanguages: Read Languages
+RemoveTraps: Remove traps
+ResistMagic: Resist magic
+SaveVsMagic: Save vs Magic
+SaveVsParalization: Save vs Paralize
+SaveVsPoison: Save vs Poison
+SaveVsTraps: Save vs Traps
+
+Dead: Dead
+Disabled: Disabled
+
+Characterinfo: Character Information
+CharacterSkills: Character Skills

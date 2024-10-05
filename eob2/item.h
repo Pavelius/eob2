@@ -33,5 +33,6 @@ public:
 	void			create(int value);
 	const itemi&	geti() const;
 	bool			isallow(wearn v) const;
+	const char*		getname() const;
 };
 extern item* last_item;

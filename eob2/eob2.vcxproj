@@ -145,6 +145,7 @@
     <ClInclude Include="cflags.h" />
     <ClInclude Include="class.h" />
     <ClInclude Include="color.h" />
+    <ClInclude Include="console.h" />
     <ClInclude Include="creature.h" />
     <ClInclude Include="damage.h" />
     <ClInclude Include="dice.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="avatar.cpp" />
     <ClCompile Include="bsreq.cpp" />
     <ClCompile Include="color.cpp" />
+    <ClCompile Include="console.cpp" />
     <ClCompile Include="creature.cpp" />
     <ClCompile Include="damage.cpp" />
     <ClCompile Include="dice.cpp" />
@@ -241,6 +243,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\errors.txt" />
+    <Text Include="..\locale\en\Abilities.txt" />
+    <Text Include="..\locale\en\Items.txt" />
     <Text Include="..\locale\en\Races.txt" />
     <Text Include="..\locale\en\UnknownNames.txt" />
     <Text Include="..\names\en\Names.txt" />

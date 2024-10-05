@@ -37,3 +37,7 @@ void item::create(int value) {
 	power = 0;
 	count = 0;
 }
+
+const char*	item::getname() const {
+	return geti().getname();
+}

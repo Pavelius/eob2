@@ -1,4 +1,2 @@
-﻿Error in file `rules/Items.txt`:
- Line 21: Not found requisit `dam`
- Line 21: Expected token `(`
- Line 21: Expected line feed
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `NoItem`

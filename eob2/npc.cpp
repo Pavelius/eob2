@@ -1,5 +1,6 @@
 #include "avatar.h"
 #include "bsdata.h"
+#include "console.h"
 #include "gender.h"
 #include "groupname.h"
 #include "npc.h"
@@ -28,4 +29,8 @@ void npc::say(const char* format, ...) const {
 }
 
 void npc::sayv(const char* format, const char* format_param) const {
+	consolenl();
+	console("%1 \"", getname());
+	consolev(format, format_param);
+	console("\"");
 }

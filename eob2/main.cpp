@@ -38,6 +38,7 @@ static void main_menu() {
 	join_party();
 	create_player(bsdata<racei>::find("Halfling"), Female, bsdata<classi>::find("Theif"));
 	join_party();
+	player->say("Let's kick some ass!");
 	an.clear();
 	an.add(start_game, "Begin new game");
 	an.add(exit_game, "Load saved game");

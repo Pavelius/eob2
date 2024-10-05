@@ -168,6 +168,9 @@
     <ClCompile Include="npc.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="console.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -332,6 +335,9 @@
     <ClInclude Include="npc.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="console.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -365,6 +371,12 @@
       <Filter>locale</Filter>
     </Text>
     <Text Include="..\locale\en\UnknownNames.txt">
+      <Filter>locale</Filter>
+    </Text>
+    <Text Include="..\locale\en\Abilities.txt">
+      <Filter>locale</Filter>
+    </Text>
+    <Text Include="..\locale\en\Items.txt">
       <Filter>locale</Filter>
     </Text>
   </ItemGroup>

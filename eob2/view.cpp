@@ -1,6 +1,7 @@
 #include "answers.h"
 #include "creature.h"
 #include "class.h"
+#include "console.h"
 #include "direction.h"
 #include "draw.h"
 #include "gender.h"
@@ -311,6 +312,8 @@ static void paint_focus_rect() {
 static void paint_select_rect() {
 	auto push_fore = fore;
 	fore = colors::focus;
+	if(current_select == current_focus)
+		fore = fore.mix(colors::white);
 	rectb();
 	fore = push_fore;
 }
@@ -644,9 +647,20 @@ static void paint_party_sheets() {
 		paint_avatars();
 }
 
+static void paint_console() {
+	rectpush push;
+	auto push_font = font;
+	set_small_font();
+	caret = {5, 180};
+	width = 280; height = 6 * 3;
+	texta(console_text, AlignLeft);
+	font = push_font;
+}
+
 void paint_adventure_menu() {
 	paint_background(PLAYFLD, 0);
 	paint_party_sheets();
+	paint_console();
 	paint_menu({0, 0}, 177, 174);
 	caret = {6, 6};
 	width = 165;
@@ -800,12 +814,24 @@ static void pick_up_item() {
 	}
 }
 
+static void examine_item() {
+	auto pi = (item*)current_focus;
+	auto pc = item_owner(pi);
+	if(!pc)
+		return;
+	if(!(*pi))
+		pc->say(getnm("WrongItem"));
+	else
+		pc->say(getnm("ExamineItem"), pi->getname());
+}
+
 static void character_input() {
 	switch(hot.key) {
 	case 'I': switch_page(paint_inventory); break;
 	case 'C': switch_page(paint_sheet); break;
 	case 'X': switch_page(paint_skills); break;
 	case 'P': pick_up_item(); break;
+	case 'Q': examine_item(); break;
 	case KeyEscape:
 		if(character_view_proc)
 			clear_page();

@@ -365,3 +365,11 @@ bool creaturei::roll(abilityn v, int bonus) const {
 bool creaturei::isremove(const item* pi) const {
 	return true;
 }
+
+const char* creaturei::getbadstate() const {
+	if(isdead())
+		return "Dead";
+	else if(isdisabled())
+		return "Disabled";
+	return 0;
+}

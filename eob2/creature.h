@@ -15,6 +15,7 @@ struct creaturei : npc, statable, levelable, wearable {
 	void			additem(item& it);
 	void			clear();
 	int				get(abilityn v) const { return abilities[v]; }
+	const char*		getbadstate() const;
 	int				getchance(abilityn v) const;
 	dice			getdamage(wearn id) const;
 	bool			isallow(const item& it) const;

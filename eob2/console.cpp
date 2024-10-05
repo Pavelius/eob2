@@ -35,6 +35,11 @@ void console(const char* format, ...) {
 	consolev(format, xva_start(format));
 }
 
+void consolen(const char* format, ...) {
+	consolenl();
+	consolev(format, xva_start(format));
+}
+
 void consolev(const char* format, const char* format_param) {
 	if(!format || !format[0])
 		return;

@@ -819,6 +819,10 @@ static void examine_item() {
 	auto pc = item_owner(pi);
 	if(!pc)
 		return;
+	if(pc->isdisabled()) {
+		consolen("%1 is %2", pc->getname(), getnm(pc->getbadstate()));
+		return;
+	}
 	if(!(*pi))
 		pc->say(getnm("WrongItem"));
 	else

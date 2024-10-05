@@ -153,7 +153,6 @@
     <ClInclude Include="draw.h" />
     <ClInclude Include="feat.h" />
     <ClInclude Include="gender.h" />
-    <ClInclude Include="groupname.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="logvalue.h" />
@@ -168,6 +167,7 @@
     <ClInclude Include="resid.h" />
     <ClInclude Include="script.h" />
     <ClInclude Include="seqlink.h" />
+    <ClInclude Include="speech.h" />
     <ClInclude Include="spell.h" />
     <ClInclude Include="sprite_util.h" />
     <ClInclude Include="timer.h" />
@@ -205,7 +205,6 @@
     <ClCompile Include="draw_text.cpp" />
     <ClCompile Include="feat.cpp" />
     <ClCompile Include="gender.cpp" />
-    <ClCompile Include="groupname.cpp" />
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="list.cpp" />
@@ -218,6 +217,7 @@
     <ClCompile Include="randomeffect.cpp" />
     <ClCompile Include="script.cpp" />
     <ClCompile Include="scripting.cpp" />
+    <ClCompile Include="speech.cpp" />
     <ClCompile Include="sprite_util.cpp" />
     <ClCompile Include="surface_util.cpp" />
     <ClCompile Include="variant.cpp" />

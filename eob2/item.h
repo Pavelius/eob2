@@ -21,7 +21,7 @@ class item {
 		struct {
 			unsigned char cursed : 1;
 			unsigned char identified : 1;
-			unsigned char rserved : 6;
+			unsigned char reserved : 6;
 		};
 		unsigned char flags;
 	};
@@ -33,6 +33,8 @@ public:
 	void			create(int value);
 	const itemi&	geti() const;
 	bool			isallow(wearn v) const;
+	bool			iscursed() const { return cursed != 0; }
+	bool			isidentified() const { return identified != 0; }
 	const char*		getname() const;
 };
 extern item* last_item;

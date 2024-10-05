@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `NoItem`
+﻿Error in file `names/en/Names.txt`:
+ Line 6: Expected symbol `#`, but you have string ``

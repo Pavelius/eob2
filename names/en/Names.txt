@@ -1,9 +1,11 @@
+#SetMode 1
+
 #DwarfMale
 Adrik, Baern, Baerrom, Balmur, Barendd, Beldar,	Bhalrik, Bhelnum, Bharthrun, Brottor, Dain, Darrak, Delg, Durin, Eberk, Einkil,\
 Fargrim, Flint, Granron, Gulkahm, Harbek, Hormir, Kildrak, Magmin, Morgran, Muirrig, Orsik, Oskar, Rangrim, Rurik, Rusk,\
 Taklinn, Thoradin, Thorin, Tordek, Travok, Ulfgar, Vondal
 
-#DarfFemale
+#DwarfFemale
 Amber, Artin, Audhild, Bardryn, Dagnal, Diesa, Eldeth, Falkrunn, Finellen, Gunnloda, Gurdis, Helja,\
 Hlin, Kathra, Kristryd, Ilde, Liftrasa, Mardred, Riswynn, Sannl, Torbera, Torgga, Vistra
 

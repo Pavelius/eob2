@@ -123,9 +123,6 @@
     <ClCompile Include="feat.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="groupname.cpp">
-      <Filter>support</Filter>
-    </ClCompile>
     <ClCompile Include="picture.cpp">
       <Filter>logic</Filter>
     </ClCompile>
@@ -170,6 +167,9 @@
     </ClCompile>
     <ClCompile Include="console.cpp">
       <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="speech.cpp">
+      <Filter>support</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -299,9 +299,6 @@
     <ClInclude Include="item.h">
       <Filter>logic</Filter>
     </ClInclude>
-    <ClInclude Include="groupname.h">
-      <Filter>support</Filter>
-    </ClInclude>
     <ClInclude Include="picture.h">
       <Filter>logic</Filter>
     </ClInclude>
@@ -337,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="console.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="speech.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

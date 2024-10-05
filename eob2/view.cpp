@@ -277,8 +277,8 @@ static void paint_avatar() {
 		image(gres(PORTM), 0, 0);
 	else
 		image(gres(PORTM), player->avatar, 0);
-	//static color blink_colors[] = {colors::green, colors::red, colors::blue, colors::form};
-	//blend_avatar(blink_colors);
+	// static color blink_colors[] = {colors::green, colors::red, colors::blue, colors::form};
+	// blend_avatar(blink_colors);
 }
 
 static void greenbar(int vc, int vm) {

@@ -41,3 +41,6 @@ SaveVsMagic: Save vs Magic
 SaveVsParalization: Save vs Paralize
 SaveVsPoison: Save vs Poison
 SaveVsTraps: Save vs Traps
+
+Dead: Dead
+Disabled: Disabled

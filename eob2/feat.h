@@ -8,7 +8,7 @@ enum featn : unsigned char {
 	BonusVsElfWeapon, BonusAttackVsGoblinoid, BonusDamageVsEnemy, BonusACVsLargeEnemy, BonusHP,
 	UseMetal, UseLeather, UseShield,
 	UseMartial, UseElvish, UseRogish, TwoHanded,
-	Ambidextrity, Small, Large, Undead,
+	Ambidextrity, Small, Large, Undead, Paralized,
 	ResistBludgeon, ResistSlashing, ResistPierce, ResistFire, ResistCold, ResistCharm, ResistSpells,
 	ImmuneNormalWeapon, ImmuneFire, ImmuneCold, ImmuneCharm, ImmuneSpells, ImmuneDisease,
 	Enemy, Ally, Group, You,

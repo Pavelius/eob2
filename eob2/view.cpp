@@ -23,6 +23,7 @@ static color dark(52, 52, 80);
 static color hilite = main.mix(dark, 160);
 static color focus(250, 100, 100);
 static color down(81, 85, 166);
+static color form(164, 164, 186);
 }
 
 static fnevent character_view_proc;
@@ -38,6 +39,11 @@ static int get_alpha(int base, unsigned range) {
 		return base * seed / half;
 	else
 		return base * (range - seed) / half;
+}
+
+static bool is_cursor_visible(unsigned range) {
+	auto seed = get_frame_tick() % range;
+	return seed >= (range / 3);
 }
 
 static const char* namesh(const char* id) {
@@ -347,7 +353,7 @@ static void paint_sheet_head() {
 static void paint_blank() {
 	auto push_caret = caret;
 	auto push_fore = fore;
-	fore = color(164, 164, 184);
+	fore = colors::form;
 	rectf();
 	fore = color(208, 208, 216);
 	caret.x = 274; caret.y = 35;
@@ -487,6 +493,17 @@ static void paint_skills() {
 	fore = push_fore;
 }
 
+static void warning(const char* format, unsigned flags) {
+	auto push_fore = fore;
+	fore = colors::text.mix(colors::red);
+	texta(format, flags);
+	fore = push_fore;
+}
+
+static void paint_states() {
+
+}
+
 static void paint_inventory() {
 	const int dx = 18;
 	static point points[] = {
@@ -534,6 +551,12 @@ static void paint_inventory() {
 			paint_item(player->wears[id], id);
 		id = (wearn)(id + 1);
 	}
+	caret.x = 219; caret.y = 159; width = 80; height = texth();
+	if(player->isdead())
+		warning(getnm("Dead"), AlignCenter);
+	else if(player->isdisabled())
+		warning(getnm("Disabled"), AlignCenter);
+	paint_states();
 	font = push_font;
 	fore = push_fore;
 }

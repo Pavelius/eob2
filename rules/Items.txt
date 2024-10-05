@@ -36,18 +36,24 @@ Bow harm(Piercing) speed(8) damage(1 6) ammo(Arrow) avatar(10) wear(RightHand)
  feats TwoHanded UseRogish
 Sling speed(6) damage(1 4) ammo(Stone) avatar(18) wear(RightHand)
 
-Robe avatar(32)
-LeatherArmor avatar(31)
+Robe avatar(32) wear(Body)
+LeatherArmor avatar(31) wear(Body)
+ feats UseLeather
  wearing AC+2
-StuddedLeatherArmor avatar(31)
+StuddedLeatherArmor avatar(31) wear(Body)
+ feats UseLeather
  wearing AC+3
-ScaleMail avatar(30)
+ScaleMail avatar(30) wear(Body)
+ feats UseMetal
  wearing AC+4
-ChainMail avatar(29)
+ChainMail avatar(29) wear(Body)
+ feats UseMetal
  wearing AC+5
-BandedMail avatar(28)
+BandedMail avatar(28) wear(Body)
+ feats UseMetal
  wearing AC+6
-PlateMail avatar(26)
+PlateMail avatar(26) wear(Body)
+ feats UseMetal
  wearing AC+8
 
 Helm avatar(20)

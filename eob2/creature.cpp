@@ -148,6 +148,17 @@ static void update_bonus_saves() {
 }
 
 static void update_wear() {
+	auto push_modifier = modifier;
+	modifier = Standart;
+	for(auto& e : player->equipment()) {
+		if(!e)
+			continue;
+		auto& ei = e.geti();
+		if(!ei.wearing)
+			continue;
+		script_run(ei.wearing);
+	}
+	modifier = push_modifier;
 }
 
 static void update_duration() {
@@ -312,16 +323,16 @@ const char*	creaturei::getname() const {
 }
 
 bool creaturei::isallow(const item& it) const {
-	// One of this
-	const unsigned m0 = FG(UseMartial) | FG(UseElvish) | FG(UseRogish);
 	auto item_feats = it.geti().feats[0];
 	auto player_feats = feats[0];
+	// One of this
+	const unsigned m0 = FG(UseMartial) | FG(UseElvish) | FG(UseRogish);
 	if(((item_feats & m0) & (player_feats & m0)) == 0)
 		return false;
 	// All of this
 	const unsigned m1 = FG(UseMetal) | FG(UseLeather) | FG(UseShield);
-	auto v1 = it.geti().feats[0] & m1;
-	if(((feats[0] & m1) & v1) != v1)
+	auto v1 = item_feats & m1;
+	if((v1 & (player_feats & m1)) != v1)
 		return false;
 	return true;
 }
@@ -337,4 +348,22 @@ dice creaturei::getdamage(wearn id) const {
 	dice result = wears[id].geti().damage;
 	result.b += player->get(DamageMelee);
 	return result;
+}
+
+int	creaturei::getchance(abilityn v) const {
+	if(v >= Strenght && v <= Charisma)
+		return abilities[v] * 5;
+	else if(v >= SaveVsParalization && v <= DamageRange)
+		return abilities[v];
+	return 0;
+}
+
+bool creaturei::roll(abilityn v, int bonus) const {
+	auto chance = getchance(v);
+	if(chance <= 0)
+		return false;
+	chance += bonus;
+	if(chance >= 100)
+		chance = 95;
+	return d100() < chance;
 }

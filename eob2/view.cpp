@@ -300,16 +300,22 @@ static void paint_focus_rect() {
 	fore = push_fore;
 }
 
-static void paint_item(item& it, wearn id) {
+static void paint_item(item& it, wearn id, int emphty_avatar = -1) {
 	rectpush push;
-	height = 16;
 	focusing(&it);
 	if(current_focus == &it)
 		paint_focus_rect();
 	auto avatar = it.geti().avatar;
-	if(!it && id == LeftHand)
-		avatar -= 1;
-	image(caret.x + width / 2, caret.y + 16 / 2, gres(ITEMS), avatar, 0);
+	if(!it)
+		avatar = emphty_avatar;
+	if(avatar != -1)
+		image(caret.x + width / 2, caret.y + height / 2, gres(ITEMS), avatar, 0);
+}
+
+static void paint_ring(item& it, wearn id) {
+	rectpush push;
+	width = height = 10;
+	paint_item(it, id);
 }
 
 static void paint_sheet_head() {
@@ -482,10 +488,52 @@ static void paint_skills() {
 }
 
 static void paint_inventory() {
+	const int dx = 18;
+	static point points[] = {
+		{2 + 0 * dx, 39 + 0 * dx},
+		{2 + 1 * dx, 39 + 0 * dx},
+		{2 + 0 * dx, 39 + 1 * dx},
+		{2 + 1 * dx, 39 + 1 * dx},
+		{2 + 0 * dx, 39 + 2 * dx},
+		{2 + 1 * dx, 39 + 2 * dx},
+		{2 + 0 * dx, 39 + 3 * dx},
+		{2 + 1 * dx, 39 + 3 * dx},
+		{2 + 0 * dx, 39 + 4 * dx},
+		{2 + 1 * dx, 39 + 4 * dx},
+		{2 + 0 * dx, 39 + 5 * dx},
+		{2 + 1 * dx, 39 + 5 * dx},
+		{2 + 0 * dx, 39 + 6 * dx},
+		{2 + 1 * dx, 39 + 6 * dx},
+		{119, 54}, // Head
+		{108, 74}, // Neck
+		{45, 75}, // Body
+		{60 - 9, 124 - 9}, // RightHand
+		{108 - 9, 124 - 9}, // LeftHand
+		{54 - 5, 140 - 5}, // RightRing
+		{66 - 5, 140 - 5}, // LeftRing
+		{55 - 9, 104 - 9}, // Elbow
+		{107 - 9, 145 - 9}, // Legs
+		{55 - 9, 64 - 9}, // Quiver
+		{130 - 9, 102 - 9}, // FirstBell
+		{130 - 9, 120 - 9}, // SecondBelt
+		{130 - 9, 138 - 9}, // LastBell
+	};
 	rectpush push;
 	auto push_font = font;
 	auto push_fore = fore;
 	paint_sheet_head();
+	wearn id = (wearn)0;
+	width = dx;
+	height = dx;
+	for(auto pt : points) {
+		caret = pt;
+		caret.x += 178;
+		if(id == LeftRing || id == RightRing)
+			paint_ring(player->wears[id], id);
+		else
+			paint_item(player->wears[id], id);
+		id = (wearn)(id + 1);
+	}
 	font = push_font;
 	fore = push_fore;
 }
@@ -510,11 +558,12 @@ static void paint_character() {
 	width = 65;
 	texta(player->getname(), AlignCenter);
 	width = 31;
+	height = 16;
 	caret.x = push.caret.x + 33;
 	caret.y = push.caret.y + 10;
-	paint_item(player->wears[RightHand], RightHand);
+	paint_item(player->wears[RightHand], RightHand, 84);
 	caret.y = push.caret.y + 26;
-	paint_item(player->wears[LeftHand], LeftHand);
+	paint_item(player->wears[LeftHand], LeftHand, 83);
 	caret.x = push.caret.x + 2;
 	caret.y = push.caret.y + 10;
 	width = 31;

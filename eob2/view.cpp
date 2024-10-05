@@ -75,7 +75,9 @@ static void paint_background(resid v, int frame) {
 }
 
 static void paint_picture() {
-	draw::image(gres(picture.id), picture.frame, 0);
+	image(gres(BORDER), 0, 0);
+	if(picture)
+		image(8, 8, gres(picture.id), picture.frame, 0);
 }
 
 static void button_back(bool focused) {
@@ -208,17 +210,28 @@ static void set_player_by_focus() {
 		player = bsdata<creaturei>::elements + i;
 }
 
-static void switch_page(fnevent proc) {
-	if(character_view_proc == proc)
-		character_view_proc = 0;
-	else {
-		set_player_by_focus();
-		character_view_proc = proc;
+static void focus_player() {
+	if(player) {
+		if(current_focus == player->wears + RightHand)
+			return;
+		if(current_focus == player->wears + LeftHand)
+			return;
+		current_focus = player->wears + RightHand;
 	}
 }
 
 static void clear_page() {
 	character_view_proc = 0;
+	focus_player();
+}
+
+static void switch_page(fnevent proc) {
+	if(character_view_proc == proc)
+		clear_page();
+	else {
+		set_player_by_focus();
+		character_view_proc = proc;
+	}
 }
 
 static int get_compass_index(directions d) {
@@ -482,8 +495,8 @@ static void paint_sheet() {
 	caret.y += texth();
 	width = 88;
 	paint_ability();
-	caret.x += 6 * 15 + 3;
-	width = 44;
+	caret.x += 6 * 16;
+	width = 40;
 	paint_stats();
 	font = push_font;
 	fore = push_fore;
@@ -496,7 +509,7 @@ static void paint_skills() {
 	paint_sheet_head();
 	paint_blank();
 	header(getnm("CharacterSkills"));
-	width = 134;
+	width = 136;
 	for(auto i = (abilityn)SaveVsParalization; i <= DetectSecrets; i = (abilityn)(i + 1)) {
 		auto value = player->get(i);
 		if(value <= 0)
@@ -515,10 +528,9 @@ static void warning(const char* format, unsigned flags) {
 }
 
 static void paint_states() {
-	if(player->isdead())
-		warning(getnm("Dead"), AlignCenter);
-	else if(player->isdisabled())
-		warning(getnm("Disabled"), AlignCenter);
+	auto pn = player->getbadstate();
+	if(pn)
+		warning(getnm(pn), AlignCenter);
 }
 
 static void paint_inventory() {
@@ -665,6 +677,13 @@ void paint_adventure_menu() {
 	caret = {6, 6};
 	width = 165;
 	height = texth() + 3;
+}
+
+void paint_city() {
+	paint_background(PLAYFLD, 0);
+	paint_picture();
+	paint_party_sheets();
+	paint_console();
 }
 
 void paint_main_menu() {
@@ -829,8 +848,22 @@ static void examine_item() {
 		pc->say(getnm("ExamineItem"), pi->getname());
 }
 
+static void choose_character(int index) {
+	auto p = party.units[index];
+	if(p) {
+		player = p;
+		if(((creaturei*)current_focus) >= player && ((creaturei*)current_focus) < (player + 1))
+			return;
+		focus_player();
+	}
+}
+
 static void character_input() {
 	switch(hot.key) {
+	case '1': case '2': case '3':
+	case '4': case '5': case '6':
+		choose_character(hot.key - '1');
+		break;
 	case 'I': switch_page(paint_inventory); break;
 	case 'C': switch_page(paint_sheet); break;
 	case 'X': switch_page(paint_skills); break;
@@ -870,6 +903,20 @@ void* choose_answer(const char* title, fnevent before_paint, fnanswer answer_pai
 		character_input();
 	}
 	return (void*)getresult();
+}
+
+void city_scene(fnevent before_paint) {
+	rectpush push;
+	pushscene push_scene;
+	while(ismodal()) {
+		if(before_paint)
+			before_paint();
+		domodal();
+		focus_input();
+		alternate_focus_input();
+		debug_input();
+		character_input();
+	}
 }
 
 static void main_beforemodal() {

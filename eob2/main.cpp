@@ -6,6 +6,7 @@
 #include "gender.h"
 #include "speech.h"
 #include "log.h"
+#include "picture.h"
 #include "rand.h"
 #include "resid.h"
 #include "timer.h"
@@ -42,7 +43,10 @@ static void main_menu() {
 	an.clear();
 	an.add(start_game, "Begin new game");
 	an.add(exit_game, "Load saved game");
-	auto p = choose_answer("Game options:", paint_adventure_menu, button_label, 2);
+	picture.id = BUILDNGS;
+	picture.frame = 26;
+	city_scene(paint_city);
+	//auto p = choose_answer("Game options:", paint_adventure_menu, button_label, 2);
 	//auto p = choose_answer(0, paint_main_menu, text_label, 1);
 }
 

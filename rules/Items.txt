@@ -2,8 +2,8 @@
 
 NoItem damage(1 2) avatar(84)
 
-Arrow avatar(16)
-Stone avatar(19)
+Arrow avatar(16) wear(Quiver)
+Stone avatar(19) wear(Quiver)
 Dart avatar(14)
 
 BattleAxe speed(7) damage(1 8) avatar(3) wear(RightHand)
@@ -31,9 +31,9 @@ Longsword speed(5) damage(1 8) avatar(1) wear(RightHand)
 ShortSword speed(4) damage(1 6) avatar(2) wear(RightHand)
  feats UseRogish UseElvish UseMartial
 TwoHandedSword speed(10) damage(1 10) damage_large(3 18) avatar(42) wear(RightHand)
- feats TwoHanded UseMartial
+ feats UseMartial TwoHanded
 Bow speed(8) damage(1 6) ammo(Arrow) avatar(10) wear(RightHand)
- feats TwoHanded UseRogish
+ feats UseMartial UseRogish TwoHanded
 Sling speed(6) damage(1 4) ammo(Stone) avatar(18) wear(RightHand)
 
 Robe avatar(32) wear(Body)
@@ -57,10 +57,19 @@ PlateMail avatar(26) wear(Body)
  wearing AC+8 CriticalDeflect+20
 
 Helm avatar(20) wear(Head)
+ feats UseShield
  wearing CriticalDeflect+20
+DwarvenHelm avatar(73) wear(Head)
+ feats UseShield
+ wearing CriticalDeflect+20 SaveVsMagic+5
 Shield avatar(23) wear(LeftHand)
+ feats UseShield
  wearing AC+1 CriticalDeflect+10
+DwarvenShield avatar(23) wear(LeftHand)
+ feats UseShield
+ wearing AC+1 CriticalDeflect+20
 Boots avatar(21) wear(Legs)
+ wearing CriticalDeflect+10
 
 RedRing avatar(55) wear(RightRing)
 GreenRing avatar(79) wear(RightRing)
@@ -82,7 +91,7 @@ MagicMap avatar(86)
 DwarfFighter
  elements BattleAxe LeatherArmor Shield Helm
 DwarfCleric
- elements Mace LeatherArmor Shield Helm
+ elements Mace LeatherArmor Shield DwarvenHelm
 HalflingTheif
  elements ShortSword RedRing
 Fighter

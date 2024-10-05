@@ -1,4 +1,5 @@
-﻿Helm: Helm
+﻿DwarvenHelm: Dwarven helm
+Helm: Helm
 LeatherArmor: Leather armor
 Longsword: Longsword
 Mace: Mace

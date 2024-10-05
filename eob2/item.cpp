@@ -25,6 +25,8 @@ bool item::isallow(wearn v) const {
 		return n == LeftHand
 			|| n == RightHand;
 	default:
+		if(v>=Backpack && v<=LastBackpack)
+			return true;
 		return n == v;
 	}
 }

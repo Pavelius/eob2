@@ -4,6 +4,7 @@
 #include "direction.h"
 #include "draw.h"
 #include "gender.h"
+#include "math.h"
 #include "picture.h"
 #include "race.h"
 #include "resid.h"
@@ -27,6 +28,7 @@ static color form(164, 164, 186);
 }
 
 static fnevent character_view_proc;
+static void* current_select;
 
 static unsigned get_frame_tick() {
 	return getcputime() / 10;
@@ -306,10 +308,19 @@ static void paint_focus_rect() {
 	fore = push_fore;
 }
 
+static void paint_select_rect() {
+	auto push_fore = fore;
+	fore = colors::focus;
+	rectb();
+	fore = push_fore;
+}
+
 static void paint_item(item& it, wearn id, int emphty_avatar = -1) {
 	rectpush push;
 	focusing(&it);
-	if(current_focus == &it)
+	if(current_select == &it)
+		paint_select_rect();
+	else if(current_focus == &it)
 		paint_focus_rect();
 	auto avatar = it.geti().avatar;
 	if(!it)
@@ -731,11 +742,70 @@ static void debug_input() {
 #endif
 }
 
+static bool can_place(const creaturei* player, wearn id, item* pi) {
+	if(id >= Head && id <= Quiver) {
+		if(*pi && !pi->isallow(id))
+			return false;
+		if(player->wears[id] && !player->isremove(player->wears + id))
+			return false;
+		if(!player->isallow(*pi))
+			return false;
+	}
+	return true;
+}
+
+static void update_player(creaturei* p1) {
+	auto push_player = player;
+	player = p1; update_player();
+	player = push_player;
+}
+
+static bool can_remove(item* pi) {
+	auto player = item_owner(pi);
+	if(!player)
+		return true;
+	auto w = item_wear(pi);
+	if(w >= Head && w <= Quiver) {
+		// TODO: check if cursed
+	}
+	return true;
+}
+
+static void pick_up_item() {
+	if(!current_select) {
+		if(!current_focus)
+			return;
+		if(*((int*)current_focus) == 0)
+			return;
+		current_select = current_focus;
+	} else {
+		auto p1 = (item*)current_select;
+		auto p2 = (item*)current_focus;
+		current_select = 0;
+		auto c1 = item_owner(p1);
+		if(!c1)
+			return;
+		auto c2 = item_owner(p2);
+		if(!c2)
+			return;
+		auto w1 = item_wear(p1);
+		auto w2 = item_wear(p2);
+		if(!can_place(c1, w1, p2))
+			return;
+		if(!can_place(c2, w2, p1))
+			return;
+		iswap(*p1, *p2);
+		update_player(c1);
+		update_player(c2);
+	}
+}
+
 static void character_input() {
 	switch(hot.key) {
 	case 'I': switch_page(paint_inventory); break;
 	case 'C': switch_page(paint_sheet); break;
 	case 'X': switch_page(paint_skills); break;
+	case 'P': pick_up_item(); break;
 	case KeyEscape:
 		if(character_view_proc)
 			clear_page();

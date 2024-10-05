@@ -95,3 +95,9 @@ Paladin+5 SaveThrow
  elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
 Paladin+7 SaveThrow
  elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
+
+Theif+1 AllowedEquipment
+ elements UseLeather UseRogish
+
+Cleric+1 AllowedEquipment
+ elements UseMetal UseLeather UseShield UsePriest

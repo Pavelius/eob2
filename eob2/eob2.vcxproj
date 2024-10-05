@@ -158,6 +158,7 @@
     <ClInclude Include="logvalue.h" />
     <ClInclude Include="modifier.h" />
     <ClInclude Include="my_initialize_list.h" />
+    <ClInclude Include="npc.h" />
     <ClInclude Include="picture.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="race.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="main_util.cpp" />
     <ClCompile Include="metadata.cpp" />
     <ClCompile Include="modifier.cpp" />
+    <ClCompile Include="npc.cpp" />
     <ClCompile Include="picture.cpp" />
     <ClCompile Include="randomeffect.cpp" />
     <ClCompile Include="script.cpp" />

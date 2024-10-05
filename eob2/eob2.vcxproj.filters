@@ -165,6 +165,9 @@
     <ClCompile Include="draw_text.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="npc.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -324,6 +327,9 @@
       <Filter>util</Filter>
     </ClInclude>
     <ClInclude Include="list.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="npc.h">
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>

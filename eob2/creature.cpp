@@ -4,7 +4,6 @@
 #include "class.h"
 #include "creature.h"
 #include "gender.h"
-#include "groupname.h"
 #include "list.h"
 #include "math.h"
 #include "modifier.h"
@@ -239,23 +238,6 @@ static size_t party_avatars(unsigned char* result) {
 	return ps - result;
 }
 
-static void generate_avatar() {
-	unsigned char exclude[6];
-	auto size = party_avatars(exclude);
-	player->avatar = get_avatar(player->race, player->gender, player->type, exclude, size);
-}
-
-static void generate_name() {
-	auto pr = bsdata<racei>::elements + player->race;
-	auto pg = bsdata<genderi>::elements + player->gender;
-	unsigned short name = 0xFFFF;
-	if(name == 0xFFFF)
-		name = random_group_namei(ids(pr->id, pg->id));
-	if(name == 0xFFFF && szstart(pr->id, "Half"))
-		name = random_group_namei(ids(pr->id + 4, pg->id));
-	player->name = name;
-}
-
 static void advance_level(variant id, int level) {
 	id.counter = level;
 	auto push_modifier = modifier;
@@ -292,7 +274,7 @@ static void set_starting_equipment() {
 	auto pr = bsdata<racei>::elements + player->race;
 	auto p = bsdata<listi>::find(str("%1%2", pr->id, pc->id));
 	if(!p)
-		p = bsdata<listi>::find(pr->id);
+		p = bsdata<listi>::find(pc->id);
 	if(p)
 		script_run(p->elements);
 }
@@ -302,32 +284,44 @@ void create_player(const racei* pr, gendern gender, const classi* pc) {
 		return;
 	player = bsdata<creaturei>::add();
 	player->clear();
-	player->race = (racen)bsdata<racei>::source.indexof(pr);
+	player->race = bsdata<racei>::source.indexof(pr);
 	player->gender = gender;
 	player->type = bsdata<classi>::source.indexof(pc);
 	generate_abilities();
 	set_race_ability();
 	set_class_ability();
-	generate_name();
-	player->avatar = get_avatar(player->race, gender, player->type);
+	player->name = generate_name(player->race, player->gender);
+	player->avatar = generate_avatar(player->race, gender, player->type);
 	update_player();
 	set_starting_equipment();
 	update_player();
 	player->hp = player->hpm;
 }
 
-const char*	creaturei::getname() const {
-	if(name == 0xFFFF)
-		return "Noname";
-	return get_group_name(name);
+creaturei* item_owner(void* p) {
+	auto i = bsdata<creaturei>::source.indexof(p);
+	if(i == -1)
+		return 0;
+	return (creaturei*)bsdata<creaturei>::elements + i;
+}
+
+wearn item_wear(void* p) {
+	auto i = bsdata<creaturei>::source.indexof(p);
+	if(i != -1) {
+		auto pi = (creaturei*)bsdata<creaturei>::elements + i;
+		if(p >= pi->wears && p <= pi->wears + LastBelt)
+			return (wearn)((item*)p - pi->wears);
+	}
+	return Backpack;
 }
 
 bool creaturei::isallow(const item& it) const {
 	auto item_feats = it.geti().feats[0];
 	auto player_feats = feats[0];
 	// One of this
-	const unsigned m0 = FG(UseMartial) | FG(UseElvish) | FG(UseRogish);
-	if(((item_feats & m0) & (player_feats & m0)) == 0)
+	const unsigned m0 = FG(UseMartial) | FG(UseElvish) | FG(UseRogish) | FG(UsePriest) | FG(UseMage);
+	auto v0 = item_feats & m0;
+	if(v0 && (v0 & (player_feats & m0)) == 0)
 		return false;
 	// All of this
 	const unsigned m1 = FG(UseMetal) | FG(UseLeather) | FG(UseShield);
@@ -366,4 +360,8 @@ bool creaturei::roll(abilityn v, int bonus) const {
 	if(chance >= 100)
 		chance = 95;
 	return d100() < chance;
+}
+
+bool creaturei::isremove(const item* pi) const {
+	return true;
 }

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "damage.h"
 #include "dice.h"
 #include "feat.h"
 #include "nameable.h"
@@ -9,7 +8,6 @@
 enum wearn : unsigned char;
 
 struct itemi : nameable, featable {
-	damagen		harm;
 	char		attack, number_attacks, speed;
 	dice		damage, damage_large;
 	itemi*		ammo;

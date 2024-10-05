@@ -82,8 +82,6 @@ static renderi* next_focus(void* ev, int key) {
 	auto pe = pc;
 	auto pl = getlast();
 	int inc = 1;
-	//if(key == KeyLeft || key == KeyUp)
-	//	inc = -1;
 	renderi* r1 = 0;
 	auto p1 = pe->pt;
 	while(true) {
@@ -104,6 +102,8 @@ static renderi* next_focus(void* ev, int key) {
 		case KeyLeft:
 			if(p2.x >= p1.x)
 				continue;
+			if(is_vert(p1, p2))
+				continue;
 			if(r1) {
 				if(dy > iabs(p1.y - r1->pt.y))
 					continue;
@@ -113,6 +113,8 @@ static renderi* next_focus(void* ev, int key) {
 			break;
 		case KeyRight:
 			if(p2.x <= p1.x)
+				continue;
+			if(is_vert(p1, p2))
 				continue;
 			if(r1) {
 				if(dy > iabs(p1.y - r1->pt.y))

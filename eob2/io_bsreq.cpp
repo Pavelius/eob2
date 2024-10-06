@@ -354,10 +354,20 @@ static void read_slice(void* object, const bsreq* req, int level) {
 
 static void read_array(void* object, const bsreq* req) {
 	auto index = 0;
-	while(allowparse && isvalue()) {
-		valuei v;
-		read_value(v, req);
-		write_value(object, req, index++, v);
+	if(req->count == 1 && req->subtype == KindScalar) {
+		auto pv = req->ptr(object);
+		while(allowparse && isvalue()) {
+			valuei v;
+			read_value(v, req->type + index);
+			write_value(pv, req->type + index, 0, v);
+			index++;
+		}
+	} else {
+		while(allowparse && isvalue()) {
+			valuei v;
+			read_value(v, req);
+			write_value(object, req, index++, v);
+		}
 	}
 }
 

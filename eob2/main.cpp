@@ -10,7 +10,7 @@
 #include "rand.h"
 #include "resid.h"
 #include "timer.h"
-#include "unit.h"
+#include "party.h"
 #include "view.h"
 #include "view_focus.h"
 
@@ -47,6 +47,8 @@ static void city_input() {
 
 static void main_menu() {
 	pushanswer push;
+	add_party(StartYear, 1322);
+	add_party(GoldPiece, 150);
 	create_player(bsdata<racei>::find("Human"), Male, bsdata<classi>::find("Fighter"));
 	player->basic.abilities[Constitution] = 18;
 	player->abilities[PoisonLevel] += 4;

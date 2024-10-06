@@ -10,7 +10,7 @@
 #include "race.h"
 #include "resid.h"
 #include "timer.h"
-#include "unit.h"
+#include "party.h"
 #include "view_focus.h"
 
 using namespace draw;
@@ -30,6 +30,10 @@ static color form(164, 164, 186);
 
 static fnevent character_view_proc;
 static void* current_select;
+
+template<typename T> const char* gtn(int v) {
+	return bsdata<T>::elements[v].getname();
+}
 
 static unsigned get_frame_tick() {
 	return getcputime() / 10;
@@ -673,6 +677,44 @@ static void paint_party_sheets() {
 		paint_avatars();
 }
 
+static void field(const char* header, int title_width, int total, int value, int maximum) {
+	auto push_width = width;
+	auto push_height = height;
+	auto push_caret = caret;
+	text(header);
+	caret.x += title_width;
+	width = total - title_width;
+	height = 5;
+	greenbar(value, maximum);
+	width = push_width;
+	height = push_height;
+	caret = push_caret;
+	caret.y += texth() + 1;
+}
+
+void paint_party_status() {
+	auto push_caret = caret;
+	auto push_font = font;
+	set_small_font();
+	paint_menu({0, 122}, 178, 52);
+	caret.x = 8; caret.y = 126;
+	//if(last_name) {
+	//	paint_header(last_name, 178);
+	//	caret.y += texth() + 2;
+	//}
+	if(is_dead_line()) {
+		auto v = getparty(Minutes);
+		auto v1 = getparty(StartDeadLine);
+		auto v2 = getparty(StopDeadLine);
+		if(v1 < v && v < v2)
+			field(getnm("Time"), 64, 160, v2 - v, v2 - v1);
+	}
+	field(gtn<partystati>(Reputation), 64, 160, getparty(Reputation), 100);
+	field(gtn<partystati>(Blessing), 64, 160, getparty(Blessing), 100);
+	font = push_font;
+	caret = push_caret;
+}
+
 static void paint_console() {
 	rectpush push;
 	auto push_font = font;
@@ -687,7 +729,8 @@ void paint_city_menu() {
 	paint_background(PLAYFLD, 0);
 	paint_avatars_no_focus();
 	paint_console();
-	paint_menu({0, 0}, 177, 120);
+	paint_party_status();
+	paint_menu({0, 0}, 178, 120);
 	caret = {6, 6};
 	width = 165;
 	height = texth() + 3;
@@ -696,6 +739,7 @@ void paint_city_menu() {
 void paint_city() {
 	paint_background(PLAYFLD, 0);
 	paint_picture();
+	paint_party_status();
 	paint_party_sheets();
 	paint_console();
 }

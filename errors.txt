@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Poisoned`
+﻿Error in file `rules/Locations.txt`:
+ Line 8: Invalid source array where read identifier `BUILDNGS`

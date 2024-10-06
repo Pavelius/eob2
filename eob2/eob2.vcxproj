@@ -155,10 +155,12 @@
     <ClInclude Include="gender.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="list.h" />
+    <ClInclude Include="location.h" />
     <ClInclude Include="logvalue.h" />
     <ClInclude Include="modifier.h" />
     <ClInclude Include="my_initialize_list.h" />
     <ClInclude Include="npc.h" />
+    <ClInclude Include="party.h" />
     <ClInclude Include="picture.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="race.h" />
@@ -208,6 +210,7 @@
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="list.cpp" />
+    <ClCompile Include="location.cpp" />
     <ClCompile Include="logvalue.cpp" />
     <ClCompile Include="main_util.cpp" />
     <ClCompile Include="metadata.cpp" />
@@ -220,6 +223,7 @@
     <ClCompile Include="speech.cpp" />
     <ClCompile Include="sprite_util.cpp" />
     <ClCompile Include="surface_util.cpp" />
+    <ClCompile Include="unit.cpp" />
     <ClCompile Include="variant.cpp" />
     <ClCompile Include="view_focus.cpp" />
     <ClCompile Include="io_stream.cpp" />
@@ -234,7 +238,7 @@
     <ClCompile Include="scale.cpp" />
     <ClCompile Include="stringbuilder.cpp" />
     <ClCompile Include="szdup.cpp" />
-    <ClCompile Include="unit.cpp" />
+    <ClCompile Include="party.cpp" />
     <ClCompile Include="view.cpp" />
     <ClCompile Include="wearable.cpp" />
     <ClCompile Include="win_draw.cpp" />
@@ -253,6 +257,7 @@
     <Text Include="..\rules\Classes.txt" />
     <Text Include="..\rules\Core.txt" />
     <Text Include="..\rules\Items.txt" />
+    <Text Include="..\rules\Locations.txt" />
     <Text Include="..\rules\Races.txt" />
     <Text Include="..\rules\Spells.txt" />
   </ItemGroup>

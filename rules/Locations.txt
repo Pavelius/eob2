@@ -1,0 +1,9 @@
+#Location
+
+Inn
+Tavern
+Temple
+Blacksmith
+
+StartVillage avatar(BUILDNGS 26)
+ options Inn Tavern

@@ -12,3 +12,4 @@ struct classi : nameable {
 	abilitya minimal;
 	abilityn primary;
 };
+extern classi* last_class;

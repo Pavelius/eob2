@@ -13,7 +13,7 @@
 #include "script.h"
 #include "slice.h"
 #include "stringbuilder.h"
-#include "unit.h"
+#include "party.h"
 
 BSDATAC(creaturei, 256)
 

@@ -33,3 +33,6 @@ Poisoned: Poisoned
 
 Characterinfo: Character Information
 CharacterSkills: Character Skills
+
+Blessing: Blessing
+Reputation: Reputation

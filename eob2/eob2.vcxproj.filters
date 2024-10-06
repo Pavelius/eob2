@@ -63,7 +63,7 @@
     <ClCompile Include="levelable.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="unit.cpp">
+    <ClCompile Include="party.cpp">
       <Filter>logic</Filter>
     </ClCompile>
     <ClCompile Include="draw.cpp">
@@ -170,6 +170,12 @@
     </ClCompile>
     <ClCompile Include="speech.cpp">
       <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="unit.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="location.cpp">
+      <Filter>logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -338,6 +344,12 @@
     <ClInclude Include="speech.h">
       <Filter>support</Filter>
     </ClInclude>
+    <ClInclude Include="location.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="party.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -378,6 +390,9 @@
     </Text>
     <Text Include="..\locale\en\Items.txt">
       <Filter>locale</Filter>
+    </Text>
+    <Text Include="..\rules\Locations.txt">
+      <Filter>rules</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

@@ -3,3 +3,4 @@
 #include "rules/Items.txt"
 #include "rules/Spells.txt"
 #include "rules/Advance.txt"
+#include "rules/Locations.txt"

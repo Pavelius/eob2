@@ -20,13 +20,12 @@ RestPartyVisit: Rest party
 ReturnBackVisit: Leave to the street
 ScribleScrolls: Scrible Scrolls
 ScribleScrollsVisit: Scrible Scrolls
+SellConfirm: Do you really want sell %-1 for %2i gold pieces?
 
 Options: Options
 ReturnBack: Back
 Visit: Visit
 Village: Village
-
-SellConfirm: Do you really want sell %-1 for %2i gold pieces?
 
 Cancel: Cancel
 No: No

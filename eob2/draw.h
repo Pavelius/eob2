@@ -267,11 +267,13 @@ void doredraw();
 void fire(bool run, fnevent proc, long value = 0, long value2 = 0, const void* object = 0);
 long getresult();
 void initialize(const char* title);
+bool isclipped(int size);
 bool ismodal();
 void* scene(fnevent proc);
 void scene();
 void setneedupdate();
 }
-namespace draw {
-bool isclipped(int size);
-}
+
+bool is_next_scene();
+void run_next_scene();
+void set_next_scene(fnevent v);

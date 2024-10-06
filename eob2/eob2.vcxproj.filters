@@ -412,10 +412,16 @@
     <Text Include="..\names\en\Talk.txt">
       <Filter>locale</Filter>
     </Text>
+    <Text Include="..\LICENSE.txt">
+      <Filter>locale</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">
       <Filter>support</Filter>
+    </None>
+    <None Include="..\README.md">
+      <Filter>locale</Filter>
     </None>
   </ItemGroup>
 </Project>

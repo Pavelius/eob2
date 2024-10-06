@@ -19,9 +19,6 @@ using namespace draw;
 
 // Default theme colors
 color				colors::active;
-//color				colors::button;
-//color				colors::form;
-//color				colors::window;
 color				colors::text;
 color				colors::border;
 color				colors::h1;
@@ -68,7 +65,7 @@ int					metrics::padding = 2, metrics::border = 4;
 //
 static bool			break_modal;
 static long			break_result;
-extern rect			sys_static_area;
+static fnevent		next_scene;
 static char			tips_text[4096];
 awindowi			draw::awindow = {-1, -1, 800, 600, 160, WFMinmax | WFResize};
 
@@ -2469,4 +2466,21 @@ void draw::set(int x, int y) {
 bool draw::isclipped(int size) {
 	rect rc = {caret.x - size, caret.y - size, caret.x + size, caret.y + size};
 	return !rc.intersect(clipping);
+}
+
+void run_next_scene() {
+	while(next_scene) {
+		auto p = next_scene;
+		next_scene = 0;
+		p();
+	}
+}
+
+void set_next_scene(fnevent v) {
+	if(!next_scene)
+		next_scene = v;
+}
+
+bool is_next_scene() {
+	return next_scene != 0;
 }

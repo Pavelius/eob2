@@ -36,5 +36,3 @@ CharacterSkills: Character Skills
 
 Blessing: Blessing
 Reputation: Reputation
-
-Cancel: Cancel

@@ -1,9 +1,14 @@
+#List
+
+MemorizeSpells
+PrayForSpells
+
 #Location
 
 Inn avatar(BUILDNGS 7) group(Inn)
- options ReturnBack
+ options RestParty MemorizeSpells PrayForSpells ReturnBack
 Tavern avatar(BUILDNGS 5) group(Tavern)
- options ReturnBack
+ options EatAndDrink GambleVisitors PickPockets ReturnBack
 Temple group(Temple)
  options ReturnBack
 Blacksmith group(Blacksmith)

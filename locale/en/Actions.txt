@@ -1,10 +1,26 @@
 ﻿DebugTest: Debug Test
 DebugTestVisit: Debug test string
-GlobalOptions: %2 options:
+EatAndDrink: Eat and drink
+EatAndDrinkVisit: Eat and drink
+GambleVisitors: Gamble
+GambleVisitorsVisit: Gamble with someone
+GlobalOptions: %2 Options:
 GlobalVisit: Visit %1
+MemorizeSpells: Memorize Spells
+MemorizeSpellsVisit: Memorize Spells
+PickPockets: Pick pockets
+PickPocketsVisit: Pick some pockets
+PrayForSpells: Pray for Spells
+PrayForSpellsVisit: Pray for Spells
+RestParty: Rest party
+RestPartyVisit: Rest party
 ReturnBackVisit: Leave to the street
-Options: Options
-ReturnBack: Return back
-Visit: Visit
 
+Options: Options
+ReturnBack: Back
+Visit: Visit
 Village: Village
+
+Cancel: Cancel
+No: No
+Yes: Yes

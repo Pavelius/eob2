@@ -157,18 +157,32 @@ static void return_back(int bonus) {
 }
 
 static void debug_test(int bonus) {
-	an.clear();
-	an.addv((void*)1, "Yes", 0, 'Y');
-	an.addv((void*)0, "No", 0, 'N');
-	choose_dialog("Really want to sell item and gaint 150 gold pieces?", 8);
+	if(confirm("Really want quit game?"))
+		exit(0);
+}
+
+static void gamble_visitors(int bonus) {
+}
+
+static void pick_pockets(int bonus) {
+}
+
+static void eat_and_drink(int bonus) {
+}
+
+static void rest_party(int bonus) {
 }
 
 BSDATA(script) = {
 	{"Attack", attack_modify},
 	{"CreateCharacter", create_character},
 	{"DebugTest", debug_test},
+	{"EatAndDrink", eat_and_drink},
 	{"EnterLocation", enter_location},
+	{"GambleVisitors", gamble_visitors},
 	{"JoinParty", join_party},
+	{"PickPockets", pick_pockets},
+	{"RestParty", rest_party},
 	{"ReturnBack", return_back},
 };
 BSDATAF(script)

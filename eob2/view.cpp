@@ -1054,7 +1054,7 @@ void* choose_dialog(const char* title, int padding) {
 		for(auto& e : an.elements) {
 			width = textw(e.text) + 6;
 			if(paint_button(e.text, e.value, e.key, TextBold))
-				execute(buttonparam, (int)&e);
+				execute(buttonparam, (long)e.value);
 			caret.x += width;
 			caret.x += 2;
 		}
@@ -1063,6 +1063,15 @@ void* choose_dialog(const char* title, int padding) {
 	}
 	fore = push_fore;
 	return (void*)getresult();
+}
+
+bool confirm(const char* format) {
+	if(!format)
+		return false;
+	an.clear();
+	an.addv((void*)1, getnm("Yes"), 0, 'Y');
+	an.addv((void*)0, getnm("No"), 0, 'N');
+	return choose_dialog(format, 8) != 0;
 }
 
 static void main_beforemodal() {

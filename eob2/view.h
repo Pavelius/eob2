@@ -15,6 +15,7 @@ void button_label(int index, const void* data, const char* format, unsigned key,
 bool character_input();
 void city_input(fnevent menu_proc);
 void clear_input();
+bool confirm(const char* format);
 void show_scene(fnevent before_paint, fnevent input);
 void initialize_gui();
 void paint_adventure();

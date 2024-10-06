@@ -1,2 +1,3 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `DebugTest`
+ Define translation for `No`
+ Define translation for `Yes`

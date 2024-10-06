@@ -28,6 +28,13 @@ void npc::say(const char* format, ...) const {
 	sayv(format, xva_start(format));
 }
 
+void npc::speak(const char* format, ...) const {
+	format = speech_get(format);
+	if(!format)
+		format = speech_get("WhatDoYouSay");
+	sayv(format, xva_start(format));
+}
+
 void npc::sayv(const char* format, const char* format_param) const {
 	consolenl();
 	console("%1 \"", getname());

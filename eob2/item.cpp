@@ -25,7 +25,7 @@ bool item::isallow(wearn v) const {
 		return n == LeftHand
 			|| n == RightHand;
 	default:
-		if(v>=Backpack && v<=LastBackpack)
+		if(v >= Backpack && v <= LastBackpack)
 			return true;
 		return n == v;
 	}
@@ -44,4 +44,8 @@ const char*	item::getname() const {
 
 int	item::getcost() const {
 	return geti().cost;
+}
+
+bool item::isweapon() const {
+	return geti().damage.c != 0;
 }

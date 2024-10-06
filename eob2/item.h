@@ -37,6 +37,7 @@ public:
 	bool		isallow(wearn v) const;
 	bool		iscursed() const { return cursed != 0; }
 	bool		isidentified() const { return identified != 0; }
+	bool		isweapon() const;
 	int			getcost() const;
 	const char*	getname() const;
 	void		curse(int v) { cursed = (v >=0) ? 1 : 0; }

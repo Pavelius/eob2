@@ -158,26 +158,55 @@ static void drop_city_item() {
 	add_party(GoldPiece, cost);
 }
 
+static void use_item() {
+	auto pi = (item*)current_focus;
+	auto pn = item_owner(pi);
+	if(!pn)
+		return;
+	auto w = item_wear(pi);
+	auto& ei = pi->geti();
+	switch(ei.wear) {
+	case LeftHand:
+	case RightHand:
+		if(w != LeftHand && w != RightHand)
+			pn->speak("MustBeUseInHand", pi->getname());
+		else if(pi->isweapon()) {
+			// TODO: Make attack
+		} else if(ei.use) {
+
+		}
+		break;
+	case Body: case Neck: case Elbow: case Legs: case Head:
+		pn->speak("MustBeWearing", pi->getname());
+		break;
+	}
+}
+
 static void city_adventure_input() {
 	static hotkeyi keys[] = {
 		{KeyEscape, choose_city_menu},
 		{'D', drop_city_item},
+		{'U', use_item},
 		{}};
 	city_input(keys);
 }
 
+static void play_location() {
+	show_scene(paint_city, city_adventure_input);
+}
+
 static void enter_location(int bonus) {
-	auto push_picture = picture;
-	auto push_location = party.location;
 	party.location = getbsi(last_location);
 	picture = last_location->avatar;
-	show_scene(paint_city, city_adventure_input);
-	picture = push_picture;
-	party.location = push_location;
+	set_next_scene(play_location);
 }
 
 static void return_back(int bonus) {
-	draw::breakmodal(0);
+	last_location = bsdata<locationi>::elements + party.location;
+	if(last_location->parent) {
+		last_location = last_location->parent;
+		enter_location(0);
+	}
 }
 
 static void debug_test(int bonus) {
@@ -197,7 +226,7 @@ static void eat_and_drink(int bonus) {
 static void rest_party(int bonus) {
 	if(!confirm(getnm("RestPartyConfirm")))
 		return;
-	draw::breakmodal(0);
+	return_back(0);
 }
 
 static void identify_item(int bonus) {

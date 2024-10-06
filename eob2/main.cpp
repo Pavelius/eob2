@@ -30,6 +30,7 @@ int main() {
 	draw::setcaption("Eye of beholder (remake)");
 	draw::settimer(100);
 	script_run("StartGame");
+	run_next_scene();
 }
 
 int _stdcall WinMain(void* ci, void* pi, char* cmd, int sw) {

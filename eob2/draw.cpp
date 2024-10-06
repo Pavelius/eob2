@@ -2304,7 +2304,7 @@ bool draw::ismodal() {
 	beforemodal();
 	if(pbeforemodal)
 		pbeforemodal();
-	if(!break_modal)
+	if(!break_modal && !next_scene)
 		return true;
 	break_modal = false;
 	if(pleavemodal)

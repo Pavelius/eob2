@@ -9,5 +9,6 @@ struct npc {
 	const char*		getname() const;
 	void			say(const char* format, ...) const;
 	void			sayv(const char* format, const char* format_param) const;
+	void			speak(const char* format, ...) const;
 };
 unsigned short generate_name(int race, gendern gender);

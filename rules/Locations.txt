@@ -7,16 +7,14 @@ ScribleScrolls
 
 #Location
 
-Inn avatar(BUILDNGS 7) group(Inn)
+HunterVillage
+
+Inn avatar(BUILDNGS 7) group(Inn) parent(HunterVillage)
  options RestParty MemorizeSpells PrayForSpells ScribleScrolls GameOptions
-Tavern avatar(BUILDNGS 5) group(Tavern)
+Tavern avatar(BUILDNGS 5) group(Tavern) parent(HunterVillage)
  options EatAndDrink GambleVisitors PickPockets ReturnBack
-Temple group(Temple)
- options ReturnBack
-Stables group(Stables) avatar(BUILDNGS 4)
- options ReturnBack
-Blacksmith group(Blacksmith)
+Temple group(Temple) parent(HunterVillage)
  options ReturnBack
 
 HunterVillage avatar(BUILDNGS 26) group(Village)
- options Inn Tavern Stables DebugTest
+ options Inn Tavern

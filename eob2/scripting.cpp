@@ -3,11 +3,13 @@
 #include "creature.h"
 #include "draw.h"
 #include "gender.h"
+#include "hotkey.h"
 #include "location.h"
 #include "modifier.h"
 #include "party.h"
 #include "race.h"
 #include "script.h"
+#include "textscript.h"
 #include "view.h"
 #include "view_focus.h"
 
@@ -138,8 +140,28 @@ static void choose_city_menu() {
 	apply_result();
 }
 
+static void drop_city_item() {
+	auto pi = (item*)current_focus;
+	auto pn = item_owner(pi);
+	if(!pn)
+		return;
+	if(!can_remove(pi))
+		return;
+	auto cost = pi->getcost() / 2;
+	char temp[128]; stringbuilder sb(temp);
+	sb.add(getnm("ConfirmSell"), pi->getname(), cost);
+	if(!confirm(temp))
+		return;
+	pi->clear();
+	add_party(GoldPiece, cost);
+}
+
 static void city_adventure_input() {
-	city_input(choose_city_menu);
+	static hotkeyi keys[] = {
+		{KeyEscape, choose_city_menu},
+		{'D', drop_city_item},
+		{}};
+	city_input(keys);
 }
 
 static void enter_location(int bonus) {
@@ -173,12 +195,30 @@ static void eat_and_drink(int bonus) {
 static void rest_party(int bonus) {
 }
 
+static void identify_item(int bonus) {
+	last_item->identify(bonus);
+}
+
+static void curse_item(int bonus) {
+	last_item->curse(bonus);
+}
+
+static void player_name(stringbuilder& sb) {
+	sb.add(player->getname());
+}
+
+BSDATA(textscript) = {
+	{"name", player_name},
+};
+BSDATAF(textscript)
 BSDATA(script) = {
 	{"Attack", attack_modify},
 	{"CreateCharacter", create_character},
+	{"CurseItem", curse_item},
 	{"DebugTest", debug_test},
 	{"EatAndDrink", eat_and_drink},
 	{"EnterLocation", enter_location},
+	{"IdentifyItem", identify_item},
 	{"GambleVisitors", gamble_visitors},
 	{"JoinParty", join_party},
 	{"PickPockets", pick_pockets},

@@ -147,6 +147,20 @@ bool apply_speech(const char* id, stringbuilder& sb) {
 	return true;
 }
 
+bool parse_speech(stringbuilder& sb, const char* id) {
+	for(auto& e : bsdata<speech>()) {
+		if(!equal(e.id, id))
+			continue;
+		if(!e.source.size())
+			continue;
+		auto n = (speech_params ? *speech_params++ : rand()) % e.source.size();
+		auto pn = e.source.begin()[n].name;
+		sb.add(pn);
+		return true;
+	}
+	return false;
+}
+
 size_t select_speech(unsigned short* result, size_t count, const char* parent) {
 	auto pb = result;
 	auto pe = result + count;

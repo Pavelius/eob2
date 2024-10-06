@@ -1,0 +1,4 @@
+#CantDropCursedItem
+This is mine!
+No! I can't remove this item.
+This is mine treasure!

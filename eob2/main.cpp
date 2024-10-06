@@ -1,10 +1,11 @@
 #include "avatar.h"
 #include "bsreq.h"
 #include "draw.h"
-#include "speech.h"
 #include "log.h"
 #include "rand.h"
+#include "speech.h"
 #include "timer.h"
+#include "textscript.h"
 #include "script.h"
 #include "view.h"
 
@@ -14,6 +15,7 @@ int main() {
 	srand(getcputime());
 	initialize_gui();
 	initialize_translation();
+	initialize_strings();
 	log::readlf(speech_read, "names", "*.txt");
 	bsreq::read("rules/Core.txt");
 	avatar_read("rules/Avatars.txt");

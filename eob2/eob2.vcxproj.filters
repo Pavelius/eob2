@@ -177,6 +177,9 @@
     <ClCompile Include="list.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="textscript.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -350,6 +353,12 @@
     <ClInclude Include="list.h">
       <Filter>support</Filter>
     </ClInclude>
+    <ClInclude Include="hotkey.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="textscript.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -398,6 +407,9 @@
       <Filter>locale</Filter>
     </Text>
     <Text Include="..\locale\en\Actions.txt">
+      <Filter>locale</Filter>
+    </Text>
+    <Text Include="..\names\en\Talk.txt">
       <Filter>locale</Filter>
     </Text>
   </ItemGroup>

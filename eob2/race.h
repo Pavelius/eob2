@@ -4,6 +4,6 @@
 
 typedef char abilitya[6];
 struct racei : nameable {
-	abilitya	minimal, maximal;
+	abilitya minimal, maximal;
 };
 extern racei* last_race;

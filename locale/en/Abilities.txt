@@ -36,3 +36,5 @@ CharacterSkills: Character Skills
 
 Blessing: Blessing
 Reputation: Reputation
+
+PartyStatusFormat: You have %GoldPiece gp.

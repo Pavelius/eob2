@@ -10,6 +10,7 @@
 #include "pushvalue.h"
 #include "race.h"
 #include "rand.h"
+#include "speech.h"
 #include "script.h"
 #include "slice.h"
 #include "stringbuilder.h"
@@ -304,14 +305,14 @@ void create_player(const racei* pr, gendern gender, const classi* pc) {
 	player->hp = player->hpm;
 }
 
-creaturei* item_owner(void* p) {
+creaturei* item_owner(const void* p) {
 	auto i = bsdata<creaturei>::source.indexof(p);
 	if(i == -1)
 		return 0;
 	return (creaturei*)bsdata<creaturei>::elements + i;
 }
 
-wearn item_wear(void* p) {
+wearn item_wear(const void* p) {
 	auto i = bsdata<creaturei>::source.indexof(p);
 	if(i != -1) {
 		auto pi = (creaturei*)bsdata<creaturei>::elements + i;
@@ -368,10 +369,6 @@ bool creaturei::roll(abilityn v, int bonus) const {
 	return d100() < chance;
 }
 
-bool creaturei::isremove(const item* pi) const {
-	return true;
-}
-
 const char* creaturei::getbadstate() const {
 	if(isdead())
 		return "Dead";
@@ -382,4 +379,19 @@ const char* creaturei::getbadstate() const {
 	else if(is(DiseaseLevel))
 		return "Diseased";
 	return 0;
+}
+
+bool can_remove(const item* pi, bool speech) {
+	auto player = item_owner(pi);
+	if(!player)
+		return true;
+	auto w = item_wear(pi);
+	if(w >= Head && w <= Quiver) {
+		if(pi->iscursed()) {
+			if(speech)
+				player->say(speech_get("CantDropCursedItem"));
+			return false;
+		}
+	}
+	return true;
 }

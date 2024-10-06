@@ -153,6 +153,7 @@
     <ClInclude Include="draw.h" />
     <ClInclude Include="feat.h" />
     <ClInclude Include="gender.h" />
+    <ClInclude Include="hotkey.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="location.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="speech.h" />
     <ClInclude Include="spell.h" />
     <ClInclude Include="sprite_util.h" />
+    <ClInclude Include="textscript.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="unit.h" />
     <ClInclude Include="io_stream.h" />
@@ -223,6 +225,7 @@
     <ClCompile Include="speech.cpp" />
     <ClCompile Include="sprite_util.cpp" />
     <ClCompile Include="surface_util.cpp" />
+    <ClCompile Include="textscript.cpp" />
     <ClCompile Include="unit.cpp" />
     <ClCompile Include="variant.cpp" />
     <ClCompile Include="view_focus.cpp" />
@@ -254,6 +257,7 @@
     <Text Include="..\locale\en\Races.txt" />
     <Text Include="..\locale\en\UnknownNames.txt" />
     <Text Include="..\names\en\Names.txt" />
+    <Text Include="..\names\en\Talk.txt" />
     <Text Include="..\rules\Advance.txt" />
     <Text Include="..\rules\Avatars.txt" />
     <Text Include="..\rules\Classes.txt" />

@@ -14,6 +14,7 @@ struct itemi : nameable, featable {
 	variants	wearing, use;
 	wearn		wear;
 	char		avatar, avatar_ground;
+	int			cost;
 };
 class item {
 	unsigned char type;
@@ -29,12 +30,15 @@ class item {
 	unsigned char count; // this one can be broken, charges, count.
 public:
 	explicit operator bool() const { return type != 0; }
-	void			clear();
-	void			create(int value);
-	const itemi&	geti() const;
-	bool			isallow(wearn v) const;
-	bool			iscursed() const { return cursed != 0; }
-	bool			isidentified() const { return identified != 0; }
-	const char*		getname() const;
+	void		clear();
+	void		create(int value);
+	const itemi& geti() const;
+	void		identify(int v) { identified = (v >= 0) ? 1 : 0; }
+	bool		isallow(wearn v) const;
+	bool		iscursed() const { return cursed != 0; }
+	bool		isidentified() const { return identified != 0; }
+	int			getcost() const;
+	const char*	getname() const;
+	void		curse(int v) { cursed = (v >=0) ? 1 : 0; }
 };
 extern item* last_item;

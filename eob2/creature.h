@@ -23,7 +23,6 @@ struct creaturei : npc, statable, levelable, wearable {
 	bool			isallow(const item& it) const;
 	bool			isdead() const { return hp <= -10; }
 	bool			isdisabled() const { return hp <= 0; }
-	bool			isremove(const item* pi) const;
 	bool			roll(abilityn v, int bonus = 0) const;
 };
 extern creaturei* player;
@@ -31,5 +30,6 @@ extern creaturei* player;
 void create_player(const racei* pr, gendern gender, const classi* pc);
 void update_player();
 
-creaturei* item_owner(void* p);
-wearn item_wear(void* p);
+creaturei* item_owner(const void* p);
+wearn item_wear(const void* p);
+bool can_remove(const item* pi, bool speech = true);

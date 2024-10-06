@@ -1,18 +1,22 @@
 #List
 
+GameOptions
 MemorizeSpells
 PrayForSpells
+ScribleScrolls
 
 #Location
 
 Inn avatar(BUILDNGS 7) group(Inn)
- options RestParty MemorizeSpells PrayForSpells ReturnBack
+ options RestParty MemorizeSpells PrayForSpells ScribleScrolls GameOptions
 Tavern avatar(BUILDNGS 5) group(Tavern)
  options EatAndDrink GambleVisitors PickPockets ReturnBack
 Temple group(Temple)
+ options ReturnBack
+Stables group(Stables) avatar(BUILDNGS 4)
  options ReturnBack
 Blacksmith group(Blacksmith)
  options ReturnBack
 
 HunterVillage avatar(BUILDNGS 26) group(Village)
- options Inn Tavern DebugTest
+ options Inn Tavern Stables DebugTest

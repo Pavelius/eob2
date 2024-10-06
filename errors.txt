@@ -1,3 +1,2 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `No`
- Define translation for `Yes`
+ Define translation for `YouHaveGold`

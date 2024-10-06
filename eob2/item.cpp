@@ -41,3 +41,8 @@ void item::create(int value) {
 const char*	item::getname() const {
 	return geti().getname();
 }
+
+int	item::getcost() const {
+	auto base = 10;
+	return base;
+}

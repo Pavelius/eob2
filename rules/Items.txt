@@ -95,7 +95,7 @@ DwarfClericStartEquipment
 HalflingTheifStartEquipment
  elements ShortSword RedRing
 FighterStartEquipment
- elements Longsword LeatherArmor Shield Helm
+ elements Longsword LeatherArmor Shield Helm CurseItem
 ClericStartEquipment
  elements Mace LeatherArmor Shield Helm
 TheifStartEquipment

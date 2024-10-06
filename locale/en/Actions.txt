@@ -4,6 +4,8 @@ EatAndDrink: Eat and drink
 EatAndDrinkVisit: Eat and drink
 GambleVisitors: Gamble
 GambleVisitorsVisit: Gamble with someone
+GameOptions: Game Options
+GameOptionsVisit: Game Options
 GlobalOptions: %2 Options:
 GlobalVisit: Visit %1
 MemorizeSpells: Memorize Spells
@@ -15,11 +17,15 @@ PrayForSpellsVisit: Pray for Spells
 RestParty: Rest party
 RestPartyVisit: Rest party
 ReturnBackVisit: Leave to the street
+ScribleScrolls: Scrible Scrolls
+ScribleScrollsVisit: Scrible Scrolls
 
 Options: Options
 ReturnBack: Back
 Visit: Visit
 Village: Village
+
+ConfirmSell: Do you really want sell %-1 for %2i gold pieces?
 
 Cancel: Cancel
 No: No

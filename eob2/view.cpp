@@ -4,6 +4,7 @@
 #include "console.h"
 #include "direction.h"
 #include "draw.h"
+#include "hotkey.h"
 #include "gender.h"
 #include "location.h"
 #include "math.h"
@@ -12,6 +13,7 @@
 #include "resid.h"
 #include "timer.h"
 #include "party.h"
+#include "view.h"
 #include "view_focus.h"
 
 using namespace draw;
@@ -32,6 +34,7 @@ static color form(164, 164, 186);
 static fnevent character_view_proc;
 static void* current_select;
 static point cancel_position;
+static bool hilite_player;
 
 template<typename T> const char* gtn(int v) {
 	return bsdata<T>::elements[v].getname();
@@ -331,6 +334,13 @@ static void greenbar(int vc, int vm) {
 static void paint_focus_rect() {
 	auto push_fore = fore;
 	fore = colors::white;
+	rectb();
+	fore = push_fore;
+}
+
+static void paint_hilite_rect() {
+	auto push_fore = fore;
+	fore = colors::white.mix(colors::black, get_alpha(256, 1000));
 	rectb();
 	fore = push_fore;
 }
@@ -639,12 +649,14 @@ static void paint_character() {
 	caret = push_caret;
 }
 
-static void paint_character(bool disabled) {
+static void paint_character(bool disabled, bool hilite) {
 	rectpush push;
 	width = 65; height = 52;
 	paint_character();
 	if(disabled)
 		paint_disabled();
+	if(hilite)
+		paint_hilite_rect();
 }
 
 void paint_avatars() {
@@ -660,7 +672,7 @@ void paint_avatars() {
 		player = party.units[i];
 		if(!player)
 			continue;
-		paint_character(player->isdisabled());
+		paint_character(player->isdisabled(), hilite_player && (player==push_player));
 	}
 	player = push_player;
 }
@@ -699,6 +711,12 @@ static void texta(const char* format, unsigned flags, color text_color) {
 	fore = push_fore;
 }
 
+static void party_status_text() {
+	char temp[64]; stringbuilder sb(temp);
+	sb.add(getnm("PartyStatusFormat"));
+	texta(temp, AlignLeft);
+}
+
 void paint_party_status() {
 	rectpush push;
 	auto push_font = font;
@@ -717,6 +735,7 @@ void paint_party_status() {
 	}
 	field(gtn<partystati>(Reputation), 64, 160, getparty(Reputation), 100);
 	field(gtn<partystati>(Blessing), 64, 160, getparty(Blessing), 100);
+	party_status_text();
 	font = push_font;
 }
 
@@ -843,7 +862,7 @@ static bool can_place(const creaturei* player, wearn id, item* pi) {
 	if(id >= Head && id <= Quiver) {
 		if(*pi && !pi->isallow(id))
 			return false;
-		if(player->wears[id] && !player->isremove(player->wears + id))
+		if(player->wears[id] && !can_remove(player->wears + id))
 			return false;
 		if(!player->isallow(*pi))
 			return false;
@@ -855,17 +874,6 @@ static void update_player(creaturei* p1) {
 	auto push_player = player;
 	player = p1; update_player();
 	player = push_player;
-}
-
-static bool can_remove(item* pi) {
-	auto player = item_owner(pi);
-	if(!player)
-		return true;
-	auto w = item_wear(pi);
-	if(w >= Head && w <= Quiver) {
-		// TODO: check if cursed
-	}
-	return true;
 }
 
 static void pick_up_item() {
@@ -958,17 +966,24 @@ void clear_input() {
 	hot.key = 0;
 }
 
-void city_input(fnevent menu_proc) {
+bool hotkey_input(const hotkeyi* hotkeys) {
+	for(auto p = hotkeys; *p; p++) {
+		if(hot.key != p->key)
+			continue;
+		clear_input();
+		p->proc();
+		return true;
+	}
+	return false;
+}
+
+void city_input(const hotkeyi* hotkeys) {
 	focus_input();
 	alternate_focus_input();
 	if(character_input())
 		return;
-	switch(draw::hot.key) {
-	case KeyEscape:
-		clear_input();
-		menu_proc();
-		break;
-	}
+	if(hotkey_input(hotkeys))
+		return;
 }
 
 void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding) {

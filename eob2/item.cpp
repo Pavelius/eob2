@@ -43,6 +43,5 @@ const char*	item::getname() const {
 }
 
 int	item::getcost() const {
-	auto base = 10;
-	return base;
+	return geti().cost;
 }

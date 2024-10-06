@@ -6,85 +6,85 @@ Arrow avatar(16) wear(Quiver)
 Stone avatar(19) wear(Quiver)
 Dart avatar(14)
 
-BattleAxe speed(7) damage(1 8) avatar(3) wear(RightHand)
+BattleAxe cost(5) speed(7) damage(1 8) avatar(3) wear(RightHand)
  feats UseMartial
-Axe speed(4) damage(1 6) avatar(7) wear(RightHand)
+Axe cost(5) speed(4) damage(1 6) avatar(7) wear(RightHand)
  feats UseMartial
 Club speed(4) damage(1 6) avatar(76) wear(RightHand)
-Dagger speed(2) damage(1 4) avatar(15) wear(RightHand)
-Flail speed(7) damage(1 6 1) avatar(5) wear(RightHand)
+Dagger cost(2) speed(2) damage(1 4) avatar(15) wear(RightHand)
+Flail cost(15) speed(7) damage(1 6 1) avatar(5) wear(RightHand)
  feats UseMartial
-Halberd speed(9) avatar(9) wear(RightHand)
+Halberd cost(10) speed(9) avatar(9) wear(RightHand)
  feats TwoHanded UseMartial
-Warhammer speed(4) damage(1 4 2) avatar(99) wear(RightHand)
+Warhammer cost(5) speed(4) damage(1 4 2) avatar(99) wear(RightHand)
  feats UseMartial UsePriest
-Mace speed(7) damage(1 6 1) avatar(4) wear(RightHand)
+Mace cost(10) speed(7) damage(1 6 1) avatar(4) wear(RightHand)
  feats UseMartial UsePriest
 Spear speed(6) damage(1 6) avatar(6) wear(RightHand)
  feats UseMartial
 Staff speed(4) damage(1 6) avatar(8) wear(RightHand)
  feats TwoHanded
-BastardSword speed(6) damage(1 10) avatar(1) wear(RightHand)
+BastardSword cost(25) speed(6) damage(1 10) avatar(1) wear(RightHand)
  feats UseMartial
-Longsword speed(5) damage(1 8) avatar(1) wear(RightHand)
+Longsword cost(15) speed(5) damage(1 8) avatar(1) wear(RightHand)
  feats UseElvish UseMartial
-ShortSword speed(4) damage(1 6) avatar(2) wear(RightHand)
+ShortSword cost(10) speed(4) damage(1 6) avatar(2) wear(RightHand)
  feats UseRogish UseElvish UseMartial
-TwoHandedSword speed(10) damage(1 10) damage_large(3 18) avatar(42) wear(RightHand)
+TwoHandedSword cost(50) speed(10) damage(1 10) damage_large(3 18) avatar(42) wear(RightHand)
  feats UseMartial TwoHanded
-Bow speed(8) damage(1 6) ammo(Arrow) avatar(10) wear(RightHand)
+Bow cost(60) speed(8) damage(1 6) ammo(Arrow) avatar(10) wear(RightHand)
  feats UseMartial UseRogish TwoHanded
 Sling speed(6) damage(1 4) ammo(Stone) avatar(18) wear(RightHand)
 
 Robe avatar(32) wear(Body)
-LeatherArmor avatar(31) wear(Body)
+LeatherArmor cost(10) avatar(31) wear(Body)
  feats UseLeather
  wearing AC+2 CriticalDeflect+5
-StuddedLeatherArmor avatar(31) wear(Body)
+StuddedLeatherArmor cost(20) avatar(31) wear(Body)
  feats UseLeather
  wearing AC+3 CriticalDeflect+5
-ScaleMail avatar(30) wear(Body)
+ScaleMail cost(100) avatar(30) wear(Body)
  feats UseMetal
  wearing AC+4 CriticalDeflect+20
-ChainMail avatar(29) wear(Body)
+ChainMail cost(100) avatar(29) wear(Body)
  feats UseMetal
  wearing AC+5 CriticalDeflect+15
-BandedMail avatar(28) wear(Body)
+BandedMail cost(300) avatar(28) wear(Body)
  feats UseMetal
  wearing AC+6 CriticalDeflect+20
-PlateMail avatar(26) wear(Body)
+PlateMail cost(1000) avatar(26) wear(Body)
  feats UseMetal
  wearing AC+8 CriticalDeflect+20
 
-Helm avatar(20) wear(Head)
+Helm cost(10) avatar(20) wear(Head)
  feats UseShield
  wearing CriticalDeflect+20
-DwarvenHelm avatar(73) wear(Head)
+DwarvenHelm cost(30) avatar(73) wear(Head)
  feats UseShield
  wearing CriticalDeflect+20 SaveVsMagic+5
-Shield avatar(23) wear(LeftHand)
+Shield cost(10) avatar(23) wear(LeftHand)
  feats UseShield
  wearing AC+1 CriticalDeflect+10
-DwarvenShield avatar(23) wear(LeftHand)
+DwarvenShield cost(30) avatar(23) wear(LeftHand)
  feats UseShield
  wearing AC+1 CriticalDeflect+20
 Boots avatar(21) wear(Legs)
  wearing CriticalDeflect+10
 
-RedRing avatar(55) wear(RightRing)
-GreenRing avatar(79) wear(RightRing)
-BlueRing avatar(78) wear(RightRing)
+RedRing cost(30) avatar(55) wear(RightRing)
+GreenRing cost(50) avatar(79) wear(RightRing)
+BlueRing cost(80) avatar(78) wear(RightRing)
 
-RedPotion avatar(39)
-GreenRing avatar(41)
-BlueRing avatar(40)
+RedPotion cost(100) avatar(39)
+GreenPotion cost(120) avatar(41)
+BluePotion cost(150) avatar(40)
 
 LargeRation avatar(37)
 Ration avatar(38)
 
-MageScroll avatar(36)
-PriestScroll avatar(85)
-MagicMap avatar(86)
+MageScroll cost(20) avatar(36)
+PriestScroll cost(20) avatar(85)
+MagicMap cost(10) avatar(86)
 
 #List
 

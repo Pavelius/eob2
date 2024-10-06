@@ -61,6 +61,7 @@ BSMETA(itemi) = {
 	BSREQ(avatar),
 	BSREQ(ammo),
 	BSREQ(wearing), BSREQ(use),
+	BSREQ(cost),
 	{}};
 BSMETA(genderi) = {
 	BSREQ(id),

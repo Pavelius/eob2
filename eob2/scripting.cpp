@@ -145,11 +145,13 @@ static void drop_city_item() {
 	auto pn = item_owner(pi);
 	if(!pn)
 		return;
+	auto cost = pi->getcost() / 2;
+	if(!cost)
+		return;
 	if(!can_remove(pi))
 		return;
-	auto cost = pi->getcost() / 2;
 	char temp[128]; stringbuilder sb(temp);
-	sb.add(getnm("ConfirmSell"), pi->getname(), cost);
+	sb.add(getnm("SellConfirm"), pi->getname(), cost);
 	if(!confirm(temp))
 		return;
 	pi->clear();
@@ -193,6 +195,9 @@ static void eat_and_drink(int bonus) {
 }
 
 static void rest_party(int bonus) {
+	if(!confirm(getnm("RestPartyConfirm")))
+		return;
+	draw::breakmodal(0);
 }
 
 static void identify_item(int bonus) {

@@ -29,7 +29,7 @@ static void city_menu() {
 	an.clear();
 	an.add(start_game, "Begin new game");
 	an.add(exit_game, "Load saved game");
-	choose_answer("City options:", "Cancel", paint_adventure_menu, button_label, 2);
+	choose_answer("City options:", "Cancel", paint_city_menu, button_label, 1);
 }
 
 static void city_input() {

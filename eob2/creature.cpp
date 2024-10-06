@@ -125,7 +125,12 @@ static void all_saves(int v) {
 	player->abilities[SaveVsMagic] += v;
 }
 
-static void update_stats() {
+static void update_abilities() {
+	add_value(player->abilities[Strenght], -player->abilities[DrainStrenght]);
+	add_value(player->abilities[Constitution], -player->abilities[DrainConstitution]);
+}
+
+static void update_depended_abilities() {
 	auto k = get_modified_strenght();
 	player->abilities[AttackMelee] += maptbl(hit_probability, k);
 	player->abilities[AttackRange] += maptbl(reaction_adjustment, player->abilities[Dexterity]);
@@ -167,7 +172,8 @@ void update_player() {
 	update_basic();
 	update_wear();
 	update_duration();
-	update_stats();
+	update_abilities();
+	update_depended_abilities();
 	update_bonus_saves();
 	player->hpm = get_maximum_hits();
 }

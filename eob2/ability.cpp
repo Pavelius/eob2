@@ -33,6 +33,9 @@ BSDATA(abilityi) = {
 	{"ExeptionalStrenght"},
 	{"PoisonLevel"},
 	{"DiseaseLevel"},
+	{"DrainStrenght"},
+	{"DrainConstitution"},
+	{"DrainLevel"},
 	{"Hits"},
 };
 assert_enum(abilityi, Hits)

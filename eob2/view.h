@@ -16,7 +16,7 @@ void clear_input();
 void show_scene(fnevent before_paint, fnevent input);
 void initialize_gui();
 void paint_adventure();
-void paint_adventure_menu();
+void paint_city_menu();
 void paint_avatars();
 void paint_avatars_no_focus();
 void paint_city();

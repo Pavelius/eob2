@@ -683,11 +683,11 @@ static void paint_console() {
 	font = push_font;
 }
 
-void paint_adventure_menu() {
+void paint_city_menu() {
 	paint_background(PLAYFLD, 0);
 	paint_avatars_no_focus();
 	paint_console();
-	paint_menu({0, 0}, 177, 174);
+	paint_menu({0, 0}, 177, 120);
 	caret = {6, 6};
 	width = 165;
 	height = texth() + 3;

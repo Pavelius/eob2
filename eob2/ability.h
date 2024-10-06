@@ -16,6 +16,7 @@ enum abilityn : unsigned char {
 	BonusExperience, ReactionBonus,
 	ExeptionalStrenght,
 	PoisonLevel, DiseaseLevel,
+	DrainStrenght, DrainConstitution, DrainLevel,
 	Hits
 };
 struct abilityi : nameable {

@@ -29,6 +29,7 @@ SaveVsTraps: Save vs Traps
 
 Dead: Dead
 Disabled: Disabled
+Poisoned: Poisoned
 
 Characterinfo: Character Information
 CharacterSkills: Character Skills

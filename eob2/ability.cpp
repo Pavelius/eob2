@@ -31,6 +31,8 @@ BSDATA(abilityi) = {
 	{"BonusExperience"},
 	{"ReactionBonus"},
 	{"ExeptionalStrenght"},
+	{"PoisonLevel"},
+	{"DiseaseLevel"},
 	{"Hits"},
 };
 assert_enum(abilityi, Hits)

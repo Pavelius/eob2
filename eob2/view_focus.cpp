@@ -164,14 +164,15 @@ void* focus_next(void* focus, int key) {
 	return p->av;
 }
 
-void focus_input() {
+bool focus_input() {
 	switch(hot.key) {
 	case KeyLeft: apply_focus(KeyLeft); break;
 	case KeyRight: apply_focus(KeyRight); break;
 	case KeyUp: apply_focus(KeyUp); break;
 	case KeyDown: apply_focus(KeyDown); break;
-	default: return;
+	default: return false;
 	}
+	return true;
 }
 
 void clear_focus_data() {

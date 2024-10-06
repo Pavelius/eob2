@@ -15,6 +15,7 @@ enum abilityn : unsigned char {
 	Speed,
 	BonusExperience, ReactionBonus,
 	ExeptionalStrenght,
+	PoisonLevel, DiseaseLevel,
 	Hits
 };
 struct abilityi : nameable {

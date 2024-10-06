@@ -18,6 +18,8 @@ struct creaturei : npc, statable, levelable, wearable {
 	const char*		getbadstate() const;
 	int				getchance(abilityn v) const;
 	dice			getdamage(wearn id) const;
+	bool			is(abilityn v) const { return abilities[v] > 0; }
+	bool			is(featn v) const { return featable::is(v); }
 	bool			isallow(const item& it) const;
 	bool			isdead() const { return hp <= -10; }
 	bool			isdisabled() const { return hp <= 0; }

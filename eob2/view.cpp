@@ -177,6 +177,8 @@ static void paint_answers(fnanswer paintcell, fnevent pushbutton, int height_gri
 static unsigned get_key(int index) {
 	if(index < 9)
 		return '1' + index;
+	else if(index == 1000)
+		return KeyEscape;
 	return 0;
 }
 
@@ -282,6 +284,13 @@ static void blend_avatar(slice<color> source, unsigned char intensity = 64, unsi
 	paint_blend(source[index], get_alpha(intensity, range));
 }
 
+static void paint_avatar_stats() {
+	adat<color, 8> source;
+	if(player->is(PoisonLevel) || player->is(DiseaseLevel))
+		source.add(colors::green);
+	blend_avatar(source, 32);
+}
+
 static void paint_avatar() {
 	if(player->avatar == 0xFF)
 		return;
@@ -290,8 +299,7 @@ static void paint_avatar() {
 		image(gres(PORTM), 0, 0);
 	else
 		image(gres(PORTM), player->avatar, 0);
-	// static color blink_colors[] = {colors::green, colors::red, colors::blue, colors::form};
-	// blend_avatar(blink_colors);
+	paint_avatar_stats();
 }
 
 static void greenbar(int vc, int vm) {
@@ -333,11 +341,13 @@ static void paint_select_rect() {
 
 static void paint_item(item& it, wearn id, int emphty_avatar = -1) {
 	rectpush push;
-	focusing(&it);
-	if(current_select == &it)
-		paint_select_rect();
-	else if(current_focus == &it)
-		paint_focus_rect();
+	if(!disable_input) {
+		focusing(&it);
+		if(current_select == &it)
+			paint_select_rect();
+		else if(current_focus == &it)
+			paint_focus_rect();
+	}
 	auto avatar = it.geti().avatar;
 	if(!it)
 		avatar = emphty_avatar;
@@ -626,15 +636,13 @@ static void paint_character() {
 
 static void paint_character(bool disabled) {
 	rectpush push;
-	auto push_disabled = disable_input;
 	width = 65; height = 52;
 	paint_character();
 	if(disabled)
 		paint_disabled();
-	disable_input = push_disabled;
 }
 
-static void paint_avatars() {
+void paint_avatars() {
 	static point points[] = {{183, 1}, {255, 1}, {183, 53}, {255, 53}, {183, 105}, {255, 105}};
 	rectpush push;
 	auto push_player = player;
@@ -650,6 +658,12 @@ static void paint_avatars() {
 		paint_character(player->isdisabled());
 	}
 	player = push_player;
+}
+
+void paint_avatars_no_focus() {
+	auto push_input = disable_input; disable_input = true;
+	paint_avatars();
+	disable_input = push_input;
 }
 
 static void paint_party_sheets() {
@@ -671,7 +685,7 @@ static void paint_console() {
 
 void paint_adventure_menu() {
 	paint_background(PLAYFLD, 0);
-	paint_party_sheets();
+	paint_avatars_no_focus();
 	paint_console();
 	paint_menu({0, 0}, 177, 174);
 	caret = {6, 6};
@@ -858,7 +872,7 @@ static void choose_character(int index) {
 	}
 }
 
-static void character_input() {
+bool character_input() {
 	switch(hot.key) {
 	case '1': case '2': case '3':
 	case '4': case '5': case '6':
@@ -870,23 +884,31 @@ static void character_input() {
 	case 'P': pick_up_item(); break;
 	case 'Q': examine_item(); break;
 	case KeyEscape:
-		if(character_view_proc)
-			clear_page();
+		if(!character_view_proc)
+			return false;
+		clear_page();
 		break;
+	default:
+		return false;
 	}
+	return true;
 }
 
-static void alternate_focus_input() {
+void alternate_focus_input() {
 	switch(hot.key) {
 	case 'A': apply_focus(KeyLeft); break;
 	case 'S': apply_focus(KeyRight); break;
 	case 'W': apply_focus(KeyUp); break;
 	case 'Z': apply_focus(KeyDown); break;
-	default: return;
 	}
 }
 
-void* choose_answer(const char* title, fnevent before_paint, fnanswer answer_paint, int padding) {
+void clear_input() {
+	pressed_focus = 0;
+	hot.key = 0;
+}
+
+void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding) {
 	if(!show_interactive)
 		return an.random();
 	rectpush push;
@@ -896,26 +918,26 @@ void* choose_answer(const char* title, fnevent before_paint, fnanswer answer_pai
 			before_paint();
 		paint_title(title);
 		paint_answers(answer_paint, update_buttonparam, height + padding);
+		if(cancel)
+			answer_paint(1000, 0, cancel, update_buttonparam);
 		domodal();
 		focus_input();
 		alternate_focus_input();
 		debug_input();
-		character_input();
 	}
 	return (void*)getresult();
 }
 
-void city_scene(fnevent before_paint) {
+void show_scene(fnevent before_paint, fnevent input) {
 	rectpush push;
 	pushscene push_scene;
 	while(ismodal()) {
 		if(before_paint)
 			before_paint();
 		domodal();
-		focus_input();
-		alternate_focus_input();
+		if(input)
+			input();
 		debug_input();
-		character_input();
 	}
 }
 

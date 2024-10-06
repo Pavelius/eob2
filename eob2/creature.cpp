@@ -79,7 +79,7 @@ void creaturei::clear() {
 }
 
 static void update_basic() {
-	memcpy(player->abilities, player->basic.abilities, sizeof(player->abilities));
+	memcpy(player->abilities, player->basic.abilities, ExeptionalStrenght + 1);
 	memcpy(player->feats, player->basic.feats, sizeof(player->basic.feats));
 }
 
@@ -371,5 +371,9 @@ const char* creaturei::getbadstate() const {
 		return "Dead";
 	else if(isdisabled())
 		return "Disabled";
+	else if(is(PoisonLevel))
+		return "Poisoned";
+	else if(is(DiseaseLevel))
+		return "Diseased";
 	return 0;
 }

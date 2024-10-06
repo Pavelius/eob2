@@ -1,76 +1,14 @@
-#include "answers.h"
 #include "avatar.h"
 #include "bsreq.h"
-#include "creature.h"
 #include "draw.h"
-#include "gender.h"
 #include "speech.h"
 #include "log.h"
-#include "picture.h"
 #include "rand.h"
-#include "resid.h"
 #include "timer.h"
-#include "party.h"
+#include "script.h"
 #include "view.h"
-#include "view_focus.h"
 
-extern "C" void exit(int code);
 void util_main();
-
-static void exit_game() {
-	exit(0);
-}
-
-static void start_game() {
-	exit(0);
-}
-
-static void city_menu() {
-	an.clear();
-	an.add(start_game, "Begin new game");
-	an.add(exit_game, "Load saved game");
-	choose_answer("City options:", "Cancel", paint_city_menu, button_label, 1);
-}
-
-static void city_input() {
-	focus_input();
-	alternate_focus_input();
-	if(character_input())
-		return;
-	switch(draw::hot.key) {
-	case KeyEscape:
-		clear_input();
-		city_menu();
-		break;
-	}
-}
-
-static void main_menu() {
-	pushanswer push;
-	add_party(StartYear, 1322);
-	add_party(GoldPiece, 150);
-	create_player(bsdata<racei>::find("Human"), Male, bsdata<classi>::find("Fighter"));
-	player->basic.abilities[Constitution] = 18;
-	player->abilities[PoisonLevel] += 4;
-	update_player();
-	join_party();
-	create_player(bsdata<racei>::find("Elf"), Male, bsdata<classi>::find("Fighter"));
-	join_party();
-	player->hp = -2;
-	create_player(bsdata<racei>::find("Human"), Female, bsdata<classi>::find("Fighter"));
-	join_party();
-	player->hp = -12;
-	create_player(bsdata<racei>::find("Dwarf"), Male, bsdata<classi>::find("Cleric"));
-	join_party();
-	create_player(bsdata<racei>::find("Halfling"), Female, bsdata<classi>::find("Theif"));
-	join_party();
-	player->say("Let's kick some ass!");
-	picture.id = BUILDNGS;
-	picture.frame = 26;
-	show_scene(paint_city, city_input);
-	//auto p = choose_answer("Game options:", paint_adventure_menu, button_label, 2);
-	//auto p = choose_answer(0, paint_main_menu, text_label, 1);
-}
 
 int main() {
 	srand(getcputime());
@@ -89,7 +27,7 @@ int main() {
 	draw::create(-1, -1, 320, 200, 0, 32);
 	draw::setcaption("Eye of beholder (remake)");
 	draw::settimer(100);
-	main_menu();
+	script_run("StartGame");
 }
 
 int _stdcall WinMain(void* ci, void* pi, char* cmd, int sw) {

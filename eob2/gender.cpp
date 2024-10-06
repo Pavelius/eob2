@@ -7,3 +7,5 @@ BSDATA(genderi) = {
 	{"Female"},
 };
 assert_enum(genderi, Female)
+
+gendern last_gender;

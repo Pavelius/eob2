@@ -278,9 +278,9 @@ static void set_race_ability() {
 static void set_starting_equipment() {
 	auto pc = bsdata<classi>::elements + player->type;
 	auto pr = bsdata<racei>::elements + player->race;
-	auto p = bsdata<listi>::find(str("%1%2", pr->id, pc->id));
+	auto p = bsdata<listi>::find(ids(pr->id, pc->id, "StartEquipment"));
 	if(!p)
-		p = bsdata<listi>::find(pc->id);
+		p = bsdata<listi>::find(ids(pc->id, "StartEquipment"));
 	if(p)
 		script_run(p->elements);
 }

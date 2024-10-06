@@ -1,9 +1,11 @@
-﻿DwarvenHelm: Dwarven helm
+﻿BattleAxe: Battle axe
+DwarvenHelm: Dwarven helm
 Helm: Helm
 LeatherArmor: Leather armor
 Longsword: Longsword
 Mace: Mace
 RedRing: Red ring
+Robe: Robe
 Shield: Shield
 ShortSword: Short sword
 

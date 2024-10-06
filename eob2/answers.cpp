@@ -8,10 +8,11 @@ int answers::compare(const void* v1, const void* v2) {
 	return szcmp(((answers::element*)v1)->text, ((answers::element*)v2)->text);
 }
 
-void answers::addv(const void* value, const char* text, const char* format) {
+void answers::addv(const void* value, const char* text, const char* format, unsigned key) {
 	auto p = elements.add();
 	p->value = value;
 	p->text = sc.get();
+	p->key = key;
 	sc.addv(text, format);
 	sc.addsz();
 }

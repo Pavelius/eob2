@@ -3,20 +3,21 @@
 
 #pragma once
 
-typedef void(*fnanswer)(int index, const void* value, const char* text, fnevent press_event);
+typedef void(*fnanswer)(int index, const void* value, const char* text, unsigned key, fnevent press_event);
 
 struct answers {
 	struct element {
 		const void* value;
 		const char* text;
+		unsigned	key;
 	};
 	char buffer[2048];
 	stringbuilder sc;
 	adat<element, 32> elements;
 	answers() : sc(buffer) {}
 	constexpr operator bool() const { return elements.count != 0; }
-	void			add(const void* value, const char* name, ...) { addv(value, name, xva_start(name)); }
-	void			addv(const void* value, const char* name, const char* format);
+	void			add(const void* value, const char* name, ...) { addv(value, name, xva_start(name), 0); }
+	void			addv(const void* value, const char* name, const char* format, unsigned key);
 	const element*	begin() const { return elements.data; }
 	element*		begin() { return elements.data; }
 	void			clear();
@@ -33,7 +34,7 @@ struct answers {
 extern answers an;
 struct pushanswer {
 	answers			answer;
-	pushanswer() : answer(an) {}
+	pushanswer() : answer(an) { an.clear(); }
 	~pushanswer() { an = answer; }
 };
 extern bool show_interactive;

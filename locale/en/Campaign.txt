@@ -1,0 +1,6 @@
+﻿HunterVillage: Hunterville Village
+Inn: Inn
+Tavern: Tavern
+
+VisitDebugTest: Test information
+VisitPrompt: Visit %1

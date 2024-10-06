@@ -1,5 +1,6 @@
 #include "bsreq.h"
 #include "list.h"
+#include "script.h"
 
 BSMETA(listi) = {
 	BSREQ(id),
@@ -7,19 +8,13 @@ BSMETA(listi) = {
 	{}};
 BSDATAC(listi, 256)
 
-listi*	last_list;
+listi* last_list;
 
 void script_run(const variants& source);
 
-void listi::run() const {
+template<> void ftscript<listi>(int value, int counter) {
 	auto push_list = last_list;
-	last_list = (listi*)this;
-	script_run(elements);
+	last_list = bsdata<listi>::elements + value;
+	script_run(last_list->elements);
 	last_list = push_list;
-}
-
-void run_command(const char* id) {
-	auto p = bsdata<listi>::find(id);
-	if(p)
-		p->run();
 }

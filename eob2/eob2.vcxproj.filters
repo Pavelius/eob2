@@ -102,9 +102,6 @@
     <ClCompile Include="avatar.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="gender.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="bsreq.cpp">
       <Filter>support</Filter>
     </ClCompile>
@@ -156,9 +153,6 @@
     <ClCompile Include="surface_util.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="list.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="draw_text.cpp">
       <Filter>support</Filter>
     </ClCompile>
@@ -176,6 +170,12 @@
     </ClCompile>
     <ClCompile Include="location.cpp">
       <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="gender.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="list.cpp">
+      <Filter>support</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +272,6 @@
     <ClInclude Include="direction.h">
       <Filter>logic</Filter>
     </ClInclude>
-    <ClInclude Include="gender.h">
-      <Filter>logic</Filter>
-    </ClInclude>
     <ClInclude Include="my_initialize_list.h">
       <Filter>support</Filter>
     </ClInclude>
@@ -332,9 +329,6 @@
     <ClInclude Include="sprite_util.h">
       <Filter>util</Filter>
     </ClInclude>
-    <ClInclude Include="list.h">
-      <Filter>logic</Filter>
-    </ClInclude>
     <ClInclude Include="npc.h">
       <Filter>logic</Filter>
     </ClInclude>
@@ -349,6 +343,12 @@
     </ClInclude>
     <ClInclude Include="party.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="gender.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="list.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -393,6 +393,12 @@
     </Text>
     <Text Include="..\rules\Locations.txt">
       <Filter>rules</Filter>
+    </Text>
+    <Text Include="..\locale\en\Campaign.txt">
+      <Filter>locale</Filter>
+    </Text>
+    <Text Include="..\locale\en\Actions.txt">
+      <Filter>locale</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

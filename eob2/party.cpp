@@ -7,8 +7,11 @@ BSDATA(partystati) = {
 	{"Reputation"},
 	{"Blessing"},
 	{"StartYear"},
+	{"StartDeadLine"},
+	{"StopDeadLine"},
 	{"Minutes"},
 };
+assert_enum(partystati, Minutes)
 partyi party;
 
 void add_party(partystatn id, int value) {
@@ -19,20 +22,7 @@ int getparty(partystatn id) {
 	return party.abilities[id];
 }
 
-void join_party() {
-	for(auto& e : party.units) {
-		if(e)
-			continue;
-		e = player;
-		break;
-	}
-}
-
 bool is_dead_line() {
 	return party.abilities[StopDeadLine] != 0
 		&& party.abilities[StopDeadLine] > party.abilities[Minutes];
-}
-
-void skip_hours(int value) {
-	add_party(Minutes, 60 * value);
 }

@@ -88,17 +88,17 @@ MagicMap avatar(86)
 
 #List
 
-DwarfFighter
+DwarfFighterStartEquipment
  elements BattleAxe LeatherArmor Shield Helm
-DwarfCleric
+DwarfClericStartEquipment
  elements Mace LeatherArmor Shield DwarvenHelm
-HalflingTheif
+HalflingTheifStartEquipment
  elements ShortSword RedRing
-Fighter
+FighterStartEquipment
  elements Longsword LeatherArmor Shield Helm
-Cleric
+ClericStartEquipment
  elements Mace LeatherArmor Shield Helm
-Theif
+TheifStartEquipment
  elements Longsword LeatherArmor
-Mage
+MageStartEquipment
  elements Robe

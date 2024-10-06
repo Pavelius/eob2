@@ -1,0 +1,10 @@
+﻿DebugTest: Debug Test
+DebugTestVisit: Debug test string
+GlobalOptions: %2 options:
+GlobalVisit: Visit %1
+ReturnBackVisit: Leave to the street
+Options: Options
+ReturnBack: Return back
+Visit: Visit
+
+Village: Village

@@ -1,9 +1,13 @@
 #Location
 
-Inn
-Tavern
-Temple
-Blacksmith
+Inn avatar(BUILDNGS 7) group(Inn)
+ options ReturnBack
+Tavern avatar(BUILDNGS 5) group(Tavern)
+ options ReturnBack
+Temple group(Temple)
+ options ReturnBack
+Blacksmith group(Blacksmith)
+ options ReturnBack
 
-StartVillage avatar(BUILDNGS 26)
- options Inn Tavern
+HunterVillage avatar(BUILDNGS 26) group(Village)
+ options Inn Tavern DebugTest

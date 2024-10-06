@@ -4,3 +4,20 @@
 #include "rules/Spells.txt"
 #include "rules/Advance.txt"
 #include "rules/Locations.txt"
+
+#List
+
+HumanFighter
+ elements Human Male Fighter CreateCharacter
+DwarfCleric
+ elements Dwarf Male Cleric CreateCharacter
+ElfMage
+ elements Elf Female Mage CreateCharacter
+HalflingTheif
+ elements Halfling Female Theif CreateCharacter
+
+CreateTestParty
+ elements HumanFighter PoisonLevel+4 JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty HalflingTheif JoinParty
+
+StartGame
+ elements CreateTestParty GoldPiece+50 Reputation+20 HunterVillage EnterLocation

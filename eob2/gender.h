@@ -7,3 +7,4 @@ enum gendern : unsigned char {
 };
 struct genderi : nameable {
 };
+extern gendern last_gender;

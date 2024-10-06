@@ -5,6 +5,7 @@
 #include "direction.h"
 #include "draw.h"
 #include "gender.h"
+#include "location.h"
 #include "math.h"
 #include "picture.h"
 #include "race.h"
@@ -30,6 +31,7 @@ static color form(164, 164, 186);
 
 static fnevent character_view_proc;
 static void* current_select;
+static point cancel_position;
 
 template<typename T> const char* gtn(int v) {
 	return bsdata<T>::elements[v].getname();
@@ -130,7 +132,6 @@ static void button_frame(int count, bool focused, bool pressed) {
 		setoffset(1, 1);
 	}
 	button_back(focused);
-	setoffset(1, 1);
 }
 
 static bool button_input(const void* button_data, unsigned key) {
@@ -172,7 +173,7 @@ static void paint_answers(fnanswer paintcell, fnevent pushbutton, int height_gri
 		return;
 	auto index = 0;
 	for(auto& e : an.elements) {
-		paintcell(index, &e, e.text, pushbutton);
+		paintcell(index, e.value, e.text, e.key, pushbutton);
 		caret.y += height_grid;
 		index++;
 	}
@@ -200,9 +201,9 @@ void text_label(int index, const void* data, const char* format, fnevent proc) {
 	fore = push_fore;
 }
 
-void button_label(int index, const void* data, const char* format, fnevent proc) {
-	if(paint_button(format, data, get_key(index)))
-		execute(proc, (long)proc);
+void button_label(int index, const void* data, const char* format, unsigned key, fnevent proc) {
+	if(paint_button(format, data, key))
+		execute(proc, (long)data);
 }
 
 static void update_buttonparam() {
@@ -684,24 +685,29 @@ static void field(const char* header, int title_width, int total, int value, int
 	text(header);
 	caret.x += title_width;
 	width = total - title_width;
-	height = 5;
+	height = 4;
 	greenbar(value, maximum);
 	width = push_width;
 	height = push_height;
 	caret = push_caret;
-	caret.y += texth() + 1;
+	caret.y += texth();
+}
+
+static void texta(const char* format, unsigned flags, color text_color) {
+	auto push_fore = fore; fore = text_color;
+	texta(format, flags);
+	fore = push_fore;
 }
 
 void paint_party_status() {
-	auto push_caret = caret;
+	rectpush push;
 	auto push_font = font;
 	set_small_font();
 	paint_menu({0, 122}, 178, 52);
 	caret.x = 8; caret.y = 126;
-	//if(last_name) {
-	//	paint_header(last_name, 178);
-	//	caret.y += texth() + 2;
-	//}
+	width = 160; height = texth();
+	texta(bsdata<locationi>::elements[party.location].getname(), AlignCenter, colors::yellow);
+	caret.y += texth() + 3;
 	if(is_dead_line()) {
 		auto v = getparty(Minutes);
 		auto v1 = getparty(StartDeadLine);
@@ -712,7 +718,6 @@ void paint_party_status() {
 	field(gtn<partystati>(Reputation), 64, 160, getparty(Reputation), 100);
 	field(gtn<partystati>(Blessing), 64, 160, getparty(Blessing), 100);
 	font = push_font;
-	caret = push_caret;
 }
 
 static void paint_console() {
@@ -734,6 +739,7 @@ void paint_city_menu() {
 	caret = {6, 6};
 	width = 165;
 	height = texth() + 3;
+	cancel_position = {6, 104};
 }
 
 void paint_city() {
@@ -952,6 +958,19 @@ void clear_input() {
 	hot.key = 0;
 }
 
+void city_input(fnevent menu_proc) {
+	focus_input();
+	alternate_focus_input();
+	if(character_input())
+		return;
+	switch(draw::hot.key) {
+	case KeyEscape:
+		clear_input();
+		menu_proc();
+		break;
+	}
+}
+
 void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding) {
 	if(!show_interactive)
 		return an.random();
@@ -962,8 +981,13 @@ void* choose_answer(const char* title, const char* cancel, fnevent before_paint,
 			before_paint();
 		paint_title(title);
 		paint_answers(answer_paint, update_buttonparam, height + padding);
-		if(cancel)
-			answer_paint(1000, 0, cancel, update_buttonparam);
+		if(cancel) {
+			if(cancel_position) {
+				width = textw(cancel) + 6;
+				caret = cancel_position;
+			}
+			answer_paint(1000, 0, cancel, KeyEscape, update_buttonparam);
+		}
 		domodal();
 		focus_input();
 		alternate_focus_input();
@@ -985,8 +1009,65 @@ void show_scene(fnevent before_paint, fnevent input) {
 	}
 }
 
+static int menu_button_width() {
+	auto result = 0;
+	if(!an)
+		return 0;
+	for(auto& e : an.elements)
+		result += textw(e.text) + 6 + 2;
+	return result - 2;
+}
+
+static void menu_position(const char* format, point& origin, point& size, int padding, int button_area) {
+	rect rc = {0, 0, 240, 0};
+	textw(rc, format);
+	size.x = rc.width() + padding * 2;
+	size.y = rc.height() + padding * 2 + button_area;
+	origin.x = (getwidth() - size.x) / 2;
+	origin.y = (140 - size.y - button_area) / 2;
+}
+
+static void paint_fade(unsigned char alpha) {
+}
+
+void* choose_dialog(const char* title, int padding) {
+	auto push_fore = fore;
+	rectpush push;
+	pushscene push_scene;
+	point origin, size;
+	caret = {0, 0};
+	width = 320; height = 200;
+	paint_blend(colors::black, 16);
+	fore = colors::white;
+	auto button_area = texth() + 4 + 2;
+	menu_position(title, origin, size, padding, button_area);
+	auto total_width = menu_button_width();
+	while(ismodal()) {
+		paint_menu(origin, size.x, size.y);
+		caret = origin;
+		width = size.x; height = size.y;
+		setoffset(padding, padding);
+		texta(title, AlignCenter | TextBold);
+		caret.y += size.y - button_area - padding * 2 + 4;
+		height = button_area - 3;
+		caret.x = (320 - total_width) / 2;
+		for(auto& e : an.elements) {
+			width = textw(e.text) + 6;
+			if(paint_button(e.text, e.value, e.key, TextBold))
+				execute(buttonparam, (int)&e);
+			caret.x += width;
+			caret.x += 2;
+		}
+		domodal();
+		focus_input();
+	}
+	fore = push_fore;
+	return (void*)getresult();
+}
+
 static void main_beforemodal() {
 	clear_focus_data();
+	cancel_position.clear();
 }
 
 void initialize_gui() {

@@ -7,7 +7,9 @@
 #include "list.h"
 #include "location.h"
 #include "feat.h"
+#include "gender.h"
 #include "script.h"
+#include "party.h"
 #include "point.h"
 #include "resid.h"
 #include "race.h"
@@ -60,10 +62,17 @@ BSMETA(itemi) = {
 	BSREQ(ammo),
 	BSREQ(wearing), BSREQ(use),
 	{}};
+BSMETA(genderi) = {
+	BSREQ(id),
+	{}};
 BSMETA(locationi) = {
 	BSREQ(id),
+	BSREQ(group),
 	BSREQ(avatar),
 	BSREQ(options),
+	{}};
+BSMETA(partystati) = {
+	BSREQ(id),
 	{}};
 BSMETA(picturei) = {
 	BSENM(id, residi),
@@ -94,12 +103,15 @@ BSDATA(varianti) = {
 	{"NoVariant"},
 	{"Ability", VAR(abilityi, 1), 0, 0, ftscript<abilityi>},
 	{"Advance", VAR(advancement, 2)},
-	{"Class", VAR(classi, 1)},
+	{"Class", VAR(classi, 1), 0, 0, ftscript<classi>},
 	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>},
+	{"Gender", VAR(genderi, 1), 0, 0, ftscript<genderi>},
 	{"Item", VAR(itemi, 1), 0, 0, ftscript<itemi>},
-	{"List", VAR(listi, 1)},
-	{"Location", VAR(locationi, 1)},
+	{"List", VAR(listi, 1), 0, 0, ftscript<listi>},
+	{"Location", VAR(locationi, 1), 0, 0, ftscript<locationi>},
 	{"Modifier", VAR(modifieri, 1), 0, 0, ftscript<modifieri>},
+	{"PartyAbility", VAR(partystati, 1), 0, 0, ftscript<partystati>},
+	{"Race", VAR(racei, 1), 0, 0, ftscript<racei>},
 	{"RandomEffect", VAR(randomeffecti, 1)},
 	{"Script", VAR(script, 1), 0, 0, ftscript<script>},
 	{"Spell", VAR(spelli, 1)},

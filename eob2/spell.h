@@ -17,8 +17,8 @@ struct spelli : nameable, featable {
 	variants wearing;
 };
 struct spella {
-	unsigned	spells[4];
-	bool		is(int v) const { return (spells[v / 32] & (v << (v % 32))) != 0; }
-	void		remove(int v) { (spells[v / 32] &= ~(v << (v % 32))); }
-	void		set(int v) { (spells[v / 32] |= (v << (v % 32))); }
+	unsigned	knownspells[4];
+	bool		is(int v) const { return (knownspells[v / 32] & (v << (v % 32))) != 0; }
+	void		remove(int v) { (knownspells[v / 32] &= ~(v << (v % 32))); }
+	void		set(int v) { (knownspells[v / 32] |= (v << (v % 32))); }
 };

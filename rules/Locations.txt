@@ -1,7 +1,6 @@
 #List
 
 GameOptions
-MemorizeSpells
 PrayForSpells
 ScribleScrolls
 

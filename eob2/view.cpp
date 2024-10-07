@@ -789,6 +789,13 @@ void paint_main_menu() {
 static void paint_title(const char* title) {
 	if(!title)
 		return;
+	text(title, -1, TextBold);
+	caret.y += texth() + 4;
+}
+
+static void paint_blue_title(const char* title) {
+	if(!title)
+		return;
 	auto push_fore = fore;
 	text(title, -1, TextBold);
 	caret.y += texth() + 4;
@@ -1019,6 +1026,36 @@ void* choose_answer(const char* title, const char* cancel, fnevent before_paint,
 		debug_input();
 	}
 	return (void*)getresult();
+}
+
+void choose_spells(const char* title, const char* cancel, char* source) {
+	rectpush push;
+	pushscene push_scene;
+	while(ismodal()) {
+		paint_background(PLAYFLD, 0);
+		paint_avatars_no_focus_hilite();
+		paint_console();
+		paint_menu({0, 0}, 178, 174);
+		caret = {6, 6};
+		width = 165;
+		height = texth() + 3;
+		paint_blue_title(title);
+		width = 16;
+		for(int i = 0; i < 9; i++) {
+			button_label(0, bsdata<abilityi>::elements + Spell1 + i, str("%1i", i + 1), '1' + i, update_buttonparam);
+			caret.x += width + 2;
+		}
+		width = 165;
+		if(cancel) {
+			width = textw(cancel) + 6;
+			caret = {6, 158};
+			button_label(1000, 0, cancel, KeyEscape, update_buttonparam);
+		}
+		domodal();
+		focus_input();
+		alternate_focus_input();
+		debug_input();
+	}
 }
 
 void show_scene(fnevent before_paint, fnevent input) {

@@ -226,6 +226,10 @@ static void pick_pockets(int bonus) {
 static void eat_and_drink(int bonus) {
 }
 
+static void memorize_spells(int bonus) {
+	choose_spells("Spells available:", "Cancel", 0);
+}
+
 static void rest_party(int bonus) {
 	if(!confirm(getnm("RestPartyConfirm")))
 		return;
@@ -270,6 +274,7 @@ BSDATA(script) = {
 	{"GambleVisitors", gamble_visitors},
 	{"IdentifyItem", identify_item},
 	{"LearnClericSpells", learn_cleric_spells},
+	{"MemorizeSpells", memorize_spells},
 	{"JoinParty", join_party},
 	{"PickPockets", pick_pockets},
 	{"RestParty", rest_party},

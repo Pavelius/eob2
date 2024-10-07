@@ -1,5 +1,6 @@
 ﻿Fighter: Fighter
 Cleric: Cleric
+Mage: Mage
 Theif: Theif
 
 Human: Human

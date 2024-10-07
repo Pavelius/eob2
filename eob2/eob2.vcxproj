@@ -144,6 +144,7 @@
     <ClInclude Include="bsreq.h" />
     <ClInclude Include="cflags.h" />
     <ClInclude Include="class.h" />
+    <ClInclude Include="collection.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="console.h" />
     <ClInclude Include="creature.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="array.cpp" />
     <ClCompile Include="avatar.cpp" />
     <ClCompile Include="bsreq.cpp" />
+    <ClCompile Include="collection.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="console.cpp" />
     <ClCompile Include="creature.cpp" />

@@ -2,6 +2,7 @@
 
 #include "statable.h"
 #include "levelable.h"
+#include "spell.h"
 #include "npc.h"
 #include "wearable.h"
 
@@ -12,6 +13,7 @@ struct creaturei : npc, statable, levelable, wearable {
 	statable		basic;
 	short			hp, hpm, hpr;
 	unsigned char	avatar;
+	spella			spells;
 	void			additem(item& it);
 	void			clear();
 	int				get(abilityn v) const { return abilities[v]; }

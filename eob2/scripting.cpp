@@ -1,5 +1,6 @@
 #include "answers.h"
 #include "class.h"
+#include "collection.h"
 #include "creature.h"
 #include "draw.h"
 #include "gender.h"
@@ -9,6 +10,7 @@
 #include "party.h"
 #include "race.h"
 #include "script.h"
+#include "spell.h"
 #include "textscript.h"
 #include "view.h"
 #include "view_focus.h"
@@ -128,6 +130,7 @@ static void choose_options(const char* action, const char* id, const char* group
 	// So this memory used only for selection, not for each level of hierarhi.
 	pushanswer push;
 	char header[64]; stringbuilder sb(header);
+	set_player_by_focus();
 	sb.add(get_header(id, group, "Options"), getnm(id), getnm(group), getnm("Options"));
 	for(auto v : options)
 		add_menu(v, action);
@@ -237,6 +240,18 @@ static void curse_item(int bonus) {
 	last_item->curse(bonus);
 }
 
+static bool cleric_spell(const void* object, int index) {
+	return ((spelli*)object)->levels[0] == index;
+}
+
+static void learn_cleric_spells(int bonus) {
+	collection<spelli> spells;
+	spells.select();
+	spells.match(cleric_spell, bonus, true);
+	for(auto p : spells)
+		player->spells.set(getbsi(p));
+}
+
 static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
@@ -252,8 +267,9 @@ BSDATA(script) = {
 	{"DebugTest", debug_test},
 	{"EatAndDrink", eat_and_drink},
 	{"EnterLocation", enter_location},
-	{"IdentifyItem", identify_item},
 	{"GambleVisitors", gamble_visitors},
+	{"IdentifyItem", identify_item},
+	{"LearnClericSpells", learn_cleric_spells},
 	{"JoinParty", join_party},
 	{"PickPockets", pick_pockets},
 	{"RestParty", rest_party},

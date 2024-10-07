@@ -214,13 +214,13 @@ static void update_buttonparam() {
 	buttonparam();
 }
 
-static void set_player_by_focus() {
+void set_player_by_focus() {
 	auto i = bsdata<creaturei>::source.indexof(current_focus);
 	if(i != -1)
 		player = bsdata<creaturei>::elements + i;
 }
 
-static void focus_player() {
+static void set_focus_by_player() {
 	if(player) {
 		if(current_focus == player->wears + RightHand)
 			return;
@@ -232,7 +232,7 @@ static void focus_player() {
 
 static void clear_page() {
 	character_view_proc = 0;
-	focus_player();
+	set_focus_by_player();
 }
 
 static void switch_page(fnevent proc) {
@@ -340,7 +340,7 @@ static void paint_focus_rect() {
 
 static void paint_hilite_rect() {
 	auto push_fore = fore;
-	fore = colors::white.mix(colors::black, get_alpha(256, 1000));
+	fore = colors::white.mix(colors::black, get_alpha(255, 160));
 	rectb();
 	fore = push_fore;
 }
@@ -661,6 +661,8 @@ static void paint_character(bool disabled, bool hilite) {
 
 void paint_avatars() {
 	static point points[] = {{183, 1}, {255, 1}, {183, 53}, {255, 53}, {183, 105}, {255, 105}};
+	//if(!current_focus)
+	//	set_focus_by_player();
 	rectpush push;
 	auto push_player = player;
 	if(party.units[4])
@@ -681,6 +683,14 @@ void paint_avatars_no_focus() {
 	auto push_input = disable_input; disable_input = true;
 	paint_avatars();
 	disable_input = push_input;
+}
+
+void paint_avatars_no_focus_hilite() {
+	auto push_hilite = hilite_player; hilite_player = true;
+	auto push_input = disable_input; disable_input = true;
+	paint_avatars();
+	disable_input = push_input;
+	hilite_player = push_hilite;
 }
 
 static void paint_party_sheets() {
@@ -751,7 +761,7 @@ static void paint_console() {
 
 void paint_city_menu() {
 	paint_background(PLAYFLD, 0);
-	paint_avatars_no_focus();
+	paint_avatars_no_focus_hilite();
 	paint_console();
 	paint_party_status();
 	paint_menu({0, 0}, 178, 120);
@@ -926,7 +936,7 @@ static void choose_character(int index) {
 		player = p;
 		if(((creaturei*)current_focus) >= player && ((creaturei*)current_focus) < (player + 1))
 			return;
-		focus_player();
+		set_focus_by_player();
 	}
 }
 

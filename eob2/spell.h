@@ -16,3 +16,9 @@ struct spelli : nameable, featable {
 	const itemi* summon; // Which item summoned in hand
 	variants wearing;
 };
+struct spella {
+	unsigned	spells[4];
+	bool		is(int v) const { return (spells[v / 32] & (v << (v % 32))) != 0; }
+	void		remove(int v) { (spells[v / 32] &= ~(v << (v % 32))); }
+	void		set(int v) { (spells[v / 32] |= (v << (v % 32))); }
+};

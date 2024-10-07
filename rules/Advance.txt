@@ -102,6 +102,9 @@ Theif+1 AllowedEquipment
 Cleric+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UsePriest
 
+Cleric+1 Spells
+ elements LearnClericSpells+1
+
 Cleric+1 SaveThrow
  elements SaveVsParalization+55 SaveVsPoison+55 SaveVsTraps+35 SaveVsMagic+30
 Cleric+4 SaveThrow

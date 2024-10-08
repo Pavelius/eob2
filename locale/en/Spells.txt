@@ -1,0 +1,6 @@
+﻿DetectEvil: Detect Evil
+DetectMagic: Detect Magic
+ProtectionFromEvil: Prot. from Evil
+
+SpellsAvailable: %1i of %2i remaining
+NoSpellsAvailable: Not available any spells this level

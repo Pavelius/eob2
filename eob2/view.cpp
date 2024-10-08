@@ -1,4 +1,5 @@
 #include "answers.h"
+#include "collection.h"
 #include "creature.h"
 #include "class.h"
 #include "console.h"
@@ -21,14 +22,15 @@ using namespace draw;
 struct pushscene : pushfocus {
 };
 namespace colors {
-static color main(108, 108, 136);
-static color info(64, 64, 64);
-static color light(148, 148, 172);
-static color dark(52, 52, 80);
-static color hilite = main.mix(dark, 160);
-static color focus(250, 100, 100);
-static color down(81, 85, 166);
-static color form(164, 164, 186);
+static color button(108, 108, 136); // Any button background color
+static color light(148, 148, 172); // Light button border color
+static color dark(52, 52, 80); // Dark button border color
+static color hilite = button.mix(dark, 160); // Hilite button background color
+static color focus(250, 100, 100); // Focus text button color
+static color form(164, 164, 186); // Character sheet form color
+static color info(64, 64, 64); // Character sheet text color
+static color down(81, 85, 166); // Green bar background color
+static color title(64, 255, 255); // Spells header color
 }
 
 static fnevent character_view_proc;
@@ -92,7 +94,7 @@ static void paint_picture() {
 static void button_back(bool focused) {
 	rectpush push;
 	auto push_fore = fore;
-	fore = focused ? colors::hilite : colors::main;
+	fore = focused ? colors::hilite : colors::button;
 	width++;
 	height++;
 	rectf();
@@ -190,10 +192,10 @@ static unsigned get_key(int index) {
 	return 0;
 }
 
-void text_label(int index, const void* data, const char* format, fnevent proc) {
+void text_label(int index, const void* data, const char* format, unsigned key, fnevent proc) {
 	auto push_fore = fore;
 	focusing(data);
-	if(button_input(data, get_key(index)))
+	if(button_input(data, key))
 		execute(proc, (long)data);
 	fore = colors::white;
 	if(current_focus == data)
@@ -201,6 +203,20 @@ void text_label(int index, const void* data, const char* format, fnevent proc) {
 	if(pressed_focus == data)
 		fore = fore.darken();
 	texta(format, AlignCenter | TextBold);
+	fore = push_fore;
+}
+
+void text_label_left(int index, const void* data, const char* format, unsigned key, fnevent proc) {
+	auto push_fore = fore;
+	focusing(data);
+	if(button_input(data, key))
+		execute(proc, (long)data);
+	fore = colors::white;
+	if(current_focus == data)
+		fore = colors::focus;
+	if(pressed_focus == data)
+		fore = fore.darken();
+	texta(format, TextBold);
 	fore = push_fore;
 }
 
@@ -674,7 +690,7 @@ void paint_avatars() {
 		player = party.units[i];
 		if(!player)
 			continue;
-		paint_character(player->isdisabled(), hilite_player && (player==push_player));
+		paint_character(player->isdisabled(), hilite_player && (player == push_player));
 	}
 	player = push_player;
 }
@@ -797,8 +813,9 @@ static void paint_blue_title(const char* title) {
 	if(!title)
 		return;
 	auto push_fore = fore;
+	fore = colors::title;
 	text(title, -1, TextBold);
-	caret.y += texth() + 4;
+	caret.y += texth() + 2;
 	fore = push_fore;
 }
 
@@ -1028,9 +1045,19 @@ void* choose_answer(const char* title, const char* cancel, fnevent before_paint,
 	return (void*)getresult();
 }
 
-void choose_spells(const char* title, const char* cancel, char* source) {
+static int get_total_use(char* source_value) {
+	auto result = 0;
+	for(auto& e : an.elements) {
+		auto index = getbsi((spelli*)e.value);
+		result += source_value[index];
+	}
+	return result;
+}
+
+void choose_spells(const char* title, const char* cancel, char* source_value, int available_spells) {
 	rectpush push;
 	pushscene push_scene;
+	auto total_use = get_total_use(source_value);
 	while(ismodal()) {
 		paint_background(PLAYFLD, 0);
 		paint_avatars_no_focus_hilite();
@@ -1041,11 +1068,24 @@ void choose_spells(const char* title, const char* cancel, char* source) {
 		height = texth() + 3;
 		paint_blue_title(title);
 		width = 16;
+		auto push_caret = caret;
 		for(int i = 0; i < 9; i++) {
 			button_label(0, bsdata<abilityi>::elements + Spell1 + i, str("%1i", i + 1), '1' + i, update_buttonparam);
 			caret.x += width + 2;
 		}
+		caret = push_caret;
+		caret.y += texth() + 6;
 		width = 165;
+		if(!an)
+			paint_blue_title(getnm("NoSpellsAvailable"));
+		else
+			paint_blue_title(str(getnm("SpellsAvailable"), total_use, available_spells));
+		auto index = 0;
+		for(auto& e : an.elements) {
+			text_label_left(index, e.value, e.text, e.key, update_buttonparam);
+			caret.y += texth() + 1;
+			index++;
+		}
 		if(cancel) {
 			width = textw(cancel) + 6;
 			caret = {6, 158};

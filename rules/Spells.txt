@@ -10,10 +10,10 @@ Armor levels(0 1)
 BurningHands levels(0 1)
 ChillTouch levels(0 1)
 ComprehendLanguages levels(0 1)
-DetectEvil levels(0 1) duration(Minute0x2)
+DetectEvil levels(1 1) duration(Minute0x2)
  feats Ally Group
  wearing SeeCursed
-DetectMagic levels(0 1) duration(Minute0x2)
+DetectMagic levels(1 1) duration(Minute0x2)
  feats Ally Group
  wearing SeeMagical
 Friends levels(0 1)
@@ -24,7 +24,7 @@ MagicMissile levels(0 1) effect(Damage1d4p1x1d4p1s3p2c9)
 Mending levels(0 1)
  feats Ally
  wearing SeeCursed
-ProtectionFromEvil levels(0 1)
+ProtectionFromEvil levels(1 1)
 ShieldSpell levels(0 1)
  wearing AC+5
 ShockingGrasp levels(0 1)

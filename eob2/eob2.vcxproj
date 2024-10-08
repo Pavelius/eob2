@@ -258,6 +258,7 @@
     <Text Include="..\locale\en\Campaign.txt" />
     <Text Include="..\locale\en\Items.txt" />
     <Text Include="..\locale\en\Races.txt" />
+    <Text Include="..\locale\en\Spells.txt" />
     <Text Include="..\locale\en\UnknownNames.txt" />
     <Text Include="..\names\en\Names.txt" />
     <Text Include="..\names\en\Talk.txt" />

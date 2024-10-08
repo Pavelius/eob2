@@ -37,6 +37,7 @@ BSDATA(abilityi) = {
 	{"Spell7"},
 	{"Spell8"},
 	{"Spell9"},
+	{"Spells"},
 	{"BonusExperience"},
 	{"ReactionBonus"},
 	{"ExeptionalStrenght"},

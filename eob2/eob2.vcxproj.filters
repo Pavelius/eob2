@@ -421,6 +421,9 @@
     <Text Include="..\LICENSE.txt">
       <Filter>locale</Filter>
     </Text>
+    <Text Include="..\locale\en\Spells.txt">
+      <Filter>locale</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">

@@ -10,7 +10,7 @@ struct hotkeyi;
 
 void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding = 2);
 void* choose_dialog(const char* title, int dx);
-void choose_spells(const char* title, const char* cancel, char* source);
+void choose_spells(const char* title, const char* cancel, char* source, int available);
 
 void alternate_focus_input();
 void button_label(int index, const void* data, const char* format, unsigned key, fnevent proc);
@@ -30,4 +30,4 @@ void paint_main_menu();
 void paint_party_status();
 void set_player_by_focus();
 void show_scene(fnevent before_paint, fnevent input);
-void text_label(int index, const void* data, const char* format, fnevent proc);
+void text_label(int index, const void* data, const char* format, unsigned key, fnevent proc);

@@ -131,6 +131,27 @@ static void update_abilities() {
 	add_value(player->abilities[Constitution], -player->abilities[DrainConstitution]);
 }
 
+static void add_additional_spell(abilityn v) {
+	if(player->abilities[v])
+		player->abilities[v]++;
+}
+
+static void update_additional_spells() {
+	auto k = player->get(Wisdow);
+	if(k >= 13)
+		add_additional_spell(Spell1);
+	if(k >= 14)
+		add_additional_spell(Spell1);
+	if(k >= 15)
+		add_additional_spell(Spell2);
+	if(k >= 16)
+		add_additional_spell(Spell2);
+	if(k >= 17)
+		add_additional_spell(Spell3);
+	if(k >= 18)
+		add_additional_spell(Spell4);
+}
+
 static void update_depended_abilities() {
 	auto k = get_modified_strenght();
 	player->abilities[AttackMelee] += maptbl(hit_probability, k);
@@ -175,6 +196,7 @@ void update_player() {
 	update_duration();
 	update_abilities();
 	update_depended_abilities();
+	update_additional_spells();
 	update_bonus_saves();
 	player->hpm = get_maximum_hits();
 }

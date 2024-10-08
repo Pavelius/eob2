@@ -1,2 +1,4 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `Mage`
+ Define translation for `DetectEvil`
+ Define translation for `DetectMagic`
+ Define translation for `ProtectionFromEvil`

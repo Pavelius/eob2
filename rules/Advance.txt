@@ -103,7 +103,15 @@ Cleric+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UsePriest
 
 Cleric+1 Spells
- elements LearnClericSpells+1
+ elements LearnClericSpells+1 Spell1+1
+Cleric+2 Spells
+ elements Spell1+1
+Cleric+3 Spells
+ elements LearnClericSpells+2 Spell2+1
+Cleric+4 Spells
+ elements Spell1+1 Spell2+1
+Cleric+5 Spells
+ elements LearnClericSpells+3 Spell2+1 Spell3+1
 
 Cleric+1 SaveThrow
  elements SaveVsParalization+55 SaveVsPoison+55 SaveVsTraps+35 SaveVsMagic+30

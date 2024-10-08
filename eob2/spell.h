@@ -2,6 +2,7 @@
 
 #include "dice.h"
 #include "feat.h"
+#include "flagable.h"
 #include "nameable.h"
 #include "randomeffect.h"
 #include "variant.h"
@@ -16,9 +17,5 @@ struct spelli : nameable, featable {
 	const itemi* summon; // Which item summoned in hand
 	variants wearing;
 };
-struct spella {
-	unsigned	knownspells[4];
-	bool		is(int v) const { return (knownspells[v / 32] & (v << (v % 32))) != 0; }
-	void		remove(int v) { (knownspells[v / 32] &= ~(v << (v % 32))); }
-	void		set(int v) { (knownspells[v / 32] |= (v << (v % 32))); }
-};
+typedef char spella[128];
+typedef flagable<16> spellseta;

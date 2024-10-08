@@ -226,8 +226,22 @@ static void pick_pockets(int bonus) {
 static void eat_and_drink(int bonus) {
 }
 
+static void add_spells(int type, int level, const spellseta* include) {
+	an.clear();
+	for(auto& e : bsdata<spelli>()) {
+		if(e.levels[type] != level)
+			continue;
+		auto index = getbsi(&e);
+		if(include && !include->is(index))
+			continue;
+		an.add(&e, e.getname());
+	}
+}
+
 static void memorize_spells(int bonus) {
-	choose_spells("Spells available:", "Cancel", 0);
+	auto level = 1;
+	add_spells(0, level, &player->knownspells);
+	choose_spells("Spells available:", "Cancel", player->spells, player->abilities[Spell1 + level - 1]);
 }
 
 static void rest_party(int bonus) {
@@ -249,11 +263,9 @@ static bool cleric_spell(const void* object, int index) {
 }
 
 static void learn_cleric_spells(int bonus) {
-	collection<spelli> spells;
-	spells.select();
-	spells.match(cleric_spell, bonus, true);
-	for(auto p : spells)
-		player->spells.set(getbsi(p));
+	add_spells(0, 1, 0);
+	for(auto& e : an.elements)
+		player->knownspells.set(getbsi((spelli*)e.value));
 }
 
 static void player_name(stringbuilder& sb) {

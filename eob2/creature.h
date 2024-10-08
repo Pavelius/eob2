@@ -14,6 +14,7 @@ struct creaturei : npc, statable, levelable, wearable {
 	short			hp, hpm, hpr;
 	unsigned char	avatar;
 	spella			spells;
+	spellseta		knownspells;
 	void			additem(item& it);
 	void			clear();
 	int				get(abilityn v) const { return abilities[v]; }

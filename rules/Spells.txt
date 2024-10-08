@@ -7,9 +7,11 @@ Minute0x2 raise(2) perlevel(0 1)
 #Spell
 
 Armor levels(0 1)
+Bless levels(1 0)
 BurningHands levels(0 1)
 ChillTouch levels(0 1)
 ComprehendLanguages levels(0 1)
+CureLightWounds levels(1 0)
 DetectEvil levels(1 1) duration(Minute0x2)
  feats Ally Group
  wearing SeeCursed
@@ -25,6 +27,7 @@ Mending levels(0 1)
  feats Ally
  wearing SeeCursed
 ProtectionFromEvil levels(1 1)
+PurifyFood levels(1 0)
 ShieldSpell levels(0 1)
  wearing AC+5
 ShockingGrasp levels(0 1)

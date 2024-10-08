@@ -628,7 +628,11 @@ void stringbuilder::addch(char sym) {
 
 const char* stringbuilder::psstrlf(const char* p) {
 	while(*p) {
-		if(*p == '\n' || *p == '\r')
+		if(p[0] == '\\' && p[1] == 'n') {
+			add('\n');
+			p += 2;
+			continue;
+		} else if(*p == '\n' || *p == '\r')
 			break;
 		addch(*p++);
 	}

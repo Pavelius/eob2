@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ability.h" />
+    <ClInclude Include="action.h" />
     <ClInclude Include="adat.h" />
     <ClInclude Include="advancement.h" />
     <ClInclude Include="aflags.h" />
@@ -245,6 +246,7 @@
     <ClCompile Include="szdup.cpp" />
     <ClCompile Include="party.cpp" />
     <ClCompile Include="view.cpp" />
+    <ClCompile Include="view_textfa.cpp" />
     <ClCompile Include="wearable.cpp" />
     <ClCompile Include="win_draw.cpp" />
     <ClCompile Include="win_io_file.cpp" />

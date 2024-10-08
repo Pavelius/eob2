@@ -86,7 +86,7 @@ static void paint_background(resid v, int frame) {
 }
 
 static void paint_picture() {
-	image(gres(BORDER), 0, 0);
+	image(0, 0, gres(BORDER), 0, 0);
 	if(picture)
 		image(8, 8, gres(picture.id), picture.frame, 0);
 }
@@ -150,7 +150,7 @@ static bool button_input(const void* button_data, unsigned key) {
 	return false;
 }
 
-static bool paint_button(const char* title, const void* button_data, unsigned key, unsigned flags = TextBold) {
+static bool paint_button(const char* title, const void* button_data, unsigned key, unsigned flags = TextBold, bool force_focus = false) {
 	rectpush push;
 	auto push_fore = fore;
 	if(!button_data)
@@ -159,7 +159,7 @@ static bool paint_button(const char* title, const void* button_data, unsigned ke
 	auto run = button_input(button_data, key);
 	auto pressed = (pressed_focus == button_data);
 	button_frame(1, false, pressed);
-	if(current_focus == button_data)
+	if((current_focus == button_data) || force_focus)
 		fore = colors::focus;
 	caret.y += 2;
 	caret.x += 4;
@@ -217,6 +217,17 @@ void text_label_left(int index, const void* data, const char* format, unsigned k
 	if(pressed_focus == data)
 		fore = fore.darken();
 	texta(format, TextBold);
+	fore = push_fore;
+}
+
+static void label_control(const char* format, const void* data, unsigned flags) {
+	auto push_fore = fore;
+	fore = colors::white;
+	if(current_focus == data)
+		fore = colors::focus;
+	if(pressed_focus == data)
+		fore = fore.darken();
+	texta(format, flags);
 	fore = push_fore;
 }
 
@@ -814,7 +825,7 @@ static void paint_blue_title(const char* title) {
 		return;
 	auto push_fore = fore;
 	fore = colors::title;
-	text(title, -1, TextBold);
+	texta(title, TextBold);
 	caret.y += texth() + 2;
 	fore = push_fore;
 }
@@ -1054,11 +1065,21 @@ static int get_total_use(char* source_value) {
 	return result;
 }
 
-void choose_spells(const char* title, const char* cancel, char* source_value, int available_spells) {
+void choose_spells(const char* title, const char* cancel, int spell_type) {
 	rectpush push;
 	pushscene push_scene;
-	auto total_use = get_total_use(source_value);
+	auto level = 0;
+	auto last_level = -1;
 	while(ismodal()) {
+		if(level != last_level) {
+			last_level = level;
+			add_spells(spell_type, level + 1, &player->knownspells);
+			if(an)
+				current_focus = (void*)an.elements[0].value;
+		}
+		auto available_spells = player->abilities[Spell1 + level];
+		auto source_value = player->spells;
+		auto total_use = get_total_use(source_value);
 		paint_background(PLAYFLD, 0);
 		paint_avatars_no_focus_hilite();
 		paint_console();
@@ -1069,20 +1090,32 @@ void choose_spells(const char* title, const char* cancel, char* source_value, in
 		paint_blue_title(title);
 		width = 16;
 		auto push_caret = caret;
+		if(current_focus >= bsdata<abilityi>::elements + Spell1 && current_focus <= bsdata<abilityi>::elements + Spell9) {
+			auto new_level = (abilityi*)current_focus - (bsdata<abilityi>::elements + Spell1);
+			if(new_level != level)
+				execute(cbsetint, new_level, 0, &level);
+		}
 		for(int i = 0; i < 9; i++) {
-			button_label(0, bsdata<abilityi>::elements + Spell1 + i, str("%1i", i + 1), '1' + i, update_buttonparam);
+			if(paint_button(str("%1i", i + 1), bsdata<abilityi>::elements + Spell1 + i, '1' + i, TextBold, level == i))
+				execute(cbsetint, i, 0, &level);
 			caret.x += width + 2;
 		}
 		caret = push_caret;
-		caret.y += texth() + 6;
+		caret.y += texth() + 8;
 		width = 165;
 		if(!an)
 			paint_blue_title(getnm("NoSpellsAvailable"));
 		else
 			paint_blue_title(str(getnm("SpellsAvailable"), total_use, available_spells));
+		caret.y += 2;
 		auto index = 0;
+		auto current_spell_index = -1;
 		for(auto& e : an.elements) {
+			auto spell_index = getbsi((spelli*)e.value);
 			text_label_left(index, e.value, e.text, e.key, update_buttonparam);
+			if(e.value == current_focus)
+				current_spell_index = spell_index;
+			label_control(str("%1i", source_value[spell_index]), e.value, TextBold | AlignRight);
 			caret.y += texth() + 1;
 			index++;
 		}
@@ -1092,15 +1125,28 @@ void choose_spells(const char* title, const char* cancel, char* source_value, in
 			button_label(1000, 0, cancel, KeyEscape, update_buttonparam);
 		}
 		domodal();
-		focus_input();
-		alternate_focus_input();
+		switch(hot.key) {
+		case KeyUp:
+		case KeyDown:
+			apply_focus(hot.key);
+			break;
+		case KeyRight:
+			if(current_spell_index != -1 && total_use < available_spells)
+				source_value[current_spell_index]++;
+			break;
+		case KeyLeft:
+			if(current_spell_index != -1 && source_value[current_spell_index] > 0)
+				source_value[current_spell_index]--;
+			break;
+		}
 		debug_input();
 	}
 }
 
-void show_scene(fnevent before_paint, fnevent input) {
+void show_scene(fnevent before_paint, fnevent input, void* focus) {
 	rectpush push;
 	pushscene push_scene;
+	current_focus = focus;
 	while(ismodal()) {
 		if(before_paint)
 			before_paint();
@@ -1164,6 +1210,44 @@ void* choose_dialog(const char* title, int padding) {
 		focus_input();
 	}
 	fore = push_fore;
+	return (void*)getresult();
+}
+
+void* show_message(const char* format, const char* cancel) {
+	rectpush push;
+	pushscene push_scene;
+	auto push_picture = picture;
+	while(ismodal()) {
+		paint_background(PLAYFLD, 0);
+		paint_avatars_no_focus_hilite();
+		paint_console();
+		paint_menu({0, 122}, 319, 77);
+		caret = {4, 126};
+		width = 312;
+		auto push_text = text_flags;
+		text_flags = TextBold;
+		textf(format);
+		text_flags = push_text;
+		paint_picture();
+		caret = {4, 184};
+		auto index = 0;
+		height = texth() + 3;
+		for(auto& e : an.elements) {
+			width = textw(e.text) + 6;
+			button_label(index++, e.value, e.text, e.key, update_buttonparam);
+			caret.x += width;
+			caret.x += 2;
+		}
+		if(cancel) {
+			width = textw(cancel) + 6;
+			button_label(index++, 0, cancel, KeyEscape, update_buttonparam);
+		}
+		domodal();
+		focus_input();
+		alternate_focus_input();
+		debug_input();
+	}
+	picture = push_picture;
 	return (void*)getresult();
 }
 

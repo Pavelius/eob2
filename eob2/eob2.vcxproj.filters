@@ -183,6 +183,9 @@
     <ClCompile Include="collection.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="view_textfa.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -364,6 +367,9 @@
     </ClInclude>
     <ClInclude Include="collection.h">
       <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="action.h">
+      <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

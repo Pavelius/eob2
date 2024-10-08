@@ -39,3 +39,11 @@ void answers::clear() {
 	elements.clear();
 	sc.clear();
 }
+
+int	answers::findvalue(const void* pv) const {
+	for(auto& e : elements) {
+		if(e.value == pv)
+			return &e - elements.data;
+	}
+	return -1;
+}

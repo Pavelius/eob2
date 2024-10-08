@@ -10,6 +10,7 @@
 #include "party.h"
 #include "race.h"
 #include "script.h"
+#include "speech.h"
 #include "spell.h"
 #include "textscript.h"
 #include "view.h"
@@ -194,13 +195,16 @@ static void city_adventure_input() {
 	city_input(keys);
 }
 
+static void* save_focus;
+
 static void play_location() {
-	show_scene(paint_city, city_adventure_input);
+	show_scene(paint_city, city_adventure_input, save_focus);
 }
 
 static void enter_location(int bonus) {
 	party.location = getbsi(last_location);
 	picture = last_location->avatar;
+	save_focus = current_focus;
 	set_next_scene(play_location);
 }
 
@@ -218,6 +222,11 @@ static void debug_test(int bonus) {
 }
 
 static void gamble_visitors(int bonus) {
+	auto format = speech_get("GamblingWin");
+	an.clear();
+	an.add((void*)1, "Talk");
+	an.add((void*)2, "Run");
+	show_message(format, "Cancel");
 }
 
 static void pick_pockets(int bonus) {
@@ -226,7 +235,7 @@ static void pick_pockets(int bonus) {
 static void eat_and_drink(int bonus) {
 }
 
-static void add_spells(int type, int level, const spellseta* include) {
+void add_spells(int type, int level, const spellseta* include) {
 	an.clear();
 	for(auto& e : bsdata<spelli>()) {
 		if(e.levels[type] != level)
@@ -239,9 +248,11 @@ static void add_spells(int type, int level, const spellseta* include) {
 }
 
 static void memorize_spells(int bonus) {
-	auto level = 1;
-	add_spells(0, level, &player->knownspells);
-	choose_spells("Spells available:", "Cancel", player->spells, player->abilities[Spell1 + level - 1]);
+	choose_spells("Spells available:", "Cancel", 1);
+}
+
+static void pray_for_spells(int bonus) {
+	choose_spells("Spells available:", "Cancel", 0);
 }
 
 static void rest_party(int bonus) {
@@ -289,6 +300,7 @@ BSDATA(script) = {
 	{"MemorizeSpells", memorize_spells},
 	{"JoinParty", join_party},
 	{"PickPockets", pick_pockets},
+	{"PrayForSpells", pray_for_spells},
 	{"RestParty", rest_party},
 	{"ReturnBack", return_back},
 };

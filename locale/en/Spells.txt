@@ -1,6 +1,9 @@
-﻿DetectEvil: Detect Evil
+﻿Bless: Bless
+CureLightWounds: Cure Light Wounds
+DetectEvil: Detect Evil
 DetectMagic: Detect Magic
 ProtectionFromEvil: Prot. from Evil
+PurifyFood: Purify Food
 
 SpellsAvailable: %1i of %2i remaining
-NoSpellsAvailable: Not available any spells this level
+NoSpellsAvailable: Not available any spells on this level

@@ -14,3 +14,10 @@ I need take %1 in hand.
 #MustBeWearing
 The %1 used when weared.
 %1 used automatically.
+
+#GamblingWin
+/BUILDNGS 1\nYou found some guys who play dice game and win. Your profit is %Number gold pieces.
+/BUILDNGS 1\nYou found some guy who play dice game and win. Your profit is %Number gold pieces.
+
+#GamblingNotEnoughtMoney
+Hey! you don't have money to play this game. Get lost!

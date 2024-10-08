@@ -30,6 +30,7 @@ struct creaturei : npc, statable, levelable, wearable {
 };
 extern creaturei* player;
 
+void add_spells(int type, int level, const spellseta* include);
 void create_player(const racei* pr, gendern gender, const classi* pc);
 void update_player();
 

@@ -26,3 +26,7 @@ public:
 	constexpr void remove(short unsigned v) { data &= ~(1 << v); }
 	constexpr void set(short unsigned v) { data |= (1 << v); }
 };
+typedef flagable<1, unsigned long long> flag64;
+typedef flagable<1, unsigned> flag32;
+typedef flagable<1, unsigned short> flag16;
+typedef flagable<1, unsigned char> flag8;

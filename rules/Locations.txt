@@ -1,7 +1,22 @@
 #List
 
+ChooseBet
+
+#Action
+
+GambleVisitors avatar(BUILDNGS 1)
+ classes Fighter Theif
 GameOptions
+MemorizeSpells
+ classes Mage
+ effect ChooseSpells+1
+PickPockets
+ classes Theif
+PrayForSpells
+ classes Cleric Paladin Ranger
+ effect ChooseSpells+0
 ScribleScrolls
+ classes Mage
 
 #Location
 
@@ -10,9 +25,9 @@ HunterVillage
 Inn avatar(BUILDNGS 7) group(Inn) parent(HunterVillage)
  options RestParty MemorizeSpells PrayForSpells ScribleScrolls GameOptions
 Tavern avatar(BUILDNGS 5) group(Tavern) parent(HunterVillage)
- options EatAndDrink GambleVisitors PickPockets ReturnBack
+ options EatAndDrink GambleVisitors PickPockets ReturnToStreet
 Temple group(Temple) parent(HunterVillage)
- options ReturnBack
+ options ReturnToStreet
 
 HunterVillage avatar(BUILDNGS 26) group(Village)
  options Inn Tavern

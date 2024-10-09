@@ -58,3 +58,5 @@ void add_value(char& result, int i, int minimum, int maximum) {
 		i = maximum;
 	result = i;
 }
+
+abilityn last_ability;

@@ -1,2 +1,3 @@
-﻿Error in file `rules/Spells.txt`:
- Line 12: Can't find variant `MeleeDamage`
+﻿Error in file `rules/Locations.txt`:
+ Line 28: Can't find variant `ReturnBack`
+ Line 30: Can't find variant `ReturnBack`

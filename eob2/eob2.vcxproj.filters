@@ -186,6 +186,9 @@
     <ClCompile Include="view_dialog.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="action.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">

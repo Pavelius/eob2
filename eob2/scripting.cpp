@@ -1,3 +1,4 @@
+#include "action.h"
 #include "answers.h"
 #include "class.h"
 #include "collection.h"
@@ -5,6 +6,7 @@
 #include "draw.h"
 #include "gender.h"
 #include "hotkey.h"
+#include "list.h"
 #include "location.h"
 #include "modifier.h"
 #include "party.h"
@@ -39,6 +41,10 @@ template<> void ftscript<locationi>(int value, int bonus) {
 	last_location = bsdata<locationi>::elements + value;
 }
 
+template<> void ftscript<actioni>(int value, int bonus) {
+	last_action = bsdata<actioni>::elements + value;
+}
+
 template<> void ftscript<feati>(int value, int bonus) {
 	switch(modifier) {
 	case Permanent:
@@ -51,13 +57,10 @@ template<> void ftscript<feati>(int value, int bonus) {
 }
 
 template<> void ftscript<abilityi>(int value, int bonus) {
+	last_ability = (abilityn)value;
 	switch(modifier) {
-	case Permanent:
-		add_value(player->basic.abilities[value], bonus);
-		break;
-	default:
-		add_value(player->abilities[value], bonus);
-		break;
+	case Permanent: add_value(player->basic.abilities[value], bonus); break;
+	default: add_value(player->abilities[value], bonus); break;
 	}
 }
 
@@ -116,21 +119,34 @@ static void start_game() {
 	exit(0);
 }
 
-static const char* get_header(const char* id, const char* group, const char* action) {
+static const char* get_header(const char* id, const char* action) {
 	auto pn = getnme(ids(id, action));
-	if(!pn && group)
-		pn = getnme(ids(group, action));
-	if(!pn)
+	if(!pn && action)
 		pn = getnm(ids("Global", action));
 	return pn;
 }
 
 static void add_menu(variant v, const char* action_id) {
-	auto format = get_header(v.getid(), 0, action_id);
-	an.add(v.getpointer(), format, v.getname(), 0, getnm(action_id));
+	if(v.iskind<actioni>()) {
+		auto p = bsdata<actioni>::elements + v.value;
+		if(p->isallow(player))
+			an.add(v.getpointer(), v.getname());
+	} else if(v.iskind<script>()) {
+		auto p = bsdata<script>::elements + v.value;
+		an.add(p, getnm(p->id));
+	} else {
+		auto format = get_header(v.getid(), action_id);
+		an.add(v.getpointer(), format, v.getname(), getnm(action_id));
+	}
 }
 
 static void enter_location(int bonus);
+
+static void apply_action(int bonus) {
+	if(last_action->avatar)
+		picture = last_action->avatar;
+	script_run(last_action->effect);
+}
 
 static void apply_result() {
 	if(bsdata<locationi>::have(last_result)) {
@@ -138,15 +154,19 @@ static void apply_result() {
 		enter_location(0);
 	} else if(bsdata<script>::have(last_result))
 		((script*)last_result)->proc(0);
+	else if(bsdata<actioni>::have(last_result)) {
+		last_action = (actioni*)last_result;
+		apply_action(0);
+	}
 }
 
-static void choose_options(const char* action, const char* id, const char* group, const variants& options) {
+static void choose_options(const char* action, const char* id, const variants& options) {
 	// Function use huge amount of memory for existing copy of answers and return result to upper level.
 	// So this memory used only for selection, not for each level of hierarhi.
 	pushanswer push;
 	char header[64]; stringbuilder sb(header);
 	set_player_by_focus();
-	sb.add(get_header(id, group, "Options"), getnm(id), getnm(group), getnm("Options"));
+	sb.add(get_header(id, "Options"), getnm(id), getnm("Options"));
 	for(auto v : options)
 		add_menu(v, action);
 	last_result = choose_answer(header, getnm("Cancel"), paint_city_menu, button_label, 1);
@@ -154,7 +174,7 @@ static void choose_options(const char* action, const char* id, const char* group
 
 static void choose_city_menu() {
 	auto& e = bsdata<locationi>::elements[party.location];
-	choose_options("Visit", e.id, e.group, e.options);
+	choose_options("Visit", e.id, e.options);
 	apply_result();
 }
 
@@ -222,7 +242,7 @@ static void enter_location(int bonus) {
 	set_next_scene(play_location);
 }
 
-static void return_back(int bonus) {
+static void return_to_street(int bonus) {
 	last_location = bsdata<locationi>::elements + party.location;
 	if(last_location->parent) {
 		last_location = last_location->parent;
@@ -230,7 +250,7 @@ static void return_back(int bonus) {
 	}
 }
 
-static void debug_test(int bonus) {
+static void exit_game(int bonus) {
 	if(confirm("Really want quit game?"))
 		exit(0);
 }
@@ -244,10 +264,19 @@ static void gamble_visitors(int bonus) {
 	dialog(0, format);
 }
 
-static void pick_pockets(int bonus) {
+static void eat_and_drink(int bonus) {
 }
 
-static void eat_and_drink(int bonus) {
+static void choose_menu(int bonus) {
+	if(!last_list)
+		return;
+	variants commands; commands.set(script_begin, script_end - script_begin);
+	an.clear();
+	for(auto v : commands)
+		add_menu(v, last_list->id);
+	last_result = choose_answer(getnm(last_list->id), getnm("Cancel"), paint_city_menu, button_label, 1);
+	apply_result();
+	script_stop();
 }
 
 void add_spells(int type, int level, const spellseta* include) {
@@ -262,18 +291,14 @@ void add_spells(int type, int level, const spellseta* include) {
 	}
 }
 
-static void memorize_spells(int bonus) {
-	choose_spells("Spells available:", "Cancel", 1);
-}
-
-static void pray_for_spells(int bonus) {
-	choose_spells("Spells available:", "Cancel", 0);
+static void choose_spells(int bonus) {
+	choose_spells("Spells available:", "Cancel", bonus);
 }
 
 static void rest_party(int bonus) {
 	if(!confirm(getnm("RestPartyConfirm")))
 		return;
-	return_back(0);
+	return_to_street(0);
 }
 
 static void identify_item(int bonus) {
@@ -309,21 +334,21 @@ BSDATA(textscript) = {
 BSDATAF(textscript)
 BSDATA(script) = {
 	{"Attack", attack_modify},
+	{"ApplyAction", apply_action},
+	{"ChooseSpells", choose_spells},
+	{"ChooseMenu", choose_menu},
 	{"CreateCharacter", create_character},
 	{"CurseItem", curse_item},
 	{"Damage", damage_modify},
-	{"DebugTest", debug_test},
+	{"ExitGame", exit_game},
 	{"EatAndDrink", eat_and_drink},
 	{"EnterLocation", enter_location},
 	{"GambleVisitors", gamble_visitors},
 	{"IdentifyItem", identify_item},
 	{"LearnClericSpells", learn_cleric_spells},
-	{"MemorizeSpells", memorize_spells},
 	{"JoinParty", join_party},
-	{"PickPockets", pick_pockets},
-	{"PrayForSpells", pray_for_spells},
 	{"RestParty", rest_party},
-	{"ReturnBack", return_back},
+	{"ReturnToStreet", return_to_street},
 	{"Saves", saves_modify},
 };
 BSDATAF(script)

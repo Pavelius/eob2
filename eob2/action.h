@@ -1,10 +1,16 @@
 #pragma once
 
-#include "nameable.h"
 #include "flagable.h"
+#include "nameable.h"
+#include "picture.h"
 #include "variant.h"
 
+struct creaturei;
+
 struct actioni : nameable {
-	flagable<4> classes, races, alignment;
-	variants effect;
+	picturei	avatar;
+	flag32		classes, races, alignment;
+	variants	effect;
+	bool isallow(const creaturei* player) const;
 };
+extern actioni* last_action;

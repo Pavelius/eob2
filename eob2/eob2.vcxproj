@@ -197,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ability.cpp" />
+    <ClCompile Include="action.cpp" />
     <ClCompile Include="answers.cpp" />
     <ClCompile Include="array.cpp" />
     <ClCompile Include="avatar.cpp" />

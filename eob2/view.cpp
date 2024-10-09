@@ -1127,16 +1127,25 @@ void choose_spells(const char* title, const char* cancel, int spell_type) {
 		domodal();
 		switch(hot.key) {
 		case KeyUp:
+			if(an.elements && an.elements[0].value == current_focus)
+				current_focus = bsdata<abilityi>::elements + level + Spell1;
+			else
+				apply_focus(hot.key);
+			break;
 		case KeyDown:
 			apply_focus(hot.key);
 			break;
 		case KeyRight:
 			if(current_spell_index != -1 && total_use < available_spells)
 				source_value[current_spell_index]++;
+			else
+				apply_focus(hot.key);
 			break;
 		case KeyLeft:
 			if(current_spell_index != -1 && source_value[current_spell_index] > 0)
 				source_value[current_spell_index]--;
+			else
+				apply_focus(hot.key);
 			break;
 		}
 		debug_input();

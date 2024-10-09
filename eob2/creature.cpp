@@ -19,6 +19,7 @@
 BSDATAC(creaturei, 256)
 
 creaturei* player;
+int last_roll, last_chance;
 
 static char hit_points_adjustment[] = {
 	-4, -3, -2, -2, -1, -1, -1, 0, 0, 0,
@@ -382,13 +383,14 @@ int	creaturei::getchance(abilityn v) const {
 }
 
 bool creaturei::roll(abilityn v, int bonus) const {
-	auto chance = getchance(v);
-	if(chance <= 0)
+	last_chance = getchance(v);
+	if(last_chance <= 0)
 		return false;
-	chance += bonus;
-	if(chance >= 100)
-		chance = 95;
-	return d100() < chance;
+	last_chance += bonus;
+	if(last_chance >= 100)
+		last_chance = 95;
+	last_roll = d100();
+	return d100() < last_chance;
 }
 
 const char* creaturei::getbadstate() const {

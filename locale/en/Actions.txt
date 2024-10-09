@@ -2,24 +2,18 @@
 DebugTestVisit: Debug test string
 EatAndDrink: Eat and drink
 EatAndDrinkVisit: Eat and drink
-GambleVisitors: Gamble
-GambleVisitorsVisit: Gamble with someone
+GambleVisitors: Gamble with someone
 GameOptions: Game Options
-GameOptionsVisit: Game Options
 GlobalOptions: %2 Options:
 GlobalVisit: Visit %1
 MemorizeSpells: Memorize Spells
-MemorizeSpellsVisit: Memorize Spells
 PickPockets: Pick pockets
 PickPocketsVisit: Pick some pockets
 PrayForSpells: Pray for Spells
-PrayForSpellsVisit: Pray for Spells
 RestParty: Rest party
 RestPartyConfirm: Rest all party for 8 hours?
-RestPartyVisit: Rest party
-ReturnBackVisit: Leave to the street
+ReturnToStreet: Leave to the street
 ScribleScrolls: Scrible Scrolls
-ScribleScrollsVisit: Scrible Scrolls
 SellConfirm: Do you really want sell %-1 for %2i gold pieces?
 
 Options: Options

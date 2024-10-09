@@ -25,3 +25,5 @@ struct abilityi : nameable {
 	int maximal = 100;
 };
 void add_value(char& result, int i, int minimum = 0, int maximum = 120);
+
+extern abilityn last_ability;

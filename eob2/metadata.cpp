@@ -1,4 +1,5 @@
 #include "ability.h"
+#include "action.h"
 #include "advancement.h"
 #include "bsreq.h"
 #include "class.h"
@@ -23,6 +24,7 @@ NOBSDATA(dice)
 NOBSDATA(point)
 NOBSDATA(picturei)
 
+BSDATAC(actioni, 256)
 BSDATAC(advancement, 256)
 BSDATAC(classi, 32)
 BSDATAC(itemi, 256)
@@ -31,6 +33,13 @@ BSDATAC(racei, 16)
 BSDATAC(randomeffecti, 128)
 BSDATAC(spelli, 256)
 
+BSMETA(actioni) = {
+	BSREQ(id),
+	BSREQ(avatar),
+	BSFLG(races, racei),
+	BSFLG(classes, classi),
+	BSREQ(effect),
+	{}};
 BSMETA(abilityi) = {
 	BSREQ(id),
 	{}};
@@ -104,6 +113,7 @@ BSMETA(weari) = {
 BSDATA(varianti) = {
 	{"NoVariant"},
 	{"Ability", VAR(abilityi, 1), 0, 0, ftscript<abilityi>},
+	{"Action", VAR(actioni, 1), 0, 0, ftscript<actioni>},
 	{"Advance", VAR(advancement, 2)},
 	{"Class", VAR(classi, 1), 0, 0, ftscript<classi>},
 	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>},

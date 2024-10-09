@@ -380,8 +380,14 @@ static void paint_select_rect() {
 	fore = push_fore;
 }
 
-static void paint_item(item& it, wearn id, int emphty_avatar = -1) {
+static void paint_item(item& it, wearn id, int emphty_avatar = -1, int pallette_feat = -1) {
 	rectpush push;
+	if(pallette_feat == -1) {
+		if(player->is(SeeCursed) && it.iscursed())
+			pallette_feat = SeeCursed;
+		else if(player->is(SeeMagical) && it.ismagical())
+			pallette_feat = SeeMagical;
+	}
 	if(!disable_input) {
 		focusing(&it);
 		if(current_select == &it)
@@ -392,8 +398,26 @@ static void paint_item(item& it, wearn id, int emphty_avatar = -1) {
 	auto avatar = it.geti().avatar;
 	if(!it)
 		avatar = emphty_avatar;
-	if(avatar != -1)
-		image(caret.x + width / 2, caret.y + height / 2, gres(ITEMS), avatar, 0);
+	if(avatar != -1) {
+		auto rs = gres(ITEMS);
+		if(pallette_feat) {
+			color pallette[256];
+			auto& e = rs->get(avatar);
+			auto p = (color*)rs->ptr(e.pallette);
+			memcpy(pallette, p, sizeof(pallette));
+			switch(pallette_feat) {
+			case SeeMagical:
+				pallette[12] = colors::blue.mix(colors::white, get_alpha(140, 160));
+				break;
+			case SeeCursed:
+				pallette[12] = colors::red.mix(colors::white, get_alpha(140, 160));
+				break;
+			}
+			draw::palt = pallette;
+			image(caret.x + width / 2, caret.y + height / 2, rs, avatar, ImagePallette);
+		} else
+			image(caret.x + width / 2, caret.y + height / 2, gres(ITEMS), avatar, 0);
+	}
 }
 
 static void paint_ring(item& it, wearn id) {

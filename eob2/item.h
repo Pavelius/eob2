@@ -37,6 +37,7 @@ public:
 	bool		isallow(wearn v) const;
 	bool		iscursed() const { return cursed != 0; }
 	bool		isidentified() const { return identified != 0; }
+	bool		ismagical() const { return false; }
 	bool		isweapon() const;
 	int			getcost() const;
 	const char*	getname() const;

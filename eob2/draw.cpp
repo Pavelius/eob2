@@ -28,45 +28,45 @@ color				colors::special;
 color				colors::tips::text;
 color				colors::tips::back;
 // Color context and font context
-fnevent				draw::domodal, draw::pbackground, draw::pfinish, draw::ptips;
-fnevent				draw::pbeforemodal, draw::pleavemodal, draw::psetfocus;
-unsigned char       draw::alpha = 255;
+fnevent			draw::domodal, draw::pbackground, draw::pfinish, draw::ptips;
+fnevent			draw::pbeforemodal, draw::pleavemodal, draw::psetfocus;
+unsigned char  draw::alpha = 255;
 color				draw::fore;
 color				draw::fore_stroke;
-int					draw::width, draw::height, draw::dialog_width = 500;
-extern int			draw::fsize = 32;
+int				draw::width, draw::height, draw::dialog_width = 500;
+extern int		draw::fsize = 32;
 bool				draw::text_clipped, draw::control_hilited;
-const sprite*		draw::font;
-double				draw::linw = 1.0;
-color*				draw::palt;
+const sprite*	draw::font;
+double			draw::linw = 1.0;
+color*			draw::palt;
 rect				draw::clipping;
 hoti				draw::hot;
-const void*			draw::hilite_object;
+const void*		draw::hilite_object;
 point				draw::hilite_position;
-int					draw::hilite_size;
+int				draw::hilite_size;
 // Hot keys and menus
 rect				sys_static_area;
 // Locale draw variables
 static draw::surface default_surface;
-draw::surface*		draw::canvas = &default_surface;
+draw::surface*	draw::canvas = &default_surface;
 point				draw::caret, draw::camera, draw::tips_caret, draw::tips_size;
-bool			    line_antialiasing = true;
+bool			   line_antialiasing = true;
 // Drag
-static const void*	drag_object;
+static const void* drag_object;
 point				draw::dragmouse;
 // Metrics
-sprite*				metrics::font;
-sprite*				metrics::h1;
-sprite*				metrics::h2;
-sprite*				metrics::h3;
-sprite*				metrics::small;
-sprite*				metrics::icons;
-int					metrics::padding = 2, metrics::border = 4;
+sprite*			metrics::font;
+sprite*			metrics::h1;
+sprite*			metrics::h2;
+sprite*			metrics::h3;
+sprite*			metrics::small;
+sprite*			metrics::icons;
+int				metrics::padding = 2, metrics::border = 4;
 //
-static bool			break_modal;
-static long			break_result;
-static fnevent		next_scene;
-static char			tips_text[4096];
+static bool		break_modal;
+static long		break_result;
+static fnevent	next_scene;
+static char		tips_text[4096];
 awindowi			draw::awindow = {-1, -1, 800, 600, 160, WFMinmax | WFResize};
 
 static void correct(int& x1, int& y1, int& x2, int& y2) {

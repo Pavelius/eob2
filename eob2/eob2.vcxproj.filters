@@ -189,6 +189,9 @@
     <ClCompile Include="action.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="formula.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -373,6 +376,9 @@
     </ClInclude>
     <ClInclude Include="flagable.h">
       <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="formula.h">
+      <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

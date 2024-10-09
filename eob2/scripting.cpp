@@ -4,6 +4,7 @@
 #include "collection.h"
 #include "creature.h"
 #include "draw.h"
+#include "formula.h"
 #include "gender.h"
 #include "hotkey.h"
 #include "list.h"
@@ -31,6 +32,11 @@ template<> void ftscript<racei>(int value, int bonus) {
 
 template<> void ftscript<classi>(int value, int bonus) {
 	last_class = bsdata<classi>::elements + value;
+}
+
+template<> void ftscript<formulai>(int value, int bonus) {
+	auto p = bsdata<formulai>::elements + value;
+	last_number = p->proc(last_number, bonus);
 }
 
 template<> void ftscript<genderi>(int value, int bonus) {
@@ -135,11 +141,14 @@ static const char* get_header(const char* id, const char* action) {
 	return pn;
 }
 
-static void add_menu(variant v, const char* action_id) {
+static void add_menu(variant& v, const char* action_id) {
 	if(v.iskind<actioni>()) {
 		auto p = bsdata<actioni>::elements + v.value;
 		if(p->isallow(player))
 			an.add(v.getpointer(), v.getname());
+	} else if(v.iskind<formulai>()) {
+		auto p = bsdata<formulai>::elements + v.value;
+		an.add(&v, getnm(ids(p->id, get_list_id())), p->proc(last_number, v.counter));
 	} else if(v.iskind<script>()) {
 		auto p = bsdata<script>::elements + v.value;
 		an.add(p, getnm(p->id));
@@ -166,7 +175,8 @@ static void apply_result() {
 	else if(bsdata<actioni>::have(last_result)) {
 		last_action = (actioni*)last_result;
 		apply_action(0);
-	}
+	} else if(bsdata<variant>::have(last_result))
+		script_run(*((variant*)last_result));
 }
 
 static void choose_options(const char* action, const char* id, const variants& options) {
@@ -176,7 +186,7 @@ static void choose_options(const char* action, const char* id, const variants& o
 	char header[64]; stringbuilder sb(header);
 	set_player_by_focus();
 	sb.add(get_header(id, "Options"), getnm(id), getnm("Options"));
-	for(auto v : options)
+	for(auto& v : options)
 		add_menu(v, action);
 	last_result = choose_answer(header, getnm("Cancel"), paint_city_menu, button_label, 1);
 }
@@ -294,7 +304,7 @@ static void choose_menu(int bonus) {
 	variants commands; commands.set(script_begin, script_end - script_begin);
 	an.clear();
 	auto id = get_list_id();
-	for(auto v : commands)
+	for(auto& v : commands)
 		add_menu(v, id);
 	last_result = choose_answer(getnm(id), getnm("Cancel"), paint_city_menu, button_label, 1);
 	apply_result();
@@ -343,8 +353,31 @@ static void effect_number(stringbuilder& sb) {
 	sb.add("%1i", result_number);
 }
 
+static int add_formula(int p1, int p2) {
+	return p1 + p2;
+}
+
+static int sub_formula(int p1, int p2) {
+	return p1 - p2;
+}
+
+static int mul_formula(int p1, int p2) {
+	return p1 * p2;
+}
+
+static int set_formula(int p1, int p2) {
+	return p2;
+}
+
+BSDATA(formulai) = {
+	{"Add", add_formula},
+	{"Mul", mul_formula},
+	{"Set", set_formula},
+	{"Sub", sub_formula},
+};
+BSDATAF(formulai)
 BSDATA(textscript) = {
-	{"name", player_name},
+	{"Name", player_name},
 	{"Number", effect_number},
 };
 BSDATAF(textscript)

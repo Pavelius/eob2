@@ -8,6 +8,7 @@
 #include "list.h"
 #include "location.h"
 #include "feat.h"
+#include "formula.h"
 #include "gender.h"
 #include "script.h"
 #include "party.h"
@@ -57,6 +58,9 @@ BSMETA(classi) = {
 	{}};
 BSMETA(dice) = {
 	BSREQ(c), BSREQ(d), BSREQ(b), BSREQ(m),
+	{}};
+BSMETA(formulai) = {
+	BSREQ(id),
 	{}};
 BSMETA(feati) = {
 	BSREQ(id),
@@ -117,6 +121,7 @@ BSDATA(varianti) = {
 	{"Advance", VAR(advancement, 2)},
 	{"Class", VAR(classi, 1), 0, 0, ftscript<classi>},
 	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>},
+	{"Formula", VAR(formulai, 1), 0, 0, ftscript<formulai>},
 	{"Gender", VAR(genderi, 1), 0, 0, ftscript<genderi>},
 	{"Item", VAR(itemi, 1), 0, 0, ftscript<itemi>},
 	{"List", VAR(listi, 1), 0, 0, ftscript<listi>},

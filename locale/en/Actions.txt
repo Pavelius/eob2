@@ -1,4 +1,5 @@
-﻿DebugTest: Debug Test
+﻿ChooseBet: Bed how match?
+DebugTest: Debug Test
 DebugTestVisit: Debug test string
 EatAndDrink: Eat and drink
 EatAndDrinkVisit: Eat and drink
@@ -7,6 +8,7 @@ GameOptions: Game Options
 GlobalOptions: %2 Options:
 GlobalVisit: Visit %1
 MemorizeSpells: Memorize Spells
+MulChooseBet: Bet %1i gold pieces
 PickPockets: Pick pockets
 PickPocketsVisit: Pick some pockets
 PrayForSpells: Pray for Spells

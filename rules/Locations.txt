@@ -1,11 +1,13 @@
 #List
 
 ChooseBet
+ elements Set+50 ChooseMenu Mul+1 Mul+2 Mul+4 Mul+6
 
 #Action
 
 GambleVisitors avatar(BUILDNGS 1)
  classes Fighter Theif
+ effect ChooseBet
 GameOptions
  effect ChooseMenu LoadGame SaveGame ExitGame
 MemorizeSpells

@@ -154,6 +154,7 @@
     <ClInclude Include="draw.h" />
     <ClInclude Include="feat.h" />
     <ClInclude Include="flagable.h" />
+    <ClInclude Include="formula.h" />
     <ClInclude Include="gender.h" />
     <ClInclude Include="hotkey.h" />
     <ClInclude Include="item.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="draw_text.cpp" />
     <ClCompile Include="feat.cpp" />
+    <ClCompile Include="formula.cpp" />
     <ClCompile Include="gender.cpp" />
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="item.cpp" />

@@ -255,6 +255,14 @@ static void exit_game(int bonus) {
 		exit(0);
 }
 
+static void confirm_action(int bonus) {
+	const char* id = "AskConfirm";
+	if(last_action)
+		id = last_action->id;
+	if(!confirm(getnme(ids(id, "Confirm"))))
+		script_stop();
+}
+
 static void gamble_visitors(int bonus) {
 	auto format = speech_get("GamblingWin");
 	an.clear();
@@ -295,12 +303,6 @@ static void choose_spells(int bonus) {
 	choose_spells("Spells available:", "Cancel", bonus);
 }
 
-static void rest_party(int bonus) {
-	if(!confirm(getnm("RestPartyConfirm")))
-		return;
-	return_to_street(0);
-}
-
 static void identify_item(int bonus) {
 	last_item->identify(bonus);
 }
@@ -335,6 +337,7 @@ BSDATAF(textscript)
 BSDATA(script) = {
 	{"Attack", attack_modify},
 	{"ApplyAction", apply_action},
+	{"ConfirmAction", confirm_action},
 	{"ChooseSpells", choose_spells},
 	{"ChooseMenu", choose_menu},
 	{"CreateCharacter", create_character},
@@ -347,7 +350,6 @@ BSDATA(script) = {
 	{"IdentifyItem", identify_item},
 	{"LearnClericSpells", learn_cleric_spells},
 	{"JoinParty", join_party},
-	{"RestParty", rest_party},
 	{"ReturnToStreet", return_to_street},
 	{"Saves", saves_modify},
 };

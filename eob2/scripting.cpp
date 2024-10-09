@@ -1,7 +1,6 @@
 #include "action.h"
 #include "answers.h"
 #include "class.h"
-#include "collection.h"
 #include "creature.h"
 #include "draw.h"
 #include "formula.h"

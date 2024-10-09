@@ -180,9 +180,6 @@
     <ClCompile Include="textscript.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="collection.cpp">
-      <Filter>support</Filter>
-    </ClCompile>
     <ClCompile Include="view_dialog.cpp">
       <Filter>logic</Filter>
     </ClCompile>
@@ -367,9 +364,6 @@
     </ClInclude>
     <ClInclude Include="textscript.h">
       <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="collection.h">
-      <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="action.h">
       <Filter>logic</Filter>

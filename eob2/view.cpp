@@ -1,5 +1,4 @@
 #include "answers.h"
-#include "collection.h"
 #include "creature.h"
 #include "class.h"
 #include "console.h"

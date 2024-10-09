@@ -73,6 +73,15 @@ template<> void ftscript<itemi>(int value, int bonus) {
 	player->additem(v);
 }
 
+static const char* get_list_id() {
+	if(last_list)
+		return last_list->id;
+	else if(last_action)
+		return last_action->id;
+	else
+		return "GlobalList";
+}
+
 static void attack_modify(int bonus) {
 	ftscript<abilityi>(AttackMelee, bonus);
 	ftscript<abilityi>(AttackRange, bonus);
@@ -275,14 +284,19 @@ static void gamble_visitors(int bonus) {
 static void eat_and_drink(int bonus) {
 }
 
+static void save_game(int bonus) {
+}
+
+static void load_game(int bonus) {
+}
+
 static void choose_menu(int bonus) {
-	if(!last_list)
-		return;
 	variants commands; commands.set(script_begin, script_end - script_begin);
 	an.clear();
+	auto id = get_list_id();
 	for(auto v : commands)
-		add_menu(v, last_list->id);
-	last_result = choose_answer(getnm(last_list->id), getnm("Cancel"), paint_city_menu, button_label, 1);
+		add_menu(v, id);
+	last_result = choose_answer(getnm(id), getnm("Cancel"), paint_city_menu, button_label, 1);
 	apply_result();
 	script_stop();
 }
@@ -349,8 +363,10 @@ BSDATA(script) = {
 	{"GambleVisitors", gamble_visitors},
 	{"IdentifyItem", identify_item},
 	{"LearnClericSpells", learn_cleric_spells},
+	{"LoadGame", load_game},
 	{"JoinParty", join_party},
 	{"ReturnToStreet", return_to_street},
+	{"SaveGame", save_game},
 	{"Saves", saves_modify},
 };
 BSDATAF(script)

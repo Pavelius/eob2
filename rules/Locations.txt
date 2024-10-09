@@ -7,6 +7,7 @@ ChooseBet
 GambleVisitors avatar(BUILDNGS 1)
  classes Fighter Theif
 GameOptions
+ effect ChooseMenu LoadGame SaveGame ExitGame
 MemorizeSpells
  classes Mage
  effect ChooseSpells+1

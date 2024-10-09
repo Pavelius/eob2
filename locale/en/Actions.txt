@@ -23,5 +23,8 @@ Village: Village
 
 Cancel: Cancel
 Continue: Continue
+ExitGame: Exit game
+LoadGame: Load game
 No: No
+SaveGame: Save game
 Yes: Yes

@@ -7,7 +7,9 @@ Minute0x2 raise(2) perlevel(0 1)
 #Spell
 
 Armor levels(0 1)
-Bless levels(1 0)
+Bless levels(1 0) duration(Minute5x1)
+ feats Ally
+ wearing Attack+1 MeleeDamage+1
 BurningHands levels(0 1)
 ChillTouch levels(0 1)
 ComprehendLanguages levels(0 1)
@@ -26,8 +28,28 @@ MagicMissile levels(0 1) effect(Damage1d4p1x1d4p1s3p2c9)
 Mending levels(0 1)
  feats Ally
  wearing SeeCursed
-ProtectionFromEvil levels(1 1)
+ProtectionFromEvil levels(1 1) duration(Minute5x1)
 PurifyFood levels(1 0)
 ShieldSpell levels(0 1)
  wearing AC+5
 ShockingGrasp levels(0 1)
+
+Aid levels(2) duration(Minute5x1)
+ feats Ally
+Augury levels(2)
+Barkskin levels(2) duration(Minute5x1)
+ feats Ally
+ wearing AC+4
+Chant levels(2)
+ feats Ally Group
+FindTraps levels(2)
+FlameBlade levels(2)
+Goodberry levels(2)
+HoldPerson levels(2)
+Messenger levels(2)
+Obscurement levels(2)
+ProduceFlame levels(2)
+ResistFire levels(2)
+ResistCold levels(2)
+SlowPoison levels(2)
+SnakeCharm levels(2)

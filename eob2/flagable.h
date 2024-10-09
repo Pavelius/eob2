@@ -6,18 +6,23 @@
 template<unsigned N, typename T = unsigned char>
 class flagable {
 	static constexpr unsigned s = sizeof(T) * 8;
-	T				data[N];
+	T data[N];
 public:
 	constexpr explicit operator bool() const { for(auto e : data) if(e) return true; return false; }
 	constexpr flagable() : data{0} {}
-	constexpr void	add(const flagable& e) { for(unsigned i = 0; i < N; i++) data[i] |= e.data[i]; }
-	constexpr void	assign(const flagable& e) { for(unsigned i = 0; i < N; i++) data[i] = e.data[i]; }
-	void			clear() { memset(this, 0, sizeof(*this)); }
-	constexpr bool	is(short unsigned v) const { return (data[v / s] & (1 << (v % s))) != 0; }
-	constexpr bool	is(const flagable& e) const { for(unsigned i = 0; i < N; i++) if((data[i] & e.data[i]) != 0) return true; return false; }
-	constexpr int	getcount() const { auto r = 0; for(auto i = 0; i < N * s; i++) if(is(i)) r++; return r; }
-	constexpr int	getmaximum() const { return N * s; }
-	constexpr void	remove(short unsigned v) { data[v / s] &= ~(1 << (v % s)); }
-	constexpr void	set(short unsigned v) { data[v / s] |= 1 << (v % s); }
-	constexpr void	set(short unsigned v, bool activate) { if(activate) set(v); else remove(v); }
+	constexpr bool is(short unsigned v) const { return (data[v / s] & (1 << (v % s))) != 0; }
+	constexpr void remove(short unsigned v) { data[v / s] &= ~(1 << (v % s)); }
+	constexpr void set(short unsigned v) { data[v / s] |= 1 << (v % s); }
+};
+// Abstract flag set partial
+template<typename T>
+class flagable<1, T> {
+	static constexpr unsigned s = sizeof(T) * 8;
+	T data;
+public:
+	constexpr explicit operator bool() const { return data != 0; }
+	constexpr flagable() : data(0) {}
+	constexpr bool is(short unsigned v) const { return (data & (1 << v)) != 0; }
+	constexpr void remove(short unsigned v) { data &= ~(1 << v); }
+	constexpr void set(short unsigned v) { data |= (1 << v); }
 };

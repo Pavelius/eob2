@@ -1,4 +1,4 @@
-#include "aflags.h"
+#include "flagable.h"
 #include "avatar.h"
 #include "bsdata.h"
 #include "class.h"
@@ -12,8 +12,8 @@ using namespace log;
 
 static struct avatari {
 	gendern gender;
-	aflags races;
-	aflags classes;
+	flagable<1, unsigned> races;
+	flagable<1, unsigned> classes;
 } portrait_data[256];
 
 static bool contain(unsigned char* result, size_t result_size, unsigned char value) {

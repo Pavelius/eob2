@@ -305,9 +305,6 @@
     <ClInclude Include="logvalue.h">
       <Filter>support</Filter>
     </ClInclude>
-    <ClInclude Include="aflags.h">
-      <Filter>support</Filter>
-    </ClInclude>
     <ClInclude Include="item.h">
       <Filter>logic</Filter>
     </ClInclude>
@@ -370,6 +367,9 @@
     </ClInclude>
     <ClInclude Include="action.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="flagable.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

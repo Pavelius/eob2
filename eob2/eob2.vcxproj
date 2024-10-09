@@ -137,7 +137,6 @@
     <ClInclude Include="action.h" />
     <ClInclude Include="adat.h" />
     <ClInclude Include="advancement.h" />
-    <ClInclude Include="aflags.h" />
     <ClInclude Include="answers.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="avatar.h" />
@@ -154,6 +153,7 @@
     <ClInclude Include="direction.h" />
     <ClInclude Include="draw.h" />
     <ClInclude Include="feat.h" />
+    <ClInclude Include="flagable.h" />
     <ClInclude Include="gender.h" />
     <ClInclude Include="hotkey.h" />
     <ClInclude Include="item.h" />

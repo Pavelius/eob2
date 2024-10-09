@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Number`
+﻿Error in file `rules/Spells.txt`:
+ Line 12: Can't find variant `MeleeDamage`

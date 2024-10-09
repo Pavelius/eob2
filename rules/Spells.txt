@@ -9,7 +9,7 @@ Minute0x2 raise(2) perlevel(0 1)
 Armor levels(0 1)
 Bless levels(1 0) duration(Minute5x1)
  feats Ally
- wearing Attack+1 MeleeDamage+1
+ wearing Attack+1 Damage+1 Saves+1
 BurningHands levels(0 1)
 ChillTouch levels(0 1)
 ComprehendLanguages levels(0 1)
@@ -42,6 +42,7 @@ Barkskin levels(2) duration(Minute5x1)
  wearing AC+4
 Chant levels(2)
  feats Ally Group
+ wearing Attack+1 Damage+1 Saves+1
 FindTraps levels(2)
 FlameBlade levels(2)
 Goodberry levels(2)

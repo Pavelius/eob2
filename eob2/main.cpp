@@ -33,6 +33,6 @@ int main() {
 	run_next_scene();
 }
 
-//int _stdcall WinMain(void* ci, void* pi, char* cmd, int sw) {
-//	return main();
-//}
+int _stdcall WinMain(void* ci, void* pi, char* cmd, int sw) {
+	return main();
+}

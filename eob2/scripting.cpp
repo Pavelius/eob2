@@ -75,6 +75,19 @@ static void attack_modify(int bonus) {
 	ftscript<abilityi>(AttackRange, bonus);
 }
 
+static void damage_modify(int bonus) {
+	ftscript<abilityi>(DamageMelee, bonus);
+	ftscript<abilityi>(DamageRange, bonus);
+}
+
+static void saves_modify(int bonus) {
+	bonus *= 5;
+	ftscript<abilityi>(SaveVsMagic, bonus);
+	ftscript<abilityi>(SaveVsParalization, bonus);
+	ftscript<abilityi>(SaveVsPoison, bonus);
+	ftscript<abilityi>(SaveVsTraps, bonus);
+}
+
 static void every_turn_effect() {
 }
 
@@ -298,6 +311,7 @@ BSDATA(script) = {
 	{"Attack", attack_modify},
 	{"CreateCharacter", create_character},
 	{"CurseItem", curse_item},
+	{"Damage", damage_modify},
 	{"DebugTest", debug_test},
 	{"EatAndDrink", eat_and_drink},
 	{"EnterLocation", enter_location},
@@ -310,5 +324,6 @@ BSDATA(script) = {
 	{"PrayForSpells", pray_for_spells},
 	{"RestParty", rest_party},
 	{"ReturnBack", return_back},
+	{"Saves", saves_modify},
 };
 BSDATAF(script)

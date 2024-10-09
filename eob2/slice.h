@@ -1,7 +1,5 @@
 #pragma once
 
-typedef unsigned long size_t;
-
 typedef bool(*fnallow)(const void* object, int index);
 typedef void(*fncommand)(void* object);
 typedef int (*fncompare)(const void*, const void*);

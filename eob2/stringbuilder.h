@@ -55,12 +55,12 @@ public:
 	bool			isfull() const { return p >= pe; }
 	bool			ispos(const char* v) const { return p == v; }
 	void			lower();
-	const char*		psidf(const char* pb);
-	const char*		psparam(const char* p);
-	const char*		psstr(const char* p, char end_symbol);
-	const char*		psstrlf(const char* p);
+	const char*	psidf(const char* pb);
+	const char*	psparam(const char* p);
+	const char*	psstr(const char* p, char end_symbol);
+	const char*	psstrlf(const char* p);
 	void			set(char* v) { p = v; p[0] = 0; }
-	size_t			size() const { return p - pb; }
+	unsigned		size() const { return p - pb; }
 	void			trimr();
 	void			upper();
 };
@@ -109,7 +109,7 @@ constexpr bool ischa(unsigned char s) { return (s >= 'A' && s <= 'Z') || (s >= '
 constexpr bool isnum(unsigned char s) { return s >= '0' && s <= '9'; }
 constexpr const char* zchr(const char* p, char e) { while(*p) { if(*p == e) return p; p++; } return 0; }
 constexpr const char* zend(const char* p) { while(*p) p++; return p; }
-constexpr size_t zlen(const char* p) { return zend(p) - p; }
+constexpr unsigned long zlen(const char* p) { return zend(p) - p; }
 
 template<class T> void ftinfo(const void* object, stringbuilder& sb);
 

@@ -167,9 +167,9 @@ extern fnevent          pbackground, ptips, pfinish, pinput;
 extern fnevent          pbeforemodal, pleavemodal, psetfocus;
 extern unsigned			text_flags;
 struct rectpush {
-	point				caret;
-	int					width, height;
-	constexpr rectpush() : caret(draw::caret), width(draw::width), height(draw::height) {}
+	point caret;
+	int	width, height;
+	rectpush() : caret(draw::caret), width(draw::width), height(draw::height) {}
 	~rectpush() { draw::caret = caret; draw::width = width; draw::height = height; }
 };
 int						aligned(int x, int width, unsigned state, int string_width);

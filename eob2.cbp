@@ -144,9 +144,6 @@
 		<Unit filename="eob2/wearable.cpp" />
 		<Unit filename="eob2/wearable.h" />
 		<Unit filename="eob2/win.h" />
-		<Unit filename="eob2/win_draw.cpp" />
-		<Unit filename="eob2/win_io_file.cpp" />
-		<Unit filename="eob2/win_time.cpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

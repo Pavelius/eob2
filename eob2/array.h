@@ -5,9 +5,9 @@
 struct array {
 	void* data;
 	size_t count, element_size, count_maximum;
-	constexpr array(size_t size = 0) : count_maximum(0), data(0), count(0), element_size(size) {}
-	constexpr array(void* data, size_t size, size_t count) : count_maximum(count | 0x80000000), data(data), count(count), element_size(size) {}
-	constexpr array(void* data, size_t size, size_t count, unsigned count_maximum) : count_maximum(count_maximum | 0x80000000), data(data), count(count), element_size(size) {}
+	constexpr array(size_t size = 0) : data(0), count(0), element_size(size), count_maximum(0) {}
+	constexpr array(void* data, size_t size, size_t count) : data(data), count(count), element_size(size), count_maximum(count | 0x80000000) {}
+	constexpr array(void* data, size_t size, size_t count, unsigned count_maximum) : data(data), count(count), element_size(size), count_maximum(count_maximum | 0x80000000) {}
 	constexpr explicit operator bool() const { return count != 0; }
 	~array();
 	void* add();

@@ -1,7 +1,7 @@
 #include "bsdata.h"
 #include "direction.h"
 
-directioni bsdata<directioni>::elements[] = {
+BSDATA(directioni) = {
 	{"Center"},
 	{"Left"},
 	{"Up"},

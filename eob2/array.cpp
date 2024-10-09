@@ -81,14 +81,6 @@ void array::reserve(unsigned count) {
 		data = malloc(count_maximum * element_size);
 }
 
-static bool matchstring(const char* v1, const char* v2, size_t size) {
-	for(size_t n = 0; n < size; n++) {
-		if(v1[n] != v2[n])
-			return false;
-	}
-	return v1[size] == 0;
-}
-
 void* array::findv(const char* value, unsigned offset, size_t string_size) const {
 	if(!data)
 		return 0;

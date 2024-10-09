@@ -3,10 +3,10 @@
 #define FG(V) (1<<V)
 
 // Abstract flag set
-template<unsigned N>
+template<unsigned N, typename T = unsigned char>
 class flagable {
-	static constexpr unsigned s = 8;
-	unsigned char	data[N];
+	static constexpr unsigned s = sizeof(T) * 8;
+	T				data[N];
 public:
 	constexpr explicit operator bool() const { for(auto e : data) if(e) return true; return false; }
 	constexpr flagable() : data{0} {}

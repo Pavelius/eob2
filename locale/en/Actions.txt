@@ -28,5 +28,6 @@ Visit: Visit
 Village: Village
 
 Cancel: Cancel
+Continue: Continue
 No: No
 Yes: Yes

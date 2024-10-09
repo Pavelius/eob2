@@ -10,7 +10,10 @@ struct hotkeyi;
 
 void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding = 2);
 void* choose_dialog(const char* title, int dx);
-void* show_message(const char* format, const char* cancel = 0);
+void* show_message(const char* format, bool add_anaswers, const char* cancel = 0, unsigned cancel_key = 27);
+void* dialogv(const char* cancel, const char* format);
+void* dialogv(const char* cancel, const char* format, const char* format_param);
+void* dialog(const char* cancel, const char* format, ...);
 void choose_spells(const char* title, const char* cancel, int spell_type);
 void show_scene(fnevent before_paint, fnevent input, void* focus);
 

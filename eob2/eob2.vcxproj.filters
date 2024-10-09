@@ -183,7 +183,7 @@
     <ClCompile Include="collection.cpp">
       <Filter>support</Filter>
     </ClCompile>
-    <ClCompile Include="view_textfa.cpp">
+    <ClCompile Include="view_dialog.cpp">
       <Filter>logic</Filter>
     </ClCompile>
   </ItemGroup>

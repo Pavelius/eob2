@@ -246,7 +246,7 @@
     <ClCompile Include="szdup.cpp" />
     <ClCompile Include="party.cpp" />
     <ClCompile Include="view.cpp" />
-    <ClCompile Include="view_textfa.cpp" />
+    <ClCompile Include="view_dialog.cpp" />
     <ClCompile Include="wearable.cpp" />
     <ClCompile Include="win_draw.cpp" />
     <ClCompile Include="win_io_file.cpp" />

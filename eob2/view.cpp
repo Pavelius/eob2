@@ -1213,7 +1213,7 @@ void* choose_dialog(const char* title, int padding) {
 	return (void*)getresult();
 }
 
-void* show_message(const char* format, const char* cancel) {
+void* show_message(const char* format, bool add_anaswers, const char* cancel, unsigned cancel_key) {
 	rectpush push;
 	pushscene push_scene;
 	auto push_picture = picture;
@@ -1222,25 +1222,26 @@ void* show_message(const char* format, const char* cancel) {
 		paint_avatars_no_focus_hilite();
 		paint_console();
 		paint_menu({0, 122}, 319, 77);
-		caret = {4, 126};
-		width = 312;
-		auto push_text = text_flags;
-		text_flags = TextBold;
-		textf(format);
-		text_flags = push_text;
+		caret = {6, 128};
+		width = 308;
+		height = 56;
+		// rectb();
+		texta(format, TextBold);
 		paint_picture();
 		caret = {4, 184};
 		auto index = 0;
 		height = texth() + 3;
-		for(auto& e : an.elements) {
-			width = textw(e.text) + 6;
-			button_label(index++, e.value, e.text, e.key, update_buttonparam);
-			caret.x += width;
-			caret.x += 2;
+		if(add_anaswers) {
+			for(auto& e : an.elements) {
+				width = textw(e.text) + 6;
+				button_label(index++, e.value, e.text, e.key, update_buttonparam);
+				caret.x += width;
+				caret.x += 2;
+			}
 		}
 		if(cancel) {
 			width = textw(cancel) + 6;
-			button_label(index++, 0, cancel, KeyEscape, update_buttonparam);
+			button_label(index++, 0, cancel, cancel_key, update_buttonparam);
 		}
 		domodal();
 		focus_input();

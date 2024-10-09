@@ -21,6 +21,7 @@ extern "C" void exit(int code);
 racei* last_race;
 classi* last_class;
 static void* last_result;
+static int result_number;
 
 template<> void ftscript<racei>(int value, int bonus) {
 	last_race = bsdata<racei>::elements + value;
@@ -226,7 +227,8 @@ static void gamble_visitors(int bonus) {
 	an.clear();
 	an.add((void*)1, "Talk");
 	an.add((void*)2, "Run");
-	show_message(format, "Cancel");
+	result_number = 100;
+	dialog(0, format);
 }
 
 static void pick_pockets(int bonus) {
@@ -283,8 +285,13 @@ static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
 
+static void effect_number(stringbuilder& sb) {
+	sb.add("%1i", result_number);
+}
+
 BSDATA(textscript) = {
 	{"name", player_name},
+	{"Number", effect_number},
 };
 BSDATAF(textscript)
 BSDATA(script) = {

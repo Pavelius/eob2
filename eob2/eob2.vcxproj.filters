@@ -386,6 +386,9 @@
     <ClInclude Include="dungeon_state.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="dungeon_site.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">

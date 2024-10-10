@@ -152,6 +152,7 @@
     <ClInclude Include="direction.h" />
     <ClInclude Include="draw.h" />
     <ClInclude Include="dungeon.h" />
+    <ClInclude Include="dungeon_site.h" />
     <ClInclude Include="dungeon_state.h" />
     <ClInclude Include="feat.h" />
     <ClInclude Include="flagable.h" />

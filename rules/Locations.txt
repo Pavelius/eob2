@@ -7,6 +7,7 @@ GambleVisitorsFailedRoll
 
 #Action
 
+Donate avatar(BUILDNGS 1)
 GambleVisitors avatar(BUILDNGS 1)
  classes Fighter Theif
  effect ChooseBet PayGold+101 Charisma Roll-2 Message+1 Mul+2 GoldPiece+101

@@ -189,6 +189,9 @@
     <ClCompile Include="formula.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="dungeon.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -287,9 +290,6 @@
     <ClInclude Include="my_initialize_list.h">
       <Filter>support</Filter>
     </ClInclude>
-    <ClInclude Include="cflags.h">
-      <Filter>support</Filter>
-    </ClInclude>
     <ClInclude Include="race.h">
       <Filter>logic</Filter>
     </ClInclude>
@@ -372,6 +372,18 @@
       <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="formula.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="dungeon.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="cell.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="posable.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="dungeon_state.h">
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,6 +4,7 @@
 #include "bsreq.h"
 #include "class.h"
 #include "color.h"
+#include "dungeon.h"
 #include "item.h"
 #include "list.h"
 #include "location.h"
@@ -28,6 +29,7 @@ NOBSDATA(picturei)
 BSDATAC(actioni, 256)
 BSDATAC(advancement, 256)
 BSDATAC(classi, 32)
+BSDATAC(dungeoni, 256)
 BSDATAC(itemi, 256)
 BSDATAC(locationi, 128)
 BSDATAC(racei, 16)

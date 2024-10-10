@@ -142,7 +142,7 @@
     <ClInclude Include="avatar.h" />
     <ClInclude Include="bsdata.h" />
     <ClInclude Include="bsreq.h" />
-    <ClInclude Include="cflags.h" />
+    <ClInclude Include="cell.h" />
     <ClInclude Include="class.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="console.h" />
@@ -151,6 +151,8 @@
     <ClInclude Include="dice.h" />
     <ClInclude Include="direction.h" />
     <ClInclude Include="draw.h" />
+    <ClInclude Include="dungeon.h" />
+    <ClInclude Include="dungeon_state.h" />
     <ClInclude Include="feat.h" />
     <ClInclude Include="flagable.h" />
     <ClInclude Include="formula.h" />
@@ -166,6 +168,7 @@
     <ClInclude Include="party.h" />
     <ClInclude Include="picture.h" />
     <ClInclude Include="point.h" />
+    <ClInclude Include="posable.h" />
     <ClInclude Include="race.h" />
     <ClInclude Include="randomeffect.h" />
     <ClInclude Include="rect.h" />
@@ -210,6 +213,7 @@
     <ClCompile Include="direction.cpp" />
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="draw_text.cpp" />
+    <ClCompile Include="dungeon.cpp" />
     <ClCompile Include="feat.cpp" />
     <ClCompile Include="formula.cpp" />
     <ClCompile Include="gender.cpp" />

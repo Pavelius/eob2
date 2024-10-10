@@ -16,22 +16,13 @@ static struct avatari {
 	flagable<1, unsigned> classes;
 } portrait_data[256];
 
-static bool contain(unsigned char* result, size_t result_size, unsigned char value) {
-	auto pe = result + result_size;
-	for(auto p = result; p < pe; p++) {
-		if(*p == value)
-			return true;
-	}
-	return false;
-}
-
-static size_t filter(unsigned char* result, size_t result_size, unsigned char* source, size_t source_size) {
-	if(!source_size)
+static size_t filter(unsigned char* result, size_t result_size, fnallowuc filter_proc) {
+	if(!filter_proc)
 		return result_size;
 	auto pe = result + result_size;
 	auto ps = result;
 	for(auto p = result; p < pe; p++) {
-		if(contain(source, source_size, *p))
+		if(!filter_proc(*p))
 			continue;
 		*ps++ = *p;
 	}
@@ -64,27 +55,19 @@ static size_t get_avatars_ex(unsigned char* result, char race, gendern gender) {
 	return p - result;
 }
 
-size_t get_avatars(unsigned char* result, char race, gendern gender, char cls, unsigned char* exclude, size_t exclude_size) {
+size_t get_avatars(unsigned char* result, char race, gendern gender, char cls, fnallowuc filter_proc) {
 	auto c = get_avatars_ex(result, race, gender, cls);
-	c = filter(result, c, exclude, exclude_size);
+	c = filter(result, c, filter_proc);
 	if(c < 4) {
 		c = get_avatars_ex(result, race, gender);
-		c = filter(result, c, exclude, exclude_size);
+		c = filter(result, c, filter_proc);
 	}
 	return c;
 }
 
-unsigned char generate_avatar(char race, gendern gender, char cls) {
+unsigned char generate_avatar(char race, gendern gender, char cls, fnallowuc filter_proc) {
 	unsigned char result[256];
-	auto c = get_avatars(result, race, gender, cls, 0, 0);
-	if(!c)
-		return 0;
-	return result[rand() % c];
-}
-
-unsigned char generate_avatar(char race, gendern gender, char cls, unsigned char* exclude, size_t exclude_size) {
-	unsigned char result[256];
-	auto c = get_avatars(result, race, gender, cls, exclude, exclude_size);
+	auto c = get_avatars(result, race, gender, cls, filter_proc);
 	if(!c)
 		return 0;
 	return result[rand() % c];

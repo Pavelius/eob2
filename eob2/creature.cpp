@@ -293,6 +293,14 @@ static void set_starting_equipment() {
 		script_run(p->elements);
 }
 
+static bool no_party_avatars(unsigned char value) {
+	for(auto i = 0; i < 6; i++) {
+		if(party.units[i] && party.units[i]->avatar == value)
+			return false;
+	}
+	return true;
+}
+
 void create_player(const racei* pr, gendern gender, const classi* pc) {
 	if(!pr || !pc)
 		return;
@@ -305,7 +313,7 @@ void create_player(const racei* pr, gendern gender, const classi* pc) {
 	set_race_ability();
 	set_class_ability();
 	player->name = generate_name(player->race, player->gender);
-	player->avatar = generate_avatar(player->race, gender, player->type);
+	player->avatar = generate_avatar(player->race, gender, player->type, no_party_avatars);
 	update_player();
 	set_starting_equipment();
 	update_player();

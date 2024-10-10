@@ -35,6 +35,9 @@
 			<Add option="-Wall" />
 			<Add option="-std=c++17" />
 		</Compiler>
+		<Linker>
+			<Add option="-static" />
+		</Linker>
 		<Unit filename="eob2/ability.cpp" />
 		<Unit filename="eob2/ability.h" />
 		<Unit filename="eob2/action.cpp" />

@@ -15,7 +15,7 @@
 #define BSDATAD(e) BSDATATMPL array bsdata<e>::source(sizeof(e));
 #define BSDATAE(e) BSDATATMPL array bsdata<e>::source(bsdata<e>::elements, sizeof(bsdata<e>::elements[0]), 0, lenghtof(bsdata<e>::elements));
 #define BSDATAF(e) BSDATATMPL array bsdata<e>::source(bsdata<e>::elements, sizeof(bsdata<e>::elements[0]), lenghtof(bsdata<e>::elements), lenghtof(bsdata<e>::elements));
-#define BSDATAC(e, c) BSDATATMPL e bsdata<e>::elements[c]; BSDATAE(e)
+#define BSDATAC(e, c) BSDATATMPL e bsdata<e>::elements[c] = {}; BSDATAE(e)
 #define NOBSDATA(e) template<> struct bsdata<e> : bsdata<int> {};
 #define assert_enum(e, last) static_assert(sizeof(bsdata<e>::elements) / sizeof(bsdata<e>::elements[0]) == static_cast<int>(last) + 1, "Invalid count of " #e " elements"); BSDATAF(e)
 

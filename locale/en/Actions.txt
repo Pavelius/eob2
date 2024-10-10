@@ -3,12 +3,13 @@ DebugTest: Debug Test
 DebugTestVisit: Debug test string
 EatAndDrink: Eat and drink
 EatAndDrinkVisit: Eat and drink
+ExitConfirm: Do you really want to exit game?
 GambleVisitors: Gamble with someone
 GameOptions: Game Options
 GlobalOptions: %2 Options:
 GlobalVisit: Visit %1
 MemorizeSpells: Memorize Spells
-MulChooseBet: Bet %1i gold pieces
+MulGambleVisitors: Bet %1i gold pieces
 PickPockets: Pick pockets
 PickPocketsVisit: Pick some pockets
 PrayForSpells: Pray for Spells

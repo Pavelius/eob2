@@ -70,6 +70,8 @@ template<> void ftscript<feati>(int value, int bonus) {
 
 template<> void ftscript<abilityi>(int value, int bonus) {
 	last_ability = (abilityn)value;
+	if(!bonus)
+		return;
 	switch(modifier) {
 	case Permanent: add_value(player->basic.abilities[value], get_bonus(bonus)); break;
 	default: add_value(player->abilities[value], get_bonus(bonus)); break;
@@ -85,10 +87,8 @@ template<> void ftscript<itemi>(int value, int bonus) {
 	player->additem(v);
 }
 
-static const char* get_list_id() {
-	if(last_list)
-		return last_list->id;
-	else if(last_action)
+static const char* get_action() {
+	if(last_action)
 		return last_action->id;
 	else
 		return "GlobalList";
@@ -143,7 +143,7 @@ static void add_menu(variant& v, const char* action_id) {
 			an.add(v.getpointer(), v.getname());
 	} else if(v.iskind<formulai>()) {
 		auto p = bsdata<formulai>::elements + v.value;
-		an.add(&v, getnm(ids(p->id, get_list_id())), p->proc(last_number, v.counter));
+		an.add(&v, getnm(ids(p->id, get_action())), p->proc(last_number, v.counter));
 	} else if(v.iskind<script>()) {
 		auto p = bsdata<script>::elements + v.value;
 		an.add(p, getnm(p->id));
@@ -266,17 +266,17 @@ static void return_to_street(int bonus) {
 	}
 }
 
-static void exit_game(int bonus) {
-	if(confirm("Really want quit game?"))
-		exit(0);
-}
-
 static void confirm_action(int bonus) {
 	const char* id = "AskConfirm";
 	if(last_action)
 		id = last_action->id;
 	if(!confirm(getnme(ids(id, "Confirm"))))
 		script_stop();
+}
+
+static void exit_game(int bonus) {
+	if(confirm(getnme("ExitConfirm")))
+		exit(0);
 }
 
 static void eat_and_drink(int bonus) {
@@ -291,7 +291,7 @@ static void load_game(int bonus) {
 static void choose_menu(int bonus) {
 	variants commands; commands.set(script_begin, script_end - script_begin);
 	an.clear();
-	auto id = get_list_id();
+	auto id = get_action();
 	for(auto& v : commands)
 		add_menu(v, id);
 	last_result = choose_answer(getnm(id), getnm("Cancel"), paint_city_menu, button_label, 1);
@@ -333,7 +333,7 @@ static void learn_cleric_spells(int bonus) {
 static void pay_gold(int bonus) {
 	bonus = get_bonus(bonus);
 	if(getparty(GoldPiece) < bonus) {
-		dialog(0, speech_get(get_list_id(), "NotEnoughtGold"), bonus);
+		dialog(0, speech_get(get_action(), "NotEnoughtGold"), bonus);
 		script_stop();
 	} else
 		add_party(GoldPiece, -bonus);
@@ -348,12 +348,12 @@ static void run_script(const char* id, const char* action) {
 static void make_roll(int bonus) {
 	if(!player->roll(last_ability, bonus * 5)) {
 		script_stop();
-		run_script(get_list_id(), "FailedRoll");
+		run_script(get_action(), "FailedRoll");
 	}
 }
 
 static void dialog_message(const char* action) {
-	dialog(0, speech_get(get_list_id(), action));
+	dialog(0, speech_get(get_action(), action));
 }
 
 static void dialog_message(int bonus) {

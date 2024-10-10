@@ -354,7 +354,7 @@ static void read_slice(void* object, const bsreq* req, int level) {
 
 static void read_array(void* object, const bsreq* req) {
 	auto index = 0;
-	if(req->count == 1 && req->subtype == KindScalar) {
+	if(req && req->count == 1 && req->subtype == KindScalar) {
 		auto pv = req->ptr(object);
 		while(allowparse && isvalue()) {
 			valuei v;
@@ -395,6 +395,8 @@ static void read_dictionary(void* object, const bsreq* type, int level, bool nee
 	while(allowparse && ischa(*p)) {
 		readid();
 		auto req = find_requisit(type, temp);
+		if(!req)
+			errorp(p, "Not found resuisit `%1`", temp);
 		skip("(");
 		read_array(object, req);
 		skip(")");

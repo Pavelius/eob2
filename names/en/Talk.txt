@@ -15,13 +15,17 @@ I need take %1 in hand.
 The %1 used when weared.
 %1 used automatically.
 
+#GamblerAppearance
+guy
+ugly woman
+dirty rogue
+
 #GambleVisitorsSuccess
-You found some guys who play dice game and win. Your profit is %Number gold pieces.
-You found some guy who play dice game and win. Your profit is %Number gold pieces.
+You found a %GamblerAppearance who play dice game and win. Your profit is %Number gold pieces.
 
 #GambleVisitorsNotEnoughtGold
 "Hey!" sad one customer "you don't have enought money to play this game. Get lost!"
 "You need at least %1i gold pieces to make this bet." say a customer "If you want play, you need money."
 
 #GambleVisitorsFail
-You found some guys who play dice game and lose. Your lose is %Number gold pieces.
+You found some %GamblerAppearance who play dice game and lose. Your lose is your bet %Number gold pieces.

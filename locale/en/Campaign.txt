@@ -1,6 +1,7 @@
 ﻿HunterVillage: Hunterville Village
 Inn: Inn
 Tavern: Tavern
+Temple: Temple
 Stables: Stables
 
 VisitDebugTest: Test information

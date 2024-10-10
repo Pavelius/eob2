@@ -1,3 +1,2 @@
-﻿Error in file `rules/Locations.txt`:
- Line 12: Can't find variant `GoldPieces`
- Line 12: Can't find variant `GoldPieces`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `Temple`

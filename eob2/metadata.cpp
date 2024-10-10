@@ -81,7 +81,6 @@ BSMETA(genderi) = {
 	{}};
 BSMETA(locationi) = {
 	BSREQ(id),
-	BSREQ(group),
 	BSREQ(parent),
 	BSREQ(avatar),
 	BSREQ(options),

@@ -23,7 +23,14 @@ extern "C" void exit(int code);
 racei* last_race;
 classi* last_class;
 static void* last_result;
-static int result_number;
+
+static int get_bonus(int v) {
+	switch(v) {
+	case 101: return last_number;
+	case -101: return -last_number;
+	default: return v;
+	}
+}
 
 template<> void ftscript<racei>(int value, int bonus) {
 	last_race = bsdata<racei>::elements + value;
@@ -64,13 +71,13 @@ template<> void ftscript<feati>(int value, int bonus) {
 template<> void ftscript<abilityi>(int value, int bonus) {
 	last_ability = (abilityn)value;
 	switch(modifier) {
-	case Permanent: add_value(player->basic.abilities[value], bonus); break;
-	default: add_value(player->abilities[value], bonus); break;
+	case Permanent: add_value(player->basic.abilities[value], get_bonus(bonus)); break;
+	default: add_value(player->abilities[value], get_bonus(bonus)); break;
 	}
 }
 
 template<> void ftscript<partystati>(int value, int bonus) {
-	add_party((partystatn)value, bonus);
+	add_party((partystatn)value, get_bonus(bonus));
 }
 
 template<> void ftscript<itemi>(int value, int bonus) {
@@ -281,15 +288,6 @@ static void confirm_action(int bonus) {
 		script_stop();
 }
 
-static void gamble_visitors(int bonus) {
-	auto format = speech_get("GamblingWin");
-	an.clear();
-	an.add((void*)1, "Talk");
-	an.add((void*)2, "Run");
-	result_number = 100;
-	dialog(0, format);
-}
-
 static void eat_and_drink(int bonus) {
 }
 
@@ -306,6 +304,7 @@ static void choose_menu(int bonus) {
 	for(auto& v : commands)
 		add_menu(v, id);
 	last_result = choose_answer(getnm(id), getnm("Cancel"), paint_city_menu, button_label, 1);
+	an.clear();
 	apply_result();
 	script_stop();
 }
@@ -344,28 +343,45 @@ static void learn_cleric_spells(int bonus) {
 		player->knownspells.set(getbsi((spelli*)e.value));
 }
 
+static void pay_gold(int bonus) {
+	bonus = get_bonus(bonus);
+	if(getparty(GoldPiece) < bonus) {
+		dialog(0, speech_get(get_list_id(), "NotEnoughtGold"), bonus);
+		script_stop();
+	} else
+		add_party(GoldPiece, -bonus);
+}
+
+static void run_script(const char* id, const char* action) {
+	auto p = bsdata<listi>::find(ids(id, action));
+	if(p)
+		ftscript<listi>(p - bsdata<listi>::elements, 0);
+}
+
+static void make_roll(int bonus) {
+	if(!player->roll(last_ability, bonus * 5)) {
+		script_stop();
+		run_script(get_list_id(), "FailedRoll");
+	}
+}
+
+static void dialog_message(const char* action) {
+	dialog(0, speech_get(get_list_id(), action));
+}
+
+static void dialog_message(int bonus) {
+	switch(bonus) {
+	case 1: dialog_message("Success"); break;
+	case -1: dialog_message("Fail"); break;
+	}
+}
+
 static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
 
 static void effect_number(stringbuilder& sb) {
-	sb.add("%1i", result_number);
-}
-
-static int add_formula(int p1, int p2) {
-	return p1 + p2;
-}
-
-static int sub_formula(int p1, int p2) {
-	return p1 - p2;
-}
-
-static int mul_formula(int p1, int p2) {
-	return p1 * p2;
-}
-
-static int set_formula(int p1, int p2) {
-	return p2;
+	sb.add("%1i", last_number);
 }
 
 BSDATA(formulai) = {
@@ -392,12 +408,14 @@ BSDATA(script) = {
 	{"ExitGame", exit_game},
 	{"EatAndDrink", eat_and_drink},
 	{"EnterLocation", enter_location},
-	{"GambleVisitors", gamble_visitors},
 	{"IdentifyItem", identify_item},
 	{"LearnClericSpells", learn_cleric_spells},
 	{"LoadGame", load_game},
+	{"Message", dialog_message},
 	{"JoinParty", join_party},
+	{"PayGold", pay_gold},
 	{"ReturnToStreet", return_to_street},
+	{"Roll", make_roll},
 	{"SaveGame", save_game},
 	{"Saves", saves_modify},
 };

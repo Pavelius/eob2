@@ -390,7 +390,7 @@ bool creaturei::roll(abilityn v, int bonus) const {
 	if(last_chance >= 100)
 		last_chance = 95;
 	last_roll = d100();
-	return d100() < last_chance;
+	return last_roll < last_chance;
 }
 
 const char* creaturei::getbadstate() const {

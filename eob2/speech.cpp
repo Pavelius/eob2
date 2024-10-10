@@ -127,6 +127,17 @@ const char* speech_get(const speech* p, int n) {
 	return p->source.begin()[n].name;
 }
 
+const char* speech_get(const char* id, const char* action) {
+	auto pn = ids(id, action);
+	auto p = speech_get(pn);
+	if(p)
+		return p;
+	p = getnme(pn);
+	if(p)
+		return p;
+	return speech_get(ids("Global", action));
+}
+
 void speech_get(const char*& result, const char* id, const char* action, const char* postfix) {
 	if(result)
 		return;

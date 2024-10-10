@@ -56,6 +56,7 @@ private:
 };
 }
 
+void printcnv(const char* text);
 unsigned szget(const char** input, codepage code);
 
 char* szput(char* output, unsigned value, codepage code);

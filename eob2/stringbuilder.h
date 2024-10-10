@@ -3,7 +3,8 @@
 #ifdef _MSC_VER
 #define xva_start(v) (((const char*)&v) + sizeof(v))
 #else
-#define xva_start(v) (((const char*)&v) + sizeof(v)*4)
+#define xva_rounded_size(t) (((sizeof (t) + sizeof (int) - 1)/sizeof(int)) * sizeof (int))
+#define xva_start(v) (((const char*)&v) + xva_rounded_size(v))
 #endif
 
 class stringbuilder {

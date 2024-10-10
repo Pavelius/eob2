@@ -3,8 +3,8 @@
 #include "io_stream.h"
 #include "stringbuilder.h"
 
-void printcnf(const char* text) {
-	fwrite(text, 1, zlen(text), stdout);
+void printcnv(const char* text) {
+   fwrite(text, 1, zlen(text), stdout);
 }
 
 io::file::file() : handle(0) {

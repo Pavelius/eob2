@@ -9,11 +9,14 @@
 			<Target title="Debug">
 				<Option output="bin/Debug/eob2" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add library="X11" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/eob2" prefix_auto="1" extension_auto="1" />
@@ -30,9 +33,12 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++17" />
 		</Compiler>
 		<Unit filename="eob2/ability.cpp" />
 		<Unit filename="eob2/ability.h" />
+		<Unit filename="eob2/action.cpp" />
+		<Unit filename="eob2/action.h" />
 		<Unit filename="eob2/adat.h" />
 		<Unit filename="eob2/advancement.h" />
 		<Unit filename="eob2/aflags.h" />
@@ -47,8 +53,6 @@
 		<Unit filename="eob2/bsreq.h" />
 		<Unit filename="eob2/cflags.h" />
 		<Unit filename="eob2/class.h" />
-		<Unit filename="eob2/collection.cpp" />
-		<Unit filename="eob2/collection.h" />
 		<Unit filename="eob2/color.cpp" />
 		<Unit filename="eob2/color.h" />
 		<Unit filename="eob2/console.cpp" />
@@ -70,6 +74,8 @@
 		<Unit filename="eob2/feat.cpp" />
 		<Unit filename="eob2/feat.h" />
 		<Unit filename="eob2/flagable.h" />
+		<Unit filename="eob2/formula.cpp" />
+		<Unit filename="eob2/formula.h" />
 		<Unit filename="eob2/gender.cpp" />
 		<Unit filename="eob2/gender.h" />
 		<Unit filename="eob2/hotkey.h" />
@@ -98,6 +104,9 @@
 		<Unit filename="eob2/my_initialize_list.h" />
 		<Unit filename="eob2/nameable.cpp" />
 		<Unit filename="eob2/nameable.h" />
+		<Unit filename="eob2/nix_draw.cpp" />
+		<Unit filename="eob2/nix_io_file.cpp" />
+		<Unit filename="eob2/nix_time.cpp" />
 		<Unit filename="eob2/npc.cpp" />
 		<Unit filename="eob2/npc.h" />
 		<Unit filename="eob2/party.cpp" />
@@ -139,6 +148,7 @@
 		<Unit filename="eob2/vector.h" />
 		<Unit filename="eob2/view.cpp" />
 		<Unit filename="eob2/view.h" />
+		<Unit filename="eob2/view_dialog.cpp" />
 		<Unit filename="eob2/view_focus.cpp" />
 		<Unit filename="eob2/view_focus.h" />
 		<Unit filename="eob2/wearable.cpp" />

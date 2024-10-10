@@ -63,9 +63,9 @@ static renderi* getlast() {
 	return p;
 }
 
-static bool is_horiz(point p1, point p2) {
-	return iabs(p1.x - p2.x) >= iabs(p1.y - p2.y);
-}
+//static bool is_horiz(point p1, point p2) {
+//	return iabs(p1.x - p2.x) >= iabs(p1.y - p2.y);
+//}
 
 static bool is_vert(point p1, point p2) {
 	return iabs(p1.x - p2.x) <= iabs(p1.y - p2.y);

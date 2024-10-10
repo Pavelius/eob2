@@ -21,18 +21,18 @@
 
 template<typename T>
 struct bsdata {
-	static T			elements[];
-	static array		source;
+	static T elements[];
+	static array source;
 	static constexpr array*	source_ptr = &source;
-	static T*			add() { return (T*)source.add(); }
-	static T*			addz() { for(auto& e : bsdata<T>()) if(!e) return &e; return add(); }
+	static T* add() { return (T*)source.add(); }
+	static T* addz() { for(auto& e : bsdata<T>()) if(!e) return &e; return add(); }
 	static constexpr bool have(const void* p) { return source.have(p); }
-	static T*			find(const char* id) { return (T*)source.findv(id, 0); }
-	static constexpr T&	get(int i) { return begin()[i]; }
-	static constexpr T*	get(const void* p) { return have(p) ? (T*)p : 0; }
-	static constexpr T*	begin() { return (T*)source.data; }
-	static constexpr T*	end() { return (T*)source.data + source.getcount(); }
-	static constexpr T*	ptr(short unsigned i) { return (i == 0xFFFF) ? 0 : (T*)source.ptr(i); }
+	static T* find(const char* id) { return (T*)source.findv(id, 0); }
+	static constexpr T& get(int i) { return begin()[i]; }
+	static constexpr T* get(const void* p) { return have(p) ? (T*)p : 0; }
+	static constexpr T* begin() { return (T*)source.data; }
+	static constexpr T* end() { return (T*)source.data + source.getcount(); }
+	static constexpr T* ptr(short unsigned i) { return (i == 0xFFFF) ? 0 : (T*)source.ptr(i); }
 };
 template<> struct bsdata<int> { static constexpr array* source_ptr = 0; };
 NOBSDATA(unsigned)

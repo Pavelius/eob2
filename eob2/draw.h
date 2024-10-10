@@ -172,8 +172,8 @@ struct rectpush {
 	rectpush() : caret(draw::caret), width(draw::width), height(draw::height) {}
 	~rectpush() { draw::caret = caret; draw::width = width; draw::height = height; }
 };
-int						aligned(int x, int width, unsigned state, int string_width);
-int						alignedh(const rect& rc, const char* string, unsigned state);
+int					aligned(int x, int width, unsigned state, int string_width);
+int					alignedh(const rect& rc, const char* string, unsigned state);
 void					blit(surface& dest, int x, int y, int width, int height, unsigned flags, const surface& source, int x_source, int y_source);
 void					blit(surface& dest, int x, int y, int width, int height, unsigned flags, const surface& source, int x_source, int y_source, int width_source, int height_source);
 void					circle(int size);
@@ -181,21 +181,21 @@ void					circlef(int size);
 void					create(int x, int y, int width, int height, unsigned flags, int bpp);
 void					execute(fnevent proc, long value = 0, long value2 = 0, const void* object = 0);
 void					fhexagon();
-int						getbpp();
-inline rect				getrect() { return {caret.x, caret.y, caret.x + width, caret.y + height}; }
-int						getheight();
-int						getwidth();
+int					getbpp();
+inline rect			getrect() { return {caret.x, caret.y, caret.x + width, caret.y + height}; }
+int					getheight();
+int					getwidth();
 void					glyph(int sym, unsigned flags);
 void					gradv(const color c1, const color c2, int skip = 0);
 void					gradh(const color c1, const color c2, int skip = 0);
 void					hexagon();
-int						hittest(int x, int test_x, const char* string, int lenght);
-int						hittest(rect rc, const char* string, unsigned state, point mouse);
+int					hittest(int x, int test_x, const char* string, int lenght);
+int					hittest(rect rc, const char* string, unsigned state, point mouse);
 bool					ishilite(const rect& rc);
-inline bool				ishilite() { return ishilite({caret.x, caret.y, caret.x + width, caret.y + height}); }
-inline bool				ishilite(int size) { return ishilite({caret.x-size, caret.y - size, caret.x + size, caret.y + size}); }
+inline bool			ishilite() { return ishilite({caret.x, caret.y, caret.x + width, caret.y + height}); }
+inline bool			ishilite(int size) { return ishilite({caret.x-size, caret.y - size, caret.x + size, caret.y + size}); }
 void					image(int x, int y, const sprite* e, int id, int flags);
-inline void				image(const sprite* e, int id, int flags) { image(caret.x, caret.y, e, id, flags); }
+inline void			image(const sprite* e, int id, int flags) { image(caret.x, caret.y, e, id, flags); }
 void					image(const sprite* e, int id, int flags, color* pal);
 void					imager(int x, int y, const sprite* p, int id, int radius);
 void					key2str(stringbuilder& sb, int key);
@@ -205,8 +205,8 @@ void					paintstart();
 void					paintfinish();
 void					pixel(int x, int y);
 void					pixel(int x, int y, unsigned char alpha);
-unsigned char*			ptr(int x, int y);
-int						rawinput();
+unsigned char*		ptr(int x, int y);
+int					rawinput();
 void					rectb(); // Draw rectangle border
 void					rectb3d(); // Draw rectangle border
 void					rectf(); // Draw rectangle area. Right and bottom side is one pixel less.
@@ -216,13 +216,13 @@ void					rectfocus();
 void					set(int x, int y);
 void					setcaption(const char* string);
 void					setclip(rect rc);
-inline void				setclip() { clipping.set(0, 0, getwidth(), getheight()); }
-inline void				setcliparea() { setclip({caret.x, caret.y, caret.x + width, caret.y + height}); }
+inline void			setclip() { clipping.set(0, 0, getwidth(), getheight()); }
+inline void			setcliparea() { setclip({caret.x, caret.y, caret.x + width, caret.y + height}); }
 void					setoffset(int x, int y);
 void					setpos(int x, int y);
 void					setpos(int x, int y, int width, int height);
 void					settimer(unsigned milleseconds);
-const char*				skiptr(const char* string);
+const char*			skiptr(const char* string);
 void					stroke(int x, int y, const sprite* e, int id, int flags);
 void					strokeactive();
 void					strokeborder();
@@ -233,15 +233,15 @@ void					text(const char* string, int count = -1, unsigned flags = 0);
 void					texta(const char* string, unsigned state = 0);
 void					textas(const char* string);
 void					textc(const char* string, int count = -1, unsigned flags = 0);
-int						textbc(const char* string, int width, bool* line_feed = 0);
+int					textbc(const char* string, int width, bool* line_feed = 0);
 void					textf(const char* string);
 void					textf(const char* string, int& cashe_origin, int& cashe_string);
 void					textfs(const char* string);
-int						texth();
-int						texth(const char* string, int width);
-int						textw(int sym);
-int						textw(const char* string, int count = -1);
-int						textw(rect& rc, const char* string);
+int					texth();
+int					texth(const char* string, int width);
+int					textw(int sym);
+int					textw(const char* string, int count = -1);
+int					textw(rect& rc, const char* string);
 void					updatewindow();
 void					write(const char* url, unsigned char* bits, int width, int height, int bpp, int scanline, color* pallette);
 void					vertical(fnevent proc);

@@ -39,7 +39,7 @@ union variant {
 		unsigned char type;
 	};
 	constexpr variant() : u(0) {}
-	constexpr variant(unsigned char type, char counter, unsigned short value) : type(type), counter(counter), value(value) {}
+	constexpr variant(unsigned char type, char counter, unsigned short value) : value(value), counter(counter), type(type) {}
 	template<class T> variant(T* v) : variant((const void*)v) {}
 	constexpr explicit operator bool() const { return u != 0; }
 	constexpr bool operator==(const variant& v) const { return u == v.u; }

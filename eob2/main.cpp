@@ -33,6 +33,8 @@ int main() {
 	run_next_scene();
 }
 
+#ifdef _MSC_VER
 int _stdcall WinMain(void* ci, void* pi, char* cmd, int sw) {
 	return main();
 }
+#endif

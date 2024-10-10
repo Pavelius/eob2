@@ -12,24 +12,7 @@
 
 using namespace draw;
 
-static const char* text_start_string;
-static int text_start_horiz;
-static bool force_full_render;
-static point maxcaret;
 unsigned draw::text_flags;
-
-static bool equaln(const char*& p, const char* name) {
-	int n = zlen(name);
-	if(memcmp(p, name, n) != 0)
-		return false;
-	switch(p[n]) {
-	case '\n': case ' ': case '\t':
-		p = skipsp(p + n);
-		return true;
-	default:
-		return false;
-	}
-}
 
 static const char* getparam(const char*& p, stringbuilder& sb) {
 	auto pb = sb.get();
@@ -52,21 +35,6 @@ static int getparam(const char*& p) {
 		return result;
 	}
 	return 0;
-}
-
-static const char* skip_line_nlf(const char* p) {
-	while(*p && p[0] != 10 && p[0] != 13) p++;
-	return p;
-}
-
-static const char* skip_line(const char* p) {
-	return skipcr(skip_line_nlf(p));
-}
-
-static const char* paint_text(const char* p) {
-	auto p1 = skip_line_nlf(p);
-	text(p, p1 - p, text_flags);
-	return p1;
 }
 
 static void parse_special(const char* p) {

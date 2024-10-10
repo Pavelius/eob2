@@ -112,9 +112,6 @@ static void saves_modify(int bonus) {
 	ftscript<abilityi>(SaveVsTraps, bonus);
 }
 
-static void every_turn_effect() {
-}
-
 void skip_hours(int value) {
 	add_party(Minutes, 60 * value);
 }
@@ -130,14 +127,6 @@ static void join_party(int bonus) {
 
 static void create_character(int bonus) {
 	create_player(last_race, last_gender, last_class);
-}
-
-static void exit_game() {
-	exit(0);
-}
-
-static void start_game() {
-	exit(0);
 }
 
 static const char* get_header(const char* id, const char* action) {
@@ -242,6 +231,8 @@ static void use_item() {
 	case Body: case Neck: case Elbow: case Legs: case Head:
 		pn->speak("MustBeWearing", pi->getname());
 		break;
+   default:
+      break;
 	}
 }
 
@@ -331,10 +322,6 @@ static void identify_item(int bonus) {
 
 static void curse_item(int bonus) {
 	last_item->curse(bonus);
-}
-
-static bool cleric_spell(const void* object, int index) {
-	return ((spelli*)object)->levels[0] == index;
 }
 
 static void learn_cleric_spells(int bonus) {

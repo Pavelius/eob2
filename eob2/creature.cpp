@@ -120,13 +120,6 @@ static int get_modified_strenght() {
 	return a;
 }
 
-static void all_saves(int v) {
-	player->abilities[SaveVsParalization] += v;
-	player->abilities[SaveVsPoison] += v;
-	player->abilities[SaveVsTraps] += v;
-	player->abilities[SaveVsMagic] += v;
-}
-
 static void update_abilities() {
 	add_value(player->abilities[Strenght], -player->abilities[DrainStrenght]);
 	add_value(player->abilities[Constitution], -player->abilities[DrainConstitution]);
@@ -257,15 +250,6 @@ static void generate_abilities() {
 	apply_minimal(player->basic.abilities, pr->minimal);
 	apply_maximal(player->basic.abilities, pr->maximal);
 	player->basic.abilities[ExeptionalStrenght] = d100() + 1;
-}
-
-static size_t party_avatars(unsigned char* result) {
-	auto ps = result;
-	for(auto p : party.units) {
-		if(p->avatar != 0xFF)
-			*ps++ = p->avatar;
-	}
-	return ps - result;
 }
 
 static void advance_level(variant id, int level) {

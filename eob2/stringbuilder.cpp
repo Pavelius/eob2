@@ -278,14 +278,6 @@ int szcmp(const char* p1, const char* p2) {
 	}
 }
 
-static void add_by_count(stringbuilder& sb, const char* name, int count) {
-	switch(count) {
-	case 0: case 1: sb.add(name); break;
-	case 2: case 3: case 4: sb.addof(name); break;
-	default: sb.add(name); break;
-	}
-}
-
 const char* str_count(const char* id, int count) {
 	static char temp[64]; stringbuilder sb(temp);
 	switch(count) {

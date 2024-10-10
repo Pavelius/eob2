@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef _MSC_VER
+using size_t = decltype(sizeof(0));
+#endif // _MSC_VER
+
 typedef bool(*fnallow)(const void* object, int index);
 typedef void(*fncommand)(void* object);
 typedef int (*fncompare)(const void*, const void*);

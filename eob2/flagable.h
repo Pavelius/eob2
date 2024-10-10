@@ -1,7 +1,5 @@
 #pragma once
 
-#define FG(V) (1<<V)
-
 // Abstract flag set
 template<unsigned N, typename T = unsigned char>
 class flagable {

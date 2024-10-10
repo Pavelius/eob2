@@ -4,10 +4,10 @@
 
 namespace log {
 struct valuei {
-	const char*	text;
+	const char* text;
 	long		number;
 	void*		data;
-	variant		identifier;
+	variant	identifier;
 	void clear() { memset(this, 0, sizeof(*this)); }
 	const char* read(const char* p, stringbuilder& sb);
 };

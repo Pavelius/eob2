@@ -54,10 +54,10 @@ static int get_alpha(int base, unsigned range) {
 		return base * (range - seed) / half;
 }
 
-static bool is_cursor_visible(unsigned range) {
-	auto seed = get_frame_tick() % range;
-	return seed >= (range / 3);
-}
+//static bool is_cursor_visible(unsigned range) {
+//	auto seed = get_frame_tick() % range;
+//	return seed >= (range / 3);
+//}
 
 static const char* namesh(const char* id) {
 	auto p = getnme(ids(id, "Short"));
@@ -183,14 +183,6 @@ static void paint_answers(fnanswer paintcell, fnevent pushbutton, int height_gri
 	}
 }
 
-static unsigned get_key(int index) {
-	if(index < 9)
-		return '1' + index;
-	else if(index == 1000)
-		return KeyEscape;
-	return 0;
-}
-
 void text_label(int index, const void* data, const char* format, unsigned key, fnevent proc) {
 	auto push_fore = fore;
 	focusing(data);
@@ -280,8 +272,6 @@ static int get_compass_index(directions d) {
 }
 
 static void paint_compass(directions d) {
-	auto push_fore = fore;
-	fore = colors::white;
 	auto i = get_compass_index(d);
 	image(114, 132, gres(COMPASS), i, 0);
 	image(79, 158, gres(COMPASS), 4 + i, 0);
@@ -497,7 +487,6 @@ static void addv(stringbuilder& sb, const dice& value) {
 
 static void textn(abilityn id) {
 	char temp[260]; stringbuilder sb(temp);
-	int value = 0;
 	switch(id) {
 	case AttackMelee:
 		sb.add("%1i", 20 - player->get(id));
@@ -858,7 +847,7 @@ static void paint_sprites(resid id, point offset, int& focus, int per_line) {
 	if(!p)
 		return;
 	auto index = 0;
-	auto push_caret = caret;
+	// auto push_caret = caret;
 	auto push_line = caret;
 	auto count = per_line;
 	while(index < p->count) {
@@ -1207,9 +1196,6 @@ static void menu_position(const char* format, point& origin, point& size, int pa
 	size.y = rc.height() + padding * 2 + button_area;
 	origin.x = (getwidth() - size.x) / 2;
 	origin.y = (140 - size.y - button_area) / 2;
-}
-
-static void paint_fade(unsigned char alpha) {
 }
 
 void* choose_dialog(const char* title, int padding) {

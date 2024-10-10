@@ -34,7 +34,7 @@ unsigned char  draw::alpha = 255;
 color				draw::fore;
 color				draw::fore_stroke;
 int				draw::width, draw::height, draw::dialog_width = 500;
-extern int		draw::fsize = 32;
+int		      draw::fsize = 32;
 bool				draw::text_clipped, draw::control_hilited;
 const sprite*	draw::font;
 double			draw::linw = 1.0;
@@ -52,7 +52,6 @@ draw::surface*	draw::canvas = &default_surface;
 point				draw::caret, draw::camera, draw::tips_caret, draw::tips_size;
 bool			   line_antialiasing = true;
 // Drag
-static const void* drag_object;
 point				draw::dragmouse;
 // Metrics
 sprite*			metrics::font;
@@ -66,7 +65,6 @@ int				metrics::padding = 2, metrics::border = 4;
 static bool		break_modal;
 static long		break_result;
 static fnevent	next_scene;
-static char		tips_text[4096];
 awindowi			draw::awindow = {-1, -1, 800, 600, 160, WFMinmax | WFResize};
 
 static void correct(int& x1, int& y1, int& x2, int& y2) {
@@ -1536,14 +1534,14 @@ int draw::textw(const char* string, int count) {
 		return 0;
 	int x1 = 0;
 	const pma* pk = 0;//font->getheader("KRN");
-	unsigned char s0 = 0x0;
+	// unsigned char s0 = 0x0;
 	if(count == -1) {
 		const char *s1 = string;
 		if(pk) {
 			while(*s1) {
-				unsigned char sr = *((unsigned char*)s1);
+				// unsigned char sr = *((unsigned char*)s1);
 				x1 += textw(szget(&s1, codepage::W1251));
-				s0 = sr;
+				// s0 = sr;
 			}
 		} else {
 			while(*s1)
@@ -1554,9 +1552,9 @@ int draw::textw(const char* string, int count) {
 		const char *s2 = string + count;
 		if(pk) {
 			while(s1 < s2) {
-				unsigned char sr = *((unsigned char*)s1);
+				// unsigned char sr = *((unsigned char*)s1);
 				x1 += textw(szget(&s1, codepage::W1251));
-				s0 = sr;
+				// s0 = sr;
 			}
 		} else {
 			while(s1 < s2)
@@ -1577,7 +1575,7 @@ void draw::text(const char* string, int count, unsigned flags) {
 	const char *s1 = string;
 	const char *s2 = string + count;
 	auto push_caret = caret;
-	unsigned char s0 = 0x0;
+	// unsigned char s0 = 0x0;
 	while(s1 < s2) {
 		int sm = *s1++;
 		if(sm >= 0x21)
@@ -1634,7 +1632,7 @@ void draw::texta(const char* string, unsigned state) {
 	auto push_caret = caret;
 	auto y2 = caret.y + height;
 	caret.y += alignedh1(string, state);
-	auto y1 = caret.y;
+	// auto y1 = caret.y;
 	if(state & TextSingleLine) {
 		auto push_clip = clipping; setclip(getrect());
 		caret.x = aligned(caret.x, width, state, draw::textw(string));
@@ -1883,29 +1881,6 @@ void draw::image(const sprite* e, int id, int flags, color* pal) {
 	draw::palt = pal_push;
 }
 
-static void rectfall() {
-	rectpush push;
-	caret.x = caret.y = 0;
-	width = getwidth();
-	height = getheight();
-	rectf();
-}
-
-static void raw32n1(unsigned char* p1, unsigned char* sb, int width) {
-	const int cbs = 3;
-	const int cbd = 4;
-	if(width <= 0)
-		return;
-	unsigned char* se = sb + width * cbs;
-	while(sb < se) {
-		p1[0] = sb[0];
-		p1[1] = sb[1];
-		p1[2] = sb[2];
-		sb += cbs;
-		p1 += cbd;
-	}
-}
-
 static void raw32cr(int x, int y, int width, int x0, int y0, unsigned char* s, unsigned scanline) {
 	if(y >= clipping.y2 || y < clipping.y1 || x >= clipping.x2)
 		return;
@@ -1966,7 +1941,7 @@ void draw::imager(int xm, int ym, const sprite* e, int id, int r) {
 }
 
 void surface::blend(const surface& source, int alpha) {
-	if(bpp != 32 && bpp != source.bpp || height != source.height || width != source.width)
+	if((bpp != 32 && bpp != source.bpp) || height != source.height || width != source.width)
 		return;
 	cpy32a(ptr(0, 0), scanline,
 		const_cast<surface&>(source).ptr(0, 0), source.scanline,

@@ -1,2 +1,7 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Temple`
+Error in file `rules/Locations.txt`:
+ Line 10: Not found identifier `BUILDNGS`
+ Line 11: Not found identifier `BUILDNGS`
+ Line 33: Not found identifier `BUILDNGS`
+ Line 35: Not found identifier `BUILDNGS`
+ Line 37: Not found identifier `BUILDNGS`
+ Line 40: Not found identifier `BUILDNGS`

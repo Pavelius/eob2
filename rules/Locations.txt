@@ -7,8 +7,8 @@ GambleVisitorsFailedRoll
 
 #Action
 
-Donate avatar(BUILDNGS 1)
-GambleVisitors avatar(BUILDNGS 1)
+Donate avatar(buildngs 1)
+GambleVisitors avatar(buildngs 1)
  classes Fighter Theif
  effect ChooseBet PayGold+101 Charisma Roll-2 Message+1 Mul+2 GoldPiece+101
 GameOptions
@@ -30,12 +30,12 @@ ScribleScrolls
 
 HunterVillage
 
-Inn avatar(BUILDNGS 7) parent(HunterVillage)
+Inn avatar(buildngs 7) parent(HunterVillage)
  options RestParty MemorizeSpells PrayForSpells ScribleScrolls GameOptions
-Tavern avatar(BUILDNGS 5) parent(HunterVillage)
+Tavern avatar(buildngs 5) parent(HunterVillage)
  options EatAndDrink GambleVisitors PickPockets ReturnToStreet
-Temple avatar(BUILDNGS 8) parent(HunterVillage)
+Temple avatar(buildngs 8) parent(HunterVillage)
  options ReturnToStreet
 
-HunterVillage avatar(BUILDNGS 26)
+HunterVillage avatar(buildngs 26)
  options Inn Tavern Temple

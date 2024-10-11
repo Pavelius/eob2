@@ -17,6 +17,7 @@ extern partyi party;
 
 void add_party(partystatn id, int value);
 bool is_dead_line();
+void save_game(const char* id);
 void skip_hours(int value);
 
 int getparty(partystatn id);

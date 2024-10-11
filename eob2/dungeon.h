@@ -1,6 +1,7 @@
 #pragma once
 
 #include "creature.h"
+#include "dungeon_site.h"
 #include "dungeon_state.h"
 #include "item.h"
 
@@ -10,7 +11,7 @@ const int mpy = 23;
 enum celln : unsigned char;
 enum cellfn : unsigned char;
 
-struct dungeoni {
+struct dungeoni : dungeon_site {
 	struct ground : item, pointc {
 	};
 	dungeon_state	state;
@@ -24,4 +25,4 @@ struct dungeoni {
 	void			set(pointc v, celln i);
 	void			set(pointc v, cellfn i);
 };
-extern dungeoni* last_dungeon;
+extern dungeoni *loc, *locup, *locdw;

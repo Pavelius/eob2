@@ -16,8 +16,6 @@
 #include "stringbuilder.h"
 #include "party.h"
 
-BSDATAC(creaturei, 256)
-
 creaturei* player;
 int last_roll, last_chance;
 

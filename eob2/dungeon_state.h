@@ -23,7 +23,6 @@ struct dungeon_state {
 	short unsigned	monsters; // total count of monsters
 	short unsigned	monsters_alive; // total alive monsters
 	short unsigned	monsters_killed; // total killed monsters
-	flagable<2>		goals;
+	flagable<2>		goals; // Reaching goals by party
 	bool			boss_alive;
-	void			clear();
 };

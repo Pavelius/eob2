@@ -192,6 +192,12 @@
     <ClCompile Include="dungeon.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="archive.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="serial.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -388,6 +394,9 @@
     </ClInclude>
     <ClInclude Include="dungeon_site.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="archive.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

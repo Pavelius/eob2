@@ -45,12 +45,16 @@ Chant levels(2)
  wearing Attack+1 Damage+1 Saves+1
 FindTraps levels(2)
 FlameBlade levels(2)
+ feats You
 Goodberry levels(2)
+ feats You Ally Group
 HoldPerson levels(2)
 Messenger levels(2)
 Obscurement levels(2)
 ProduceFlame levels(2)
 ResistFire levels(2)
+ feats You Ally
 ResistCold levels(2)
+ feats You Ally
 SlowPoison levels(2)
-SnakeCharm levels(2)
+ feats Ally

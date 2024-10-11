@@ -2,6 +2,7 @@
 #include "bsreq.h"
 #include "draw.h"
 #include "log.h"
+#include "party.h"
 #include "rand.h"
 #include "speech.h"
 #include "timer.h"
@@ -30,6 +31,7 @@ int main() {
 	draw::setcaption("Eye of beholder (remake)");
 	draw::settimer(100);
 	script_run("StartGame");
+	save_game("autosave");
 	run_next_scene();
 }
 

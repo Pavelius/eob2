@@ -138,6 +138,7 @@
     <ClInclude Include="adat.h" />
     <ClInclude Include="advancement.h" />
     <ClInclude Include="answers.h" />
+    <ClInclude Include="archive.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="avatar.h" />
     <ClInclude Include="bsdata.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="ability.cpp" />
     <ClCompile Include="action.cpp" />
     <ClCompile Include="answers.cpp" />
+    <ClCompile Include="archive.cpp" />
     <ClCompile Include="array.cpp" />
     <ClCompile Include="avatar.cpp" />
     <ClCompile Include="bsreq.cpp" />
@@ -231,6 +233,7 @@
     <ClCompile Include="randomeffect.cpp" />
     <ClCompile Include="script.cpp" />
     <ClCompile Include="scripting.cpp" />
+    <ClCompile Include="serial.cpp" />
     <ClCompile Include="speech.cpp" />
     <ClCompile Include="sprite_util.cpp" />
     <ClCompile Include="surface_util.cpp" />

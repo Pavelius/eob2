@@ -5,7 +5,7 @@ const unsigned char	CellMask = 0x1F;
 const unsigned short Blocked = 0xFFFF;
 static unsigned short pathmap[mpy][mpx];
 
-dungeoni* last_dungeon;
+dungeoni *loc, *locup, *locdw;
 
 static celln get_wall(celln v) {
 	switch(v) {

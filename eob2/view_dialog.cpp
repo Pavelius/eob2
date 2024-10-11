@@ -78,5 +78,6 @@ void* dialogv(const char* cancel, const char* format, const char* format_param) 
 }
 
 void* dialog(const char* cancel, const char* format, ...) {
-	return dialogv(cancel, format, xva_start(format));
+   XVA_FORMAT(format);
+	return dialogv(cancel, format, format_param);
 }

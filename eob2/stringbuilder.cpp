@@ -434,6 +434,11 @@ void stringbuilder::add(char sym) {
 	}
 }
 
+void stringbuilder::add(const char* format, ...) {
+   XVA_FORMAT(format);
+   addv(format, format_param);
+}
+
 void stringbuilder::addv(const char* src, const char* vl) {
 	if(!p)
 		return;
@@ -821,7 +826,8 @@ void stringbuilder::trimr() {
 
 const char* str(const char* format, ...) {
 	static char temp[1024]; stringbuilder sb(temp);
-	sb.addv(format, xva_start(format));
+	XVA_FORMAT(format);
+	sb.addv(format, format_param);
 	return temp;
 }
 

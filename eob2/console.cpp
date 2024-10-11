@@ -32,12 +32,14 @@ void consolenl() {
 }
 
 void console(const char* format, ...) {
-	consolev(format, xva_start(format));
+   XVA_FORMAT(format);
+	consolev(format, format_param);
 }
 
 void consolen(const char* format, ...) {
 	consolenl();
-	consolev(format, xva_start(format));
+	XVA_FORMAT(format);
+	consolev(format, format_param);
 }
 
 void consolev(const char* format, const char* format_param) {

@@ -32,7 +32,8 @@ void log::printv(const char* format, const char* format_param) {
 }
 
 void log::print(const char* format, ...) {
-	printv(format, xva_start(format));
+   XVA_FORMAT(format);
+	printv(format, format_param);
 }
 
 void log::println() {
@@ -73,7 +74,8 @@ void log::errorv(const char* position, const char* format, const char* format_pa
 }
 
 void log::errorp(const char* position, const char* format, ...) {
-	errorv(position, format, xva_start(format));
+   XVA_FORMAT(format);
+	errorv(position, format, format_param);
 }
 
 const char* log::skipws(const char* p) {

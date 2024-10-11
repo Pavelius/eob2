@@ -1,10 +1,16 @@
 #pragma once
 
 #ifdef _MSC_VER
-#define xva_start(v) (((const char*)&v) + sizeof(v))
+#define XVA_FORMAT(V) auto format_param = (((const char*)&V) + sizeof(v));
 #else
-#define xva_rounded_size(t) (((sizeof (t) + sizeof (int) - 1)/sizeof(int)) * sizeof (int))
-#define xva_start(v) (((const char*)&v) + xva_rounded_size(v))
+#include <stdarg.h>
+struct xva_gcc_list {
+   int gpr; /* index to next saved gp register */
+	int fpr;	/* index to next saved fp register */
+	const char *overflow_arg_area; /* ptr to next overflow argument */
+   const char *reg_save_area;	/* ptr to reg save area */
+};
+#define XVA_FORMAT(V) va_list args; va_start(args, V); auto format_param = ((xva_gcc_list*)(&args))->reg_save_area + ((xva_gcc_list*)(&args))->gpr;
 #endif
 
 class stringbuilder {
@@ -23,19 +29,19 @@ public:
 	constexpr operator char*() const { return pb; }
 	explicit constexpr operator bool() const { return pb[0]; }
 	static fncustom	custom;
-	void			add(const char* format, ...) { addv(format, xva_start(format)); }
+	void			add(const char* format, ...);
 	void			add(char sym);
 	void			addby(const char* s);
 	void			addch(char sym);
 	void			addint(int value, int precision, const int radix);
 	void			adjective(const char* name, int m);
-	void			addn(const char* format, ...) { addx('\n', format, xva_start(format)); }
+	void			addn(const char* format, ...) { XVA_FORMAT(format); addx('\n', format, format_param); }
 	void			addnounf(const char* s);
 	void			addnouni(const char* s);
 	void			addnounx(const char* s);
 	void			addnz(const char* format, unsigned count);
 	void			addof(const char* s);
-	void			adds(const char* format, ...) { addx(' ', format, xva_start(format)); }
+	void			adds(const char* format, ...) { XVA_FORMAT(format); addx(' ', format, format_param); }
 	void			addsep(char separator);
 	void			addsz() { if(p < pe) *p++ = 0; }
 	void			addto(const char* s);

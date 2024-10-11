@@ -20,14 +20,15 @@
 	"answers.h"
 	"rand.h"
 
-1728454452 /home/user-331/projects/eob2/eob2/answers.h
+1728642420 /home/user-331/projects/eob2/eob2/answers.h
 	"adat.h"
 	"stringbuilder.h"
 
 1728387414 /home/user-331/projects/eob2/eob2/adat.h
 	"slice.h"
 
-1728471448 /home/user-331/projects/eob2/eob2/stringbuilder.h
+1728643302 /home/user-331/projects/eob2/eob2/stringbuilder.h
+	<stdarg.h>
 
 1728387414 /home/user-331/projects/eob2/eob2/rand.h
 
@@ -68,7 +69,7 @@
 
 1728387414 /home/user-331/projects/eob2/eob2/dice.h
 
-1728548980 source:/home/user-331/projects/eob2/eob2/avatar.cpp
+1728642340 source:/home/user-331/projects/eob2/eob2/avatar.cpp
 	"flagable.h"
 	"avatar.h"
 	"bsdata.h"
@@ -81,7 +82,7 @@
 
 1728387414 /home/user-331/projects/eob2/eob2/aflags.h
 
-1728471363 /home/user-331/projects/eob2/eob2/avatar.h
+1728642340 /home/user-331/projects/eob2/eob2/avatar.h
 
 1728387414 /home/user-331/projects/eob2/eob2/class.h
 	"adat.h"
@@ -128,7 +129,7 @@
 1728387414 /home/user-331/projects/eob2/eob2/vector.h
 	"array.h"
 
-1728550481 source:/home/user-331/projects/eob2/eob2/creature.cpp
+1728642340 source:/home/user-331/projects/eob2/eob2/creature.cpp
 	"advancement.h"
 	"avatar.h"
 	"bsdata.h"
@@ -206,20 +207,20 @@
 1728387414 /home/user-331/projects/eob2/eob2/script.h
 	"variant.h"
 
-1728387414 /home/user-331/projects/eob2/eob2/party.h
+1728642340 /home/user-331/projects/eob2/eob2/party.h
 	"nameable.h"
 	"unit.h"
 
 1728387414 /home/user-331/projects/eob2/eob2/unit.h
 
-1728387414 source:/home/user-331/projects/eob2/eob2/console.cpp
+1728642451 source:/home/user-331/projects/eob2/eob2/console.cpp
 	"console.h"
 	"stringbuilder.h"
 	"slice.h"
 
 1728387414 /home/user-331/projects/eob2/eob2/console.h
 
-1728387414 source:/home/user-331/projects/eob2/eob2/io_bsreq.cpp
+1728642340 source:/home/user-331/projects/eob2/eob2/io_bsreq.cpp
 	"bsreq.h"
 	"io_stream.h"
 	"log.h"
@@ -228,7 +229,7 @@
 	"stringbuilder.h"
 	"variant.h"
 
-1728387414 /home/user-331/projects/eob2/eob2/io_stream.h
+1728567988 /home/user-331/projects/eob2/eob2/io_stream.h
 
 1728550441 /home/user-331/projects/eob2/eob2/logvalue.h
 	"variant.h"
@@ -283,18 +284,18 @@
 	"log.h"
 	"stringbuilder.h"
 
-1728387414 source:/home/user-331/projects/eob2/eob2/location.cpp
+1728642340 source:/home/user-331/projects/eob2/eob2/location.cpp
 	"location.h"
 	"stringbuilder.h"
 
-1728387414 /home/user-331/projects/eob2/eob2/location.h
+1728642340 /home/user-331/projects/eob2/eob2/location.h
 	"nameable.h"
 	"picture.h"
 	"variant.h"
 
 1728387414 /home/user-331/projects/eob2/eob2/picture.h
 
-1728387414 source:/home/user-331/projects/eob2/eob2/log.cpp
+1728642486 source:/home/user-331/projects/eob2/eob2/log.cpp
 	"io_stream.h"
 	"log.h"
 	"slice.h"
@@ -305,13 +306,14 @@
 
 1728387414 source:/home/user-331/projects/eob2/eob2/math.cpp
 
-1728556906 source:/home/user-331/projects/eob2/eob2/metadata.cpp
+1728642340 source:/home/user-331/projects/eob2/eob2/metadata.cpp
 	"ability.h"
 	"action.h"
 	"advancement.h"
 	"bsreq.h"
 	"class.h"
 	"color.h"
+	"dungeon.h"
 	"item.h"
 	"list.h"
 	"location.h"
@@ -335,11 +337,12 @@
 	"modifier.h"
 	"script.h"
 
-1728550090 source:/home/user-331/projects/eob2/eob2/main.cpp
+1728642694 source:/home/user-331/projects/eob2/eob2/main.cpp
 	"avatar.h"
 	"bsreq.h"
 	"draw.h"
 	"log.h"
+	"party.h"
 	"rand.h"
 	"speech.h"
 	"timer.h"
@@ -359,7 +362,7 @@
 	"nameable.h"
 	"stringbuilder.h"
 
-1728387414 source:/home/user-331/projects/eob2/eob2/npc.cpp
+1728642517 source:/home/user-331/projects/eob2/eob2/npc.cpp
 	"avatar.h"
 	"bsdata.h"
 	"console.h"
@@ -397,7 +400,7 @@
 	"rand.h"
 	"script.h"
 
-1728555040 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1728642340 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"answers.h"
 	"class.h"
@@ -430,7 +433,7 @@
 	"speech.h"
 	"stringbuilder.h"
 
-1728557798 source:/home/user-331/projects/eob2/eob2/stringbuilder.cpp
+1728643243 source:/home/user-331/projects/eob2/eob2/stringbuilder.cpp
 	"stringbuilder.h"
 	"slice.h"
 
@@ -488,7 +491,7 @@
 1728548980 /home/user-331/projects/eob2/eob2/formula.h
 	"nameable.h"
 
-1728555372 source:/home/user-331/projects/eob2/eob2/nix_io_file.cpp
+1728568129 source:/home/user-331/projects/eob2/eob2/nix_io_file.cpp
 	<cstdio>
 	<unistd.h>
 	"io_stream.h"
@@ -515,7 +518,7 @@
 1728548980 source:/home/user-331/projects/eob2/eob2/formula.cpp
 	"formula.h"
 
-1728556356 source:/home/user-331/projects/eob2/eob2/view_dialog.cpp
+1728642535 source:/home/user-331/projects/eob2/eob2/view_dialog.cpp
 	"answers.h"
 	"bsdata.h"
 	"draw.h"
@@ -523,4 +526,34 @@
 	"resid.h"
 	"slice.h"
 	"view.h"
+
+1728642340 /home/user-331/projects/eob2/eob2/dungeon.h
+	"creature.h"
+	"dungeon_site.h"
+	"dungeon_state.h"
+	"item.h"
+
+1728642340 /home/user-331/projects/eob2/eob2/dungeon_site.h
+
+1728642340 /home/user-331/projects/eob2/eob2/dungeon_state.h
+	"posable.h"
+	"flagable.h"
+
+1728642340 /home/user-331/projects/eob2/eob2/posable.h
+
+1728642340 source:/home/user-331/projects/eob2/eob2/archive.cpp
+	"archive.h"
+	"stringbuilder.h"
+
+1728642340 /home/user-331/projects/eob2/eob2/archive.h
+	"adat.h"
+	"io_stream.h"
+	"vector.h"
+
+1728642340 source:/home/user-331/projects/eob2/eob2/serial.cpp
+	"archive.h"
+	"creature.h"
+	"dungeon.h"
+	"party.h"
+	"variant.h"
 

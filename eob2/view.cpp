@@ -803,7 +803,7 @@ void paint_city_menu() {
 	paint_avatars_no_focus_hilite();
 	paint_console();
 	paint_party_status();
-	paint_menu({0, 0}, 178, 120);
+	paint_menu({0, 0}, 178, 121);
 	caret = {6, 6};
 	width = 165;
 	height = texth() + 3;

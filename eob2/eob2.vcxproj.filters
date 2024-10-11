@@ -201,6 +201,12 @@
     <ClCompile Include="cell.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="dungeon_generate.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="posable.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -400,6 +406,9 @@
     </ClInclude>
     <ClInclude Include="archive.h">
       <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="wallmessage.h">
+      <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

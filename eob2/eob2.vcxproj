@@ -197,6 +197,7 @@
     <ClInclude Include="vector.h" />
     <ClInclude Include="view_focus.h" />
     <ClInclude Include="view.h" />
+    <ClInclude Include="wallmessage.h" />
     <ClInclude Include="wearable.h" />
     <ClInclude Include="win.h" />
   </ItemGroup>
@@ -218,6 +219,7 @@
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="draw_text.cpp" />
     <ClCompile Include="dungeon.cpp" />
+    <ClCompile Include="dungeon_generate.cpp" />
     <ClCompile Include="feat.cpp" />
     <ClCompile Include="formula.cpp" />
     <ClCompile Include="gender.cpp" />
@@ -231,6 +233,7 @@
     <ClCompile Include="modifier.cpp" />
     <ClCompile Include="npc.cpp" />
     <ClCompile Include="picture.cpp" />
+    <ClCompile Include="posable.cpp" />
     <ClCompile Include="randomeffect.cpp" />
     <ClCompile Include="script.cpp" />
     <ClCompile Include="scripting.cpp" />

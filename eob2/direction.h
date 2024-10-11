@@ -1,9 +1,10 @@
 #pragma once
 
-enum directions {
+enum directions : unsigned char {
 	Center,
 	Left, Up, Right, Down
 };
 struct directioni {
 	const char*		name;
 };
+directions to(directions v, directions d);

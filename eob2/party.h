@@ -16,7 +16,9 @@ struct partyi : uniti {
 extern partyi party;
 
 void add_party(partystatn id, int value);
+void continue_game();
 bool is_dead_line();
+bool read_game(const char* id);
 void save_game(const char* id);
 void skip_hours(int value);
 

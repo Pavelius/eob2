@@ -1,16 +1,18 @@
 #pragma once
 
 #ifdef _MSC_VER
-#define XVA_FORMAT(V) auto format_param = (((const char*)&V) + sizeof(v));
+#define XVA_FORMAT(V) auto format_param = (((const char*)&V) + sizeof(V));
 #else
 #include <stdarg.h>
 struct xva_gcc_list {
-   int gpr; /* index to next saved gp register */
-	int fpr;	/* index to next saved fp register */
-	const char *overflow_arg_area; /* ptr to next overflow argument */
-   const char *reg_save_area;	/* ptr to reg save area */
+	int gpr, fpr;
+	const char *overflow_arg_area;
+	const char *reg_save_area;
 };
-#define XVA_FORMAT(V) va_list args; va_start(args, V); auto format_param = ((xva_gcc_list*)(&args))->reg_save_area + ((xva_gcc_list*)(&args))->gpr;
+#define XVA_FORMAT(V)\
+	va_list args;\
+	va_start(args, V);\
+	auto format_param = ((xva_gcc_list*)(&args))->reg_save_area + ((xva_gcc_list*)(&args))->gpr;
 #endif
 
 class stringbuilder {

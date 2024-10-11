@@ -91,6 +91,8 @@ template<> variant::variant(const char* v) : u(0) {
 }
 
 const varianti* find_variant(const void* object) {
+	if(!object)
+		return 0;
 	for(auto& e : bsdata<varianti>()) {
 		if(!e.source || !e.metadata)
 			continue;

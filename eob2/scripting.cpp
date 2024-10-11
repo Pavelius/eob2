@@ -283,9 +283,11 @@ static void eat_and_drink(int bonus) {
 }
 
 static void save_game(int bonus) {
+	save_game("autosave");
 }
 
 static void load_game(int bonus) {
+	read_game("autosave");
 }
 
 static void choose_menu(int bonus) {
@@ -310,6 +312,12 @@ void add_spells(int type, int level, const spellseta* include) {
 			continue;
 		an.add(&e, e.getname());
 	}
+}
+
+void continue_game() {
+	current_focus = 0;
+	last_location = bsdata<locationi>::elements + party.location;
+	enter_location(0);
 }
 
 static void choose_spells(int bonus) {

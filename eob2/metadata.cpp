@@ -59,6 +59,10 @@ BSMETA(classi) = {
 	BSREQ(hd),
 	BSENM(classes, classi), BSREQ(count),
 	{}};
+BSMETA(creaturei) = {
+	BSDST(abilities, abilityi),
+	BSDST(spells, spelli),
+	{}};
 BSMETA(dice) = {
 	BSREQ(c), BSREQ(d), BSREQ(b), BSREQ(m),
 	{}};
@@ -122,6 +126,7 @@ BSDATA(varianti) = {
 	{"Action", VAR(actioni, 1), 0, 0, ftscript<actioni>},
 	{"Advance", VAR(advancement, 2)},
 	{"Class", VAR(classi, 1), 0, 0, ftscript<classi>},
+	{"Creature", VAR(creaturei, 0)},
 	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>},
 	{"Formula", VAR(formulai, 1), 0, 0, ftscript<formulai>},
 	{"Gender", VAR(genderi, 1), 0, 0, ftscript<genderi>},

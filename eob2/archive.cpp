@@ -1,5 +1,6 @@
 #include "archive.h"
 #include "stringbuilder.h"
+#include "variant.h"
 
 bool archive::signature(const char* id) {
 	char temp[4];
@@ -43,4 +44,25 @@ void archive::set(void* value, unsigned size) {
 		source.write(value, size);
 	else
 		source.read(value, size);
+}
+
+void archive::setpointer(void** value) {
+	if(writemode) {
+		variant v;
+		auto pi = find_variant(*value);
+		if(pi) {
+			v.type = pi - bsdata<varianti>::elements;
+			v.value = pi->source->indexof(*value);
+			v.counter = 0;
+		} else
+			v.clear();
+		set(v);
+	} else {
+		variant v; set(v);
+		auto pi = bsdata<varianti>::elements[v.type].source;
+		if(!pi)
+			*value = 0;
+		else
+			*value = pi->ptr(v.value);
+	}
 }

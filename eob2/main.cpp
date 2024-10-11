@@ -30,8 +30,10 @@ int main() {
 	draw::create(-1, -1, 320, 200, 0, 32);
 	draw::setcaption("Eye of beholder (remake)");
 	draw::settimer(100);
-	script_run("StartGame");
-	save_game("autosave");
+	if(!read_game("autosave")) {
+		script_run("StartGame");
+		save_game("autosave");
+	}
 	run_next_scene();
 }
 

@@ -229,7 +229,7 @@
 	"stringbuilder.h"
 	"variant.h"
 
-1728567988 /home/user-331/projects/eob2/eob2/io_stream.h
+1728646519 /home/user-331/projects/eob2/eob2/io_stream.h
 
 1728550441 /home/user-331/projects/eob2/eob2/logvalue.h
 	"variant.h"
@@ -491,9 +491,10 @@
 1728548980 /home/user-331/projects/eob2/eob2/formula.h
 	"nameable.h"
 
-1728568129 source:/home/user-331/projects/eob2/eob2/nix_io_file.cpp
+1728646853 source:/home/user-331/projects/eob2/eob2/nix_io_file.cpp
 	<cstdio>
 	<unistd.h>
+	<dirent.h>
 	"io_stream.h"
 	"stringbuilder.h"
 

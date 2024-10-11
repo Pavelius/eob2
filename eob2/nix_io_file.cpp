@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <unistd.h>
+#include <dirent.h>
 #include "io_stream.h"
 #include "stringbuilder.h"
 
@@ -21,6 +22,8 @@ io::file::~file() {
 io::file::find::find(const char* url) {
    stringbuilder sb(path); sb.clear();
 	sb.add(url);
+	handle = opendir(url);
+	next();
 }
 
 const char* io::file::find::fullname(char* result) {
@@ -36,17 +39,23 @@ const char* io::file::find::fullname(char* result) {
 void io::file::find::next() {
 	if(!handle)
 		return;
+   handle_ent = readdir((DIR*)handle);
+   if(!handle_ent) {
+		closedir((DIR*)handle);
+      handle = 0;
+   }
 }
 
 io::file::find::~find() {
-//	if(handle)
-//		FindClose(handle);
-//	handle = 0;
+	if(handle)
+		closedir((DIR*)handle);
+	handle = 0;
 }
 
 const char* io::file::find::name() {
-	return "";
-	//return ((WIN32_FIND_DATA*)&reserved)->cFileName;
+   if(!handle_ent)
+      return "";
+   return ((dirent*)handle_ent)->d_name;
 }
 
 bool io::file::create(const char* url, unsigned flags) {

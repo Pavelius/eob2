@@ -26,14 +26,15 @@ struct file : stream {
 	struct find {
 		find(const char* url);
 		~find();
-		const char*		name();
-		const char*		fullname(char* result);
+		const char*	name();
+		const char*	fullname(char* result);
 		void			next();
 		operator bool() const { return handle != 0; }
 	private:
 		char			path[261];
 		char			reserved[512];
 		void*			handle;
+		void*			handle_ent;
 	};
 	file();
 	file(const char* url, unsigned feats = StreamRead);

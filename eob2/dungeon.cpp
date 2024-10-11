@@ -53,6 +53,13 @@ void dungeoni::set(pointc v, celln i) {
 	data[v.y][v.x] = (data[v.y][v.x] & (~CellMask)) | i;
 }
 
+void dungeoni::set(pointc v, celln i, pointc size) {
+	auto ve = v + size; pointc pt;
+	for(pt.y = v.y; pt.y < ve.y; pt.y++)
+		for(pt.x = v.x; pt.x < ve.x; pt.x++)
+			set(pt, i);
+}
+
 bool dungeoni::is(pointc v, cellfn i) const {
 	if(v.x < 0)
 		return false;

@@ -2,6 +2,7 @@
 #include "action.h"
 #include "advancement.h"
 #include "bsreq.h"
+#include "cell.h"
 #include "class.h"
 #include "color.h"
 #include "dungeon.h"
@@ -51,6 +52,9 @@ BSMETA(advancement) = {
 	BSREQ(type),
 	BSREQ(id),
 	BSREQ(elements),
+	{}};
+BSMETA(celli) = {
+	BSREQ(id),
 	{}};
 BSMETA(classi) = {
 	BSREQ(id),
@@ -125,6 +129,7 @@ BSDATA(varianti) = {
 	{"Ability", VAR(abilityi, 1), 0, 0, ftscript<abilityi>},
 	{"Action", VAR(actioni, 1), 0, 0, ftscript<actioni>},
 	{"Advance", VAR(advancement, 2)},
+	{"Cell", VAR(celli, 1)},
 	{"Class", VAR(classi, 1), 0, 0, ftscript<classi>},
 	{"Creature", VAR(creaturei, 0)},
 	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>},

@@ -15,7 +15,7 @@ enum celln : unsigned char {
 	CellPitUp, // On floor
 	// Decor
 	CellPuller, CellSecrectButton, CellCellar, CellMessage,
-	CellKeyHole1, CellKeyHole2, CellTrapLauncher,
+	CellKeyHole, CellTrapLauncher,
 	CellDecor1, CellDecor2, CellDecor3,
 	CellDoorButton
 };

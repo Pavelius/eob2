@@ -208,6 +208,7 @@
     <ClCompile Include="array.cpp" />
     <ClCompile Include="avatar.cpp" />
     <ClCompile Include="bsreq.cpp" />
+    <ClCompile Include="cell.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="console.cpp" />
     <ClCompile Include="creature.cpp" />

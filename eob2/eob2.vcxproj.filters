@@ -198,6 +198,9 @@
     <ClCompile Include="serial.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="cell.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">

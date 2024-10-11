@@ -12,6 +12,7 @@ struct archive {
 	constexpr archive(io::stream& source, bool writemode) : source(source), writemode(writemode) {}
 	bool signature(const char* id);
 	bool version(short major, short minor);
+	bool checksum(unsigned long value);
 	void set(void* value, unsigned size);
 	void setpointer(void** value);
 	void set(array& value);

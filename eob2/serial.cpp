@@ -4,41 +4,6 @@
 #include "party.h"
 #include "variant.h"
 
-//static void add(archive& a, void* data, unsigned size, short unsigned& count) {
-//	a.set(count);
-//	a.set(data, size * count);
-//}
-//
-//template<class T> static void add(archive& a, T* data, short unsigned& count) {
-//	add(a, data, sizeof(T), count);
-//}
-//
-//template<> void archive::set<dungeoni>(dungeoni& ev) {
-//	set(ev.type);
-//	set(ev.level);
-//	set(ev.language);
-//	set(ev.key);
-//	set(ev.wand);
-//	set(ev.habbits, sizeof(ev.habbits));
-//	set(ev.state);
-//	add(*this, ev.items, ev.state.items);
-//}
-
-//template<> void archive::set<creaturei*>(creaturei*& value) {
-//	unsigned char ref[2];
-//	if(!writemode) {
-//		set(ref);
-//		if(ref[0] == 0)
-//			value = bsdata<creaturei>::elements + ref[1];
-//	} else {
-//		if(bsdata<creaturei>::have(value)) {
-//			ref[0] = 0;
-//			ref[1] = value - bsdata<creaturei>::elements;
-//			set(ref);
-//		}
-//	}
-//}
-
 template<> void archive::set<partyi>(partyi& ev) {
 	for(auto i = 0; i < 6; i++)
 		set(ev.units[i]);
@@ -53,7 +18,8 @@ static bool serial_game(const char* url, bool writemode) {
 	archive e(file, writemode);
 	if(!e.signature("SAV"))
 		return false;
-	if(!e.version(0, 1))
+	auto total = bsreq_signature() + bsreq_name_count_signature();
+	if(!e.checksum(total))
 		return false;
 	e.set(party);
 	e.set(bsdata<creaturei>::source);

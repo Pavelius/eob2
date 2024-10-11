@@ -64,3 +64,4 @@ typedef bool (*fntestvariant)(variant v);
 const varianti* find_variant(const void* object);
 
 unsigned long bsreq_signature();
+unsigned long bsreq_name_count_signature();

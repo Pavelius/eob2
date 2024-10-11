@@ -14,6 +14,7 @@ const unsigned nix_event_mask = ExposureMask
                                 |ButtonReleaseMask
                                 |PointerMotionMask
                                 |KeyPressMask
+                                |KeyReleaseMask
                                 |StructureNotifyMask
                                 |VisibilityChangeMask
                                 |LeaveWindowMask;
@@ -198,6 +199,10 @@ static bool handle(XEvent& e) {
         break;
     case KeyPress:
         hot.key = tokey(XkbKeycodeToKeysym(dpy, e.xkey.keycode, 0, e.xkey.state & ShiftMask ? 1 : 0));
+        apply_keyboard_mask(e.xkey.state);
+        break;
+    case KeyRelease:
+        hot.key = InputKeyUp;
         apply_keyboard_mask(e.xkey.state);
         break;
     case MotionNotify:

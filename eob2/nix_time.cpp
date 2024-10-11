@@ -1,4 +1,4 @@
-#include "time.h"
+#include <time.h>
 
 void waitcputime(unsigned v) {
     timespec req = {};

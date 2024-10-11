@@ -5,17 +5,18 @@
 #include <cstdlib>
 #include "draw.h"
 #include "stringbuilder.h"
+#include "timer.h"
 
 using namespace draw;
 
 const unsigned nix_event_mask = ExposureMask
-    |ButtonPressMask
-    |ButtonReleaseMask
-    |PointerMotionMask
-    |KeyPressMask
-    |StructureNotifyMask
-    |VisibilityChangeMask
-    |LeaveWindowMask;
+                                |ButtonPressMask
+                                |ButtonReleaseMask
+                                |PointerMotionMask
+                                |KeyPressMask
+                                |StructureNotifyMask
+                                |VisibilityChangeMask
+                                |LeaveWindowMask;
 static Window       hwnd;
 static Display*     dpy;
 static GC           gc;
@@ -155,11 +156,16 @@ static void update_ui_window() {
 
 static int mousekey(int k, bool dbl = false) {
     switch(k) {
-    case Button1: return dbl ? MouseLeftDBL : MouseLeft;
-    case Button3: return MouseRight;
-    case Button4: return MouseWheelUp;
-    case Button5: return MouseWheelDown;
-    default: return 0;
+    case Button1:
+        return dbl ? MouseLeftDBL : MouseLeft;
+    case Button3:
+        return MouseRight;
+    case Button4:
+        return MouseWheelUp;
+    case Button5:
+        return MouseWheelDown;
+    default:
+        return 0;
     }
 }
 
@@ -221,7 +227,8 @@ static bool handle(XEvent& e) {
     case DestroyNotify:
         hot.key = 0;
         break;
-    default: return false;
+    default:
+        return false;
     }
     return true;
 }
@@ -239,16 +246,24 @@ int draw::rawinput() {
     if(!hwnd)
         return 0;
     update_ui_window();
-    while(true) {
+    if(timer_interval) {
         XEvent e;
-        XNextEvent(dpy,&e);
-        if(XFilterEvent(&e, hwnd))
-            continue;
-        if(!handle(e))
-            continue;
-        break;
+        hot.key = InputTimer;
+        if(XCheckWindowEvent(dpy, hwnd, nix_event_mask, &e))
+            handle(e);
+        waitcputime(timer_interval);
+    } else {
+        while(true) {
+            XEvent e;
+            XNextEvent(dpy,&e);
+            if(XFilterEvent(&e, hwnd))
+                continue;
+            if(!handle(e))
+                continue;
+            break;
+        }
     }
-	return hot.key;
+    return hot.key;
 }
 
 void draw::setcaption(const char* format) {

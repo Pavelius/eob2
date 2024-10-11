@@ -387,7 +387,7 @@
 1728387414 source:/home/user-331/projects/eob2/eob2/randomeffect.cpp
 	"randomeffect.h"
 
-1728651627 source:/home/user-331/projects/eob2/eob2/resid.cpp
+1728653510 source:/home/user-331/projects/eob2/eob2/resid.cpp
 	"bsdata.h"
 	"io_stream.h"
 	"resid.h"
@@ -498,7 +498,7 @@
 	"io_stream.h"
 	"stringbuilder.h"
 
-1728555641 source:/home/user-331/projects/eob2/eob2/nix_draw.cpp
+1728655071 source:/home/user-331/projects/eob2/eob2/nix_draw.cpp
 	<X11/keysym.h>
 	<X11/Xlib.h>
 	<X11/Xutil.h>
@@ -506,9 +506,10 @@
 	<cstdlib>
 	"draw.h"
 	"stringbuilder.h"
+	"timer.h"
 
-1728556129 source:/home/user-331/projects/eob2/eob2/nix_time.cpp
-	"time.h"
+1728654443 source:/home/user-331/projects/eob2/eob2/nix_time.cpp
+	<time.h>
 
 1728556908 source:/home/user-331/projects/eob2/eob2/action.cpp
 	"action.h"

@@ -207,6 +207,12 @@
     <ClCompile Include="posable.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="dungeon_state.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="pointca.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -408,6 +414,12 @@
       <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="wallmessage.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="assign.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="pointca.h">
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>

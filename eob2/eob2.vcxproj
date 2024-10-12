@@ -140,6 +140,7 @@
     <ClInclude Include="answers.h" />
     <ClInclude Include="archive.h" />
     <ClInclude Include="array.h" />
+    <ClInclude Include="assign.h" />
     <ClInclude Include="avatar.h" />
     <ClInclude Include="bsdata.h" />
     <ClInclude Include="bsreq.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="party.h" />
     <ClInclude Include="picture.h" />
     <ClInclude Include="point.h" />
+    <ClInclude Include="pointca.h" />
     <ClInclude Include="posable.h" />
     <ClInclude Include="race.h" />
     <ClInclude Include="randomeffect.h" />
@@ -220,6 +222,7 @@
     <ClCompile Include="draw_text.cpp" />
     <ClCompile Include="dungeon.cpp" />
     <ClCompile Include="dungeon_generate.cpp" />
+    <ClCompile Include="dungeon_state.cpp" />
     <ClCompile Include="feat.cpp" />
     <ClCompile Include="formula.cpp" />
     <ClCompile Include="gender.cpp" />
@@ -233,6 +236,7 @@
     <ClCompile Include="modifier.cpp" />
     <ClCompile Include="npc.cpp" />
     <ClCompile Include="picture.cpp" />
+    <ClCompile Include="pointca.cpp" />
     <ClCompile Include="posable.cpp" />
     <ClCompile Include="randomeffect.cpp" />
     <ClCompile Include="script.cpp" />

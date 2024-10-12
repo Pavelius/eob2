@@ -4,9 +4,22 @@
 
 const unsigned char	CellMask = 0x1F;
 const unsigned short Blocked = 0xFFFF;
-static unsigned short pathmap[mpy][mpx];
+static pointc path_stack[256];
+static unsigned char path_push;
+static unsigned char path_pop;
+unsigned short pathmap[mpy][mpx];
 
 dungeoni *loc, *locup, *locdw;
+
+static void snode(pointc v, short unsigned cost) {
+	if(!v)
+		return;
+	auto a = pathmap[v.y][v.x];
+	if(a != Blocked && (!a || cost < a)) {
+		path_stack[path_push++] = v;
+		pathmap[v.y][v.x] = cost;
+	}
+}
 
 static celln get_wall(celln v) {
 	switch(v) {
@@ -15,6 +28,39 @@ static celln get_wall(celln v) {
 		return CellWall;
 	default:
 		return v;
+	}
+}
+
+void dungeoni::overlayi::clear() {
+	posable::clear();
+	link.clear();
+	type = CellUnknown;
+	subtype = 0;
+}
+
+void dungeoni::ground::clear() {
+	posable::clear();
+	item::clear();
+}
+
+void dungeoni::clear() {
+	memset(this, 0, sizeof(*this));
+	state.clear();
+	for(auto& e : overlays)
+		e.clear();
+	for(auto& e : items)
+		e.clear();
+	for(auto& e : monsters)
+		e.clear();
+}
+
+void dungeoni::change(celln s, celln d) {
+	pointc v;
+	for(v.y = 0; v.y < mpy; v.y++) {
+		for(v.x = 0; v.x < mpx; v.x++) {
+			if(get(v) == s)
+				set(v, d);
+		}
 	}
 }
 
@@ -39,6 +85,24 @@ void dungeoni::block(bool treat_door_as_passable) const {
 				break;
 			}
 		}
+	}
+}
+
+void dungeoni::makewave(pointc start) const {
+	if(!start)
+		return;
+	path_push = path_pop = 0;
+	path_stack[path_push++] = start;
+	pathmap[start.y][start.x] = 1;
+	while(path_push != path_pop) {
+		auto v = path_stack[path_pop++];
+		auto cost = pathmap[v.y][v.x] + 1;
+		if(cost >= 0xFF00)
+			break;
+		snode(to(v, Left), cost);
+		snode(to(v, Right), cost);
+		snode(to(v, Up), cost);
+		snode(to(v, Down), cost);
 	}
 }
 

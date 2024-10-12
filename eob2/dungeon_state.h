@@ -6,6 +6,7 @@
 struct dungeon_state {
 	posable			up, down; // where is stairs located
 	posable			portal; // where is portal
+	posable			special; // where is special item dropped
 	posable			lair, major_lair; // where is lair and opening button located
 	posable			crypt; // where is crypt located
 	short unsigned	messages; // count of messages
@@ -25,4 +26,5 @@ struct dungeon_state {
 	short unsigned	monsters_killed; // total killed monsters
 	flagable<2>		goals; // Reaching goals by party
 	bool			boss_alive;
+	void clear();
 };

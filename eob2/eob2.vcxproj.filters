@@ -216,6 +216,9 @@
     <ClCompile Include="shape.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="view_automap.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">

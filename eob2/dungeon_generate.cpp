@@ -11,6 +11,7 @@
 #include "shape.h"
 #include "wallmessage.h"
 
+typedef void (*fncorridor)(pointc v, directions d, unsigned flags);
 typedef void (*fnroom)(pointc v, directions d, const shapei* p);
 
 const int EmpthyStartIndex = 1;
@@ -20,7 +21,29 @@ static posable rooms[256]; // Generation ring buffer
 static unsigned char stack_put; // Stack top
 static unsigned char stack_get; // Stack bottom
 
-static int chance_cursed = 5;
+static void show_map_interactive() {
+	if(!show_interactive)
+		return;
+	show_automap(false);
+}
+
+static directions optimal_direction(pointc v) {
+	directions d = Left;
+	int i = v.x;
+	if(i < (mpx - v.x)) {
+		i = mpx - v.x;
+		d = Right;
+	}
+	if(i < v.y) {
+		i = v.y;
+		d = Up;
+	}
+	if(i < mpy - v.y) {
+		i = mpy - v.y;
+		d = Down;
+	}
+	return d;
+}
 
 static void put_corridor(pointc v, directions d, unsigned flags, bool test_valid) {
 	if(!v)
@@ -293,6 +316,13 @@ static void stones(pointc v, directions d, unsigned flags) {
 	items(v, item_type("Stone"), 0);
 }
 
+static bool ispassable(pointc v, directions d) {
+	v = to(v, d);
+	if(!v)
+		return false;
+	return loc->is(v, CellPassable, CellUnknown);
+}
+
 static bool corridor(pointc v, directions d, unsigned flags) {
 	auto chance = 0;
 	if(!v)
@@ -346,19 +376,19 @@ static bool corridor(pointc v, directions d, unsigned flags) {
 	}
 	if(!start)
 		return false;
-	//auto passes = 0;
-	//if(ispassable(pd, to(index, to(dir, rnd[0])))) {
-	//	passes++;
-	//	putroom(pd, index, to(dir, rnd[0]), 0, false);
-	//}
-	//if(ispassable(pd, to(index, to(dir, rnd[1])))) {
-	//	passes++;
-	//	putroom(pd, index, to(dir, rnd[1]), 0, false);
-	//}
-	//if(ispassable(pd, to(index, dir))) {
-	//	if(passes < 1)
-	//		putroom(pd, index, dir, 0, false);
-	//}
+	auto passes = 0;
+	if(ispassable(v, to(d, rnd[0]))) {
+		passes++;
+		put_corridor(v, to(d, rnd[0]), 0, false);
+	}
+	if(ispassable(v, to(d, rnd[1]))) {
+		passes++;
+		put_corridor(v, to(d, rnd[1]), 0, false);
+	}
+	if(ispassable(v, d)) {
+		if(passes < 1)
+			put_corridor(v, d, 0, false);
+	}
 	return true;
 }
 
@@ -424,7 +454,7 @@ static bool is_valid_dungeon() {
 	return pathmap[loc->state.down.y][loc->state.down.x] != 0;
 }
 
-static void create_points(int mx, int my, int offset) {
+static void create_points(pointca& points, int mx, int my, int offset) {
 	points.clear();
 	for(auto x = 0; x < mx; x++) {
 		for(auto y = 0; y < my; y++) {
@@ -443,7 +473,7 @@ static void create_points(int mx, int my, int offset) {
 	zshuffle(points.data, points.count);
 }
 
-static pointc pop_point() {
+static pointc pop(pointca& points) {
 	auto n = points[0];
 	points.remove(0);
 	return n;
@@ -453,21 +483,42 @@ static void apply_shape(pointc v, directions d, const shapei* shape, char sym, c
 	pointc c;
 	if(!shape)
 		return;
-	for(c.y = 0; c.y < shape->size.y; c.y) {
-		for(c.x = 0; c.x < shape->size.x; c.x) {
+	for(c.y = 0; c.y < shape->size.y; c.y++) {
+		for(c.x = 0; c.x < shape->size.x; c.x++) {
 			auto n = (*shape)[c];
 			if(n == sym)
-				loc->set(shape->translate(c, v, d), t);
+				loc->set(shape->translate(v, c, d), t);
+		}
+	}
+}
+
+static void apply_shape(pointc v, directions d, const shapei* shape, char sym, fncorridor proc) {
+	pointc c;
+	if(!shape)
+		return;
+	for(c.y = 0; c.y < shape->size.y; c.y++) {
+		for(c.x = 0; c.x < shape->size.x; c.x++) {
+			auto n = (*shape)[c];
+			if(n == sym)
+				proc(shape->translate(v, c, d), d, 0);
 		}
 	}
 }
 
 static void stairs_up(pointc v, directions d, const shapei* ps) {
 	apply_shape(v, d, ps, '0', CellStairsUp);
+	apply_shape(v, d, ps, '1', CellPassable);
 }
 
 static void stairs_down(pointc v, directions d, const shapei* ps) {
 	apply_shape(v, d, ps, '0', CellStairsDown);
+	apply_shape(v, d, ps, '1', CellPassable);
+}
+
+static void create_lair(pointc v, directions d, const shapei* ps) {
+	apply_shape(v, d, ps, '0', CellPassable);
+	apply_shape(v, d, ps, '.', monster);
+	apply_shape(v, d, ps, '1', CellDoor);
 }
 
 static void create_room(pointc v, directions d, const char* id, fnroom proc) {
@@ -476,20 +527,30 @@ static void create_room(pointc v, directions d, const char* id, fnroom proc) {
 	auto ps = bsdata<shapei>::find(id);
 	if(!ps)
 		return;
-	apply_shape(v, d, ps, 'X', CellPassable);
+	apply_shape(v, d, ps, 'X', CellWall);
 	apply_shape(v, d, ps, '.', CellPassable);
 	proc(v, d, ps);
-	put_corridor(ps->translate(ps->points[1], v, d), d, EmpthyStartIndex, false);
+	put_corridor(ps->translate(v, ps->points[1], d), d, EmpthyStartIndex, false);
+	// show_map_interactive();
 }
 
-static void create_room(unsigned char place, fncorridor proc) {
-//	indext indecies[10]; point size;
-//	auto dir = maprnd(all_around);
-//	e.set(0, dir, place, size, indecies, false);
-//	auto m = imax(size.x, size.y) + 2;
-//	short x = xrand(m, mpx - m - 1), y = xrand(m, mpy - m - 1);
-//	auto i = e.getvalid(e.getindex(x, y), size.x, size.y, CellUnknown);
-//	create_room(e, i, place, dir, site, proc);
+static void create_room(pointc v, const char* id, fnroom proc) {
+	create_room(v, optimal_direction(v), id, proc);
+}
+
+static void create_rooms(pointc start, bool last_level) {
+	pointca points;
+	create_points(points, 3, 2, 3);
+	if(start)
+		create_room(start, "ShapeExit", stairs_up);
+	else
+		create_room(pop(points), "ShapeExit", stairs_up);
+	if(!last_level)
+		create_room(pop(points), "ShapeExit", stairs_down);
+	// Every dungeon have one lair where monsters spawn
+	create_room(pop(points), "ShapeRoom", create_lair);
+	// And every level have feature
+	create_room(pop(points), "ShapeLargeRoom", create_lair);
 }
 
 static void dungeon_create(slice<dungeon_site> source) {
@@ -510,34 +571,25 @@ static void dungeon_create(slice<dungeon_site> source) {
 			while(true) {
 				loc->clear();
 				assign<dungeon_site>(*loc, ei);
+				loc->level = level;
+				loc->cursed = 5;
 				if(special_item_level != j)
 					loc->special = 0;
-				loc->level = level;
-				create_points(3, 2, 2);
-				// e.chance.curse = 5 + p->chance.curse;
-				if(start)
-					create_room(start, to(start.d, Down), "ShapeExit", stairs_up);
-				else
-					create_room(pop_point(), maprnd(all_directions), "ShapeExit", stairs_up);
-				if(!last_level)
-					create_room(pop_point(), maprnd(all_directions), "ShapeExit", stairs_down);
-				// Every dungeon have one lair
-				//create_room(e, ShapeRoom, p, create_lair);
+				create_rooms(start, last_level);
 				while(stack_get != stack_put) {
 					auto& ev = rooms[stack_get++];
 					auto result = corridor(ev, ev.d, ev.side);
 					if(!result)
 						random_corridor(ev, ev.side);
 					loc->state.elements++;
-					if(show_interactive)
-						show_automap(true);
+					// show_map_interactive();
 				}
 				loc->change(CellUnknown, CellWall);
 				if(is_valid_dungeon())
 					break;
-				break;
 			}
 			remove_dead_door();
+			show_map_interactive();
 			//if(j == special_item_level)
 			//	validate_special_items(e);
 			//add_spawn_points(e);
@@ -552,4 +604,9 @@ static void dungeon_create(slice<dungeon_site> source) {
 }
 
 void dungeon_create() {
+	static dungeon_site source[] = {
+		{DUNG, 3},
+		{DUNG, 2},
+	};
+	dungeon_create(source);
 }

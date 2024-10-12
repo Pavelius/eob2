@@ -3,6 +3,7 @@
 #include "class.h"
 #include "creature.h"
 #include "draw.h"
+#include "dungeon.h"
 #include "formula.h"
 #include "gender.h"
 #include "hotkey.h"
@@ -347,6 +348,10 @@ static void pay_gold(int bonus) {
 		add_party(GoldPiece, -bonus);
 }
 
+static void test_dungeon(int bonus) {
+	dungeon_create();
+}
+
 static void run_script(const char* id, const char* action) {
 	auto p = bsdata<listi>::find(ids(id, action));
 	if(p)
@@ -413,5 +418,6 @@ BSDATA(script) = {
 	{"Roll", make_roll},
 	{"SaveGame", save_game},
 	{"Saves", saves_modify},
+	{"TestDungeon", test_dungeon},
 };
 BSDATAF(script)

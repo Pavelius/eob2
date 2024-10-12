@@ -1,5 +1,7 @@
 #include "win.h"
 
+unsigned long start_random_seed;
+
 void waitcputime(unsigned v) {
 	LARGE_INTEGER liDueTime;
 	liDueTime.QuadPart = (long long)v * -100000;

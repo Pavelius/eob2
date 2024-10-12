@@ -9,8 +9,6 @@
 enum celln : unsigned char;
 enum cellfn : unsigned char;
 
-typedef void (*fncorridor)(pointc v, directions d, unsigned flags);
-
 struct dungeoni : dungeon_site {
 	struct ground : item, posable {
 		void		clear();

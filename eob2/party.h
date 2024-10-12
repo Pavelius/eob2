@@ -1,6 +1,7 @@
 #pragma once
 
 #include "nameable.h"
+#include "posable.h"
 #include "unit.h"
 
 enum partystatn : unsigned char {
@@ -9,7 +10,7 @@ enum partystatn : unsigned char {
 };
 struct partystati : nameable {
 };
-struct partyi : uniti {
+struct partyi : uniti, posable {
 	short unsigned	location;
 	int				abilities[Minutes + 1];
 };

@@ -21,4 +21,4 @@ CreateTestParty
  elements HumanFighter PoisonLevel+4 JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty HalflingTheif JoinParty
 
 StartGame
- elements CreateTestParty GoldPiece+50 Reputation+20 HunterVillage EnterLocation
+ elements CreateTestParty GoldPiece+50 Reputation+20 HunterVillage TestDungeon EnterLocation

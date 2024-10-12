@@ -26,8 +26,10 @@ pointc shapei::translate(pointc c, pointc v, directions d) const {
 	switch(d) {
 	case Up: return c.to(origin.x + v.x, origin.y + v.y);
 	case Down: return c.to(origin.x + v.x, -origin.y - v.y);
-	case Left: return c.to(-origin.y - v.y, v.x);
-	case Right: return c.to(v.y, -origin.x - v.x);
+	case Left: return c.to(v.y + origin.y, v.x);
+	case Right: return c.to(size.y - v.y + origin.y, origin.x + v.x);
+		//case Left: return c.to(-origin.y - v.y, v.x);
+		//case Right: return c.to(v.y, -origin.x - v.x);
 	default: return c;
 	}
 }
@@ -65,6 +67,8 @@ static const char* read_block(const char* p, shapei& e, stringbuilder& sb) {
 		} else
 			sb.add(*p++);
 	}
+	if(e.size.x)
+		e.size.y = sb.size() / e.size.x;
 	size_t mr = e.size.x * e.size.y;
 	size_t mn = sb.getmaximum();
 	if(mr > mn)

@@ -1,11 +1,12 @@
 #ShapeLargeRoom
 
-  XXXXXXX  
-XXX.....XXX
-X.........X
-X....0....X
-XXX.....XXX
-  XXX1XXX  
+XXXXXXXXXX
+X........X
+X.X....X.X
+X....0...X
+X.X....X.X
+X........X
+XXXXX1XXXX
 
 #ShapeRoom
 
@@ -37,6 +38,7 @@ XXX
 
 #ShapeExit
 
- . 
+ 1 
+X.X
 X0X
- X 
+XXX

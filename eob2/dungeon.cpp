@@ -1,3 +1,4 @@
+#include "assign.h"
 #include "cell.h"
 #include "direction.h"
 #include "dungeon.h"
@@ -115,6 +116,15 @@ celln dungeoni::get(pointc v) const {
 dungeoni::overlayi* dungeoni::add(pointc v, celln i, directions d) {
 	if(!v)
 		return 0;
+	dungeoni::overlayi* p = 0;
+	for(auto& e : overlays) {
+		if(!e) {
+			e.clear();
+			assign<pointc>(e, v);
+			e.d = d;
+			return &e;
+		}
+	}
 	return 0;
 }
 

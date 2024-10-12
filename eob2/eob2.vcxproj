@@ -251,6 +251,7 @@
     <ClCompile Include="textscript.cpp" />
     <ClCompile Include="unit.cpp" />
     <ClCompile Include="variant.cpp" />
+    <ClCompile Include="view_automap.cpp" />
     <ClCompile Include="view_focus.cpp" />
     <ClCompile Include="io_stream.cpp" />
     <ClCompile Include="levelable.cpp" />

@@ -4,6 +4,7 @@
 #include "rules/Spells.txt"
 #include "rules/Advance.txt"
 #include "rules/Locations.txt"
+#include "rules/Shapes.txt" Shape
 
 #List
 

@@ -171,6 +171,7 @@
     <ClInclude Include="party.h" />
     <ClInclude Include="picture.h" />
     <ClInclude Include="point.h" />
+    <ClInclude Include="pointc.h" />
     <ClInclude Include="pointca.h" />
     <ClInclude Include="posable.h" />
     <ClInclude Include="race.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="resid.h" />
     <ClInclude Include="script.h" />
     <ClInclude Include="seqlink.h" />
+    <ClInclude Include="shape.h" />
     <ClInclude Include="speech.h" />
     <ClInclude Include="spell.h" />
     <ClInclude Include="sprite_util.h" />
@@ -242,6 +244,7 @@
     <ClCompile Include="script.cpp" />
     <ClCompile Include="scripting.cpp" />
     <ClCompile Include="serial.cpp" />
+    <ClCompile Include="shape.cpp" />
     <ClCompile Include="speech.cpp" />
     <ClCompile Include="sprite_util.cpp" />
     <ClCompile Include="surface_util.cpp" />
@@ -288,6 +291,7 @@
     <Text Include="..\rules\Items.txt" />
     <Text Include="..\rules\Locations.txt" />
     <Text Include="..\rules\Races.txt" />
+    <Text Include="..\rules\Shapes.txt" />
     <Text Include="..\rules\Spells.txt" />
   </ItemGroup>
   <ItemGroup>

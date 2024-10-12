@@ -1,0 +1,42 @@
+#ShapeLargeRoom
+
+  XXXXXXX  
+XXX.....XXX
+X.........X
+X....0....X
+XXX.....XXX
+  XXX1XXX  
+
+#ShapeRoom
+
+XXXXX
+X...X
+X.0.X
+X...X
+XX1XX
+
+#SmallCircleRoom
+
+  XXXXX  
+XXX...XXX
+X...0...X
+XXX...XXX
+  XX1XX  
+
+#ShapePrison
+
+XXX
+X0X
+X1X
+
+#ShapeDeadEnd
+
+X1X 
+X.0X
+XXX 
+
+#ShapeExit
+
+ . 
+X0X
+ X 

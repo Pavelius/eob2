@@ -12,6 +12,7 @@
 #include "feat.h"
 #include "formula.h"
 #include "gender.h"
+#include "shape.h"
 #include "script.h"
 #include "party.h"
 #include "point.h"
@@ -114,6 +115,9 @@ BSMETA(randomeffecti) = {
 BSMETA(residi) = {
 	BSREQ(id),
 	{}};
+BSMETA(shapei) = {
+	BSREQ(id),
+	{}};
 BSMETA(spelli) = {
 	BSREQ(id),
 	BSREQ(levels),
@@ -143,6 +147,7 @@ BSDATA(varianti) = {
 	{"Race", VAR(racei, 1), 0, 0, ftscript<racei>},
 	{"RandomEffect", VAR(randomeffecti, 1)},
 	{"Script", VAR(script, 1), 0, 0, ftscript<script>},
+	{"Shape", VAR(shapei, 1), 0, 0, 0, 0, shape_read},
 	{"Spell", VAR(spelli, 1)},
 	{"Race", VAR(racei, 1)},
 };

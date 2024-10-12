@@ -213,6 +213,9 @@
     <ClCompile Include="pointca.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="shape.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -422,6 +425,12 @@
     <ClInclude Include="pointca.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="shape.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="pointc.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -480,6 +489,9 @@
     </Text>
     <Text Include="..\locale\en\Spells.txt">
       <Filter>locale</Filter>
+    </Text>
+    <Text Include="..\rules\Shapes.txt">
+      <Filter>rules</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

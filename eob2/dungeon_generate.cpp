@@ -8,13 +8,19 @@
 #include "rand.h"
 #include "rect.h"
 #include "resid.h"
+#include "shape.h"
 #include "wallmessage.h"
+
+typedef void (*fnroom)(pointc v, directions d, const shapei* p);
 
 const int EmpthyStartIndex = 1;
 
+static directions all_directions[] = {Up, Down, Left, Right};
 static posable rooms[256]; // Generation ring buffer
 static unsigned char stack_put; // Stack top
 static unsigned char stack_get; // Stack bottom
+
+static int chance_cursed = 5;
 
 static void put_corridor(pointc v, directions d, unsigned flags, bool test_valid) {
 	if(!v)
@@ -437,16 +443,46 @@ static void create_points(int mx, int my, int offset) {
 	zshuffle(points.data, points.count);
 }
 
-static void create_room(pointc v, directions d, unsigned char place, fncorridor proc) {
-	if(!v)
-		return;
-	//indext indecies[10];
-	//point size;
-	//e.set(index, dir, place, size, indecies, true);
-	put_corridor(v, d, EmpthyStartIndex, false);
+static pointc pop_point() {
+	auto n = points[0];
+	points.remove(0);
+	return n;
 }
 
-//static void create_room(unsigned char place, fncorridor proc) {
+static void apply_shape(pointc v, directions d, const shapei* shape, char sym, celln t) {
+	pointc c;
+	if(!shape)
+		return;
+	for(c.y = 0; c.y < shape->size.y; c.y) {
+		for(c.x = 0; c.x < shape->size.x; c.x) {
+			auto n = (*shape)[c];
+			if(n == sym)
+				loc->set(shape->translate(c, v, d), t);
+		}
+	}
+}
+
+static void stairs_up(pointc v, directions d, const shapei* ps) {
+	apply_shape(v, d, ps, '0', CellStairsUp);
+}
+
+static void stairs_down(pointc v, directions d, const shapei* ps) {
+	apply_shape(v, d, ps, '0', CellStairsDown);
+}
+
+static void create_room(pointc v, directions d, const char* id, fnroom proc) {
+	if(!v)
+		return;
+	auto ps = bsdata<shapei>::find(id);
+	if(!ps)
+		return;
+	apply_shape(v, d, ps, 'X', CellPassable);
+	apply_shape(v, d, ps, '.', CellPassable);
+	proc(v, d, ps);
+	put_corridor(ps->translate(ps->points[1], v, d), d, EmpthyStartIndex, false);
+}
+
+static void create_room(unsigned char place, fncorridor proc) {
 //	indext indecies[10]; point size;
 //	auto dir = maprnd(all_around);
 //	e.set(0, dir, place, size, indecies, false);
@@ -454,7 +490,7 @@ static void create_room(pointc v, directions d, unsigned char place, fncorridor 
 //	short x = xrand(m, mpx - m - 1), y = xrand(m, mpy - m - 1);
 //	auto i = e.getvalid(e.getindex(x, y), size.x, size.y, CellUnknown);
 //	create_room(e, i, place, dir, site, proc);
-//}
+}
 
 static void dungeon_create(slice<dungeon_site> source) {
 	auto base = 0;
@@ -467,7 +503,7 @@ static void dungeon_create(slice<dungeon_site> source) {
 		for(auto j = 0; j < ei.level; j++) {
 			loc = bsdata<dungeoni>::add();
 			auto level = base + j + 1;
-			pointc start = {};
+			posable start;
 			if(previous)
 				start = previous->state.down;
 			auto last_level = (level == total_level_count);
@@ -479,12 +515,12 @@ static void dungeon_create(slice<dungeon_site> source) {
 				loc->level = level;
 				create_points(3, 2, 2);
 				// e.chance.curse = 5 + p->chance.curse;
-				//if(!start)
-				//	create_room(v, ShapeDeadEnd, p, stairs_up);
-				//else
-				//	create_room(e, start, ShapeDeadEnd, maprnd(all_around), 0, stairs_up);
-				//if(!last_level)
-				//	create_room(e, ShapeDeadEnd, p, stairs_down);
+				if(start)
+					create_room(start, to(start.d, Down), "ShapeExit", stairs_up);
+				else
+					create_room(pop_point(), maprnd(all_directions), "ShapeExit", stairs_up);
+				if(!last_level)
+					create_room(pop_point(), maprnd(all_directions), "ShapeExit", stairs_down);
 				// Every dungeon have one lair
 				//create_room(e, ShapeRoom, p, create_lair);
 				while(stack_get != stack_put) {
@@ -499,6 +535,7 @@ static void dungeon_create(slice<dungeon_site> source) {
 				loc->change(CellUnknown, CellWall);
 				if(is_valid_dungeon())
 					break;
+				break;
 			}
 			remove_dead_door();
 			//if(j == special_item_level)

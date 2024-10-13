@@ -323,9 +323,14 @@ void add_spells(int type, int level, const spellseta* include) {
 static void activate_quest(int bonus) {
 	if(!last_quest)
 		return;
-	if(bonus >= 0)
-		party.active.set(bsdata<quest>::source.indexof(last_quest));
-	else
+	if(bonus >= 0) {
+		auto index = getbsi(last_quest);
+		if(!party.prepared.is(index)) {
+			party.prepared.set(index);
+			dungeon_create();
+		}
+		party.active.set(index);
+	} else
 		party.active.remove(bsdata<quest>::source.indexof(last_quest));
 }
 
@@ -368,6 +373,10 @@ static void message(const char* format, const char* format_param = 0) {
 	an = push;
 }
 
+static void enter_dungeon(int bonus) {
+	set_dungeon_tiles(loc->type);
+}
+
 static void party_adventure(int bonus) {
 	choose_adventure();
 	if(!last_quest)
@@ -387,6 +396,7 @@ static void party_adventure(int bonus) {
 	if(pn)
 		message(pn);
 	picture = push_picture;
+	enter_dungeon(0);
 }
 
 void continue_game() {
@@ -423,7 +433,6 @@ static void pay_gold(int bonus) {
 }
 
 static void test_dungeon(int bonus) {
-	dungeon_create();
 }
 
 static void run_script(const char* id, const char* action) {

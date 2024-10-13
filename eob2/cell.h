@@ -2,6 +2,8 @@
 
 #include "nameable.h"
 
+enum resid : unsigned short;
+
 enum celln : unsigned char {
 	CellUnknown,
 	// Dungeon cells
@@ -23,4 +25,6 @@ enum cellfn : unsigned char {
 	CellExplored, CellActive
 };
 struct celli : nameable {
+	int		frame;
+	resid	resource;
 };

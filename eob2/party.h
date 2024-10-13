@@ -15,7 +15,7 @@ struct partystati : nameable {
 };
 struct partyi : uniti, posable {
 	short unsigned	location;
-	questa			active, done;
+	questa			active, done, prepared;
 	int				abilities[Minutes + 1];
 };
 extern partyi party;

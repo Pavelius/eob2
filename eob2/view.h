@@ -2,6 +2,15 @@
 
 #include "point.h"
 
+const int walls_frames = 9;
+const int walls_count = 6;
+const int door_offset = 1 + walls_frames * walls_count;
+const int decor_offset = door_offset + 9;
+const int decor_count = 21;
+const int decor_frames = 10;
+const int scrx = 22 * 8;
+const int scry = 15 * 8;
+
 typedef void(*fnevent)();
 typedef void(*fnanswer)(int index, const void* value, const char* text, unsigned key, fnevent press_event);
 
@@ -18,6 +27,7 @@ void choose_spells(const char* title, const char* cancel, int spell_type);
 void show_scene(fnevent before_paint, fnevent input, void* focus);
 
 void alternate_focus_input();
+void animation_update();
 void button_label(int index, const void* data, const char* format, unsigned key, fnevent proc);
 bool character_input();
 void city_input(const hotkeyi* hotkeys);
@@ -33,6 +43,7 @@ void paint_city();
 void paint_city_menu();
 void paint_main_menu();
 void paint_party_status();
+void set_dungeon_tiles(resid type);
 void set_player_by_focus();
 void set_small_font();
 void text_label(int index, const void* data, const char* format, unsigned key, fnevent proc);

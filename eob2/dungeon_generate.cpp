@@ -5,6 +5,7 @@
 #include "direction.h"
 #include "math.h"
 #include "pointca.h"
+#include "quest.h"
 #include "rand.h"
 #include "rect.h"
 #include "resid.h"
@@ -693,9 +694,5 @@ static void dungeon_create(slice<dungeon_site> source) {
 }
 
 void dungeon_create() {
-	static dungeon_site source[] = {
-		{DUNG, 3},
-		{DUNG, 2},
-	};
-	dungeon_create(source);
+	dungeon_create(last_quest->sites);
 }

@@ -40,6 +40,7 @@ struct dungeoni : dungeon_site {
 	overlayi*		getoverlay(pointc v, celln type);
 	bool			is(pointc v, cellfn i) const;
 	bool			is(pointc v, celln t1, celln t2) const;
+	bool			isactive(const overlayi* p) const { return false; }
 	void			makewave(pointc start) const;
 	void			remove(pointc v, cellfn i);
 	void			set(pointc v, celln i);

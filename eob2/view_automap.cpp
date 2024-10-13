@@ -114,18 +114,15 @@ static void fill_side(int dx, color border, celln* nb, celln t1) {
 		caret.x = pos.x + dx;
 		caret.y = pos.y;
 		line(pos.x + dx, y2);
-	}
-	if(nb[1] == t1) {
+	} else if(nb[1] == t1) {
 		caret.x = pos.x;
 		caret.y = pos.y + dx;
 		line(x2, pos.y + dx);
-	}
-	if(nb[2] == t1) {
+	} else if(nb[2] == t1) {
 		caret.x = x2 - dx;
 		caret.y = pos.y;
 		line(x2 - dx, y2);
-	}
-	if(nb[3] == t1) {
+	} else if(nb[3] == t1) {
 		caret.x = pos.x;
 		caret.y = y2 - dx;
 		line(x2, y2 - dx);
@@ -171,6 +168,35 @@ static void fill_border(int dx, color border, celln* nb, celln t1) {
 	}
 	fore = push_fore;
 	caret = push_caret;
+}
+
+static void fill_line(directions d, int dx, int size, color border) {
+	auto push_fore = fore; fore = border;
+	auto pos = caret;
+	switch(d) {
+	case Left:
+		caret.x = pos.x - dx;
+		caret.y = pos.y + (mpg - size) / 2;
+		line(caret.x, caret.y + size);
+		break;
+	case Right:
+		caret.x = pos.x + mpg - 1 + dx;
+		caret.y = pos.y + (mpg - size) / 2;
+		line(caret.x, caret.y + size);
+		break;
+	case Up:
+		caret.x = pos.x + (mpg - size) / 2;
+		caret.y = pos.y - dx;
+		line(caret.x + size, caret.y);
+		break;
+	case Down:
+		caret.x = pos.x + (mpg - size) / 2;
+		caret.y = pos.y + mpg - 1 + dx;
+		line(caret.x + size, caret.y);
+		break;
+	}
+	caret = pos;
+	fore = push_fore;
 }
 
 static void rectf(int sx, int sy) {
@@ -303,20 +329,27 @@ static void paint_overlays() {
 	auto push_fore = fore;
 	auto push_font = font;
 	set_small_font();
+	pointc v;
 	for(auto& e : loc->overlays) {
 		if(!e)
 			continue;
 		if(show_fog_of_war && !loc->is(e, CellExplored))
 			continue;
-		auto v = to(e, e.d);
-		auto pos = gs(v.x, v.y);
-		caret = pos;
 		width = height = mpg;
+		auto v = to(e, e.d);
+		auto p1 = gs(v.x, v.y);
+		auto p2 = gs(e.x, e.y);
+		caret = p1;
 		switch(e.type) {
 		case CellSecrectButton:
 			caret.x += 1; caret.y += 1;
 			fore = bwall;
 			text("X");
+			break;
+		case CellTrapLauncher:
+			caret = p2;
+			fill_line(e.d, 2, 2, bwall);
+			fill_line(e.d, 3, 2, cdoor);
 			break;
 		}
 	}

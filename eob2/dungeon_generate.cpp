@@ -316,21 +316,38 @@ static void trap(pointc v, directions d) {
 		return;
 	if(!v)
 		return;
-	static directions all_directions[] = {Down, Left, Right, Up};
-	pointc trap_launch;
-	directions dr = Center;
-	for(auto dr : all_directions) {
-		dr = to(d, dr);
-		trap_launch = find_free_wall(v, dr);
-		if(trap_launch)
-			break;
-	}
-	if(!trap_launch)
-		return;
 	loc->set(v, CellButton);
-	auto po = loc->add(trap_launch, CellTrapLauncher, dr);
-	po->link = v;
-	loc->state.traps++;
+}
+
+static void resolve_traps() {
+	pointc v;
+	for(v.y = 0; v.y < mpy; v.y++) {
+		for(v.x = 0; v.x < mpx; v.x++) {
+			if(loc->get(v) != CellButton)
+				continue;
+			if(loc->around(v, CellWall, CellWall) >= 3) {
+				loc->set(v, CellPassable);
+				continue;
+			}
+			pointc trap_launch;
+			directions launch_direction = Center;
+			auto range = -1;
+			for(auto d : all_directions) {
+				auto tv = find_free_wall(v, d);
+				if(!tv)
+					continue;
+				auto r = tv.distance(v);
+				if(r <= range)
+					continue;
+				trap_launch = tv;
+				range = r;
+				launch_direction = d;
+			}
+			auto po = loc->add(trap_launch, CellTrapLauncher, launch_direction);
+			po->link = v;
+			loc->state.traps++;
+		}
+	}
 }
 
 static int random_cellar_count() {
@@ -654,6 +671,7 @@ static void dungeon_create(slice<dungeon_site> source) {
 					break;
 			}
 			remove_dead_door();
+			resolve_traps();
 #ifdef DEBUG_DUNGEON
 			show_map_pathfind();
 #endif

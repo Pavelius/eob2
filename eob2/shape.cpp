@@ -28,10 +28,15 @@ pointc shapei::translate(pointc c, pointc v, directions d) const {
 	case Down: return c.to(origin.x + v.x, -origin.y - v.y);
 	case Left: return c.to(v.y + origin.y, v.x);
 	case Right: return c.to(size.y - v.y + origin.y, origin.x + v.x);
-		//case Left: return c.to(-origin.y - v.y, v.x);
-		//case Right: return c.to(v.y, -origin.x - v.x);
 	default: return c;
 	}
+}
+
+void shapei::clear() {
+	memset(this, 0, sizeof(*this));
+	for(auto& e : points)
+		e.clear();
+	origin.clear();
 }
 
 static bool isallowed(char sym) {

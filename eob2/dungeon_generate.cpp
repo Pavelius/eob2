@@ -292,7 +292,7 @@ static pointc find_free_wall(pointc v, directions d) {
 	while(true) {
 		auto v1 = to(v, d);
 		if(!v1)
-			return v1;
+			return {-1, -1};
 		switch(loc->get(v1)) {
 		case CellWall:
 			if(loc->getoverlay(v, d))
@@ -312,16 +312,22 @@ static pointc find_free_wall(pointc v, directions d) {
 static void trap(pointc v, directions d) {
 	if(loc->type == FOREST)
 		return;
-	auto dr = to(d, Left);
-	auto v1 = find_free_wall(v, d);
-	if(!v1) {
-		d = to(d, Right);
-		v1 = find_free_wall(v, d);
-		if(!v1)
-			return;
+	if(!v)
+		return;
+	directions all_directions[] = {Down, Left, Right, Up};
+	pointc trap_launch;
+	for(auto dr : all_directions) {
+		auto d1 = to(d, dr);
+		trap_launch = find_free_wall(v, d1);
+		if(trap_launch) {
+			d = d1;
+			break;
+		}
 	}
+	if(!trap_launch)
+		return;
 	loc->set(v, CellButton);
-	auto po = loc->add(v1, CellTrapLauncher, dr);
+	auto po = loc->add(trap_launch, CellTrapLauncher, d);
 	po->link = v;
 	loc->state.traps++;
 }
@@ -380,17 +386,21 @@ static bool corridor(pointc v, directions d) {
 		iswap(rnd[0], rnd[1]);
 	pointc start;
 	while(true) {
-		auto new_index = to(v, d);
-		if(!new_index || loc->get(new_index) != CellUnknown)
+		auto v1 = to(v, d);
+		if(!v1 || loc->get(v1) != CellUnknown)
 			break;
 		if(!start)
 			start = v;
-		v = new_index;
+		v = v1;
 		loc->set(v, CellPassable);
 		if(d100() < chance || !to(v, d))
 			break;
-		setwall(v, to(d, Left));
-		setwall(v, to(d, Right));
+		// Wall to the left only if there is no other tiles
+		if(loc->get(to(v, to(d, Left))) == CellUnknown)
+			setwall(v, to(d, Left));
+		// Wall to the right only if there is no other tiles
+		if(loc->get(to(v, to(d, Right))) == CellUnknown)
+			setwall(v, to(d, Right));
 		auto random_content = true;
 		if((chance == 0) && d100() < 30) {
 			if(door(v, d, true, true))

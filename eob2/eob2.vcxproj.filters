@@ -87,7 +87,7 @@
     <ClCompile Include="resid.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="view.cpp">
+    <ClCompile Include="view_controls.cpp">
       <Filter>logic</Filter>
     </ClCompile>
     <ClCompile Include="answers.cpp">
@@ -220,6 +220,9 @@
       <Filter>logic</Filter>
     </ClCompile>
     <ClCompile Include="pointc.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="view_dungeon.cpp">
       <Filter>logic</Filter>
     </ClCompile>
   </ItemGroup>
@@ -437,6 +440,9 @@
     <ClInclude Include="pointc.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="quest.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -497,6 +503,9 @@
       <Filter>locale</Filter>
     </Text>
     <Text Include="..\rules\Shapes.txt">
+      <Filter>rules</Filter>
+    </Text>
+    <Text Include="..\rules\Quests.txt">
       <Filter>rules</Filter>
     </Text>
   </ItemGroup>

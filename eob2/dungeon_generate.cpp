@@ -26,9 +26,11 @@ static posable rooms[256]; // Generation ring buffer
 static unsigned char stack_put; // Stack top
 static unsigned char stack_get; // Stack bottom
 
+#ifdef DEBUG_ROOM
 static void show_map_interactive() {
 	show_automap(false);
 }
+#endif
 
 static void select_pathable(pointca& result) {
 	result.clear();
@@ -46,6 +48,7 @@ static void select_pathable(pointca& result) {
 	result.count = ps - result.data;
 }
 
+#ifdef DEBUG_DUNGEON
 static void show_map_pathfind() {
 	pointca points;
 	loc->block(true);
@@ -53,6 +56,7 @@ static void show_map_pathfind() {
 	select_pathable(points);
 	show_automap(false, true, &points);
 }
+#endif
 
 static directions optimal_direction(pointc v) {
 	directions d = Left;

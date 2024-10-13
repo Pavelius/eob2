@@ -377,6 +377,5 @@ void show_automap(bool fog_of_war, bool secrets, const pointca* red_markers_arra
 	show_fog_of_war = fog_of_war;
 	show_secrets = secrets;
 	red_markers = red_markers_array;
-	// show_any_markers = red_markers;
 	show_scene(paint_layers, input_automap, 0);
 }

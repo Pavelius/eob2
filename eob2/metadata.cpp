@@ -16,6 +16,7 @@
 #include "script.h"
 #include "party.h"
 #include "point.h"
+#include "quest.h"
 #include "resid.h"
 #include "race.h"
 #include "randomeffect.h"
@@ -25,6 +26,7 @@
 
 NOBSDATA(color)
 NOBSDATA(dice)
+NOBSDATA(dungeon_site)
 NOBSDATA(point)
 NOBSDATA(picturei)
 
@@ -35,6 +37,7 @@ BSDATAC(creaturei, 64)
 BSDATAC(dungeoni, 256)
 BSDATAC(itemi, 256)
 BSDATAC(locationi, 128)
+BSDATAC(quest, 128)
 BSDATAC(racei, 16)
 BSDATAC(randomeffecti, 128)
 BSDATAC(spelli, 256)
@@ -71,6 +74,13 @@ BSMETA(creaturei) = {
 BSMETA(dice) = {
 	BSREQ(c), BSREQ(d), BSREQ(b), BSREQ(m),
 	{}};
+BSMETA(dungeon_site) = {
+	BSENM(type, residi),
+	BSREQ(level),
+	BSENM(key, itemi),
+	BSENM(special, itemi),
+	BSENM(language, racei),
+	{}};
 BSMETA(formulai) = {
 	BSREQ(id),
 	{}};
@@ -103,6 +113,10 @@ BSMETA(partystati) = {
 BSMETA(picturei) = {
 	BSENM(id, residi),
 	BSREQ(frame),
+	{}};
+BSMETA(quest) = {
+	BSREQ(id),
+	BSREQ(sites),
 	{}};
 BSMETA(racei) = {
 	BSREQ(id),
@@ -143,6 +157,7 @@ BSDATA(varianti) = {
 	{"List", VAR(listi, 1), 0, 0, ftscript<listi>},
 	{"Location", VAR(locationi, 1), 0, 0, ftscript<locationi>},
 	{"Modifier", VAR(modifieri, 1), 0, 0, ftscript<modifieri>},
+	{"Quest", VAR(quest, 1)},
 	{"PartyAbility", VAR(partystati, 1), 0, 0, ftscript<partystati>},
 	{"Race", VAR(racei, 1), 0, 0, ftscript<racei>},
 	{"RandomEffect", VAR(randomeffecti, 1)},

@@ -74,8 +74,11 @@ static const char* read_block(const char* p, shapei& e, stringbuilder& sb) {
 	if(mr > mn)
 		errorp(pb, "Shape size %1ix%2i is too big. Try make it smallest. Multiplied width and height of shape must be not greater that %3i.", e.size.x, e.size.y, mn);
 	e.content = szdup(sb.begin());
-	for(auto sym : "0123456789")
+	for(auto sym : "0123456789") {
+		if(!sym)
+			break;
 		e.points[sym - '0'] = e.find(sym);
+	}
 	e.origin.x = -e.points[0].x;
 	e.origin.y = -e.points[0].y;
 	return skipspcr(p);

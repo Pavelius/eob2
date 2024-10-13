@@ -27,8 +27,6 @@ static unsigned char stack_put; // Stack top
 static unsigned char stack_get; // Stack bottom
 
 static void show_map_interactive() {
-	if(!show_interactive)
-		return;
 	show_automap(false);
 }
 
@@ -440,14 +438,14 @@ static void remove_dead_door() {
 	pointc v;
 	for(v.y = 0; v.y < mpy; v.y++) {
 		for(v.x = 0; v.x < mpx; v.x++) {
-			auto t = loc->get(v);
-			if(t != CellDoor)
+			if(loc->get(v) != CellDoor)
 				continue;
 			// Door correct if place between two walls horizontally
-			if(loc->get(to(v, Left)) == CellWall && loc->get(to(v, Right)) == CellWall)
+			if(isboth(v, Left, Right, CellWall, CellWall)
+				|| isboth(v, Up, Down, CellWall, CellWall))
 				continue;
-			// Door correct if place between two walls vertically
-			if(loc->get(to(v, Up)) == CellWall && loc->get(to(v, Down)) == CellWall)
+			// Door correct if there is exacly 2 walls around
+			if(loc->around(v, CellWall, CellWall)==2)
 				continue;
 			// Incorrect door must be eliminated
 			loc->set(v, CellPassable);

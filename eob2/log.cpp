@@ -32,7 +32,7 @@ void log::printv(const char* format, const char* format_param) {
 }
 
 void log::print(const char* format, ...) {
-   XVA_FORMAT(format);
+	XVA_FORMAT(format);
 	printv(format, format_param);
 }
 
@@ -74,7 +74,7 @@ void log::errorv(const char* position, const char* format, const char* format_pa
 }
 
 void log::errorp(const char* position, const char* format, ...) {
-   XVA_FORMAT(format);
+	XVA_FORMAT(format);
 	errorv(position, format, format_param);
 }
 

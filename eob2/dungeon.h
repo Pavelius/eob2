@@ -9,6 +9,8 @@
 enum celln : unsigned char;
 enum cellfn : unsigned char;
 
+struct pointca;
+
 struct dungeoni : dungeon_site {
 	struct ground : item, posable {
 		void		clear();
@@ -49,4 +51,4 @@ extern unsigned short pathmap[mpy][mpx];
 
 void dungeon_create();
 bool filter_corridor(pointc v);
-void show_automap(bool visible_all = false);
+void show_automap(bool visible_all = false, const pointca* red_markers = 0);

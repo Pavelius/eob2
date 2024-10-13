@@ -4,6 +4,7 @@
 #include "dungeon.h"
 #include "math.h"
 #include "party.h"
+#include "pointca.h"
 #include "view.h"
 
 using namespace draw;
@@ -14,6 +15,7 @@ static color bwall(100, 64, 24);
 static color bpass(176, 120, 64);
 static color bpits = bpass.darken();
 static color cdoor(140, 88, 48);
+static const pointca* red_markers;
 static bool show_fog_of_war = false;
 
 const int mpg = 8;
@@ -184,6 +186,21 @@ static void paint_background() {
 	rectf();
 }
 
+static void paint_points(const pointca* source, fnevent proc) {
+	if(!source)
+		return;
+	auto push_caret = caret;
+	for(auto v : *source) {
+		if(!v)
+			continue;
+		if(show_fog_of_war && !loc->is(v, CellExplored))
+			continue;
+		caret = gs(v.x, v.y);
+		proc();
+	}
+	caret = push_caret;
+}
+
 static void paint_automap() {
 	rectpush push;
 	auto push_fore = fore;
@@ -276,6 +293,11 @@ static void paint_automap() {
 	fore = push_fore;
 }
 
+static void paint_layers() {
+	paint_automap();
+	paint_points(red_markers, red_marker);
+}
+
 static void input_automap() {
 	switch(hot.key) {
 	case KeyEscape:
@@ -285,9 +307,8 @@ static void input_automap() {
 	}
 }
 
-void show_automap(bool fog_of_war) {
-	auto push_visible = show_fog_of_war;
+void show_automap(bool fog_of_war, const pointca* red_markers_array) {
 	show_fog_of_war = fog_of_war;
-	show_scene(paint_automap, input_automap, 0);
-	show_fog_of_war = push_visible;
+	red_markers = red_markers_array;
+	show_scene(paint_layers, input_automap, 0);
 }

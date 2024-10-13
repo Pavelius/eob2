@@ -3,6 +3,5 @@
 #include "posable.h"
 #include "adat.h"
 
-struct pointca : adat<pointc, 256> {
+struct pointca : adat<pointc, 1024> {
 };
-bool finter_corridor(pointc v);

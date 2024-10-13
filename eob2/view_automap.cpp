@@ -17,6 +17,8 @@ static color bpits = bpass.darken();
 static color cdoor(140, 88, 48);
 static const pointca* red_markers;
 static bool show_fog_of_war = false;
+static bool show_secrets = false;
+static bool show_any_markers = false;
 
 const int mpg = 8;
 
@@ -25,12 +27,13 @@ static point gs(int x, int y) {
 }
 
 static void red_marker() {
-	auto push_fore = fore; fore = colors::red;
+	auto push_fore = fore;
 	auto push_caret = caret;
+	fore = colors::red;
 	line(caret.x + mpg, caret.y + mpg);
 	caret.x = push_caret.x + mpg;
 	caret.y = push_caret.y;
-	line(caret.x, caret.y + mpg);
+	line(push_caret.x, push_caret.y + mpg);
 	caret = push_caret;
 	fore = push_fore;
 }
@@ -111,15 +114,18 @@ static void fill_side(int dx, color border, celln* nb, celln t1) {
 		caret.x = pos.x + dx;
 		caret.y = pos.y;
 		line(pos.x + dx, y2);
-	} else if(nb[1] == t1) {
+	}
+	if(nb[1] == t1) {
 		caret.x = pos.x;
 		caret.y = pos.y + dx;
 		line(x2, pos.y + dx);
-	} else if(nb[2] == t1) {
+	}
+	if(nb[2] == t1) {
 		caret.x = x2 - dx;
 		caret.y = pos.y;
 		line(x2 - dx, y2);
-	} else if(nb[3] == t1) {
+	}
+	if(nb[3] == t1) {
 		caret.x = pos.x;
 		caret.y = y2 - dx;
 		line(x2, y2 - dx);
@@ -178,12 +184,14 @@ static void rectf(int sx, int sy) {
 
 static void paint_background() {
 	rectpush push;
+	auto push_fore = fore;
 	fore = cpass;
 	caret.x = 0;
 	caret.y = 0;
 	width = 320;
 	height = 200;
 	rectf();
+	fore = push_fore;
 }
 
 static void paint_points(const pointca* source, fnevent proc) {
@@ -204,10 +212,7 @@ static void paint_points(const pointca* source, fnevent proc) {
 static void paint_automap() {
 	rectpush push;
 	auto push_fore = fore;
-	celln nb[8];
-	paint_background();
-	// render_overlays(location, fog_of_war);
-	pointc v;
+	celln nb[8]; pointc v;
 	for(v.y = -1; v.y < mpy + 1; v.y++) {
 		for(v.x = -1; v.x < mpx + 1; v.x++) {
 			if(show_fog_of_war) {
@@ -293,22 +298,52 @@ static void paint_automap() {
 	fore = push_fore;
 }
 
+static void paint_overlays() {
+	rectpush push;
+	auto push_fore = fore;
+	auto push_font = font;
+	set_small_font();
+	for(auto& e : loc->overlays) {
+		if(!e)
+			continue;
+		if(show_fog_of_war && !loc->is(e, CellExplored))
+			continue;
+		auto v = to(e, e.d);
+		auto pos = gs(v.x, v.y);
+		caret = pos;
+		width = height = mpg;
+		switch(e.type) {
+		case CellSecrectButton:
+			caret.x += 1; caret.y += 1;
+			fore = bwall;
+			text("X");
+			break;
+		}
+	}
+	font = push_font;
+	fore = push_fore;
+}
+
 static void paint_layers() {
+	paint_background();
 	paint_automap();
-	paint_points(red_markers, red_marker);
+	paint_overlays();
+	if(show_any_markers)
+		paint_points(red_markers, red_marker);
 }
 
 static void input_automap() {
 	switch(hot.key) {
 	case KeyEscape:
-	case KeySpace:
-		breakmodal(0);
-		break;
+	case KeySpace: breakmodal(0); break;
+	case 'R': show_any_markers = !show_any_markers; break;
 	}
 }
 
-void show_automap(bool fog_of_war, const pointca* red_markers_array) {
+void show_automap(bool fog_of_war, bool secrets, const pointca* red_markers_array) {
 	show_fog_of_war = fog_of_war;
+	show_secrets = secrets;
 	red_markers = red_markers_array;
+	// show_any_markers = red_markers;
 	show_scene(paint_layers, input_automap, 0);
 }

@@ -37,6 +37,7 @@ struct dungeoni : dungeon_site {
 	slice<creaturei> getmonsters() { return slice<creaturei>(monsters, state.monsters); }
 	slice<overlayi> getoverlays() { return slice<overlayi>(overlays, state.overlays); }
 	overlayi*		getoverlay(pointc v, directions d);
+	overlayi*		getoverlay(pointc v, celln type);
 	bool			is(pointc v, cellfn i) const;
 	bool			is(pointc v, celln t1, celln t2) const;
 	void			makewave(pointc start) const;
@@ -51,4 +52,4 @@ extern unsigned short pathmap[mpy][mpx];
 
 void dungeon_create();
 bool filter_corridor(pointc v);
-void show_automap(bool visible_all = false, const pointca* red_markers = 0);
+void show_automap(bool visible_all = false, bool secrets = false, const pointca* red_markers = 0);

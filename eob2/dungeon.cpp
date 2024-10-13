@@ -125,6 +125,7 @@ dungeoni::overlayi* dungeoni::add(pointc v, celln i, directions d) {
 			e.clear();
 			assign<pointc>(e, v);
 			e.d = d;
+			e.type = i;
 			return &e;
 		}
 	}
@@ -132,6 +133,18 @@ dungeoni::overlayi* dungeoni::add(pointc v, celln i, directions d) {
 }
 
 dungeoni::overlayi* dungeoni::getoverlay(pointc v, directions d) {
+	for(auto& e : overlays) {
+		if(e==v && e.d==d)
+			return &e;
+	}
+	return 0;
+}
+
+dungeoni::overlayi* dungeoni::getoverlay(pointc v, celln type) {
+	for(auto& e : overlays) {
+		if(e == v && e.type == type)
+			return &e;
+	}
 	return 0;
 }
 

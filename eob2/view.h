@@ -34,4 +34,5 @@ void paint_city_menu();
 void paint_main_menu();
 void paint_party_status();
 void set_player_by_focus();
+void set_small_font();
 void text_label(int index, const void* data, const char* format, unsigned key, fnevent proc);

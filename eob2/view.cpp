@@ -66,7 +66,7 @@ static const char* namesh(const char* id) {
 	return p;
 }
 
-static void set_small_font() {
+void set_small_font() {
 	font = gres(FONT6);
 }
 

@@ -30,6 +30,30 @@ static void show_map_interactive() {
 	show_automap(false);
 }
 
+static void select_pathable(pointca& result) {
+	result.clear();
+	auto ps = result.begin();
+	auto pe = result.endof();
+	pointc v;
+	for(v.y = 0; v.y < mpy; v.y++) {
+		for(v.x = 0; v.x < mpx; v.x++) {
+			if(!pathmap[v.y][v.x] || pathmap[v.y][v.x] == 0xFFFF)
+				continue;
+			if(ps < pe)
+				*ps++ = v;
+		}
+	}
+	result.count = ps - result.data;
+}
+
+static void show_map_pathfind() {
+	pointca points;
+	loc->block(true);
+	loc->makewave(loc->state.up);
+	select_pathable(points);
+	show_automap(false, true, &points);
+}
+
 static directions optimal_direction(pointc v) {
 	directions d = Left;
 	int i = v.x;
@@ -134,6 +158,8 @@ static void items(pointc v, int bonus_level) {
 
 static void secret(pointc v, directions d) {
 	auto v1 = to(v, d);
+	if(!v1)
+		return;
 	if(!loc->is(v1, CellWall, CellUnknown))
 		return;
 	if(!loc->is(to(v1, to(d, Left)), CellWall, CellUnknown))
@@ -141,7 +167,9 @@ static void secret(pointc v, directions d) {
 	if(!loc->is(to(v1, to(d, Right)), CellWall, CellUnknown))
 		return;
 	auto v2 = to(v1, d);
-	if(!isaround(v2, d, CellWall))
+	if(!v2)
+		return;
+	if(loc->around(v2, CellWall, CellUnknown) != 4)
 		return;
 	loc->set(v1, CellWall);
 	loc->add(v, CellSecrectButton, d);
@@ -239,9 +267,11 @@ static void portal(pointc v, directions d) {
 		return;
 	if(!loc->is(to(v1, to(d, Right)), CellWall, CellUnknown))
 		return;
-	if(!loc->is(to(v1, d), CellWall, CellUnknown))
+	auto v2 = to(v1, d);
+	if(!loc->is(v2, CellWall, CellUnknown))
 		return;
-	loc->set(to(v1, to(d, Down)), CellPortal);
+	loc->set(v1, CellPortal);
+	loc->set(v2, CellWall);
 }
 
 static void message(pointc v, directions d) {
@@ -445,7 +475,7 @@ static void remove_dead_door() {
 				|| isboth(v, Up, Down, CellWall, CellWall))
 				continue;
 			// Door correct if there is exacly 2 walls around
-			if(loc->around(v, CellWall, CellWall)==2)
+			if(loc->around(v, CellWall, CellWall) == 2)
 				continue;
 			// Incorrect door must be eliminated
 			loc->set(v, CellPassable);
@@ -617,7 +647,7 @@ static void dungeon_create(slice<dungeon_site> source) {
 			}
 			remove_dead_door();
 #ifdef DEBUG_DUNGEON
-			show_map_interactive();
+			show_map_pathfind();
 #endif
 			//if(j == special_item_level)
 			//	validate_special_items(e);

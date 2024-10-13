@@ -1,7 +1,7 @@
 #List
 
 ChooseBet
- elements Set+50 ChooseMenu Mul+1 Mul+2 Mul+4 Mul+6
+ elements Set+10 ChooseMenu Mul+1 Mul+2 Mul+4 Mul+6
 GambleVisitorsFailedRoll
  elements Message-1
 
@@ -38,4 +38,4 @@ Temple avatar(buildngs 8) parent(HunterVillage)
  options ReturnToStreet
 
 HunterVillage avatar(buildngs 26)
- options Inn Tavern Temple
+ options PartyAdventure Inn Tavern Temple

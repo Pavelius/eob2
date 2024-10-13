@@ -10,6 +10,8 @@ GlobalOptions: %2 Options:
 GlobalVisit: Visit %1
 MemorizeSpells: Memorize Spells
 MulGambleVisitors: Bet %1i gold pieces
+PartyAdventure: Go to adventure
+PartysAdventureAsk: Which way to go?
 PickPockets: Pick pockets
 PickPocketsVisit: Pick some pockets
 PrayForSpells: Pray for Spells
@@ -24,8 +26,10 @@ ReturnBack: Back
 Visit: Visit
 Village: Village
 
+Accept: Accept
 Cancel: Cancel
 Continue: Continue
+Decline: Decline
 ExitGame: Exit game
 LoadGame: Load game
 No: No

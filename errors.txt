@@ -1,12 +1,3 @@
-﻿Error in file `rules/Core.txt`:
- Line 12: Can't find variant `CreateCharacter`
- Line 14: Can't find variant `CreateCharacter`
- Line 16: Can't find variant `CreateCharacter`
- Line 18: Can't find variant `CreateCharacter`
- Line 21: Can't find variant `JoinParty`
- Line 21: Can't find variant `JoinParty`
- Line 21: Can't find variant `JoinParty`
- Line 21: Can't find variant `JoinParty`
- Line 21: Can't find variant `JoinParty`
- Line 24: Can't find variant `TestDungeon`
- Line 24: Can't find variant `EnterLocation`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `Accept`
+ Define translation for `Decline`

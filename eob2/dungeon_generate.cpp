@@ -12,7 +12,7 @@
 #include "wallmessage.h"
 
 #ifdef _DEBUG
-#define DEBUG_DUNGEON
+//#define DEBUG_DUNGEON
 //#define DEBUG_ROOM
 #endif
 

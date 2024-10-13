@@ -6,3 +6,4 @@
 struct quest : nameable {
 	dungeon_site	sites[8];
 };
+extern quest* last_quest;

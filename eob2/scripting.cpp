@@ -11,6 +11,7 @@
 #include "location.h"
 #include "modifier.h"
 #include "party.h"
+#include "quest.h"
 #include "race.h"
 #include "script.h"
 #include "speech.h"
@@ -56,6 +57,10 @@ template<> void ftscript<locationi>(int value, int bonus) {
 
 template<> void ftscript<actioni>(int value, int bonus) {
 	last_action = bsdata<actioni>::elements + value;
+}
+
+template<> void ftscript<quest>(int value, int bonus) {
+	last_quest = bsdata<quest>::elements + value;
 }
 
 template<> void ftscript<feati>(int value, int bonus) {
@@ -315,6 +320,75 @@ void add_spells(int type, int level, const spellseta* include) {
 	}
 }
 
+static void activate_quest(int bonus) {
+	if(!last_quest)
+		return;
+	if(bonus >= 0)
+		party.active.set(bsdata<quest>::source.indexof(last_quest));
+	else
+		party.active.remove(bsdata<quest>::source.indexof(last_quest));
+}
+
+static void done_quest(int bonus) {
+	if(!last_quest)
+		return;
+	if(bonus >= 0)
+		party.done.set(bsdata<quest>::source.indexof(last_quest));
+	else
+		party.done.remove(bsdata<quest>::source.indexof(last_quest));
+}
+
+static void choose_adventure() {
+	auto push_answers = an;
+	an.clear();
+	for(auto& e : bsdata<quest>()) {
+		auto index = getbsi(&e);
+		if(!party.active.is(index))
+			continue;
+		if(party.done.is(index))
+			continue;
+		an.add(&e, e.getname());
+	}
+	an.sort();
+	last_quest = (quest*)choose_answer(getnm("PartysAdventureAsk"), getnm("Cancel"), paint_city_menu, button_label, 1);
+	an = push_answers;
+}
+
+static bool choose_dialog(const char* format, const char* format_param, const char* yes, const char* no) {
+	auto push = an; an.clear();
+	an.add((void*)1, yes);
+	auto result = (bool)dialogv(no, format, format_param);
+	an = push;
+	return result;
+}
+
+static void message(const char* format, const char* format_param = 0) {
+	auto push = an; an.clear();
+	dialogv(0, format);
+	an = push;
+}
+
+static void party_adventure(int bonus) {
+	choose_adventure();
+	if(!last_quest)
+		return;
+	auto push_picture = picture;
+	auto pn = getnme(ids(last_quest->id, "Summary"));
+	if(pn) {
+		if(!choose_dialog(pn, 0, getnm("Accept"), getnm("Decline"))) {
+			picture = push_picture;
+			return;
+		}
+	}
+	pn = getnme(ids(last_quest->id, "Agree"));
+	if(pn)
+		message(pn);
+	pn = getnme(ids(last_quest->id, "Entering"));
+	if(pn)
+		message(pn);
+	picture = push_picture;
+}
+
 void continue_game() {
 	current_focus = 0;
 	last_location = bsdata<locationi>::elements + party.location;
@@ -398,6 +472,7 @@ BSDATA(textscript) = {
 BSDATAF(textscript)
 BSDATA(script) = {
 	{"Attack", attack_modify},
+	{"ActivateQuest", activate_quest},
 	{"ApplyAction", apply_action},
 	{"ConfirmAction", confirm_action},
 	{"ChooseSpells", choose_spells},
@@ -405,6 +480,7 @@ BSDATA(script) = {
 	{"CreateCharacter", create_character},
 	{"CurseItem", curse_item},
 	{"Damage", damage_modify},
+	{"DoneQuest", done_quest},
 	{"ExitGame", exit_game},
 	{"EatAndDrink", eat_and_drink},
 	{"EnterLocation", enter_location},
@@ -413,6 +489,7 @@ BSDATA(script) = {
 	{"LoadGame", load_game},
 	{"Message", dialog_message},
 	{"JoinParty", join_party},
+	{"PartyAdventure", party_adventure},
 	{"PayGold", pay_gold},
 	{"ReturnToStreet", return_to_street},
 	{"Roll", make_roll},

@@ -157,7 +157,7 @@ BSDATA(varianti) = {
 	{"List", VAR(listi, 1), 0, 0, ftscript<listi>},
 	{"Location", VAR(locationi, 1), 0, 0, ftscript<locationi>},
 	{"Modifier", VAR(modifieri, 1), 0, 0, ftscript<modifieri>},
-	{"Quest", VAR(quest, 1)},
+	{"Quest", VAR(quest, 1), 0, 0, ftscript<quest>},
 	{"PartyAbility", VAR(partystati, 1), 0, 0, ftscript<partystati>},
 	{"Race", VAR(racei, 1), 0, 0, ftscript<racei>},
 	{"RandomEffect", VAR(randomeffecti, 1)},

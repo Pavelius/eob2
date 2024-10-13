@@ -6,26 +6,22 @@
 #include "slice.h"
 #include "view.h"
 
-//////////////////////////////
-// RICH COMMAND FORMAT EXAMPLE
-//////////////////////////////
-
 using namespace draw;
 
 unsigned draw::text_flags;
 
-static const char* getparam(const char*& p, stringbuilder& sb) {
-	auto pb = sb.get();
-	if(p[0] == '\'')
-		p = sb.psstr(p + 1, '\'');
-	else if(p[0] == '\"')
-		p = sb.psstr(p + 1, '\"');
-	else if(ischa(*p))
-		p = sb.psidf(p);
-	sb.addsz();
-	p = skipsp(p);
-	return pb;
-}
+//static const char* getparam(const char*& p, stringbuilder& sb) {
+//	auto pb = sb.get();
+//	if(p[0] == '\'')
+//		p = sb.psstr(p + 1, '\'');
+//	else if(p[0] == '\"')
+//		p = sb.psstr(p + 1, '\"');
+//	else if(ischa(*p))
+//		p = sb.psidf(p);
+//	sb.addsz();
+//	p = skipsp(p);
+//	return pb;
+//}
 
 static int getparam(const char*& p) {
 	if(isnum(p[0]) || (p[0] == '-' && isnum(p[1]))) {
@@ -78,6 +74,6 @@ void* dialogv(const char* cancel, const char* format, const char* format_param) 
 }
 
 void* dialog(const char* cancel, const char* format, ...) {
-   XVA_FORMAT(format);
+	XVA_FORMAT(format);
 	return dialogv(cancel, format, format_param);
 }

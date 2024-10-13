@@ -225,6 +225,9 @@
     <ClCompile Include="view_dungeon.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="quest.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -507,6 +510,9 @@
     </Text>
     <Text Include="..\rules\Quests.txt">
       <Filter>rules</Filter>
+    </Text>
+    <Text Include="..\locale\en\QuestFloodedSewers.txt">
+      <Filter>locale</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

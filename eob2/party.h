@@ -1,8 +1,11 @@
 #pragma once
 
+#include "flagable.h"
 #include "nameable.h"
 #include "posable.h"
 #include "unit.h"
+
+typedef flagable<8, unsigned> questa;
 
 enum partystatn : unsigned char {
 	GoldPiece, Reputation, Blessing,
@@ -12,6 +15,7 @@ struct partystati : nameable {
 };
 struct partyi : uniti, posable {
 	short unsigned	location;
+	questa			active, done;
 	int				abilities[Minutes + 1];
 };
 extern partyi party;

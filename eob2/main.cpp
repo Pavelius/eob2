@@ -13,8 +13,8 @@
 void util_main();
 
 int main() {
-	start_random_seed = getcputime();
-	// start_random_seed = 307749078;
+	//start_random_seed = getcputime();
+	start_random_seed = 351058609;
 	srand(start_random_seed);
 	initialize_gui();
 	initialize_translation();

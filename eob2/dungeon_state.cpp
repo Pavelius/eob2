@@ -8,6 +8,5 @@ void dungeon_state::clear() {
 	portal.clear();
 	special.clear();
 	lair.clear();
-	major_lair.clear();
-	crypt.clear();
+	feature.clear();
 }

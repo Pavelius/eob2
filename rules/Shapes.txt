@@ -1,34 +1,34 @@
 #ShapeLargeRoom
 
-XXXXXXXXXX
-X........X
-X.X....X.X
-X....0...X
-X.X....X.X
-X........X
-XXXXX1XXXX
+XXXX1XXXX
+X.......X
+X.X...X.X
+X...0...X
+X.X...X.X
+X.......X
+XXXXXXXXX
 
 #ShapeRoom
 
-XXXXX
+XX1XX
 X...X
 X.0.X
 X...X
-XX1XX
+XXXXX
 
 #SmallCircleRoom
 
-  XXXXX  
+  XX1XX  
 XXX...XXX
 X...0...X
 XXX...XXX
-  XX1XX  
+  XXXXX  
 
 #ShapePrison
 
-XXX
-X0X
 X1X
+X0X
+XXX
 
 #ShapeDeadEnd
 

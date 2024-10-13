@@ -5,4 +5,4 @@
 
 struct pointca : adat<pointc, 256> {
 };
-extern pointca points;
+bool finter_corridor(pointc v);

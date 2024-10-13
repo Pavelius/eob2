@@ -11,7 +11,12 @@
 #include "shape.h"
 #include "wallmessage.h"
 
-typedef void (*fncorridor)(pointc v, directions d, unsigned flags);
+#ifdef _DEBUG
+#define DEBUG_DUNGEON
+//#define DEBUG_ROOM
+#endif
+
+typedef void (*fncorridor)(pointc v, directions d);
 typedef void (*fnroom)(pointc v, directions d, const shapei* p);
 
 const int EmpthyStartIndex = 1;
@@ -67,15 +72,30 @@ static bool isaround(pointc v, directions dir, celln t1 = CellUnknown) {
 	return true;
 }
 
+static bool isboth(pointc v, directions d1, directions d2, celln t1, celln t2 = CellUnknown) {
+	auto c1 = loc->get(to(v, d1));
+	auto c2 = loc->get(to(v, d2));
+	return (c1 == t1 || c1 == t2) && (c2 == t1 || c2 == t2);
+}
+
+static bool is(pointc v, directions d, celln t1) {
+	return loc->get(to(v, d)) == t1;
+}
+
 static bool door(pointc v, directions d, bool has_button, bool has_button_on_other_side) {
 	if(loc->type == FOREST)
 		return true;
-	auto v1 = to(v, d);
-	switch(loc->get(v1)) {
+	switch(loc->get(v)) {
 	case CellWall:
 	case CellPortal:
 		return false;
 	}
+	// If nearbe at least one door present, don't create new one.
+	if(loc->around(v, CellDoor, CellDoor))
+		return false;
+	// If there is no walls from two sides, don't create door.
+	if(!isboth(v, Up, Down, CellWall) && !isboth(v, Left, Right, CellWall))
+		return false;
 	loc->set(v, CellDoor);
 	if(has_button)
 		loc->add(to(v, to(d, Down)), CellDoorButton, d);
@@ -114,7 +134,7 @@ static void items(pointc v, int bonus_level) {
 	items(v, random_item_type(), bonus_level);
 }
 
-static void secret(pointc v, directions d, unsigned flags) {
+static void secret(pointc v, directions d) {
 	auto v1 = to(v, d);
 	if(!loc->is(v1, CellWall, CellUnknown))
 		return;
@@ -139,12 +159,12 @@ static void secret(pointc v, directions d, unsigned flags) {
 	loc->state.secrets++;
 }
 
-static void monster(pointc v, directions d, unsigned flags) {
+static void monster(pointc v, directions d) {
 	auto n = (d100() < 30) ? 1 : 0;
 	loc->addmonster(v, loc->habbits[n]);
 }
 
-static void prison(pointc v, directions d, unsigned flags) {
+static void prison(pointc v, directions d) {
 	if(loc->type == FOREST)
 		return;
 	auto v1 = to(v, d);
@@ -164,13 +184,13 @@ static void prison(pointc v, directions d, unsigned flags) {
 	loc->set(v2, CellPassable);
 	for(int i = random_count(); i > 0; i--)
 		items(v2, 0);
-	monster(v2, Down, 0);
+	monster(v2, Down);
 	loc->set(to(v2, to(d, Left)), CellWall);
 	loc->set(to(v2, to(d, Right)), CellWall);
 	loc->set(to(v2, to(d, Up)), CellWall);
 }
 
-static void treasure(pointc v, directions d, unsigned flags) {
+static void treasure(pointc v, directions d) {
 	if(loc->type == FOREST)
 		return;
 	auto v1 = to(v, d);
@@ -198,7 +218,7 @@ static void treasure(pointc v, directions d, unsigned flags) {
 	loc->set(to(v2, to(d, Up)), CellWall);
 }
 
-static void decoration(pointc v, directions d, unsigned flags) {
+static void decoration(pointc v, directions d) {
 	if(loc->type == FOREST)
 		return;
 	auto v1 = to(v, d);
@@ -209,7 +229,7 @@ static void decoration(pointc v, directions d, unsigned flags) {
 	loc->add(v, maprnd(random), d);
 }
 
-static void portal(pointc v, directions d, unsigned flags) {
+static void portal(pointc v, directions d) {
 	if(loc->type == FOREST)
 		return;
 	if(loc->state.portal)
@@ -226,7 +246,7 @@ static void portal(pointc v, directions d, unsigned flags) {
 	loc->set(to(v1, to(d, Down)), CellPortal);
 }
 
-static void message(pointc v, directions d, unsigned flags) {
+static void message(pointc v, directions d) {
 	if(loc->type == FOREST)
 		return;
 	if(loc->state.messages > MessageHabbits)
@@ -261,7 +281,7 @@ static pointc find_free_wall(pointc v, directions d) {
 	}
 }
 
-static void trap(pointc v, directions d, unsigned flags) {
+static void trap(pointc v, directions d) {
 	if(loc->type == FOREST)
 		return;
 	auto dr = to(d, Left);
@@ -287,7 +307,7 @@ static int random_cellar_count() {
 	return 2;
 }
 
-static void cellar(pointc v, directions d, unsigned flags) {
+static void cellar(pointc v, directions d) {
 	if(loc->type == FOREST)
 		return;
 	auto v1 = to(v, d);
@@ -306,13 +326,13 @@ static void cellar(pointc v, directions d, unsigned flags) {
 	}
 }
 
-static void empthy(pointc v, directions d, unsigned flags) {}
+static void empthy(pointc v, directions d) {}
 
-static void rations(pointc v, directions d, unsigned flags) {
+static void rations(pointc v, directions d) {
 	items(v, item_type("Ration"), 0);
 }
 
-static void stones(pointc v, directions d, unsigned flags) {
+static void stones(pointc v, directions d) {
 	items(v, item_type("Stone"), 0);
 }
 
@@ -323,7 +343,7 @@ static bool ispassable(pointc v, directions d) {
 	return loc->is(v, CellPassable, CellUnknown);
 }
 
-static bool corridor(pointc v, directions d, unsigned flags) {
+static bool corridor(pointc v, directions d) {
 	auto chance = 0;
 	if(!v)
 		return false;
@@ -335,19 +355,16 @@ static bool corridor(pointc v, directions d, unsigned flags) {
 		auto new_index = to(v, d);
 		if(!new_index || loc->get(new_index) != CellUnknown)
 			break;
-		bool random_content = true;
-		if(!start) {
+		if(!start)
 			start = v;
-			if(flags & EmpthyStartIndex)
-				random_content = false;
-		}
 		v = new_index;
 		loc->set(v, CellPassable);
 		if(d100() < chance || !to(v, d))
 			break;
 		setwall(v, to(d, Left));
 		setwall(v, to(d, Right));
-		if(random_content && (chance == 0) && d100() < 30) {
+		auto random_content = true;
+		if((chance == 0) && d100() < 30) {
 			if(door(v, d, true, true))
 				random_content = false;
 		}
@@ -367,12 +384,12 @@ static bool corridor(pointc v, directions d, unsigned flags) {
 				decoration, decoration,
 				message,
 			};
-			auto proc = corridor_random[rand() % (sizeof(corridor_random) / sizeof(corridor_random[0]))];
-			proc(v, to(d, rnd[0]), flags);
+			auto proc = maprnd(corridor_random);
+			proc(v, to(d, rnd[0]));
 			if(d100() < 60)
 				iswap(rnd[0], rnd[1]);
 		}
-		chance += 12;
+		chance += 13;
 	}
 	if(!start)
 		return false;
@@ -392,11 +409,11 @@ static bool corridor(pointc v, directions d, unsigned flags) {
 	return true;
 }
 
-static bool random_corridor(pointc v, unsigned flags) {
+static bool random_corridor(pointc v) {
 	directions dir[] = {Up, Down, Left, Right};
 	zshuffle(dir, sizeof(dir) / sizeof(dir[0]));
 	for(auto d : dir) {
-		if(corridor(v, d, flags))
+		if(corridor(v, d))
 			return true;
 	}
 	return false;
@@ -451,7 +468,13 @@ static bool is_valid_dungeon() {
 		return true;
 	loc->block(true);
 	loc->makewave(loc->state.up);
-	return pathmap[loc->state.down.y][loc->state.down.x] != 0;
+	if(!pathmap[loc->state.down.y][loc->state.down.x])
+		return false;
+	if(loc->state.lair && !pathmap[loc->state.lair.y][loc->state.lair.x])
+		return false;
+	if(loc->state.feature && !pathmap[loc->state.feature.y][loc->state.feature.x])
+		return false;
+	return true;
 }
 
 static void create_points(pointca& points, int mx, int my, int offset) {
@@ -500,7 +523,7 @@ static void apply_shape(pointc v, directions d, const shapei* shape, char sym, f
 		for(c.x = 0; c.x < shape->size.x; c.x++) {
 			auto n = (*shape)[c];
 			if(n == sym)
-				proc(shape->translate(v, c, d), d, 0);
+				proc(shape->translate(v, c, d), d);
 		}
 	}
 }
@@ -517,8 +540,8 @@ static void stairs_down(pointc v, directions d, const shapei* ps) {
 
 static void create_lair(pointc v, directions d, const shapei* ps) {
 	apply_shape(v, d, ps, '0', CellPassable);
-	apply_shape(v, d, ps, '.', monster);
 	apply_shape(v, d, ps, '1', CellDoor);
+	apply_shape(v, d, ps, '.', monster);
 }
 
 static void create_room(pointc v, directions d, const char* id, fnroom proc) {
@@ -531,7 +554,9 @@ static void create_room(pointc v, directions d, const char* id, fnroom proc) {
 	apply_shape(v, d, ps, '.', CellPassable);
 	proc(v, d, ps);
 	put_corridor(ps->translate(v, ps->points[1], d), d, EmpthyStartIndex, false);
-	// show_map_interactive();
+#ifdef DEBUG_ROOM
+	show_map_interactive();
+#endif
 }
 
 static void create_room(pointc v, const char* id, fnroom proc) {
@@ -548,9 +573,11 @@ static void create_rooms(pointc start, bool last_level) {
 	if(!last_level)
 		create_room(pop(points), "ShapeExit", stairs_down);
 	// Every dungeon have one lair where monsters spawn
-	create_room(pop(points), "ShapeRoom", create_lair);
+	loc->state.lair = pop(points);
+	create_room(loc->state.lair, "ShapeRoom", create_lair);
 	// And every level have feature
-	create_room(pop(points), "ShapeLargeRoom", create_lair);
+	loc->state.feature = pop(points);
+	create_room(loc->state.feature, "ShapeLargeRoom", create_lair);
 }
 
 static void dungeon_create(slice<dungeon_site> source) {
@@ -578,18 +605,22 @@ static void dungeon_create(slice<dungeon_site> source) {
 				create_rooms(start, last_level);
 				while(stack_get != stack_put) {
 					auto& ev = rooms[stack_get++];
-					auto result = corridor(ev, ev.d, ev.side);
+					auto result = corridor(ev, ev.d);
 					if(!result)
-						random_corridor(ev, ev.side);
+						random_corridor(ev);
 					loc->state.elements++;
-					// show_map_interactive();
+#ifdef DEBUG_ROOM
+					show_map_interactive();
+#endif
 				}
 				loc->change(CellUnknown, CellWall);
 				if(is_valid_dungeon())
 					break;
 			}
 			remove_dead_door();
+#ifdef DEBUG_DUNGEON
 			show_map_interactive();
+#endif
 			//if(j == special_item_level)
 			//	validate_special_items(e);
 			//add_spawn_points(e);

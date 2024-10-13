@@ -8,6 +8,7 @@ const unsigned short Blocked = 0xFFFF;
 static pointc path_stack[256];
 static unsigned char path_push;
 static unsigned char path_pop;
+static directions all_directions[] = {Up, Right, Down, Left};
 unsigned short pathmap[mpy][mpx];
 
 dungeoni *loc, *locup, *locdw;
@@ -26,6 +27,8 @@ static celln get_wall(celln v) {
 	switch(v) {
 	case CellSecrectButton:
 	case CellPortal:
+	case CellStairsUp:
+	case CellStairsDown:
 		return CellWall;
 	default:
 		return v;
@@ -135,6 +138,11 @@ dungeoni::overlayi* dungeoni::getoverlay(pointc v, directions d) {
 void dungeoni::set(pointc v, celln i) {
 	if(!v)
 		return;
+	switch(i) {
+	case CellPortal: state.portal = v; break;
+	case CellStairsUp: state.up = v; break;
+	case CellStairsDown: state.down = v; break;
+	}
 	data[v.y][v.x] = (data[v.y][v.x] & (~CellMask)) | i;
 }
 
@@ -181,4 +189,21 @@ void dungeoni::set(pointc v, celln type, directions d) {
 	case CellPortal: state.portal.set(v, d); break;
 	default: break;
 	}
+}
+
+int dungeoni::around(pointc v, celln t1, celln t2) const {
+	auto result = 0;
+	for(auto d : all_directions) {
+		auto t = loc->get(to(v, d));
+		if(t == t1 || t == t2)
+			result++;
+	}
+	return result;
+}
+
+bool filter_corridor(pointc v) {
+	if(get_wall(loc->get(v)) == CellWall)
+		return false;
+	return (get_wall(loc->get(to(v, Up))) == CellWall && get_wall(loc->get(to(v, Down))) == CellWall)
+		|| (get_wall(loc->get(to(v, Left))) == CellWall && get_wall(loc->get(to(v, Right))) == CellWall);
 }

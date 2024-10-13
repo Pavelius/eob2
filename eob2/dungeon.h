@@ -26,6 +26,7 @@ struct dungeoni : dungeon_site {
 	unsigned char	data[mpy][mpx];
 	overlayi*		add(pointc v, celln i, directions d);
 	void			addmonster(pointc v, unsigned char type) {}
+	int				around(pointc v, celln t1, celln t2) const;
 	void			block(bool treat_door_as_passable) const;
 	void			clear();
 	void			change(celln s, celln n);
@@ -47,4 +48,5 @@ extern dungeoni *loc, *locup, *locdw;
 extern unsigned short pathmap[mpy][mpx];
 
 void dungeon_create();
+bool filter_corridor(pointc v);
 void show_automap(bool visible_all = false);

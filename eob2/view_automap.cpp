@@ -2,6 +2,7 @@
 #include "direction.h"
 #include "draw.h"
 #include "dungeon.h"
+#include "math.h"
 #include "party.h"
 #include "view.h"
 
@@ -192,19 +193,17 @@ static void paint_automap() {
 	pointc v;
 	for(v.y = -1; v.y < mpy + 1; v.y++) {
 		for(v.x = -1; v.x < mpx + 1; v.x++) {
-			if(!v)
-				continue;
-			//if(fog_of_war) {
-			//	if(index == Blocked) {
-			//		auto x1 = imax(0, imin(x, mpx - 1));
-			//		auto y1 = imax(0, imin(y, mpy - 1));
-			//		if(!location.is(location.getindex(x1, y1), CellExplored))
-			//			continue;
-			//	} else {
-			//		if(!location.is(index, CellExplored))
-			//			continue;
-			//	}
-			//}
+			if(show_fog_of_war) {
+				if(!v) {
+					auto x1 = (char)imax(0, imin((int)v.x, mpx - 1));
+					auto y1 = (char)imax(0, imin((int)v.y, mpy - 1));
+					if(!loc->is({x1, y1}, CellExplored))
+						continue;
+				} else {
+					if(!loc->is(v, CellExplored))
+						continue;
+				}
+			}
 			fill_neighboard(v, nb);
 			auto pos = gs(v.x, v.y);
 			caret = pos;

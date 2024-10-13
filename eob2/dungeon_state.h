@@ -7,8 +7,8 @@ struct dungeon_state {
 	posable			up, down; // where is stairs located
 	posable			portal; // where is portal
 	posable			special; // where is special item dropped
-	posable			lair, major_lair; // where is lair and opening button located
-	posable			crypt; // where is crypt located
+	posable			lair; // where is lair located
+	posable			feature; // where is dungeon feature locatied (if any)
 	short unsigned	messages; // count of messages
 	short unsigned	secrets; // count of secret rooms
 	short unsigned	artifacts; // count of artifact items originally placed

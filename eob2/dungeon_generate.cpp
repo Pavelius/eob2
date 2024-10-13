@@ -271,6 +271,8 @@ static void portal(pointc v, directions d) {
 	if(!loc->is(v2, CellWall, CellUnknown))
 		return;
 	loc->set(v1, CellPortal);
+	loc->set(to(v1, to(d, Left)), CellWall);
+	loc->set(to(v1, to(d, Right)), CellWall);
 	loc->set(v2, CellWall);
 }
 
@@ -314,20 +316,19 @@ static void trap(pointc v, directions d) {
 		return;
 	if(!v)
 		return;
-	directions all_directions[] = {Down, Left, Right, Up};
+	static directions all_directions[] = {Down, Left, Right, Up};
 	pointc trap_launch;
+	directions dr = Center;
 	for(auto dr : all_directions) {
-		auto d1 = to(d, dr);
-		trap_launch = find_free_wall(v, d1);
-		if(trap_launch) {
-			d = d1;
+		dr = to(d, dr);
+		trap_launch = find_free_wall(v, dr);
+		if(trap_launch)
 			break;
-		}
 	}
 	if(!trap_launch)
 		return;
 	loc->set(v, CellButton);
-	auto po = loc->add(trap_launch, CellTrapLauncher, d);
+	auto po = loc->add(trap_launch, CellTrapLauncher, dr);
 	po->link = v;
 	loc->state.traps++;
 }
@@ -480,12 +481,9 @@ static void remove_dead_door() {
 		for(v.x = 0; v.x < mpx; v.x++) {
 			if(loc->get(v) != CellDoor)
 				continue;
-			// Door correct if place between two walls horizontally
-			if(isboth(v, Left, Right, CellWall, CellWall)
-				|| isboth(v, Up, Down, CellWall, CellWall))
-				continue;
-			// Door correct if there is exacly 2 walls around
-			if(loc->around(v, CellWall, CellWall) == 2)
+			// Door correct if there is exacly 2 walls around and it is a left-right or up-down
+			if(loc->around(v, CellWall, CellWall) == 2
+				&& (isboth(v, Left, Right, CellWall, CellWall) || isboth(v, Up, Down, CellWall, CellWall)))
 				continue;
 			// Incorrect door must be eliminated
 			loc->set(v, CellPassable);

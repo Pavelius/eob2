@@ -2,14 +2,10 @@
 
 #include "flagable.h"
 #include "nameable.h"
+#include "picture.h"
 
 enum resid : unsigned short;
 
-enum cellf : unsigned {
-	Passable,
-	LookWall, LookOverlay, LookObject,
-	PassableActivated
-};
 enum celln : unsigned char {
 	CellUnknown,
 	// Dungeon cells
@@ -28,10 +24,15 @@ enum celln : unsigned char {
 	CellDoorButton
 };
 enum cellfn : unsigned char {
-	CellExplored, CellActive
+	CellExplored, CellActive,
+   Passable,
+	LookWall, LookOverlay, LookObject,
+	PassableActivated
 };
-struct celli : nameable {
-	int			frame;
+struct celli : nameable, picturei {
+	int		frame;
 	resid		resource;
 	flagable<1, unsigned> flags;
+};
+struct cellfi : nameable {
 };

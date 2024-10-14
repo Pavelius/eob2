@@ -33,3 +33,13 @@ BSDATA(celli) = {
 	{"CellDoorButton"},
 };
 assert_enum(celli, CellDoorButton)
+BSDATA(cellfi) = {
+	{"CellExplored"},
+	{"CellActive"},
+	{"Passable"},
+	{"LookWall"},
+	{"LookOverlay"},
+	{"LookObject"},
+	{"PassableActivated"},
+};
+assert_enum(cellfi, PassableActivated)

@@ -38,7 +38,7 @@ static void parse_special(const char* p) {
 	p = skipsp(sb.psidf(p + 1));
 	auto pn = bsdata<residi>::find(temp);
 	if(pn) {
-		picture.id = (resid)(pn - bsdata<residi>::elements);
+		picture.res = (resid)(pn - bsdata<residi>::elements);
 		picture.frame = getparam(p);
 	}
 }

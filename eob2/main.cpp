@@ -34,7 +34,7 @@ int main() {
 	draw::settimer(100);
 //	if(!read_game("autosave")) {
 		script_run("StartGame");
-		save_game("autosave");
+		//save_game("autosave");
 //	}
 	run_next_scene();
 }

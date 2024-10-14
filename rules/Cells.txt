@@ -1,0 +1,6 @@
+#Cell
+
+CellWall
+ flags LookWall
+
+

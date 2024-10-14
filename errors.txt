@@ -1,2 +1,2 @@
-﻿Error in file `rules/Core.txt`:
- Line 25: Can't find variant `EnterDungeon`
+Error in file `rules/Cells.txt`:
+ Line 4: Not found identifier `Lo1okWall`

@@ -59,6 +59,12 @@ BSMETA(advancement) = {
 	{}};
 BSMETA(celli) = {
 	BSREQ(id),
+	BSENM(res, residi),
+	BSREQ(frame),
+	BSFLG(flags, cellfi),
+	{}};
+BSMETA(cellfi) = {
+	BSREQ(id),
 	{}};
 BSMETA(classi) = {
 	BSREQ(id),
@@ -111,7 +117,7 @@ BSMETA(partystati) = {
 	BSREQ(id),
 	{}};
 BSMETA(picturei) = {
-	BSENM(id, residi),
+	BSENM(res, residi),
 	BSREQ(frame),
 	{}};
 BSMETA(quest) = {

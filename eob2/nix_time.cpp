@@ -1,5 +1,7 @@
 #include <time.h>
 
+unsigned long start_random_seed;
+
 void waitcputime(unsigned v) {
     timespec req = {};
     req.tv_sec = v / 1000;

@@ -87,7 +87,7 @@ static void paint_background(resid v, int frame) {
 static void paint_picture() {
 	image(0, 0, gres(BORDER), 0, 0);
 	if(picture)
-		image(8, 8, gres(picture.id), picture.frame, 0);
+		image(8, 8, gres(picture.res), picture.frame, 0);
 }
 
 static void button_back(bool focused) {

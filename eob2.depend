@@ -207,7 +207,7 @@
 1728387414 /home/user-331/projects/eob2/eob2/script.h
 	"variant.h"
 
-1728889912 /home/user-331/projects/eob2/eob2/party.h
+1728912582 /home/user-331/projects/eob2/eob2/party.h
 	"flagable.h"
 	"nameable.h"
 	"posable.h"
@@ -405,10 +405,11 @@
 	"rand.h"
 	"script.h"
 
-1728903841 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1728912654 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"answers.h"
 	"assign.h"
+	"cell.h"
 	"class.h"
 	"creature.h"
 	"direction.h"

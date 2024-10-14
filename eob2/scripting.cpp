@@ -1,6 +1,7 @@
 #include "action.h"
 #include "answers.h"
 #include "assign.h"
+#include "cell.h"
 #include "class.h"
 #include "creature.h"
 #include "direction.h"
@@ -118,6 +119,10 @@ static void saves_modify(int bonus) {
 	ftscript<abilityi>(SaveVsParalization, bonus);
 	ftscript<abilityi>(SaveVsPoison, bonus);
 	ftscript<abilityi>(SaveVsTraps, bonus);
+}
+
+void pass_round() {
+	add_party(Minutes, 1);
 }
 
 void skip_hours(int value) {
@@ -375,10 +380,35 @@ static void message(const char* format, const char* format_param = 0) {
 	an = push;
 }
 
+static bool is_passable(pointc v) {
+   if(!v)
+      return false;
+   auto& ei = bsdata<celli>::elements[loc->get(v)];
+   return ei.flags.is(Passable) || (ei.flags.is(PassableActivated) && loc->is(v, CellActive));
+}
+
+static void jump_party(pointc v) {
+   if(!is_passable(v))
+      return;
+   assign<pointc>(party, v);
+   pass_round();
+   animation_update();
+}
+
 static void move_party_left() {
+   jump_party(to(party, to(party.d, Left)));
 }
 
 static void move_party_right() {
+   jump_party(to(party, to(party.d, Right)));
+}
+
+static void move_party_up() {
+   jump_party(to(party, Up));
+}
+
+static void move_party_down() {
+   jump_party(to(party, Down));
 }
 
 static void turn_right() {
@@ -395,6 +425,8 @@ static void play_dungeon_input() {
    static hotkeyi source[] = {
       {KeyLeft, move_party_left},
       {KeyRight, move_party_right},
+      {KeyUp, move_party_up},
+      {KeyDown, move_party_down},
       {KeyHome, turn_left},
       {KeyPageUp, turn_right},
       {}};

@@ -40,15 +40,15 @@ static int tokey(int vk) {
 		return KeyLeft;
 	case XK_Right:
 		return KeyRight;
-	case XK_Up:
+	case XK_Up: case XK_KP_Up:
 		return KeyUp;
 	case XK_Down:
 		return KeyDown;
-	case XK_Prior:
+	case XK_Prior: case XK_KP_Page_Up:
 		return KeyPageUp;
-	case XK_Next:
+	case XK_Next: case XK_KP_Page_Down:
 		return KeyPageDown;
-	case XK_Home:
+	case XK_Home: case XK_KP_Home:
 		return KeyHome;
 	case XK_End:
 		return KeyEnd;

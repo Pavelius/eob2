@@ -507,7 +507,7 @@
 	"io_stream.h"
 	"stringbuilder.h"
 
-1728889912 source:/home/user-331/projects/eob2/eob2/nix_draw.cpp
+1728905669 source:/home/user-331/projects/eob2/eob2/nix_draw.cpp
 	<X11/keysym.h>
 	<X11/Xlib.h>
 	<X11/Xutil.h>

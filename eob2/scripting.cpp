@@ -1,5 +1,6 @@
 #include "action.h"
 #include "answers.h"
+#include "assign.h"
 #include "class.h"
 #include "creature.h"
 #include "draw.h"
@@ -373,8 +374,31 @@ static void message(const char* format, const char* format_param = 0) {
 	an = push;
 }
 
+static void play_dungeon() {
+	show_scene(paint_adventure, city_adventure_input, save_focus);
+}
+
+static dungeoni* find_dungeon(quest* pv) {
+	auto id = getbsi(pv);
+	if(id == 0xFFFF)
+		return 0;
+	for(auto& e : bsdata<dungeoni>()) {
+		if(e.quest_id == id)
+			return &e;
+	}
+	return 0;
+}
+
 static void enter_dungeon(int bonus) {
+	loc = find_dungeon(last_quest);
+	if(!loc)
+		return;
 	set_dungeon_tiles(loc->type);
+	save_focus = current_focus;
+	assign<pointc>(party, to(loc->state.up, loc->state.up.d));
+	party.d = loc->state.up.d;
+	animation_update();
+	set_next_scene(play_dungeon);
 }
 
 static void party_adventure(int bonus) {
@@ -491,7 +515,8 @@ BSDATA(script) = {
 	{"Damage", damage_modify},
 	{"DoneQuest", done_quest},
 	{"ExitGame", exit_game},
-	{"EatAndDrink", eat_and_drink},
+	{"EatAndDrink", eat_and_drink},	
+	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
 	{"IdentifyItem", identify_item},
 	{"LearnClericSpells", learn_cleric_spells},

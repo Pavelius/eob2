@@ -1,3 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Accept`
- Define translation for `Decline`
+﻿Error in file `rules/Core.txt`:
+ Line 25: Can't find variant `EnterDungeon`

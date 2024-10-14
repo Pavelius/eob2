@@ -22,6 +22,7 @@ struct dungeoni : dungeon_site {
 		void		clear();
 	};
 	dungeon_state	state;
+	unsigned short	quest_id;
 	ground			items[512];
 	creaturei		monsters[200];
 	overlayi		overlays[255];

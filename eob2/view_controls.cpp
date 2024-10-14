@@ -278,11 +278,6 @@ static void paint_compass(directions d) {
 	image(150, 158, gres(COMPASS), 8 + i, 0);
 }
 
-void paint_adventure() {
-	paint_background(PLAYFLD, 0);
-	paint_compass(Right);
-}
-
 static void paint_menu(point position, int object_width, int object_height) {
 	rectpush push;
 	caret = position;
@@ -810,10 +805,30 @@ void paint_city_menu() {
 	cancel_position = {6, 104};
 }
 
+void paint_andenture() {
+	paint_background(PLAYFLD, 0);
+	paint_avatars_no_focus_hilite();
+	paint_console();
+	paint_party_status();
+	paint_menu({0, 0}, 178, 121);
+	caret = {6, 6};
+	width = 165;
+	height = texth() + 3;
+	cancel_position = {6, 104};
+}
+
 void paint_city() {
 	paint_background(PLAYFLD, 0);
 	paint_picture();
 	paint_party_status();
+	paint_party_sheets();
+	paint_console();
+}
+
+void paint_adventure() {
+	paint_background(PLAYFLD, 0);
+	paint_compass(party.d);
+	paint_dungeon();
 	paint_party_sheets();
 	paint_console();
 }

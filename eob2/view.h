@@ -41,6 +41,7 @@ void paint_avatars_no_focus();
 void paint_avatars_no_focus_hilite();
 void paint_city();
 void paint_city_menu();
+void paint_dungeon();
 void paint_main_menu();
 void paint_party_status();
 void set_dungeon_tiles(resid type);

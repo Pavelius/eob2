@@ -978,7 +978,7 @@ void renderi::paint() const {
 	palt = push_pal;
 }
 
-static void render_screen() {
+void paint_dungeon() {
 	// Points of view like this:
 	//
 	// A|B|C|D|E|F|G
@@ -1014,8 +1014,8 @@ static void render_screen() {
 	// 1 - 128x96, side has 24
 	// 0 - 176x120 - background
 	renderi* zorder[512];
+	auto push_clip = clipping;
 	unsigned flags = flip_flags(party, party.d);
-	//draw::image(scrx/2((flags&ImageMirrorH) != 0) ? 22 * 8 : 0, 0, map_tiles, 0, flags);
 	image(scrx / 2, scry / 2, map_tiles, 0, flags);
 	setclip({0, 0, scrx, scry});
 	renderi** pz = zorder;
@@ -1032,6 +1032,7 @@ static void render_screen() {
 		} else
 			p->paint();
 	}
+	clipping = push_clip;
 }
 
 void animation_update() {

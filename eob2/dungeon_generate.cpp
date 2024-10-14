@@ -589,17 +589,20 @@ static void apply_shape(pointc v, directions d, const shapei* shape, char sym, f
 static void stairs_up(pointc v, directions d, const shapei* ps) {
 	apply_shape(v, d, ps, '0', CellStairsUp);
 	apply_shape(v, d, ps, '1', CellPassable);
+	loc->state.up.d = d;
 }
 
 static void stairs_down(pointc v, directions d, const shapei* ps) {
 	apply_shape(v, d, ps, '0', CellStairsDown);
 	apply_shape(v, d, ps, '1', CellPassable);
+	loc->state.down.d = d;
 }
 
 static void create_lair(pointc v, directions d, const shapei* ps) {
 	apply_shape(v, d, ps, '0', CellPassable);
 	apply_shape(v, d, ps, '1', CellDoor);
 	apply_shape(v, d, ps, '.', monster);
+	loc->state.lair.d = d;
 }
 
 static void create_room(pointc v, directions d, const char* id, fnroom proc) {
@@ -638,7 +641,7 @@ static void create_rooms(pointc start, bool last_level) {
 	create_room(loc->state.feature, "ShapeLargeRoom", create_lair);
 }
 
-static void dungeon_create(slice<dungeon_site> source) {
+static void dungeon_create(unsigned short quest_id, slice<dungeon_site> source) {
 	auto base = 0;
 	auto total_level_count = total_levels(source);
 	dungeoni* previous = 0;
@@ -656,6 +659,7 @@ static void dungeon_create(slice<dungeon_site> source) {
 			while(true) {
 				loc->clear();
 				assign<dungeon_site>(*loc, ei);
+				loc->quest_id = quest_id;
 				loc->level = level;
 				loc->cursed = 5;
 				if(special_item_level != j)
@@ -694,5 +698,5 @@ static void dungeon_create(slice<dungeon_site> source) {
 }
 
 void dungeon_create() {
-	dungeon_create(last_quest->sites);
+	dungeon_create(getbsi(last_quest), last_quest->sites);
 }

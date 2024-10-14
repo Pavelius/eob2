@@ -26,6 +26,7 @@ void* dialog(const char* cancel, const char* format, ...);
 void choose_spells(const char* title, const char* cancel, int spell_type);
 void show_scene(fnevent before_paint, fnevent input, void* focus);
 
+bool adventure_input(const hotkeyi* hotkeys);
 void alternate_focus_input();
 void animation_update();
 void button_label(int index, const void* data, const char* format, unsigned key, fnevent proc);

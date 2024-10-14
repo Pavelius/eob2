@@ -1058,6 +1058,15 @@ void city_input(const hotkeyi* hotkeys) {
 		return;
 }
 
+bool adventure_input(const hotkeyi* hotkeys) {
+	alternate_focus_input();
+	if(character_input())
+		return true;
+	if(hotkey_input(hotkeys))
+		return true;
+   return false;
+}
+
 void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding) {
 	if(!show_interactive)
 		return an.random();

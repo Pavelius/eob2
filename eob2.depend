@@ -360,7 +360,7 @@
 1728387414 /home/user-331/projects/eob2/eob2/textscript.h
 	"stringbuilder.h"
 
-1728889912 /home/user-331/projects/eob2/eob2/view.h
+1728903524 /home/user-331/projects/eob2/eob2/view.h
 	"point.h"
 
 1728387414 source:/home/user-331/projects/eob2/eob2/nameable.cpp
@@ -405,12 +405,13 @@
 	"rand.h"
 	"script.h"
 
-1728901260 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1728903841 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"answers.h"
 	"assign.h"
 	"class.h"
 	"creature.h"
+	"direction.h"
 	"draw.h"
 	"dungeon.h"
 	"formula.h"
@@ -621,7 +622,7 @@
 	"pointca.h"
 	"view.h"
 
-1728890334 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
+1728903511 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
 	"answers.h"
 	"creature.h"
 	"class.h"

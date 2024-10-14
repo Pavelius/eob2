@@ -3,6 +3,7 @@
 #include "assign.h"
 #include "class.h"
 #include "creature.h"
+#include "direction.h"
 #include "draw.h"
 #include "dungeon.h"
 #include "formula.h"
@@ -374,8 +375,34 @@ static void message(const char* format, const char* format_param = 0) {
 	an = push;
 }
 
+static void move_party_left() {
+}
+
+static void move_party_right() {
+}
+
+static void turn_right() {
+   party.d = to(party.d, Right);
+   animation_update();
+}
+
+static void turn_left() {
+   party.d = to(party.d, Left);
+   animation_update();
+}
+
+static void play_dungeon_input() {
+   static hotkeyi source[] = {
+      {KeyLeft, move_party_left},
+      {KeyRight, move_party_right},
+      {KeyHome, turn_left},
+      {KeyPageUp, turn_right},
+      {}};
+   adventure_input(source);
+}
+
 static void play_dungeon() {
-	show_scene(paint_adventure, city_adventure_input, save_focus);
+	show_scene(paint_adventure, play_dungeon_input, save_focus);
 }
 
 static dungeoni* find_dungeon(quest* pv) {

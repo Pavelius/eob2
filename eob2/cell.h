@@ -30,9 +30,8 @@ enum cellfn : unsigned char {
 	PassableActivated
 };
 struct celli : nameable, picturei {
-	int		frame;
-	resid		resource;
 	flagable<1, unsigned> flags;
+	celln activate;
 };
 struct cellfi : nameable {
 };

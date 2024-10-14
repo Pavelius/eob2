@@ -176,7 +176,7 @@
 	"randomeffect.h"
 	"variant.h"
 
-1728550410 /home/user-331/projects/eob2/eob2/flagable.h
+1728893166 /home/user-331/projects/eob2/eob2/flagable.h
 
 1728387414 /home/user-331/projects/eob2/eob2/randomeffect.h
 	"dice.h"
@@ -342,7 +342,7 @@
 	"modifier.h"
 	"script.h"
 
-1728889912 source:/home/user-331/projects/eob2/eob2/main.cpp
+1728891916 source:/home/user-331/projects/eob2/eob2/main.cpp
 	"avatar.h"
 	"bsreq.h"
 	"draw.h"
@@ -392,7 +392,7 @@
 1728387414 source:/home/user-331/projects/eob2/eob2/randomeffect.cpp
 	"randomeffect.h"
 
-1728653510 source:/home/user-331/projects/eob2/eob2/resid.cpp
+1728901427 source:/home/user-331/projects/eob2/eob2/resid.cpp
 	"bsdata.h"
 	"io_stream.h"
 	"resid.h"
@@ -405,7 +405,7 @@
 	"rand.h"
 	"script.h"
 
-1728889912 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1728901260 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"answers.h"
 	"assign.h"
@@ -537,7 +537,7 @@
 	"slice.h"
 	"view.h"
 
-1728889912 /home/user-331/projects/eob2/eob2/dungeon.h
+1728901819 /home/user-331/projects/eob2/eob2/dungeon.h
 	"creature.h"
 	"dungeon_site.h"
 	"dungeon_state.h"
@@ -572,7 +572,7 @@
 
 1728889912 /home/user-331/projects/eob2/eob2/pointc.h
 
-1728890183 source:/home/user-331/projects/eob2/eob2/dungeon_generate.cpp
+1728901993 source:/home/user-331/projects/eob2/eob2/dungeon_generate.cpp
 	"assign.h"
 	"answers.h"
 	"cell.h"
@@ -589,7 +589,7 @@
 
 1728889912 /home/user-331/projects/eob2/eob2/assign.h
 
-1728890615 /home/user-331/projects/eob2/eob2/cell.h
+1728900681 /home/user-331/projects/eob2/eob2/cell.h
 	"flagable.h"
 	"nameable.h"
 	"picture.h"
@@ -640,7 +640,7 @@
 	"view.h"
 	"view_focus.h"
 
-1728889912 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
+1728902037 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
 	"creature.h"
 	"direction.h"
 	"draw.h"
@@ -650,7 +650,7 @@
 	"resid.h"
 	"view.h"
 
-1728889912 source:/home/user-331/projects/eob2/eob2/dungeon.cpp
+1728901776 source:/home/user-331/projects/eob2/eob2/dungeon.cpp
 	"assign.h"
 	"cell.h"
 	"direction.h"
@@ -678,7 +678,10 @@
 	"math.h"
 	"log.h"
 
-1728890754 source:/home/user-331/projects/eob2/eob2/cell.cpp
+1728901223 source:/home/user-331/projects/eob2/eob2/cell.cpp
 	"bsdata.h"
 	"cell.h"
+	"resid.h"
+	"math.h"
+	"view.h"
 

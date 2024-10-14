@@ -515,7 +515,7 @@ BSDATA(script) = {
 	{"Damage", damage_modify},
 	{"DoneQuest", done_quest},
 	{"ExitGame", exit_game},
-	{"EatAndDrink", eat_and_drink},	
+	{"EatAndDrink", eat_and_drink},
 	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
 	{"IdentifyItem", identify_item},

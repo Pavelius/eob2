@@ -125,9 +125,9 @@ static bool door(pointc v, directions d, bool has_button, bool has_button_on_oth
 		return false;
 	loc->set(v, CellDoor);
 	if(has_button)
-		loc->add(to(v, to(d, Down)), CellDoorButton, d);
+		loc->add(to(v, to(d, Down)), d, CellDoorButton);
 	if(has_button_on_other_side)
-		loc->add(to(v, d), CellDoorButton, to(d, Down));
+		loc->add(to(v, d), to(d, Down), CellDoorButton);
 	return true;
 }
 
@@ -177,7 +177,7 @@ static void secret(pointc v, directions d) {
 	if(loc->around(v2, CellWall, CellUnknown) != 4)
 		return;
 	loc->set(v1, CellWall);
-	loc->add(v, CellSecrectButton, d);
+	loc->add(v, d, CellSecrectButton);
 	loc->set(v2, CellPassable);
 	int count = 1;
 	if(d100() < 25)
@@ -209,7 +209,7 @@ static void prison(pointc v, directions d) {
 	if(!isaround(v2, d, CellWall))
 		return;
 	loc->set(v1, CellDoor);
-	loc->add(v, CellDoorButton, d);
+	loc->add(v, d, CellDoorButton);
 	loc->set(to(v1, to(d, Left)), CellWall);
 	loc->set(to(v1, to(d, Right)), CellWall);
 	loc->set(v2, CellPassable);
@@ -238,7 +238,7 @@ static void treasure(pointc v, directions d) {
 		return;
 	auto magic_bonus = 2;
 	loc->set(v1, CellDoor);
-	loc->add(to(v, to(d, Right)), CellKeyHole, d);
+	loc->add(to(v, to(d, Right)), d, CellKeyHole);
 	loc->set(to(v1, to(d, Left)), CellWall);
 	loc->set(to(v1, to(d, Right)), CellWall);
 	loc->set(v2, CellPassable);
@@ -257,7 +257,7 @@ static void decoration(pointc v, directions d) {
 		return;
 	static celln random[] = {CellDecor1, CellDecor2, CellDecor3};
 	loc->set(v1, CellWall);
-	loc->add(v, maprnd(random), d);
+	loc->add(v, d, maprnd(random));
 }
 
 static void portal(pointc v, directions d) {
@@ -290,7 +290,7 @@ static void message(pointc v, directions d) {
 	if(!loc->is(v1, CellWall, CellUnknown))
 		return;
 	loc->set(v1, CellWall);
-	auto po = loc->add(v, CellMessage, d);
+	auto po = loc->add(v, d, CellMessage);
 	po->subtype = (unsigned char)loc->state.messages;
 	loc->state.messages++;
 }
@@ -348,7 +348,7 @@ static void resolve_traps() {
 				range = r;
 				launch_direction = d;
 			}
-			auto po = loc->add(trap_launch, CellTrapLauncher, launch_direction);
+			auto po = loc->add(trap_launch, launch_direction, CellTrapLauncher);
 			po->link = v;
 			loc->state.traps++;
 		}
@@ -371,7 +371,7 @@ static void cellar(pointc v, directions d) {
 	if(!loc->is(v1, CellWall, CellUnknown))
 		return;
 	loc->set(v1, CellWall);
-	auto po = loc->add(v, CellCellar, d);
+	auto po = loc->add(v, d, CellCellar);
 	auto count = random_cellar_count();
 	while(count > 0) {
 		//auto i1 = create_item(pd, random_type(true), 2);

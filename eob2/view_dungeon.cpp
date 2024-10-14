@@ -327,6 +327,8 @@ static dungeoni::overlayi* add_wall_decor(renderi* p, pointc index, directions d
 	if(t1 == CellWall || t1 == CellStairsUp || t1 == CellStairsDown || t1 == CellPortal || t1 == CellDoor)
 		return 0;
 	auto povr = loc->getoverlay(index_start, to(bd, Down));
+	if(!povr)
+      return 0;
 	auto tile = povr->type;
 	if(tile < CellPuller)
 		return 0;
@@ -688,8 +690,8 @@ static renderi* create_floor(renderi* p, int i, pointc index, celln rec, bool fl
 		if(rec == CellButton && loc->is(index, CellActive))
 			frame = get_tile_alternate(rec);
 		p->frame[0] = floor_frame[i] + frame;
-		if(bsdata<celli>::elements[rec].resource)
-			p->rdata = gres(bsdata<celli>::elements[rec].resource);
+		if(bsdata<celli>::elements[rec].res)
+			p->rdata = gres(bsdata<celli>::elements[rec].res);
 		else
 			p->rdata = map_tiles;
 		p->pos = index;

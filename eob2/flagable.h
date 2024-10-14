@@ -20,6 +20,7 @@ class flagable<1, T> {
 public:
 	constexpr explicit operator bool() const { return data != 0; }
 	constexpr flagable() : data(0) {}
+	constexpr flagable(T data) : data(data) {}
 	constexpr bool is(short unsigned v) const { return (data & (1 << v)) != 0; }
 	constexpr void remove(short unsigned v) { data &= ~(1 << v); }
 	constexpr void set(short unsigned v) { data |= (1 << v); }

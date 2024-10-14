@@ -5,7 +5,6 @@
 #include "rules/Advance.txt"
 #include "rules/Locations.txt"
 #include "rules/Shapes.txt" Shape
-#include "rules/Cells.txt"
 #include "rules/Quests.txt"
 
 #List

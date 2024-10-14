@@ -1,2 +1,2 @@
-Error in file `rules/Cells.txt`:
- Line 4: Not found identifier `Lo1okWall`
+Error in file `rules/Quests.txt`:
+ Line 4: Not found identifier `BRICK`

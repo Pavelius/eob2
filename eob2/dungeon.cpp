@@ -116,7 +116,7 @@ celln dungeoni::get(pointc v) const {
 	return (celln)((data[v.y][v.x] & CellMask));
 }
 
-dungeoni::overlayi* dungeoni::add(pointc v, celln i, directions d) {
+dungeoni::overlayi* dungeoni::add(pointc v, directions d, celln i) {
 	if(!v)
 		return 0;
 	dungeoni::overlayi* p = 0;
@@ -133,6 +133,8 @@ dungeoni::overlayi* dungeoni::add(pointc v, celln i, directions d) {
 }
 
 dungeoni::overlayi* dungeoni::getoverlay(pointc v, directions d) {
+   if(!v)
+      return 0;
 	for(auto& e : overlays) {
 		if(e==v && e.d==d)
 			return &e;

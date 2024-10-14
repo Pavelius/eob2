@@ -27,7 +27,7 @@ struct dungeoni : dungeon_site {
 	creaturei		monsters[200];
 	overlayi		overlays[255];
 	unsigned char	data[mpy][mpx];
-	overlayi*		add(pointc v, celln i, directions d);
+	overlayi*		add(pointc v, directions d, celln i);
 	void			addmonster(pointc v, unsigned char type) {}
 	int				around(pointc v, celln t1, celln t2) const;
 	void			block(bool treat_door_as_passable) const;

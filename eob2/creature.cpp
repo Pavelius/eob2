@@ -395,6 +395,10 @@ const char* creaturei::getbadstate() const {
 	return 0;
 }
 
+void creaturei::addexp(int value) {
+	experience += value;
+}
+
 bool can_remove(const item* pi, bool speech) {
 	auto player = item_owner(pi);
 	if(!player)

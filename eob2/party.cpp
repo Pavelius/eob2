@@ -35,3 +35,33 @@ bool parse_abilities(stringbuilder& sb, const char* id) {
 	sb.add("%1i", party.abilities[index]);
 	return true;
 }
+
+void set_party_position(pointc v) {
+	party.x = v.x;
+	party.y = v.y;
+}
+
+void set_party_position(pointc v, directions d) {
+	set_party_position(v);
+	party.d = d;
+}
+
+int party_count() {
+	int result = 0;
+	for(auto p : party.units) {
+		if(p && !p->isdisabled())
+			result++;
+	}
+	return result;
+}
+
+void party_addexp(int value) {
+	auto n = party_count();
+	if(!n)
+		return;
+	value = (value + n - 1) / n;
+	for(auto p : party.units) {
+		if(p && !p->isdisabled())
+			p->addexp(value);
+	}
+}

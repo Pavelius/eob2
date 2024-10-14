@@ -25,7 +25,7 @@ enum celln : unsigned char {
 };
 enum cellfn : unsigned char {
 	CellExplored, CellActive,
-   Passable,
+	Passable,
 	LookWall, LookOverlay, LookObject,
 	PassableActivated
 };

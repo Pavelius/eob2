@@ -132,7 +132,7 @@ dungeoni::overlayi* dungeoni::add(pointc v, directions d, celln i) {
 	return 0;
 }
 
-dungeoni::overlayi* dungeoni::getoverlay(pointc v, directions d) {
+dungeoni::overlayi* dungeoni::get(pointc v, directions d) {
    if(!v)
       return 0;
 	for(auto& e : overlays) {

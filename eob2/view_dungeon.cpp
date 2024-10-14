@@ -112,7 +112,7 @@ static int get_tile(celln id, bool mirrored) {
 	return bsdata<celli>::elements[id].frame;
 }
 
-static inline int get_tile_alternate(celln id) {
+static int get_tile_alternate(celln id) {
 	return decor_offset + 2 * decor_frames;
 }
 
@@ -215,14 +215,14 @@ void view_dungeon_reset() {
 	map_tiles = 0;
 }
 
-static int get_dungeon_floor(pointc v, directions dir) {
-	if(!v)
-		return -1;
-	int t = loc->get(v);
-	if(t == CellButton)
-		return loc->is(v, CellActive) ? 2 : 1;
-	return -1;
-}
+//static int get_dungeon_floor(pointc v, directions dir) {
+//	if(!v)
+//		return -1;
+//	int t = loc->get(v);
+//	if(t == CellButton)
+//		return loc->is(v, CellActive) ? 2 : 1;
+//	return -1;
+//}
 
 static void render_player_damage(int x, int y, int hits, unsigned counter) {
 	//draw::state push;
@@ -326,9 +326,9 @@ static dungeoni::overlayi* add_wall_decor(renderi* p, pointc index, directions d
 	auto t1 = loc->get(index_start);
 	if(t1 == CellWall || t1 == CellStairsUp || t1 == CellStairsDown || t1 == CellPortal || t1 == CellDoor)
 		return 0;
-	auto povr = loc->getoverlay(index_start, to(bd, Down));
+	auto povr = loc->get(index_start, to(bd, Down));
 	if(!povr)
-      return 0;
+		return 0;
 	auto tile = povr->type;
 	if(tile < CellPuller)
 		return 0;
@@ -336,7 +336,7 @@ static dungeoni::overlayi* add_wall_decor(renderi* p, pointc index, directions d
 	if(frame == -1)
 		return 0;
 	if(tile == CellPuller) {
-		if(loc->isactive(povr))
+		if(povr->is(CellActive))
 			frame += decor_frames;
 	}
 	p->frame[1] = frame + n;
@@ -530,7 +530,7 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 			p->pos = index;
 			auto e1 = map_tiles->get(door_offset + pos_levels[i] - 1);
 			auto e2 = map_tiles->get(door_offset + 6 + pos_levels[i] - 1);
-			auto po = loc->getoverlay(to(indecies[i], to(party.d, Down)), party.d);
+			auto po = loc->get(to(indecies[i], to(party.d, Down)), party.d);
 			switch(render_door_type) {
 			case BLUE:
 				if(loc->is(index, CellActive)) {
@@ -714,12 +714,10 @@ static renderi* create_thrown(renderi* p, int i, int ps, const itemi* rec, direc
 	switch(dr) {
 	case Left:
 		p->y = 24 + d * 2;
-		//p->y = 30 + d * 2;
 		p->x = get_x_from_line(p->y, (176 - 72) / 2 + 14, 24, (176 - 32) / 2 + 6, 40);
 		break;
 	case Right:
 		p->y = 24 + d * 2;
-		//p->y = 30 + d * 2;
 		p->x = get_x_from_line(p->y, (176 - 72) / 2 + 72 - 14, 24, (176 - 32) / 2 + 32 - 6, 40);
 		break;
 	default:

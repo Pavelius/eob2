@@ -1,3 +1,20 @@
+#CellSecrectButtonAccept
+A secret door! I know it!
+Good, secret door. What is inside?
+
+#CellKeyHoleAbout
+This is hole for a key.
+I can insert proper key in this hole.
+This one open door nearbe.
+
+#CellDecor2Brick
+Drainage gate or some thing.
+
+#CellDecor1Brick
+Some kind of theives signs.
+I don't unredstand this thives sign.
+I don't known what is it.
+
 #CantDropCursedItem
 This is mine!
 No! I can't remove this item.

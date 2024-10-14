@@ -16,9 +16,10 @@ static color bpass(176, 120, 64);
 static color bpits = bpass.darken();
 static color cdoor(140, 88, 48);
 static const pointca* red_markers;
-static bool show_fog_of_war = false;
-static bool show_secrets = false;
-static bool show_any_markers = false;
+static bool show_fog_of_war;
+static bool show_secrets;
+static bool show_any_markers;
+static bool show_party;
 
 const int mpg = 8;
 
@@ -38,7 +39,7 @@ static void red_marker() {
 	fore = push_fore;
 }
 
-static void show_camera_pos() {
+static void paint_party_position() {
 	auto push_caret = caret;
 	auto push_fore = fore;
 	fore = colors::red;
@@ -46,8 +47,8 @@ static void show_camera_pos() {
 	auto camera = gs(party.x, party.y);
 	auto x1 = camera.x;
 	auto y1 = camera.y;
-	auto x2 = x1 + mpg;
-	auto y2 = y1 + mpg;
+	auto x2 = x1 + mpg - 1;
+	auto y2 = y1 + mpg - 1;
 	auto cx = x1 + mpg / 2;
 	auto cy = y1 + mpg / 2;
 	switch(direct) {
@@ -70,7 +71,7 @@ static void show_camera_pos() {
 		pixel(caret.x + 1, caret.y + 1);
 		break;
 	case Down:
-		caret.x = cx; caret.y = 12;
+		caret.x = cx; caret.y = y1;
 		line(caret.x, y2);
 		pixel(caret.x - 1, caret.y - 1);
 		pixel(caret.x + 1, caret.y - 1);
@@ -342,9 +343,11 @@ static void paint_overlays() {
 		caret = p1;
 		switch(e.type) {
 		case CellSecrectButton:
-			caret.x += 1; caret.y += 1;
-			fore = bwall;
-			text("X");
+			if(show_secrets) {
+				caret.x += 1; caret.y += 1;
+				fore = bwall;
+				text("X");
+			}
 			break;
 		case CellTrapLauncher:
 			caret = p2;
@@ -363,6 +366,8 @@ static void paint_layers() {
 	paint_overlays();
 	if(show_any_markers)
 		paint_points(red_markers, red_marker);
+	if(show_party)
+		paint_party_position();
 }
 
 static void input_automap() {
@@ -373,9 +378,14 @@ static void input_automap() {
 	}
 }
 
-void show_automap(bool fog_of_war, bool secrets, const pointca* red_markers_array) {
-	show_fog_of_war = fog_of_war;
-	show_secrets = secrets;
-	red_markers = red_markers_array;
+void show_automap(bool show_fog_of_war, bool show_secrets, bool show_party, const pointca* red_markers) {
+	::show_fog_of_war = show_fog_of_war;
+	::show_secrets = show_secrets;
+	::show_party = show_party;
+	::red_markers = red_markers;
 	show_scene(paint_layers, input_automap, 0);
+}
+
+void show_dungeon_automap() {
+	show_automap(true, false, true, 0);
 }

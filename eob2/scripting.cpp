@@ -1,6 +1,5 @@
 #include "action.h"
 #include "answers.h"
-#include "assign.h"
 #include "cell.h"
 #include "class.h"
 #include "creature.h"
@@ -16,6 +15,7 @@
 #include "party.h"
 #include "quest.h"
 #include "race.h"
+#include "resid.h"
 #include "script.h"
 #include "speech.h"
 #include "spell.h"
@@ -94,6 +94,17 @@ template<> void ftscript<partystati>(int value, int bonus) {
 template<> void ftscript<itemi>(int value, int bonus) {
 	item v; v.create(value);
 	player->additem(v);
+}
+
+static dungeoni* find_dungeon(int level) {
+	auto id = getbsi(last_quest);
+	if(id == 0xFFFF)
+		return 0;
+	for(auto& e : bsdata<dungeoni>()) {
+		if(e.quest_id == id && e.level == level)
+			return &e;
+	}
+	return 0;
 }
 
 static const char* get_action() {
@@ -387,77 +398,169 @@ static bool is_passable(pointc v) {
    return ei.flags.is(Passable) || (ei.flags.is(PassableActivated) && loc->is(v, CellActive));
 }
 
-static void jump_party(pointc v) {
-   if(!is_passable(v))
-      return;
-   assign<pointc>(party, v);
-   pass_round();
-   animation_update();
-}
-
 static void move_party_left() {
-   jump_party(to(party, to(party.d, Left)));
+	move_party(to(party, to(party.d, Left)));
 }
 
 static void move_party_right() {
-   jump_party(to(party, to(party.d, Right)));
+	move_party(to(party, to(party.d, Right)));
 }
 
 static void move_party_up() {
-   jump_party(to(party, Up));
+	move_party(to(party, party.d));
 }
 
 static void move_party_down() {
-   jump_party(to(party, Down));
+	move_party(to(party, to(party.d, Down)));
 }
 
 static void turn_right() {
-   party.d = to(party.d, Right);
-   animation_update();
+	party.d = to(party.d, Right);
+	animation_update();
 }
 
 static void turn_left() {
-   party.d = to(party.d, Left);
-   animation_update();
+	party.d = to(party.d, Left);
+	animation_update();
+}
+
+static void explore_area() {
+	loc->set(party, CellExplored);
+	loc->set(to(party, Up), CellExplored);
+	loc->set(to(party, Down), CellExplored);
+	loc->set(to(party, Left), CellExplored);
+	loc->set(to(party, Right), CellExplored);
+}
+
+static void make_action() {
+	explore_area();
+	animation_update();
+}
+
+static void activate(pointc v, bool value) {
+	if(value)
+		loc->set(v, CellActive);
+	else
+		loc->remove(v, CellActive);
+}
+
+static void toggle(pointc v) {
+	if(!loc->is(v, CellActive))
+		loc->set(v, CellActive);
+	else
+		loc->remove(v, CellActive);
+}
+
+static bool change_cell(pointc v) {
+	if(!v)
+		return true;
+	auto t = loc->get(v);
+	auto n = bsdata<celli>::elements[t].activate;
+	if(!n)
+		return false;
+	loc->set(v, n);
+	return true;
+}
+
+static const char* dungeon_speech(celln t) {
+	static char temp[64]; stringbuilder sb(temp);
+	sb.add("%2%+1", bsdata<residi>::elements[loc->type].id, bsdata<celli>::elements[t].id);
+	return temp;
+}
+
+static void interact_overlay() {
+	auto p = loc->get(party, party.d);
+	if(!p)
+		return;
+	auto v = to(*p, p->d);
+	if(!v)
+		return;
+	item* pi = (item*)current_focus;
+	if(!bsdata<creaturei>::source.have(pi))
+		pi = 0;
+	switch(p->type) {
+	case CellDoorButton:
+		toggle(v);
+		break;
+	case CellDecor1:
+	case CellDecor2:
+	case CellDecor3:
+		player->speak(dungeon_speech(p->type));
+		break;
+	case CellSecrectButton:
+		if(change_cell(v)) {
+			party_addexp(400);
+			player->speak("CellSecrectButtonAccept");
+		}
+		break;
+	default:
+		player->speak(ids(bsdata<celli>::elements[p->type].id, "About"));
+		break;
+	}
+	make_action();
 }
 
 static void play_dungeon_input() {
-   static hotkeyi source[] = {
-      {KeyLeft, move_party_left},
-      {KeyRight, move_party_right},
-      {KeyUp, move_party_up},
-      {KeyDown, move_party_down},
-      {KeyHome, turn_left},
-      {KeyPageUp, turn_right},
-      {}};
-   adventure_input(source);
+	static hotkeyi source[] = {
+		{KeyLeft, move_party_left},
+		{KeyRight, move_party_right},
+		{KeyUp, move_party_up},
+		{KeyDown, move_party_down},
+		{KeyHome, turn_left},
+		{KeyPageUp, turn_right},
+		{'V', show_dungeon_automap},
+		{'M', interact_overlay},
+		{}};
+	adventure_input(source);
 }
 
 static void play_dungeon() {
 	show_scene(paint_adventure, play_dungeon_input, save_focus);
 }
 
-static dungeoni* find_dungeon(quest* pv) {
-	auto id = getbsi(pv);
-	if(id == 0xFFFF)
-		return 0;
-	for(auto& e : bsdata<dungeoni>()) {
-		if(e.quest_id == id)
-			return &e;
-	}
-	return 0;
-}
-
 static void enter_dungeon(int bonus) {
-	loc = find_dungeon(last_quest);
+	loc = find_dungeon(bonus);
+	if(!loc && bonus == 0)
+		bonus = 1;
+	loc = find_dungeon(bonus);
 	if(!loc)
 		return;
 	set_dungeon_tiles(loc->type);
 	save_focus = current_focus;
-	assign<pointc>(party, to(loc->state.up, loc->state.up.d));
-	party.d = loc->state.up.d;
-	animation_update();
+	set_party_position(to(loc->state.up, loc->state.up.d), loc->state.up.d);
+	make_action();
 	set_next_scene(play_dungeon);
+}
+
+static bool party_move_interact(pointc v) {
+	switch(loc->get(v)) {
+	case CellStairsUp:
+		if(find_dungeon(loc->level - 1))
+			enter_dungeon(loc->level - 1);
+		else if(confirm(getnm("ReturnToTownConfirm")))
+			enter_location(0);
+		break;
+	case CellStairsDown:
+		if(find_dungeon(loc->level + 1))
+			enter_dungeon(loc->level + 1);
+		else if(confirm(getnm("ReturnToTownConfirm")))
+			enter_location(0);
+		return false;
+	default:
+		return false;
+	}
+	return true;
+}
+
+static void move_party(pointc v) {
+   if(!is_passable(v))
+      return;
+   if(party_move_interact(v))
+	   return;
+   set_party_position(v);
+   explore_area();
+   pass_round();
+   animation_update();
 }
 
 static void party_adventure(int bonus) {

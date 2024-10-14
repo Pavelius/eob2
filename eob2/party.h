@@ -23,9 +23,13 @@ extern partyi party;
 void add_party(partystatn id, int value);
 void continue_game();
 bool is_dead_line();
+void move_party(pointc v);
+void party_addexp(int value);
 void pass_round();
 bool read_game(const char* id);
 void save_game(const char* id);
+void set_party_position(pointc v);
+void set_party_position(pointc v, directions d);
 void skip_hours(int value);
 
 int getparty(partystatn id);

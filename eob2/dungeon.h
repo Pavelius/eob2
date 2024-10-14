@@ -19,7 +19,9 @@ struct dungeoni : dungeon_site {
 		celln		type; // type of overlay
 		pointc		link; // linked to this location
 		unsigned char subtype; // depends on value type
+		flag8		flags;
 		void		clear();
+		bool		is(cellfn v) const { return flags.is(v); }
 	};
 	dungeon_state	state;
 	unsigned short	quest_id;
@@ -34,14 +36,13 @@ struct dungeoni : dungeon_site {
 	void			clear();
 	void			change(celln s, celln n);
 	celln			get(pointc v) const;
+	overlayi*		get(pointc v, directions d);
 	slice<ground>	getitems() { return slice<ground>(items, state.items); }
 	slice<creaturei> getmonsters() { return slice<creaturei>(monsters, state.monsters); }
 	slice<overlayi> getoverlays() { return slice<overlayi>(overlays, state.overlays); }
-	overlayi*		getoverlay(pointc v, directions d);
 	overlayi*		getoverlay(pointc v, celln type);
 	bool			is(pointc v, cellfn i) const;
 	bool			is(pointc v, celln t1, celln t2) const;
-	bool			isactive(const overlayi* p) const { return false; }
 	void			makewave(pointc start) const;
 	void			remove(pointc v, cellfn i);
 	void			set(pointc v, celln i);
@@ -54,4 +55,5 @@ extern unsigned short pathmap[mpy][mpx];
 
 void dungeon_create();
 bool filter_corridor(pointc v);
-void show_automap(bool visible_all = false, bool secrets = false, const pointca* red_markers = 0);
+void show_automap(bool show_fog_of_war, bool show_secrets, bool show_party, const pointca* red_markers);
+void show_dungeon_automap();

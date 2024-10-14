@@ -25,7 +25,7 @@ const char*	npc::getname() const {
 }
 
 void npc::say(const char* format, ...) const {
-   XVA_FORMAT(format);
+	XVA_FORMAT(format);
 	sayv(format, format_param);
 }
 
@@ -33,7 +33,7 @@ void npc::speak(const char* format, ...) const {
 	format = speech_get(format);
 	if(!format)
 		format = speech_get("WhatDoYouSay");
-   XVA_FORMAT(format);
+	XVA_FORMAT(format);
 	sayv(format, format_param);
 }
 

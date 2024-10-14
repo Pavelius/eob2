@@ -29,7 +29,7 @@ static unsigned char stack_get; // Stack bottom
 
 #ifdef DEBUG_ROOM
 static void show_map_interactive() {
-	show_automap(false);
+	show_automap(false, true, false, 0);
 }
 #endif
 
@@ -55,7 +55,7 @@ static void show_map_pathfind() {
 	loc->block(true);
 	loc->makewave(loc->state.up);
 	select_pathable(points);
-	show_automap(false, true, &points);
+	show_automap(false, true, false, &points);
 }
 #endif
 
@@ -302,7 +302,7 @@ static pointc find_free_wall(pointc v, directions d) {
 			return {-1, -1};
 		switch(loc->get(v1)) {
 		case CellWall:
-			if(loc->getoverlay(v, d))
+			if(loc->get(v, d))
 				return {-1, -1};
 			return v;
 		case CellPassable:

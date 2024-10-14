@@ -1,9 +1,15 @@
 #pragma once
 
+#include "flagable.h"
 #include "nameable.h"
 
 enum resid : unsigned short;
 
+enum cellf : unsigned {
+	Passable,
+	LookWall, LookOverlay, LookObject,
+	PassableActivated
+};
 enum celln : unsigned char {
 	CellUnknown,
 	// Dungeon cells
@@ -25,6 +31,7 @@ enum cellfn : unsigned char {
 	CellExplored, CellActive
 };
 struct celli : nameable {
-	int		frame;
-	resid	resource;
+	int			frame;
+	resid		resource;
+	flagable<1, unsigned> flags;
 };

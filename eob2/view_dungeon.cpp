@@ -877,10 +877,10 @@ static void prepare_draw(pointc index, directions dr) {
 			p = create_monsters(p, i, index, dr, mr);
 		}
 		auto& et = bsdata<celli>::elements[tile];
-		//if(et.flags.is(LookWall))
-		//	p = create_wall(p, i, index, get_tile(tile, mr), tile, mr);
-		//else if(et.flags.is(LookObject))
-		//	p = create_floor(p, i, index, tile, mr);
+		if(et.flags.is(LookWall))
+			p = create_wall(p, i, index, get_tile(tile, mr), tile, mr);
+		else if(et.flags.is(LookObject))
+			p = create_floor(p, i, index, tile, mr);
 	}
 	p->rdata = 0;
 }

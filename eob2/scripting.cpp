@@ -447,6 +447,8 @@ static void activate(pointc v, bool value) {
 }
 
 static void toggle(pointc v) {
+	if(!v)
+		return;
 	if(!loc->is(v, CellActive))
 		loc->set(v, CellActive);
 	else
@@ -464,17 +466,31 @@ static bool change_cell(pointc v) {
 	return true;
 }
 
-static void interact_overlay() {
-	auto p = loc->get(party, party.d);
-	if(!p)
-		return;
-	auto v = to(*p, p->d);
-	if(!v)
-		return;
+static void read_wall_messages(creaturei* player, dungeoni::overlayi* p) {
+	switch(p->subtype) {
+	case MessageAtifacts:
+		break;
+	case MessageBoss:
+		break;
+	case MessageMagicWeapons:
+	case MessageMagicRings:
+	case MessageSecrets:
+	case MessageTraps:
+	case MessageSpecialItem:
+	case MessageHabbits:
+		break;
+	}
+}
+
+static void manipulate() {
+	auto v = to(party, party.d);
 	auto player = item_owner(current_focus);
 	if(!player)
 		return;
 	item* pi = (item*)current_focus;
+	auto p = loc->get(party, party.d);
+	if(!p)
+		return;
 	switch(p->type) {
 	case CellDoorButton:
 		toggle(v);
@@ -492,6 +508,9 @@ static void interact_overlay() {
 			loc->state.secrets_found++;
 		}
 		break;
+	case CellMessage:
+		read_wall_messages(player, p);
+		break;
 	default:
 		player->speak(getid<celli>(p->type), "About");
 		break;
@@ -508,7 +527,7 @@ static void play_dungeon_input() {
 		{KeyHome, turn_left},
 		{KeyPageUp, turn_right},
 		{'V', show_dungeon_automap},
-		{'M', interact_overlay},
+		{'M', manipulate},
 		{}};
 	adventure_input(source);
 }

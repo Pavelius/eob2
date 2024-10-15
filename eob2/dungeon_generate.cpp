@@ -116,6 +116,7 @@ static bool door(pointc v, directions d, bool has_button, bool has_button_on_oth
 	case CellWall:
 	case CellPortal:
 		return false;
+   default: break;
 	}
 	// If nearbe at least one door present, don't create new one.
 	if(loc->around(v, CellDoor, CellDoor))

@@ -570,7 +570,7 @@ static bool party_move_interact(pointc v) {
 	return true;
 }
 
-static void move_party(pointc v) {
+void move_party(pointc v) {
    if(!is_passable(v))
       return;
    if(party_move_interact(v))

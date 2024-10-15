@@ -119,7 +119,6 @@ celln dungeoni::get(pointc v) const {
 dungeoni::overlayi* dungeoni::add(pointc v, directions d, celln i) {
 	if(!v)
 		return 0;
-	dungeoni::overlayi* p = 0;
 	for(auto& e : overlays) {
 		if(!e) {
 			e.clear();
@@ -157,6 +156,7 @@ void dungeoni::set(pointc v, celln i) {
 	case CellPortal: state.portal = v; break;
 	case CellStairsUp: state.up = v; break;
 	case CellStairsDown: state.down = v; break;
+   default: break;
 	}
 	data[v.y][v.x] = (data[v.y][v.x] & (~CellMask)) | i;
 }

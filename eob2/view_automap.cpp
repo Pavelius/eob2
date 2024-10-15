@@ -319,6 +319,8 @@ static void paint_automap() {
 					line(xc, pos.y + mpg); xc += 2;
 				}
 				break;
+         default:
+            break;
 			}
 		}
 	}
@@ -354,6 +356,8 @@ static void paint_overlays() {
 			fill_line(e.d, 2, 2, bwall);
 			fill_line(e.d, 3, 2, cdoor);
 			break;
+      default:
+         break;
 		}
 	}
 	font = push_font;

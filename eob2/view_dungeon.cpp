@@ -313,6 +313,8 @@ void set_dungeon_tiles(resid type) {
 	case BRICK:
 		render_mirror1 = CellPassable;
 		break;
+   default:
+      break;
 	}
 }
 
@@ -614,6 +616,8 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 					p->frame[1] = decor_offset + 0 * decor_frames + pos_levels[i];
 				}
 				break;
+         default:
+            break;
 			}
 			auto povr = add_wall_decor(p, index, Down, decor_front[i], flip, true);
 			p = add_cellar_items(p, i, povr);

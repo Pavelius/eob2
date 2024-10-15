@@ -177,6 +177,7 @@
     <ClInclude Include="quest.h" />
     <ClInclude Include="race.h" />
     <ClInclude Include="randomeffect.h" />
+    <ClInclude Include="randomizer.h" />
     <ClInclude Include="rect.h" />
     <ClInclude Include="resid.h" />
     <ClInclude Include="script.h" />
@@ -244,6 +245,7 @@
     <ClCompile Include="posable.cpp" />
     <ClCompile Include="quest.cpp" />
     <ClCompile Include="randomeffect.cpp" />
+    <ClCompile Include="randomizer.cpp" />
     <ClCompile Include="script.cpp" />
     <ClCompile Include="scripting.cpp" />
     <ClCompile Include="serial.cpp" />

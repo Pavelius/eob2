@@ -358,10 +358,10 @@ static int get_throw_index(unsigned char type) {
 }
 
 static void fill_item_sprite(renderi* p, const itemi* pi, int frame = 0) {
-	if(pi->is(Large))
-		p->rdata = gres(ITEMGL);
-	else
+	if(pi->is(Small))
 		p->rdata = gres(ITEMGS);
+	else
+		p->rdata = gres(ITEMGL);
 	p->frame[frame] = pi->avatar_ground;
 }
 

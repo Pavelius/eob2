@@ -1,2 +1,2 @@
-﻿Error in file `names/en/Talk.txt`:
- Line 14: Expected symbol line feed
+﻿Error in file `rules/Items.txt`:
+ Line 131: Can't find variant `LongSword`

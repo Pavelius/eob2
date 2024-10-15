@@ -13,6 +13,7 @@ struct pointca;
 
 struct dungeoni : dungeon_site {
 	struct ground : item, posable {
+		explicit operator bool() const { return item::operator bool(); }
 		void		clear();
 	};
 	struct overlayi : posable {
@@ -36,6 +37,7 @@ struct dungeoni : dungeon_site {
 	void			block(bool treat_door_as_passable) const;
 	void			clear();
 	void			change(celln s, celln n);
+	void			drop(pointc v, item& it, int side);
 	celln			get(pointc v) const;
 	overlayi*		get(pointc v, directions d);
 	slice<ground>	getitems() { return slice<ground>(items, state.items); }

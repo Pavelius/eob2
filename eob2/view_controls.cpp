@@ -862,7 +862,6 @@ static void paint_sprites(resid id, point offset, int& focus, int per_line) {
 	if(!p)
 		return;
 	auto index = 0;
-	// auto push_caret = caret;
 	auto push_line = caret;
 	auto count = per_line;
 	while(index < p->count) {
@@ -926,6 +925,8 @@ static void debug_input() {
 	switch(hot.key) {
 	case Ctrl + 'I': show_sprites(ITEMS, {8, 8}, {16, 16}); break;
 	case Ctrl + 'A': show_sprites(PORTM, {0, 0}, {32, 32}); break;
+	case Ctrl + 'S': show_sprites(ITEMGS, {16, 16}, {32, 32}); break;
+	case Ctrl + 'L': show_sprites(ITEMGL, {32, 24}, {64, 32}); break;
 	}
 #endif
 }

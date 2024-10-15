@@ -231,6 +231,9 @@
     <ClCompile Include="wallmessage.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="randomizer.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -448,6 +451,9 @@
     </ClInclude>
     <ClInclude Include="quest.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="randomizer.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

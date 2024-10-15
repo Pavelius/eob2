@@ -18,6 +18,7 @@
 #include "party.h"
 #include "point.h"
 #include "quest.h"
+#include "randomizer.h"
 #include "resid.h"
 #include "race.h"
 #include "randomeffect.h"
@@ -101,7 +102,7 @@ BSMETA(itemi) = {
 	BSREQ(attack), BSREQ(number_attacks), BSREQ(speed),
 	BSREQ(damage), BSREQ(damage_large),
 	BSFLG(feats, feati),
-	BSREQ(avatar),
+	BSREQ(avatar), BSREQ(avatar_ground),
 	BSREQ(ammo),
 	BSREQ(wearing), BSREQ(use),
 	BSREQ(cost),
@@ -175,6 +176,7 @@ BSDATA(varianti) = {
 	{"PartyAbility", VAR(partystati, 1), 0, 0, ftscript<partystati>},
 	{"Race", VAR(racei, 1), 0, 0, ftscript<racei>},
 	{"RandomEffect", VAR(randomeffecti, 1)},
+	{"RandomList", VAR(randomizeri, 1), 0, 0, ftscript<randomizeri>},
 	{"Script", VAR(script, 1), 0, 0, ftscript<script>},
 	{"Shape", VAR(shapei, 1), 0, 0, 0, 0, shape_read},
 	{"Spell", VAR(spelli, 1)},

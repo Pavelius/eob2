@@ -217,6 +217,24 @@ int dungeoni::around(pointc v, celln t1, celln t2) const {
 	return result;
 }
 
+void dungeoni::drop(pointc v, item& it, int side) {
+	for(auto& e : items) {
+		if(e)
+			continue;
+		assign<item>(e, it);
+		e.x = v.x;
+		e.y = v.y;
+		e.side = side;
+		e.d = Center;
+		it.clear();
+		last_item = &e;
+		auto index = &e - items + 1;
+		if(state.items < index)
+			state.items = index;
+		break;
+	}
+}
+
 bool filter_corridor(pointc v) {
 	if(get_wall(loc->get(v)) == CellWall)
 		return false;

@@ -7,6 +7,7 @@
 #include "pointca.h"
 #include "quest.h"
 #include "rand.h"
+#include "randomizer.h"
 #include "rect.h"
 #include "resid.h"
 #include "shape.h"
@@ -116,7 +117,7 @@ static bool door(pointc v, directions d, bool has_button, bool has_button_on_oth
 	case CellWall:
 	case CellPortal:
 		return false;
-   default: break;
+	default: break;
 	}
 	// If nearbe at least one door present, don't create new one.
 	if(loc->around(v, CellDoor, CellDoor))
@@ -132,20 +133,13 @@ static bool door(pointc v, directions d, bool has_button, bool has_button_on_oth
 	return true;
 }
 
-static void items(pointc v, unsigned char type, int bonus_level) {
+static void items(pointc v, itemi* pi, int bonus_level = 0) {
 	// TODO: item creating
-}
-
-static unsigned char item_type(const char* id) {
-	auto p = bsdata<itemi>::find(id);
-	if(!p)
-		return 0;
-	return p - bsdata<itemi>::elements;
-}
-
-static unsigned char random_item_type() {
-	// TODO: item type choose
-	return 0;
+	if(!pi)
+		return;
+	item it;
+	it.create(pi - bsdata<itemi>::elements);
+	loc->drop(v, it, xrand(0, 3));
 }
 
 static int random_count() {
@@ -159,7 +153,7 @@ static int random_count() {
 }
 
 static void items(pointc v, int bonus_level) {
-	items(v, random_item_type(), bonus_level);
+	items(v, single("RandomItem"), bonus_level);
 }
 
 static void secret(pointc v, directions d) {
@@ -387,11 +381,11 @@ static void cellar(pointc v, directions d) {
 static void empthy(pointc v, directions d) {}
 
 static void rations(pointc v, directions d) {
-	items(v, item_type("Ration"), 0);
+	items(v, single("RandomRation"), 0);
 }
 
 static void stones(pointc v, directions d) {
-	items(v, item_type("Stone"), 0);
+	items(v, single("RandomStone"), 0);
 }
 
 static bool ispassable(pointc v, directions d) {

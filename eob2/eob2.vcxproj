@@ -272,6 +272,7 @@
     <ClCompile Include="party.cpp" />
     <ClCompile Include="view_controls.cpp" />
     <ClCompile Include="view_dialog.cpp" />
+    <ClCompile Include="wallmessage.cpp" />
     <ClCompile Include="wearable.cpp" />
     <ClCompile Include="win_draw.cpp" />
     <ClCompile Include="win_io_file.cpp" />
@@ -283,6 +284,7 @@
     <Text Include="..\locale\en\Abilities.txt" />
     <Text Include="..\locale\en\Actions.txt" />
     <Text Include="..\locale\en\Campaign.txt" />
+    <Text Include="..\locale\en\Directions.txt" />
     <Text Include="..\locale\en\Items.txt" />
     <Text Include="..\locale\en\QuestFloodedSewers.txt" />
     <Text Include="..\locale\en\Races.txt" />

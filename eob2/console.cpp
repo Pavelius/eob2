@@ -57,12 +57,12 @@ void consolen(const char* format, ...) {
 void consolev(const char* format, const char* format_param) {
 	if(!format || !format[0])
 		return;
-	if(get_line_count() > 3)
-		console_delete_line();
 	auto m = zlen(console_text);
 	stringbuilder sb(console_text);
 	sb.set(console_text + m);
 	sb.addv(format, format_param);
+	while(get_line_count() > 3)
+		console_delete_line();
 	time_stamp = getcputime();
 }
 

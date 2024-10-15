@@ -1,0 +1,11 @@
+﻿NorthWest: north-west
+North: north
+NorthEast: north-east
+West: west
+Central: central
+East: east
+SouthWest: south-west
+South: south
+SouthEast: south-east
+
+NonExist: non-exist

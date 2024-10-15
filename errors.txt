@@ -1,2 +1,2 @@
-Error in file `rules/Quests.txt`:
- Line 4: Not found identifier `BRICK`
+﻿Error in file `names/en/Talk.txt`:
+ Line 14: Expected symbol line feed

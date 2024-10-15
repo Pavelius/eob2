@@ -258,8 +258,8 @@ static void use_item() {
 	case Body: case Neck: case Elbow: case Legs: case Head:
 		pn->speak("MustBeWearing", pi->getname());
 		break;
-   default:
-      break;
+	default:
+		break;
 	}
 }
 
@@ -395,10 +395,10 @@ static void message(const char* format, const char* format_param = 0) {
 }
 
 static bool is_passable(pointc v) {
-   if(!v)
-      return false;
-   auto& ei = bsdata<celli>::elements[loc->get(v)];
-   return ei.flags.is(Passable) || (ei.flags.is(PassableActivated) && loc->is(v, CellActive));
+	if(!v)
+		return false;
+	auto& ei = bsdata<celli>::elements[loc->get(v)];
+	return ei.flags.is(Passable) || (ei.flags.is(PassableActivated) && loc->is(v, CellActive));
 }
 
 static void move_party_left() {
@@ -468,14 +468,14 @@ static bool change_cell(pointc v) {
 }
 
 static void read_wall_messages(creaturei* player, dungeoni::overlayi* p) {
-   auto p1 = getid<wallmessagei>(p->subtype);
-   if(p->type<MessageHabbits) {
-      if(loc->state.wallmessages[p->type])
-         player->speak(p1, "Present");
-      else
-         player->speak(p1, "Fail");
-   } else
-      player->speak(p1, "Read");
+	auto p1 = getid<wallmessagei>(p->subtype);
+	if(p->subtype < MessageHabbits) {
+		if(loc->state.wallmessages[p->subtype] > 0)
+			player->speak(p1, "Present");
+		else
+			player->speak(p1, "Miss");
+	} else
+		player->speak(p1, "Read");
 }
 
 static void manipulate() {
@@ -567,15 +567,15 @@ static bool party_move_interact(pointc v) {
 }
 
 void move_party(pointc v) {
-   if(!is_passable(v))
-      return;
-   if(party_move_interact(v))
-	   return;
-   set_party_position(v);
-   explore_area();
-   pass_round();
-   console_scroll(2000);
-   animation_update();
+	if(!is_passable(v))
+		return;
+	if(party_move_interact(v))
+		return;
+	set_party_position(v);
+	explore_area();
+	pass_round();
+	console_scroll(2000);
+	animation_update();
 }
 
 static void party_adventure(int bonus) {
@@ -669,22 +669,30 @@ static void effect_number(stringbuilder& sb) {
 }
 
 static void dungeon_habbitant1(stringbuilder& sb) {
-   sb.addv(getnm(getid<monsteri>(loc->habbits[0])), 0);
+	sb.addv(getnm(getid<monsteri>(loc->habbits[0])), 0);
 }
 
 static void dungeon_habbitant2(stringbuilder& sb) {
-   sb.addv(getnm(getid<monsteri>(loc->habbits[1])), 0);
+	sb.addv(getnm(getid<monsteri>(loc->habbits[1])), 0);
+}
+
+static void stairs_down_side(stringbuilder& sb) {
+	sb.addv(getnm(get_part_placement(loc->state.down)), 0);
+}
+
+static void stairs_up_side(stringbuilder& sb) {
+	sb.addv(getnm(get_part_placement(loc->state.up)), 0);
 }
 
 bool parse_wall_messages(stringbuilder& sb, const char* id) {
-   if(!loc)
-      return false;
-   auto pn = bsdata<wallmessagei>::find(id);
-   if(!pn)
-      return false;
-   auto index = pn - bsdata<wallmessagei>::elements;
-   sb.add("%1i", loc->state.wallmessages[index]);
-   return true;
+	if(!loc)
+		return false;
+	auto pn = bsdata<wallmessagei>::find(id);
+	if(!pn)
+		return false;
+	auto index = pn - bsdata<wallmessagei>::elements;
+	sb.add("%1i", loc->state.wallmessages[index]);
+	return true;
 }
 
 BSDATA(formulai) = {
@@ -699,6 +707,8 @@ BSDATA(textscript) = {
 	{"Habbitant2", dungeon_habbitant2},
 	{"Name", player_name},
 	{"Number", effect_number},
+	{"StairsDownSide", stairs_down_side},
+	{"StairsUpSide", stairs_up_side},
 };
 BSDATAF(textscript)
 BSDATA(script) = {

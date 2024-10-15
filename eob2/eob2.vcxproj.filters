@@ -228,6 +228,9 @@
     <ClCompile Include="quest.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="wallmessage.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -512,6 +515,9 @@
       <Filter>rules</Filter>
     </Text>
     <Text Include="..\locale\en\QuestFloodedSewers.txt">
+      <Filter>locale</Filter>
+    </Text>
+    <Text Include="..\locale\en\Directions.txt">
       <Filter>locale</Filter>
     </Text>
   </ItemGroup>

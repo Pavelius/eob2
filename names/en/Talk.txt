@@ -9,8 +9,10 @@ This one open door nearbe.
 
 #CellDecor1Brick
 Some kind of theives signs.
-I don't unredstand this thives sign.
 I don't known what is it.
+
+#CellDecor1BrickTheif
+Stairs down lie in %StairsDownSide part of dungeon.
 
 #CellDecor2Brick
 A drainage gate. I think.
@@ -33,8 +35,13 @@ This is mine!
 No! I can't remove this item.
 This is my treasure!
 
+#MessageMagicRingMiss
+There is no magic ring around.
+#MessageMagicWeaponsPresent
+Find %MessageMagicRings magic ring in this halls.
+
 #MessageMagicWeaponsMiss
-There is no magic weapons on this level.
+You not find any magic weapons here.
 #MessageMagicWeaponsPresent
 There is %MessageMagicWeapons magic weapons on this level.
 

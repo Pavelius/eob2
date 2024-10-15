@@ -2,6 +2,7 @@
 #include "cell.h"
 #include "direction.h"
 #include "dungeon.h"
+#include "math.h"
 
 const unsigned char	CellMask = 0x1F;
 const unsigned short Blocked = 0xFFFF;
@@ -132,10 +133,10 @@ dungeoni::overlayi* dungeoni::add(pointc v, directions d, celln i) {
 }
 
 dungeoni::overlayi* dungeoni::get(pointc v, directions d) {
-   if(!v)
-      return 0;
+	if(!v)
+		return 0;
 	for(auto& e : overlays) {
-		if(e==v && e.d==d)
+		if(e == v && e.d == d)
 			return &e;
 	}
 	return 0;
@@ -156,7 +157,7 @@ void dungeoni::set(pointc v, celln i) {
 	case CellPortal: state.portal = v; break;
 	case CellStairsUp: state.up = v; break;
 	case CellStairsDown: state.down = v; break;
-   default: break;
+	default: break;
 	}
 	data[v.y][v.x] = (data[v.y][v.x] & (~CellMask)) | i;
 }
@@ -221,4 +222,15 @@ bool filter_corridor(pointc v) {
 		return false;
 	return (get_wall(loc->get(to(v, Up))) == CellWall && get_wall(loc->get(to(v, Down))) == CellWall)
 		|| (get_wall(loc->get(to(v, Left))) == CellWall && get_wall(loc->get(to(v, Right))) == CellWall);
+}
+
+const char* get_part_placement(pointc v) {
+	static const char* names[] = {
+		"NorthWest", "North", "NorthEast",
+		"West", "Central", "East",
+		"SouthWest", "South", "SouthEast"
+	};
+	auto dx = imax(0, imin(2, v.x / (mpx / 3)));
+	auto dy = imax(0, imin(2, (v.y / (mpy / 3)) * 3));
+	return names[dy * 3 + dx];
 }

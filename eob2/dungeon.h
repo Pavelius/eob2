@@ -54,6 +54,8 @@ struct dungeoni : dungeon_site {
 extern dungeoni *loc, *locup, *locdw;
 extern unsigned short pathmap[mpy][mpx];
 
+const char* get_part_placement(pointc v);
+
 void dungeon_create();
 bool filter_corridor(pointc v);
 void show_automap(bool show_fog_of_war, bool show_secrets, bool show_party, const pointca* red_markers);

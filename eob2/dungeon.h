@@ -22,6 +22,7 @@ struct dungeoni : dungeon_site {
 		flag8		flags;
 		void		clear();
 		bool		is(cellfn v) const { return flags.is(v); }
+		void		remove() { clear(); }
 	};
 	dungeon_state	state;
 	unsigned short	quest_id;

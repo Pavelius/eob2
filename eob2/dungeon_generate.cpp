@@ -432,7 +432,7 @@ static bool corridor(pointc v, directions d) {
 		if(random_content) {
 			static fncorridor corridor_random[] = {empthy,
 				empthy, empthy, empthy, empthy, empthy, empthy,
-				empthy, empthy, empthy, empthy,
+				empthy, empthy, empthy,
 				secret,
 				monster, monster, monster, monster,
 				rations,
@@ -442,7 +442,7 @@ static bool corridor(pointc v, directions d) {
 				portal,
 				prison, prison,
 				treasure,
-				decoration, decoration,
+				decoration, decoration, decoration,
 				message,
 			};
 			auto proc = maprnd(corridor_random);

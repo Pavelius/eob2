@@ -22,6 +22,7 @@
 #include "textscript.h"
 #include "view.h"
 #include "view_focus.h"
+#include "wallmessage.h"
 
 extern "C" void exit(int code);
 
@@ -462,12 +463,6 @@ static bool change_cell(pointc v) {
 	return true;
 }
 
-static const char* dungeon_speech(celln t) {
-	static char temp[64]; stringbuilder sb(temp);
-	sb.add("%2%+1", bsdata<residi>::elements[loc->type].id, bsdata<celli>::elements[t].id);
-	return temp;
-}
-
 static void interact_overlay() {
 	auto p = loc->get(party, party.d);
 	if(!p)
@@ -475,9 +470,10 @@ static void interact_overlay() {
 	auto v = to(*p, p->d);
 	if(!v)
 		return;
+	auto player = item_owner(current_focus);
+	if(!player)
+		return;
 	item* pi = (item*)current_focus;
-	if(!bsdata<creaturei>::source.have(pi))
-		pi = 0;
 	switch(p->type) {
 	case CellDoorButton:
 		toggle(v);
@@ -485,16 +481,18 @@ static void interact_overlay() {
 	case CellDecor1:
 	case CellDecor2:
 	case CellDecor3:
-		player->speak(dungeon_speech(p->type));
+		player->speak(getid<celli>(p->type), getid<residi>(loc->type));
 		break;
 	case CellSecrectButton:
 		if(change_cell(v)) {
+			p->remove();
 			party_addexp(400);
-			player->speak("CellSecrectButtonAccept");
+			player->speak("CellSecrectButton", "Accept");
+			loc->state.secrets_found++;
 		}
 		break;
 	default:
-		player->speak(ids(bsdata<celli>::elements[p->type].id, "About"));
+		player->speak(getid<celli>(p->type), "About");
 		break;
 	}
 	make_action();

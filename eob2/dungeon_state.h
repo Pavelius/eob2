@@ -11,6 +11,7 @@ struct dungeon_state {
 	posable			feature; // where is dungeon feature locatied (if any)
 	short unsigned	messages; // count of messages
 	short unsigned	secrets; // count of secret rooms
+	short unsigned	secrets_found; // count of secret rooms found (used secret button)
 	short unsigned	artifacts; // count of artifact items originally placed
 	short unsigned	rings; // count of magical rings
 	short unsigned	weapons; // count of magical weapons

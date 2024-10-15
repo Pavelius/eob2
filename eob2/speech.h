@@ -23,6 +23,7 @@ short unsigned speech_random_name(const char* pattern);
 
 const char* speech_name(int index);
 const char* speech_getid(int index);
+const char* speech_get(const speech* p);
 const char* speech_get(const char* id);
 const char* speech_get(const char* id, const char* action);
 const char* speech_get(const speech* p, int n);

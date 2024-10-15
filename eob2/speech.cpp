@@ -113,12 +113,15 @@ short unsigned speech_random_name(const char* pattern) {
 	return result[rand() % count];
 }
 
-const char* speech_get(const char* id) {
-	auto p = bsdata<speech>::find(id);
+const char* speech_get(const speech* p) {
 	if(!p || !p->source)
 		return 0;
 	auto n = (speech_params ? *speech_params++ : rand()) % p->source.size();
 	return p->source.begin()[n].name;
+}
+
+const char* speech_get(const char* id) {
+	return speech_get(bsdata<speech>::find(id));
 }
 
 const char* speech_get(const speech* p, int n) {

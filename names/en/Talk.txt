@@ -23,6 +23,7 @@ Old water aqueduct.
 
 #CellTrapLauncherAboutTheif
 This is a trap launcher.
+A trap launcher. I can disarm it by tools.
 
 #CellTrapLauncherAbout
 A hole in the wall.

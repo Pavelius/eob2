@@ -2,6 +2,7 @@
 #include "answers.h"
 #include "cell.h"
 #include "class.h"
+#include "console.h"
 #include "creature.h"
 #include "direction.h"
 #include "draw.h"
@@ -558,6 +559,7 @@ static void move_party(pointc v) {
    set_party_position(v);
    explore_area();
    pass_round();
+   console_scroll(2000);
    animation_update();
 }
 

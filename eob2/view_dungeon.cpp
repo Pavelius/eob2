@@ -739,23 +739,34 @@ static renderi* create_thrown(renderi* p, int i, int ps, const itemi* rec, direc
 	return p;
 }
 
-static renderi* create_items(renderi* p, int i, pointc index, directions dr) {
-	//item* result[64];
-	//int item_count = loc->getitems(result, zendof(result), index);
-	//for(int n = 0; n < item_count; n++) {
-	//	auto it = *result[n];
-	//	int ps = game.getside(location.getitemside(result[n]), dr);
-	//	int d = pos_levels[i] * 2 + (1 - ps / 2);
-	//	p->clear();
-	//	p->x = item_position[i * 4 + ps].x;
-	//	p->y = item_position[i * 4 + ps].y;
-	//	p->z = pos_levels[i] * distance_per_level + 1 + (1 - ps / 2);
-	//	p->pos = index;
-	//	p->percent = item_distances[d][0];
-	//	p->alpha = (unsigned char)item_distances[d][1];
-	//	fill_item_sprite(p, &it.geti());
-	//	p++;
-	//}
+static int get_side(int side, directions dr) {
+	static const char place_sides[4][4] = {{1, 3, 0, 2},
+		{0, 1, 2, 3},
+		{2, 0, 3, 1},
+		{3, 2, 1, 0},
+	};
+	if(dr == Center)
+		return side;
+	return place_sides[dr - Left][side];
+}
+
+static renderi* create_items(renderi* p, int i, pointc v, directions dr) {
+	dungeoni::ground* result[64];
+	auto item_count = loc->getitems(result, lenghtof(result), v);
+	for(size_t n = 0; n < item_count; n++) {
+		auto pi = (dungeoni::ground*)result[n];
+		int s = get_side(pi->side, dr);
+		int d = pos_levels[i] * 2 + (1 - s / 2);
+		p->clear();
+		p->x = item_position[i * 4 + s].x;
+		p->y = item_position[i * 4 + s].y;
+		p->z = pos_levels[i] * distance_per_level + 1 + (1 - s / 2);
+		p->pos = v;
+		p->percent = item_distances[d][0];
+		p->alpha = (unsigned char)item_distances[d][1];
+		fill_item_sprite(p, &pi->geti());
+		p++;
+	}
 	return p;
 }
 

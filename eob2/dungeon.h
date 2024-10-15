@@ -41,6 +41,7 @@ struct dungeoni : dungeon_site {
 	celln			get(pointc v) const;
 	overlayi*		get(pointc v, directions d);
 	slice<ground>	getitems() { return slice<ground>(items, state.items); }
+	size_t			getitems(ground** result, size_t result_maximum, pointc v);
 	slice<creaturei> getmonsters() { return slice<creaturei>(monsters, state.monsters); }
 	slice<overlayi> getoverlays() { return slice<overlayi>(overlays, state.overlays); }
 	overlayi*		getoverlay(pointc v, celln type);

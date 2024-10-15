@@ -208,7 +208,7 @@ static void prison(pointc v, directions d) {
 	loc->set(to(v1, to(d, Left)), CellWall);
 	loc->set(to(v1, to(d, Right)), CellWall);
 	loc->set(v2, CellPassable);
-	for(int i = random_count(); i > 0; i--)
+	for(auto i = random_count(); i > 0; i--)
 		items(v2, 0);
 	monster(v2, Down);
 	loc->set(to(v2, to(d, Left)), CellWall);

@@ -235,6 +235,21 @@ void dungeoni::drop(pointc v, item& it, int side) {
 	}
 }
 
+size_t dungeoni::getitems(ground** result, size_t result_maximum, pointc v) {
+	auto ps = result;
+	auto pe = ps + result_maximum;
+	for(auto& e : items) {
+		if(!e || e != v)
+			continue;
+		if(ps < pe)
+			*ps++ = &e;
+		else
+			break;
+	}
+	return ps - result;
+}
+
+
 bool filter_corridor(pointc v) {
 	if(get_wall(loc->get(v)) == CellWall)
 		return false;

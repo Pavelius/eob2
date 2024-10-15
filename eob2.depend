@@ -309,7 +309,7 @@
 
 1728387414 source:/home/user-331/projects/eob2/eob2/math.cpp
 
-1728890816 source:/home/user-331/projects/eob2/eob2/metadata.cpp
+1728986567 source:/home/user-331/projects/eob2/eob2/metadata.cpp
 	"ability.h"
 	"action.h"
 	"advancement.h"
@@ -324,6 +324,7 @@
 	"feat.h"
 	"formula.h"
 	"gender.h"
+	"monster.h"
 	"shape.h"
 	"script.h"
 	"party.h"
@@ -407,7 +408,7 @@
 	"rand.h"
 	"script.h"
 
-1728973274 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1728985735 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"answers.h"
 	"cell.h"
@@ -423,6 +424,7 @@
 	"list.h"
 	"location.h"
 	"modifier.h"
+	"monster.h"
 	"party.h"
 	"quest.h"
 	"race.h"
@@ -552,9 +554,10 @@
 
 1728889912 /home/user-331/projects/eob2/eob2/dungeon_site.h
 
-1728973217 /home/user-331/projects/eob2/eob2/dungeon_state.h
-	"posable.h"
+1728987448 /home/user-331/projects/eob2/eob2/dungeon_state.h
 	"flagable.h"
+	"posable.h"
+	"wallmessage.h"
 
 1728889912 /home/user-331/projects/eob2/eob2/posable.h
 	"pointc.h"
@@ -576,9 +579,9 @@
 	"party.h"
 	"variant.h"
 
-1728889912 /home/user-331/projects/eob2/eob2/pointc.h
+1728985995 /home/user-331/projects/eob2/eob2/pointc.h
 
-1728973370 source:/home/user-331/projects/eob2/eob2/dungeon_generate.cpp
+1728987478 source:/home/user-331/projects/eob2/eob2/dungeon_generate.cpp
 	"assign.h"
 	"answers.h"
 	"cell.h"
@@ -611,7 +614,7 @@
 1728889912 /home/user-331/projects/eob2/eob2/shape.h
 	"pointc.h"
 
-1728889912 /home/user-331/projects/eob2/eob2/wallmessage.h
+1728986720 /home/user-331/projects/eob2/eob2/wallmessage.h
 
 1728889912 source:/home/user-331/projects/eob2/eob2/dungeon_state.cpp
 	"dungeon_state.h"
@@ -690,4 +693,13 @@
 	"resid.h"
 	"math.h"
 	"view.h"
+
+1728986116 /home/user-331/projects/eob2/eob2/monster.h
+	"nameable.h"
+	"resid.h"
+	"variant.h"
+
+1728986715 source:/home/user-331/projects/eob2/eob2/wallmessage.cpp
+	"bsdata.h"
+	"wallmessage.h"
 

@@ -188,7 +188,7 @@ static void secret(pointc v, directions d) {
 	loc->set(to(v2, to(d, Left)), CellWall);
 	loc->set(to(v2, to(d, Right)), CellWall);
 	loc->set(to(v2, to(d, Up)), CellWall);
-	loc->state.secrets++;
+	loc->state.wallmessages[MessageSecrets]++;
 }
 
 static void monster(pointc v, directions d) {
@@ -351,7 +351,7 @@ static void resolve_traps() {
 			}
 			auto po = loc->add(trap_launch, launch_direction, CellTrapLauncher);
 			po->link = v;
-			loc->state.traps++;
+			loc->state.wallmessages[MessageTraps]++;
 		}
 	}
 }

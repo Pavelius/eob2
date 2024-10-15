@@ -12,6 +12,7 @@
 #include "feat.h"
 #include "formula.h"
 #include "gender.h"
+#include "monster.h"
 #include "shape.h"
 #include "script.h"
 #include "party.h"
@@ -37,6 +38,7 @@ BSDATAC(creaturei, 64)
 BSDATAC(dungeoni, 256)
 BSDATAC(itemi, 256)
 BSDATAC(locationi, 128)
+BSDATAC(monsteri, 256)
 BSDATAC(quest, 128)
 BSDATAC(racei, 16)
 BSDATAC(randomeffecti, 128)
@@ -113,6 +115,11 @@ BSMETA(locationi) = {
 	BSREQ(avatar),
 	BSREQ(options),
 	{}};
+BSMETA(monsteri) = {
+	BSREQ(id),
+	BSENM(res, residi),
+	BSREQ(frames),
+	{}};
 BSMETA(partystati) = {
 	BSREQ(id),
 	{}};
@@ -163,6 +170,7 @@ BSDATA(varianti) = {
 	{"List", VAR(listi, 1), 0, 0, ftscript<listi>},
 	{"Location", VAR(locationi, 1), 0, 0, ftscript<locationi>},
 	{"Modifier", VAR(modifieri, 1), 0, 0, ftscript<modifieri>},
+	{"Monster", VAR(monsteri, 1)},
 	{"Quest", VAR(quest, 1), 0, 0, ftscript<quest>},
 	{"PartyAbility", VAR(partystati, 1), 0, 0, ftscript<partystati>},
 	{"Race", VAR(racei, 1), 0, 0, ftscript<racei>},

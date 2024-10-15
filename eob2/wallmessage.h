@@ -5,3 +5,6 @@ enum messages : unsigned char {
 	MessageAtifacts, MessageSpecialItem, MessageBoss,
 	MessageHabbits
 };
+struct wallmessagei {
+   const char* id;
+};

@@ -13,6 +13,7 @@
 #include "list.h"
 #include "location.h"
 #include "modifier.h"
+#include "monster.h"
 #include "party.h"
 #include "quest.h"
 #include "race.h"
@@ -467,19 +468,14 @@ static bool change_cell(pointc v) {
 }
 
 static void read_wall_messages(creaturei* player, dungeoni::overlayi* p) {
-	switch(p->subtype) {
-	case MessageAtifacts:
-		break;
-	case MessageBoss:
-		break;
-	case MessageMagicWeapons:
-	case MessageMagicRings:
-	case MessageSecrets:
-	case MessageTraps:
-	case MessageSpecialItem:
-	case MessageHabbits:
-		break;
-	}
+   auto p1 = getid<wallmessagei>(p->subtype);
+   if(p->type<MessageHabbits) {
+      if(loc->state.wallmessages[p->type])
+         player->speak(p1, "Present");
+      else
+         player->speak(p1, "Fail");
+   } else
+      player->speak(p1, "Read");
 }
 
 static void manipulate() {
@@ -672,6 +668,22 @@ static void effect_number(stringbuilder& sb) {
 	sb.add("%1i", last_number);
 }
 
+static void dungeon_habbitant1(stringbuilder& sb) {
+   sb.addv(getnm(getid<monsteri>(loc->habbits[0])), 0);
+}
+
+static void dungeon_habbitant2(stringbuilder& sb) {
+   sb.addv(getnm(getid<monsteri>(loc->habbits[1])), 0);
+}
+
+static void artifact_count(stringbuilder& sb) {
+   sb.add("%1i", loc->state.wallmessages[MessageAtifacts]);
+}
+
+static void magic_rings_count(stringbuilder& sb) {
+   sb.add("%1i", loc->state.wallmessages[MessageMagicRings]);
+}
+
 BSDATA(formulai) = {
 	{"Add", add_formula},
 	{"Mul", mul_formula},
@@ -680,6 +692,10 @@ BSDATA(formulai) = {
 };
 BSDATAF(formulai)
 BSDATA(textscript) = {
+	{"ArtifactCount", artifact_count},
+	{"Habbitant1", dungeon_habbitant1},
+	{"Habbitant2", dungeon_habbitant2},
+	{"MagicRingsCount", magic_rings_count},
 	{"Name", player_name},
 	{"Number", effect_number},
 };

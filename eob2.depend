@@ -408,7 +408,7 @@
 	"rand.h"
 	"script.h"
 
-1728985735 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1728988795 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"answers.h"
 	"cell.h"
@@ -456,7 +456,7 @@
 1728387414 source:/home/user-331/projects/eob2/eob2/szdup.cpp
 	"stringbuilder.h"
 
-1728387414 source:/home/user-331/projects/eob2/eob2/textscript.cpp
+1728988770 source:/home/user-331/projects/eob2/eob2/textscript.cpp
 	"creature.h"
 	"textscript.h"
 	"speech.h"

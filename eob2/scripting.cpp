@@ -676,12 +676,15 @@ static void dungeon_habbitant2(stringbuilder& sb) {
    sb.addv(getnm(getid<monsteri>(loc->habbits[1])), 0);
 }
 
-static void artifact_count(stringbuilder& sb) {
-   sb.add("%1i", loc->state.wallmessages[MessageAtifacts]);
-}
-
-static void magic_rings_count(stringbuilder& sb) {
-   sb.add("%1i", loc->state.wallmessages[MessageMagicRings]);
+bool parse_wall_messages(stringbuilder& sb, const char* id) {
+   if(!loc)
+      return false;
+   auto pn = bsdata<wallmessagei>::find(id);
+   if(!pn)
+      return false;
+   auto index = pn - bsdata<wallmessagei>::elements;
+   sb.add("%1i", loc->state.wallmessages[index]);
+   return true;
 }
 
 BSDATA(formulai) = {
@@ -692,10 +695,8 @@ BSDATA(formulai) = {
 };
 BSDATAF(formulai)
 BSDATA(textscript) = {
-	{"ArtifactCount", artifact_count},
 	{"Habbitant1", dungeon_habbitant1},
 	{"Habbitant2", dungeon_habbitant2},
-	{"MagicRingsCount", magic_rings_count},
 	{"Name", player_name},
 	{"Number", effect_number},
 };

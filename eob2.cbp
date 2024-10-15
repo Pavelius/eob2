@@ -114,6 +114,7 @@
 		<Unit filename="eob2/metadata.cpp" />
 		<Unit filename="eob2/modifier.cpp" />
 		<Unit filename="eob2/modifier.h" />
+		<Unit filename="eob2/monster.h" />
 		<Unit filename="eob2/my_initialize_list.h" />
 		<Unit filename="eob2/nameable.cpp" />
 		<Unit filename="eob2/nameable.h" />
@@ -177,6 +178,8 @@
 		<Unit filename="eob2/view_dungeon.cpp" />
 		<Unit filename="eob2/view_focus.cpp" />
 		<Unit filename="eob2/view_focus.h" />
+		<Unit filename="eob2/wallmessage.cpp" />
+		<Unit filename="eob2/wallmessage.h" />
 		<Unit filename="eob2/wearable.cpp" />
 		<Unit filename="eob2/wearable.h" />
 		<Unit filename="eob2/win.h" />
@@ -188,6 +191,7 @@
 		<Unit filename="locale/en/Races.txt" />
 		<Unit filename="locale/en/Spells.txt" />
 		<Unit filename="locale/en/UnknownNames.txt" />
+		<Unit filename="names/en/Talk.txt" />
 		<Unit filename="rules/Advance.txt" />
 		<Unit filename="rules/Avatars.txt" />
 		<Unit filename="rules/Classes.txt" />

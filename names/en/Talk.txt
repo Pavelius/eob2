@@ -33,6 +33,16 @@ This is mine!
 No! I can't remove this item.
 This is my treasure!
 
+#MessageMagicWeaponsMiss
+There is no magic weapons on this level.
+#MessageMagicWeaponsPresent
+There is %MessageMagicWeapons magic weapons on this level.
+
+#MessageTrapsMiss
+This level is safe.
+#MessageTrapsPresent
+Beware %MessageTraps deadly traps.
+
 #WhatDoYouSay
 What?
 I have no speech!

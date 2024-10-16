@@ -251,7 +251,6 @@ size_t dungeoni::getitems(ground** result, size_t result_maximum, pointc v) {
 	return ps - result;
 }
 
-
 bool filter_corridor(pointc v) {
 	if(get_wall(loc->get(v)) == CellWall)
 		return false;

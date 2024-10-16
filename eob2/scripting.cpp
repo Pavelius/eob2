@@ -543,13 +543,21 @@ static void drop_dungeon_item() {
 	animation_update();
 }
 
+static itemi* find_item_to_get(pointc v, directions d) {
+	dungeoni::ground* items[64];
+	auto count = loc->getitems(items, lenghtof(items), v);
+	if(!count)
+		return 0;
+	return 0;
+}
+
 static void pick_dungeon_item() {
 	auto pi = (item*)current_focus;
 	auto pn = item_owner(pi);
 	if(!pn || *pi)
 		return;
 	//auto side = autodetect_side(*this, itm);
-	//auto gitm = find_item_to_get(*this, game.getcamera(), game.getside(side, game.getdirection()));
+	//auto gitm = find_item_to_get(party, game.getside(side, game.getdirection()));
 	//if(!gitm)
 	//	return;
 	//auto slot = game.getwear(itm);

@@ -683,6 +683,7 @@ static void curse_item(int bonus) {
 }
 
 static void learn_cleric_spells(int bonus) {
+   pushanswer push;
 	add_spells(0, 1, 0);
 	for(auto& e : an.elements)
 		player->knownspells.set(getbsi((spelli*)e.value));

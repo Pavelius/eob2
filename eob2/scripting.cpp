@@ -282,6 +282,7 @@ static void enter_location(int bonus) {
 	party.location = getbsi(last_location);
 	picture = last_location->avatar;
 	save_focus = current_focus;
+	loc = 0;
 	set_next_scene(play_location);
 }
 

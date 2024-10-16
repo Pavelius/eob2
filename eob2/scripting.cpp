@@ -539,11 +539,23 @@ static void drop_dungeon_item() {
 	animation_update();
 }
 
-static itemi* find_item_to_get(pointc v, directions d) {
+static item* find_item_to_get(pointc v, directions d, int side) {
 	dungeoni::ground* items[64];
 	auto count = loc->getitems(items, lenghtof(items), v);
 	if(!count)
 		return 0;
+	int sides[4];
+	sides[0] = side;
+	sides[1] = get_side(side, Left);
+	sides[2] = get_side(side, Up);
+	sides[3] = get_side(side, Down);
+	for(auto r = 0; r < 4; r++) {
+		auto s = sides[r];
+		for(size_t i = 0; i < count; i++) {
+			if(items[i]->side == s)
+				return items[i];
+		}
+	}
 	return 0;
 }
 
@@ -552,17 +564,20 @@ void pick_up_dungeon_item() {
 	auto pn = item_owner(pi);
 	if(!pn || *pi)
 		return;
-	//auto side = autodetect_side(*this, itm);
-	//auto gitm = find_item_to_get(party, game.getside(side, game.getdirection()));
-	//if(!gitm)
-	//	return;
-	//auto slot = game.getwear(itm);
-	//auto pc = itm->getowner();
-	//if(!pc->isallow(*gitm, slot))
-	//	return;
-	//if(!itm->stack(*gitm))
-	//	iswap(*itm, *gitm);
+	auto gpi = find_item_to_get(party, party.d, get_side(pn));
+	if(!gpi)
+		return;
+	auto slot = item_wear(pi);
+	if(!gpi->isallow(slot))
+		return;
+	if(slot >= Head && slot <= LastBelt) {
+		if(!pn->isallow(*gpi))
+			return;
+	}
+	*pi = *gpi;
+	gpi->clear();
 	console("%1 picked up", pi->getname());
+	animation_update();
 }
 
 

@@ -22,6 +22,7 @@ static bool serial_game(const char* url, bool writemode) {
 	if(!e.checksum(total))
 		return false;
 	e.set(party);
+	e.set(loc);
 	e.set(bsdata<creaturei>::source);
 	e.set(bsdata<dungeoni>::source);
 	return true;

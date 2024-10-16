@@ -6,7 +6,7 @@ EatAndDrinkVisit: Eat and drink
 ExitConfirm: Do you really want to exit game?
 GambleVisitors: Gamble with someone
 GameOptions: Game Options
-GlobalOptions: %2 Options:
+GlobalOptions: What do you want?
 GlobalVisit: Visit %1
 MemorizeSpells: Memorize Spells
 MulGambleVisitors: Bet %1i gold pieces

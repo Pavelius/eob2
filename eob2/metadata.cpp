@@ -83,6 +83,9 @@ BSMETA(creaturei) = {
 BSMETA(dice) = {
 	BSREQ(c), BSREQ(d), BSREQ(b), BSREQ(m),
 	{}};
+BSMETA(dungeoni) = {
+	BSENM(quest_id, quest),
+	{}};
 BSMETA(dungeon_site) = {
 	BSENM(type, residi),
 	BSREQ(level),
@@ -164,6 +167,7 @@ BSDATA(varianti) = {
 	{"Cell", VAR(celli, 1)},
 	{"Class", VAR(classi, 1), 0, 0, ftscript<classi>},
 	{"Creature", VAR(creaturei, 0)},
+	{"Dungeon", VAR(dungeoni, 0)},
 	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>},
 	{"Formula", VAR(formulai, 1), 0, 0, ftscript<formulai>},
 	{"Gender", VAR(genderi, 1), 0, 0, ftscript<genderi>},

@@ -142,6 +142,8 @@
 		<Unit filename="eob2/rand.h" />
 		<Unit filename="eob2/randomeffect.cpp" />
 		<Unit filename="eob2/randomeffect.h" />
+		<Unit filename="eob2/randomizer.cpp" />
+		<Unit filename="eob2/randomizer.h" />
 		<Unit filename="eob2/rect.h" />
 		<Unit filename="eob2/resid.cpp" />
 		<Unit filename="eob2/resid.h" />

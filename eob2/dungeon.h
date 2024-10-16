@@ -25,8 +25,8 @@ struct dungeoni : dungeon_site {
 		bool		is(cellfn v) const { return flags.is(v); }
 		void		remove() { clear(); }
 	};
-	dungeon_state	state;
 	unsigned short	quest_id;
+	dungeon_state	state;
 	ground			items[512];
 	creaturei		monsters[200];
 	overlayi		overlays[255];

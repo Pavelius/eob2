@@ -215,7 +215,7 @@
 
 1728387414 /home/user-331/projects/eob2/eob2/unit.h
 
-1728973217 source:/home/user-331/projects/eob2/eob2/console.cpp
+1729059781 source:/home/user-331/projects/eob2/eob2/console.cpp
 	"console.h"
 	"timer.h"
 	"stringbuilder.h"
@@ -252,7 +252,7 @@
 	"class.h"
 	"levelable.h"
 
-1728550382 source:/home/user-331/projects/eob2/eob2/draw.cpp
+1729059781 source:/home/user-331/projects/eob2/eob2/draw.cpp
 	"color.h"
 	"draw.h"
 	"io_stream.h"
@@ -309,7 +309,7 @@
 
 1728387414 source:/home/user-331/projects/eob2/eob2/math.cpp
 
-1728986567 source:/home/user-331/projects/eob2/eob2/metadata.cpp
+1729063126 source:/home/user-331/projects/eob2/eob2/metadata.cpp
 	"ability.h"
 	"action.h"
 	"advancement.h"
@@ -330,6 +330,7 @@
 	"party.h"
 	"point.h"
 	"quest.h"
+	"randomizer.h"
 	"resid.h"
 	"race.h"
 	"randomeffect.h"
@@ -408,7 +409,7 @@
 	"rand.h"
 	"script.h"
 
-1728988795 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1729066225 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"answers.h"
 	"cell.h"
@@ -545,7 +546,7 @@
 	"slice.h"
 	"view.h"
 
-1728973217 /home/user-331/projects/eob2/eob2/dungeon.h
+1729063103 /home/user-331/projects/eob2/eob2/dungeon.h
 	"creature.h"
 	"dungeon_site.h"
 	"dungeon_state.h"
@@ -572,16 +573,16 @@
 	"io_stream.h"
 	"vector.h"
 
-1728889912 source:/home/user-331/projects/eob2/eob2/serial.cpp
+1729063149 source:/home/user-331/projects/eob2/eob2/serial.cpp
 	"archive.h"
 	"creature.h"
 	"dungeon.h"
 	"party.h"
 	"variant.h"
 
-1728985995 /home/user-331/projects/eob2/eob2/pointc.h
+1729059781 /home/user-331/projects/eob2/eob2/pointc.h
 
-1728987478 source:/home/user-331/projects/eob2/eob2/dungeon_generate.cpp
+1729059781 source:/home/user-331/projects/eob2/eob2/dungeon_generate.cpp
 	"assign.h"
 	"answers.h"
 	"cell.h"
@@ -591,6 +592,7 @@
 	"pointca.h"
 	"quest.h"
 	"rand.h"
+	"randomizer.h"
 	"rect.h"
 	"resid.h"
 	"shape.h"
@@ -630,7 +632,7 @@
 	"pointca.h"
 	"view.h"
 
-1728903511 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
+1729059781 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
 	"answers.h"
 	"creature.h"
 	"class.h"
@@ -649,7 +651,7 @@
 	"view.h"
 	"view_focus.h"
 
-1728973497 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
+1729059781 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
 	"creature.h"
 	"direction.h"
 	"draw.h"
@@ -659,11 +661,12 @@
 	"resid.h"
 	"view.h"
 
-1728973355 source:/home/user-331/projects/eob2/eob2/dungeon.cpp
+1729059781 source:/home/user-331/projects/eob2/eob2/dungeon.cpp
 	"assign.h"
 	"cell.h"
 	"direction.h"
 	"dungeon.h"
+	"math.h"
 
 1728889912 source:/home/user-331/projects/eob2/eob2/pointc.cpp
 	"math.h"
@@ -702,4 +705,15 @@
 1728986715 source:/home/user-331/projects/eob2/eob2/wallmessage.cpp
 	"bsdata.h"
 	"wallmessage.h"
+
+1729059781 /home/user-331/projects/eob2/eob2/randomizer.h
+	"nameable.h"
+	"variant.h"
+
+1729059781 source:/home/user-331/projects/eob2/eob2/randomizer.cpp
+	"bsreq.h"
+	"list.h"
+	"rand.h"
+	"randomizer.h"
+	"script.h"
 

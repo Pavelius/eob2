@@ -207,7 +207,7 @@ static void choose_options(const char* action, const char* id, const variants& o
 	pushanswer push;
 	char header[64]; stringbuilder sb(header);
 	set_player_by_focus();
-	sb.add(get_header(id, "Options"), getnm(id), getnm("Options"));
+	sb.add(get_header(id, "Options"), getnm(id));
 	for(auto& v : options)
 		add_menu(v, action);
 	last_result = choose_answer(header, getnm("Cancel"), paint_city_menu, button_label, 1);
@@ -279,10 +279,10 @@ static void play_location() {
 }
 
 static void enter_location(int bonus) {
+	loc = 0;
 	party.location = getbsi(last_location);
 	picture = last_location->avatar;
 	save_focus = current_focus;
-	loc = 0;
 	set_next_scene(play_location);
 }
 
@@ -320,12 +320,7 @@ static void load_game(int bonus) {
 
 static void choose_menu(int bonus) {
 	variants commands; commands.set(script_begin, script_end - script_begin);
-	an.clear();
-	auto id = get_action();
-	for(auto& v : commands)
-		add_menu(v, id);
-	last_result = choose_answer(getnm(id), getnm("Cancel"), paint_city_menu, button_label, 1);
-	an.clear();
+	choose_options(0, get_action(), commands);
 	apply_result();
 	script_stop();
 }
@@ -594,6 +589,13 @@ static void play_dungeon() {
 	show_scene(paint_adventure, play_dungeon_input, save_focus);
 }
 
+static void enter_active_dungeon() {
+	set_dungeon_tiles(loc->type);
+	make_action();
+	save_focus = current_focus;
+	set_next_scene(play_dungeon);
+}
+
 static void enter_dungeon(int bonus) {
 	loc = find_dungeon(bonus);
 	if(!loc && bonus == 0)
@@ -601,11 +603,8 @@ static void enter_dungeon(int bonus) {
 	loc = find_dungeon(bonus);
 	if(!loc)
 		return;
-	set_dungeon_tiles(loc->type);
-	save_focus = current_focus;
 	set_party_position(to(loc->state.up, loc->state.up.d), loc->state.up.d);
-	make_action();
-	set_next_scene(play_dungeon);
+	enter_active_dungeon();
 }
 
 static bool party_move_interact(pointc v) {
@@ -663,9 +662,12 @@ static void party_adventure(int bonus) {
 }
 
 void continue_game() {
-	current_focus = 0;
+   current_focus = 0;
 	last_location = bsdata<locationi>::elements + party.location;
-	enter_location(0);
+	if(loc)
+      enter_active_dungeon();
+   else
+      enter_location(0);
 }
 
 static void choose_spells(int bonus) {

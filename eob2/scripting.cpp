@@ -201,7 +201,7 @@ static void apply_result() {
 		script_run(*((variant*)last_result));
 }
 
-static void choose_options(const char* action, const char* id, const variants& options) {
+static void choose_options(const char* id, const variants& options) {
 	// Function use huge amount of memory for existing copy of answers and return result to upper level.
 	// So this memory used only for selection, not for each level of hierarhi.
 	pushanswer push;
@@ -209,13 +209,13 @@ static void choose_options(const char* action, const char* id, const variants& o
 	set_player_by_focus();
 	sb.add(get_header(id, "Options"), getnm(id));
 	for(auto& v : options)
-		add_menu(v, action);
+		add_menu(v, id);
 	last_result = choose_answer(header, getnm("Cancel"), paint_city_menu, button_label, 1);
 }
 
 static void choose_city_menu() {
 	auto& e = bsdata<locationi>::elements[party.location];
-	choose_options("Visit", e.id, e.options);
+	choose_options("Visit", e.options);
 	apply_result();
 }
 
@@ -320,7 +320,7 @@ static void load_game(int bonus) {
 
 static void choose_menu(int bonus) {
 	variants commands; commands.set(script_begin, script_end - script_begin);
-	choose_options(0, get_action(), commands);
+	choose_options(get_action(), commands);
 	apply_result();
 	script_stop();
 }

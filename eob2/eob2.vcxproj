@@ -166,6 +166,7 @@
     <ClInclude Include="location.h" />
     <ClInclude Include="logvalue.h" />
     <ClInclude Include="modifier.h" />
+    <ClInclude Include="monster.h" />
     <ClInclude Include="my_initialize_list.h" />
     <ClInclude Include="npc.h" />
     <ClInclude Include="party.h" />
@@ -300,6 +301,7 @@
     <Text Include="..\rules\Core.txt" />
     <Text Include="..\rules\Items.txt" />
     <Text Include="..\rules\Locations.txt" />
+    <Text Include="..\rules\Monsters.txt" />
     <Text Include="..\rules\Quests.txt" />
     <Text Include="..\rules\Races.txt" />
     <Text Include="..\rules\Shapes.txt" />

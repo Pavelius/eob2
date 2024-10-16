@@ -710,8 +710,8 @@ static void party_adventure(int bonus) {
 }
 
 void continue_game() {
-	current_focus = 0;
 	last_location = bsdata<locationi>::elements + party.location;
+	current_focus = 0;
 	if(loc)
 		enter_active_dungeon();
 	else

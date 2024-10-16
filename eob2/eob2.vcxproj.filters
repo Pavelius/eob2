@@ -455,6 +455,9 @@
     <ClInclude Include="randomizer.h">
       <Filter>support</Filter>
     </ClInclude>
+    <ClInclude Include="monster.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -525,6 +528,9 @@
     </Text>
     <Text Include="..\locale\en\Directions.txt">
       <Filter>locale</Filter>
+    </Text>
+    <Text Include="..\rules\Monsters.txt">
+      <Filter>rules</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

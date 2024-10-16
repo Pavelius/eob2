@@ -1,0 +1,4 @@
+#Monster
+
+Kobold res(kobold)
+Leech res(leech)

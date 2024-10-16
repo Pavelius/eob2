@@ -5,6 +5,7 @@
 #include "variant.h"
 
 struct monsteri : nameable {
-   resid       res;
-   short       frames[4];
+   resid	res;
+   short	frames[4];
+   variants	feats;
 };

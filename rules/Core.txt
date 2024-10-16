@@ -4,6 +4,7 @@
 #include "rules/Spells.txt"
 #include "rules/Advance.txt"
 #include "rules/Locations.txt"
+#include "rules/Monsters.txt"
 #include "rules/Shapes.txt" Shape
 #include "rules/Quests.txt"
 

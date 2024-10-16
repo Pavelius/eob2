@@ -475,17 +475,6 @@ static bool random_corridor(pointc v) {
 	return false;
 }
 
-static void remove_all_overlay(pointc v) {
-	if(!v)
-		return;
-	for(auto& e : loc->getoverlays()) {
-		if(e.d == Center)
-			continue;
-		if(to(e, e.d) == v)
-			e.clear();
-	}
-}
-
 static void drop_special(pointc v, item& it) {
 	//location.dropitem(index, it, 0);
 	loc->state.special = v;
@@ -504,7 +493,7 @@ static void remove_dead_door() {
 				continue;
 			// Incorrect door must be eliminated
 			loc->set(v, CellPassable);
-			remove_all_overlay(v);
+			loc->removeov(v);
 		}
 	}
 }

@@ -40,15 +40,13 @@ struct dungeoni : dungeon_site {
 	void			drop(pointc v, item& it, int side);
 	celln			get(pointc v) const;
 	overlayi*		get(pointc v, directions d);
-	slice<ground>	getitems() { return slice<ground>(items, state.items); }
 	size_t			getitems(ground** result, size_t result_maximum, pointc v);
-	slice<creaturei> getmonsters() { return slice<creaturei>(monsters, state.monsters); }
-	slice<overlayi> getoverlays() { return slice<overlayi>(overlays, state.overlays); }
 	overlayi*		getoverlay(pointc v, celln type);
 	bool			is(pointc v, cellfn i) const;
 	bool			is(pointc v, celln t1, celln t2) const;
 	void			makewave(pointc start) const;
 	void			remove(pointc v, cellfn i);
+	void			removeov(pointc v);
 	void			set(pointc v, celln i);
 	void			set(pointc v, celln i, directions d);
 	void			set(pointc v, celln i, pointc size);

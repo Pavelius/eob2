@@ -476,6 +476,21 @@ static bool change_cell(pointc v) {
 	return true;
 }
 
+static bool change_overlay(pointc v, directions d) {
+	auto p = loc->get(v, d);
+	if(!p)
+		return false;
+	auto x = to(v, d);
+	if(!x)
+		return false;
+	auto n = bsdata<celli>::elements[p->type].activate;
+	if(!n)
+		return false;
+	loc->set(x, n);
+	loc->removeov(x);
+	return true;
+}
+
 static void read_wall_messages(creaturei* player, dungeoni::overlayi* p) {
 	auto p1 = getid<wallmessagei>(p->subtype);
 	if(p->subtype < MessageHabbits) {
@@ -506,8 +521,7 @@ static void manipulate() {
 		player->speak(getid<celli>(p->type), getid<residi>(loc->type));
 		break;
 	case CellSecrectButton:
-		if(change_cell(v)) {
-			p->remove();
+		if(change_overlay(party, party.d)) {
 			party_addexp(400);
 			player->speak("CellSecrectButton", "Accept");
 			loc->state.secrets_found++;

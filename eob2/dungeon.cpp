@@ -188,6 +188,17 @@ void dungeoni::remove(pointc v, cellfn i) {
 	data[v.y][v.x] &= ~(0x80 >> i);
 }
 
+void dungeoni::removeov(pointc v) {
+	if(!v)
+		return;
+	for(auto& e : overlays) {
+		if(e.d == Center)
+			continue;
+		if(to(e, e.d) == v)
+			e.clear();
+	}
+}
+
 void dungeoni::set(pointc v, cellfn i) {
 	if(!v)
 		return;

@@ -508,6 +508,12 @@ static void manipulate() {
 	if(!player)
 		return;
 	item* pi = (item*)current_focus;
+	auto t = loc->get(v);
+	if(t == CellPortal) {
+		player->speak(getid<celli>(t), "About");
+		make_action();
+		return;
+	}
 	auto p = loc->get(party, party.d);
 	if(!p)
 		return;

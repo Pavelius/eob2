@@ -23,6 +23,13 @@ What a stench!
 #CellDecor3BrickMage
 Old water aqueduct.
 
+#CellPortalAbout
+This is a strange device.
+This is some kind of magic.
+
+#CellPortalAboutMage
+This is a portal.
+
 #CellTrapLauncherAboutTheif
 This is a trap launcher.
 A trap launcher. I can disarm it by tools.

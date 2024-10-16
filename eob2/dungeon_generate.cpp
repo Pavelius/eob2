@@ -134,7 +134,7 @@ static bool door(pointc v, directions d, bool has_button, bool has_button_on_oth
 }
 
 static void items(pointc v, itemi* pi, int bonus_level = 0) {
-	// TODO: item creating
+	// TODO: item power generate
 	if(!pi)
 		return;
 	item it;

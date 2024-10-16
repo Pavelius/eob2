@@ -218,6 +218,8 @@ int dungeoni::around(pointc v, celln t1, celln t2) const {
 }
 
 void dungeoni::drop(pointc v, item& it, int side) {
+	if(!it)
+		return;
 	for(auto& e : items) {
 		if(e)
 			continue;
@@ -266,4 +268,16 @@ const char* get_part_placement(pointc v) {
 	auto dx = imax(0, imin(2, v.x / (mpx / 3)));
 	auto dy = imax(0, imin(2, (v.y / (mpy / 3)) * 3));
 	return names[dy * 3 + dx];
+}
+
+int get_side(int side, directions d) {
+	static const char place_sides[4][4] = {
+		{1, 3, 0, 2},
+		{0, 1, 2, 3},
+		{2, 0, 3, 1},
+		{3, 2, 1, 0},
+	};
+	if(d == Center)
+		return side;
+	return place_sides[d - Left][side];
 }

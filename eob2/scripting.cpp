@@ -514,6 +514,54 @@ static void manipulate() {
 	make_action();
 }
 
+static int get_side(const creaturei* p) {
+	for(auto i = 0; i < 6; i++) {
+		if(party.units[i] == p) {
+			if(i == 4)
+				return 2;
+			else if(i == 5)
+				return 3;
+			return i;
+		}
+	}
+	return -1;
+}
+
+static directions get_drop(directions d) {
+	static directions result[] = {Center, Right, Up, Left, Down};
+	return result[d];
+}
+
+static void drop_dungeon_item() {
+	auto pi = (item*)current_focus;
+	auto pn = item_owner(pi);
+	if(!pn)
+		return;
+	if(!can_remove(pi))
+		return;
+	loc->drop(party, *pi, get_side(get_side(pn), get_drop(party.d)));
+	animation_update();
+}
+
+static void pick_dungeon_item() {
+	auto pi = (item*)current_focus;
+	auto pn = item_owner(pi);
+	if(!pn || *pi)
+		return;
+	//auto side = autodetect_side(*this, itm);
+	//auto gitm = find_item_to_get(*this, game.getcamera(), game.getside(side, game.getdirection()));
+	//if(!gitm)
+	//	return;
+	//auto slot = game.getwear(itm);
+	//auto pc = itm->getowner();
+	//if(!pc->isallow(*gitm, slot))
+	//	return;
+	//if(!itm->stack(*gitm))
+	//	iswap(*itm, *gitm);
+	console("%1 picked up", pi->getname());
+}
+
+
 static void play_dungeon_input() {
 	static hotkeyi source[] = {
 		{KeyLeft, move_party_left},
@@ -524,11 +572,16 @@ static void play_dungeon_input() {
 		{KeyPageUp, turn_right},
 		{'V', show_dungeon_automap},
 		{'M', manipulate},
+		{'D', drop_dungeon_item},
+		{'P', pick_dungeon_item},
 		{}};
 	adventure_input(source);
+	set_player_by_focus();
 }
 
 static void play_dungeon() {
+	current_focus = save_focus;
+	set_player_by_focus();
 	show_scene(paint_adventure, play_dungeon_input, save_focus);
 }
 

@@ -63,3 +63,5 @@ void dungeon_create();
 bool filter_corridor(pointc v);
 void show_automap(bool show_fog_of_war, bool show_secrets, bool show_party, const pointca* red_markers);
 void show_dungeon_automap();
+
+int get_side(int side, directions d);

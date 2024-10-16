@@ -547,7 +547,7 @@ static itemi* find_item_to_get(pointc v, directions d) {
 	return 0;
 }
 
-static void pick_dungeon_item() {
+void pick_up_dungeon_item() {
 	auto pi = (item*)current_focus;
 	auto pn = item_owner(pi);
 	if(!pn || *pi)
@@ -577,7 +577,6 @@ static void play_dungeon_input() {
 		{'V', show_dungeon_automap},
 		{'M', manipulate},
 		{'D', drop_dungeon_item},
-		{'P', pick_dungeon_item},
 		{}};
 	adventure_input(source);
 	set_player_by_focus();

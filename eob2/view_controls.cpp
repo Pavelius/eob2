@@ -949,12 +949,16 @@ static void update_player(creaturei* p1) {
 	player = push_player;
 }
 
+void pick_up_dungeon_item();
+
 static void pick_up_item() {
 	if(!current_select) {
 		if(!current_focus)
 			return;
-		if(*((int*)current_focus) == 0)
+		if(*((int*)current_focus) == 0) {
+			pick_up_dungeon_item();
 			return;
+		}
 		current_select = current_focus;
 	} else {
 		auto p1 = (item*)current_select;

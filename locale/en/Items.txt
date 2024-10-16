@@ -1,6 +1,8 @@
-﻿BattleAxe: Battle axe
+﻿Axe: Axe
+BattleAxe: Battle axe
 DwarvenHelm: Dwarven helm
 Helm: Helm
+LargeRation: Large ration
 LeatherArmor: Leather armor
 Longsword: Longsword
 Mace: Mace
@@ -8,6 +10,7 @@ RedRing: Red ring
 Robe: Robe
 Shield: Shield
 ShortSword: Short sword
+Stone: Stone
 
 ExamineItem: This is a %1
 WrongItem: I don't see any item

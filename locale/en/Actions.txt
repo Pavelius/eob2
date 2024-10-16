@@ -1,4 +1,5 @@
-﻿ChooseBet: Bed how match?
+﻿CampMenu: Camp Options:
+ChooseBet: Bed how match?
 DebugTest: Debug Test
 DebugTestVisit: Debug test string
 EatAndDrink: Eat and drink
@@ -6,6 +7,8 @@ EatAndDrinkVisit: Eat and drink
 ExitConfirm: Do you really want to exit game?
 GambleVisitors: Gamble with someone
 GameOptions: Game Options
+GameOptionsOptions: Game Options
+GlobalCampMenu: Camp menu
 GlobalOptions: What do you want?
 GlobalVisit: Visit %1
 MemorizeSpells: Memorize Spells

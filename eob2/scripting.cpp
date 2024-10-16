@@ -113,6 +113,8 @@ static dungeoni* find_dungeon(int level) {
 static const char* get_action() {
 	if(last_action)
 		return last_action->id;
+	else if(last_list)
+		return last_list->id;
 	else
 		return "GlobalList";
 }
@@ -163,7 +165,7 @@ static const char* get_header(const char* id, const char* action) {
 	return pn;
 }
 
-static void add_menu(variant& v, const char* action_id) {
+static void add_menu(variant& v) {
 	if(v.iskind<actioni>()) {
 		auto p = bsdata<actioni>::elements + v.value;
 		if(p->isallow(player))
@@ -174,10 +176,11 @@ static void add_menu(variant& v, const char* action_id) {
 	} else if(v.iskind<script>()) {
 		auto p = bsdata<script>::elements + v.value;
 		an.add(p, getnm(p->id));
-	} else {
-		auto format = get_header(v.getid(), action_id);
-		an.add(v.getpointer(), format, v.getname(), getnm(action_id));
-	}
+	} else if(v.iskind<locationi>()) {
+		auto format = get_header(v.getid(), "Visit");
+		an.add(v.getpointer(), format, v.getname());
+	} else
+		an.add(v.getpointer(), v.getname());
 }
 
 static void enter_location(int bonus);
@@ -194,6 +197,8 @@ static void apply_result() {
 		enter_location(0);
 	} else if(bsdata<script>::have(last_result))
 		((script*)last_result)->proc(0);
+	else if(bsdata<listi>::have(last_result))
+		ftscript<listi>(bsdata<listi>::source.indexof(last_result), 0);
 	else if(bsdata<actioni>::have(last_result)) {
 		last_action = (actioni*)last_result;
 		apply_action(0);
@@ -209,13 +214,21 @@ static void choose_options(const char* id, const variants& options) {
 	set_player_by_focus();
 	sb.add(get_header(id, "Options"), getnm(id));
 	for(auto& v : options)
-		add_menu(v, id);
+		add_menu(v);
 	last_result = choose_answer(header, getnm("Cancel"), paint_city_menu, button_label, 1);
 }
 
 static void choose_city_menu() {
 	auto& e = bsdata<locationi>::elements[party.location];
 	choose_options("Visit", e.options);
+	apply_result();
+}
+
+static void choose_dungeon_menu() {
+	auto pi = bsdata<listi>::find("CampMenu");
+	if(!pi)
+		return;
+	choose_options(pi->id, pi->elements);
 	apply_result();
 }
 
@@ -576,7 +589,7 @@ void pick_up_dungeon_item() {
 	}
 	*pi = *gpi;
 	gpi->clear();
-	console("%1 picked up", pi->getname());
+	consolen("%1 picked up", pi->getname());
 	animation_update();
 }
 
@@ -592,6 +605,7 @@ static void play_dungeon_input() {
 		{'V', show_dungeon_automap},
 		{'M', manipulate},
 		{'D', drop_dungeon_item},
+		{KeyEscape, choose_dungeon_menu},
 		{}};
 	adventure_input(source);
 	set_player_by_focus();
@@ -676,12 +690,12 @@ static void party_adventure(int bonus) {
 }
 
 void continue_game() {
-   current_focus = 0;
+	current_focus = 0;
 	last_location = bsdata<locationi>::elements + party.location;
 	if(loc)
-      enter_active_dungeon();
-   else
-      enter_location(0);
+		enter_active_dungeon();
+	else
+		enter_location(0);
 }
 
 static void choose_spells(int bonus) {
@@ -697,7 +711,7 @@ static void curse_item(int bonus) {
 }
 
 static void learn_cleric_spells(int bonus) {
-   pushanswer push;
+	pushanswer push;
 	add_spells(0, 1, 0);
 	for(auto& e : an.elements)
 		player->knownspells.set(getbsi((spelli*)e.value));

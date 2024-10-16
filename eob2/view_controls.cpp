@@ -1069,7 +1069,7 @@ bool adventure_input(const hotkeyi* hotkeys) {
 		return true;
 	if(hotkey_input(hotkeys))
 		return true;
-   return false;
+	return false;
 }
 
 void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding) {
@@ -1181,7 +1181,7 @@ void choose_spells(const char* title, const char* cancel, int spell_type) {
 		case KeyRight:
 			if(current_spell_index != -1 && total_use < available_spells)
 				source_value[current_spell_index]++;
-			else if(an.findvalue(current_focus)==-1)
+			else if(an.findvalue(current_focus) == -1)
 				apply_focus(hot.key);
 			break;
 		case KeyLeft:

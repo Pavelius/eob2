@@ -4,6 +4,8 @@ ChooseBet
  elements Set+10 ChooseMenu Mul+1 Mul+2 Mul+4 Mul+6
 GambleVisitorsFailedRoll
  elements Message-1
+GameOptions
+ elements ChooseMenu LoadGame SaveGame ExitGame
 
 #Action
 
@@ -11,8 +13,6 @@ Donate avatar(buildngs 1)
 GambleVisitors avatar(buildngs 1)
  classes Fighter Theif
  effect ChooseBet PayGold+101 Charisma Roll-2 Message+1 Mul+2 GoldPiece+101
-GameOptions
- effect ChooseMenu LoadGame SaveGame ExitGame
 MemorizeSpells
  classes Mage
  effect ChooseSpells+1
@@ -39,3 +39,8 @@ Temple avatar(buildngs 8) parent(HunterVillage)
 
 HunterVillage avatar(buildngs 26)
  options PartyAdventure Inn Tavern Temple
+
+#List
+
+CampMenu
+ elements MemorizeSpells PrayForSpells ScribleScrolls GameOptions

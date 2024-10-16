@@ -22,4 +22,4 @@ CreateTestParty
  elements HumanFighter PoisonLevel+4 JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty HalflingTheif JoinParty
 
 StartGame
- elements CreateTestParty FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 HunterVillage FloodedSewers EnterDungeon
+ elements CreateTestParty FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 HunterVillage FloodedSewers EnterLocation

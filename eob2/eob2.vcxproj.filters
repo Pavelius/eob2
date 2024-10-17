@@ -165,9 +165,6 @@
     <ClCompile Include="speech.cpp">
       <Filter>support</Filter>
     </ClCompile>
-    <ClCompile Include="unit.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="location.cpp">
       <Filter>logic</Filter>
     </ClCompile>
@@ -292,9 +289,6 @@
     </ClInclude>
     <ClInclude Include="bsdata.h">
       <Filter>support</Filter>
-    </ClInclude>
-    <ClInclude Include="unit.h">
-      <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="draw.h">
       <Filter>support</Filter>

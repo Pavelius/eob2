@@ -4,20 +4,6 @@
 #include "party.h"
 #include "variant.h"
 
-template<> void archive::set<partyi>(partyi& ev) {
-	for(auto i = 0; i < 6; i++)
-		set(ev.units[i]);
-	set(ev.x);
-	set(ev.y);
-	set(ev.side);
-	set(ev.d);
-	set(ev.location);
-	set(ev.abilities, sizeof(ev.abilities));
-	set(ev.active);
-	set(ev.done);
-	set(ev.prepared);
-}
-
 static bool serial_game(const char* url, bool writemode) {
 	io::file file(url, writemode ? StreamWrite : StreamRead);
 	if(!file)
@@ -25,9 +11,15 @@ static bool serial_game(const char* url, bool writemode) {
 	archive e(file, writemode);
 	if(!e.signature("SAV"))
 		return false;
-	auto digital_signature = bsreq_signature() + bsreq_name_count_signature();
+	auto digital_signature = 0;
+	auto digital_index = 25;
+	digital_signature += bsreq_signature();
+	digital_signature += bsreq_name_count_signature();
+	digital_signature += sizeof(partyi) * digital_index;
 	if(!e.checksum(digital_signature))
 		return false;
+	for(auto i = 0; i < 6; i++)
+		e.set(characters[i]);
 	e.set(party);
 	e.set(loc);
 	e.set(bsdata<creaturei>::source);
@@ -54,4 +46,8 @@ bool read_game(const char* id) {
 		return false;
 	continue_game();
 	return true;
+}
+
+void delete_game(const char* id) {
+	io::file::remove(get_save(id));
 }

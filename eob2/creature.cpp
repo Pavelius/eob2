@@ -77,6 +77,7 @@ void creaturei::clear() {
 	memset(this, 0, sizeof(*this));
 	avatar = 0xFF;
 	name = 0xFFFF;
+	monster_id = 0xFFFF;
 }
 
 static void update_basic() {
@@ -294,7 +295,7 @@ static void set_starting_equipment() {
 
 static bool no_party_avatars(unsigned char value) {
 	for(auto i = 0; i < 6; i++) {
-		if(party.units[i] && party.units[i]->avatar == value)
+		if(characters[i] && characters[i]->avatar == value)
 			return false;
 	}
 	return true;
@@ -331,6 +332,7 @@ void create_monster(const monsteri* pi) {
 		return;
 	player = bsdata<creaturei>::add();
 	player->clear();
+	player->monster_id = getbsi(pi);
 	apply_feats(pi->feats);
 	update_player();
 	player->hp = player->hpm;
@@ -417,6 +419,10 @@ void creaturei::addexp(int value) {
 	experience += value;
 }
 
+const monsteri*	creaturei::getmonster() const {
+	return getbs<monsteri>(monster_id);
+}
+
 bool can_remove(const item* pi, bool speech) {
 	auto player = item_owner(pi);
 	if(!player)
@@ -430,4 +436,17 @@ bool can_remove(const item* pi, bool speech) {
 		}
 	}
 	return true;
+}
+
+void creaturei::setframe(short* frames, short index) const {
+	if(ismonster()) {
+		auto po = getmonster()->overlays;
+		frames[0] = po[0] * 6 + index;
+		frames[1] = po[1] ? po[1] * 6 + index : 0;
+		frames[2] = po[2] ? po[2] * 6 + index : 0;
+		frames[3] = po[3] ? po[3] * 6 + index : 0;
+	} else {
+		frames[0] = index;
+		frames[1] = 0;
+	}
 }

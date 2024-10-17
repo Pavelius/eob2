@@ -3,6 +3,7 @@
 #include "draw.h"
 #include "dungeon.h"
 #include "cell.h"
+#include "monster.h"
 #include "party.h"
 #include "resid.h"
 #include "view.h"
@@ -130,7 +131,7 @@ static renderi* get_monster_disp(creaturei* target) {
 
 static int get_party_index(const creaturei* target) {
 	for(auto i = 0; i < 6; i++) {
-		if(party.units[i] == target)
+		if(characters[i] == target)
 			return i;
 	}
 	return -1;
@@ -760,61 +761,63 @@ static renderi* create_items(renderi* p, int i, pointc v, directions dr) {
 }
 
 static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, bool flip) {
-	//creaturei* result[4]; location.getmonsters(result, index, dr);
-	//for(int n = 0; n < 4; n++) {
-	//	auto pc = result[n];
-	//	if(!pc)
-	//		continue;
-	//	auto size = pc->getsize();
-	//	auto dir = get_absolute_direction(dr, pc->getdirection());
-	//	int d = pos_levels[i] * 2 - (n / 2);
-	//	p->clear();
-	//	if(size == Large) {
-	//		p->x = item_position[i * 4 + 0].x + (item_position[i * 4 + 1].x - item_position[i * 4 + 0].x) / 2;
-	//		p->y = item_position[i * 4 + 0].y + (item_position[i * 4 + 3].y - item_position[i * 4 + 0].y) / 2;
-	//		p->z = pos_levels[i] * distance_per_level - 1;
-	//		d = pos_levels[i] * 2 - 1;
-	//	} else {
-	//		p->x = item_position[i * 4 + n].x;
-	//		p->y = item_position[i * 4 + n].y;
-	//		p->z = pos_levels[i] * distance_per_level + 1 - (n / 2);
-	//	}
-	//	p->percent = item_distances[d][0];
-	//	p->alpha = (unsigned char)item_distances[d][1];
-	//	p->rdata = gres(pc->getres());
-	//	if(!p->rdata)
-	//		continue;
-	//	p->pc = pc;
+	creaturei* result[4]; loc->getmonsters(result, index, dr);
+	for(int n = 0; n < 4; n++) {
+		auto pc = result[n];
+		if(!pc)
+			continue;
+		auto large = pc->is(Large);
+		auto dir = to(dr, pc->d);
+		int d = pos_levels[i] * 2 - (n / 2);
+		p->clear();
+		if(large) {
+			p->x = item_position[i * 4 + 0].x + (item_position[i * 4 + 1].x - item_position[i * 4 + 0].x) / 2;
+			p->y = item_position[i * 4 + 0].y + (item_position[i * 4 + 3].y - item_position[i * 4 + 0].y) / 2;
+			p->z = pos_levels[i] * distance_per_level - 1;
+			d = pos_levels[i] * 2 - 1;
+		} else {
+			p->x = item_position[i * 4 + n].x;
+			p->y = item_position[i * 4 + n].y;
+			p->z = pos_levels[i] * distance_per_level + 1 - (n / 2);
+		}
+		p->percent = item_distances[d][0];
+		p->alpha = (unsigned char)item_distances[d][1];
+		auto pm = pc->getmonster();
+		if(pm)
+			p->rdata = gres(pm->res);
+		if(!p->rdata)
+			continue;
+		p->pc = pc;
 	//	p->pallette = pc->getpallette();
-	//	unsigned flags = 0;
+		unsigned flags = 0;
 	//	// Анимируем активных монстров
 	//	if(((p->x + draw::frametick) / 16) % 2) {
 	//		p->x++;
 	//		p->y++;
 	//	}
-	//	switch(dir) {
-	//	case Left:
-	//		pc->setframe(p->frame, flip ? 2 : 1);
-	//		break;
-	//	case Right:
-	//		pc->setframe(p->frame, flip ? 2 : 1);
-	//		flags |= ImageMirrorH;
-	//		break;
-	//	case Up:
-	//		pc->setframe(p->frame, 3);
-	//		if(flip)
-	//			flags ^= ImageMirrorH;
-	//		break;
-	//	case Down:
-	//		pc->setframe(p->frame, 0);
-	//		if(flip)
-	//			flags ^= ImageMirrorH;
-	//		break;
-	//	}
-	//	for(int i = 0; i < 4; i++)
-	//		p->flags[i] = flags;
-	//	p++;
-	//}
+		switch(dir) {
+		case Left:
+			pc->setframe(p->frame, flip ? 2 : 1);
+			break;
+		case Right:
+			pc->setframe(p->frame, flip ? 2 : 1);
+			flags |= ImageMirrorH;
+			break;
+		case Up:
+			pc->setframe(p->frame, 3);
+			if(flip)
+				flags ^= ImageMirrorH;
+			break;
+		case Down:
+			pc->setframe(p->frame, 0);
+			if(flip)
+				flags ^= ImageMirrorH;
+			break;
+		}
+		for(int i = 0; i < lenghtof(p->flags); i++)
+			p->flags[i] = flags;
+		p++;
+	}
 	return p;
 }
 

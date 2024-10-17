@@ -189,7 +189,6 @@
     <ClInclude Include="sprite_util.h" />
     <ClInclude Include="textscript.h" />
     <ClInclude Include="timer.h" />
-    <ClInclude Include="unit.h" />
     <ClInclude Include="io_stream.h" />
     <ClInclude Include="levelable.h" />
     <ClInclude Include="log.h" />
@@ -255,7 +254,6 @@
     <ClCompile Include="sprite_util.cpp" />
     <ClCompile Include="surface_util.cpp" />
     <ClCompile Include="textscript.cpp" />
-    <ClCompile Include="unit.cpp" />
     <ClCompile Include="variant.cpp" />
     <ClCompile Include="view_automap.cpp" />
     <ClCompile Include="view_dungeon.cpp" />

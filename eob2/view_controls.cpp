@@ -700,13 +700,13 @@ void paint_avatars() {
 	//	set_focus_by_player();
 	rectpush push;
 	auto push_player = player;
-	if(party.units[4])
+	if(characters[4])
 		copy_image({183, 53}, {183, 105}, 65, 52);
-	if(party.units[5])
+	if(characters[5])
 		copy_image({255, 53}, {255, 105}, 65, 52);
 	for(auto i = 0; i < 6; i++) {
 		caret = points[i];
-		player = party.units[i];
+		player = characters[i];
 		if(!player)
 			continue;
 		paint_character(player->isdisabled(), hilite_player && (player == push_player));
@@ -989,7 +989,7 @@ static void examine_item() {
 }
 
 static void choose_character(int index) {
-	auto p = party.units[index];
+	auto p = characters[index];
 	if(p) {
 		player = p;
 		if(((creaturei*)current_focus) >= player && ((creaturei*)current_focus) < (player + 1))

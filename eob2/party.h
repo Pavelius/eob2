@@ -3,9 +3,10 @@
 #include "flagable.h"
 #include "nameable.h"
 #include "posable.h"
-#include "unit.h"
 
 typedef flagable<8, unsigned> questa;
+
+struct creaturei;
 
 enum partystatn : unsigned char {
 	GoldPiece, Reputation, Blessing,
@@ -13,15 +14,17 @@ enum partystatn : unsigned char {
 };
 struct partystati : nameable {
 };
-struct partyi : uniti, posable {
+struct partyi : posable {
 	short unsigned	location;
 	questa			active, done, prepared;
 	int				abilities[Minutes + 1];
 };
+extern creaturei* characters[6];
 extern partyi party;
 
 void add_party(partystatn id, int value);
 void continue_game();
+void delete_game(const char* id);
 bool is_dead_line();
 void move_party(pointc v);
 void party_addexp(int value);

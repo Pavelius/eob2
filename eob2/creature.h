@@ -2,6 +2,7 @@
 
 #include "statable.h"
 #include "levelable.h"
+#include "posable.h"
 #include "spell.h"
 #include "npc.h"
 #include "wearable.h"
@@ -10,9 +11,10 @@ struct classi;
 struct monsteri;
 struct racei;
 
-struct creaturei : npc, statable, levelable, wearable {
+struct creaturei : npc, statable, levelable, wearable, posable {
 	statable		basic;
 	short			hp, hpm, hpr;
+	short unsigned	monster_id;
 	unsigned char	avatar;
 	spella			spells;
 	spellseta		knownspells;
@@ -23,12 +25,15 @@ struct creaturei : npc, statable, levelable, wearable {
 	const char*		getbadstate() const;
 	int				getchance(abilityn v) const;
 	dice			getdamage(wearn id) const;
+	const monsteri*	getmonster() const;
 	bool			is(abilityn v) const { return abilities[v] > 0; }
 	bool			is(featn v) const { return featable::is(v); }
 	bool			isallow(const item& it) const;
 	bool			isdead() const { return hp <= -10; }
 	bool			isdisabled() const { return hp <= 0; }
+	bool			ismonster() const { return getmonster() != 0; }
 	bool			roll(abilityn v, int bonus = 0) const;
+	void			setframe(short* frames, short index) const;
 };
 extern creaturei* player;
 extern int last_roll, last_chance;

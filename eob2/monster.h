@@ -7,6 +7,6 @@
 
 struct monsteri : nameable {
    resid	res;
-   short	frames[4];
+   short	frames[4], overlays[4];
    variants	feats, spells;
 };

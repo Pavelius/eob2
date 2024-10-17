@@ -14,7 +14,7 @@ BattleAxe cost(5) speed(7) damage(1 8) avatar(3) avatar_ground(4) wear(RightHand
 Axe cost(5) speed(4) damage(1 6) avatar(7) avatar_ground(4) wear(RightHand)
  feats UseMartial
 Club speed(4) damage(1 6) avatar(76) avatar_ground(12) wear(RightHand)
-Dagger cost(2) speed(2) damage(1 4) avatar(15) wear(RightHand)
+Dagger cost(2) speed(2) damage(1 4) avatar(15) avatar_ground(3) wear(RightHand)
  feats Small
 Flail cost(15) speed(7) damage(1 6 1) avatar(5) avatar_ground(2) wear(RightHand)
  feats UseMartial

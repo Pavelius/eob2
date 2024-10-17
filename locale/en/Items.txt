@@ -1,6 +1,7 @@
 ﻿Axe: Axe
 BastardSword: BasterdSword
 BattleAxe: Battle axe
+Dagger: Dagger
 DwarvenHelm: Dwarven helm
 Helm: Helm
 LargeRation: Large ration

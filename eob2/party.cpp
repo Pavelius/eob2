@@ -12,6 +12,8 @@ BSDATA(partystati) = {
 	{"Minutes"},
 };
 assert_enum(partystati, Minutes)
+
+creaturei* characters[6];
 partyi party;
 
 void add_party(partystatn id, int value) {
@@ -48,7 +50,7 @@ void set_party_position(pointc v, directions d) {
 
 int party_count() {
 	int result = 0;
-	for(auto p : party.units) {
+	for(auto p : characters) {
 		if(p && !p->isdisabled())
 			result++;
 	}
@@ -60,7 +62,7 @@ void party_addexp(int value) {
 	if(!n)
 		return;
 	value = (value + n - 1) / n;
-	for(auto p : party.units) {
+	for(auto p : characters) {
 		if(p && !p->isdisabled())
 			p->addexp(value);
 	}

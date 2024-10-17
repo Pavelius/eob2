@@ -296,6 +296,22 @@ size_t dungeoni::getitems(item** result, size_t result_maximum, const overlayi* 
 	return ps - result;
 }
 
+void dungeoni::getmonsters(creaturei** result, pointc index, directions dr) {
+	result[0] = result[1] = result[2] = result[3] = 0;
+	if(!index)
+		return;
+	for(auto& e : monsters) {
+		if(!e)
+			continue;
+		if(e != index)
+			continue;
+		if(e.is(Large))
+			result[2] = &e;
+		else
+			result[get_side(e.side, dr)] = &e;
+	}
+}
+
 bool filter_corridor(pointc v) {
 	if(get_wall(loc->get(v)) == CellWall)
 		return false;

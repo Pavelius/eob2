@@ -146,7 +146,7 @@ void skip_hours(int value) {
 }
 
 static void join_party(int bonus) {
-	for(auto& e : party.units) {
+	for(auto& e : characters) {
 		if(e)
 			continue;
 		e = player;
@@ -562,7 +562,7 @@ static void manipulate() {
 
 static int get_side(const creaturei* p) {
 	for(auto i = 0; i < 6; i++) {
-		if(party.units[i] == p) {
+		if(characters[i] == p) {
 			if(i == 4)
 				return 2;
 			else if(i == 5)

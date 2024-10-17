@@ -132,6 +132,21 @@ dungeoni::overlayi* dungeoni::add(pointc v, directions d, celln i) {
 	return 0;
 }
 
+void dungeoni::add(overlayi* po, item& it) {
+	if(!it || !po)
+		return;
+	if(!have(po))
+		return;
+	for(auto& e : overlayitems) {
+		if(!e) {
+			e.clear();
+			e.storage_index = po - overlays;
+			assign<item>(e, it);
+			break;
+		}
+	}
+}
+
 dungeoni::overlayi* dungeoni::get(pointc v, directions d) {
 	if(!v)
 		return 0;

@@ -536,6 +536,23 @@ static void manipulate() {
 	case CellMessage:
 		read_wall_messages(player, p);
 		break;
+	case CellCellar:
+		if(*pi) {
+			if(!pi->geti().is(Small))
+				player->speak(getid<celli>(p->type), "NotFit");
+			else {
+				// location.add(po, *itm);
+				// itm->clear();
+			}
+		} else {
+			//item* items[1];
+			//if(location.getitems(items, items + sizeof(items) / sizeof(items[0]), po)) {
+			//	*itm = *items[0];
+			//	items[0]->clear();
+			//} else
+			//	pc->say("There is nothing to grab");
+		}
+		break;
 	default:
 		player->speak(getid<celli>(p->type), "About");
 		break;
@@ -577,12 +594,13 @@ static item* find_item_to_get(pointc v, directions d, int side) {
 	auto count = loc->getitems(items, lenghtof(items), v);
 	if(!count)
 		return 0;
-	int sides[4];
+	int sides[5];
 	sides[0] = side;
 	sides[1] = get_side(side, Left);
 	sides[2] = get_side(side, Up);
 	sides[3] = get_side(side, Down);
-	for(auto r = 0; r < 4; r++) {
+	sides[4] = get_side(side, Right);
+	for(size_t r = 0; r < lenghtof(sides); r++) {
 		auto s = sides[r];
 		for(size_t i = 0; i < count; i++) {
 			if(items[i]->side == s)

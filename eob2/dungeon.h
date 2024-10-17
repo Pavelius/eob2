@@ -25,13 +25,18 @@ struct dungeoni : dungeon_site {
 		bool		is(cellfn v) const { return flags.is(v); }
 		void		remove() { clear(); }
 	};
+	struct overlayitem : item {
+		unsigned short storage_index;
+	};
 	unsigned short	quest_id;
 	dungeon_state	state;
 	ground			items[512];
 	creaturei		monsters[200];
 	overlayi		overlays[255];
+	overlayitem		overlayitems[256];
 	unsigned char	data[mpy][mpx];
 	overlayi*		add(pointc v, directions d, celln i);
+	void			add(overlayi* po, item& it);
 	void			addmonster(pointc v, unsigned char type) {}
 	int				around(pointc v, celln t1, celln t2) const;
 	void			block(bool treat_door_as_passable) const;
@@ -42,6 +47,7 @@ struct dungeoni : dungeon_site {
 	overlayi*		get(pointc v, directions d);
 	size_t			getitems(ground** result, size_t result_maximum, pointc v);
 	overlayi*		getoverlay(pointc v, celln type);
+	bool			have(const overlayi* p) const { return p >= overlays && p <= overlays + lenghtof(overlays); }
 	bool			is(pointc v, cellfn i) const;
 	bool			is(pointc v, celln t1, celln t2) const;
 	void			makewave(pointc start) const;

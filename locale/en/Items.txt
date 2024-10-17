@@ -12,6 +12,7 @@ Robe: Robe
 Shield: Shield
 ShortSword: Short sword
 Stone: Stone
+TwoHandedSword: Two-handed sword
 
 ExamineItem: This is a %1
 WrongItem: I don't see any item

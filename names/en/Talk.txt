@@ -37,6 +37,9 @@ A trap launcher. I can disarm it by tools.
 #CellTrapLauncherAbout
 A hole in the wall.
 
+#CellCellarNotFit
+This item does not fit in cellar.
+
 #CantDropCursedItem
 This is mine!
 No! I can't remove this item.

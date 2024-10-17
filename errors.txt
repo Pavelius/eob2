@@ -1,3 +1,2 @@
-﻿Error in file `rules/Monsters.txt`:
- Line 3: Not found identifier `kobold`
- Line 4: Not found identifier `leech`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `TwoHandedSword`

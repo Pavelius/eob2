@@ -13,6 +13,9 @@ template<> void archive::set<partyi>(partyi& ev) {
 	set(ev.d);
 	set(ev.location);
 	set(ev.abilities, sizeof(ev.abilities));
+	set(ev.active);
+	set(ev.done);
+	set(ev.prepared);
 }
 
 static bool serial_game(const char* url, bool writemode) {
@@ -22,9 +25,9 @@ static bool serial_game(const char* url, bool writemode) {
 	archive e(file, writemode);
 	if(!e.signature("SAV"))
 		return false;
-	//auto total = bsreq_signature() + bsreq_name_count_signature();
-	//if(!e.checksum(total))
-	//	return false;
+	auto digital_signature = bsreq_signature() + bsreq_name_count_signature();
+	if(!e.checksum(digital_signature))
+		return false;
 	e.set(party);
 	e.set(loc);
 	e.set(bsdata<creaturei>::source);

@@ -39,6 +39,13 @@ A hole in the wall.
 
 #CellCellarNotFit
 This item does not fit in cellar.
+Too big item.
+Try something small.
+
+#CellCellarEmpthy
+There is nothing there.
+Nothing to grab.
+Cellar is empthy.
 
 #CantDropCursedItem
 This is mine!

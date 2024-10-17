@@ -418,8 +418,8 @@ static renderi* add_cellar_items(renderi* p, int i, dungeoni::overlayi* povr) {
 		for(size_t n = 0; n < item_count; n++) {
          p++;
          p->clear();
-         p->x = positions[i].x + n;
-         p->y = positions[i].y + n / 2;
+         p->x = positions[i].x + (short)n;
+         p->y = positions[i].y + (short)(n / 2);
          p->z = pos_levels[i] * distance_per_level;
          p->zorder = 2;
          p->pos = *povr;

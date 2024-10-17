@@ -540,7 +540,7 @@ static void manipulate() {
 		if(*pi) {
          // Put item to cellar
 			if(!pi->geti().is(Small))
-				player->speak(getid<celli>(p->type), "NoFit");
+				player->speak(getid<celli>(p->type), "NotFit");
 			else
 				loc->add(p, *pi);
 		} else {

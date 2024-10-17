@@ -11,12 +11,7 @@ static bool serial_game(const char* url, bool writemode) {
 	archive e(file, writemode);
 	if(!e.signature("SAV"))
 		return false;
-	auto digital_signature = 0;
-	auto digital_index = 25;
-	digital_signature += bsreq_signature();
-	digital_signature += bsreq_name_count_signature();
-	digital_signature += sizeof(partyi) * digital_index;
-	if(!e.checksum(digital_signature))
+	if(!e.checksum(sizeof(partyi)))
 		return false;
 	for(auto i = 0; i < 6; i++)
 		e.set(characters[i]);

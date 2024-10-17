@@ -137,11 +137,6 @@ static void saves_modify(int bonus) {
 	ftscript<abilityi>(SaveVsTraps, bonus);
 }
 
-static void dungeon_update() {
-	console_scroll(2000);
-	animation_update();
-}
-
 void pass_round() {
 	add_party(Minutes, 1);
 }
@@ -452,12 +447,10 @@ static void move_party_down() {
 
 static void turn_right() {
 	party.d = to(party.d, Right);
-	dungeon_update();
 }
 
 static void turn_left() {
 	party.d = to(party.d, Left);
-	dungeon_update();
 }
 
 static void explore_area() {
@@ -470,7 +463,6 @@ static void explore_area() {
 
 static void make_action() {
 	explore_area();
-	dungeon_update();
 }
 
 static void activate(pointc v, bool value) {
@@ -610,7 +602,6 @@ static void drop_dungeon_item() {
 	if(!can_remove(pi))
 		return;
 	loc->drop(party, *pi, get_side(get_side(pn), get_drop(party.d)));
-	dungeon_update();
 }
 
 static item* find_item_to_get(pointc v, directions d, int side) {
@@ -652,9 +643,7 @@ void pick_up_dungeon_item() {
 	*pi = *gpi;
 	gpi->clear();
 	consolen("%1 picked up", pi->getname());
-	dungeon_update();
 }
-
 
 static void play_dungeon_input() {
 	static hotkeyi source[] = {
@@ -724,7 +713,6 @@ void move_party(pointc v) {
 		turnto(v, to(party.d, Down));
 		// TODO: interact with monsters
 		pass_round();
-		dungeon_update();
 		return;
 	}
 	if(party_move_interact(v))
@@ -732,7 +720,6 @@ void move_party(pointc v) {
 	set_party_position(v);
 	pass_round();
 	explore_area();
-	dungeon_update();
 }
 
 static void party_adventure(int bonus) {

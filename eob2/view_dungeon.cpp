@@ -21,8 +21,8 @@ struct renderi {
 	short unsigned		flags[4];
 	const sprite*		rdata;
 	pointc				pos;
-	creaturei*			pc;
-	celln				rec;
+	creaturei*			target;
+	//celln				rec;
 	unsigned char		pallette;
 	short				percent;
 	unsigned char		alpha;
@@ -96,6 +96,17 @@ static point item_position[18 * 4] = {
 	{205, 118}, {283, 118}, {232, 136}, {328, 136},
 };
 
+static directions get_view_direction(directions d, directions d1) {
+	static directions result[][5] = {
+		{Center, Left, Up, Right, Down},
+		{Center, Up, Right, Down, Left},
+		{Center, Left, Up, Right, Down},
+		{Center, Down, Left, Up, Right},
+		{Center, Right, Down, Left, Up},
+	};
+	return result[d][d1];
+}
+
 static celln get_wall_type(celln v) {
 	switch(v) {
 	case CellSecrectButton:
@@ -118,13 +129,13 @@ static int get_tile_alternate(celln id) {
 	return decor_offset + 2 * decor_frames;
 }
 
-static renderi* get_monster_disp(creaturei* target) {
+static renderi* get_disp(const void* target) {
 	if(!target)
 		return 0;
 	for(auto& e : disp_data) {
 		if(!e.rdata)
 			return 0;
-		if(e.pc == target)
+		if(e.target == target)
 			return &e;
 	}
 	return 0;
@@ -264,7 +275,7 @@ void animation_damage(creaturei* target, int hits) {
 	} /*else if(target->is(StaticObject))
 		animation_render();*/
 	else {
-		auto e = get_monster_disp(target);
+		auto e = get_disp(target);
 		if(e) {
 			short unsigned flags[4];
 			memcpy(flags, e->flags, sizeof(e->flags));
@@ -286,7 +297,7 @@ void animation_attack(creaturei* attacker, wearn slot, int hits) {
 		//	animation_thrown(attacker->getindex(), attacker->getdirection(), sht, sdr, 50, true);
 		disp_hits[pind][((slot == RightHand) ? 0 : 1)] = hits;
 	} else {
-		auto p = get_monster_disp(attacker);
+		auto p = get_disp(attacker);
 		if(p) {
 			//attacker->setframe(p->frame, 4);
 			animation_render();
@@ -521,7 +532,7 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 		p->frame[0] = n + frame;
 		p->rdata = map_tiles;
 		p->pos = index;
-		p->rec = rec;
+		//p->rec = rec;
 		auto front_wall = p;
 		if(rec == CellDoor && i < 15) {
 			p++;
@@ -643,7 +654,7 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 		p->frame[0] = n + frame;
 		p->rdata = map_tiles;
 		p->pos = index;
-		p->rec = rec;
+		//p->rec = rec;
 		add_wall_decor(p, index, Right, decor_left[i], flip, false);
 		p++;
 	}
@@ -665,7 +676,7 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 		p->frame[0] = n + frame;
 		p->rdata = map_tiles;
 		p->pos = index;
-		p->rec = rec;
+		//p->rec = rec;
 		p->flags[1] = ImageMirrorH;
 		add_wall_decor(p, index, Left, decor_right[i], flip, false);
 		p++;
@@ -701,7 +712,6 @@ static renderi* create_floor(renderi* p, int i, pointc index, celln rec, bool fl
 		else
 			p->rdata = map_tiles;
 		p->pos = index;
-		p->rec = rec;
 		p++;
 	}
 	return p;
@@ -761,17 +771,6 @@ static renderi* create_items(renderi* p, int i, pointc v, directions dr) {
 	return p;
 }
 
-static directions get_absolute_direction(directions d, directions d1) {
-	static directions result[][5] = {
-		{Center, Left, Up, Right, Down},
-		{Center, Up, Right, Down, Left},
-		{Center, Left, Up, Right, Down},
-		{Center, Down, Left, Up, Right},
-		{Center, Right, Down, Left, Up},
-	};
-	return result[d][d1];
-}
-
 static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, bool flip) {
 	creaturei* result[4]; loc->getmonsters(result, index, dr);
 	for(int n = 0; n < 4; n++) {
@@ -779,7 +778,7 @@ static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, 
 		if(!pc)
 			continue;
 		auto large = pc->is(Large);
-		auto dir = get_absolute_direction(dr, pc->d);
+		auto dir = get_view_direction(dr, pc->d);
 		int d = pos_levels[i] * 2 - (n / 2);
 		p->clear();
 		if(large) {
@@ -799,7 +798,7 @@ static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, 
 			p->rdata = gres(pm->res);
 		if(!p->rdata)
 			continue;
-		p->pc = pc;
+		p->target = pc;
 		//	p->pallette = pc->getpallette();
 		unsigned flags = 0;
 		// Animate active monsters

@@ -821,8 +821,10 @@ void paint_city() {
 void paint_adventure() {
 	paint_background(PLAYFLD, 0);
 	paint_compass(party.d);
+	animation_update();
 	paint_dungeon();
 	paint_party_sheets();
+	console_scroll(3000);
 	paint_console();
 }
 

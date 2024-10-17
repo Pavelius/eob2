@@ -137,6 +137,11 @@ static void saves_modify(int bonus) {
 	ftscript<abilityi>(SaveVsTraps, bonus);
 }
 
+static void dungeon_update() {
+	console_scroll(2000);
+	animation_update();
+}
+
 void pass_round() {
 	add_party(Minutes, 1);
 }
@@ -151,6 +156,25 @@ static void join_party(int bonus) {
 			continue;
 		e = player;
 		break;
+	}
+}
+
+static void turnto(pointc v, directions d, bool* surprise = 0) {
+	if(!d)
+		return;
+	if(v == party) {
+		if(surprise)
+			*surprise = (party.d != d);
+		set_party_position(v, d);
+	} else {
+		creaturei* result[4]; loc->getmonsters(result, v, party.d);
+		for(auto pc : result) {
+			if(!pc)
+				continue;
+			if(surprise && !(*surprise))
+				*surprise = (pc->d != d);
+			pc->d = d;
+		}
 	}
 }
 
@@ -428,12 +452,12 @@ static void move_party_down() {
 
 static void turn_right() {
 	party.d = to(party.d, Right);
-	animation_update();
+	dungeon_update();
 }
 
 static void turn_left() {
 	party.d = to(party.d, Left);
-	animation_update();
+	dungeon_update();
 }
 
 static void explore_area() {
@@ -446,7 +470,7 @@ static void explore_area() {
 
 static void make_action() {
 	explore_area();
-	animation_update();
+	dungeon_update();
 }
 
 static void activate(pointc v, bool value) {
@@ -586,7 +610,7 @@ static void drop_dungeon_item() {
 	if(!can_remove(pi))
 		return;
 	loc->drop(party, *pi, get_side(get_side(pn), get_drop(party.d)));
-	animation_update();
+	dungeon_update();
 }
 
 static item* find_item_to_get(pointc v, directions d, int side) {
@@ -628,7 +652,7 @@ void pick_up_dungeon_item() {
 	*pi = *gpi;
 	gpi->clear();
 	consolen("%1 picked up", pi->getname());
-	animation_update();
+	dungeon_update();
 }
 
 
@@ -686,7 +710,7 @@ static bool party_move_interact(pointc v) {
 			enter_dungeon(loc->level + 1);
 		else if(confirm(getnm("ReturnToTownConfirm")))
 			enter_location(0);
-		return false;
+		break;
 	default:
 		return false;
 	}
@@ -696,13 +720,19 @@ static bool party_move_interact(pointc v) {
 void move_party(pointc v) {
 	if(!is_passable(v))
 		return;
+	if(loc->ismonster(v)) {
+		turnto(v, to(party.d, Down));
+		// TODO: interact with monsters
+		pass_round();
+		dungeon_update();
+		return;
+	}
 	if(party_move_interact(v))
 		return;
 	set_party_position(v);
-	explore_area();
 	pass_round();
-	console_scroll(2000);
-	animation_update();
+	explore_area();
+	dungeon_update();
 }
 
 static void party_adventure(int bonus) {

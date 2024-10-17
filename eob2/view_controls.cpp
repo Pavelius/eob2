@@ -37,6 +37,7 @@ static fnevent character_view_proc;
 static void* current_select;
 static point cancel_position;
 static bool hilite_player;
+unsigned long current_cpu_time;
 
 template<typename T> const char* gtn(int v) {
 	return bsdata<T>::elements[v].getname();
@@ -82,6 +83,7 @@ static void copy_image(point origin, point dest, int w, int h) {
 }
 
 static void paint_background(resid v, int frame) {
+	current_cpu_time = getcputime();
 	draw::image(gres(v), frame, 0);
 }
 

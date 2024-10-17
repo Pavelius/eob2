@@ -52,6 +52,7 @@ struct dungeoni : dungeon_site {
 	bool			have(const overlayi* p) const { return p >= overlays && p <= overlays + lenghtof(overlays); }
 	bool			is(pointc v, cellfn i) const;
 	bool			is(pointc v, celln t1, celln t2) const;
+	bool			ismonster(pointc v) const;
 	void			makewave(pointc start) const;
 	void			remove(pointc v, cellfn i);
 	void			removeov(pointc v);
@@ -59,6 +60,7 @@ struct dungeoni : dungeon_site {
 	void			set(pointc v, celln i, directions d);
 	void			set(pointc v, celln i, pointc size);
 	void			set(pointc v, cellfn i);
+	void			turnto(pointc v, directions d, bool* surprise);
 };
 extern dungeoni *loc, *locup, *locdw;
 extern unsigned short pathmap[mpy][mpx];

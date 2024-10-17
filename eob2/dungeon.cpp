@@ -251,6 +251,14 @@ void dungeoni::set(pointc v, celln type, directions d) {
 	}
 }
 
+bool dungeoni::ismonster(pointc v) const {
+	for(auto& e : monsters) {
+		if(e && e == v)
+			return true;
+	}
+	return false;
+}
+
 int dungeoni::around(pointc v, celln t1, celln t2) const {
 	auto result = 0;
 	for(auto d : all_directions) {

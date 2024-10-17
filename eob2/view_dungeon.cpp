@@ -6,6 +6,7 @@
 #include "monster.h"
 #include "party.h"
 #include "resid.h"
+#include "timer.h"
 #include "view.h"
 
 using namespace draw;
@@ -314,8 +315,8 @@ void set_dungeon_tiles(resid type) {
 	case BRICK:
 		render_mirror1 = CellPassable;
 		break;
-   default:
-      break;
+	default:
+		break;
 	}
 }
 
@@ -417,16 +418,16 @@ static renderi* add_cellar_items(renderi* p, int i, dungeoni::overlayi* povr) {
 		auto item_count = loc->getitems(result, lenghtof(result), povr);
 		auto d = pos_levels[i] * 2;
 		for(size_t n = 0; n < item_count; n++) {
-         p++;
-         p->clear();
-         p->x = positions[i].x + (short)n;
-         p->y = positions[i].y + (short)(n / 2);
-         p->z = pos_levels[i] * distance_per_level;
-         p->zorder = 2;
-         p->pos = *povr;
-         p->percent = item_distances[d][0];
-         p->alpha = (unsigned char)item_distances[d][1];
-         fill_item_sprite(p, &result[n]->geti());
+			p++;
+			p->clear();
+			p->x = positions[i].x + (short)n;
+			p->y = positions[i].y + (short)(n / 2);
+			p->z = pos_levels[i] * distance_per_level;
+			p->zorder = 2;
+			p->pos = *povr;
+			p->percent = item_distances[d][0];
+			p->alpha = (unsigned char)item_distances[d][1];
+			fill_item_sprite(p, &result[n]->geti());
 		}
 	}
 	return p;
@@ -617,8 +618,8 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 					p->frame[1] = decor_offset + 0 * decor_frames + pos_levels[i];
 				}
 				break;
-         default:
-            break;
+			default:
+				break;
 			}
 			auto povr = add_wall_decor(p, index, Down, decor_front[i], flip, true);
 			p = add_cellar_items(p, i, povr);
@@ -788,13 +789,13 @@ static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, 
 		if(!p->rdata)
 			continue;
 		p->pc = pc;
-	//	p->pallette = pc->getpallette();
+		//	p->pallette = pc->getpallette();
 		unsigned flags = 0;
-	//	// Анимируем активных монстров
-	//	if(((p->x + draw::frametick) / 16) % 2) {
-	//		p->x++;
-	//		p->y++;
-	//	}
+		// Анимируем активных монстров
+		if(((p->x + current_cpu_time / 100) / 16) % 2) {
+			p->x++;
+			p->y++;
+		}
 		switch(dir) {
 		case Left:
 			pc->setframe(p->frame, flip ? 2 : 1);

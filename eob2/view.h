@@ -17,6 +17,8 @@ typedef void(*fnanswer)(int index, const void* value, const char* text, unsigned
 enum resid : unsigned short;
 struct hotkeyi;
 
+extern unsigned long current_cpu_time;
+
 void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding = 2);
 void* choose_dialog(const char* title, int dx);
 void* show_message(const char* format, bool add_anaswers, const char* cancel = 0, unsigned cancel_key = 27);

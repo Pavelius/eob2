@@ -360,6 +360,7 @@ static int random_cellar_count() {
 }
 
 static void cellar(pointc v, directions d) {
+	static variant random_list("RandomSmallItems");
 	if(loc->type == FOREST)
 		return;
 	auto v1 = to(v, d);
@@ -369,10 +370,11 @@ static void cellar(pointc v, directions d) {
 	auto po = loc->add(v, d, CellCellar);
 	auto count = random_cellar_count();
 	while(count > 0) {
-		//auto i1 = create_item(pd, random_type(true), 2);
+		item it;
+		it.create(single(random_list));
 		// Items in cellar can be identified
-		//if(d100() < 60)
-		//	i1.setidentified(1);
+		if(d100() < 60)
+			last_item->identify(1);
 		//loc->add(po, i1);
 		count--;
 	}

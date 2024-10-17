@@ -7,6 +7,7 @@
 #include "list.h"
 #include "math.h"
 #include "modifier.h"
+#include "monster.h"
 #include "pushvalue.h"
 #include "race.h"
 #include "rand.h"
@@ -314,6 +315,23 @@ void create_player(const racei* pr, gendern gender, const classi* pc) {
 	player->avatar = generate_avatar(player->race, gender, player->type, no_party_avatars);
 	update_player();
 	set_starting_equipment();
+	update_player();
+	player->hp = player->hpm;
+}
+
+static void apply_feats(const variants& elements) {
+	auto push_modifier = modifier;
+	modifier = Permanent;
+	script_run(elements);
+	modifier = push_modifier;
+}
+
+void create_monster(const monsteri* pi) {
+	if(!pi)
+		return;
+	player = bsdata<creaturei>::add();
+	player->clear();
+	apply_feats(pi->feats);
 	update_player();
 	player->hp = player->hpm;
 }

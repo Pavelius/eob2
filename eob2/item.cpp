@@ -31,6 +31,13 @@ bool item::isallow(wearn v) const {
 	}
 }
 
+void item::create(const itemi* pi) {
+	clear();
+	if(!pi)
+		return;
+	create(pi - bsdata<itemi>::elements);
+}
+
 void item::create(int value) {
 	type = value;
 	flags = 0;

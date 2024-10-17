@@ -32,6 +32,7 @@ public:
 	explicit operator bool() const { return type != 0; }
 	void		clear();
 	void		create(int value);
+	void		create(const itemi* pi);
 	const itemi& geti() const;
 	void		identify(int v) { identified = (v >= 0) ? 1 : 0; }
 	bool		isallow(wearn v) const;

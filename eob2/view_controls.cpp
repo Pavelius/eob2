@@ -4,6 +4,7 @@
 #include "console.h"
 #include "direction.h"
 #include "draw.h"
+#include "dungeon.h"
 #include "hotkey.h"
 #include "gender.h"
 #include "location.h"
@@ -795,21 +796,11 @@ static void paint_console() {
 
 void paint_city_menu() {
 	paint_background(PLAYFLD, 0);
+	paint_compass(party.d);
 	paint_avatars_no_focus_hilite();
 	paint_console();
-	paint_party_status();
-	paint_menu({0, 0}, 178, 121);
-	caret = {6, 6};
-	width = 165;
-	height = texth() + 3;
-	cancel_position = {6, 104};
-}
-
-void paint_andenture() {
-	paint_background(PLAYFLD, 0);
-	paint_avatars_no_focus_hilite();
-	paint_console();
-	paint_party_status();
+	if(!loc)
+		paint_party_status();
 	paint_menu({0, 0}, 178, 121);
 	caret = {6, 6};
 	width = 165;

@@ -7,6 +7,7 @@
 #include "wearable.h"
 
 struct classi;
+struct monsteri;
 struct racei;
 
 struct creaturei : npc, statable, levelable, wearable {
@@ -34,6 +35,7 @@ extern int last_roll, last_chance;
 
 void add_spells(int type, int level, const spellseta* include);
 void create_player(const racei* pr, gendern gender, const classi* pc);
+void create_monster(const monsteri* pi);
 void update_player();
 
 creaturei* item_owner(const void* p);

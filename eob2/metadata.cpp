@@ -88,6 +88,7 @@ BSMETA(dungeoni) = {
 	{}};
 BSMETA(dungeon_site) = {
 	BSENM(type, residi),
+	BSENM(habbits, monsteri),
 	BSREQ(level),
 	BSENM(key, itemi),
 	BSENM(special, itemi),

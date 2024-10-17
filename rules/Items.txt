@@ -129,6 +129,15 @@ RandomStone
 
 RandomWeapon
  chance Axe ShortSword Longsword BastardSword TwoHandedSword
+RandomPotions
+ chance RedPotion GreenPotion BluePotion
+RandomRings
+ chance RedRing GreenRing BluePotion
+RandomScrolls
+ chance MageScroll+3 PriestScroll+2 MagicMap
 
 RandomItem
  chance RandomWeapon
+
+RandomSmallItem
+ chance RandomPotions RandomRings

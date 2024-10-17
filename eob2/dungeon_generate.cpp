@@ -189,7 +189,15 @@ static void secret(pointc v, directions d) {
 static void monster(pointc v, directions d) {
 	auto n = (d100() < 30) ? 1 : 0;
 	auto pi = bsdata<monsteri>::elements + loc->habbits[n];
-	loc->addmonster(v, d, 0, pi);
+	if(pi->is(Large))
+		loc->addmonster(v, d, 0, pi);
+	else {
+		int sides[4] = {0, 1, 2, 3};
+		int count = xrand(1, 4);
+		zshuffle(sides, 4);
+		for(auto i = 0; i < count; i++)
+			loc->addmonster(v, d, sides[i], pi);
+	}
 }
 
 static void prison(pointc v, directions d) {

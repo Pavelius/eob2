@@ -127,8 +127,14 @@ RandomRation
 RandomStone
  chance Stone
 
+RandomSword
+ chance ShortSword Longsword BastardSword TwoHandedSword Dagger
+RandomSimpleWeapon
+ chance Axe BattleAxe Club Flail Warhammer Mace Spear Sling
+RandomExoticWeapon
+ chance Halberd Staff Bow
 RandomWeapon
- chance Axe ShortSword Longsword BastardSword TwoHandedSword
+ chance RandomSword+5 RandomSimpleWeapon+3 RandomExoticWeapon
 RandomPotions
  chance RedPotion GreenPotion BluePotion
 RandomRings

@@ -1,4 +1,5 @@
 ﻿Axe: Axe
+BastardSword: BasterdSword
 BattleAxe: Battle axe
 DwarvenHelm: Dwarven helm
 Helm: Helm

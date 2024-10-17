@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `TwoHandedSword`
+﻿Error in file `rules/Items.txt`:
+ Line 137: Can't find variant `RandomBludgeon`

@@ -410,7 +410,7 @@
 	"rand.h"
 	"script.h"
 
-1729159370 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1729162986 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"answers.h"
 	"cell.h"
@@ -653,7 +653,7 @@
 	"view.h"
 	"view_focus.h"
 
-1729059781 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
+1729162709 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
 	"creature.h"
 	"direction.h"
 	"draw.h"
@@ -720,7 +720,7 @@
 	"randomizer.h"
 	"script.h"
 
-1729162414 source:/home/user-331/projects/eob2/eob2/nix_draw3x.cpp
+1729162465 source:/home/user-331/projects/eob2/eob2/nix_draw3x.cpp
 	<X11/keysym.h>
 	<X11/Xlib.h>
 	<X11/Xutil.h>

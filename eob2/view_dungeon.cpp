@@ -412,21 +412,21 @@ static renderi* add_cellar_items(renderi* p, int i, dungeoni::overlayi* povr) {
 			{scrx / 2, scry / 2},
 			{scrx / 2, scry / 2},
 		};
-		//item* result[4];
-		//auto item_count = loc->getitems(result, zendof(result), povr);
-		//auto d = pos_levels[i] * 2;
-		//for(unsigned n = 0; n < item_count; n++) {
-		//	p++;
-		//	p->clear();
-		//	p->x = positions[i].x + n;
-		//	p->y = positions[i].y + n / 2;
-		//	p->z = pos_levels[i] * distance_per_level;
-		//	p->zorder = 2;
-		//	p->pos = *povr;
-		//	p->percent = item_distances[d][0];
-		//	p->alpha = (unsigned char)item_distances[d][1];
-		//	fill_item_sprite(p, &result[n]->geti());
-		//}
+		item* result[4];
+		auto item_count = loc->getitems(result, lenghtof(result), povr);
+		auto d = pos_levels[i] * 2;
+		for(size_t n = 0; n < item_count; n++) {
+         p++;
+         p->clear();
+         p->x = positions[i].x + n;
+         p->y = positions[i].y + n / 2;
+         p->z = pos_levels[i] * distance_per_level;
+         p->zorder = 2;
+         p->pos = *povr;
+         p->percent = item_distances[d][0];
+         p->alpha = (unsigned char)item_distances[d][1];
+         fill_item_sprite(p, &result[n]->geti());
+		}
 	}
 	return p;
 }

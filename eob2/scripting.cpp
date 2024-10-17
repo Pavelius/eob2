@@ -538,19 +538,19 @@ static void manipulate() {
 		break;
 	case CellCellar:
 		if(*pi) {
+         // Put item to cellar
 			if(!pi->geti().is(Small))
 				player->speak(getid<celli>(p->type), "NoFit");
-			else {
+			else
 				loc->add(p, *pi);
-				// itm->clear();
-			}
 		} else {
-			//item* items[1];
-			//if(location.getitems(items, items + sizeof(items) / sizeof(items[0]), po)) {
-			//	*itm = *items[0];
-			//	items[0]->clear();
-			//} else
-			//	pc->say("There is nothing to grab");
+         // Get item from cellar
+			item* items[1];
+			if(loc->getitems(items, lenghtof(items), p)) {
+            *pi = *items[0];
+            items[0]->clear();
+			} else
+            player->speak(getid<celli>(p->type), "Empthy");
 		}
 		break;
 	default:

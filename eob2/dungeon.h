@@ -46,6 +46,7 @@ struct dungeoni : dungeon_site {
 	celln			get(pointc v) const;
 	overlayi*		get(pointc v, directions d);
 	size_t			getitems(ground** result, size_t result_maximum, pointc v);
+	size_t			getitems(item** result, size_t result_maximum, const overlayi* po);
 	overlayi*		getoverlay(pointc v, celln type);
 	bool			have(const overlayi* p) const { return p >= overlays && p <= overlays + lenghtof(overlays); }
 	bool			is(pointc v, cellfn i) const;

@@ -142,6 +142,8 @@ void dungeoni::add(overlayi* po, item& it) {
 			e.clear();
 			e.storage_index = po - overlays;
 			assign<item>(e, it);
+			it.clear();
+			last_item = &e;
 			break;
 		}
 	}
@@ -268,6 +270,23 @@ size_t dungeoni::getitems(ground** result, size_t result_maximum, pointc v) {
 	auto pe = ps + result_maximum;
 	for(auto& e : items) {
 		if(!e || e != v)
+			continue;
+		if(ps < pe)
+			*ps++ = &e;
+		else
+			break;
+	}
+	return ps - result;
+}
+
+size_t dungeoni::getitems(item** result, size_t result_maximum, const overlayi* po) {
+	if(!have(po))
+		return 0;
+	auto index = po - overlays;
+	auto ps = result;
+	auto pe = ps + result_maximum;
+	for(auto& e : overlayitems) {
+		if(!e || e.storage_index != index)
 			continue;
 		if(ps < pe)
 			*ps++ = &e;

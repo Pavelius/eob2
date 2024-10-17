@@ -539,9 +539,9 @@ static void manipulate() {
 	case CellCellar:
 		if(*pi) {
 			if(!pi->geti().is(Small))
-				player->speak(getid<celli>(p->type), "NotFit");
+				player->speak(getid<celli>(p->type), "NoFit");
 			else {
-				// location.add(po, *itm);
+				loc->add(p, *pi);
 				// itm->clear();
 			}
 		} else {

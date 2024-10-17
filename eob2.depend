@@ -129,7 +129,7 @@
 1728387414 /home/user-331/projects/eob2/eob2/vector.h
 	"array.h"
 
-1728973217 source:/home/user-331/projects/eob2/eob2/creature.cpp
+1729159370 source:/home/user-331/projects/eob2/eob2/creature.cpp
 	"advancement.h"
 	"avatar.h"
 	"bsdata.h"
@@ -139,6 +139,7 @@
 	"list.h"
 	"math.h"
 	"modifier.h"
+	"monster.h"
 	"pushvalue.h"
 	"race.h"
 	"rand.h"
@@ -151,11 +152,11 @@
 1728387414 /home/user-331/projects/eob2/eob2/advancement.h
 	"variant.h"
 
-1728889912 /home/user-331/projects/eob2/eob2/variant.h
+1729159370 /home/user-331/projects/eob2/eob2/variant.h
 	"sliceu.h"
 	"stringbuilder.h"
 
-1728973217 /home/user-331/projects/eob2/eob2/creature.h
+1729159370 /home/user-331/projects/eob2/eob2/creature.h
 	"statable.h"
 	"levelable.h"
 	"spell.h"
@@ -187,7 +188,7 @@
 1728387414 /home/user-331/projects/eob2/eob2/wearable.h
 	"item.h"
 
-1728548980 /home/user-331/projects/eob2/eob2/item.h
+1729159370 /home/user-331/projects/eob2/eob2/item.h
 	"dice.h"
 	"feat.h"
 	"nameable.h"
@@ -242,7 +243,7 @@
 	"stringbuilder.h"
 	"slice.h"
 
-1728387414 source:/home/user-331/projects/eob2/eob2/item.cpp
+1729159370 source:/home/user-331/projects/eob2/eob2/item.cpp
 	"bsdata.h"
 	"item.h"
 	"wearable.h"
@@ -309,7 +310,7 @@
 
 1728387414 source:/home/user-331/projects/eob2/eob2/math.cpp
 
-1729063126 source:/home/user-331/projects/eob2/eob2/metadata.cpp
+1729159370 source:/home/user-331/projects/eob2/eob2/metadata.cpp
 	"ability.h"
 	"action.h"
 	"advancement.h"
@@ -345,7 +346,7 @@
 	"modifier.h"
 	"script.h"
 
-1728973217 source:/home/user-331/projects/eob2/eob2/main.cpp
+1729159370 source:/home/user-331/projects/eob2/eob2/main.cpp
 	"avatar.h"
 	"bsreq.h"
 	"draw.h"
@@ -396,7 +397,7 @@
 1728387414 source:/home/user-331/projects/eob2/eob2/randomeffect.cpp
 	"randomeffect.h"
 
-1728901427 source:/home/user-331/projects/eob2/eob2/resid.cpp
+1729159370 source:/home/user-331/projects/eob2/eob2/resid.cpp
 	"bsdata.h"
 	"io_stream.h"
 	"resid.h"
@@ -409,7 +410,7 @@
 	"rand.h"
 	"script.h"
 
-1729075545 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1729159370 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"answers.h"
 	"cell.h"
@@ -546,7 +547,7 @@
 	"slice.h"
 	"view.h"
 
-1729063103 /home/user-331/projects/eob2/eob2/dungeon.h
+1729159370 /home/user-331/projects/eob2/eob2/dungeon.h
 	"creature.h"
 	"dungeon_site.h"
 	"dungeon_state.h"
@@ -573,7 +574,7 @@
 	"io_stream.h"
 	"vector.h"
 
-1729063149 source:/home/user-331/projects/eob2/eob2/serial.cpp
+1729159370 source:/home/user-331/projects/eob2/eob2/serial.cpp
 	"archive.h"
 	"creature.h"
 	"dungeon.h"
@@ -582,7 +583,7 @@
 
 1729059781 /home/user-331/projects/eob2/eob2/pointc.h
 
-1729059781 source:/home/user-331/projects/eob2/eob2/dungeon_generate.cpp
+1729159370 source:/home/user-331/projects/eob2/eob2/dungeon_generate.cpp
 	"assign.h"
 	"answers.h"
 	"cell.h"
@@ -632,13 +633,14 @@
 	"pointca.h"
 	"view.h"
 
-1729059781 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
+1729159370 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
 	"answers.h"
 	"creature.h"
 	"class.h"
 	"console.h"
 	"direction.h"
 	"draw.h"
+	"dungeon.h"
 	"hotkey.h"
 	"gender.h"
 	"location.h"
@@ -661,7 +663,7 @@
 	"resid.h"
 	"view.h"
 
-1729059781 source:/home/user-331/projects/eob2/eob2/dungeon.cpp
+1729159370 source:/home/user-331/projects/eob2/eob2/dungeon.cpp
 	"assign.h"
 	"cell.h"
 	"direction.h"
@@ -697,8 +699,9 @@
 	"math.h"
 	"view.h"
 
-1728986116 /home/user-331/projects/eob2/eob2/monster.h
+1729159370 /home/user-331/projects/eob2/eob2/monster.h
 	"nameable.h"
+	"npc.h"
 	"resid.h"
 	"variant.h"
 
@@ -716,4 +719,14 @@
 	"rand.h"
 	"randomizer.h"
 	"script.h"
+
+1729162414 source:/home/user-331/projects/eob2/eob2/nix_draw3x.cpp
+	<X11/keysym.h>
+	<X11/Xlib.h>
+	<X11/Xutil.h>
+	<X11/XKBlib.h>
+	<cstdlib>
+	"draw.h"
+	"stringbuilder.h"
+	"timer.h"
 

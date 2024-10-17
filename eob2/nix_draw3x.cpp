@@ -7,6 +7,8 @@
 #include "stringbuilder.h"
 #include "timer.h"
 
+// #define SCALE_FACTOR 3
+
 using namespace draw;
 
 const unsigned nix_event_mask = ExposureMask
@@ -24,6 +26,11 @@ static GC           gc;
 static int          scr;
 static Window       rootwin;
 static unsigned     timer_interval;
+
+#ifdef SCALE_FACTOR
+static char*         scaled_data;
+void scale3x(void* void_dst, unsigned dst_slice, const void* void_src, unsigned src_slice, unsigned pixel, unsigned width, unsigned height);
+#endif
 
 static int tokey(int vk) {
 	switch(vk) {
@@ -133,7 +140,12 @@ void draw::create(int x, int y, int width, int height, unsigned flags, int bpp) 
 	if(canvas)
 		canvas->resize(width, height, bpp, true);
 	setclip();
+#ifdef SCALE_FACTOR
+   scaled_data = new char[canvas->scanline * SCALE_FACTOR * canvas->width * SCALE_FACTOR];
+	hwnd = XCreateWindow(dpy, rootwin, x, y, width * SCALE_FACTOR, height * SCALE_FACTOR, 0, 24, InputOutput, myVisual, CWBackPixmap | CWBackingStore, &attr);
+#else
 	hwnd = XCreateWindow(dpy, rootwin, x, y, width, height, 0, 24, InputOutput, myVisual, CWBackPixmap | CWBackingStore, &attr);
+#endif // SCALE_FACTOR
 	gc = XCreateGC(dpy, hwnd, 0, NULL);
 	XSelectInput(dpy, hwnd, nix_event_mask);
 	XMapWindow(dpy, hwnd);
@@ -143,14 +155,24 @@ static void update_ui_window() {
 	if(!canvas)
 		return;
 	XImage img = {0};
-	img.width = canvas->width;
-	img.height = canvas->height;
 	img.format = ZPixmap;
-	img.data = (char*)canvas->ptr(0, 0);
 	img.bitmap_unit = 32;
 	img.bitmap_pad = 32;
 	img.depth = 24;
 	img.bits_per_pixel = 32;
+#ifdef SCALE_FACTOR
+	img.width = canvas->width * SCALE_FACTOR;
+	img.height = canvas->height * SCALE_FACTOR;
+	img.data = scaled_data;
+   scale3x(scaled_data, canvas->scanline * SCALE_FACTOR,
+      canvas->bits, canvas->scanline,
+      4,
+      canvas->width, canvas->height);
+#else
+	img.width = canvas->width;
+	img.height = canvas->height;
+	img.data = (char*)canvas->ptr(0,0);
+#endif // SCALE_FACTOR
 	if(XInitImage(&img))
 		XPutImage(dpy, hwnd, gc, &img, 0, 0, 0, 0, img.width, img.height);
 }
@@ -217,7 +239,11 @@ static bool handle(XEvent& e) {
 	case ConfigureNotify:
 		if(e.xconfigure.width != getwidth() || e.xconfigure.height != getheight()) {
 			while(XCheckTypedWindowEvent(dpy, e.xconfigure.window, e.type, &e1));
+#ifdef SCALE_FACTOR
+			canvas->resize(e.xconfigure.width / SCALE_FACTOR, e.xconfigure.height / SCALE_FACTOR, 32, true);
+#else
 			canvas->resize(e.xconfigure.width, e.xconfigure.height, 32, true);
+#endif // SCALE_FACTOR
 			setclip();
 			hot.key = InputUpdate;
 		} else

@@ -238,6 +238,7 @@
     <ClCompile Include="main_util.cpp" />
     <ClCompile Include="metadata.cpp" />
     <ClCompile Include="modifier.cpp" />
+    <ClCompile Include="monster.cpp" />
     <ClCompile Include="npc.cpp" />
     <ClCompile Include="picture.cpp" />
     <ClCompile Include="pointc.cpp" />

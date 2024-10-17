@@ -149,6 +149,22 @@ void dungeoni::add(overlayi* po, item& it) {
 	}
 }
 
+void dungeoni::addmonster(pointc v, directions d, int side, const monsteri* pi) {
+	player = 0;
+	for(auto& e : monsters) {
+		if(e)
+			continue;
+		player = &e;
+		create_monster(pi);
+		e.x = v.x;
+		e.y = v.y;
+		e.d = d;
+		e.side = side;
+		state.monsters++;
+		break;
+	}
+}
+
 dungeoni::overlayi* dungeoni::get(pointc v, directions d) {
 	if(!v)
 		return 0;

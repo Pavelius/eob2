@@ -4,6 +4,7 @@
 #include "dungeon.h"
 #include "direction.h"
 #include "math.h"
+#include "monster.h"
 #include "pointca.h"
 #include "quest.h"
 #include "rand.h"
@@ -187,7 +188,8 @@ static void secret(pointc v, directions d) {
 
 static void monster(pointc v, directions d) {
 	auto n = (d100() < 30) ? 1 : 0;
-	loc->addmonster(v, loc->habbits[n]);
+	auto pi = bsdata<monsteri>::elements + loc->habbits[n];
+	loc->addmonster(v, d, 0, pi);
 }
 
 static void prison(pointc v, directions d) {
@@ -210,7 +212,7 @@ static void prison(pointc v, directions d) {
 	loc->set(v2, CellPassable);
 	for(auto i = random_count(); i > 0; i--)
 		items(v2, 0);
-	monster(v2, Down);
+	monster(v2, to(d, Down));
 	loc->set(to(v2, to(d, Left)), CellWall);
 	loc->set(to(v2, to(d, Right)), CellWall);
 	loc->set(to(v2, to(d, Up)), CellWall);

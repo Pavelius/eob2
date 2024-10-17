@@ -123,7 +123,8 @@ BSMETA(locationi) = {
 BSMETA(monsteri) = {
 	BSREQ(id),
 	BSENM(res, residi),
-	BSREQ(frames),
+	BSREQ(frames), BSREQ(overlays),
+	BSREQ(feats),
 	{}};
 BSMETA(partystati) = {
 	BSREQ(id),

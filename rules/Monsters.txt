@@ -2,3 +2,4 @@
 
 Kobold res(kobold)
 Leech res(leech)
+ feats Large

@@ -78,6 +78,8 @@ void creaturei::clear() {
 	avatar = 0xFF;
 	name = 0xFFFF;
 	monster_id = 0xFFFF;
+	x = -1;
+	y = -1;
 }
 
 static void update_basic() {
@@ -330,7 +332,6 @@ static void apply_feats(const variants& elements) {
 void create_monster(const monsteri* pi) {
 	if(!pi)
 		return;
-	player = bsdata<creaturei>::add();
 	player->clear();
 	player->monster_id = getbsi(pi);
 	apply_feats(pi->feats);

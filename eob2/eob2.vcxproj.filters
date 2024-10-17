@@ -231,6 +231,9 @@
     <ClCompile Include="randomizer.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="monster.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">

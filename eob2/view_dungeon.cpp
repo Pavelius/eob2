@@ -20,9 +20,7 @@ struct renderi {
 	short				frame[4];
 	short unsigned		flags[4];
 	const sprite*		rdata;
-	pointc				pos;
 	creaturei*			target;
-	//celln				rec;
 	unsigned char		pallette;
 	short				percent;
 	unsigned char		alpha;
@@ -435,7 +433,6 @@ static renderi* add_cellar_items(renderi* p, int i, dungeoni::overlayi* povr) {
 			p->y = positions[i].y + (short)(n / 2);
 			p->z = pos_levels[i] * distance_per_level;
 			p->zorder = 2;
-			p->pos = *povr;
 			p->percent = item_distances[d][0];
 			p->alpha = (unsigned char)item_distances[d][1];
 			fill_item_sprite(p, &result[n]->geti());
@@ -531,7 +528,6 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 		p->z = pos_levels[i] * distance_per_level;
 		p->frame[0] = n + frame;
 		p->rdata = map_tiles;
-		p->pos = index;
 		//p->rec = rec;
 		auto front_wall = p;
 		if(rec == CellDoor && i < 15) {
@@ -542,7 +538,6 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 			p->z = pos_levels[i] * distance_per_level;
 			p->zorder = 1;
 			p->rdata = map_tiles;
-			p->pos = index;
 			auto e1 = map_tiles->get(door_offset + pos_levels[i] - 1);
 			auto e2 = map_tiles->get(door_offset + 6 + pos_levels[i] - 1);
 			auto po = loc->get(to(indecies[i], to(party.d, Down)), party.d);
@@ -653,8 +648,6 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 		p->z = pos_levels[i] * distance_per_level + 2;
 		p->frame[0] = n + frame;
 		p->rdata = map_tiles;
-		p->pos = index;
-		//p->rec = rec;
 		add_wall_decor(p, index, Right, decor_left[i], flip, false);
 		p++;
 	}
@@ -675,8 +668,6 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 		p->flags[0] = ImageMirrorH;
 		p->frame[0] = n + frame;
 		p->rdata = map_tiles;
-		p->pos = index;
-		//p->rec = rec;
 		p->flags[1] = ImageMirrorH;
 		add_wall_decor(p, index, Left, decor_right[i], flip, false);
 		p++;
@@ -711,7 +702,6 @@ static renderi* create_floor(renderi* p, int i, pointc index, celln rec, bool fl
 			p->rdata = gres(bsdata<celli>::elements[rec].res);
 		else
 			p->rdata = map_tiles;
-		p->pos = index;
 		p++;
 	}
 	return p;
@@ -742,7 +732,6 @@ static renderi* create_thrown(renderi* p, int i, int ps, const itemi* rec, direc
 		break;
 	}
 	p->z = pos_levels[i] * distance_per_level + (1 - ps / 2);
-	p->pos = indecies[i];
 	fill_sprite(p, rec, dr);
 	p->percent = item_distances[d][0];
 	p->alpha = (unsigned char)item_distances[d][1];
@@ -762,7 +751,6 @@ static renderi* create_items(renderi* p, int i, pointc v, directions dr) {
 		p->x = item_position[i * 4 + s].x;
 		p->y = item_position[i * 4 + s].y;
 		p->z = pos_levels[i] * distance_per_level + 1 + (1 - s / 2);
-		p->pos = v;
 		p->percent = item_distances[d][0];
 		p->alpha = (unsigned char)item_distances[d][1];
 		fill_item_sprite(p, &pi->geti());

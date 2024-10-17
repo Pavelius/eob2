@@ -18,9 +18,9 @@ struct palspr : pma {
 struct renderi {
 	short				x, y, z;
 	short				frame[4];
+	short unsigned		flags[4];
 	const sprite*		rdata;
 	pointc				pos;
-	short unsigned		flags[4];
 	creaturei*			pc;
 	celln				rec;
 	unsigned char		pallette;
@@ -761,6 +761,17 @@ static renderi* create_items(renderi* p, int i, pointc v, directions dr) {
 	return p;
 }
 
+static directions get_absolute_direction(directions d, directions d1) {
+	static directions result[][5] = {
+		{Center, Left, Up, Right, Down},
+		{Center, Up, Right, Down, Left},
+		{Center, Left, Up, Right, Down},
+		{Center, Down, Left, Up, Right},
+		{Center, Right, Down, Left, Up},
+	};
+	return result[d][d1];
+}
+
 static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, bool flip) {
 	creaturei* result[4]; loc->getmonsters(result, index, dr);
 	for(int n = 0; n < 4; n++) {
@@ -768,7 +779,7 @@ static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, 
 		if(!pc)
 			continue;
 		auto large = pc->is(Large);
-		auto dir = to(dr, pc->d);
+		auto dir = get_absolute_direction(dr, pc->d);
 		int d = pos_levels[i] * 2 - (n / 2);
 		p->clear();
 		if(large) {
@@ -791,7 +802,7 @@ static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, 
 		p->pc = pc;
 		//	p->pallette = pc->getpallette();
 		unsigned flags = 0;
-		// Анимируем активных монстров
+		// Animate active monsters
 		if(((p->x + current_cpu_time / 100) / 16) % 2) {
 			p->x++;
 			p->y++;

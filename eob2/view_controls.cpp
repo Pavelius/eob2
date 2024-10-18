@@ -106,14 +106,10 @@ void fix_damage(const creaturei* target, int value) {
 //		}
 	} else {
 		if(disp_damage[i])
-			fix_animate();
+			fix_animate(); // Try add another animation over existing. So we update right now.
 		disp_damage[i] = value;
       need_update_animation = true;
 	}
-}
-
-static bool is_active_animation() {
-   return need_update_animation;
 }
 
 // If hits == -1 the attack is missed
@@ -958,7 +954,7 @@ void paint_main_menu() {
 }
 
 void fix_animate() {
-	if(!is_active_animation())
+	if(!need_update_animation)
 		return;
    animate_counter++;
    if(loc)

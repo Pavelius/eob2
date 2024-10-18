@@ -410,7 +410,7 @@
 	"rand.h"
 	"script.h"
 
-1729249941 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1729260837 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"answers.h"
 	"cell.h"
@@ -634,7 +634,7 @@
 	"pointca.h"
 	"view.h"
 
-1729249862 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
+1729259970 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
 	"answers.h"
 	"creature.h"
 	"class.h"

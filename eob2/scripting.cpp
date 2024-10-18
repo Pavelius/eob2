@@ -31,6 +31,7 @@ extern "C" void exit(int code);
 racei* last_race;
 classi* last_class;
 static void* last_result;
+static adat<creaturei*, 16> combatants;
 
 static int get_bonus(int v) {
 	switch(v) {
@@ -472,6 +473,30 @@ static void explore_area() {
 
 static void make_action() {
 	explore_area();
+}
+
+static size_t shrink_creatures(creaturei** dest, creaturei** units, auto count) {
+   auto ps = dest;
+   auto pb = units;
+   auto pe = units + count;
+   while(pb < pe) {
+      if(*pb)
+         *ps++ = *pb;
+      pb++;
+   }
+   return ps - units;
+}
+
+static void select_combatants(pointc position) {
+   loc->getmonsters(combatants.data, position, Up);
+   combatants.count = shrink_creatures(combatants.data, combatants.data, 4);
+   combatants.count = shrink_creatures(combatants.data + combatants.count, characters, 6);
+}
+
+static void make_melee_round() {
+   select_combatants(to(party, party.d));
+   if(!combatants)
+      return;
 }
 
 static void activate(pointc v, bool value) {

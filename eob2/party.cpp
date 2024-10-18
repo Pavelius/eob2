@@ -67,3 +67,11 @@ void party_addexp(int value) {
 			p->addexp(value);
 	}
 }
+
+int get_party_index(const creaturei* target) {
+	for(auto i = 0; i < 6; i++) {
+		if(characters[i] == target)
+			return i;
+	}
+	return -1;
+}

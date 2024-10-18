@@ -15,7 +15,9 @@ typedef void(*fnevent)();
 typedef void(*fnanswer)(int index, const void* value, const char* text, unsigned key, fnevent press_event);
 
 enum resid : unsigned short;
+enum wearn : unsigned char;
 struct hotkeyi;
+struct creaturei;
 
 extern unsigned long current_cpu_time;
 
@@ -36,6 +38,9 @@ bool character_input();
 void city_input(const hotkeyi* hotkeys);
 void clear_input();
 bool confirm(const char* format);
+void fix_animate();
+void fix_attack(const creaturei* attacker, wearn slot, int hits);
+void fix_damage(const creaturei* p, int value);
 bool hotkey_input(const hotkeyi* hotkeys);
 void initialize_gui();
 void paint_adventure();

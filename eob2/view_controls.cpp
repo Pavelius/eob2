@@ -152,6 +152,13 @@ static bool button_input(const void* button_data, unsigned key) {
 	return false;
 }
 
+static void paint_player_damage(int hits, unsigned counter) {
+	char temp[32]; stringbuilder sb(temp); sb.addint(hits, 0, 10);
+	//draw::image(x, y - 1, gres(THROWN), 0, (counter % 2) ? ImageMirrorH : 0);
+	//draw::fore = colors::damage;
+	//draw::text(x - draw::textw(temp) / 2, y - 3, temp);
+}
+
 static bool paint_button(const char* title, const void* button_data, unsigned key, unsigned flags = TextBold, bool force_focus = false) {
 	rectpush push;
 	auto push_fore = fore;

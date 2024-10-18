@@ -36,3 +36,4 @@ void set_party_position(pointc v, directions d);
 void skip_hours(int value);
 
 int getparty(partystatn id);
+int get_party_index(const creaturei* target);

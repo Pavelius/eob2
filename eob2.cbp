@@ -169,8 +169,6 @@
 		<Unit filename="eob2/textscript.cpp" />
 		<Unit filename="eob2/textscript.h" />
 		<Unit filename="eob2/timer.h" />
-		<Unit filename="eob2/unit.cpp" />
-		<Unit filename="eob2/unit.h" />
 		<Unit filename="eob2/variant.cpp" />
 		<Unit filename="eob2/variant.h" />
 		<Unit filename="eob2/vector.h" />

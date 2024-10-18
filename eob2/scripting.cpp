@@ -296,6 +296,7 @@ static void use_item() {
 }
 
 static void test_dungeon() {
+   fix_attack(characters[1], RightHand, -1);
    fix_damage(characters[0], 12);
    fix_damage(characters[1], 3);
    fix_damage(characters[0], 2);
@@ -664,6 +665,7 @@ static void play_dungeon_input() {
 		{'V', show_dungeon_automap},
 		{'M', manipulate},
 		{'D', drop_dungeon_item},
+      {'T', test_dungeon},
 		{KeyEscape, choose_dungeon_menu},
 		{}};
 	adventure_input(source);

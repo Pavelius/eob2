@@ -37,14 +37,11 @@ static point cancel_position;
 static bool hilite_player;
 static int disp_damage[6];
 static int disp_weapon[6][2];
-static fnevent scene_paint;
 static unsigned animate_counter;
+static bool need_update_animation;
 unsigned long current_cpu_time;
 
 struct pushscene : pushfocus {
-   fnevent paint;
-   pushscene() : pushfocus(), paint(scene_paint) {}
-   ~pushscene() { scene_paint = paint; }
 };
 
 const int animation_step = 500;
@@ -111,30 +108,12 @@ void fix_damage(const creaturei* target, int value) {
 		if(disp_damage[i])
 			fix_animate();
 		disp_damage[i] = value;
+      need_update_animation = true;
 	}
 }
 
 static bool is_active_animation() {
-	for(auto v : disp_damage) {
-		if(v)
-			return true;
-	}
-	for(auto v : disp_weapon) {
-		if(v[0] || v[1])
-			return true;
-	}
-	return false;
-}
-
-void fix_animate() {
-	if(!is_active_animation())
-		return;
-   animate_counter++;
-   scene_paint();
-   updatewindow();
-	waitcputime(animation_step);
-	memset(disp_damage, 0, sizeof(disp_damage));
-	memset(disp_weapon, 0, sizeof(disp_weapon));
+   return need_update_animation;
 }
 
 // If hits == -1 the attack is missed
@@ -244,6 +223,30 @@ static void textc(color tc, const char* format, ...) {
 	text(temp);
 	caret = push_caret;
 	fore = push_fore;
+}
+
+static void paint_player_hit(int hits, unsigned counter) {
+	image(caret.x, caret.y - 1, gres(THROWN), 1, (counter % 2) ? ImageMirrorH : 0);
+	if(hits == -1)
+		textc(colors::white, "miss", hits);
+	else
+		textc(colors::white, "%1i", hits);
+}
+
+static void paint_player_hit(const creaturei* player, wearn id) {
+	if(!player)
+		return;
+	auto pind = get_party_index(player);
+	if(pind == -1)
+		return;
+   auto value = disp_weapon[pind][id == RightHand ? 0 : 1];
+   if(!value)
+      return;
+   auto push_caret = caret;
+   caret.x += width / 2;
+   caret.y += height / 2;
+   paint_player_hit(value, animate_counter + pind);
+   caret = push_caret;
 }
 
 static void paint_player_damage(int hits, unsigned counter) {
@@ -780,8 +783,10 @@ static void paint_character() {
 	caret.x = push.caret.x + 33;
 	caret.y = push.caret.y + 10;
 	paint_item(player->wears[RightHand], RightHand, 84);
+   paint_player_hit(player, RightHand);
 	caret.y = push.caret.y + 26;
 	paint_item(player->wears[LeftHand], LeftHand, 83);
+   paint_player_hit(player, LeftHand);
 	caret.x = push.caret.x + 2;
 	caret.y = push.caret.y + 10;
 	width = 31;
@@ -936,11 +941,35 @@ void paint_adventure() {
 	paint_console();
 }
 
+void paint_adventure_no_update() {
+	paint_background(PLAYFLD, 0);
+	paint_compass(party.d);
+	paint_dungeon();
+	paint_party_sheets();
+	console_scroll(3000);
+	paint_console();
+}
+
 void paint_main_menu() {
 	paint_background(MENU, 0);
 	caret = {80, 110};
 	width = 166;
 	height = texth();
+}
+
+void fix_animate() {
+	if(!is_active_animation())
+		return;
+   animate_counter++;
+   if(loc)
+      paint_adventure_no_update();
+   else
+      paint_city();
+   updatewindow();
+	waitcputime(animation_step);
+	memset(disp_damage, 0, sizeof(disp_damage));
+	memset(disp_weapon, 0, sizeof(disp_weapon));
+	need_update_animation = false;
 }
 
 static void paint_title(const char* title) {
@@ -1302,10 +1331,8 @@ void show_scene(fnevent before_paint, fnevent input, void* focus) {
 	rectpush push;
 	pushscene push_scene;
 	current_focus = focus;
-	scene_paint = before_paint;
 	while(ismodal()) {
-		if(before_paint)
-			before_paint();
+		before_paint();
 		domodal();
 		if(input)
 			input();

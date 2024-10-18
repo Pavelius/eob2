@@ -210,27 +210,6 @@ void view_dungeon_reset() {
 //	return -1;
 //}
 
-static void render_player_damage(int x, int y, int hits, unsigned counter) {
-	//draw::state push;
-	//char temp[32]; stringbuilder sb(temp); sb.addint(hits);
-	//draw::image(x, y - 1, gres(THROWN), 0, (counter % 2) ? ImageMirrorH : 0);
-	//draw::fore = colors::damage;
-	//draw::text(x - draw::textw(temp) / 2, y - 3, temp);
-}
-
-static void render_player_attack(int x, int y, int hits) {
-	static int side;
-	//draw::state push;
-	//char temp[32]; stringbuilder sb(temp);
-	//if(hits == -1)
-	//	sb.add("miss");
-	//else
-	//	sb.add("%1i", hits);
-	//draw::image(x, y - 1, gres(THROWN), 1, ((side++) % 2) ? ImageMirrorH : 0);
-	//draw::fore = colors::damage;
-	//draw::text(x - draw::textw(temp) / 2, y - 3, temp);
-}
-
 void animation_clear() {
 }
 

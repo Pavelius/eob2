@@ -292,21 +292,15 @@ static void fill_item_sprite(renderi* p, const itemi* pi, int frame = 0) {
 }
 
 static void fill_sprite(renderi* p, const itemi* pi, directions drs) {
-	//switch(type) {
-	//case FireThrown: case LightingThrown: case IceThrown: case MagicThrown:
-	//	p->frame[0] = (type - FireThrown) + 2;
-	//	p->rdata = gres(THROWN);
-	//	break;
-	//case Spear:case Dart: case Dagger: case Arrow:
-	//	p->frame[0] = get_throw_index(type);
-	//	p->rdata = gres(THROWN);
-	//	if(drs == Right)
-	//		p->flags[0] |= ImageMirrorH;
-	//	break;
-	//default:
-	//	fill_item_sprite(p, type);
-	//	break;
-	//}
+   if(pi->avatar_thrown!=-1) {
+      p->frame[0] = pi->avatar_thrown;
+      p->rdata = gres(THROWN);
+      if(pi->avatar_thrown>6) {
+         if(drs == Right)
+            p->flags[0] |= ImageMirrorH;
+      }
+   } else
+      fill_item_sprite(p, pi);
 }
 
 static renderi* add_cellar_items(renderi* p, int i, dungeoni::overlayi* povr) {
@@ -626,7 +620,7 @@ static int get_x_from_line(int y, int x1, int y1, int x2, int y2) {
 	return ((y - y1) * (x2 - x1)) / (y2 - y1) + x1;
 }
 
-static renderi* create_thrown(renderi* p, int i, int ps, const itemi* rec, directions dr) {
+static renderi* create_thrown(renderi* p, int i, int ps, const itemi* pi, directions dr) {
 	static int height_sizes[8] = {120, 96, 71, 64, 48, 40, 30, 24};
 	p->clear();
 	int m = pos_levels[i];
@@ -647,7 +641,7 @@ static renderi* create_thrown(renderi* p, int i, int ps, const itemi* rec, direc
 		break;
 	}
 	p->z = pos_levels[i] * distance_per_level + (1 - ps / 2);
-	fill_sprite(p, rec, dr);
+	fill_sprite(p, pi, dr);
 	p->percent = item_distances[d][0];
 	p->alpha = (unsigned char)item_distances[d][1];
 	p++;

@@ -13,7 +13,7 @@ struct itemi : nameable, featable {
 	itemi*		ammo;
 	variants	wearing, use;
 	wearn		wear;
-	char		avatar, avatar_ground;
+	char		avatar, avatar_ground, avatar_thrown;
 	int			cost;
 };
 class item {

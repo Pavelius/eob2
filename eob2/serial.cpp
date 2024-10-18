@@ -11,7 +11,11 @@ static bool serial_game(const char* url, bool writemode) {
 	archive e(file, writemode);
 	if(!e.signature("SAV"))
 		return false;
-	if(!e.checksum(sizeof(partyi)))
+   unsigned long checksum_total= 0;
+   int checksum_index = 1;
+   checksum_total += sizeof(partyi) * (checksum_index++);
+   checksum_total += sizeof(dungeoni) * (checksum_index++);
+	if(!e.checksum(checksum_total))
 		return false;
 	for(auto i = 0; i < 6; i++)
 		e.set(characters[i]);

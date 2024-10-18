@@ -108,7 +108,7 @@
 	"bsdata.h"
 	"direction.h"
 
-1728889912 /home/user-331/projects/eob2/eob2/direction.h
+1729232234 /home/user-331/projects/eob2/eob2/direction.h
 
 1728387414 source:/home/user-331/projects/eob2/eob2/gender.cpp
 	"bsdata.h"
@@ -129,7 +129,7 @@
 1728387414 /home/user-331/projects/eob2/eob2/vector.h
 	"array.h"
 
-1729159370 source:/home/user-331/projects/eob2/eob2/creature.cpp
+1729232234 source:/home/user-331/projects/eob2/eob2/creature.cpp
 	"advancement.h"
 	"avatar.h"
 	"bsdata.h"
@@ -156,9 +156,10 @@
 	"sliceu.h"
 	"stringbuilder.h"
 
-1729159370 /home/user-331/projects/eob2/eob2/creature.h
+1729232234 /home/user-331/projects/eob2/eob2/creature.h
 	"statable.h"
 	"levelable.h"
+	"posable.h"
 	"spell.h"
 	"npc.h"
 	"wearable.h"
@@ -208,11 +209,10 @@
 1728387414 /home/user-331/projects/eob2/eob2/script.h
 	"variant.h"
 
-1728973217 /home/user-331/projects/eob2/eob2/party.h
+1729232234 /home/user-331/projects/eob2/eob2/party.h
 	"flagable.h"
 	"nameable.h"
 	"posable.h"
-	"unit.h"
 
 1728387414 /home/user-331/projects/eob2/eob2/unit.h
 
@@ -310,7 +310,7 @@
 
 1728387414 source:/home/user-331/projects/eob2/eob2/math.cpp
 
-1729159370 source:/home/user-331/projects/eob2/eob2/metadata.cpp
+1729232234 source:/home/user-331/projects/eob2/eob2/metadata.cpp
 	"ability.h"
 	"action.h"
 	"advancement.h"
@@ -346,7 +346,7 @@
 	"modifier.h"
 	"script.h"
 
-1729159370 source:/home/user-331/projects/eob2/eob2/main.cpp
+1729232234 source:/home/user-331/projects/eob2/eob2/main.cpp
 	"avatar.h"
 	"bsreq.h"
 	"draw.h"
@@ -364,7 +364,7 @@
 1728387414 /home/user-331/projects/eob2/eob2/textscript.h
 	"stringbuilder.h"
 
-1728903524 /home/user-331/projects/eob2/eob2/view.h
+1729232234 /home/user-331/projects/eob2/eob2/view.h
 	"point.h"
 
 1728387414 source:/home/user-331/projects/eob2/eob2/nameable.cpp
@@ -382,7 +382,7 @@
 	"race.h"
 	"stringbuilder.h"
 
-1728973217 source:/home/user-331/projects/eob2/eob2/party.cpp
+1729232234 source:/home/user-331/projects/eob2/eob2/party.cpp
 	"bsdata.h"
 	"creature.h"
 	"party.h"
@@ -410,7 +410,7 @@
 	"rand.h"
 	"script.h"
 
-1729162986 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1729247171 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"answers.h"
 	"cell.h"
@@ -547,7 +547,7 @@
 	"slice.h"
 	"view.h"
 
-1729159370 /home/user-331/projects/eob2/eob2/dungeon.h
+1729232234 /home/user-331/projects/eob2/eob2/dungeon.h
 	"creature.h"
 	"dungeon_site.h"
 	"dungeon_state.h"
@@ -574,7 +574,7 @@
 	"io_stream.h"
 	"vector.h"
 
-1729159370 source:/home/user-331/projects/eob2/eob2/serial.cpp
+1729246006 source:/home/user-331/projects/eob2/eob2/serial.cpp
 	"archive.h"
 	"creature.h"
 	"dungeon.h"
@@ -583,13 +583,14 @@
 
 1729059781 /home/user-331/projects/eob2/eob2/pointc.h
 
-1729159370 source:/home/user-331/projects/eob2/eob2/dungeon_generate.cpp
+1729232234 source:/home/user-331/projects/eob2/eob2/dungeon_generate.cpp
 	"assign.h"
 	"answers.h"
 	"cell.h"
 	"dungeon.h"
 	"direction.h"
 	"math.h"
+	"monster.h"
 	"pointca.h"
 	"quest.h"
 	"rand.h"
@@ -633,7 +634,7 @@
 	"pointca.h"
 	"view.h"
 
-1729159370 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
+1729247194 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
 	"answers.h"
 	"creature.h"
 	"class.h"
@@ -653,17 +654,19 @@
 	"view.h"
 	"view_focus.h"
 
-1729162709 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
+1729246236 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
 	"creature.h"
 	"direction.h"
 	"draw.h"
 	"dungeon.h"
 	"cell.h"
+	"monster.h"
 	"party.h"
 	"resid.h"
+	"timer.h"
 	"view.h"
 
-1729159370 source:/home/user-331/projects/eob2/eob2/dungeon.cpp
+1729232234 source:/home/user-331/projects/eob2/eob2/dungeon.cpp
 	"assign.h"
 	"cell.h"
 	"direction.h"
@@ -699,7 +702,7 @@
 	"math.h"
 	"view.h"
 
-1729159370 /home/user-331/projects/eob2/eob2/monster.h
+1729232234 /home/user-331/projects/eob2/eob2/monster.h
 	"nameable.h"
 	"npc.h"
 	"resid.h"
@@ -729,4 +732,8 @@
 	"draw.h"
 	"stringbuilder.h"
 	"timer.h"
+
+1729232234 source:/home/user-331/projects/eob2/eob2/monster.cpp
+	"feat.h"
+	"monster.h"
 

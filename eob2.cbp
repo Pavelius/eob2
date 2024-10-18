@@ -114,6 +114,7 @@
 		<Unit filename="eob2/metadata.cpp" />
 		<Unit filename="eob2/modifier.cpp" />
 		<Unit filename="eob2/modifier.h" />
+		<Unit filename="eob2/monster.cpp" />
 		<Unit filename="eob2/monster.h" />
 		<Unit filename="eob2/my_initialize_list.h" />
 		<Unit filename="eob2/nameable.cpp" />

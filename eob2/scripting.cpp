@@ -295,11 +295,19 @@ static void use_item() {
 	}
 }
 
+static void test_dungeon() {
+   fix_damage(characters[0], 12);
+   fix_damage(characters[1], 3);
+   fix_damage(characters[0], 2);
+   fix_animate();
+}
+
 static void city_adventure_input() {
 	static hotkeyi keys[] = {
 		{KeyEscape, choose_city_menu},
 		{'D', drop_city_item},
 		{'U', use_item},
+		{'T', test_dungeon},
 		{}};
 	city_input(keys);
 }
@@ -781,9 +789,6 @@ static void pay_gold(int bonus) {
 		add_party(GoldPiece, -bonus);
 }
 
-static void test_dungeon(int bonus) {
-}
-
 static void run_script(const char* id, const char* action) {
 	auto p = bsdata<listi>::find(ids(id, action));
 	if(p)
@@ -885,6 +890,5 @@ BSDATA(script) = {
 	{"Roll", make_roll},
 	{"SaveGame", save_game},
 	{"Saves", saves_modify},
-	{"TestDungeon", test_dungeon},
 };
 BSDATAF(script)

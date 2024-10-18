@@ -19,8 +19,6 @@
 
 using namespace draw;
 
-struct pushscene : pushfocus {
-};
 namespace colors {
 static color button(108, 108, 136); // Any button background color
 static color light(148, 148, 172); // Light button border color
@@ -37,7 +35,19 @@ static fnevent character_view_proc;
 static void* current_select;
 static point cancel_position;
 static bool hilite_player;
+static int disp_damage[6];
+static int disp_weapon[6][2];
+static fnevent scene_paint;
+static unsigned animate_counter;
 unsigned long current_cpu_time;
+
+struct pushscene : pushfocus {
+   fnevent paint;
+   pushscene() : pushfocus(), paint(scene_paint) {}
+   ~pushscene() { scene_paint = paint; }
+};
+
+const int animation_step = 500;
 
 template<typename T> const char* gtn(int v) {
 	return bsdata<T>::elements[v].getname();
@@ -74,6 +84,76 @@ void set_small_font() {
 
 static void set_big_font() {
 	font = gres(FONT8);
+}
+
+static int get_party_disp(creaturei* target, wearn id) {
+	if(!target)
+		return 0;
+	int pind = get_party_index(target);
+	if(pind == -1)
+		return 0;
+	if(id == RightHand)
+		return disp_weapon[pind][0];
+	else if(id == LeftHand)
+		return disp_weapon[pind][1];
+	return 0;
+}
+
+void fix_damage(const creaturei* target, int value) {
+	auto i = get_party_index(target);
+	if(i == -1) {
+//		auto p = get_disp(target);
+//		if(p) {
+//			for(auto i = 0; i < 4; i++)
+//				p->flags[i] |= ImageColor;
+//		}
+	} else {
+		if(disp_damage[i])
+			fix_animate();
+		disp_damage[i] = value;
+	}
+}
+
+static bool is_active_animation() {
+	for(auto v : disp_damage) {
+		if(v)
+			return true;
+	}
+	for(auto v : disp_weapon) {
+		if(v[0] || v[1])
+			return true;
+	}
+	return false;
+}
+
+void fix_animate() {
+	if(!is_active_animation())
+		return;
+   animate_counter++;
+   scene_paint();
+   updatewindow();
+	waitcputime(animation_step);
+	memset(disp_damage, 0, sizeof(disp_damage));
+	memset(disp_weapon, 0, sizeof(disp_weapon));
+}
+
+// If hits == -1 the attack is missed
+void fix_attack(const creaturei* attacker, wearn slot, int hits) {
+	auto pind = get_party_index(attacker);
+	if(pind != -1) {
+		auto sdr = (pind == 0 || pind == 2) ? Left : Right;
+		//auto sht = bsdata<itemi>::elements[attacker->get(slot).gettype()].image.shoot;
+		//if(sht)
+		//	animation_thrown(attacker->getindex(), attacker->getdirection(), sht, sdr, 50, true);
+		disp_weapon[pind][((slot == RightHand) ? 0 : 1)] = hits;
+	} else {
+		//auto p = get_disp(attacker);
+		//if(p) {
+		//	//attacker->setframe(p->frame, 4);
+		//	animation_render();
+		//	//attacker->setframe(p->frame, 5);
+		//}
+	}
 }
 
 static void copy_image(point origin, point dest, int w, int h) {
@@ -152,11 +232,23 @@ static bool button_input(const void* button_data, unsigned key) {
 	return false;
 }
 
+static void textc(color tc, const char* format, ...) {
+	char temp[32]; stringbuilder sb(temp);
+	XVA_FORMAT(format);
+	sb.addv(format, format_param);
+	auto push_fore = fore;
+	auto push_caret = caret;
+	fore = tc;
+	caret.x -= textw(temp) / 2;
+	caret.y -= texth() / 2;
+	text(temp);
+	caret = push_caret;
+	fore = push_fore;
+}
+
 static void paint_player_damage(int hits, unsigned counter) {
-	char temp[32]; stringbuilder sb(temp); sb.addint(hits, 0, 10);
-	//draw::image(x, y - 1, gres(THROWN), 0, (counter % 2) ? ImageMirrorH : 0);
-	//draw::fore = colors::damage;
-	//draw::text(x - draw::textw(temp) / 2, y - 3, temp);
+	image(caret.x, caret.y - 1, gres(THROWN), 0, (counter % 2) ? ImageMirrorH : 0);
+	textc(colors::white, "%1i", hits);
 }
 
 static bool paint_button(const char* title, const void* button_data, unsigned key, unsigned flags = TextBold, bool force_focus = false) {
@@ -329,6 +421,15 @@ static void paint_avatar() {
 	else
 		image(gres(PORTM), player->avatar, 0);
 	paint_avatar_stats();
+	auto pind = get_party_index(player);
+	if(pind!=-1) {
+      auto v = disp_damage[pind];
+      if(v) {
+         auto push_caret = caret;
+         caret.x += 16; caret.y += 16;
+         paint_player_damage(v, (animate_counter + pind) % 2);
+      }
+	}
 }
 
 static void greenbar(int vc, int vm) {
@@ -1201,6 +1302,7 @@ void show_scene(fnevent before_paint, fnevent input, void* focus) {
 	rectpush push;
 	pushscene push_scene;
 	current_focus = focus;
+	scene_paint = before_paint;
 	while(ismodal()) {
 		if(before_paint)
 			before_paint();

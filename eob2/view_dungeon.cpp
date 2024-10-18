@@ -12,7 +12,6 @@
 using namespace draw;
 
 const int distance_per_level = 4;
-const int animation_step = 1000;
 const int mpg = 8;
 
 namespace {
@@ -37,8 +36,6 @@ struct renderi {
 static celln render_mirror1, render_mirror2;
 static resid render_door_type, render_dungeon;
 static int render_flipped_wall;
-static int disp_damage[6];
-static int disp_weapon[6][2];
 static sprite* map_tiles;
 static renderi disp_data[512];
 static pointc indecies[18];
@@ -241,73 +238,6 @@ void animation_render() {
 }
 
 void animation_damage(creaturei* target, int hits) {
-}
-
-static int get_party_disp(creaturei* target, wearn id) {
-	if(!target)
-		return 0;
-	int pind = get_party_index(target);
-	if(pind == -1)
-		return 0;
-	if(id == RightHand)
-		return disp_weapon[pind][0];
-	else if(id == LeftHand)
-		return disp_weapon[pind][1];
-	return 0;
-}
-
-void fix_damage(const creaturei* target, int value) {
-	auto i = get_party_index(target);
-	if(i == -1) {
-		auto p = get_disp(target);
-		if(p) {
-			for(auto i = 0; i < 4; i++)
-				p->flags[i] |= ImageColor;
-		}
-	} else {
-		if(disp_damage[i])
-			fix_animate();
-		disp_damage[i] = value;
-	}
-}
-
-static bool is_active_animation() {
-	for(auto v : disp_damage) {
-		if(v)
-			return true;
-	}
-	for(auto v : disp_weapon) {
-		if(v[0] || v[1])
-			return true;
-	}
-	return false;
-}
-
-void fix_animate() {
-	if(!is_active_animation())
-		return;
-	waitcputime(animation_step);
-	memset(disp_damage, 0, sizeof(disp_damage));
-	memset(disp_weapon, 0, sizeof(disp_weapon));
-}
-
-// If hits == -1 the attack is missed
-void fix_attack(const creaturei* attacker, wearn slot, int hits) {
-	auto pind = get_party_index(attacker);
-	if(pind != -1) {
-		auto sdr = (pind == 0 || pind == 2) ? Left : Right;
-		//auto sht = bsdata<itemi>::elements[attacker->get(slot).gettype()].image.shoot;
-		//if(sht)
-		//	animation_thrown(attacker->getindex(), attacker->getdirection(), sht, sdr, 50, true);
-		disp_weapon[pind][((slot == RightHand) ? 0 : 1)] = hits;
-	} else {
-		//auto p = get_disp(attacker);
-		//if(p) {
-		//	//attacker->setframe(p->frame, 4);
-		//	animation_render();
-		//	//attacker->setframe(p->frame, 5);
-		//}
-	}
 }
 
 void set_dungeon_tiles(resid type) {

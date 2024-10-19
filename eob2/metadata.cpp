@@ -5,6 +5,7 @@
 #include "cell.h"
 #include "class.h"
 #include "color.h"
+#include "damage.h"
 #include "dungeon.h"
 #include "item.h"
 #include "list.h"
@@ -83,6 +84,9 @@ BSMETA(creaturei) = {
 BSMETA(dice) = {
 	BSREQ(c), BSREQ(d), BSREQ(b), BSREQ(m),
 	{}};
+BSMETA(damagei) = {
+	BSREQ(id),
+	{}};
 BSMETA(dungeoni) = {
 	BSENM(quest_id, quest),
 	{}};
@@ -103,6 +107,7 @@ BSMETA(feati) = {
 BSMETA(itemi) = {
 	BSREQ(id),
 	BSENM(wear, weari),
+	BSENM(damage_type, damagei),
 	BSREQ(attack), BSREQ(number_attacks), BSREQ(speed),
 	BSREQ(damage), BSREQ(damage_large),
 	BSFLG(feats, feati),
@@ -122,9 +127,10 @@ BSMETA(locationi) = {
 	{}};
 BSMETA(monsteri) = {
 	BSREQ(id),
+	BSREQ(experience),
 	BSENM(res, residi),
 	BSREQ(frames), BSREQ(overlays),
-	BSREQ(hd),
+	BSREQ(hd), BSREQ(ac),
 	BSREQ(feats),
 	{}};
 BSMETA(partystati) = {

@@ -357,6 +357,7 @@ void create_monster(const monsteri* pi) {
 	player->clear();
 	player->monster_id = getbsi(pi);
 	player->levels[0] = pi->hd;
+	player->basic.abilities[AC] = (10 - pi->ac);
 	apply_default_ability();
 	apply_feats(pi->feats);
 	raise_monster_level();
@@ -499,10 +500,15 @@ bool creaturei::isactable() const {
 	return true;
 }
 
-void creaturei::damage(int value, char magic_bonus) {
+void creaturei::damage(damagen type, int value, char magic_bonus) {
 	if(value <= 0)
 		return;
 	fix_damage(this, value);
+	auto& ei = bsdata<damagei>::elements[type];
+	if(ei.resist && is(ei.resist))
+		value = value / 2;
+	else if(ei.immunity && is(ei.immunity))
+		value = 0;
 	hp -= value;
 	if(hp <= 0)
 		kill();
@@ -562,19 +568,19 @@ void creaturei::kill() {
 
 void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
 	auto& weapon = wears[slot];
-	// Weapon damage
 	auto attack_damage = getdamage(slot, defender->is(Large));
-	auto ammo = weapon.geti().ammo;
+	auto damage_type = weapon.geti().damage_type;
 	auto chance_critical = 20;
+	auto ammo = weapon.geti().ammo;
+	if(ammo) {
+		if(!wears[Quiver].is(ammo))
+			return;
+		attack_damage.b += ammo->damage.b;
+		if(wears[Quiver].is(Precise))
+			chance_critical++;
+	}
 	if(weapon.is(Precise))
 		chance_critical++;
-	//if(ammo) {
-	//	if(wears[Quiver].is(ammo)) {
-	//		attack_damage.b += ammo->damage.b;
-	//		if(wears[Quiver].is(Precise))
-	//			chance_critical++;
-	//	}
-	//}
 	auto ac = defender->get(AC);
 	if(defender->is(BonusACVsLargeEnemy) && is(Large))
 		ac += 4;
@@ -645,9 +651,10 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 		//				hits_healed = hits;
 		//			this->damage(Heal, hits_healed);
 		//		}
+		set(Assembled); // Fix assemble to victium
 	}
 	// Show result
-	defender->damage(hits, magic_bonus);
+	defender->damage(damage_type, hits, magic_bonus);
 	fix_attack(this, slot, hits);
 	if(hits != -1) {
 		//		// Poison attack
@@ -664,12 +671,14 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 		//		defender->damage(damage_type, hits, magic_bonus);
 	}
 	// Weapon can be broken
-	if(rolls == 1 && weapon) {
-		if(d100() < 50) {
-			//if(wi.weapon->damage(0, 0))
-			//	usequick();
+	if(rolls == 1) {
+		if(weapon && d100() < 60) {
+			auto name = weapon.getname();
+			weapon.damage();
+			if(!weapon)
+				speak("Weapon", "Broken", name);
 		} else
-			damage(1, 3);
+			damage(Bludgeon, 1, 3);
 		return;
 	}
 	//useammo(ammo, slot, false);

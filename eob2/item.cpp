@@ -56,3 +56,9 @@ int	item::getcost() const {
 bool item::isweapon() const {
 	return geti().damage.c != 0;
 }
+
+void item::damage() {
+	count++;
+	if(count >= 10)
+		clear();
+}

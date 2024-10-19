@@ -1,5 +1,6 @@
 #pragma once
 
+#include "damage.h"
 #include "statable.h"
 #include "levelable.h"
 #include "posable.h"
@@ -24,7 +25,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	void			additem(item& it);
 	void			attack(creaturei* enemy, wearn slot, int bonus, int multiplier);
 	void			clear();
-	void			damage(int hits, char magic_bonus = 0);
+	void			damage(damagen type, int hits, char magic_bonus = 0);
 	int				get(abilityn v) const { return abilities[v]; }
 	const char*		getbadstate() const;
 	int				getchance(abilityn v) const;
@@ -41,6 +42,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	bool			ismonster() const { return getmonster() != 0; }
 	void			kill();
 	bool			roll(abilityn v, int bonus = 0) const;
+	void			set(featn v) { featable::set(v); }
 	void			setframe(short* frames, short index) const;
 };
 extern creaturei *player, *opponent;

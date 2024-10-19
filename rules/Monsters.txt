@@ -1,5 +1,6 @@
 #Monster
 
-Kobold res(kobold) hd(0)
-Leech res(leech) hd(3)
+Kobold res(kobold) hd(0) ac(6)
+ feats Dagger
+Leech res(leech) hd(4) ac(9) experience(175)
  feats Large

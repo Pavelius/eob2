@@ -116,6 +116,7 @@ void make_melee_attacks() {
 	auto v = to(party, party.d);
 	auto d = to(party.d, Down);
 	turnto(v, d);
+	animation_update();
 	if(!select_combatants(v))
 		return;
 	for(auto p : combatants) {

@@ -10,7 +10,8 @@ enum featn : unsigned char;
 struct monsteri : nameable {
    resid	res;
    short	frames[4], overlays[4];
-   char		hd;
+   int		experience;
+   char		hd, ac;
    variants	feats, spells;
    bool		is(featn v) const;
 };

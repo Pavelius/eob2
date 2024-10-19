@@ -73,10 +73,10 @@ template<> void ftscript<quest>(int value, int bonus) {
 template<> void ftscript<feati>(int value, int bonus) {
 	switch(modifier) {
 	case Permanent:
-		player->basic.setfeat((featn)value);
+		player->basic.set((featn)value);
 		break;
 	default:
-		player->setfeat((featn)value);
+		player->set((featn)value);
 		break;
 	}
 }

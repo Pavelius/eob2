@@ -6,9 +6,11 @@
 #include "variant.h"
 
 enum wearn : unsigned char;
+enum damagen : unsigned char;
 
 struct itemi : nameable, featable {
 	char		attack, number_attacks, speed;
+	damagen		damage_type;
 	dice		damage, damage_large;
 	itemi*		ammo;
 	variants	wearing, use;
@@ -33,6 +35,7 @@ public:
 	void		clear();
 	void		create(int value);
 	void		create(const itemi* pi);
+	void		damage();
 	const itemi& geti() const;
 	void		identify(int v) { identified = (v >= 0) ? 1 : 0; }
 	bool		is(featn v) const { return geti().is(v); }

@@ -938,11 +938,11 @@ void paint_adventure() {
 	paint_console();
 }
 
-void paint_adventure_no_update() {
+static void paint_adventure_no_update() {
 	paint_background(PLAYFLD, 0);
 	paint_compass(party.d);
 	paint_dungeon();
-	paint_party_sheets();
+	paint_avatars();
 	console_scroll(3000);
 	paint_console();
 }

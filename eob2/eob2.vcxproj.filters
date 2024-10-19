@@ -234,6 +234,9 @@
     <ClCompile Include="monster.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="party_combat.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">

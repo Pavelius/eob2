@@ -32,7 +32,6 @@ extern "C" void exit(int code);
 racei* last_race;
 classi* last_class;
 static void* last_result;
-static adat<creaturei*, 16> combatants;
 
 static int get_bonus(int v) {
 	switch(v) {
@@ -147,25 +146,6 @@ void skip_hours(int value) {
 	add_party(Minutes, 60 * value);
 }
 
-static void turnto(pointc v, directions d, bool* surprise = 0) {
-	if(!d)
-		return;
-	if(v == party) {
-		if(surprise)
-			*surprise = (party.d != d);
-		set_party_position(v, d);
-	} else {
-		creaturei* result[4]; loc->getmonsters(result, v, party.d);
-		for(auto pc : result) {
-			if(!pc)
-				continue;
-			if(surprise && !(*surprise))
-				*surprise = (pc->d != d);
-			pc->d = d;
-		}
-	}
-}
-
 static void create_character(int bonus) {
 	create_player(last_race, last_gender, last_class);
 }
@@ -260,90 +240,6 @@ static void drop_city_item() {
 		return;
 	pi->clear();
 	add_party(GoldPiece, cost);
-}
-
-static size_t shrink_creatures(creaturei** dest, creaturei** units, size_t count) {
-	auto ps = dest;
-	auto pb = units;
-	auto pe = units + count;
-	while(pb < pe) {
-		if(*pb)
-			*ps++ = *pb;
-		pb++;
-	}
-	return ps - dest;
-}
-
-static int compare_creatures(const void* v1, const void* v2) {
-	return (*((creaturei**)v1))->initiative - (*((creaturei**)v2))->initiative;
-}
-
-static bool select_combatants(pointc position) {
-	loc->getmonsters(combatants.data, position, Up);
-	combatants.count = shrink_creatures(combatants.data, combatants.data, 4);
-	if(!combatants)
-		return false;
-	combatants.count += shrink_creatures(combatants.data + combatants.count, characters, 6);
-	for(auto p : combatants)
-		p->initiative = xrand(1, 10) + p->get(Speed);
-	qsort(combatants.data, combatants.count, sizeof(combatants.data[0]), compare_creatures);
-	return true;
-}
-
-static creaturei* get_enemy(const creaturei* player) {
-	static int sides[][6] = {
-		{0, 1, 2, 3, 4, 5},
-		{1, 0, 3, 2, 5, 4},
-	};
-	if(player->ismonster()) {
-		auto side = get_side(player->side, party.d);
-		for(auto pi : sides[side % 2]) {
-			if(characters[pi] && !characters[pi]->isdisabled())
-				return characters[pi];
-		}
-	} else {
-		auto side = get_side(player->side, party.d);
-		for(auto p : combatants) {
-			if(!p->ismonster())
-				continue;
-			if(p->isdisabled())
-				continue;
-			return p;
-		}
-	}
-	return 0;
-}
-
-static void make_full_attack(creaturei* player, creaturei* enemy, int bonus, int multiplier) {
-	if(!enemy)
-		return;
-	fix_monster_attack(player);
-	auto wp1 = player->wears[RightHand];
-	auto wp2 = player->wears[LeftHand];
-	auto wp3 = player->wears[Head];
-	if(wp1.is(TwoHanded) || !wp2.isweapon())
-		wp2.clear();
-	if(!wp3.isweapon())
-		wp3.clear();
-	if(wp2) {
-		player->attack(enemy, RightHand, bonus + player->gethitpenalty(-4), multiplier);
-		player->attack(enemy, LeftHand, bonus + player->gethitpenalty(-6), multiplier);
-	} else
-		player->attack(enemy, RightHand, bonus, multiplier);
-	if(wp3)
-		player->attack(enemy, Head, bonus, multiplier);
-	fix_monster_attack_end(player);
-}
-
-static void make_melee_attacks() {
-	auto v = to(party, party.d);
-	turnto(v, to(party.d, Down));
-	if(!select_combatants(v))
-		return;
-	for(auto p : combatants) {
-		make_full_attack(p, get_enemy(p), 0, 1);
-		fix_animate();
-	}
 }
 
 static void use_item() {

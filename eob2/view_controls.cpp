@@ -951,7 +951,7 @@ void fix_animate() {
 		paint_adventure_no_update();
 	else
 		paint_city();
-	updatewindow();
+	doredraw();
 	waitcputime(animation_step);
 	memset(disp_damage, 0, sizeof(disp_damage));
 	memset(disp_weapon, 0, sizeof(disp_weapon));

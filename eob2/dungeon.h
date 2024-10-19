@@ -48,6 +48,7 @@ struct dungeoni : dungeon_site {
 	size_t			getitems(ground** result, size_t result_maximum, pointc v);
 	size_t			getitems(item** result, size_t result_maximum, const overlayi* po);
 	void			getmonsters(creaturei** result, pointc index, directions dr);
+	void			getmonsters(creaturei** result, pointc index);
 	overlayi*		getoverlay(pointc v, celln type);
 	bool			have(const overlayi* p) const { return p >= overlays && p <= overlays + lenghtof(overlays); }
 	bool			have(const creaturei* p) const { return p >= monsters && p <= monsters + lenghtof(monsters); }

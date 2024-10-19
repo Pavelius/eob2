@@ -1,0 +1,135 @@
+#include "adat.h"
+#include "creature.h"
+#include "direction.h"
+#include "dungeon.h"
+#include "party.h"
+#include "rand.h"
+#include "view.h"
+
+static adat<creaturei*, 16> combatants;
+
+static size_t shrink_creatures(creaturei** dest, creaturei** units, size_t count) {
+	auto ps = dest;
+	auto pb = units;
+	auto pe = units + count;
+	while(pb < pe) {
+		if(*pb)
+			*ps++ = *pb;
+		pb++;
+	}
+	return ps - dest;
+}
+
+static int compare_creatures(const void* v1, const void* v2) {
+	return (*((creaturei**)v1))->initiative - (*((creaturei**)v2))->initiative;
+}
+
+static bool select_combatants(pointc position) {
+	loc->getmonsters(combatants.data, position);
+	combatants.count = shrink_creatures(combatants.data, combatants.data, 4);
+	if(!combatants)
+		return false;
+	combatants.count += shrink_creatures(combatants.data + combatants.count, characters, 6);
+	// Lowest initiative win, so positive speed is substracted
+	for(auto p : combatants)
+		p->initiative = xrand(1, 10) - p->get(Speed);
+	qsort(combatants.data, combatants.count, sizeof(combatants.data[0]), compare_creatures);
+	return true;
+}
+
+static void select_combatants(creaturei** result, bool enemies) {
+	memset(result, 0, sizeof(result[0]) * 6);
+	for(auto p : combatants) {
+		if(p->isdisabled())
+			continue;
+		auto ismonster = p->ismonster();
+		if(ismonster != enemies)
+			continue;
+		if(ismonster) {
+			auto side = get_side(p->side, party.d);
+			if(!result[side])
+				result[side] = p;
+		} else {
+			if(!result[p->side])
+				result[p->side] = p;
+		}
+	}
+}
+
+static creaturei* get_opponent(bool left, bool enemies) {
+	creaturei* result[6]; select_combatants(result, enemies);
+	for(auto y = 0; y < 3; y++) {
+		auto n = left ? 0 : 1;
+		if(d100() < 30) // Randomly select nearest
+			n = n ? 0 : 1;
+		auto p = result[y * 2 + n];
+		if(p)
+			return p;
+		p = result[y * 2 + (n + 1) % 2];
+		if(p)
+			return p;
+	}
+	return 0;
+}
+
+static void make_full_attack(creaturei* player, creaturei* enemy, int bonus, int multiplier) {
+	if(!enemy)
+		return;
+	fix_monster_attack(player);
+	auto wp1 = player->wears[RightHand];
+	auto wp2 = player->wears[LeftHand];
+	auto wp3 = player->wears[Head];
+	if(wp1.is(TwoHanded) || !wp2.isweapon())
+		wp2.clear();
+	if(!wp3.isweapon())
+		wp3.clear();
+	if(wp2) {
+		player->attack(enemy, RightHand, bonus + player->gethitpenalty(-4), multiplier);
+		player->attack(enemy, LeftHand, bonus + player->gethitpenalty(-6), multiplier);
+	} else
+		player->attack(enemy, RightHand, bonus, multiplier);
+	if(wp3)
+		player->attack(enemy, Head, bonus, multiplier);
+	fix_monster_attack_end(player);
+}
+
+void turnto(pointc v, directions d, bool* surprise) {
+	if(!d)
+		return;
+	if(v == party) {
+		if(surprise)
+			*surprise = (party.d != d);
+		set_party_position(v, d);
+	} else {
+		creaturei* result[4]; loc->getmonsters(result, v, party.d);
+		for(auto pc : result) {
+			if(!pc)
+				continue;
+			if(surprise && !(*surprise))
+				*surprise = (pc->d != d);
+			pc->d = d;
+		}
+	}
+}
+
+void make_melee_attacks() {
+	auto v = to(party, party.d);
+	auto d = to(party.d, Down);
+	turnto(v, d);
+	if(!select_combatants(v))
+		return;
+	for(auto p : combatants) {
+		if(p->isdisabled())
+			continue;
+		if(p->ismonster()) {
+			auto left_side = (get_side(p->side, d) % 2) == 0;
+			if(p->is(Large))
+				left_side = (rand() % 2);
+			make_full_attack(p, get_opponent(left_side, false), 0, 1);
+		} else {
+			auto left_side = (p->side % 2) == 0;
+			make_full_attack(p, get_opponent(left_side, true), 0, 1);
+		}
+		fix_animate();
+	}
+}

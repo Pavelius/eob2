@@ -1,5 +1,6 @@
 #pragma once
 
+#include "adat.h"
 #include "flagable.h"
 #include "nameable.h"
 #include "posable.h"
@@ -22,11 +23,14 @@ struct partyi : posable {
 extern creaturei* characters[6];
 extern partyi party;
 
+creaturei* get_opponent(bool left, bool enemies);
+
 void add_party(partystatn id, int value);
 void continue_game();
 void delete_game(const char* id);
 bool is_dead_line();
 void join_party(int bonus);
+void make_melee_attacks();
 void move_party(pointc v);
 void party_addexp(int value);
 void pass_round();
@@ -35,6 +39,7 @@ void save_game(const char* id);
 void set_party_position(pointc v);
 void set_party_position(pointc v, directions d);
 void skip_hours(int value);
+void turnto(pointc v, directions d, bool* surprise = 0);
 
 int getparty(partystatn id);
 int get_party_index(const creaturei* target);

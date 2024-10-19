@@ -1,7 +1,6 @@
 #include "bsdata.h"
 #include "creature.h"
 #include "party.h"
-#include "math.h"
 
 BSDATA(partystati) = {
 	{"GoldPiece"},
@@ -25,9 +24,11 @@ int get_party_index(const creaturei* target) {
 	return -1;
 }
 
-static int get_party_side_modified(int side) {
-	static int sides[] = {0, 1, 2, 3, 2, 3};
-	return maptbl(sides, side);
+static void update_party_side() {
+	for(auto i = 0; i < lenghtof(characters); i++) {
+		if(characters[i])
+			characters[i]->side = i;
+	}
 }
 
 void join_party(int bonus) {
@@ -35,9 +36,9 @@ void join_party(int bonus) {
 		if(e)
 			continue;
 		e = player;
-		player->side = get_party_side_modified(get_party_index(player));
 		break;
 	}
+	update_party_side();
 }
 
 void add_party(partystatn id, int value) {

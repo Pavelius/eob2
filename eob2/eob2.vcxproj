@@ -240,6 +240,7 @@
     <ClCompile Include="modifier.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="npc.cpp" />
+    <ClCompile Include="party_combat.cpp" />
     <ClCompile Include="picture.cpp" />
     <ClCompile Include="pointc.cpp" />
     <ClCompile Include="pointca.cpp" />

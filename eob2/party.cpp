@@ -1,4 +1,5 @@
 #include "bsdata.h"
+#include "class.h"
 #include "creature.h"
 #include "party.h"
 
@@ -90,5 +91,14 @@ void party_addexp(int value) {
 	for(auto p : characters) {
 		if(p && !p->isdisabled())
 			p->addexp(value);
+	}
+}
+
+void party_addexp_per_killed(int hd) {
+	for(auto p : characters) {
+		if(!p || p->isdisabled())
+			continue;
+		auto pc = bsdata<classi>::elements + p->type;
+		p->addexp(hd * pc->exp_per_hd / 100);
 	}
 }

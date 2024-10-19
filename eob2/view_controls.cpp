@@ -620,6 +620,16 @@ static void header(const char* format) {
 	fore_stroke = push_stroke;
 }
 
+static void headern(const char* format) {
+	auto push_fore = fore;
+	auto push_stroke = fore_stroke;
+	fore_stroke = fore;
+	fore = colors::yellow;
+	text(format, -1, TextBold);
+	fore = push_fore;
+	fore_stroke = push_stroke;
+}
+
 static void paint_ability() {
 	rectpush push;
 	for(auto i = Strenght; i <= Charisma; i = (abilityn)(i + 1)) {
@@ -633,12 +643,36 @@ static void paint_ability() {
 }
 
 static void paint_stats() {
+	rectpush push;
 	textn(AttackMelee);
 	textn(AC);
 	textn(Hits);
 	textn(DamageMelee);
 	textn(Speed);
 	textn(ReactionBonus);
+}
+
+static void paint_level_experience() {
+	rectpush push;
+	headern(getnm("Class"));
+	caret.x = push.caret.x + 6 * 7;
+	headern(getnm("LevelShort"));
+	caret.x = push.caret.x + 6 * 11;
+	headern(getnm("ExperienceShort"));
+	caret.y += texth() + 2;
+	auto push_caret = caret;
+	auto pc = bsdata<classi>::elements + player->type;
+	auto exp = player->experience / pc->count;
+	for(int i = 0; i < pc->count; i++) {
+		auto m = pc->classes[i];
+		caret.x = push.caret.x;
+		text(bsdata<classi>::elements[pc->classes[i]].getname());
+		caret.x = push.caret.x + 6 * 8;
+		text(str("%1i", player->levels[i]));
+		caret.x = push.caret.x + 6 * 11;
+		text(str("%1i", exp));
+		caret.y += texth() + 1;
+	}
 }
 
 static void paint_sheet() {
@@ -652,11 +686,15 @@ static void paint_sheet() {
 	//text(bsdata<alignmenti>::elements[pc->getalignment()].name); y1 += draw::texth();
 	textn(str("%1 %2", bsdata<racei>::elements[player->race].getname(), bsdata<genderi>::elements[player->gender].getname()));
 	caret.y += texth();
+	auto push_block = caret;
 	width = 88;
 	paint_ability();
 	caret.x += 6 * 16;
 	width = 40;
 	paint_stats();
+	caret.x = push_block.x;
+	caret.y = push_block.y + 68;
+	paint_level_experience();
 	font = push_font;
 	fore = push_fore;
 }
@@ -1106,10 +1144,8 @@ static void examine_item() {
 	auto pc = item_owner(pi);
 	if(!pc)
 		return;
-	if(pc->isdisabled()) {
-		consolen("%1 is %2", pc->getname(), getnm(pc->getbadstate()));
+	if(!pc->isactable())
 		return;
-	}
 	if(!(*pi))
 		pc->say(getnm("WrongItem"));
 	else

@@ -33,6 +33,7 @@ void join_party(int bonus);
 void make_melee_attacks();
 void move_party(pointc v);
 void party_addexp(int value);
+void party_addexp_per_killed(int victim_hit_die);
 void pass_round();
 bool read_game(const char* id);
 void save_game(const char* id);

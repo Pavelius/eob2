@@ -1,2 +1,2 @@
-﻿Error in file `rules/Monsters.txt`:
- Line 5: Not found requisit `feats`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `Class`

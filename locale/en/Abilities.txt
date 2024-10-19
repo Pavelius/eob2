@@ -8,9 +8,13 @@ Wisdow: Wisdow
 ACShort: AC
 AttackMeleeShort: Att
 DamageMeleeShort: Dm
+ExperienceShort: Exp
 HitsShort: HP
+LevelShort: Lev
 SpeedShort: Spd
 ReactionBonusShort: Ra
+
+Class: Class
 
 ClimbWalls: Climb Walls
 CriticalDeflect: Critical deflect

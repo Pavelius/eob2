@@ -247,6 +247,8 @@ static void use_item() {
 	auto pn = item_owner(pi);
 	if(!pn)
 		return;
+	if(!pn->isactable())
+		return;
 	auto w = item_wear(pi);
 	auto& ei = pi->geti();
 	switch(ei.wear) {

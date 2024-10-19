@@ -2,7 +2,9 @@
 #include "avatar.h"
 #include "bsdata.h"
 #include "class.h"
+#include "console.h"
 #include "creature.h"
+#include "dungeon.h"
 #include "gender.h"
 #include "list.h"
 #include "math.h"
@@ -57,6 +59,10 @@ static char dwarven_bonus[] = {
 	0, 0, 0, 0, 1, 1, 1, 2, 2, 2,
 	2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5,
 	6, 6, 6, 6, 7
+};
+static const int hd_experience[] = {
+	7,15, 35, 65, 120, 175, 270, 420, 650, 975,
+	1400, 1700, 2000, 3000
 };
 //static char open_doors[] = {
 //	18, 20, 22, 26, 28, 30, 32, 34, 36, 38,
@@ -443,7 +449,7 @@ void creaturei::addexp(int value) {
 }
 
 int creaturei::gethitpenalty(int bonus) const {
-	if(is(Ambidextrity))
+	if(is(Precise))
 		return 0;
 	auto dex = abilities[Dexterity];
 	auto bon = maptbl(reaction_adjustment, dex);
@@ -485,10 +491,73 @@ void creaturei::setframe(short* frames, short index) const {
 	}
 }
 
+bool creaturei::isactable() const {
+	if(isdisabled()) {
+		consolen("%1 is %2", getname(), getnm(getbadstate()));
+		return false;
+	}
+	return true;
+}
+
 void creaturei::damage(int value, char magic_bonus) {
 	if(value <= 0)
 		return;
 	fix_damage(this, value);
+	hp -= value;
+	if(hp <= 0)
+		kill();
+}
+
+int creaturei::getexpaward() const {
+	auto r = getlevel();
+	if(!ismonster())
+		return r * 100;
+	if(get(AC) >= 10)
+		r += 1;
+	//if(is(OfPoison))
+	//	r += 1;
+	if(is(ResistBludgeon) || is(ResistPierce) || is(ResistSlashing))
+		r += 1;
+	if(is(ImmuneNormalWeapon))
+		r += 1;
+	//if(is(OfEnergyDrain))
+	//	r += 3;
+	if(is(Undead))
+		r++;
+	//if(is(OfFear))
+	//	r += 1;
+	//if(is(OfParalize))
+	//	r += 2;
+	if(basic.abilities[ResistMagic] >= 50)
+		r++;
+	if(basic.abilities[ResistMagic] >= 90)
+		r++;
+	auto exp = maptbl(hd_experience, r);
+	if(r > 13)
+		exp += (r - 13) * 1000;
+	return exp;
+}
+
+static void drop_loot(creaturei* player) {
+	for(auto& it : player->wears) {
+		if(!it || it.is(Natural))
+			continue;
+		if(it.is(Unique) || (d100() < 15)) {
+			it.identify(0);
+			loc->drop(*player, it, get_side(player->side, party.d));
+		}
+	}
+}
+
+void creaturei::kill() {
+	if(!ismonster())
+		return;
+	// auto hitd = getlevel();
+	party_addexp(getexpaward());
+	party_addexp_per_killed(getlevel());
+	drop_loot(this);
+	loc->state.monsters_killed++;
+	clear();
 }
 
 void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplier) {

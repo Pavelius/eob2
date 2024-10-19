@@ -458,6 +458,9 @@
     <ClInclude Include="monster.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="special.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">

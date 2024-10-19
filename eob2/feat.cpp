@@ -23,6 +23,8 @@ BSDATA(feati) = {
 	{"Deadly"},
 	{"Natural"},
 	{"Unique"},
+	{"BloodSucking"},
+	{"Disease"},
 	{"Small"},
 	{"Large"},
 	{"Undead"},

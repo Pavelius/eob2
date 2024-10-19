@@ -61,7 +61,7 @@ static char dwarven_bonus[] = {
 	6, 6, 6, 6, 7
 };
 static const int hd_experience[] = {
-	7,15, 35, 65, 120, 175, 270, 420, 650, 975,
+	7, 15, 35, 65, 120, 175, 270, 420, 650, 975,
 	1400, 1700, 2000, 3000
 };
 //static char open_doors[] = {
@@ -515,9 +515,12 @@ void creaturei::damage(damagen type, int value, char magic_bonus) {
 }
 
 int creaturei::getexpaward() const {
+	auto pm = getmonster();
 	auto r = getlevel();
-	if(!ismonster())
+	if(!pm)
 		return r * 100;
+	if(pm->experience)
+		return pm->experience;
 	if(get(AC) >= 10)
 		r += 1;
 	//if(is(OfPoison))
@@ -608,6 +611,8 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	auto rolls = xrand(1, 20);
 	auto hits = -1;
 	tohit = imax(2, imin(20, tohit));
+	if(is(BloodSucking) && is(Assembled))
+		rolls = tohit;
 	if(rolls >= tohit || rolls >= chance_critical) {
 		// If weapon hits
 		auto is_critical = false;
@@ -621,7 +626,10 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 			if(weapon.is(Deadly))
 				multiplier += 1;
 		}
-		hits = attack_damage.roll();
+		if(weapon.is(BloodSucking) && is(Assembled))
+			hits = attack_damage.maximum();
+		else
+			hits = attack_damage.roll();
 		hits = hits * multiplier;
 		//if(wi.is(OfFire)) {
 		//	damage_type = Fire;
@@ -636,22 +644,24 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 				// RULE: Weapon with spell cast it when critical hit occurs
 				auto power = weapon.getpower();
 				if(power.iskind<spelli>()) {
-			//					auto spell = (spell_s)power.value;
-			//					if(bsdata<spelli>::elements[spell].effect.type.type == Damage)
-			//						cast(spell, Mage, wi.weapon->getmagic(), defender);
-			//					else
-			//						cast(spell, Mage, wi.weapon->getmagic(), this);
+					//	auto spell = (spell_s)power.value;
+					//	if(bsdata<spelli>::elements[spell].effect.type.type == Damage)
+					//		cast(spell, Mage, wi.weapon->getmagic(), defender);
+					//	else
+					//		cast(spell, Mage, wi.weapon->getmagic(), this);
 				}
 			}
 		}
-		//		// RULE: vampiric ability allow user to drain blood and regain own HP
-		//		if(wi.is(OfVampirism)) {
-		//			auto hits_healed = xrand(2, 5);
-		//			if(hits_healed > hits)
-		//				hits_healed = hits;
-		//			this->damage(Heal, hits_healed);
-		//		}
+		// RULE: vampiric ability allow user to drain blood and regain own HP
+		//if(wi.is(OfVampirism)) {
+		//	auto hits_healed = xrand(2, 5);
+		//	if(hits_healed > hits)
+		//		hits_healed = hits;
+		//		this->damage(Heal, hits_healed);
+		//	}
 		set(Assembled); // Fix assemble to victium
+		if(is(Disease))
+			defender->abilities[DiseaseLevel]++;
 	}
 	// Show result
 	defender->damage(damage_type, hits, magic_bonus);

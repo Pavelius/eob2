@@ -103,6 +103,9 @@ PriestScroll cost(20) avatar(85) avatar_ground(12)
 MagicMap cost(10) avatar(86) avatar_ground(12)
  feats Small
 
+Mandibules damage_type(Slashing) damage(1 4)
+ feats Natural
+
 #List
 
 DwarfFighterStartEquipment

@@ -8,6 +8,7 @@ enum featn : unsigned char {
 	BonusVsElfWeapon, BonusAttackVsHated, BonusDamageVsEnemy, BonusACVsLargeEnemy, BonusHP,
 	UseMetal, UseLeather, UseShield,
 	UseMartial, UseElvish, UseRogish, UsePriest, UseMage, TwoHanded, Precise, Deadly, Natural, Unique,
+	BloodSucking, Disease,
 	Small, Large, Undead, Paralized, Moved, Assembled,
 	ResistBludgeon, ResistSlashing, ResistPierce, ResistFire, ResistCold, ResistCharm, ResistSpells,
 	ImmuneNormalWeapon, ImmuneFire, ImmuneCold, ImmuneCharm, ImmuneSpells, ImmuneDisease,

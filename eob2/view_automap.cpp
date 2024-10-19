@@ -345,6 +345,8 @@ static void paint_overlays() {
 		caret = p1;
 		switch(e.type) {
 		case CellSecrectButton:
+			if(show_fog_of_war && !loc->is(v, CellExplored))
+				continue;
 			if(show_secrets) {
 				caret.x += 1; caret.y += 1;
 				fore = bwall;
@@ -352,11 +354,20 @@ static void paint_overlays() {
 			}
 			break;
 		case CellTrapLauncher:
+			if(show_fog_of_war && !loc->is(v, CellExplored))
+				continue;
 			caret = p2;
-			fill_line(e.d, 2, 2, bwall);
-			fill_line(e.d, 3, 2, cdoor);
+			fill_line(e.d, 2, 1, bwall);
+			fill_line(e.d, 3, 1, cdoor);
 			break;
-      default:
+		case CellCellar:
+			if(show_fog_of_war && !loc->is(v, CellExplored))
+				continue;
+			caret = p2;
+			fill_line(e.d, 2, 4, bwall);
+			fill_line(e.d, 3, 4, cdoor);
+			break;
+		default:
          break;
 		}
 	}

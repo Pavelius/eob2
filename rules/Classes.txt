@@ -1,6 +1,6 @@
 #Class
 
-Monster hd(8) count(1)
+Monster hd(8) classes(Monster) count(1)
 
 Fighter minimal(9 0 0 0 0 0) primary(Strenght) hd(10) classes(Fighter) count(1)
 Cleric minimal(0 0 0 0 9 0) primary(Wisdow) hd(8) classes(Cleric) count(1)

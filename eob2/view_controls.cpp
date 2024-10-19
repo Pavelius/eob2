@@ -44,7 +44,7 @@ unsigned long current_cpu_time;
 struct pushscene : pushfocus {
 };
 
-const int animation_step = 500;
+const int animation_step = 300;
 
 template<typename T> const char* gtn(int v) {
 	return bsdata<T>::elements[v].getname();

@@ -330,12 +330,24 @@ static void apply_feats(const variants& elements) {
 	modifier = push_modifier;
 }
 
+static void raise_monster_level() {
+	if(player->levels[0]) {
+		for(auto i = 1; i <= player->levels[0]; i++) {
+			advance_level(bsdata<classi>::elements + player->type, i);
+			player->hpr = xrand(1, bsdata<classi>::elements[player->type].hd);
+		}
+	} else
+		player->hpr = xrand(1, 6);
+}
+
 void create_monster(const monsteri* pi) {
 	if(!pi)
 		return;
 	player->clear();
 	player->monster_id = getbsi(pi);
+	player->levels[0] = pi->hd;
 	apply_feats(pi->feats);
+	raise_monster_level();
 	update_player();
 	player->hp = player->hpm;
 }
@@ -498,7 +510,7 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	if(defender->is(BonusACVsLargeEnemy) && is(Large))
 		ac += 4;
 	if(hate.is(defender->race)) {
-		if(is(BonusAttackVsGoblinoid))
+		if(is(BonusAttackVsHated))
 			bonus += 1;
 		if(is(BonusDamageVsEnemy))
 			bonus += 4;
@@ -524,7 +536,7 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	if(rolls >= tohit || rolls >= chance_critical) {
 		// If weapon hits
 		auto is_critical = false;
-		if(rolls >= chance_critical && rolls >= tohit) {
+		if(rolls >= tohit && rolls >= chance_critical) {
 			// RULE: crtitical hit can apply only if attack hit and can be deflected
 			if(!defender->roll(CriticalDeflect))
 				is_critical = true;

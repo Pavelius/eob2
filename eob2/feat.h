@@ -5,7 +5,7 @@
 enum featn : unsigned char {
 	NoExeptionalStrenght,
 	BonusSaveVsPoison, BonusSaveVsSpells,
-	BonusVsElfWeapon, BonusAttackVsGoblinoid, BonusDamageVsEnemy, BonusACVsLargeEnemy, BonusHP,
+	BonusVsElfWeapon, BonusAttackVsHated, BonusDamageVsEnemy, BonusACVsLargeEnemy, BonusHP,
 	UseMetal, UseLeather, UseShield,
 	UseMartial, UseElvish, UseRogish, UsePriest, UseMage, TwoHanded, Precise, Deadly,
 	Ambidextrity, Small, Large, Undead, Paralized,

@@ -262,32 +262,6 @@ static void drop_city_item() {
 	add_party(GoldPiece, cost);
 }
 
-static void use_item() {
-	auto pi = (item*)current_focus;
-	auto pn = item_owner(pi);
-	if(!pn)
-		return;
-	auto w = item_wear(pi);
-	auto& ei = pi->geti();
-	switch(ei.wear) {
-	case LeftHand:
-	case RightHand:
-		if(w != LeftHand && w != RightHand)
-			pn->speak("MustBeUseInHand", pi->getname());
-		else if(pi->isweapon()) {
-			// TODO: Make attack
-		} else if(ei.use) {
-
-		}
-		break;
-	case Body: case Neck: case Elbow: case Legs: case Head:
-		pn->speak("MustBeWearing", pi->getname());
-		break;
-	default:
-		break;
-	}
-}
-
 static size_t shrink_creatures(creaturei** dest, creaturei** units, size_t count) {
 	auto ps = dest;
 	auto pb = units;
@@ -330,17 +304,14 @@ static creaturei* get_enemy(const creaturei* player) {
 	} else {
 		auto side = get_side(player->side, party.d);
 		for(auto p : combatants) {
-			if(p->isdisabled())
-				continue;
 			if(!p->ismonster())
+				continue;
+			if(p->isdisabled())
 				continue;
 			return p;
 		}
 	}
 	return 0;
-}
-
-static void make_attack(creaturei* player, creaturei* enemy, wearn wear, int bonus, int multiplier) {
 }
 
 static void make_full_attack(creaturei* player, creaturei* enemy, int bonus, int multiplier) {
@@ -354,12 +325,12 @@ static void make_full_attack(creaturei* player, creaturei* enemy, int bonus, int
 	if(!wp3.isweapon())
 		wp3.clear();
 	if(wp2) {
-		make_attack(player, enemy, RightHand, bonus + player->gethitpenalty(-4), multiplier);
-		make_attack(player, enemy, LeftHand, bonus + player->gethitpenalty(-6), multiplier);
+		player->attack(enemy, RightHand, bonus + player->gethitpenalty(-4), multiplier);
+		player->attack(enemy, LeftHand, bonus + player->gethitpenalty(-6), multiplier);
 	} else
-		make_attack(player, enemy, RightHand, bonus, multiplier);
+		player->attack(enemy, RightHand, bonus, multiplier);
 	if(wp3)
-		make_attack(player, enemy, Head, bonus, multiplier);
+		player->attack(enemy, Head, bonus, multiplier);
 }
 
 static void make_melee_round() {
@@ -368,6 +339,32 @@ static void make_melee_round() {
 	for(auto p : combatants) {
 		make_full_attack(p, get_enemy(p), 0, 1);
 		fix_animate();
+	}
+}
+
+static void use_item() {
+	auto pi = (item*)current_focus;
+	auto pn = item_owner(pi);
+	if(!pn)
+		return;
+	auto w = item_wear(pi);
+	auto& ei = pi->geti();
+	switch(ei.wear) {
+	case LeftHand:
+	case RightHand:
+		if(w != LeftHand && w != RightHand)
+			pn->speak("MustBeUseInHand", pi->getname());
+		else if(pi->isweapon()) {
+			make_melee_round();
+		} else if(ei.use) {
+
+		}
+		break;
+	case Body: case Neck: case Elbow: case Legs: case Head:
+		pn->speak("MustBeWearing", pi->getname());
+		break;
+	default:
+		break;
 	}
 }
 
@@ -738,6 +735,7 @@ static void play_dungeon_input() {
 		{'M', manipulate},
 		{'D', drop_dungeon_item},
 		{'T', test_dungeon},
+		{'U', use_item},
 		{KeyEscape, choose_dungeon_menu},
 		{}};
 	adventure_input(source);

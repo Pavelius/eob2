@@ -124,6 +124,7 @@ BSMETA(monsteri) = {
 	BSREQ(id),
 	BSENM(res, residi),
 	BSREQ(frames), BSREQ(overlays),
+	BSREQ(hd),
 	BSREQ(feats),
 	{}};
 BSMETA(partystati) = {

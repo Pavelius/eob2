@@ -1,5 +1,5 @@
 #Monster
 
-Kobold res(kobold)
-Leech res(leech)
+Kobold res(kobold) hd(0)
+Leech res(leech) hd(3)
  feats Large

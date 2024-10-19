@@ -38,7 +38,7 @@ static bool hilite_player;
 static int disp_damage[6];
 static int disp_weapon[6][2];
 static unsigned animate_counter;
-static bool need_update_animation;
+bool need_update_animation;
 unsigned long current_cpu_time;
 
 struct pushscene : pushfocus {
@@ -98,13 +98,9 @@ static int get_party_disp(creaturei* target, wearn id) {
 
 void fix_damage(const creaturei* target, int value) {
 	auto i = get_party_index(target);
-	if(i == -1) {
-		//		auto p = get_disp(target);
-		//		if(p) {
-		//			for(auto i = 0; i < 4; i++)
-		//				p->flags[i] |= ImageColor;
-		//		}
-	} else {
+	if(i == -1)
+		fix_monster_damage(target);
+	else {
 		if(disp_damage[i])
 			fix_animate(); // Try add another animation over existing. So we update right now.
 		disp_damage[i] = value;
@@ -116,20 +112,13 @@ void fix_damage(const creaturei* target, int value) {
 void fix_attack(const creaturei* attacker, wearn slot, int hits) {
 	need_update_animation = true;
 	auto pind = get_party_index(attacker);
-	if(pind != -1) {
-		auto sdr = (pind == 0 || pind == 2) ? Left : Right;
-		//auto sht = bsdata<itemi>::elements[attacker->get(slot).gettype()].image.shoot;
-		//if(sht)
-		//	animation_thrown(attacker->getindex(), attacker->getdirection(), sht, sdr, 50, true);
-		disp_weapon[pind][((slot == RightHand) ? 0 : 1)] = hits;
-	} else {
-		//auto p = get_disp(attacker);
-		//if(p) {
-		//	//attacker->setframe(p->frame, 4);
-		//	animation_render();
-		//	//attacker->setframe(p->frame, 5);
-		//}
-	}
+	if(pind == -1)
+		return;
+	auto sdr = (pind == 0 || pind == 2) ? Left : Right;
+	//auto sht = bsdata<itemi>::elements[attacker->get(slot).gettype()].image.shoot;
+	//if(sht)
+	//	animation_thrown(attacker->getindex(), attacker->getdirection(), sht, sdr, 50, true);
+	disp_weapon[pind][((slot == RightHand) ? 0 : 1)] = hits;
 }
 
 static void copy_image(point origin, point dest, int w, int h) {
@@ -598,7 +587,7 @@ static void textn(abilityn id) {
 		sb.add("%1i", 20 - player->get(id));
 		break;
 	case DamageMelee:
-		addv(sb, player->getdamage(RightHand));
+		addv(sb, player->getdamage(RightHand, false));
 		break;
 	case AC:
 		sb.add("%1i", 10 - player->get(id));
@@ -966,6 +955,7 @@ void fix_animate() {
 	waitcputime(animation_step);
 	memset(disp_damage, 0, sizeof(disp_damage));
 	memset(disp_weapon, 0, sizeof(disp_weapon));
+	fix_monster_damage_end();
 	need_update_animation = false;
 }
 

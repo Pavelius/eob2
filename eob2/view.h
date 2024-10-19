@@ -20,6 +20,7 @@ struct hotkeyi;
 struct creaturei;
 
 extern unsigned long current_cpu_time;
+extern bool need_update_animation;
 
 void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding = 2);
 void* choose_dialog(const char* title, int dx);
@@ -41,6 +42,10 @@ bool confirm(const char* format);
 void fix_animate();
 void fix_attack(const creaturei* attacker, wearn slot, int hits);
 void fix_damage(const creaturei* p, int value);
+void fix_monster_attack(const creaturei* target);
+void fix_monster_attack_end(const creaturei* target);
+void fix_monster_damage(const creaturei* target);
+void fix_monster_damage_end();
 bool hotkey_input(const hotkeyi* hotkeys);
 void initialize_gui();
 void paint_adventure();

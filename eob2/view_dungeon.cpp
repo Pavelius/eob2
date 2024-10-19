@@ -848,6 +848,39 @@ static void imagex(int x, int y, const sprite* res, int id, unsigned flags, int 
 		blit(*draw::canvas, x - sox, y - soy, ssx, ssy, ImageTransparent, scaler2, 0, 0);
 }
 
+void fix_monster_damage(const creaturei* target) {
+	auto p = get_disp(target);
+	for(auto& e : p->flags)
+		e |= ImageColor;
+}
+
+void fix_monster_damage_end() {
+	for(auto& e : disp_data) {
+		if(loc->have((creaturei*)e.target)) {
+			for(auto& f : e.flags)
+				f &= ~ImageColor;
+		}
+	}
+}
+
+void fix_monster_attack(const creaturei* target) {
+	auto p = get_disp(target);
+	if(p) {
+		need_update_animation = true;
+		target->setframe(p->frame, 4);
+		fix_animate();
+		target->setframe(p->frame, 5);
+	}
+}
+
+void fix_monster_attack_end(const creaturei* target) {
+	auto p = get_disp(target);
+	if(p) {
+		fix_animate();
+		target->setframe(p->frame, 0);
+	}
+}
+
 void add_color_data(pma* result, const unsigned char* bitdata) {
 	palspr* epr = static_cast<palspr*>(result);
 	epr->name[0] = 'C';

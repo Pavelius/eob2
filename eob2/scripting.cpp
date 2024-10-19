@@ -317,6 +317,7 @@ static creaturei* get_enemy(const creaturei* player) {
 static void make_full_attack(creaturei* player, creaturei* enemy, int bonus, int multiplier) {
 	if(!enemy)
 		return;
+	fix_monster_attack(player);
 	auto wp1 = player->wears[RightHand];
 	auto wp2 = player->wears[LeftHand];
 	auto wp3 = player->wears[Head];
@@ -331,10 +332,13 @@ static void make_full_attack(creaturei* player, creaturei* enemy, int bonus, int
 		player->attack(enemy, RightHand, bonus, multiplier);
 	if(wp3)
 		player->attack(enemy, Head, bonus, multiplier);
+	fix_monster_attack_end(player);
 }
 
-static void make_melee_round() {
-	if(!select_combatants(to(party, party.d)))
+static void make_melee_attacks() {
+	auto v = to(party, party.d);
+	turnto(v, to(party.d, Down));
+	if(!select_combatants(v))
 		return;
 	for(auto p : combatants) {
 		make_full_attack(p, get_enemy(p), 0, 1);
@@ -355,7 +359,7 @@ static void use_item() {
 		if(w != LeftHand && w != RightHand)
 			pn->speak("MustBeUseInHand", pi->getname());
 		else if(pi->isweapon()) {
-			make_melee_round();
+			make_melee_attacks();
 		} else if(ei.use) {
 
 		}
@@ -369,7 +373,6 @@ static void use_item() {
 }
 
 static void test_dungeon() {
-	make_melee_round();
 }
 
 static void city_adventure_input() {

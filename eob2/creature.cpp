@@ -340,12 +340,18 @@ static void raise_monster_level() {
 		player->hpr = xrand(1, 6);
 }
 
+static void apply_default_ability() {
+	for(auto i = Strenght; i <= Charisma; i = (abilityn)(i + 1))
+		player->basic.abilities[i] = 10;
+}
+
 void create_monster(const monsteri* pi) {
 	if(!pi)
 		return;
 	player->clear();
 	player->monster_id = getbsi(pi);
 	player->levels[0] = pi->hd;
+	apply_default_ability();
 	apply_feats(pi->feats);
 	raise_monster_level();
 	update_player();
@@ -392,8 +398,11 @@ void creaturei::additem(item& it) {
 		wearable::additem(it);
 }
 
-dice creaturei::getdamage(wearn id) const {
-	dice result = wears[id].geti().damage;
+dice creaturei::getdamage(wearn id, bool large_enemy) const {
+	auto& ei = wears[id].geti();
+	dice result = ei.damage;
+	if(large_enemy && ei.damage_large)
+		result = ei.damage_large;
 	result.b += player->get(DamageMelee);
 	return result;
 }
@@ -484,28 +493,19 @@ void creaturei::damage(int value, char magic_bonus) {
 
 void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
 	auto& weapon = wears[slot];
-	auto& wi = weapon.geti();
 	// Weapon damage
-	auto attack_damage = wi.damage;
-	if(!weapon)
-		attack_damage = {1, 2};
-	else {
-		if(defender->is(Large) && wi.damage_large)
-			attack_damage = wi.damage_large;
-	}
-	attack_damage.b += get(DamageMelee);
-	auto ammo = wi.ammo;
+	auto attack_damage = getdamage(slot, defender->is(Large));
+	auto ammo = weapon.geti().ammo;
 	auto chance_critical = 20;
 	if(weapon.is(Precise))
 		chance_critical++;
-	if(ammo) {
-		if(wears[Quiver].is(ammo)) {
-			attack_damage.b += ammo->damage.b;
-			//		wi.bonus += awi.bonus + amb;
-			//		wi.critical_multiplier += awi.critical_multiplier;
-			//		wi.critical_range += awi.critical_range;
-		}
-	}
+	//if(ammo) {
+	//	if(wears[Quiver].is(ammo)) {
+	//		attack_damage.b += ammo->damage.b;
+	//		if(wears[Quiver].is(Precise))
+	//			chance_critical++;
+	//	}
+	//}
 	auto ac = defender->get(AC);
 	if(defender->is(BonusACVsLargeEnemy) && is(Large))
 		ac += 4;
@@ -557,17 +557,17 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 		//	hits += xrand(2, 5);
 		//}
 		if(is_critical) {
-			//			if(wi.weapon) {
-			//				// RULE: Weapon with spell cast it
-			//				auto power = wi.weapon->getpower();
-			//				if(power.type == Spell) {
+			if(weapon) {
+				// RULE: Weapon with spell cast it when critical hit occurs
+				auto power = weapon.getpower();
+				if(power.iskind<spelli>()) {
 			//					auto spell = (spell_s)power.value;
 			//					if(bsdata<spelli>::elements[spell].effect.type.type == Damage)
 			//						cast(spell, Mage, wi.weapon->getmagic(), defender);
 			//					else
 			//						cast(spell, Mage, wi.weapon->getmagic(), this);
-			//				}
-			//			}
+				}
+			}
 		}
 		//		// RULE: vampiric ability allow user to drain blood and regain own HP
 		//		if(wi.is(OfVampirism)) {
@@ -578,8 +578,8 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 		//		}
 	}
 	// Show result
-	fix_attack(this, slot, hits);
 	defender->damage(hits, magic_bonus);
+	fix_attack(this, slot, hits);
 	if(hits != -1) {
 		//		// Poison attack
 		//		if(wi.is(OfPoison))

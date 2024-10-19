@@ -28,7 +28,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	int				get(abilityn v) const { return abilities[v]; }
 	const char*		getbadstate() const;
 	int				getchance(abilityn v) const;
-	dice			getdamage(wearn id) const;
+	dice			getdamage(wearn id, bool large_enemy) const;
 	int				gethitpenalty(int bonus) const;
 	const monsteri*	getmonster() const;
 	bool			is(abilityn v) const { return abilities[v] > 0; }

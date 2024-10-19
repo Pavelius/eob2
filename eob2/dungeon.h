@@ -50,6 +50,7 @@ struct dungeoni : dungeon_site {
 	void			getmonsters(creaturei** result, pointc index, directions dr);
 	overlayi*		getoverlay(pointc v, celln type);
 	bool			have(const overlayi* p) const { return p >= overlays && p <= overlays + lenghtof(overlays); }
+	bool			have(const creaturei* p) const { return p >= monsters && p <= monsters + lenghtof(monsters); }
 	bool			is(pointc v, cellfn i) const;
 	bool			is(pointc v, celln t1, celln t2) const;
 	bool			ismonster(pointc v) const;

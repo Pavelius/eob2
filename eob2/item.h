@@ -44,6 +44,7 @@ public:
 	bool		isweapon() const;
 	int			getcost() const;
 	const char*	getname() const;
+	variant		getpower() const { return variant(); }
 	void		curse(int v) { cursed = (v >=0) ? 1 : 0; }
 };
 extern item* last_item;

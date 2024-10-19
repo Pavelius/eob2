@@ -931,7 +931,7 @@ static void paint_adventure_no_update() {
 	paint_background(PLAYFLD, 0);
 	paint_compass(party.d);
 	paint_dungeon();
-	paint_avatars();
+	paint_avatars_no_focus();
 	console_scroll(3000);
 	paint_console();
 }

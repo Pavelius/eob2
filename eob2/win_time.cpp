@@ -4,7 +4,7 @@ unsigned long start_random_seed;
 
 void waitcputime(unsigned v) {
 	LARGE_INTEGER liDueTime;
-	liDueTime.QuadPart = (long long)v * -100000;
+	liDueTime.QuadPart = (long long)v * -10000;
 	auto hTimer = CreateWaitableTimerW(0, 1, 0);
 	if(!hTimer)
 		return;

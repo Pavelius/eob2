@@ -35,6 +35,8 @@ public:
 	void		create(const itemi* pi);
 	const itemi& geti() const;
 	void		identify(int v) { identified = (v >= 0) ? 1 : 0; }
+	bool		is(featn v) const { return geti().is(v); }
+	bool		is(const itemi* pi) const { return pi == &geti(); }
 	bool		isallow(wearn v) const;
 	bool		iscursed() const { return cursed != 0; }
 	bool		isidentified() const { return identified != 0; }

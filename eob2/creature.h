@@ -3,28 +3,33 @@
 #include "statable.h"
 #include "levelable.h"
 #include "posable.h"
+#include "race.h"
 #include "spell.h"
 #include "npc.h"
 #include "wearable.h"
 
 struct classi;
 struct monsteri;
-struct racei;
 
 struct creaturei : npc, statable, levelable, wearable, posable {
 	statable		basic;
 	short			hp, hpm, hpr;
 	short unsigned	monster_id;
 	unsigned char	avatar;
+	char			initiative;
 	spella			spells;
 	spellseta		knownspells;
+	racef			hate;
 	void			addexp(int value);
 	void			additem(item& it);
+	void			attack(creaturei* enemy, wearn slot, int bonus, int multiplier);
 	void			clear();
+	void			damage(int hits, char magic_bonus = 0);
 	int				get(abilityn v) const { return abilities[v]; }
 	const char*		getbadstate() const;
 	int				getchance(abilityn v) const;
 	dice			getdamage(wearn id) const;
+	int				gethitpenalty(int bonus) const;
 	const monsteri*	getmonster() const;
 	bool			is(abilityn v) const { return abilities[v] > 0; }
 	bool			is(featn v) const { return featable::is(v); }
@@ -35,7 +40,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	bool			roll(abilityn v, int bonus = 0) const;
 	void			setframe(short* frames, short index) const;
 };
-extern creaturei* player;
+extern creaturei *player, *opponent;
 extern int last_roll, last_chance;
 
 void add_spells(int type, int level, const spellseta* include);

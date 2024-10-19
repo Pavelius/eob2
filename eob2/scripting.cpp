@@ -17,6 +17,7 @@
 #include "party.h"
 #include "quest.h"
 #include "race.h"
+#include "rand.h"
 #include "resid.h"
 #include "script.h"
 #include "speech.h"
@@ -144,15 +145,6 @@ void pass_round() {
 
 void skip_hours(int value) {
 	add_party(Minutes, 60 * value);
-}
-
-static void join_party(int bonus) {
-	for(auto& e : characters) {
-		if(e)
-			continue;
-		e = player;
-		break;
-	}
 }
 
 static void turnto(pointc v, directions d, bool* surprise = 0) {
@@ -296,12 +288,91 @@ static void use_item() {
 	}
 }
 
+static size_t shrink_creatures(creaturei** dest, creaturei** units, size_t count) {
+	auto ps = dest;
+	auto pb = units;
+	auto pe = units + count;
+	while(pb < pe) {
+		if(*pb)
+			*ps++ = *pb;
+		pb++;
+	}
+	return ps - dest;
+}
+
+static int compare_creatures(const void* v1, const void* v2) {
+	return (*((creaturei**)v1))->initiative - (*((creaturei**)v2))->initiative;
+}
+
+static bool select_combatants(pointc position) {
+	loc->getmonsters(combatants.data, position, Up);
+	combatants.count = shrink_creatures(combatants.data, combatants.data, 4);
+	if(!combatants)
+		return false;
+	combatants.count += shrink_creatures(combatants.data + combatants.count, characters, 6);
+	for(auto p : combatants)
+		p->initiative = xrand(1, 10) + p->get(Speed);
+	qsort(combatants.data, combatants.count, sizeof(combatants.data[0]), compare_creatures);
+	return true;
+}
+
+static creaturei* get_enemy(const creaturei* player) {
+	static int sides[][6] = {
+		{0, 1, 2, 3, 4, 5},
+		{1, 0, 3, 2, 5, 4},
+	};
+	if(player->ismonster()) {
+		auto side = get_side(player->side, party.d);
+		for(auto pi : sides[side % 2]) {
+			if(characters[pi] && !characters[pi]->isdisabled())
+				return characters[pi];
+		}
+	} else {
+		auto side = get_side(player->side, party.d);
+		for(auto p : combatants) {
+			if(p->isdisabled())
+				continue;
+			if(!p->ismonster())
+				continue;
+			return p;
+		}
+	}
+	return 0;
+}
+
+static void make_attack(creaturei* player, creaturei* enemy, wearn wear, int bonus, int multiplier) {
+}
+
+static void make_full_attack(creaturei* player, creaturei* enemy, int bonus, int multiplier) {
+	if(!enemy)
+		return;
+	auto wp1 = player->wears[RightHand];
+	auto wp2 = player->wears[LeftHand];
+	auto wp3 = player->wears[Head];
+	if(wp1.is(TwoHanded) || !wp2.isweapon())
+		wp2.clear();
+	if(!wp3.isweapon())
+		wp3.clear();
+	if(wp2) {
+		make_attack(player, enemy, RightHand, bonus + player->gethitpenalty(-4), multiplier);
+		make_attack(player, enemy, LeftHand, bonus + player->gethitpenalty(-6), multiplier);
+	} else
+		make_attack(player, enemy, RightHand, bonus, multiplier);
+	if(wp3)
+		make_attack(player, enemy, Head, bonus, multiplier);
+}
+
+static void make_melee_round() {
+	if(!select_combatants(to(party, party.d)))
+		return;
+	for(auto p : combatants) {
+		make_full_attack(p, get_enemy(p), 0, 1);
+		fix_animate();
+	}
+}
+
 static void test_dungeon() {
-   fix_attack(characters[1], RightHand, -1);
-   fix_damage(characters[0], 12);
-   fix_damage(characters[1], 3);
-   fix_damage(characters[0], 2);
-   fix_animate();
+	make_melee_round();
 }
 
 static void city_adventure_input() {
@@ -475,30 +546,6 @@ static void make_action() {
 	explore_area();
 }
 
-static size_t shrink_creatures(creaturei** dest, creaturei** units, auto count) {
-   auto ps = dest;
-   auto pb = units;
-   auto pe = units + count;
-   while(pb < pe) {
-      if(*pb)
-         *ps++ = *pb;
-      pb++;
-   }
-   return ps - units;
-}
-
-static void select_combatants(pointc position) {
-   loc->getmonsters(combatants.data, position, Up);
-   combatants.count = shrink_creatures(combatants.data, combatants.data, 4);
-   combatants.count = shrink_creatures(combatants.data + combatants.count, characters, 6);
-}
-
-static void make_melee_round() {
-   select_combatants(to(party, party.d));
-   if(!combatants)
-      return;
-}
-
 static void activate(pointc v, bool value) {
 	if(value)
 		loc->set(v, CellActive);
@@ -588,19 +635,19 @@ static void manipulate() {
 		break;
 	case CellCellar:
 		if(*pi) {
-         // Put item to cellar
+			// Put item to cellar
 			if(!pi->geti().is(Small))
 				player->speak(getid<celli>(p->type), "NotFit");
 			else
 				loc->add(p, *pi);
 		} else {
-         // Get item from cellar
+			// Get item from cellar
 			item* items[1];
 			if(loc->getitems(items, lenghtof(items), p)) {
-            *pi = *items[0];
-            items[0]->clear();
+				*pi = *items[0];
+				items[0]->clear();
 			} else
-            player->speak(getid<celli>(p->type), "Empthy");
+				player->speak(getid<celli>(p->type), "Empthy");
 		}
 		break;
 	default:
@@ -690,7 +737,7 @@ static void play_dungeon_input() {
 		{'V', show_dungeon_automap},
 		{'M', manipulate},
 		{'D', drop_dungeon_item},
-      {'T', test_dungeon},
+		{'T', test_dungeon},
 		{KeyEscape, choose_dungeon_menu},
 		{}};
 	adventure_input(source);
@@ -816,6 +863,15 @@ static void pay_gold(int bonus) {
 		add_party(GoldPiece, -bonus);
 }
 
+static void apply_racial_enemy(int bonus) {
+	if(!last_race)
+		return;
+	if(bonus >= 0)
+		player->hate.set(getbsi(last_race));
+	else
+		player->hate.remove(getbsi(last_race));
+}
+
 static void run_script(const char* id, const char* action) {
 	auto p = bsdata<listi>::find(ids(id, action));
 	if(p)
@@ -895,6 +951,7 @@ BSDATA(script) = {
 	{"Attack", attack_modify},
 	{"ActivateQuest", activate_quest},
 	{"ApplyAction", apply_action},
+	{"ApplyRacialEnemy", apply_racial_enemy},
 	{"ConfirmAction", confirm_action},
 	{"ChooseSpells", choose_spells},
 	{"ChooseMenu", choose_menu},

@@ -19,6 +19,8 @@ BSDATA(feati) = {
 	{"UsePriest"},
 	{"UseMage"},
 	{"TwoHanded"},
+	{"Precise"},
+	{"Deadly"},
 	{"Ambidextrity"},
 	{"Small"},
 	{"Large"},

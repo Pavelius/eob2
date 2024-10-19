@@ -16,8 +16,9 @@
 #include "slice.h"
 #include "stringbuilder.h"
 #include "party.h"
+#include "view.h"
 
-creaturei* player;
+creaturei *player, *opponent;
 int last_roll, last_chance;
 
 static char hit_points_adjustment[] = {
@@ -420,6 +421,17 @@ void creaturei::addexp(int value) {
 	experience += value;
 }
 
+int creaturei::gethitpenalty(int bonus) const {
+	if(is(Ambidextrity))
+		return 0;
+	auto dex = abilities[Dexterity];
+	auto bon = maptbl(reaction_adjustment, dex);
+	bonus += bon;
+	if(bonus > 0)
+		bonus = 0;
+	return bonus;
+}
+
 const monsteri*	creaturei::getmonster() const {
 	return getbs<monsteri>(monster_id);
 }
@@ -450,4 +462,134 @@ void creaturei::setframe(short* frames, short index) const {
 		frames[0] = index;
 		frames[1] = 0;
 	}
+}
+
+void creaturei::damage(int value, char magic_bonus) {
+	if(value <= 0)
+		return;
+	fix_damage(this, value);
+}
+
+void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
+	auto& weapon = wears[slot];
+	auto& wi = weapon.geti();
+	// Weapon damage
+	auto attack_damage = wi.damage;
+	if(!weapon)
+		attack_damage = {1, 2};
+	else {
+		if(defender->is(Large) && wi.damage_large)
+			attack_damage = wi.damage_large;
+	}
+	attack_damage.b += get(DamageMelee);
+	auto ammo = wi.ammo;
+	auto chance_critical = 20;
+	if(weapon.is(Precise))
+		chance_critical++;
+	if(ammo) {
+		if(wears[Quiver].is(ammo)) {
+			attack_damage.b += ammo->damage.b;
+			//		wi.bonus += awi.bonus + amb;
+			//		wi.critical_multiplier += awi.critical_multiplier;
+			//		wi.critical_range += awi.critical_range;
+		}
+	}
+	auto ac = defender->get(AC);
+	if(defender->is(BonusACVsLargeEnemy) && is(Large))
+		ac += 4;
+	if(hate.is(defender->race)) {
+		if(is(BonusAttackVsGoblinoid))
+			bonus += 1;
+		if(is(BonusDamageVsEnemy))
+			bonus += 4;
+	}
+	bonus += get(AttackMelee);
+	auto magic_bonus = 0;
+	//if(wi.weapon) {
+	//	magic_bonus = wi.weapon->getmagic();
+	//	if(defender->is(Undead)) {
+	//		auto holyness = wi.weapon->getenchant(OfHolyness);
+	//		bonus += holyness;
+	//		wi.damage.b += holyness * 2;
+	//		if(wi.weapon->is(SevereDamageUndead))
+	//			wi.damage.b += 2;
+	//	}
+	//}
+	//	if(!useammo(ammo, slot, true))
+	//		return;
+	auto tohit = 20 - bonus - (10 - ac);
+	auto rolls = xrand(1, 20);
+	auto hits = -1;
+	tohit = imax(2, imin(20, tohit));
+	if(rolls >= tohit || rolls >= chance_critical) {
+		// If weapon hits
+		auto is_critical = false;
+		if(rolls >= chance_critical && rolls >= tohit) {
+			// RULE: crtitical hit can apply only if attack hit and can be deflected
+			if(!defender->roll(CriticalDeflect))
+				is_critical = true;
+		}
+		if(is_critical) {
+			multiplier += 1;
+			if(weapon.is(Deadly))
+				multiplier += 1;
+		}
+		hits = attack_damage.roll();
+		hits = hits * multiplier;
+		//if(wi.is(OfFire)) {
+		//	damage_type = Fire;
+		//	hits += xrand(1, 6);
+		//}
+		//if(wi.is(OfCold)) {
+		//	damage_type = Cold;
+		//	hits += xrand(2, 5);
+		//}
+		if(is_critical) {
+			//			if(wi.weapon) {
+			//				// RULE: Weapon with spell cast it
+			//				auto power = wi.weapon->getpower();
+			//				if(power.type == Spell) {
+			//					auto spell = (spell_s)power.value;
+			//					if(bsdata<spelli>::elements[spell].effect.type.type == Damage)
+			//						cast(spell, Mage, wi.weapon->getmagic(), defender);
+			//					else
+			//						cast(spell, Mage, wi.weapon->getmagic(), this);
+			//				}
+			//			}
+		}
+		//		// RULE: vampiric ability allow user to drain blood and regain own HP
+		//		if(wi.is(OfVampirism)) {
+		//			auto hits_healed = xrand(2, 5);
+		//			if(hits_healed > hits)
+		//				hits_healed = hits;
+		//			this->damage(Heal, hits_healed);
+		//		}
+	}
+	// Show result
+	fix_attack(this, slot, hits);
+	defender->damage(hits, magic_bonus);
+	if(hits != -1) {
+		//		// Poison attack
+		//		if(wi.is(OfPoison))
+		//			defender->add(Poison, Instant, SaveNegate);
+		//		// Paralize attack
+		//		if(wi.is(OfParalize))
+		//			defender->add(HoldPerson, xrand(1, 3), SaveNegate);
+		//		// Drain ability
+		//		if(wi.is(OfEnergyDrain))
+		//			attack_drain(defender, defender->drain_energy, hits);
+		//		if(wi.is(OfStrenghtDrain))
+		//			attack_drain(defender, defender->drain_strenght, hits);
+		//		defender->damage(damage_type, hits, magic_bonus);
+	}
+	// Weapon can be broken
+	if(rolls == 1 && weapon) {
+		if(d100() < 50) {
+			//if(wi.weapon->damage(0, 0))
+			//	usequick();
+		} else
+			damage(1, 3);
+		return;
+	}
+	//useammo(ammo, slot, false);
 }

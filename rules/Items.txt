@@ -10,16 +10,16 @@ Dart avatar(14) avatar_ground(0)
  feats Small
 
 BattleAxe cost(5) speed(7) damage(1 8) avatar(3) avatar_ground(4) wear(RightHand)
- feats UseMartial
+ feats UseMartial Deadly
 Axe cost(5) speed(4) damage(1 6) avatar(7) avatar_ground(4) wear(RightHand)
- feats UseMartial
+ feats UseMartial Deadly
 Club speed(4) damage(1 6) avatar(76) avatar_ground(12) wear(RightHand)
 Dagger cost(2) speed(2) damage(1 4) avatar(15) avatar_ground(3) wear(RightHand)
- feats Small
+ feats Small Precise
 Flail cost(15) speed(7) damage(1 6 1) avatar(5) avatar_ground(2) wear(RightHand)
  feats UseMartial
 Halberd cost(10) speed(9) avatar(9) avatar_ground(5) wear(RightHand)
- feats TwoHanded UseMartial
+ feats TwoHanded UseMartial Precise Deadly
 Warhammer cost(5) speed(4) damage(1 4 2) avatar(99) avatar_ground(13) wear(RightHand)
  feats UseMartial UsePriest
 Mace cost(10) speed(7) damage(1 6 1) avatar(4) avatar_ground(1) wear(RightHand)
@@ -29,13 +29,13 @@ Spear speed(6) damage(1 6) avatar(6) avatar_ground(3) wear(RightHand)
 Staff speed(4) damage(1 6) avatar(8) avatar_ground(3) wear(RightHand)
  feats TwoHanded
 BastardSword cost(25) speed(6) damage(1 10) avatar(1) avatar_ground(0) wear(RightHand)
- feats UseMartial
+ feats UseMartial Precise
 Longsword cost(15) speed(5) damage(1 8) avatar(1) avatar_ground(0) wear(RightHand)
- feats UseElvish UseMartial
+ feats UseElvish UseMartial Precise
 ShortSword cost(10) speed(4) damage(1 6) avatar(2) avatar_ground(0) wear(RightHand)
- feats UseRogish UseElvish UseMartial
+ feats UseRogish UseElvish UseMartial Precise
 TwoHandedSword cost(50) speed(10) damage(1 10) damage_large(3 18) avatar(42) avatar_ground(0) wear(RightHand)
- feats UseMartial TwoHanded
+ feats UseMartial TwoHanded Precise
 Bow cost(60) speed(8) damage(1 6) ammo(Arrow) avatar(10) avatar_ground(6) wear(RightHand)
  feats UseMartial UseRogish TwoHanded
 Sling speed(6) damage(1 4) ammo(Stone) avatar(18) avatar_ground(4) wear(RightHand)

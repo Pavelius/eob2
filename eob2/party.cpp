@@ -1,6 +1,7 @@
 #include "bsdata.h"
 #include "creature.h"
 #include "party.h"
+#include "math.h"
 
 BSDATA(partystati) = {
 	{"GoldPiece"},
@@ -15,6 +16,29 @@ assert_enum(partystati, Minutes)
 
 creaturei* characters[6];
 partyi party;
+
+int get_party_index(const creaturei* target) {
+	for(auto i = 0; i < 6; i++) {
+		if(characters[i] == target)
+			return i;
+	}
+	return -1;
+}
+
+static int get_party_side_modified(int side) {
+	static int sides[] = {0, 1, 2, 3, 2, 3};
+	return maptbl(sides, side);
+}
+
+void join_party(int bonus) {
+	for(auto& e : characters) {
+		if(e)
+			continue;
+		e = player;
+		player->side = get_party_side_modified(get_party_index(player));
+		break;
+	}
+}
 
 void add_party(partystatn id, int value) {
 	party.abilities[id] += value;
@@ -66,12 +90,4 @@ void party_addexp(int value) {
 		if(p && !p->isdisabled())
 			p->addexp(value);
 	}
-}
-
-int get_party_index(const creaturei* target) {
-	for(auto i = 0; i < 6; i++) {
-		if(characters[i] == target)
-			return i;
-	}
-	return -1;
 }

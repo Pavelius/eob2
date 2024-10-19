@@ -99,21 +99,22 @@ static int get_party_disp(creaturei* target, wearn id) {
 void fix_damage(const creaturei* target, int value) {
 	auto i = get_party_index(target);
 	if(i == -1) {
-//		auto p = get_disp(target);
-//		if(p) {
-//			for(auto i = 0; i < 4; i++)
-//				p->flags[i] |= ImageColor;
-//		}
+		//		auto p = get_disp(target);
+		//		if(p) {
+		//			for(auto i = 0; i < 4; i++)
+		//				p->flags[i] |= ImageColor;
+		//		}
 	} else {
 		if(disp_damage[i])
 			fix_animate(); // Try add another animation over existing. So we update right now.
 		disp_damage[i] = value;
-      need_update_animation = true;
+		need_update_animation = true;
 	}
 }
 
 // If hits == -1 the attack is missed
 void fix_attack(const creaturei* attacker, wearn slot, int hits) {
+	need_update_animation = true;
 	auto pind = get_party_index(attacker);
 	if(pind != -1) {
 		auto sdr = (pind == 0 || pind == 2) ? Left : Right;
@@ -235,14 +236,14 @@ static void paint_player_hit(const creaturei* player, wearn id) {
 	auto pind = get_party_index(player);
 	if(pind == -1)
 		return;
-   auto value = disp_weapon[pind][id == RightHand ? 0 : 1];
-   if(!value)
-      return;
-   auto push_caret = caret;
-   caret.x += width / 2;
-   caret.y += height / 2;
-   paint_player_hit(value, animate_counter + pind);
-   caret = push_caret;
+	auto value = disp_weapon[pind][id == RightHand ? 0 : 1];
+	if(!value)
+		return;
+	auto push_caret = caret;
+	caret.x += width / 2;
+	caret.y += height / 2;
+	paint_player_hit(value, animate_counter + pind);
+	caret = push_caret;
 }
 
 static void paint_player_damage(int hits, unsigned counter) {
@@ -421,13 +422,13 @@ static void paint_avatar() {
 		image(gres(PORTM), player->avatar, 0);
 	paint_avatar_stats();
 	auto pind = get_party_index(player);
-	if(pind!=-1) {
-      auto v = disp_damage[pind];
-      if(v) {
-         auto push_caret = caret;
-         caret.x += 16; caret.y += 16;
-         paint_player_damage(v, (animate_counter + pind) % 2);
-      }
+	if(pind != -1) {
+		auto v = disp_damage[pind];
+		if(v) {
+			auto push_caret = caret;
+			caret.x += 16; caret.y += 16;
+			paint_player_damage(v, (animate_counter + pind) % 2);
+		}
 	}
 }
 
@@ -779,10 +780,10 @@ static void paint_character() {
 	caret.x = push.caret.x + 33;
 	caret.y = push.caret.y + 10;
 	paint_item(player->wears[RightHand], RightHand, 84);
-   paint_player_hit(player, RightHand);
+	paint_player_hit(player, RightHand);
 	caret.y = push.caret.y + 26;
 	paint_item(player->wears[LeftHand], LeftHand, 83);
-   paint_player_hit(player, LeftHand);
+	paint_player_hit(player, LeftHand);
 	caret.x = push.caret.x + 2;
 	caret.y = push.caret.y + 10;
 	width = 31;
@@ -956,12 +957,12 @@ void paint_main_menu() {
 void fix_animate() {
 	if(!need_update_animation)
 		return;
-   animate_counter++;
-   if(loc)
-      paint_adventure_no_update();
-   else
-      paint_city();
-   updatewindow();
+	animate_counter++;
+	if(loc)
+		paint_adventure_no_update();
+	else
+		paint_city();
+	updatewindow();
 	waitcputime(animation_step);
 	memset(disp_damage, 0, sizeof(disp_damage));
 	memset(disp_weapon, 0, sizeof(disp_weapon));

@@ -26,6 +26,7 @@ void add_party(partystatn id, int value);
 void continue_game();
 void delete_game(const char* id);
 bool is_dead_line();
+void join_party(int bonus);
 void move_party(pointc v);
 void party_addexp(int value);
 void pass_round();

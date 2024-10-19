@@ -4,6 +4,15 @@
 #include "party.h"
 #include "variant.h"
 
+static bool check_game(archive& e) {
+	unsigned long checksum_total = 0;
+	int checksum_index = 1;
+	checksum_total += sizeof(partyi) * (checksum_index++);
+	checksum_total += sizeof(dungeoni) * (checksum_index++);
+	checksum_total += SeeIllusionary * (checksum_index++);
+	return e.checksum(checksum_total);
+}
+
 static bool serial_game(const char* url, bool writemode) {
 	io::file file(url, writemode ? StreamWrite : StreamRead);
 	if(!file)
@@ -11,11 +20,7 @@ static bool serial_game(const char* url, bool writemode) {
 	archive e(file, writemode);
 	if(!e.signature("SAV"))
 		return false;
-   unsigned long checksum_total= 0;
-   int checksum_index = 1;
-   checksum_total += sizeof(partyi) * (checksum_index++);
-   checksum_total += sizeof(dungeoni) * (checksum_index++);
-	if(!e.checksum(checksum_total))
+	if(!check_game(e))
 		return false;
 	for(auto i = 0; i < 6; i++)
 		e.set(characters[i]);

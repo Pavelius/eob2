@@ -1,4 +1,2 @@
-﻿Error in file `rules/Spells.txt`:
- Line 18: Not found requisit `BlessEffect`
- Line 18: Not found resuisit `BlessEffect`
- Line 18: Expected token `(`
+﻿Error in file `rules/Locations.txt`:
+ Line 27: Can't find variant `PassHour`

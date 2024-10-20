@@ -8,7 +8,7 @@ Minute0x2 raise(2) perlevel(0 1)
 #Spell
 
 Armor levels(0 1)
-Bless levels(1 0) duration(Minute5x1)
+Bless levels(1 0) duration(Minute5x1) lighting(255 239 0)
  feats Ally
  wearing Attack+1 Damage+1 Saves+1
 BurningHands levels(0 1)

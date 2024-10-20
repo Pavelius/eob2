@@ -250,8 +250,9 @@ void pass_round() {
 	allcreatures(update_every_round);
 }
 
-void skip_hours(int value) {
+void pass_hours(int value) {
 	add_party(Minutes, 60 * value);
+	clear_boost(party.abilities[Minutes]);
 	allcreatures(update_every_round);
 	for(auto i = 0; i < 6 * value; i++)
 		allcreatures(update_every_turn);
@@ -1188,6 +1189,7 @@ BSDATA(script) = {
 	{"JoinParty", join_party},
 	{"PartyAdventure", party_adventure},
 	{"PayGold", pay_gold},
+	{"PassHours", pass_hours},
 	{"RandomEffect", get_last_random_effect},
 	{"RestoreSpells", restore_spells},
 	{"ReturnToStreet", return_to_street},

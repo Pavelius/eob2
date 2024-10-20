@@ -24,7 +24,7 @@ PrayForSpells
  classes Cleric Paladin Ranger
  effect ChooseSpells+0
 RestParty
- effect ConfirmAction RestorePartySpells ReturnToStreet
+ effect ConfirmAction RestorePartySpells PassHours+8 ReturnToStreet
 ScribleScrolls
  classes Mage
 

@@ -1,4 +1,5 @@
 #include "answers.h"
+#include "boost.h"
 #include "creature.h"
 #include "class.h"
 #include "console.h"
@@ -456,6 +457,30 @@ static void paint_avatar_stats() {
 	blend_avatar(source, 32);
 }
 
+static void paint_avatar_border() {
+	color border; border.clear();
+	referencei target = player;
+	for(auto& e : bsdata<boosti>()) {
+		if(e.target != target)
+			continue;
+		if(e.effect.iskind<spelli>()) {
+			auto ps = bsdata<spelli>::elements + e.effect.value;
+			if(!ps->lighting)
+				continue;
+			if(border)
+				border.mix(ps->lighting);
+			else
+				border = ps->lighting;
+		}
+	}
+	if(border) {
+		auto push_fore = fore;
+		fore = border;
+		rectb();
+		fore = push_fore;
+	}
+}
+
 static void paint_avatar() {
 	if(player->avatar == 0xFF)
 		return;
@@ -861,9 +886,11 @@ static void paint_character() {
 	auto push_font = font;
 	auto push_caret = caret;
 	auto push_fore = fore; fore = colors::black;
+	width = 65;
+	height = 52;
+	paint_avatar_border();
 	set_small_font();
 	caret.y = push.caret.y + 3;
-	width = 65;
 	texta(player->getname(), AlignCenter);
 	width = 31;
 	height = 16;

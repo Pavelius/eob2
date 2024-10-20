@@ -5,7 +5,6 @@
 #include "bsreq.h"
 #include "cell.h"
 #include "class.h"
-#include "color.h"
 #include "condition.h"
 #include "damage.h"
 #include "dungeon.h"
@@ -79,6 +78,9 @@ BSMETA(classi) = {
 	BSENM(primary, abilityi),
 	BSREQ(hd), BSREQ(caster),
 	BSENM(classes, classi), BSREQ(count),
+	{}};
+BSMETA(color) = {
+	BSREQ(r), BSREQ(g), BSREQ(b),
 	{}};
 BSMETA(creaturei) = {
 	BSDST(abilities, abilityi),
@@ -164,6 +166,7 @@ BSMETA(shapei) = {
 BSMETA(spelli) = {
 	BSREQ(id),
 	BSREQ(levels),
+	BSREQ(lighting),
 	BSREQ(effect), BSREQ(duration),
 	BSFLG(feats, feati),
 	BSREQ(summon), BSREQ(filter), BSREQ(instant),

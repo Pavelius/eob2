@@ -1386,7 +1386,7 @@ static void* answer_get_result(const char* cancel) {
 	return result;
 }
 
-void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding, int per_page, fnoutput header_paint) {
+static void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding, int per_page, fnoutput header_paint) {
 	if(!show_interactive)
 		return an.random();
 	rectpush push;
@@ -1418,6 +1418,10 @@ void* choose_answer(const char* title, const char* cancel, fnevent before_paint,
 	}
 	answer_origin = push_origin;
 	return answer_get_result(cancel);
+}
+
+void* choose_large_menu(const char* header, const char* cancel) {
+	return choose_answer(header, cancel, paint_city_menu, button_label, 1, -1, 0);
 }
 
 void* choose_small_menu(const char* header, const char* cancel) {

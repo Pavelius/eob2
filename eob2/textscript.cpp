@@ -1,10 +1,21 @@
 #include "creature.h"
+#include "dungeon.h"
 #include "textscript.h"
 #include "speech.h"
 
 bool parse_abilities(stringbuilder& sb, const char* id);
 bool parse_speech(stringbuilder& sb, const char* id);
-bool parse_wall_messages(stringbuilder& sb, const char* id);
+
+static bool parse_wall_messages(stringbuilder& sb, const char* id) {
+	if(!loc)
+		return false;
+	auto pn = bsdata<wallmessagei>::find(id);
+	if(!pn)
+		return false;
+	auto index = pn - bsdata<wallmessagei>::elements;
+	sb.add("%1i", loc->state.wallmessages[index]);
+	return true;
+}
 
 static bool parse_script(stringbuilder& sb, const char* id) {
 	for(auto& e : bsdata<textscript>()) {

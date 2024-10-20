@@ -25,8 +25,8 @@ struct creaturei;
 extern unsigned long current_cpu_time;
 extern bool need_update_animation;
 
-void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding = 2, int per_page = -1, fnoutput header_paint = 0);
 void* choose_dialog(const char* title, int dx);
+void* choose_large_menu(const char* header, const char* cancel);
 void* choose_small_menu(const char* header, const char* cancel);
 void* show_message(const char* format, bool add_anaswers, const char* cancel = 0, unsigned cancel_key = 27);
 void* dialogv(const char* cancel, const char* format);

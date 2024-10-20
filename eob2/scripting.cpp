@@ -151,113 +151,6 @@ static void saves_modify(int bonus) {
 	ftscript<abilityi>(SaveVsTraps, bonus);
 }
 
-static void monsters_stop(pointc v) {
-	if(!v || !loc)
-		return;
-	for(auto& e : loc->monsters) {
-		if(e != v)
-			continue;
-		e.set(Moved);
-	}
-}
-
-static bool can_see_party(pointc v, directions d) {
-	for(auto i = 0; i < 3; i++) {
-		v = to(v, d);
-		if(!v || !loc->ispassable(v))
-			return false;
-		if(v == party)
-			return true;
-	}
-	return false;
-}
-
-static void monster_move(pointc v, directions d) {
-	auto n = to(v, d);
-	if(n == party)
-		return;
-	if(!n || loc->ismonster(n) || !loc->ispassable(n))
-		return;
-	for(auto& e : loc->monsters) {
-		if(e != v)
-			continue;
-		e.d = d;
-		e.x = n.x;
-		e.y = n.y;
-		e.set(Moved);
-	}
-}
-
-static directions random_free_look(pointc v, directions d) {
-	directions source[] = {Up, Left, Right, Down};
-	if(d100() < 50)
-		iswap(source[1], source[2]);
-	for(auto nd : source) {
-		auto d1 = to(d, nd);
-		auto v1 = to(v, d1);
-		if(v1 && loc->ispassable(v1))
-			return d1;
-	}
-	return Center;
-}
-
-static void monsters_movement() {
-	if(!loc)
-		return;
-	for(auto& e : loc->monsters) {
-		if(!e || e.isdisabled() || e.is(Moved))
-			continue;
-		if(can_see_party(e, e.d))
-			monster_move(e, e.d);
-		else if(d100() < 45) {
-			auto d = random_free_look(e, e.d);
-			if(d != Center)
-				monster_move(e, d);
-		} else
-			monsters_stop(e);
-	}
-}
-
-static void update_every_round() {
-	player->remove(Moved);
-	update_player();
-}
-
-static void update_every_turn() {
-}
-
-static void allcreatures(fnevent proc) {
-	auto push_player = player;
-	for(auto p : characters) {
-		if(!p || p->isdisabled())
-			continue;
-		player = p; proc();
-	}
-	if(loc) {
-		for(auto& e : loc->monsters) {
-			if(!e)
-				continue;
-			player = &e; proc();
-		}
-	}
-	player = push_player;
-}
-
-void pass_round() {
-	clear_boost(party.abilities[Minutes]);
-	monsters_movement();
-	add_party(Minutes, 1);
-	allcreatures(update_every_round);
-}
-
-void pass_hours(int value) {
-	add_party(Minutes, 60 * value);
-	clear_boost(party.abilities[Minutes]);
-	allcreatures(update_every_round);
-	for(auto i = 0; i < 6 * value; i++)
-		allcreatures(update_every_turn);
-}
-
 static void create_character(int bonus) {
 	create_player(last_race, last_gender, last_class);
 }
@@ -319,7 +212,7 @@ static void choose_options(const char* id, const variants& options) {
 	sb.add(get_header(id, "Options"), getnm(id));
 	for(auto& v : options)
 		add_menu(v);
-	last_result = choose_answer(header, getnm("Cancel"), paint_city_menu, button_label, 1);
+	last_result = choose_large_menu(header, getnm("Cancel"));
 }
 
 static void choose_city_menu() {
@@ -673,16 +566,14 @@ static void choose_adventure() {
 		an.add(&e, e.getname());
 	}
 	an.sort();
-	last_quest = (quest*)choose_answer(getnm("PartysAdventureAsk"), getnm("Cancel"), paint_city_menu, button_label, 1);
+	last_quest = (quest*)choose_large_menu(getnm("PartysAdventureAsk"), getnm("Cancel"));
 	an = push_answers;
 }
 
 static bool choose_dialog(const char* format, const char* format_param, const char* yes, const char* no) {
-	auto push = an; an.clear();
+	pushanswer push;
 	an.add((void*)1, yes);
-	auto result = (bool)dialogv(no, format, format_param);
-	an = push;
-	return result;
+	return (bool)dialogv(no, format, format_param);
 }
 
 static void message(const char* format, const char* format_param = 0) {
@@ -1122,17 +1013,6 @@ static void stairs_down_side(stringbuilder& sb) {
 
 static void stairs_up_side(stringbuilder& sb) {
 	sb.addv(getnm(get_part_placement(loc->state.up)), 0);
-}
-
-bool parse_wall_messages(stringbuilder& sb, const char* id) {
-	if(!loc)
-		return false;
-	auto pn = bsdata<wallmessagei>::find(id);
-	if(!pn)
-		return false;
-	auto index = pn - bsdata<wallmessagei>::elements;
-	sb.add("%1i", loc->state.wallmessages[index]);
-	return true;
 }
 
 static bool if_alive() {

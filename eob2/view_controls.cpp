@@ -59,8 +59,8 @@ static unsigned get_frame_tick() {
 	return getcputime() / 10;
 }
 
-static int get_alpha(int base, unsigned range) {
-	auto seed = get_frame_tick() % range;
+static int get_alpha(int base, unsigned range, int tick) {
+	auto seed = tick % range;
 	auto half = range / 2;
 	if(seed < half)
 		return base * seed / half;
@@ -68,10 +68,9 @@ static int get_alpha(int base, unsigned range) {
 		return base * (range - seed) / half;
 }
 
-//static bool is_cursor_visible(unsigned range) {
-//	auto seed = get_frame_tick() % range;
-//	return seed >= (range / 3);
-//}
+static int get_alpha(int base, unsigned range) {
+	return get_alpha(base, range, get_frame_tick());
+}
 
 static const char* namesh(const char* id) {
 	auto p = getnme(ids(id, "Short"));
@@ -459,7 +458,7 @@ static void paint_avatar_stats() {
 }
 
 static void paint_avatar_border() {
-	color border; border.clear();
+	adat<color, 8> avatar_colors;
 	referencei target = player;
 	for(auto& e : bsdata<boosti>()) {
 		if(e.target != target)
@@ -468,15 +467,17 @@ static void paint_avatar_border() {
 			auto ps = bsdata<spelli>::elements + e.effect.value;
 			if(!ps->lighting)
 				continue;
-			if(border)
-				border.mix(ps->lighting);
-			else
-				border = ps->lighting;
+			avatar_colors.add(ps->lighting);
 		}
 	}
-	if(border) {
+	if(avatar_colors) {
 		auto push_fore = fore;
-		fore = border;
+		auto index = (get_frame_tick() / 256) % avatar_colors.getcount();
+		auto alpha = get_alpha(1024, 256);
+		if(alpha >= 256)
+			fore = avatar_colors[index];
+		else
+			fore = avatar_colors[index].mix(colors::black, alpha);
 		rectb();
 		fore = push_fore;
 	}

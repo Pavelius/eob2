@@ -190,11 +190,11 @@ static void button_frame(int count, bool focused, bool pressed) {
 	button_back(focused);
 }
 
-static bool button_input(const void* button_data, unsigned key) {
+static bool button_input(const void* button_data, unsigned key, unsigned key_hot = 0xFFFF0000) {
 	if(!button_data)
 		return false;
 	auto isfocused = (current_focus == button_data);
-	if((isfocused && hot.key == KeyEnter) || (key && hot.key == key))
+	if((isfocused && (hot.key == KeyEnter || hot.key==key_hot)) || (key && hot.key == key))
 		pressed_focus = (void*)button_data;
 	else if(hot.key == InputKeyUp && pressed_focus == button_data) {
 		pressed_focus = 0;
@@ -308,7 +308,7 @@ void text_label_menu(int index, const void* button_data, const char* format, uns
 	if(!button_data)
 		button_data = (void*)format;
 	focusing(button_data);
-	if(button_input(button_data, key))
+	if(button_input(button_data, key, 'E'))
 		execute(proc, (long)button_data);
 	if(current_focus == button_data) {
 		rectpush push;
@@ -995,6 +995,10 @@ static void paint_console() {
 	font = push_font;
 }
 
+static void update_focus_player() {
+	player = item_owner(current_focus);
+}
+
 void paint_city_menu() {
 	paint_background(PLAYFLD, 0);
 	paint_compass(party.d);
@@ -1030,6 +1034,7 @@ void paint_city() {
 	paint_picture();
 	paint_party_status();
 	paint_party_sheets();
+	update_focus_player();
 	paint_console();
 }
 
@@ -1039,6 +1044,7 @@ void paint_adventure() {
 	animation_update();
 	paint_dungeon();
 	paint_party_sheets();
+	update_focus_player();
 	console_scroll(3000);
 	paint_console();
 }

@@ -2,12 +2,12 @@
 
 Monster hd(8) classes(Monster) count(1)
 
-Fighter minimal(9 0 0 0 0 0) primary(Strenght) hd(10) classes(Fighter) count(1)
-Cleric minimal(0 0 0 0 9 0) primary(Wisdow) hd(8) classes(Cleric) count(1)
-Mage minimal(0 0 0 9 0 0) primary(Intellegence) hd(4) classes(Mage) count(1)
-Theif minimal(0 9 0 0 0 0) primary(Dexterity) hd(6) classes(Theif) count(1)
-Ranger minimal(13 13 14 0 14 0) primary(Strenght) hd(10) classes(Ranger) count(1)
-Paladin minimal(12 0 9 0 13 17) primary(Strenght) hd(10) classes(Paladin) count(1)
+Fighter minimal(9 0 0 0 0 0) primary(Strenght) hd(10) classes(Fighter) count(1) caster(-1)
+Cleric minimal(0 0 0 0 9 0) primary(Wisdow) hd(8) classes(Cleric) count(1) caster(0)
+Mage minimal(0 0 0 9 0 0) primary(Intellegence) hd(4) classes(Mage) count(1) caster(1)
+Theif minimal(0 9 0 0 0 0) primary(Dexterity) hd(6) classes(Theif) count(1) caster(-1)
+Ranger minimal(13 13 14 0 14 0) primary(Strenght) hd(10) classes(Ranger) count(1) caster(3)
+Paladin minimal(12 0 9 0 13 17) primary(Strenght) hd(10) classes(Paladin) count(1) caster(2)
 
 FighterCleric classes(Fighter Cleric) count(2)
 FighterTheif classes(Fighter Theif) count(2)

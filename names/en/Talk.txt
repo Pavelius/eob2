@@ -93,3 +93,8 @@ You found a %GamblerAppearance who play dice game and win. Your profit is %Numbe
 
 #GambleVisitorsFail
 You found some %GamblerAppearance who play dice game and lose. Your lose is your bet %Number gold pieces.
+
+#CastSpellNoCaster
+I do not know any spells.
+I have no spells to cast.
+Spells? What is it?

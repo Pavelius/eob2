@@ -693,3 +693,7 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	}
 	//useammo(ammo, slot, false);
 }
+
+const classi& creaturei::getclass() const {
+	return bsdata<classi>::elements[type];
+}

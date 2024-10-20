@@ -1,5 +1,6 @@
 #pragma once
 
+#include "class.h"
 #include "damage.h"
 #include "statable.h"
 #include "levelable.h"
@@ -9,7 +10,6 @@
 #include "npc.h"
 #include "wearable.h"
 
-struct classi;
 struct monsteri;
 
 struct creaturei : npc, statable, levelable, wearable, posable {
@@ -29,6 +29,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	int				get(abilityn v) const { return abilities[v]; }
 	const char*		getbadstate() const;
 	int				getchance(abilityn v) const;
+	const classi&	getclass() const;
 	dice			getdamage(wearn id, bool large_enemy) const;
 	int				getexpaward() const;
 	int				gethitpenalty(int bonus) const;

@@ -352,7 +352,6 @@ static void use_item() {
 
 static creaturei* choose_character(bool you) {
 	pushanswer push_answer;
-	player = item_owner(current_focus);
 	for(auto p : characters) {
 		if(!p || p->isdisabled())
 			continue;
@@ -370,16 +369,37 @@ static spelli* choose_spell(int level, int type) {
 			continue;
 		an.add(&e, e.getname());
 	}
-	return (spelli*)choose_small_menu(getnm("WhatSpell"), 0);
+	return (spelli*)choose_small_menu(getnm("WhatSpell"), "Cancel");
+}
+
+static spelli* choose_prepared_spell(int level, int type) {
+	pushanswer push_answer;
+	auto caster_type = player->getclass().caster;
+	for(auto& e : bsdata<spelli>()) {
+		if(e.levels[type] != level)
+			continue;
+		an.add(&e, e.getname());
+	}
+	return (spelli*)choose_small_menu(getnm("WhatSpell"), "Cancel");
 }
 
 static void test_dungeon() {
 	choose_spell(1, 1);
 }
 
+static void cast_spell() {
+	auto caster = player->getclass().caster;
+	if(caster == -1) {
+		player->speak("CastSpell", "NoCaster");
+		return;
+	}
+	auto ps = choose_spell(1, caster);
+}
+
 static void city_adventure_input() {
 	static hotkeyi keys[] = {
 		{KeyEscape, choose_city_menu},
+		{'E', cast_spell},
 		{'D', drop_city_item},
 		{'U', use_item},
 		{'T', test_dungeon},
@@ -743,6 +763,7 @@ static void play_dungeon_input() {
 		{'D', drop_dungeon_item},
 		{'T', test_dungeon},
 		{'U', use_item},
+		{'E', cast_spell},
 		{KeyEscape, choose_dungeon_menu},
 		{}};
 	adventure_input(source);

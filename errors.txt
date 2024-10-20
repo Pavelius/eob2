@@ -1,11 +1,13 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Armor`
- Define translation for `BurningHands`
- Define translation for `ChillTouch`
- Define translation for `ComprehendLanguages`
- Define translation for `Friends`
- Define translation for `Identify`
- Define translation for `MagicMissile`
- Define translation for `Mending`
- Define translation for `ShieldSpell`
- Define translation for `ShockingGrasp`
+﻿Error in file `rules/Classes.txt`:
+ Line 5: Not found requisit `caster`
+ Line 5: Not found resuisit `caster`
+ Line 6: Not found requisit `caster`
+ Line 6: Not found resuisit `caster`
+ Line 7: Not found requisit `caster`
+ Line 7: Not found resuisit `caster`
+ Line 8: Not found requisit `caster`
+ Line 8: Not found resuisit `caster`
+ Line 9: Not found requisit `caster`
+ Line 9: Not found resuisit `caster`
+ Line 10: Not found requisit `caster`
+ Line 10: Not found resuisit `caster`

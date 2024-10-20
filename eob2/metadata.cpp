@@ -74,7 +74,7 @@ BSMETA(classi) = {
 	BSREQ(id),
 	BSREQ(minimal),
 	BSENM(primary, abilityi),
-	BSREQ(hd),
+	BSREQ(hd), BSREQ(caster),
 	BSENM(classes, classi), BSREQ(count),
 	{}};
 BSMETA(creaturei) = {

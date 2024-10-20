@@ -1263,8 +1263,12 @@ static void examine_item() {
 		return;
 	if(!(*pi))
 		pc->say(getnm("WrongItem"));
-	else
-		pc->say(getnm("ExamineItem"), pi->getname());
+	else {
+		if(pi->isidentified())
+			pc->say(getnm("ExamineIdentifiedItem"), pi->getname());
+		else
+			pc->say(getnm("ExamineItem"), pi->getname());
+	}
 }
 
 static void choose_character(int index) {

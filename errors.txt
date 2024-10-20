@@ -1,2 +1,2 @@
-﻿Error in file `rules/Locations.txt`:
- Line 27: Can't find variant `PassHour`
+﻿Error in file `rules/Core.txt`:
+ Line 25: Can't find variant `ItentifyItem`

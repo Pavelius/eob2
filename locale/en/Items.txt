@@ -18,5 +18,6 @@ Stone: Stone
 TwoHandedSword: Two-handed sword
 Warhammer: Warhammer
 
-ExamineItem: This is a %1
+ExamineItem: This is a %1.
+ExamineIdentifiedItem: The %1.
 WrongItem: I don't see any item

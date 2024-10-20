@@ -14,4 +14,6 @@ template<> bool fttest<conditioni>(int index, int value) {
 }
 
 template<> void ftscript<conditioni>(int index, int value) {
+	if(!fttest<conditioni>(index, value))
+		script_stop();
 }

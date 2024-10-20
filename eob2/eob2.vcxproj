@@ -142,6 +142,7 @@
     <ClInclude Include="array.h" />
     <ClInclude Include="assign.h" />
     <ClInclude Include="avatar.h" />
+    <ClInclude Include="boost.h" />
     <ClInclude Include="bsdata.h" />
     <ClInclude Include="bsreq.h" />
     <ClInclude Include="cell.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="randomeffect.h" />
     <ClInclude Include="randomizer.h" />
     <ClInclude Include="rect.h" />
+    <ClInclude Include="reference.h" />
     <ClInclude Include="resid.h" />
     <ClInclude Include="script.h" />
     <ClInclude Include="seqlink.h" />
@@ -216,6 +218,7 @@
     <ClCompile Include="archive.cpp" />
     <ClCompile Include="array.cpp" />
     <ClCompile Include="avatar.cpp" />
+    <ClCompile Include="boost.cpp" />
     <ClCompile Include="bsreq.cpp" />
     <ClCompile Include="cell.cpp" />
     <ClCompile Include="color.cpp" />

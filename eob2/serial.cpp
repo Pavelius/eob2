@@ -1,4 +1,5 @@
 #include "archive.h"
+#include "boost.h"
 #include "creature.h"
 #include "dungeon.h"
 #include "party.h"
@@ -9,10 +10,11 @@ extern spella spells_prepared[6];
 static bool check_game(archive& e) {
 	unsigned long checksum_total = 0;
 	int checksum_index = 1;
-	checksum_total += sizeof(partyi) * (checksum_index++);
-	checksum_total += sizeof(dungeoni) * (checksum_index++);
-	checksum_total += sizeof(spells_prepared) * (checksum_index++);
 	checksum_total += SeeIllusionary * (checksum_index++);
+	checksum_total += sizeof(partyi) * (checksum_index++);
+	checksum_total += sizeof(spells_prepared) * (checksum_index++);
+	checksum_total += sizeof(dungeoni) * (checksum_index++);
+	checksum_total += sizeof(boosti) * (checksum_index++);
 	return e.checksum(checksum_total);
 }
 
@@ -30,6 +32,7 @@ static bool serial_game(const char* url, bool writemode) {
 	e.set(party);
 	e.set(spells_prepared, sizeof(spells_prepared));
 	e.set(loc);
+	e.set(bsdata<boosti>::source);
 	e.set(bsdata<creaturei>::source);
 	e.set(bsdata<dungeoni>::source);
 	return true;

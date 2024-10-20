@@ -1,6 +1,7 @@
 #include "ability.h"
 #include "action.h"
 #include "advancement.h"
+#include "boost.h"
 #include "bsreq.h"
 #include "cell.h"
 #include "class.h"
@@ -36,6 +37,7 @@ NOBSDATA(picturei)
 
 BSDATAC(actioni, 256)
 BSDATAC(advancement, 256)
+BSDATAC(boosti, 256)
 BSDATAC(classi, 32)
 BSDATAC(creaturei, 64)
 BSDATAC(dungeoni, 256)
@@ -164,7 +166,8 @@ BSMETA(spelli) = {
 	BSREQ(levels),
 	BSREQ(effect), BSREQ(duration),
 	BSFLG(feats, feati),
-	BSREQ(summon), BSREQ(wearing), BSREQ(filter), BSREQ(instant),
+	BSREQ(summon), BSREQ(filter), BSREQ(instant),
+	BSREQ(wearing),
 	{}};
 BSMETA(weari) = {
 	BSREQ(id),
@@ -194,7 +197,7 @@ BSDATA(varianti) = {
 	{"RandomList", VAR(randomizeri, 1), 0, 0, ftscript<randomizeri>},
 	{"Script", VAR(script, 1), 0, 0, ftscript<script>},
 	{"Shape", VAR(shapei, 1), 0, 0, 0, 0, shape_read},
-	{"Spell", VAR(spelli, 1)},
+	{"Spell", VAR(spelli, 1), 0, 0, ftscript<spelli>},
 	{"Race", VAR(racei, 1)},
 };
 BSDATAF(varianti);

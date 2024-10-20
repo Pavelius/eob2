@@ -1,5 +1,6 @@
 #include "action.h"
 #include "answers.h"
+#include "boost.h"
 #include "cell.h"
 #include "class.h"
 #include "condition.h"
@@ -90,6 +91,16 @@ template<> void ftscript<abilityi>(int value, int bonus) {
 	switch(modifier) {
 	case Permanent: add_value(player->basic.abilities[value], get_bonus(bonus)); break;
 	default: add_value(player->abilities[value], get_bonus(bonus)); break;
+	}
+}
+
+template<> void ftscript<spelli>(int value, int bonus) {
+	switch(modifier) {
+	case Standart:
+		script_run(bsdata<spelli>::elements[value].wearing);
+		break;
+	default:
+		break;
 	}
 }
 
@@ -207,24 +218,43 @@ static void monsters_movement() {
 	}
 }
 
-static void monster_every_round() {
-	for(auto& e : loc->monsters) {
-		if(!e)
-			continue;
-		e.remove(Moved);
-	}
+static void update_every_round() {
+	player->remove(Moved);
+	update_player();
+}
 
+static void update_every_turn() {
+}
+
+static void allcreatures(fnevent proc) {
+	auto push_player = player;
+	for(auto p : characters) {
+		if(!p || p->isdisabled())
+			continue;
+		player = p; proc();
+	}
+	if(loc) {
+		for(auto& e : loc->monsters) {
+			if(!e)
+				continue;
+			player = &e; proc();
+		}
+	}
+	player = push_player;
 }
 
 void pass_round() {
+	clear_boost(party.abilities[Minutes]);
 	monsters_movement();
 	add_party(Minutes, 1);
-	monster_every_round();
+	allcreatures(update_every_round);
 }
 
 void skip_hours(int value) {
 	add_party(Minutes, 60 * value);
-	monster_every_round();
+	allcreatures(update_every_round);
+	for(auto i = 0; i < 6 * value; i++)
+		allcreatures(update_every_turn);
 }
 
 static void create_character(int bonus) {
@@ -437,6 +467,19 @@ static void apply_effect(const variants& source) {
 	player = push_player;
 }
 
+static void apply_enchant_effect(const randomeffecti* duration, int level, variant action) {
+	if(!action || !duration)
+		return;
+	auto rounds = duration->roll(level);
+	auto push_player = player;
+	for(auto& e : an) {
+		auto p = e.value;
+		if(bsdata<creaturei>::source.have(p) || (loc && loc->have((creaturei*)p)))
+			add_boost(party.abilities[Minutes] + rounds, (creaturei*)p, action);
+	}
+	player = push_player;
+}
+
 static bool cast_spell(const spelli* ps, bool run) {
 	pushanswer push_answers;
 	if(ps->is(Ally))
@@ -452,18 +495,20 @@ static bool cast_spell(const spelli* ps, bool run) {
 			player->speak("CastSpell", "NoTargets");
 		return false;
 	}
-	if(run) {
-		if(!ps->is(Group)) {
-			auto target = (creaturei*)choose_small_menu(getnm("CastOnWho"), "Cancel");
-			if(!target)
-				return false;
-			an.clear();
-			an.addv(target, target->getname(), 0, '1');
-		}
-		if(ps->effect)
-			last_number = ps->effect->roll(player->getlevel());
-		apply_effect(ps->instant);
+	if(!run)
+		return true;
+	if(!ps->is(Group)) {
+		auto target = (creaturei*)choose_small_menu(getnm("CastOnWho"), "Cancel");
+		if(!target)
+			return false;
+		an.clear();
+		an.addv(target, target->getname(), 0, '1');
 	}
+	auto level = player->getlevel();
+	if(ps->effect)
+		last_number = ps->effect->roll(level);
+	apply_effect(ps->instant);
+	apply_enchant_effect(ps->duration, level, ps);
 	return true;
 }
 
@@ -478,6 +523,7 @@ static void cast_spell() {
 		return;
 	if(player->spells[index])
 		player->spells[index]--;
+	pass_round();
 }
 
 static void city_adventure_input() {

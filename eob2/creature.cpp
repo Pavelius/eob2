@@ -1,5 +1,6 @@
 #include "advancement.h"
 #include "avatar.h"
+#include "boost.h"
 #include "bsdata.h"
 #include "class.h"
 #include "console.h"
@@ -191,6 +192,13 @@ static void update_wear() {
 }
 
 static void update_duration() {
+	auto push_modifier = modifier; modifier = Standart;
+	referencei target = player;
+	for(auto& e : bsdata<boosti>()) {
+		if(e.target == target)
+			script_run(e.effect);
+	}
+	modifier = push_modifier;
 }
 
 void update_player() {

@@ -3,6 +3,7 @@
 #include "direction.h"
 #include "dungeon.h"
 #include "math.h"
+#include "reference.h"
 
 const unsigned char	CellMask = 0x1F;
 const unsigned short Blocked = 0xFFFF;
@@ -33,6 +34,19 @@ static celln get_wall(celln v) {
 		return CellWall;
 	default:
 		return v;
+	}
+}
+
+template<> referencei::referencei(creaturei* p) {
+	if(bsdata<creaturei>::have(p)) {
+		parent = 0xFFFF;
+		index = getbsi(p);
+	} else if(loc && loc->have(p)) {
+		parent = getbsi(loc);
+		index = p - loc->monsters;
+	} else {
+		parent = 0xFFFF;
+		index = 0xFFFF;
 	}
 }
 

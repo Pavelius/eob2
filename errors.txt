@@ -1,3 +1,4 @@
 ﻿Error in file `rules/Spells.txt`:
- Line 18: Can't find variant `IfAlive`
- Line 18: Can't find variant `IfWounded`
+ Line 18: Not found requisit `BlessEffect`
+ Line 18: Not found resuisit `BlessEffect`
+ Line 18: Expected token `(`

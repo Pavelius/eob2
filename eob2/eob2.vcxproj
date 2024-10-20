@@ -204,6 +204,7 @@
     <ClInclude Include="slice.h" />
     <ClInclude Include="statable.h" />
     <ClInclude Include="stringbuilder.h" />
+    <ClInclude Include="variable.h" />
     <ClInclude Include="variant.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="view_focus.h" />

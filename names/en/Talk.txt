@@ -107,3 +107,9 @@ I use last spell.
 I don't see any target.
 No suitable spell target near.
 Cast this on who???
+
+#PurifyFoodGainEffect
+The %1i pieces of food were purified
+
+#PurifyFoodNoEffect
+I don't see any rotten food

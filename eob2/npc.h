@@ -19,6 +19,7 @@ struct npc {
 	void			say(const char* format, ...) const;
 	void			sayv(const char* format, const char* format_param) const;
 	void			speak(const char* id, const char* action, ...) const;
+	bool			speakn(const char* id, const char* action, ...) const;
 };
 
 void create_npc(npc* p, fnallowuc avatar_test, fnallowus name_test);

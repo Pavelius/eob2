@@ -121,8 +121,13 @@ static bool cast_spell(const spelli* ps, bool run) {
 	auto level = player->getlevel();
 	if(ps->effect)
 		last_number = ps->effect->roll(level);
+	party.abilities[EffectCount] = 0;
 	apply_effect(ps->instant);
 	apply_enchant_effect(ps->duration, level, ps);
+	if(party.abilities[EffectCount])
+		player->speakn(ps->id, "GainEffect", party.abilities[EffectCount]);
+	else
+		player->speakn(ps->id, "NoEffect", party.abilities[EffectCount]);
 	return true;
 }
 

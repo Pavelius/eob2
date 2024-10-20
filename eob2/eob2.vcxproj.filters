@@ -485,6 +485,9 @@
     <ClInclude Include="alignment.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="variable.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">

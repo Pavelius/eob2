@@ -395,12 +395,14 @@ static void for_each_party(int bonus, const variants& commands, const slice<crea
 static void for_each_party(int bonus) {
 	variants commands; commands.set(script_begin, script_end - script_begin);
 	for_each_party(bonus, commands, characters);
+	script_stop();
 }
 
 static bool filter_item_type(const item& e, variant filter) {
-	if(filter.iskind<itemi>())
-		return e.is(bsdata<itemi>::elements + filter.value);
-	else if(filter.iskind<listi>()) {
+	if(filter.iskind<itemi>()) {
+		auto& ei = e.geti();
+		return &ei == (bsdata<itemi>::elements + filter.value);
+	} else if(filter.iskind<listi>()) {
 		for(auto v : bsdata<listi>::elements[filter.value].elements) {
 			if(filter_item_type(e, v))
 				return true;
@@ -425,8 +427,10 @@ static void for_each_item_type(int bonus) {
 		if(filter_item_type(e, filter) != keep)
 			continue;
 		last_item = &e;
+		script_run(commands);
 	}
 	last_item = push_item;
+	script_stop();
 }
 
 static void activate_quest(int bonus) {
@@ -889,6 +893,14 @@ static void get_last_random_effect(int bonus) {
 	last_number = last_random_effect();
 }
 
+static void set_variable(int bonus) {
+	party.abilities[last_variable] = get_bonus(bonus);
+}
+
+static void add_variable(int bonus) {
+	party.abilities[last_variable] += get_bonus(bonus);
+}
+
 static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
@@ -950,6 +962,7 @@ BSDATAF(conditioni)
 BSDATA(script) = {
 	{"Attack", attack_modify},
 	{"ActivateQuest", activate_quest},
+	{"AddVariable", add_variable},
 	{"ApplyAction", apply_action},
 	{"ApplyRacialEnemy", apply_racial_enemy},
 	{"ConfirmAction", confirm_action},
@@ -981,5 +994,6 @@ BSDATA(script) = {
 	{"Roll", make_roll},
 	{"SaveGame", save_game},
 	{"Saves", saves_modify},
+	{"SetVariable", set_variable},
 };
 BSDATAF(script)

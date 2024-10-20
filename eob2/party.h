@@ -11,17 +11,19 @@ struct creaturei;
 
 enum partystatn : unsigned char {
 	GoldPiece, Reputation, Blessing,
-	StartYear, StartDeadLine, StopDeadLine, Minutes
+	StartYear, StartDeadLine, StopDeadLine, Minutes,
+	EffectCount,
 };
 struct partystati : nameable {
 };
 struct partyi : posable {
 	short unsigned	location;
 	questa			active, done, prepared;
-	int				abilities[Minutes + 1];
+	int				abilities[EffectCount + 1];
 };
 extern creaturei* characters[6];
 extern partyi party;
+extern partystatn last_variable;
 
 creaturei* get_opponent(bool left, bool enemies);
 

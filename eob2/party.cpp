@@ -16,12 +16,14 @@ BSDATA(partystati) = {
 	{"StartDeadLine"},
 	{"StopDeadLine"},
 	{"Minutes"},
+	{"EffectCount"},
 };
-assert_enum(partystati, Minutes)
+assert_enum(partystati, EffectCount)
 
 creaturei* characters[6];
 spella spells_prepared[6];
 partyi party;
+partystatn last_variable;
 
 int get_party_index(const creaturei* target) {
 	for(auto i = 0; i < 6; i++) {

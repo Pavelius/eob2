@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for ``
+﻿Error in file `rules/Spells.txt`:
+ Line 42: Can't find variant `Counter1`

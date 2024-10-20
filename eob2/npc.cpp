@@ -68,6 +68,15 @@ void npc::speak(const char* id, const char* action, ...) const {
 	sayv(format, format_param);
 }
 
+bool npc::speakn(const char* id, const char* action, ...) const {
+	auto format = npc_speech(this, id, action);
+	if(!format)
+		return false;
+	XVA_FORMAT(action);
+	sayv(format, format_param);
+	return true;
+}
+
 void npc::sayv(const char* format, const char* format_param) const {
 	consolenl();
 	console("%1 \"", getname());

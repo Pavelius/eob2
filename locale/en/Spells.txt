@@ -1,4 +1,15 @@
-﻿Bless: Bless
+﻿Armor: Armor
+BurningHands: Burning Hands
+ChillTouch: Chill Touch
+ComprehendLanguages: Comprehend lang.
+Friends: Friends
+Identify: Identify
+MagicMissile: Magic missile
+Mending: Mending
+ShieldSpell: Shield
+ShockingGrasp: Shocking grasp
+
+Bless: Bless
 CureLightWounds: Cure Light Wounds
 DetectEvil: Detect Evil
 DetectMagic: Detect Magic

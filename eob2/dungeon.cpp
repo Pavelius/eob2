@@ -265,6 +265,7 @@ bool dungeoni::ispassable(pointc v) const {
 	switch(get(v)) {
 	case CellPassable:
 	case CellButton:
+	case CellWebTorned:
 		return true;
 	case CellDoor:
 		return is(v, CellActive);

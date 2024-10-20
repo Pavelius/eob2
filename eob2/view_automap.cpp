@@ -39,12 +39,7 @@ static void red_marker() {
 	fore = push_fore;
 }
 
-static void paint_party_position() {
-	auto push_caret = caret;
-	auto push_fore = fore;
-	fore = colors::red;
-	auto direct = party.d;
-	auto camera = gs(party.x, party.y);
+void paint_arrow(point camera, directions direct, int mpg) {
 	auto x1 = camera.x;
 	auto y1 = camera.y;
 	auto x2 = x1 + mpg - 1;
@@ -77,6 +72,13 @@ static void paint_party_position() {
 		pixel(caret.x + 1, caret.y - 1);
 		break;
 	}
+}
+
+static void paint_party_position() {
+	auto push_caret = caret;
+	auto push_fore = fore;
+	fore = colors::red;
+	paint_arrow(gs(party.x, party.y), party.d, mpg);
 	fore = push_fore;
 	caret = push_caret;
 }

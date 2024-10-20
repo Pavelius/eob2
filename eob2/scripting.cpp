@@ -164,7 +164,7 @@ static void monster_move(pointc v, directions d) {
 	auto n = to(v, d);
 	if(n == party)
 		return;
-	if(!n || loc->ismonster(n))
+	if(!n || loc->ismonster(n) || !loc->ispassable(n))
 		return;
 	for(auto& e : loc->monsters) {
 		if(e != v)
@@ -350,7 +350,31 @@ static void use_item() {
 	}
 }
 
+static creaturei* choose_character(bool you) {
+	pushanswer push_answer;
+	player = item_owner(current_focus);
+	for(auto p : characters) {
+		if(!p || p->isdisabled())
+			continue;
+		if(p == player && !you)
+			continue;
+		an.add(p, p->getname());
+	}
+	return (creaturei*)choose_small_menu(getnm("WhatCharacter"), "Cancel");
+}
+
+static spelli* choose_spell(int level, int type) {
+	pushanswer push_answer;
+	for(auto& e : bsdata<spelli>()) {
+		if(e.levels[type] != level)
+			continue;
+		an.add(&e, e.getname());
+	}
+	return (spelli*)choose_small_menu(getnm("WhatSpell"), 0);
+}
+
 static void test_dungeon() {
+	choose_spell(1, 1);
 }
 
 static void city_adventure_input() {

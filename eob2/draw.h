@@ -81,8 +81,8 @@ struct sprite : pma {
 	unsigned			cicles; // count of anim structure
 	unsigned			cicles_offset;
 	frame				frames[1];
-	int					esize() const { return frames[0].offset - (sizeof(sprite) + sizeof(frame)*(count - 1)); }
-	const unsigned char* edata() const { return (const unsigned char*)this + sizeof(sprite) + sizeof(frame)*(count - 1); }
+	int					esize() const { return frames[0].offset - (sizeof(sprite) + sizeof(frame) * (count - 1)); }
+	const unsigned char* edata() const { return (const unsigned char*)this + sizeof(sprite) + sizeof(frame) * (count - 1); }
 	int					ganim(int index, int tick) const;
 	const frame&		get(int id) const { return frames[(id >= count) ? 0 : id]; }
 	cicle*				gcicle(int index) const { return (cicle*)ptr(cicles_offset) + index; }
@@ -174,77 +174,77 @@ struct rectpush {
 };
 int					aligned(int x, int width, unsigned state, int string_width);
 int					alignedh(const rect& rc, const char* string, unsigned state);
-void					blit(surface& dest, int x, int y, int width, int height, unsigned flags, const surface& source, int x_source, int y_source);
-void					blit(surface& dest, int x, int y, int width, int height, unsigned flags, const surface& source, int x_source, int y_source, int width_source, int height_source);
-void					circle(int size);
-void					circlef(int size);
-void					create(int x, int y, int width, int height, unsigned flags, int bpp);
-void					execute(fnevent proc, long value = 0, long value2 = 0, const void* object = 0);
-void					fhexagon();
+void				blit(surface& dest, int x, int y, int width, int height, unsigned flags, const surface& source, int x_source, int y_source);
+void				blit(surface& dest, int x, int y, int width, int height, unsigned flags, const surface& source, int x_source, int y_source, int width_source, int height_source);
+void				circle(int size);
+void				circlef(int size);
+void				create(int x, int y, int width, int height, unsigned flags, int bpp);
+void				execute(fnevent proc, long value = 0, long value2 = 0, const void* object = 0);
+void				fhexagon();
 int					getbpp();
 inline rect			getrect() { return {caret.x, caret.y, caret.x + width, caret.y + height}; }
 int					getheight();
 int					getwidth();
-void					glyph(int sym, unsigned flags);
-void					gradv(const color c1, const color c2, int skip = 0);
-void					gradh(const color c1, const color c2, int skip = 0);
-void					hexagon();
+void				glyph(int sym, unsigned flags);
+void				gradv(const color c1, const color c2, int skip = 0);
+void				gradh(const color c1, const color c2, int skip = 0);
+void				hexagon();
 int					hittest(int x, int test_x, const char* string, int lenght);
 int					hittest(rect rc, const char* string, unsigned state, point mouse);
-bool					ishilite(const rect& rc);
+bool				ishilite(const rect& rc);
 inline bool			ishilite() { return ishilite({caret.x, caret.y, caret.x + width, caret.y + height}); }
-inline bool			ishilite(int size) { return ishilite({caret.x-size, caret.y - size, caret.x + size, caret.y + size}); }
-void					image(int x, int y, const sprite* e, int id, int flags);
+inline bool			ishilite(int size) { return ishilite({caret.x - size, caret.y - size, caret.x + size, caret.y + size}); }
+void				image(int x, int y, const sprite* e, int id, int flags);
 inline void			image(const sprite* e, int id, int flags) { image(caret.x, caret.y, e, id, flags); }
-void					image(const sprite* e, int id, int flags, color* pal);
-void					imager(int x, int y, const sprite* p, int id, int radius);
-void					key2str(stringbuilder& sb, int key);
-void					line(int x, int y); // Draw line
-void					linet(int x, int y);
-void					paintstart();
-void					paintfinish();
-void					pixel(int x, int y);
-void					pixel(int x, int y, unsigned char alpha);
+void				image(const sprite* e, int id, int flags, color* pal);
+void				imager(int x, int y, const sprite* p, int id, int radius);
+void				key2str(stringbuilder& sb, int key);
+void				line(int x, int y); // Draw line
+void				linet(int x, int y);
+void				paintstart();
+void				paintfinish();
+void				pixel(int x, int y);
+void				pixel(int x, int y, unsigned char alpha);
 unsigned char*		ptr(int x, int y);
 int					rawinput();
-void					rectb(); // Draw rectangle border
-void					rectb3d(); // Draw rectangle border
-void					rectf(); // Draw rectangle area. Right and bottom side is one pixel less.
-void					rectfe(rect rc, int radius);
-void					rectx();
-void					rectfocus();
-void					set(int x, int y);
-void					setcaption(const char* string);
-void					setclip(rect rc);
+void				rectb(); // Draw rectangle border
+void				rectb3d(); // Draw rectangle border
+void				rectf(); // Draw rectangle area. Right and bottom side is one pixel less.
+void				rectfe(rect rc, int radius);
+void				rectx();
+void				rectfocus();
+void				set(int x, int y);
+void				setcaption(const char* string);
+void				setclip(rect rc);
 inline void			setclip() { clipping.set(0, 0, getwidth(), getheight()); }
 inline void			setcliparea() { setclip({caret.x, caret.y, caret.x + width, caret.y + height}); }
-void					setoffset(int x, int y);
-void					setpos(int x, int y);
-void					setpos(int x, int y, int width, int height);
-void					settimer(unsigned milleseconds);
+void				setoffset(int x, int y);
+void				setpos(int x, int y);
+void				setpos(int x, int y, int width, int height);
+void				settimer(unsigned milleseconds);
 const char*			skiptr(const char* string);
-void					stroke(int x, int y, const sprite* e, int id, int flags);
-void					strokeactive();
-void					strokeborder();
-void					strokeline();
-void					strokeout(fnevent proc, int dx = 0);
-void					syscursor(bool enable);
-void					text(const char* string, int count = -1, unsigned flags = 0);
-void					texta(const char* string, unsigned state = 0);
-void					textas(const char* string);
-void					textc(const char* string, int count = -1, unsigned flags = 0);
+void				stroke(int x, int y, const sprite* e, int id, int flags);
+void				strokeactive();
+void				strokeborder();
+void				strokeline();
+void				strokeout(fnevent proc, int dx = 0);
+void				syscursor(bool enable);
+void				text(const char* string, int count = -1, unsigned flags = 0);
+void				texta(const char* string, unsigned state = 0);
+void				textas(const char* string);
+void				textc(const char* string, int count = -1, unsigned flags = 0);
 int					textbc(const char* string, int width, bool* line_feed = 0);
-void					textf(const char* string);
-void					textf(const char* string, int& cashe_origin, int& cashe_string);
-void					textfs(const char* string);
+void				textf(const char* string);
+void				textf(const char* string, int& cashe_origin, int& cashe_string);
+void				textfs(const char* string);
 int					texth();
 int					texth(const char* string, int width);
 int					textw(int sym);
 int					textw(const char* string, int count = -1);
 int					textw(rect& rc, const char* string);
-void					updatewindow();
-void					write(const char* url, unsigned char* bits, int width, int height, int bpp, int scanline, color* pallette);
-void					vertical(fnevent proc);
+void				updatewindow();
+void				write(const char* url, unsigned char* bits, int width, int height, int bpp, int scanline, color* pallette);
+void				vertical(fnevent proc);
 }
 namespace draw {
 struct awindowi {

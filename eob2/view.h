@@ -13,17 +13,21 @@ const int scry = 15 * 8;
 
 typedef void(*fnevent)();
 typedef void(*fnanswer)(int index, const void* value, const char* text, unsigned key, fnevent press_event);
+typedef void (*fnoutput)(const char* format);
 
+enum directions : unsigned char;
 enum resid : unsigned short;
 enum wearn : unsigned char;
+
 struct hotkeyi;
 struct creaturei;
 
 extern unsigned long current_cpu_time;
 extern bool need_update_animation;
 
-void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding = 2);
+void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding = 2, int per_page = -1, fnoutput header_paint = 0);
 void* choose_dialog(const char* title, int dx);
+void* choose_small_menu(const char* header, const char* cancel);
 void* show_message(const char* format, bool add_anaswers, const char* cancel = 0, unsigned cancel_key = 27);
 void* dialogv(const char* cancel, const char* format);
 void* dialogv(const char* cancel, const char* format, const char* format_param);
@@ -46,9 +50,11 @@ void fix_monster_attack(const creaturei* target);
 void fix_monster_attack_end(const creaturei* target);
 void fix_monster_damage(const creaturei* target);
 void fix_monster_damage_end();
+void header_yellow(const char* format);
 bool hotkey_input(const hotkeyi* hotkeys);
 void initialize_gui();
 void paint_adventure();
+void paint_arrow(point camera, directions direct, int mpg);
 void paint_avatars();
 void paint_avatars_no_focus();
 void paint_avatars_no_focus_hilite();
@@ -57,7 +63,9 @@ void paint_city_menu();
 void paint_dungeon();
 void paint_main_menu();
 void paint_party_status();
+void paint_small_menu();
 void set_dungeon_tiles(resid type);
 void set_player_by_focus();
 void set_small_font();
 void text_label(int index, const void* data, const char* format, unsigned key, fnevent proc);
+void text_label_menu(int index, const void* data, const char* format, unsigned key, fnevent proc);

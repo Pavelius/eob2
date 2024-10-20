@@ -9,7 +9,7 @@ GambleVisitors: Gamble with someone
 GameOptions: Game Options
 GameOptionsOptions: Game Options
 GlobalCampMenu: Camp menu
-GlobalOptions: What do you want?
+GlobalOptions: What %Name want?
 GlobalVisit: Visit %1
 MemorizeSpells: Memorize Spells
 MulGambleVisitors: Bet %1i gold pieces
@@ -39,3 +39,5 @@ LoadGame: Load game
 No: No
 SaveGame: Save game
 Yes: Yes
+WhatCharacter: What character?
+WhatSpell: What spell?

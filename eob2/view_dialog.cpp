@@ -10,19 +10,6 @@ using namespace draw;
 
 unsigned draw::text_flags;
 
-//static const char* getparam(const char*& p, stringbuilder& sb) {
-//	auto pb = sb.get();
-//	if(p[0] == '\'')
-//		p = sb.psstr(p + 1, '\'');
-//	else if(p[0] == '\"')
-//		p = sb.psstr(p + 1, '\"');
-//	else if(ischa(*p))
-//		p = sb.psidf(p);
-//	sb.addsz();
-//	p = skipsp(p);
-//	return pb;
-//}
-
 static int getparam(const char*& p) {
 	if(isnum(p[0]) || (p[0] == '-' && isnum(p[1]))) {
 		int result = 0;

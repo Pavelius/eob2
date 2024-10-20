@@ -38,10 +38,14 @@ static bool hilite_player;
 static int disp_damage[6];
 static int disp_weapon[6][2];
 static unsigned animate_counter;
+static int answer_origin, answer_per_page;
 bool need_update_animation;
 unsigned long current_cpu_time;
 
 struct pushscene : pushfocus {
+	const sprite*	font;
+	pushscene() : pushfocus(), font(draw::font) {}
+	~pushscene() { draw::font = font; }
 };
 
 const int animation_step = 300;
@@ -187,6 +191,8 @@ static void button_frame(int count, bool focused, bool pressed) {
 }
 
 static bool button_input(const void* button_data, unsigned key) {
+	if(!button_data)
+		return false;
 	auto isfocused = (current_focus == button_data);
 	if((isfocused && hot.key == KeyEnter) || (key && hot.key == key))
 		pressed_focus = (void*)button_data;
@@ -266,8 +272,17 @@ static bool paint_button(const char* title, const void* button_data, unsigned ke
 static void paint_answers(fnanswer paintcell, fnevent pushbutton, int height_grid) {
 	if(!paintcell)
 		return;
-	auto index = 0;
-	for(auto& e : an.elements) {
+	int index = answer_origin;
+	int index_stop = an.elements.count;
+	if(answer_per_page != -1) {
+		index_stop = index + answer_per_page;
+		if(index_stop > (int)an.elements.count)
+			index_stop = (int)an.elements.count;
+	}
+	while(true) {
+		if(index >= index_stop)
+			break;
+		auto& e = an.elements[index];
 		paintcell(index, e.value, e.text, e.key, pushbutton);
 		caret.y += height_grid;
 		index++;
@@ -285,6 +300,36 @@ void text_label(int index, const void* data, const char* format, unsigned key, f
 	if(pressed_focus == data)
 		fore = fore.darken();
 	texta(format, AlignCenter | TextBold);
+	fore = push_fore;
+}
+
+void text_label_menu(int index, const void* button_data, const char* format, unsigned key, fnevent proc) {
+	auto push_fore = fore;
+	if(!button_data)
+		button_data = (void*)format;
+	focusing(button_data);
+	if(button_input(button_data, key))
+		execute(proc, (long)button_data);
+	if(current_focus == button_data) {
+		rectpush push;
+		caret.x -= 2; caret.y -= 1;
+		fore = colors::dark;
+		rectf();
+		caret = push.caret;
+		caret.x += width - textw('1') - 2;
+		fore = colors::white;
+		if(index == answer_origin && answer_origin != 0)
+			paint_arrow(caret, Up, 6);
+		else if(answer_per_page!=-1 && index==(answer_origin+answer_per_page-1) && (answer_origin + answer_per_page < an.getcount()))
+			paint_arrow(caret, Down, 6);
+	}
+	if(index >= 1000)
+		fore = colors::white.mix(colors::dark, 196);
+	else
+		fore = colors::white;
+	if(pressed_focus == button_data)
+		fore = fore.darken();
+	texta(format, 0);
 	fore = push_fore;
 }
 
@@ -375,6 +420,15 @@ static void paint_menu(point position, int object_width, int object_height) {
 	width = object_width;
 	height = object_height;
 	button_frame(2, false, false);
+}
+
+static void paint_small_menu(point position, int object_width, int object_height) {
+	rectpush push;
+	set_small_font();
+	caret = position;
+	width = object_width;
+	height = object_height;
+	button_frame(1, false, false);
 }
 
 static void paint_blend(color new_color, unsigned new_alpha) {
@@ -607,6 +661,14 @@ static void textn(abilityn id) {
 	}
 	textr(temp);
 	textn(namesh(bsdata<abilityi>::elements[id].id));
+}
+
+void header_yellow(const char* format) {
+	auto push_fore = fore;
+	fore = colors::yellow;
+	text(format, -1);
+	caret.y += texth() + 1;
+	fore = push_fore;
 }
 
 static void header(const char* format) {
@@ -947,6 +1009,22 @@ void paint_city_menu() {
 	cancel_position = {6, 104};
 }
 
+void paint_small_menu() {
+	paint_background(PLAYFLD, 0);
+	paint_compass(party.d);
+	if(loc)
+		paint_dungeon();
+	else
+		paint_picture();
+	paint_avatars_no_focus_hilite();
+	paint_console();
+	paint_small_menu({70, 124}, 108, 50);
+	caret = {73, 126};
+	width = 107;
+	height = 6 + 1;
+	cancel_position = {73, 167};
+}
+
 void paint_city() {
 	paint_background(PLAYFLD, 0);
 	paint_picture();
@@ -1001,7 +1079,10 @@ static void paint_title(const char* title) {
 	if(!title)
 		return;
 	text(title, -1, TextBold);
-	caret.y += texth() + 4;
+	if(font == gres(FONT8))
+		caret.y += texth() + 4;
+	else
+		caret.y += texth() + 1;
 }
 
 static void paint_blue_title(const char* title) {
@@ -1227,29 +1308,76 @@ bool adventure_input(const hotkeyi* hotkeys) {
 	return false;
 }
 
-void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding) {
+static bool answer_input() {
+	int answer_result;
+	switch(hot.key) {
+	case KeyUp:
+	case 'W':
+		if(!answer_origin)
+			return false;
+		answer_result = an.findvalue(current_focus);
+		if(answer_result != answer_origin)
+			return false;
+		answer_origin--;
+		current_focus = (void*)an.elements[answer_origin].value;
+		break;
+	case KeyDown:
+	case 'Z':
+		if(answer_per_page == -1)
+			return false;
+		answer_result = an.findvalue(current_focus);
+		if(answer_result != (answer_origin + answer_per_page - 1))
+			return false;
+		if(answer_result == (an.getcount()-1))
+			return false;
+		answer_origin++;
+		current_focus = (void*)an.elements[answer_origin + answer_per_page - 1].value;
+		break;
+	default:
+		return false;
+	}
+	return true;
+}
+
+void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding, int per_page, fnoutput header_paint) {
 	if(!show_interactive)
 		return an.random();
 	rectpush push;
 	pushscene push_scene;
+	auto push_origin = answer_origin;
+	answer_origin = 0;
+	answer_per_page = per_page;
+	if(!header_paint)
+		header_paint = paint_title;
 	while(ismodal()) {
 		if(before_paint)
 			before_paint();
-		paint_title(title);
+		header_paint(title);
 		paint_answers(answer_paint, update_buttonparam, height + padding);
 		if(cancel) {
 			if(cancel_position) {
-				width = textw(cancel) + 6;
+				if(per_page == -1)
+					width = textw(cancel) + 6;
 				caret = cancel_position;
 			}
 			answer_paint(1000, 0, cancel, KeyEscape, update_buttonparam);
 		}
 		domodal();
-		focus_input();
-		alternate_focus_input();
+		if(!answer_input()) {
+			focus_input();
+			alternate_focus_input();
+		}
 		debug_input();
 	}
+	answer_origin = push_origin;
 	return (void*)getresult();
+}
+
+void* choose_small_menu(const char* header, const char* cancel) {
+	int maximum = 6;
+	if(cancel)
+		maximum--;
+	return choose_answer(header, cancel, paint_small_menu, text_label_menu, 0, maximum, header_yellow);
 }
 
 static int get_total_use(char* source_value) {

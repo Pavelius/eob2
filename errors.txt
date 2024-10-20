@@ -1,2 +1,11 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `Club`
+ Define translation for `Armor`
+ Define translation for `BurningHands`
+ Define translation for `ChillTouch`
+ Define translation for `ComprehendLanguages`
+ Define translation for `Friends`
+ Define translation for `Identify`
+ Define translation for `MagicMissile`
+ Define translation for `Mending`
+ Define translation for `ShieldSpell`
+ Define translation for `ShockingGrasp`

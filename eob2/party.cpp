@@ -15,6 +15,7 @@ BSDATA(partystati) = {
 assert_enum(partystati, Minutes)
 
 creaturei* characters[6];
+spella spells_prepared[6];
 partyi party;
 
 int get_party_index(const creaturei* target) {
@@ -101,4 +102,11 @@ void party_addexp_per_killed(int hd) {
 		auto pc = bsdata<classi>::elements + p->type;
 		p->addexp(hd * pc->exp_per_hd / 100);
 	}
+}
+
+char* get_spells_prepared(const creaturei* target) {
+	auto i = get_party_index(target);
+	if(i == -1)
+		return 0;
+	return spells_prepared[i];
 }

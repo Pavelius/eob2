@@ -98,3 +98,7 @@ You found some %GamblerAppearance who play dice game and lose. Your lose is your
 I do not know any spells.
 I have no spells to cast.
 Spells? What is it?
+
+#CastSpellNoSpells
+My spells is over!
+I use last spell.

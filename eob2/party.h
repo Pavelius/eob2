@@ -44,3 +44,5 @@ void turnto(pointc v, directions d, bool* surprise = 0);
 
 int getparty(partystatn id);
 int get_party_index(const creaturei* target);
+
+char* get_spells_prepared(const creaturei* target);

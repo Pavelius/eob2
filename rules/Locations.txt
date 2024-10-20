@@ -6,6 +6,8 @@ GambleVisitorsFailedRoll
  elements Message-1
 GameOptions
  elements ChooseMenu LoadGame SaveGame ExitGame
+RestorePartySpells
+ elements ForEachParty RestoreSpells
 
 #Action
 
@@ -22,7 +24,7 @@ PrayForSpells
  classes Cleric Paladin Ranger
  effect ChooseSpells+0
 RestParty
- effect ConfirmAction ReturnToStreet
+ effect ConfirmAction RestorePartySpells ReturnToStreet
 ScribleScrolls
  classes Mage
 

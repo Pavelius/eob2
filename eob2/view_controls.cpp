@@ -194,7 +194,7 @@ static bool button_input(const void* button_data, unsigned key, unsigned key_hot
 	if(!button_data)
 		return false;
 	auto isfocused = (current_focus == button_data);
-	if((isfocused && (hot.key == KeyEnter || hot.key==key_hot)) || (key && hot.key == key))
+	if((isfocused && (hot.key == KeyEnter || hot.key == key_hot)) || (key && hot.key == key))
 		pressed_focus = (void*)button_data;
 	else if(hot.key == InputKeyUp && pressed_focus == button_data) {
 		pressed_focus = 0;
@@ -283,7 +283,8 @@ static void paint_answers(fnanswer paintcell, fnevent pushbutton, int height_gri
 		if(index >= index_stop)
 			break;
 		auto& e = an.elements[index];
-		paintcell(index, e.value, e.text, e.key, pushbutton);
+		// paintcell(index, e.value, e.text, e.key, pushbutton);
+		paintcell(index, &e, e.text, e.key, pushbutton);
 		caret.y += height_grid;
 		index++;
 	}
@@ -320,7 +321,7 @@ void text_label_menu(int index, const void* button_data, const char* format, uns
 		fore = colors::white;
 		if(index == answer_origin && answer_origin != 0)
 			paint_arrow(caret, Up, 6);
-		else if(answer_per_page!=-1 && index==(answer_origin+answer_per_page-1) && (answer_origin + answer_per_page < an.getcount()))
+		else if(answer_per_page != -1 && index == (answer_origin + answer_per_page - 1) && (answer_origin + answer_per_page < an.getcount()))
 			paint_arrow(caret, Down, 6);
 	}
 	if(index >= 1000)
@@ -1334,7 +1335,7 @@ static bool answer_input() {
 		answer_result = an.findvalue(current_focus);
 		if(answer_result != (answer_origin + answer_per_page - 1))
 			return false;
-		if(answer_result == (an.getcount()-1))
+		if(answer_result == (an.getcount() - 1))
 			return false;
 		answer_origin++;
 		current_focus = (void*)an.elements[answer_origin + answer_per_page - 1].value;
@@ -1343,6 +1344,13 @@ static bool answer_input() {
 		return false;
 	}
 	return true;
+}
+
+static void* answer_get_result() {
+	auto result = (void*)getresult();
+	if(an.have(result))
+		result = (void*)an.elements[an.indexof(result)].value;
+	return result;
 }
 
 void* choose_answer(const char* title, const char* cancel, fnevent before_paint, fnanswer answer_paint, int padding, int per_page, fnoutput header_paint) {
@@ -1376,7 +1384,7 @@ void* choose_answer(const char* title, const char* cancel, fnevent before_paint,
 		debug_input();
 	}
 	answer_origin = push_origin;
-	return (void*)getresult();
+	return answer_get_result();
 }
 
 void* choose_small_menu(const char* header, const char* cancel) {
@@ -1410,7 +1418,7 @@ void choose_spells(const char* title, const char* cancel, int spell_type) {
 			current_focus = bsdata<abilityi>::elements + Spell1 + level;
 		}
 		auto available_spells = player->abilities[Spell1 + level];
-		auto source_value = player->spells;
+		auto source_value = get_spells_prepared(player);
 		auto total_use = get_total_use(source_value);
 		paint_background(PLAYFLD, 0);
 		paint_avatars_no_focus_hilite();

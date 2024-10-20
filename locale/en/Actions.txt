@@ -1,4 +1,5 @@
 ﻿CampMenu: Camp Options:
+CastSpell: Cast what spell?
 ChooseBet: Bed how match?
 DebugTest: Debug Test
 DebugTestVisit: Debug test string

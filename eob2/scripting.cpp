@@ -372,19 +372,27 @@ static spelli* choose_spell(int level, int type) {
 	return (spelli*)choose_small_menu(getnm("WhatSpell"), "Cancel");
 }
 
-static spelli* choose_prepared_spell(int level, int type) {
+static spelli* choose_prepared_spell() {
 	pushanswer push_answer;
-	auto caster_type = player->getclass().caster;
 	for(auto& e : bsdata<spelli>()) {
-		if(e.levels[type] != level)
-			continue;
-		an.add(&e, e.getname());
+		auto index = &e - bsdata<spelli>::elements;
+		auto count = player->spells[index];
+		for(auto i = 0; i <count; i++)
+			an.add(&e, e.getname());
 	}
-	return (spelli*)choose_small_menu(getnm("WhatSpell"), "Cancel");
+	if(!an) {
+		auto caster = player->getclass().caster;
+		if(caster == -1)
+			player->speak("CastSpell", "NoCaster");
+		else
+			player->speak("CastSpell", "NoSpells");
+		return 0;
+	}
+	return (spelli*)choose_small_menu(getnm("CastSpell"), "Cancel");
 }
 
 static void test_dungeon() {
-	choose_spell(1, 1);
+	choose_prepared_spell();
 }
 
 static void cast_spell() {
@@ -393,7 +401,7 @@ static void cast_spell() {
 		player->speak("CastSpell", "NoCaster");
 		return;
 	}
-	auto ps = choose_spell(1, caster);
+	auto ps = choose_prepared_spell();
 }
 
 static void city_adventure_input() {
@@ -419,6 +427,13 @@ static void enter_location(int bonus) {
 	picture = last_location->avatar;
 	save_focus = current_focus;
 	set_next_scene(play_location);
+}
+
+static void restore_spells(int bonus) {
+	auto spell_book = get_spells_prepared(player);
+	if(spell_book) {
+		memcpy(player->spells, spell_book, sizeof(player->spells));
+	}
 }
 
 static void return_to_street(int bonus) {
@@ -458,6 +473,34 @@ static void choose_menu(int bonus) {
 	choose_options(get_action(), commands);
 	apply_result();
 	script_stop();
+}
+
+static void for_each_party(int bonus, const variants& commands, const slice<creaturei*>& characters) {
+	auto push_player = player;
+	for(auto p : characters) {
+		if(!p)
+			continue;
+		switch(bonus) {
+		case 0:
+			if(p->isdisabled())
+				continue;
+			break;
+		case -1:
+			if(p->isdead())
+				continue;
+			break;
+		default:
+			break;
+		}
+		player = p;
+		script_run(commands);
+	}
+	player = push_player;
+}
+
+static void for_each_party(int bonus) {
+	variants commands; commands.set(script_begin, script_end - script_begin);
+	for_each_party(bonus, commands, characters);
 }
 
 void add_spells(int type, int level, const spellseta* include) {
@@ -988,6 +1031,7 @@ BSDATA(script) = {
 	{"EatAndDrink", eat_and_drink},
 	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
+	{"ForEachParty", for_each_party},
 	{"IdentifyItem", identify_item},
 	{"LearnClericSpells", learn_cleric_spells},
 	{"LoadGame", load_game},
@@ -995,6 +1039,7 @@ BSDATA(script) = {
 	{"JoinParty", join_party},
 	{"PartyAdventure", party_adventure},
 	{"PayGold", pay_gold},
+	{"RestoreSpells", restore_spells},
 	{"ReturnToStreet", return_to_street},
 	{"Roll", make_roll},
 	{"SaveGame", save_game},

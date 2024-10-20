@@ -35,13 +35,15 @@ public:
 	void		clear();
 	void		create(int value);
 	void		create(const itemi* pi);
-	void		damage();
+	void		curse(int v) { cursed = (v >= 0) ? 1 : 0; }
+	void		damage(int v);
 	const itemi& geti() const;
 	void		identify(int v) { identified = (v >= 0) ? 1 : 0; }
 	bool		is(featn v) const { return geti().is(v); }
 	bool		is(const itemi* pi) const { return pi == &geti(); }
 	bool		isallow(wearn v) const;
 	bool		iscursed() const { return cursed != 0; }
+	bool		isdamaged() const { return count >= 5; }
 	bool		isidentified() const { return identified != 0; }
 	bool		ismagical() const { return false; }
 	bool		isranged() const { return false; }
@@ -49,6 +51,5 @@ public:
 	int			getcost() const;
 	const char*	getname() const;
 	variant		getpower() const { return variant(); }
-	void		curse(int v) { cursed = (v >=0) ? 1 : 0; }
 };
 extern item* last_item;

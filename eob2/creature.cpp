@@ -697,7 +697,7 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	if(rolls == 1) {
 		if(weapon && d100() < 60) {
 			auto name = weapon.getname();
-			weapon.damage();
+			weapon.damage(1);
 			if(!weapon)
 				speak("Weapon", "Broken", name);
 		} else

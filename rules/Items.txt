@@ -92,9 +92,9 @@ BluePotion cost(150) avatar(40) avatar_ground(19)
  feats Small
 
 LargeRation avatar(37) avatar_ground(14)
- feats Small
+ feats Small Disease
 Ration avatar(38) avatar_ground(14)
- feats Small
+ feats Small Disease
 
 MageScroll cost(20) avatar(36) avatar_ground(12)
  feats Small

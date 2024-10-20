@@ -46,7 +46,16 @@ void item::create(int value) {
 }
 
 const char*	item::getname() const {
-	return geti().getname();
+	static char temp[32];
+	stringbuilder sb(temp);
+	if(isdamaged())
+		sb.adds(getnm(is(Disease) ? "Rotten" : "Damaged"));
+	if(identified) {
+		if(cursed)
+			sb.adds(getnm("Cursed"));
+	}
+	sb.adds(bsdata<itemi>::elements[type].getname());
+	return temp;
 }
 
 int	item::getcost() const {
@@ -57,8 +66,13 @@ bool item::isweapon() const {
 	return geti().damage.c != 0;
 }
 
-void item::damage() {
-	count++;
-	if(count >= 10)
-		clear();
+void item::damage(int bonus) {
+	if(bonus >= 0) {
+		bonus += count;
+		if(bonus >= 10)
+			clear();
+		else
+			count = bonus;
+	} else
+		count = 0;
 }

@@ -22,6 +22,7 @@
 #include "quest.h"
 #include "race.h"
 #include "rand.h"
+#include "randomizer.h"
 #include "resid.h"
 #include "script.h"
 #include "speech.h"
@@ -134,6 +135,10 @@ static void attack_modify(int bonus) {
 static void damage_modify(int bonus) {
 	ftscript<abilityi>(DamageMelee, bonus);
 	ftscript<abilityi>(DamageRange, bonus);
+}
+
+static void damage_item(int bonus) {
+	last_item->damage(bonus);
 }
 
 static void saves_modify(int bonus) {
@@ -390,6 +395,38 @@ static void for_each_party(int bonus, const variants& commands, const slice<crea
 static void for_each_party(int bonus) {
 	variants commands; commands.set(script_begin, script_end - script_begin);
 	for_each_party(bonus, commands, characters);
+}
+
+static bool filter_item_type(const item& e, variant filter) {
+	if(filter.iskind<itemi>())
+		return e.is(bsdata<itemi>::elements + filter.value);
+	else if(filter.iskind<listi>()) {
+		for(auto v : bsdata<listi>::elements[filter.value].elements) {
+			if(filter_item_type(e, v))
+				return true;
+		}
+	} else if(filter.iskind<randomizeri>()) {
+		for(auto v : bsdata<randomizeri>::elements[filter.value].chance) {
+			if(filter_item_type(e, v))
+				return true;
+		}
+	}
+	return false;
+}
+
+static void for_each_item_type(int bonus) {
+	auto filter = *script_begin++;
+	auto push_item = last_item;
+	auto keep = bonus >= 0;
+	variants commands; commands.set(script_begin, script_end - script_begin);
+	for(auto& e : player->wears) {
+		if(!e)
+			continue;
+		if(filter_item_type(e, filter) != keep)
+			continue;
+		last_item = &e;
+	}
+	last_item = push_item;
 }
 
 static void activate_quest(int bonus) {
@@ -884,6 +921,10 @@ static bool if_wounded() {
 	return player->hp < player->hpm;
 }
 
+static bool if_item_damaged() {
+	return last_item->isdamaged();
+}
+
 BSDATA(formulai) = {
 	{"Add", add_formula},
 	{"Mul", mul_formula},
@@ -902,6 +943,7 @@ BSDATA(textscript) = {
 BSDATAF(textscript)
 BSDATA(conditioni) = {
 	{"IfAlive", if_alive},
+	{"IfItemDamaged", if_item_damaged},
 	{"IfWounded", if_wounded},
 };
 BSDATAF(conditioni)
@@ -916,12 +958,14 @@ BSDATA(script) = {
 	{"CreateCharacter", create_character},
 	{"CurseItem", curse_item},
 	{"Damage", damage_modify},
+	{"DamageItem", damage_item},
 	{"DoneQuest", done_quest},
 	{"ExitGame", exit_game},
 	{"EatAndDrink", eat_and_drink},
 	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
 	{"ForEachParty", for_each_party},
+	{"ForEachItemType", for_each_item_type},
 	{"Heal", player_heal},
 	{"IdentifyItem", identify_item},
 	{"LearnClericSpells", learn_cleric_spells},

@@ -16,7 +16,6 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	statable		basic;
 	short			hp, hpm, hpr;
 	short unsigned	monster_id;
-	unsigned char	avatar;
 	char			initiative;
 	spella			spells;
 	spellseta		knownspells;
@@ -51,7 +50,7 @@ extern creaturei *player, *opponent;
 extern int last_roll, last_chance;
 
 void add_spells(int type, int level, const spellseta* include);
-void create_player(const racei* pr, gendern gender, const classi* pc);
+void create_player();
 void create_monster(const monsteri* pi);
 void update_player();
 

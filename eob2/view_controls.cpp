@@ -451,10 +451,11 @@ static void blend_avatar(slice<color> source, unsigned char intensity = 64, unsi
 }
 
 static void paint_avatar_stats() {
-	adat<color, 8> source;
+	adat<color, 8> avatar_colors;
+	avatar_colors.clear();
 	if(player->is(PoisonLevel) || player->is(DiseaseLevel))
-		source.add(colors::green);
-	blend_avatar(source, 32);
+		avatar_colors.add(colors::green);
+	blend_avatar(avatar_colors, 32);
 }
 
 static void paint_avatar_border() {

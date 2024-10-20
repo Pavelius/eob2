@@ -2,6 +2,8 @@
 
 #include "sliceu.h"
 
+typedef bool(*fnallowus)(unsigned short);
+
 struct speech {
 	struct element {
 		const char*	name;
@@ -19,7 +21,7 @@ const speech* speech_find(const char* id);
 int speech_count(const speech* p);
 int speech_first(const speech* p);
 int speech_random(const char* id);
-short unsigned speech_random_name(const char* pattern);
+short unsigned speech_random_name(const char* pattern, fnallowus name_filter);
 
 const char* speech_name(int index);
 const char* speech_getid(int index);
@@ -29,5 +31,6 @@ const char* speech_get(const char* id, const char* action);
 const char* speech_get(const speech* p, int n);
 
 size_t select_speech(unsigned short* result, size_t count, const char* parent);
+size_t filter_speech(unsigned short* result, size_t count, fnallowus filter_proc, bool keep);
 
 extern unsigned char* speech_params;

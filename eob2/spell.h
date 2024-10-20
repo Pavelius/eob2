@@ -21,3 +21,5 @@ struct spelli : nameable, featable {
 };
 typedef char spella[128];
 typedef flagable<16> spellseta;
+
+void cast_spell();

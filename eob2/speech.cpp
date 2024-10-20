@@ -105,9 +105,13 @@ int speech_random(const char* id) {
 	return p->source.start + (rand() % p->source.size());
 }
 
-short unsigned speech_random_name(const char* pattern) {
+short unsigned speech_random_name(const char* pattern, fnallowus name_filter) {
 	unsigned short result[512];
 	auto count = select_speech(result, lenghtof(result), pattern);
+	if(!count)
+		return 0xFFFF;
+	if(name_filter)
+		count = filter_speech(result, count, name_filter, false);
 	if(!count)
 		return 0xFFFF;
 	return result[rand() % count];
@@ -187,4 +191,15 @@ size_t select_speech(unsigned short* result, size_t count, const char* parent) {
 		}
 	}
 	return pb - result;
+}
+
+size_t filter_speech(unsigned short* result, size_t count, fnallowus allow_proc, bool keep) {
+	auto ps = result;
+	auto pe = result + count;
+	for(auto pb = result; pb < pe; pb++) {
+		if(allow_proc(*pb) != keep)
+			continue;
+		*ps++ = *pb;
+	}
+	return ps - result;
 }

@@ -1,4 +1,5 @@
 #include "advancement.h"
+#include "alignment.h"
 #include "avatar.h"
 #include "boost.h"
 #include "bsdata.h"
@@ -23,6 +24,8 @@
 
 creaturei *player, *opponent;
 int last_roll, last_chance;
+classn last_class;
+racen last_race;
 
 static char hit_points_adjustment[] = {
 	-4, -3, -2, -2, -1, -1, -1, 0, 0, 0,
@@ -318,19 +321,21 @@ static bool no_party_avatars(unsigned char value) {
 	return true;
 }
 
-void create_player(const racei* pr, gendern gender, const classi* pc) {
-	if(!pr || !pc)
-		return;
+static bool is_party_name(unsigned short value) {
+	for(auto i = 0; i < 6; i++) {
+		if(characters[i] && characters[i]->name == value)
+			return true;
+	}
+	return false;
+}
+
+void create_player() {
 	player = bsdata<creaturei>::add();
 	player->clear();
-	player->race = bsdata<racei>::source.indexof(pr);
-	player->gender = gender;
-	player->type = bsdata<classi>::source.indexof(pc);
+	create_npc(player, no_party_avatars, is_party_name);
 	generate_abilities();
 	set_race_ability();
 	set_class_ability();
-	player->name = generate_name(player->race, player->gender);
-	player->avatar = generate_avatar(player->race, gender, player->type, no_party_avatars);
 	update_player();
 	set_starting_equipment();
 	update_player();

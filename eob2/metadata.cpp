@@ -1,6 +1,7 @@
 #include "ability.h"
 #include "action.h"
 #include "advancement.h"
+#include "alignment.h"
 #include "boost.h"
 #include "bsreq.h"
 #include "cell.h"
@@ -62,6 +63,9 @@ BSMETA(advancement) = {
 	BSREQ(type),
 	BSREQ(id),
 	BSREQ(elements),
+	{}};
+BSMETA(alignmenti) = {
+	BSREQ(id),
 	{}};
 BSMETA(celli) = {
 	BSREQ(id),
@@ -180,6 +184,7 @@ BSDATA(varianti) = {
 	{"Ability", VAR(abilityi, 1), 0, 0, ftscript<abilityi>},
 	{"Action", VAR(actioni, 1), 0, 0, ftscript<actioni>},
 	{"Advance", VAR(advancement, 2)},
+	{"Alignment", VAR(alignmenti, 1)},
 	{"Cell", VAR(celli, 1)},
 	{"Class", VAR(classi, 1), 0, 0, ftscript<classi>},
 	{"Condition", VAR(conditioni, 1), 0, 0, ftscript<conditioni>, fttest<conditioni>},

@@ -31,6 +31,7 @@ BSDATA(feati) = {
 	{"Paralized"},
 	{"Moved"},
 	{"Assembled"},
+	{"ProtectedFromEvil"},
 	{"ResistBludgeon"},
 	{"ResistSlashing"},
 	{"ResistPierce"},

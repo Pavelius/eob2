@@ -9,7 +9,7 @@ enum featn : unsigned char {
 	UseMetal, UseLeather, UseShield,
 	UseMartial, UseElvish, UseRogish, UsePriest, UseMage, TwoHanded, Precise, Deadly, Natural, Unique,
 	BloodSucking, Disease,
-	Small, Large, Undead, Paralized, Moved, Assembled,
+	Small, Large, Undead, Paralized, Moved, Assembled, ProtectedFromEvil,
 	ResistBludgeon, ResistSlashing, ResistPierce, ResistFire, ResistCold, ResistCharm, ResistSpells,
 	ImmuneNormalWeapon, ImmuneFire, ImmuneCold, ImmuneCharm, ImmuneSpells, ImmuneDisease,
 	Enemy, Ally, Group, You,

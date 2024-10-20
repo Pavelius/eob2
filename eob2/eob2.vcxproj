@@ -137,6 +137,7 @@
     <ClInclude Include="action.h" />
     <ClInclude Include="adat.h" />
     <ClInclude Include="advancement.h" />
+    <ClInclude Include="alignment.h" />
     <ClInclude Include="answers.h" />
     <ClInclude Include="archive.h" />
     <ClInclude Include="array.h" />
@@ -214,6 +215,7 @@
   <ItemGroup>
     <ClCompile Include="ability.cpp" />
     <ClCompile Include="action.cpp" />
+    <ClCompile Include="alignment.cpp" />
     <ClCompile Include="answers.cpp" />
     <ClCompile Include="archive.cpp" />
     <ClCompile Include="array.cpp" />
@@ -259,6 +261,7 @@
     <ClCompile Include="serial.cpp" />
     <ClCompile Include="shape.cpp" />
     <ClCompile Include="speech.cpp" />
+    <ClCompile Include="spell.cpp" />
     <ClCompile Include="sprite_util.cpp" />
     <ClCompile Include="surface_util.cpp" />
     <ClCompile Include="textscript.cpp" />

@@ -29,7 +29,7 @@ static size_t filter(unsigned char* result, size_t result_size, fnallowuc filter
 	return ps - result;
 }
 
-static size_t get_avatars_ex(unsigned char* result, char race, gendern gender, char cls) {
+static size_t get_avatars_ex(unsigned char* result, racen race, gendern gender, classn cls) {
 	auto p = result;
 	for(auto& e : portrait_data) {
 		if(e.gender != NoGender && e.gender != gender)
@@ -43,7 +43,7 @@ static size_t get_avatars_ex(unsigned char* result, char race, gendern gender, c
 	return p - result;
 }
 
-static size_t get_avatars_ex(unsigned char* result, char race, gendern gender) {
+static size_t get_avatars_ex(unsigned char* result, racen race, gendern gender) {
 	auto p = result;
 	for(auto& e : portrait_data) {
 		if(e.gender != NoGender && e.gender != gender)
@@ -55,8 +55,8 @@ static size_t get_avatars_ex(unsigned char* result, char race, gendern gender) {
 	return p - result;
 }
 
-size_t get_avatars(unsigned char* result, char race, gendern gender, char cls, fnallowuc filter_proc) {
-	auto c = get_avatars_ex(result, race, gender, cls);
+static size_t get_avatars(unsigned char* result, racen race, gendern gender, classn type, fnallowuc filter_proc) {
+	auto c = get_avatars_ex(result, race, gender, type);
 	c = filter(result, c, filter_proc);
 	if(c < 4) {
 		c = get_avatars_ex(result, race, gender);
@@ -65,9 +65,9 @@ size_t get_avatars(unsigned char* result, char race, gendern gender, char cls, f
 	return c;
 }
 
-unsigned char generate_avatar(char race, gendern gender, char cls, fnallowuc filter_proc) {
+unsigned char generate_avatar(racen race, gendern gender, classn type, fnallowuc filter_proc) {
 	unsigned char result[256];
-	auto c = get_avatars(result, race, gender, cls, filter_proc);
+	auto c = get_avatars(result, race, gender, type, filter_proc);
 	if(!c)
 		return 0;
 	return result[rand() % c];

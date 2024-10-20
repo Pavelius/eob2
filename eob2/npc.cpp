@@ -1,4 +1,5 @@
 #include "avatar.h"
+#include "alignment.h"
 #include "bsdata.h"
 #include "console.h"
 #include "class.h"
@@ -8,15 +9,24 @@
 #include "race.h"
 #include "stringbuilder.h"
 
-unsigned short generate_name(int race, gendern gender) {
+static unsigned short generate_name(racen race, gendern gender, fnallowus name_filter) {
 	auto pr = bsdata<racei>::elements + race;
 	auto pg = bsdata<genderi>::elements + gender;
 	unsigned short name = 0xFFFF;
 	if(name == 0xFFFF)
-		name = speech_random_name(ids(pr->id, pg->id));
+		name = speech_random_name(ids(pr->id, pg->id), name_filter);
 	if(name == 0xFFFF && szstart(pr->id, "Half"))
-		name = speech_random_name(ids(pr->id + 4, pg->id));
+		name = speech_random_name(ids(pr->id + 4, pg->id), name_filter);
 	return name;
+}
+
+void create_npc(npc* p, fnallowuc avatar_test, fnallowus name_filter) {
+	p->alignment = last_alignment;
+	p->race = last_race;
+	p->gender = last_gender;
+	p->type = last_class;
+	p->name = generate_name(p->race, p->gender, name_filter);
+	p->avatar = generate_avatar(p->race, p->gender, p->type, avatar_test);
 }
 
 const char*	npc::getname() const {

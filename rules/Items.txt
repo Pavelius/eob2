@@ -138,6 +138,10 @@ RandomExoticWeapon
  chance Halberd Staff Bow
 RandomWeapon
  chance RandomSword+5 RandomSimpleWeapon+3 RandomExoticWeapon
+RandomArmorMinor
+ chance Shield+5 DwarvenShield Helm+5 Boots+3 DwarvenHelm
+RandomArmor
+ chance LeatherArmor+4 StuddedLeatherArmor+2 ScaleMail+2 ChainMail+2 BandedMail PlateMail
 RandomPotions
  chance RedPotion GreenPotion BluePotion
 RandomRings
@@ -146,7 +150,7 @@ RandomScrolls
  chance MageScroll+3 PriestScroll+2 MagicMap
 
 RandomItem
- chance RandomWeapon
+ chance RandomWeapon+4 RandomArmor RandomArmorMinor RandomRings RandomScrolls RandomPotions
 
 RandomSmallItem
  chance RandomPotions RandomRings

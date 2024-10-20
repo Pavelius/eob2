@@ -31,7 +31,7 @@ enum cellfn : unsigned char {
 };
 struct celli : nameable, picturei {
 	flagable<1, unsigned> flags;
-	celln activate;
+	celln		activate;
 };
 struct cellfi : nameable {
 };

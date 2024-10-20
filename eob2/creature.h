@@ -41,6 +41,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	bool			isdisabled() const { return hp <= 0; }
 	bool			ismonster() const { return getmonster() != 0; }
 	void			kill();
+	void			remove(featn v) { featable::remove(v); }
 	bool			roll(abilityn v, int bonus = 0) const;
 	void			set(featn v) { featable::set(v); }
 	void			setframe(short* frames, short index) const;

@@ -12,6 +12,7 @@
 #include "hotkey.h"
 #include "list.h"
 #include "location.h"
+#include "math.h"
 #include "modifier.h"
 #include "monster.h"
 #include "party.h"
@@ -138,12 +139,91 @@ static void saves_modify(int bonus) {
 	ftscript<abilityi>(SaveVsTraps, bonus);
 }
 
+static void monsters_stop(pointc v) {
+	if(!v || !loc)
+		return;
+	for(auto& e : loc->monsters) {
+		if(e!=v)
+			continue;
+		e.set(Moved);
+	}
+}
+
+static bool can_see_party(pointc v, directions d) {
+	for(auto i = 0; i < 3; i++) {
+		v = to(v, d);
+		if(!v || !loc->ispassable(v))
+			return false;
+		if(v == party)
+			return true;
+	}
+	return false;
+}
+
+static void monster_move(pointc v, directions d) {
+	auto n = to(v, d);
+	if(n == party)
+		return;
+	if(!n || loc->ismonster(n))
+		return;
+	for(auto& e : loc->monsters) {
+		if(e != v)
+			continue;
+		e.d = d;
+		e.x = n.x;
+		e.y = n.y;
+		e.set(Moved);
+	}
+}
+
+static directions random_free_look(pointc v, directions d) {
+	directions source[] = {Up, Left, Right, Down};
+	if(d100() < 50)
+		iswap(source[1], source[2]);
+	for(auto nd : source) {
+		auto d1 = to(d, nd);
+		auto v1 = to(v, d1);
+		if(v1 && loc->ispassable(v1))
+			return d1;
+	}
+	return Center;
+}
+
+static void monsters_movement() {
+	if(!loc)
+		return;
+	for(auto& e : loc->monsters) {
+		if(!e || e.isdisabled() || e.is(Moved))
+			continue;
+		if(can_see_party(e, e.d))
+			monster_move(e, e.d);
+		else if(d100() < 45) {
+			auto d = random_free_look(e, e.d);
+			if(d != Center)
+				monster_move(e, d);
+		} else
+			monsters_stop(e);
+	}
+}
+
+static void monster_every_round() {
+	for(auto& e : loc->monsters) {
+		if(!e)
+			continue;
+		e.remove(Moved);
+	}
+
+}
+
 void pass_round() {
+	monsters_movement();
 	add_party(Minutes, 1);
+	monster_every_round();
 }
 
 void skip_hours(int value) {
 	add_party(Minutes, 60 * value);
+	monster_every_round();
 }
 
 static void create_character(int bonus) {
@@ -502,6 +582,8 @@ static void manipulate() {
 	auto player = item_owner(current_focus);
 	if(!player)
 		return;
+	if(!player->isactable())
+		return;
 	item* pi = (item*)current_focus;
 	auto t = loc->get(v);
 	if(t == CellPortal) {
@@ -692,7 +774,6 @@ void move_party(pointc v) {
 		return;
 	if(loc->ismonster(v)) {
 		turnto(v, to(party.d, Down));
-		// TODO: interact with monsters
 		pass_round();
 		return;
 	}

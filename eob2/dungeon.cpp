@@ -259,6 +259,20 @@ bool dungeoni::ismonster(pointc v) const {
 	return false;
 }
 
+bool dungeoni::ispassable(pointc v) const {
+	if(!v)
+		return false;
+	switch(get(v)) {
+	case CellPassable:
+	case CellButton:
+		return true;
+	case CellDoor:
+		return is(v, CellActive);
+	default:
+		return false;
+	}
+}
+
 int dungeoni::around(pointc v, celln t1, celln t2) const {
 	auto result = 0;
 	for(auto d : all_directions) {

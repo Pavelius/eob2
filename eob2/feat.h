@@ -20,5 +20,6 @@ struct feati : nameable {
 struct featable {
 	unsigned feats[2];
 	bool is(featn v) const { return (feats[v / 32] & (1 << (v % 32))) != 0; }
+	void remove(featn v) { feats[v / 32] &= ~(1 << (v % 32)); }
 	void set(featn v) { feats[v / 32] |= (1 << (v % 32)); }
 };

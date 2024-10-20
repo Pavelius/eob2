@@ -1,6 +1,7 @@
 #RandomEffect
 
 Damage1d4p1x1d4p1s3p2c9 base(1 4 1) raise(1 4 1) perlevel(3 2 9)
+Effect1d8 base(1 8)
 Minute5x1 base(5) raise(1) perlevel(2 1)
 Minute0x2 raise(2) perlevel(0 1)
 
@@ -16,6 +17,8 @@ ComprehendLanguages levels(0 1)
 CureLightWounds levels(1 0)
  feats Ally You
  filter IfAlive IfWounded
+ effect Effect1d8
+ instant Heal+101
 DetectEvil levels(1 1) duration(Minute0x2)
  feats Ally Group
  wearing SeeCursed

@@ -1346,10 +1346,12 @@ static bool answer_input() {
 	return true;
 }
 
-static void* answer_get_result() {
+static void* answer_get_result(const char* cancel) {
 	auto result = (void*)getresult();
 	if(an.have(result))
 		result = (void*)an.elements[an.indexof(result)].value;
+	else if(result == cancel)
+		return 0;
 	return result;
 }
 
@@ -1384,7 +1386,7 @@ void* choose_answer(const char* title, const char* cancel, fnevent before_paint,
 		debug_input();
 	}
 	answer_origin = push_origin;
-	return answer_get_result();
+	return answer_get_result(cancel);
 }
 
 void* choose_small_menu(const char* header, const char* cancel) {

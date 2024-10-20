@@ -164,7 +164,7 @@ BSMETA(spelli) = {
 	BSREQ(levels),
 	BSREQ(effect), BSREQ(duration),
 	BSFLG(feats, feati),
-	BSREQ(summon), BSREQ(wearing), BSREQ(filter),
+	BSREQ(summon), BSREQ(wearing), BSREQ(filter), BSREQ(instant),
 	{}};
 BSMETA(weari) = {
 	BSREQ(id),

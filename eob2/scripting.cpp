@@ -144,7 +144,7 @@ static void monsters_stop(pointc v) {
 	if(!v || !loc)
 		return;
 	for(auto& e : loc->monsters) {
-		if(e!=v)
+		if(e != v)
 			continue;
 		e.set(Moved);
 	}
@@ -378,7 +378,7 @@ static spelli* choose_prepared_spell() {
 	for(auto& e : bsdata<spelli>()) {
 		auto index = &e - bsdata<spelli>::elements;
 		auto count = player->spells[index];
-		for(auto i = 0; i <count; i++)
+		for(auto i = 0; i < count; i++)
 			an.add(&e, e.getname());
 	}
 	if(!an) {
@@ -389,7 +389,7 @@ static spelli* choose_prepared_spell() {
 			player->speak("CastSpell", "NoSpells");
 		return 0;
 	}
-	return (spelli*)choose_small_menu(getnm("CastSpell"), "Cancel");
+	return (spelli*)choose_small_menu(getnm("CastSpell"), getnm("Cancel"));
 }
 
 static void test_dungeon() {
@@ -423,10 +423,21 @@ static void add_targets(bool enemy, bool ally, bool include_player) {
 	}
 }
 
-static void cast_spell() {
-	auto ps = choose_prepared_spell();
-	if(!ps)
+static void apply_effect(const variants& source) {
+	if(!source)
 		return;
+	auto push_player = player;
+	for(auto& e : an) {
+		auto p = e.value;
+		if(bsdata<creaturei>::source.have(p) || (loc && loc->have((creaturei*)p))) {
+			player = (creaturei*)p;
+			script_run(source);
+		}
+	}
+	player = push_player;
+}
+
+static bool cast_spell(const spelli* ps, bool run) {
 	pushanswer push_answers;
 	if(ps->is(Ally))
 		add_targets(false, true, ps->is(You));
@@ -437,16 +448,36 @@ static void cast_spell() {
 			filter_creatures(ps->filter);
 	}
 	if(!an) {
-		player->speak("CastSpell", "NoTargets");
+		if(run)
+			player->speak("CastSpell", "NoTargets");
+		return false;
+	}
+	if(run) {
+		if(!ps->is(Group)) {
+			auto target = (creaturei*)choose_small_menu(getnm("CastOnWho"), "Cancel");
+			if(!target)
+				return false;
+			an.clear();
+			an.addv(target, target->getname(), 0, '1');
+		}
+		if(ps->effect)
+			last_number = ps->effect->roll(player->getlevel());
+		apply_effect(ps->instant);
+	}
+	return true;
+}
+
+static void cast_spell() {
+	auto ps = choose_prepared_spell();
+	if(!ps)
 		return;
-	}
-	if(!ps->is(Group)) {
-		auto target = (creaturei*)choose_small_menu(getnm("CastOnWho"), "Cancel");
-		if(!target)
-			return;
-		an.clear();
-		an.addv(target, target->getname(), 0, '1');
-	}
+	if(!cast_spell(ps, true))
+		return;
+	auto index = getbsi(ps);
+	if(index == -1)
+		return;
+	if(player->spells[index])
+		player->spells[index]--;
 }
 
 static void city_adventure_input() {
@@ -1009,6 +1040,19 @@ static void dialog_message(int bonus) {
 	}
 }
 
+static void player_heal(int bonus) {
+	bonus = get_bonus(bonus);
+	if(bonus <= 0)
+		return;
+	player->hp += bonus;
+	if(player->hp > player->hpm)
+		player->hp = player->hpm;
+}
+
+static void get_last_random_effect(int bonus) {
+	last_number = last_random_effect();
+}
+
 static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
@@ -1090,6 +1134,7 @@ BSDATA(script) = {
 	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
 	{"ForEachParty", for_each_party},
+	{"Heal", player_heal},
 	{"IdentifyItem", identify_item},
 	{"LearnClericSpells", learn_cleric_spells},
 	{"LoadGame", load_game},
@@ -1097,6 +1142,7 @@ BSDATA(script) = {
 	{"JoinParty", join_party},
 	{"PartyAdventure", party_adventure},
 	{"PayGold", pay_gold},
+	{"RandomEffect", get_last_random_effect},
 	{"RestoreSpells", restore_spells},
 	{"ReturnToStreet", return_to_street},
 	{"Roll", make_roll},

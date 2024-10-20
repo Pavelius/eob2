@@ -4,7 +4,8 @@
 #include "nameable.h"
 
 struct randomeffecti : nameable {
-	dice base, raise;
-	int perlevel[3], multiplier;
-	int roll(int level) const;
+	dice	base, raise;
+	int		perlevel[3], multiplier;
+	int		roll(int level) const;
 };
+int last_random_effect();

@@ -14,6 +14,8 @@ BurningHands levels(0 1)
 ChillTouch levels(0 1)
 ComprehendLanguages levels(0 1)
 CureLightWounds levels(1 0)
+ feats Ally You
+ filter IfAlive IfWounded
 DetectEvil levels(1 1) duration(Minute0x2)
  feats Ally Group
  wearing SeeCursed

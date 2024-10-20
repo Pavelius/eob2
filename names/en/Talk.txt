@@ -102,3 +102,8 @@ Spells? What is it?
 #CastSpellNoSpells
 My spells is over!
 I use last spell.
+
+#CastSpellNoTargets
+I don't see any target.
+No suitable spell target near.
+Cast this on who???

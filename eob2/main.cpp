@@ -12,6 +12,11 @@
 
 void util_main();
 
+//static bool test_variant() {
+//	variant v("IfAlive");
+//	return !v.type;
+//}
+
 int main() {
 	start_random_seed = getcputime();
 	//start_random_seed = 2831817;

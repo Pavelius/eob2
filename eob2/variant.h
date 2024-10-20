@@ -1,7 +1,8 @@
+#pragma once
+
+#include "nameable.h"
 #include "sliceu.h"
 #include "stringbuilder.h"
-
-#pragma once
 
 #define VAR(T, K) bsmeta<T>::meta, bsdata<T>::source_ptr, K
 
@@ -10,11 +11,10 @@ union variant;
 
 typedef void (*fngetinfo)(const void* object, variant v, stringbuilder& sb);
 
-struct varianti {
+struct varianti : nameable {
 	typedef void(*fnscript)(int index, int bonus);
 	typedef void(*fnread)(const char* url);
 	typedef bool(*fntest)(int index, int bonus);
-	const char*		id;
 	const bsreq*	metadata;
 	array*			source;
 	int             key_count;

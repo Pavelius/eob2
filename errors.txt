@@ -1,13 +1,3 @@
-﻿Error in file `rules/Classes.txt`:
- Line 5: Not found requisit `caster`
- Line 5: Not found resuisit `caster`
- Line 6: Not found requisit `caster`
- Line 6: Not found resuisit `caster`
- Line 7: Not found requisit `caster`
- Line 7: Not found resuisit `caster`
- Line 8: Not found requisit `caster`
- Line 8: Not found resuisit `caster`
- Line 9: Not found requisit `caster`
- Line 9: Not found resuisit `caster`
- Line 10: Not found requisit `caster`
- Line 10: Not found resuisit `caster`
+﻿Error in file `rules/Spells.txt`:
+ Line 18: Can't find variant `IfAlive`
+ Line 18: Can't find variant `IfWounded`

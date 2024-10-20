@@ -147,6 +147,7 @@
     <ClInclude Include="cell.h" />
     <ClInclude Include="class.h" />
     <ClInclude Include="color.h" />
+    <ClInclude Include="condition.h" />
     <ClInclude Include="console.h" />
     <ClInclude Include="creature.h" />
     <ClInclude Include="damage.h" />
@@ -218,6 +219,7 @@
     <ClCompile Include="bsreq.cpp" />
     <ClCompile Include="cell.cpp" />
     <ClCompile Include="color.cpp" />
+    <ClCompile Include="condition.cpp" />
     <ClCompile Include="console.cpp" />
     <ClCompile Include="creature.cpp" />
     <ClCompile Include="damage.cpp" />

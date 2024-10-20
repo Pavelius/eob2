@@ -237,6 +237,9 @@
     <ClCompile Include="party_combat.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="condition.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -459,6 +462,9 @@
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="special.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="condition.h">
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>

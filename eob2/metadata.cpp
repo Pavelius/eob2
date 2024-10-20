@@ -5,6 +5,7 @@
 #include "cell.h"
 #include "class.h"
 #include "color.h"
+#include "condition.h"
 #include "damage.h"
 #include "dungeon.h"
 #include "item.h"
@@ -163,7 +164,7 @@ BSMETA(spelli) = {
 	BSREQ(levels),
 	BSREQ(effect), BSREQ(duration),
 	BSFLG(feats, feati),
-	BSREQ(summon), BSREQ(wearing),
+	BSREQ(summon), BSREQ(wearing), BSREQ(filter),
 	{}};
 BSMETA(weari) = {
 	BSREQ(id),
@@ -175,6 +176,7 @@ BSDATA(varianti) = {
 	{"Advance", VAR(advancement, 2)},
 	{"Cell", VAR(celli, 1)},
 	{"Class", VAR(classi, 1), 0, 0, ftscript<classi>},
+	{"Condition", VAR(conditioni, 1), 0, 0, ftscript<conditioni>, fttest<conditioni>},
 	{"Creature", VAR(creaturei, 0)},
 	{"Dungeon", VAR(dungeoni, 0)},
 	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>},

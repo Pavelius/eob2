@@ -2,6 +2,7 @@
 #include "answers.h"
 #include "cell.h"
 #include "class.h"
+#include "condition.h"
 #include "console.h"
 #include "creature.h"
 #include "direction.h"
@@ -392,16 +393,60 @@ static spelli* choose_prepared_spell() {
 }
 
 static void test_dungeon() {
-	choose_prepared_spell();
+}
+
+static void filter_creatures(const variants& source) {
+	auto ps = an.elements.begin();
+	auto push_player = player;
+	for(auto& e : an.elements) {
+		player = (creaturei*)e.value;
+		if(!script_allow(source))
+			continue;
+		*ps++ = e;
+	}
+	player = push_player;
+	an.elements.count = ps - an.begin();
+}
+
+static void add_targets(bool enemy, bool ally, bool include_player) {
+	creaturei* targets[6] = {};
+	if(enemy)
+		loc->getmonsters(targets, to(party, party.d));
+	else
+		memcpy(targets, characters, sizeof(targets));
+	for(auto p : targets) {
+		if(!p)
+			continue;
+		if(p == player && !include_player)
+			continue;
+		an.add(p, p->getname());
+	}
 }
 
 static void cast_spell() {
-	auto caster = player->getclass().caster;
-	if(caster == -1) {
-		player->speak("CastSpell", "NoCaster");
+	auto ps = choose_prepared_spell();
+	if(!ps)
+		return;
+	pushanswer push_answers;
+	if(ps->is(Ally))
+		add_targets(false, true, ps->is(You));
+	if(ps->is(Enemy))
+		add_targets(true, false, ps->is(You));
+	if(ps->is(You) || ps->is(Ally) || ps->is(Enemy)) {
+		if(ps->filter)
+			filter_creatures(ps->filter);
+	}
+	if(!an) {
+		player->speak("CastSpell", "NoTargets");
 		return;
 	}
-	auto ps = choose_prepared_spell();
+	if(!ps->is(Group)) {
+		auto target = (creaturei*)choose_small_menu(getnm("CastOnWho"), "Cancel");
+		if(!target)
+			return;
+		an.clear();
+		an.addv(target, target->getname(), 0, '1');
+	}
 }
 
 static void city_adventure_input() {
@@ -999,6 +1044,14 @@ bool parse_wall_messages(stringbuilder& sb, const char* id) {
 	return true;
 }
 
+static bool if_alive() {
+	return !player->isdead();
+}
+
+static bool if_wounded() {
+	return player->hp < player->hpm;
+}
+
 BSDATA(formulai) = {
 	{"Add", add_formula},
 	{"Mul", mul_formula},
@@ -1015,6 +1068,11 @@ BSDATA(textscript) = {
 	{"StairsUpSide", stairs_up_side},
 };
 BSDATAF(textscript)
+BSDATA(conditioni) = {
+	{"IfAlive", if_alive},
+	{"IfWounded", if_wounded},
+};
+BSDATAF(conditioni)
 BSDATA(script) = {
 	{"Attack", attack_modify},
 	{"ActivateQuest", activate_quest},

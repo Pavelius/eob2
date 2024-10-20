@@ -119,3 +119,6 @@ Cleric+4 SaveThrow
  elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
 Cleric+7 SaveThrow
  elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
+
+Mage+1 Spells
+ elements Armor Spell1+1

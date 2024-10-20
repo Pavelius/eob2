@@ -5,10 +5,13 @@ Effect1d8 base(1 8)
 Minute5x1 base(5) raise(1) perlevel(2 1)
 Minute0x2 raise(2) perlevel(0 1)
 Turn5x1 base(5) raise(1) perlevel(2 1) multiplier(10)
+Hour8 base(8) multiplier(60)
 
 #Spell
 
-Armor levels(0 1)
+Armor levels(0 1) duration(Minute5x1) lighting(50 205 50)
+ feats You
+ wearing AC+4
 Bless levels(1 0) duration(Minute5x1) lighting(255 239 0)
  feats Ally
  wearing Attack+1 Damage+1 Saves+1

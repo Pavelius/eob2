@@ -832,10 +832,13 @@ static void curse_item(int bonus) {
 }
 
 static void learn_cleric_spells(int bonus) {
+	auto ps = get_spells_known(player);
+	if(!ps)
+		return;
 	pushanswer push;
 	add_spells(0, 1, 0);
 	for(auto& e : an.elements)
-		player->knownspells.set(getbsi((spelli*)e.value));
+		ps->set(getbsi((spelli*)e.value));
 }
 
 static void pay_gold(int bonus) {

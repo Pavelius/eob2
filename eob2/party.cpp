@@ -118,6 +118,13 @@ char* get_spells_prepared(const creaturei* target) {
 	return spells_prepared[i];
 }
 
+spellseta* get_spells_known(const creaturei* target) {
+	auto i = getbsi(target);
+	if(i == -1)
+		return 0;
+	return bsdata<spellseta>::elements + i;
+}
+
 static void monsters_stop(pointc v) {
 	if(!v || !loc)
 		return;

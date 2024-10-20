@@ -11,9 +11,19 @@
 #include "view.h"
 
 template<> void ftscript<spelli>(int value, int bonus) {
+	spellseta* ps;
 	switch(modifier) {
 	case Standart:
 		script_run(bsdata<spelli>::elements[value].wearing);
+		break;
+	case Permanent:
+		ps = get_spells_known(player);
+		if(ps) {
+			if(bonus >= 0)
+				ps->set(value);
+			else
+				ps->remove(value);
+		}
 		break;
 	default:
 		break;
@@ -100,6 +110,8 @@ static bool cast_spell(const spelli* ps, bool run) {
 		add_targets(false, true, ps->is(You));
 	if(ps->is(Enemy))
 		add_targets(true, false, ps->is(You));
+	if(!ps->is(Ally) && !ps->is(Enemy) && ps->is(You))
+		an.add(player, player->getname());
 	if(ps->is(You) || ps->is(Ally) || ps->is(Enemy)) {
 		if(ps->filter)
 			filter_creatures(ps->filter);
@@ -112,7 +124,11 @@ static bool cast_spell(const spelli* ps, bool run) {
 	if(!run)
 		return true;
 	if(!ps->is(Group)) {
-		auto target = (creaturei*)choose_small_menu(getnm("CastOnWho"), "Cancel");
+		creaturei* target = 0;
+		if(ps->is(You) && !ps->is(Ally) && !ps->is(Enemy))
+			target = (creaturei*)an.elements.data[0].value;
+		else
+			target = (creaturei*)choose_small_menu(getnm("CastOnWho"), "Cancel");
 		if(!target)
 			return false;
 		an.clear();

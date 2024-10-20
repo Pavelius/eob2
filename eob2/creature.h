@@ -18,7 +18,6 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	short unsigned	monster_id;
 	char			initiative;
 	spella			spells;
-	spellseta		knownspells;
 	racef			hate;
 	void			addexp(int value);
 	void			additem(item& it);

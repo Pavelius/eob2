@@ -48,6 +48,7 @@ BSDATAC(quest, 128)
 BSDATAC(racei, 16)
 BSDATAC(randomeffecti, 128)
 BSDATAC(spelli, 256)
+BSDATAC(spellseta, 64)
 
 BSMETA(actioni) = {
 	BSREQ(id),

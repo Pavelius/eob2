@@ -1447,13 +1447,16 @@ void choose_spells(const char* title, const char* cancel, int spell_type) {
 	pushscene push_scene;
 	auto level = 0;
 	auto last_level = level;
-	add_spells(spell_type, level + 1, &player->knownspells);
+	auto spells_known = get_spells_known(player);
+	if(!spells_known)
+		return;
+	add_spells(spell_type, level + 1, spells_known);
 	if(an)
 		current_focus = (void*)an.elements[0].value;
 	while(ismodal()) {
 		if(level != last_level) {
 			last_level = level;
-			add_spells(spell_type, level + 1, &player->knownspells);
+			add_spells(spell_type, level + 1, spells_known);
 			current_focus = bsdata<abilityi>::elements + Spell1 + level;
 		}
 		auto available_spells = player->abilities[Spell1 + level];

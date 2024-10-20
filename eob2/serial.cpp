@@ -15,6 +15,7 @@ static bool check_game(archive& e) {
 	checksum_total += sizeof(spells_prepared) * (checksum_index++);
 	checksum_total += sizeof(dungeoni) * (checksum_index++);
 	checksum_total += sizeof(boosti) * (checksum_index++);
+	checksum_total += sizeof(spellseta) * (checksum_index++);
 	return e.checksum(checksum_total);
 }
 
@@ -31,6 +32,7 @@ static bool serial_game(const char* url, bool writemode) {
 		e.set(characters[i]);
 	e.set(party);
 	e.set(spells_prepared, sizeof(spells_prepared));
+	e.set(bsdata<spellseta>::elements, sizeof(spellseta) * bsdata<spellseta>::source.getmaximum());
 	e.set(loc);
 	e.set(bsdata<boosti>::source);
 	e.set(bsdata<creaturei>::source);

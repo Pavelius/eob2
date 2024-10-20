@@ -9,6 +9,7 @@
 #include "variant.h"
 
 struct itemi;
+struct creaturei;
 
 struct spelli : nameable, featable {
 	char		levels[4];
@@ -23,3 +24,5 @@ typedef char spella[128];
 typedef flagable<16> spellseta;
 
 void cast_spell();
+
+spellseta* get_spells_known(const creaturei* target);

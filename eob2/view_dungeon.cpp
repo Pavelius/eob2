@@ -1003,51 +1003,50 @@ static int get_index_pos(pointc index) {
 	return -1;
 }
 
-//int draw::animation::thrownstep(indext index, direction_s dr, item_s itype, direction_s sdr, int wait) {
-//	index = to(index, dr);
-//	if(index == Blocked)
-//		return index;
-//	int i = get_index_pos(index);
-//	if(i == -1)
-//		return index;
-//	auto p = get_last_disp();
-//	dr = to(dr, Down);
-//	int inc, side;
-//	switch(dr) {
-//	case Up:
-//		side = 2;
-//		inc = -2;
-//		break;
-//	default:
-//		side = 0;
-//		inc = 2;
-//		break;
-//	}
-//	create_thrown(p, i, side, itype, sdr);
-//	draw::animation::render(wait);
-//	int x = gx(index);
-//	int y = gy(index);
-//	if(x < 0 || x >= mpx || y < 0 || y >= mpy)
-//		return 0;
-//	if(!location.isblocked(index)) {
-//		create_thrown(p, i, side + inc, itype, sdr);
-//		draw::animation::render(wait);
-//	}
-//	p->rdata = 0;
-//	return index;
-//}
+static void thrown_step(pointc v, directions d, const itemi* pi, int side) {
+	int i = get_index_pos(v);
+	if(i == -1)
+		return;
+	auto p = get_last_disp();
+	d = to(d, Down);
+	int inc;
+	switch(d) {
+	case Up:
+		side = 2;
+		inc = -2;
+		break;
+	default:
+		side = 0;
+		inc = 2;
+		break;
+	}
+	//create_thrown(p, i, side, itype, side);
+	//animation_render();
+	//int x = gx(index);
+	//int y = gy(index);
+	//if(x < 0 || x >= mpx || y < 0 || y >= mpy)
+	//	return 0;
+	//if(!location.isblocked(index)) {
+	//	create_thrown(p, i, side + inc, itype, sdr);
+	//	draw::animation::render(wait);
+	//}
+	//p->rdata = 0;
+}
 
-//int draw::animation::thrown(indext index, direction_s dr, item_s type, direction_s sdr, int wait, bool block_monsters) {
-//	for(int i = 0; i < 3; i++) {
-//		int i2 = thrownstep(index, dr, type, sdr, wait);
-//		if(i2 == Blocked || location.isblocked(i2))
-//			break;
-//		index = i2;
-//		if(block_monsters) {
-//			creature* source[4]; location.getmonsters(source, i2, dr);
-//			if(source[0] || source[1] || source[2] || source[3])
-//				return i2;
-//		}
-//	}
-//	return index;
-//}
+pointc thrown_item(pointc v, directions d, const itemi* pi, int side, bool block_monsters) {
+	if(!v)
+		return v;
+	for(int i = 0; i < 3; i++) {
+		auto v1 = to(v, d);
+		if(!v1)
+			break;
+		thrown_step(v, d, pi, side);
+		if(block_monsters) {
+			creaturei* source[4]; loc->getmonsters(source, v1, d);
+			if(source[0] || source[1] || source[2] || source[3])
+				return v1;
+		}
+		v = v1;
+	}
+	return v;
+}

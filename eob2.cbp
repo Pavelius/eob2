@@ -45,6 +45,8 @@
 		<Unit filename="eob2/adat.h" />
 		<Unit filename="eob2/advancement.h" />
 		<Unit filename="eob2/aflags.h" />
+		<Unit filename="eob2/alignment.cpp" />
+		<Unit filename="eob2/alignment.h" />
 		<Unit filename="eob2/answers.cpp" />
 		<Unit filename="eob2/answers.h" />
 		<Unit filename="eob2/archive.cpp" />
@@ -53,6 +55,8 @@
 		<Unit filename="eob2/array.h" />
 		<Unit filename="eob2/avatar.cpp" />
 		<Unit filename="eob2/avatar.h" />
+		<Unit filename="eob2/boost.cpp" />
+		<Unit filename="eob2/boost.h" />
 		<Unit filename="eob2/bsdata.h" />
 		<Unit filename="eob2/bsreq.cpp" />
 		<Unit filename="eob2/bsreq.h" />
@@ -62,6 +66,8 @@
 		<Unit filename="eob2/class.h" />
 		<Unit filename="eob2/color.cpp" />
 		<Unit filename="eob2/color.h" />
+		<Unit filename="eob2/condition.cpp" />
+		<Unit filename="eob2/condition.h" />
 		<Unit filename="eob2/console.cpp" />
 		<Unit filename="eob2/console.h" />
 		<Unit filename="eob2/cpp.hint" />
@@ -126,6 +132,7 @@
 		<Unit filename="eob2/npc.h" />
 		<Unit filename="eob2/party.cpp" />
 		<Unit filename="eob2/party.h" />
+		<Unit filename="eob2/party_combat.cpp" />
 		<Unit filename="eob2/picture.cpp" />
 		<Unit filename="eob2/picture.h" />
 		<Unit filename="eob2/point.cpp" />
@@ -160,6 +167,7 @@
 		<Unit filename="eob2/sliceu.h" />
 		<Unit filename="eob2/speech.cpp" />
 		<Unit filename="eob2/speech.h" />
+		<Unit filename="eob2/spell.cpp" />
 		<Unit filename="eob2/spell.h" />
 		<Unit filename="eob2/sprite_util.h" />
 		<Unit filename="eob2/statable.h" />

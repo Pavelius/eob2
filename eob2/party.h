@@ -25,7 +25,7 @@ extern creaturei* characters[6];
 extern partyi party;
 extern partystatn last_variable;
 
-creaturei* get_opponent(bool left, bool enemies);
+//creaturei* get_opponent(bool left, bool enemies);
 
 void add_party(partystatn id, int value);
 void continue_game();

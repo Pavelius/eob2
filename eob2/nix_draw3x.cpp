@@ -273,6 +273,10 @@ void draw::updatewindow() {
 		handle(e);
 }
 
+void draw::doredraw() {
+   updatewindow();
+}
+
 int draw::rawinput() {
 	if(!hwnd)
 		return 0;

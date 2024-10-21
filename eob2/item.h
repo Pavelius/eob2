@@ -45,7 +45,7 @@ public:
 	bool		iscursed() const { return cursed != 0; }
 	bool		isdamaged() const { return count >= 5; }
 	bool		isidentified() const { return identified != 0; }
-	bool		ismagical() const { return false; }
+	bool		ismagical() const { return iscursed() || getpower(); }
 	bool		isranged() const { return false; }
 	bool		isweapon() const;
 	int			getcost() const;

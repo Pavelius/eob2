@@ -93,6 +93,15 @@ void creaturei::clear() {
 	y = -1;
 }
 
+static void update_languages() {
+	player->languages = player->getrace().languages;
+	player->isunderstand(player->race);
+	if(player->getrace().origin)
+		player->isunderstand(player->getrace().origin);
+	if(player->basic.abilities[Intellegence] >= 13)
+		player->isunderstand((racen)0);
+}
+
 static void update_basic() {
 	memcpy(player->abilities, player->basic.abilities, ExeptionalStrenght + 1);
 	memcpy(player->feats, player->basic.feats, sizeof(player->basic.feats));
@@ -206,6 +215,7 @@ static void update_duration() {
 
 void update_player() {
 	update_basic();
+	update_languages();
 	update_wear();
 	update_duration();
 	update_abilities();
@@ -380,9 +390,9 @@ void create_monster(const monsteri* pi) {
 
 creaturei* item_owner(const void* p) {
 	auto i = bsdata<creaturei>::source.indexof(p);
-	if(i == -1)
-		return 0;
-	return (creaturei*)bsdata<creaturei>::elements + i;
+	if(i != -1 && p != (bsdata<creaturei>::elements + i))
+		return (creaturei*)bsdata<creaturei>::elements + i;
+	return 0;
 }
 
 wearn item_wear(const void* p) {
@@ -705,6 +715,10 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 		return;
 	}
 	//useammo(ammo, slot, false);
+}
+
+const racei& creaturei::getrace() const {
+	return bsdata<racei>::elements[type];
 }
 
 const classi& creaturei::getclass() const {

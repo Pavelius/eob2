@@ -7,7 +7,9 @@ typedef char abilitya[6];
 enum racen : unsigned char;
 
 struct racei : nameable {
-	abilitya minimal, maximal;
+	abilitya		minimal, maximal;
+	racen			origin;
+	flag32			languages;
 };
 extern racen last_race;
 

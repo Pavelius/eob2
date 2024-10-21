@@ -4,5 +4,5 @@
 #include "feat.h"
 
 struct statable : featable {
-	char abilities[Hits + 1];
+	char	abilities[Hits + 1];
 };

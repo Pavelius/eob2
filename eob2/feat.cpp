@@ -49,6 +49,7 @@ BSDATA(feati) = {
 	{"Ally"},
 	{"Group"},
 	{"You"},
+	{"WearItem"},
 	{"SeeMagical"},
 	{"SeeCursed"},
 	{"SeeIllusionary"},

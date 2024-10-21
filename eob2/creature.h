@@ -19,6 +19,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	char			initiative;
 	spella			spells;
 	racef			hate;
+	flag32			languages;
 	void			addexp(int value);
 	void			additem(item& it);
 	void			attack(creaturei* enemy, wearn slot, int bonus, int multiplier);
@@ -32,6 +33,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	int				getexpaward() const;
 	int				gethitpenalty(int bonus) const;
 	const monsteri*	getmonster() const;
+	const racei&	getrace() const;
 	bool			is(abilityn v) const { return abilities[v] > 0; }
 	bool			is(featn v) const { return featable::is(v); }
 	bool			isactable() const;
@@ -39,6 +41,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	bool			isdead() const { return hp <= -10; }
 	bool			isdisabled() const { return hp <= 0; }
 	bool			ismonster() const { return getmonster() != 0; }
+	bool			isunderstand(racen v) const { return languages.is(v); }
 	void			kill();
 	void			remove(featn v) { featable::remove(v); }
 	bool			roll(abilityn v, int bonus = 0) const;

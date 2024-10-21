@@ -3,6 +3,7 @@
 Damage1d4p1x1d4p1s3p2c9 base(1 4 1) raise(1 4 1) perlevel(3 2 9)
 Effect1d8 base(1 8)
 Minute5x1 base(5) raise(1) perlevel(2 1)
+Minute5x5 base(5) raise(1) perlevel(2 5)
 Minute0x2 raise(2) perlevel(0 1)
 Turn5x1 base(5) raise(1) perlevel(2 1) multiplier(10)
 Hour8 base(8) multiplier(60)
@@ -17,7 +18,9 @@ Bless levels(1 0) duration(Minute5x1) lighting(255 239 0)
  wearing Attack+1 Damage+1 Saves+1
 BurningHands levels(0 1)
 ChillTouch levels(0 1)
-ComprehendLanguages levels(0 1)
+ComprehendLanguages levels(0 1) duration(Minute5x5)
+ feats Ally You
+ instant AllLanguages
 CureLightWounds levels(1 0)
  feats Ally You
  filter IfAlive IfWounded

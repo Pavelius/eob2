@@ -904,6 +904,13 @@ static void add_variable(int bonus) {
 	party.abilities[last_variable] += get_bonus(bonus);
 }
 
+static void all_languages(int bonus) {
+	if(bonus>=0)
+		player->languages = 0xFFFFFFFF;
+	else
+		player->languages = 0;
+}
+
 static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
@@ -963,6 +970,7 @@ BSDATA(conditioni) = {
 };
 BSDATAF(conditioni)
 BSDATA(script) = {
+	{"AllLanguages", all_languages},
 	{"Attack", attack_modify},
 	{"ActivateQuest", activate_quest},
 	{"AddVariable", add_variable},

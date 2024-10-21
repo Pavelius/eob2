@@ -77,17 +77,30 @@ static void add_targets(bool enemy, bool ally, bool include_player) {
 	}
 }
 
+static bool strict_value(const array& source, const void* p) {
+	auto i = source.indexof(p);
+	if(i == -1)
+		return false;
+	return source.ptr(i) == p;
+}
+
 static void apply_effect(const variants& source) {
 	if(!source)
 		return;
 	auto push_player = player;
+	auto push_item = last_item;
 	for(auto& e : an) {
 		auto p = e.value;
-		if(bsdata<creaturei>::source.have(p) || (loc && loc->have((creaturei*)p))) {
+		player = item_owner(p);
+		if(player) {
+			last_item = (item*)p;
+			script_run(source);
+		} else if(bsdata<creaturei>::source.have(p) || (loc && loc->have((creaturei*)p))) {
 			player = (creaturei*)p;
 			script_run(source);
 		}
 	}
+	last_item = push_item;
 	player = push_player;
 }
 
@@ -104,6 +117,19 @@ static void apply_enchant_effect(const randomeffecti* duration, int level, varia
 	player = push_player;
 }
 
+static void select_items() {
+	auto ans = an;
+	an.clear();
+	for(auto& e : ans) {
+		auto player = (creaturei*)e.value;
+		for(auto& it : player->wears) {
+			if(!it)
+				continue;
+			an.add(&it, it.getname());
+		}
+	}
+}
+
 static bool cast_spell(const spelli* ps, bool run) {
 	pushanswer push_answers;
 	if(ps->is(Ally))
@@ -112,15 +138,13 @@ static bool cast_spell(const spelli* ps, bool run) {
 		add_targets(true, false, ps->is(You));
 	if(!ps->is(Ally) && !ps->is(Enemy) && ps->is(You))
 		an.add(player, player->getname());
-	if(ps->is(You) || ps->is(Ally) || ps->is(Enemy)) {
-		if(ps->filter)
-			filter_creatures(ps->filter);
-	}
 	if(!an) {
 		if(run)
 			player->speak("CastSpell", "NoTargets");
 		return false;
 	}
+	if(ps->filter)
+		filter_creatures(ps->filter);
 	if(!run)
 		return true;
 	if(!ps->is(Group)) {
@@ -134,6 +158,8 @@ static bool cast_spell(const spelli* ps, bool run) {
 		an.clear();
 		an.addv(target, target->getname(), 0, '1');
 	}
+	if(ps->is(WearItem))
+		select_items();
 	auto level = player->getlevel();
 	if(ps->effect)
 		last_number = ps->effect->roll(level);

@@ -157,6 +157,8 @@ BSMETA(quest) = {
 BSMETA(racei) = {
 	BSREQ(id),
 	BSREQ(minimal), BSREQ(maximal),
+	BSFLG(languages, racei),
+	BSENM(origin, racei),
 	{}};
 BSMETA(randomeffecti) = {
 	BSREQ(id),

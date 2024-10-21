@@ -398,41 +398,6 @@ static void for_each_party(int bonus) {
 	script_stop();
 }
 
-static bool filter_item_type(const item& e, variant filter) {
-	if(filter.iskind<itemi>()) {
-		auto& ei = e.geti();
-		return &ei == (bsdata<itemi>::elements + filter.value);
-	} else if(filter.iskind<listi>()) {
-		for(auto v : bsdata<listi>::elements[filter.value].elements) {
-			if(filter_item_type(e, v))
-				return true;
-		}
-	} else if(filter.iskind<randomizeri>()) {
-		for(auto v : bsdata<randomizeri>::elements[filter.value].chance) {
-			if(filter_item_type(e, v))
-				return true;
-		}
-	}
-	return false;
-}
-
-static void for_each_item_type(int bonus) {
-	auto filter = *script_begin++;
-	auto push_item = last_item;
-	auto keep = bonus >= 0;
-	variants commands; commands.set(script_begin, script_end - script_begin);
-	for(auto& e : player->wears) {
-		if(!e)
-			continue;
-		if(filter_item_type(e, filter) != keep)
-			continue;
-		last_item = &e;
-		script_run(commands);
-	}
-	last_item = push_item;
-	script_stop();
-}
-
 static void activate_quest(int bonus) {
 	if(!last_quest)
 		return;
@@ -947,6 +912,10 @@ static bool if_item_damaged() {
 	return last_item->isdamaged();
 }
 
+static bool if_item_edible() {
+	return last_item->is(Disease);
+}
+
 BSDATA(formulai) = {
 	{"Add", add_formula},
 	{"Mul", mul_formula},
@@ -966,6 +935,7 @@ BSDATAF(textscript)
 BSDATA(conditioni) = {
 	{"IfAlive", if_alive},
 	{"IfItemDamaged", if_item_damaged},
+	{"IfItemEdible", if_item_edible},
 	{"IfWounded", if_wounded},
 };
 BSDATAF(conditioni)
@@ -989,7 +959,6 @@ BSDATA(script) = {
 	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
 	{"ForEachParty", for_each_party},
-	{"ForEachItemType", for_each_item_type},
 	{"Heal", player_heal},
 	{"IdentifyItem", identify_item},
 	{"LearnClericSpells", learn_cleric_spells},

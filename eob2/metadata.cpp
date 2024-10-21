@@ -176,7 +176,9 @@ BSMETA(spelli) = {
 	BSREQ(lighting),
 	BSREQ(effect), BSREQ(duration),
 	BSFLG(feats, feati),
-	BSREQ(summon), BSREQ(filter), BSREQ(instant),
+	BSREQ(summon),
+	BSREQ(filter),
+	BSREQ(instant),
 	BSREQ(wearing),
 	{}};
 BSMETA(weari) = {

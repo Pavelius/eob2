@@ -95,7 +95,7 @@ static void apply_effect(const variants& source) {
 		if(player) {
 			last_item = (item*)p;
 			script_run(source);
-		} else if(bsdata<creaturei>::source.have(p) || (loc && loc->have((creaturei*)p))) {
+		} else {
 			player = (creaturei*)p;
 			script_run(source);
 		}
@@ -111,23 +111,37 @@ static void apply_enchant_effect(const randomeffecti* duration, int level, varia
 	auto push_player = player;
 	for(auto& e : an) {
 		auto p = e.value;
-		if(bsdata<creaturei>::source.have(p) || (loc && loc->have((creaturei*)p)))
+		if(!item_owner(p))
 			add_boost(party.abilities[Minutes] + rounds, (creaturei*)p, action);
 	}
 	player = push_player;
 }
 
-static void select_items() {
+static void select_items(const variants& filter) {
 	auto ans = an;
 	an.clear();
+	auto push_item = last_item;
 	for(auto& e : ans) {
 		auto player = (creaturei*)e.value;
 		for(auto& it : player->wears) {
 			if(!it)
 				continue;
+			last_item = &it;
+			if(!script_allow(filter))
+				continue;
 			an.add(&it, it.getname());
 		}
 	}
+	last_item = push_item;
+}
+
+static bool choose_single(const char* title) {
+	auto target = (creaturei*)choose_small_menu(title, "Cancel");
+	if(!target)
+		return false;
+	an.clear();
+	an.addv(target, target->getname(), 0, '1');
+	return true;
 }
 
 static bool cast_spell(const spelli* ps, bool run) {
@@ -138,28 +152,21 @@ static bool cast_spell(const spelli* ps, bool run) {
 		add_targets(true, false, ps->is(You));
 	if(!ps->is(Ally) && !ps->is(Enemy) && ps->is(You))
 		an.add(player, player->getname());
+	if(!ps->is(WearItem) && ps->filter)
+		filter_creatures(ps->filter);
 	if(!an) {
 		if(run)
 			player->speak("CastSpell", "NoTargets");
 		return false;
 	}
-	if(ps->filter)
-		filter_creatures(ps->filter);
 	if(!run)
 		return true;
-	if(!ps->is(Group)) {
-		creaturei* target = 0;
-		if(ps->is(You) && !ps->is(Ally) && !ps->is(Enemy))
-			target = (creaturei*)an.elements.data[0].value;
-		else
-			target = (creaturei*)choose_small_menu(getnm("CastOnWho"), "Cancel");
-		if(!target)
+	if(!ps->is(Group) && (ps->is(Ally) || ps->is(Enemy))) {
+		if(!choose_single(getnm("CastOnWho")))
 			return false;
-		an.clear();
-		an.addv(target, target->getname(), 0, '1');
 	}
 	if(ps->is(WearItem))
-		select_items();
+		select_items(ps->filter);
 	auto level = player->getlevel();
 	if(ps->effect)
 		last_number = ps->effect->roll(level);

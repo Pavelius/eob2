@@ -1,2 +1,2 @@
 ﻿Error in file `rules/Spells.txt`:
- Line 42: Can't find variant `Counter1`
+ Line 47: Not found Feat identifier `ItemWear`

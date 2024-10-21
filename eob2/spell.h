@@ -18,7 +18,9 @@ struct spelli : nameable, featable {
 	const randomeffecti* effect; // Damage or other effect
 	const randomeffecti* duration; // Enchantment spell
 	const itemi* summon; // Which item summoned in hand
-	variants	filter, instant, wearing;
+	variants	filter;
+	variants	instant;
+	variants	wearing;
 };
 typedef char spella[128];
 typedef flagable<16> spellseta;

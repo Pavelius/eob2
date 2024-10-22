@@ -304,7 +304,7 @@ static void test_dungeon() {
 	pointc v = party;
 	for(int i = 0; i < 3; i++)
 		v = to(v, party.d);
-	thrown_item(v, Down, 2, -1 /*get_party_index(player) % 2*/, false);
+	thrown_item(v, Down, 2, -1 /*get_party_index(player) % 2*/, 4);
 }
 
 static void city_adventure_input() {

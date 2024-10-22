@@ -10,7 +10,7 @@ void waitcputime(unsigned v) {
 }
 
 unsigned long getcputime() {
-	return clock()*1000/CLOCKS_PER_SEC;
+	return clock()*10000/CLOCKS_PER_SEC;
 }
 
 unsigned randomseed() {

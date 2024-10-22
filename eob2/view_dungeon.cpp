@@ -1029,20 +1029,13 @@ static void thrown_step(pointc v, directions d, int avatar_thrown, int side) {
 	p->rdata = 0;
 }
 
-pointc thrown_item(pointc v, directions d, int avatar_thrown, int side, bool block_monsters) {
+void thrown_item(pointc v, directions d, int avatar_thrown, int side, int distance) {
 	if(!v)
-		return v;
-	auto v1 = v;
-	for(int i = 0; i < 4; i++) {
+		return;
+	for(int i = 0; i < distance; i++) {
 		thrown_step(v, d, avatar_thrown, side);
 		v = to(v, to(party.d, d));
 		if(!v)
 			break;
-		if(block_monsters && loc->ismonster(v)) {
-			v1 = v;
-			break;
-		}
-		v1 = v;
 	}
-	return v1;
 }

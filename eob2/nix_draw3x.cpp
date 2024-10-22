@@ -7,7 +7,7 @@
 #include "stringbuilder.h"
 #include "timer.h"
 
-// #define SCALE_FACTOR 3
+#define SCALE_FACTOR 3
 
 using namespace draw;
 

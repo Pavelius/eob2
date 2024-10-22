@@ -77,4 +77,4 @@ void show_dungeon_automap();
 
 int get_side(int side, directions d);
 
-pointc thrown_item(pointc v, directions d, int avatar_thrown, int side, bool block_monsters);
+void thrown_item(pointc v, directions d, int avatar_thrown, int side, int distance);

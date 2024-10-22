@@ -85,8 +85,9 @@
 
 1729491496 /home/user-331/projects/eob2/eob2/avatar.h
 
-1729491496 /home/user-331/projects/eob2/eob2/class.h
+1729592418 /home/user-331/projects/eob2/eob2/class.h
 	"adat.h"
+	"alignment.h"
 	"feat.h"
 	"nameable.h"
 
@@ -181,7 +182,7 @@
 
 1728387414 /home/user-331/projects/eob2/eob2/levelable.h
 
-1729491496 /home/user-331/projects/eob2/eob2/spell.h
+1729592418 /home/user-331/projects/eob2/eob2/spell.h
 	"color.h"
 	"dice.h"
 	"feat.h"
@@ -323,7 +324,7 @@
 
 1728387414 source:/home/user-331/projects/eob2/eob2/math.cpp
 
-1729491496 source:/home/user-331/projects/eob2/eob2/metadata.cpp
+1729592418 source:/home/user-331/projects/eob2/eob2/metadata.cpp
 	"ability.h"
 	"action.h"
 	"advancement.h"
@@ -433,7 +434,7 @@
 	"rand.h"
 	"script.h"
 
-1729491496 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1729592418 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"alignment.h"
 	"answers.h"
@@ -556,7 +557,7 @@
 	"stringbuilder.h"
 	"timer.h"
 
-1728890100 source:/home/user-331/projects/eob2/eob2/nix_time.cpp
+1729507818 source:/home/user-331/projects/eob2/eob2/nix_time.cpp
 	<time.h>
 
 1728556908 source:/home/user-331/projects/eob2/eob2/action.cpp
@@ -577,7 +578,7 @@
 	"slice.h"
 	"view.h"
 
-1729491496 /home/user-331/projects/eob2/eob2/dungeon.h
+1729592616 /home/user-331/projects/eob2/eob2/dungeon.h
 	"creature.h"
 	"dungeon_site.h"
 	"dungeon_state.h"
@@ -686,7 +687,7 @@
 	"view.h"
 	"view_focus.h"
 
-1729491496 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
+1729592587 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
 	"creature.h"
 	"direction.h"
 	"draw.h"
@@ -756,7 +757,7 @@
 	"randomizer.h"
 	"script.h"
 
-1729507067 source:/home/user-331/projects/eob2/eob2/nix_draw3x.cpp
+1729592653 source:/home/user-331/projects/eob2/eob2/nix_draw3x.cpp
 	<X11/keysym.h>
 	<X11/Xlib.h>
 	<X11/Xutil.h>
@@ -770,8 +771,9 @@
 	"feat.h"
 	"monster.h"
 
-1729491496 /home/user-331/projects/eob2/eob2/alignment.h
+1729592418 /home/user-331/projects/eob2/eob2/alignment.h
 	"nameable.h"
+	"flagable.h"
 
 1729491496 /home/user-331/projects/eob2/eob2/boost.h
 	"reference.h"
@@ -798,7 +800,7 @@
 	"rand.h"
 	"view.h"
 
-1729491496 source:/home/user-331/projects/eob2/eob2/spell.cpp
+1729592418 source:/home/user-331/projects/eob2/eob2/spell.cpp
 	"answers.h"
 	"boost.h"
 	"bsdata.h"

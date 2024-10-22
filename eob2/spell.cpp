@@ -6,6 +6,7 @@
 #include "formula.h"
 #include "modifier.h"
 #include "party.h"
+#include "rand.h"
 #include "script.h"
 #include "spell.h"
 #include "view.h"
@@ -170,9 +171,14 @@ static bool cast_spell(const spelli* ps, bool run) {
 	}
 	if(!run)
 		return true;
-	if(!ps->is(Group) && (ps->is(Ally) || ps->is(Enemy))) {
-		if(!choose_single(getnm("CastOnWho")))
-			return false;
+	if(!ps->is(Group)) {
+		if(ps->is(Ally) && !ps->is(Enemy)) {
+			if(!choose_single(getnm("CastOnWho")))
+				return false;
+		} else {
+			zshuffle(an.elements.data, an.elements.count);
+			an.elements.count = 1;
+		}
 	}
 	if(ps->is(WearItem))
 		select_items(ps->filter);

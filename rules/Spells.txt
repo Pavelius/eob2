@@ -1,6 +1,7 @@
 #RandomEffect
 
 Damage1d4p1x1d4p1s3p2c9 base(1 4 1) raise(1 4 1) perlevel(3 2 9)
+Damage1d8x1 base(1 8) raise(1) perlevel(1 1)
 Effect1d8 base(1 8)
 Minute5x1 base(5) raise(1) perlevel(2 1)
 Minute5x5 base(5) raise(1) perlevel(2 5)
@@ -50,7 +51,9 @@ PurifyFood levels(1 0)
  instant DamageItem-1 EffectCount+1
 ShieldSpell levels(0 1)
  wearing AC+5
-ShockingGrasp levels(0 1)
+ShockingGrasp levels(0 1) effect(Damage1d8x1)
+ feats Enemy
+ instant Shock+101
 
 Aid levels(2) duration(Minute5x1)
  feats Ally

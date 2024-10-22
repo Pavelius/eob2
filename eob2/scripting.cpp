@@ -77,6 +77,11 @@ template<> void ftscript<quest>(int value, int bonus) {
 	last_quest = bsdata<quest>::elements + value;
 }
 
+template<> void ftscript<damagei>(int value, int bonus) {
+	bonus = get_bonus(bonus);
+	player->damage((damagen)value, bonus, 0);
+}
+
 template<> void ftscript<feati>(int value, int bonus) {
 	switch(modifier) {
 	case Permanent:

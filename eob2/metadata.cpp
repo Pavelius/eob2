@@ -83,6 +83,7 @@ BSMETA(classi) = {
 	BSENM(primary, abilityi),
 	BSREQ(hd), BSREQ(caster),
 	BSENM(classes, classi), BSREQ(count),
+	BSFLG(alignment, alignmenti),
 	{}};
 BSMETA(color) = {
 	BSREQ(r), BSREQ(g), BSREQ(b),

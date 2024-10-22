@@ -1,2 +1,2 @@
-﻿Error in file `rules/Spells.txt`:
- Line 47: Not found Feat identifier `ItemWear`
+﻿Error in file `rules/Classes.txt`:
+ Line 13: Not found Alignment identifier `LawfulGoods`

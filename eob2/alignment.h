@@ -1,6 +1,7 @@
 #pragma once
 
 #include "nameable.h"
+#include "flagable.h"
 
 enum alignmentn : unsigned char {
 	LawfulGood, NeutralGood, ChaoticGood,
@@ -10,3 +11,5 @@ enum alignmentn : unsigned char {
 struct alignmenti : nameable {
 };
 extern alignmentn last_alignment;
+
+typedef flagable<1, unsigned short> alignmenta;

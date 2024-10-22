@@ -1,6 +1,7 @@
 #pragma once
 
 #include "adat.h"
+#include "alignment.h"
 #include "feat.h"
 #include "nameable.h"
 
@@ -14,5 +15,6 @@ struct classi : nameable {
 	int			exp_per_hd; // multiplied by 100
 	abilitya	minimal;
 	abilityn	primary;
+	alignmenta	alignment; // Allowed alignments or zero if allowed all.
 };
 extern classn last_class;

@@ -76,3 +76,5 @@ void show_automap(bool show_fog_of_war, bool show_secrets, bool show_party, cons
 void show_dungeon_automap();
 
 int get_side(int side, directions d);
+
+pointc thrown_item(pointc v, directions d, int avatar_thrown, int side, bool block_monsters);

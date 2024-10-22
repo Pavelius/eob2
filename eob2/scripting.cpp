@@ -296,6 +296,10 @@ static spelli* choose_spell(int level, int type) {
 }
 
 static void test_dungeon() {
+	pointc v = party;
+	for(int i = 0; i < 3; i++)
+		v = to(v, party.d);
+	thrown_item(v, Down, 2, -1 /*get_party_index(player) % 2*/, false);
 }
 
 static void city_adventure_input() {
@@ -870,7 +874,7 @@ static void add_variable(int bonus) {
 }
 
 static void all_languages(int bonus) {
-	if(bonus>=0)
+	if(bonus >= 0)
 		player->languages = 0xFFFFFFFF;
 	else
 		player->languages = 0;

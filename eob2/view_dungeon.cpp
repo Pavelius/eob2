@@ -213,9 +213,6 @@ void view_dungeon_reset() {
 void animation_clear() {
 }
 
-void animation_render() {
-}
-
 void animation_damage(creaturei* target, int hits) {
 }
 
@@ -291,16 +288,18 @@ static void fill_item_sprite(renderi* p, const itemi* pi, int frame = 0) {
 	p->frame[frame] = pi->avatar_ground;
 }
 
-static void fill_sprite(renderi* p, const itemi* pi, directions drs) {
-   if(pi->avatar_thrown!=-1) {
-      p->frame[0] = pi->avatar_thrown;
-      p->rdata = gres(THROWN);
-      if(pi->avatar_thrown>6) {
-         if(drs == Right)
-            p->flags[0] |= ImageMirrorH;
-      }
-   } else
-      fill_item_sprite(p, pi);
+static void fill_sprite(renderi* p, int avatar_thrown, directions drs, int side) {
+	p->frame[0] = avatar_thrown;
+	p->rdata = gres(THROWN);
+	if(avatar_thrown >= 6) {
+		p->flags[0] |= ImageMirrorV;
+		if(side == 0)
+			p->flags[0] |= ImageMirrorH;
+		if(drs==Down)
+			p->frame[0]++;
+	}
+	//} else
+	//	fill_item_sprite(p, pi);
 }
 
 static renderi* add_cellar_items(renderi* p, int i, dungeoni::overlayi* povr) {
@@ -620,18 +619,18 @@ static int get_x_from_line(int y, int x1, int y1, int x2, int y2) {
 	return ((y - y1) * (x2 - x1)) / (y2 - y1) + x1;
 }
 
-static renderi* create_thrown(renderi* p, int i, int ps, const itemi* pi, directions dr) {
+static renderi* create_thrown(renderi* p, int i, int ps, int avatar_thrown, directions dr, int side) {
 	static int height_sizes[8] = {120, 96, 71, 64, 48, 40, 30, 24};
 	p->clear();
 	int m = pos_levels[i];
 	int d = pos_levels[i] * 2 + (1 - ps / 2);
 	int h = height_sizes[d] / 6 - height_sizes[d];
-	switch(dr) {
-	case Left:
+	switch(side) {
+	case 0:
 		p->y = 24 + d * 2;
 		p->x = get_x_from_line(p->y, (176 - 72) / 2 + 14, 24, (176 - 32) / 2 + 6, 40);
 		break;
-	case Right:
+	case 1:
 		p->y = 24 + d * 2;
 		p->x = get_x_from_line(p->y, (176 - 72) / 2 + 72 - 14, 24, (176 - 32) / 2 + 32 - 6, 40);
 		break;
@@ -641,7 +640,7 @@ static renderi* create_thrown(renderi* p, int i, int ps, const itemi* pi, direct
 		break;
 	}
 	p->z = pos_levels[i] * distance_per_level + (1 - ps / 2);
-	fill_sprite(p, pi, dr);
+	fill_sprite(p, avatar_thrown, dr, side);
 	p->percent = item_distances[d][0];
 	p->alpha = (unsigned char)item_distances[d][1];
 	p++;
@@ -1003,50 +1002,47 @@ static int get_index_pos(pointc index) {
 	return -1;
 }
 
-static void thrown_step(pointc v, directions d, const itemi* pi, int side) {
+static void thrown_step(pointc v, directions d, int avatar_thrown, int side) {
 	int i = get_index_pos(v);
 	if(i == -1)
 		return;
 	auto p = get_last_disp();
-	d = to(d, Down);
-	int inc;
+	int s1, s2;
 	switch(d) {
 	case Up:
-		side = 2;
-		inc = -2;
+		s1 = 2;
+		s2 = 0;
 		break;
 	default:
-		side = 0;
-		inc = 2;
+		s1 = 0;
+		s2 = 2;
 		break;
 	}
-	//create_thrown(p, i, side, itype, side);
-	//animation_render();
-	//int x = gx(index);
-	//int y = gy(index);
-	//if(x < 0 || x >= mpx || y < 0 || y >= mpy)
-	//	return 0;
-	//if(!location.isblocked(index)) {
-	//	create_thrown(p, i, side + inc, itype, sdr);
-	//	draw::animation::render(wait);
-	//}
-	//p->rdata = 0;
+	create_thrown(p, i, s1, avatar_thrown, d, side);
+	paint_dungeon();
+	doredraw();
+	waitcputime(64);
+	create_thrown(p, i, s2, avatar_thrown, d, side);
+	paint_dungeon();
+	doredraw();
+	waitcputime(64);
+	p->rdata = 0;
 }
 
-pointc thrown_item(pointc v, directions d, const itemi* pi, int side, bool block_monsters) {
+pointc thrown_item(pointc v, directions d, int avatar_thrown, int side, bool block_monsters) {
 	if(!v)
 		return v;
-	for(int i = 0; i < 3; i++) {
-		auto v1 = to(v, d);
-		if(!v1)
+	auto v1 = v;
+	for(int i = 0; i < 4; i++) {
+		thrown_step(v, d, avatar_thrown, side);
+		v = to(v, to(party.d, d));
+		if(!v)
 			break;
-		thrown_step(v, d, pi, side);
-		if(block_monsters) {
-			creaturei* source[4]; loc->getmonsters(source, v1, d);
-			if(source[0] || source[1] || source[2] || source[3])
-				return v1;
+		if(block_monsters && loc->ismonster(v)) {
+			v1 = v;
+			break;
 		}
-		v = v1;
+		v1 = v;
 	}
-	return v;
+	return v1;
 }

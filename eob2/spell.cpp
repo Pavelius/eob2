@@ -75,10 +75,10 @@ static void filter_creatures(const variants& source) {
 	an.elements.count = ps - an.begin();
 }
 
-static void add_targets(bool enemy, bool ally, bool include_player) {
+static void add_targets(pointc v, bool enemy, bool ally, bool include_player) {
 	creaturei* targets[6] = {};
 	if(enemy)
-		loc->getmonsters(targets, to(party, party.d));
+		loc->getmonsters(targets, v);
 	else
 		memcpy(targets, characters, sizeof(targets));
 	for(auto p : targets) {
@@ -157,12 +157,26 @@ static bool choose_single(const char* title) {
 	return true;
 }
 
+static bool look_group(pointc& v, directions d) {
+	for(auto i = 0; i < 3; i++) {
+		v = to(v, d);
+		if(!v || !loc->ispassable(v))
+			return false;
+		if(v == party || loc->ismonster(v))
+			return true;
+	}
+	return false;
+}
+
 static bool cast_spell(const spelli* ps, bool run) {
 	pushanswer push_answers;
 	if(ps->is(Ally))
-		add_targets(false, true, ps->is(You));
-	if(ps->is(Enemy))
-		add_targets(true, false, ps->is(You));
+		add_targets(party, false, true, ps->is(You));
+	if(ps->is(Enemy)) {
+      if(ps->isthrown()) {
+      } else
+         add_targets(to(party, party.d), true, false, ps->is(You));
+	}
 	if(!ps->is(Ally) && !ps->is(Enemy) && ps->is(You))
 		an.add(player, player->getname());
 	if(!ps->is(WearItem) && ps->filter)

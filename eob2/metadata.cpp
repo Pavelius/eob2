@@ -175,6 +175,7 @@ BSMETA(spelli) = {
 	BSREQ(id),
 	BSREQ(levels),
 	BSREQ(lighting),
+	BSREQ(avatar_thrown),
 	BSREQ(effect), BSREQ(duration),
 	BSFLG(feats, feati),
 	BSREQ(summon),

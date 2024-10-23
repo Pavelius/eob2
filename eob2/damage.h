@@ -4,7 +4,7 @@ enum featn : unsigned char;
 
 enum damagen : unsigned char {
 	Bludgeon, Slashing, Piercing,
-	Fire, Cold, Acid, Shock,
+	Magic, Fire, Cold, Acid, Shock,
 };
 struct damagei {
 	const char*	id;

@@ -38,8 +38,9 @@ DetectMagic levels(1 1) duration(Minute0x2)
 Friends levels(0 1)
 Identify levels(0 1)
  feats Ally
-MagicMissile levels(0 1) effect(Damage1d4p1x1d4p1s3p2c9)
+MagicMissile levels(0 1) effect(Damage1d4p1x1d4p1s3p2c9) avatar_thrown(5)
  feats Enemy
+ instant Magic+101
 Mending levels(0 1)
  feats Ally You WearItem
  filter IfItemEdible-1 IfItemDamaged

@@ -6,6 +6,7 @@ BSDATA(damagei) = {
 	{"Bludgeon", ResistBludgeon, ImmuneNormalWeapon},
 	{"Slashing", ResistSlashing, ImmuneNormalWeapon},
 	{"Piercing", ResistPierce, ImmuneNormalWeapon},
+	{"Magic"},
 	{"Fire", ResistFire},
 	{"Cold", ResistCold},
 	{"Acid"},

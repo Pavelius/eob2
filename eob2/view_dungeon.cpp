@@ -806,6 +806,9 @@ static void imagex(int x, int y, const sprite* res, int id, unsigned flags, int 
 
 void fix_monster_damage(const creaturei* target) {
 	auto p = get_disp(target);
+	if(!p)
+		return;
+	need_update_animation = true;
 	for(auto& e : p->flags)
 		e |= ImageColor;
 }

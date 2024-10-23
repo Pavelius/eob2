@@ -2,8 +2,10 @@
 #include "boost.h"
 #include "bsdata.h"
 #include "creature.h"
+#include "direction.h"
 #include "dungeon.h"
 #include "formula.h"
+#include "math.h"
 #include "modifier.h"
 #include "party.h"
 #include "rand.h"
@@ -168,14 +170,28 @@ static bool look_group(pointc& v, directions d) {
 	return false;
 }
 
+static int distance(pointc v1, pointc v2) {
+	if(!v1 || !v2)
+		return 0;
+	auto dx = iabs(v1.x - v2.x);
+	auto dy = iabs(v1.y - v2.y);
+	return dx > dy ? dx : dy;
+}
+
 static bool cast_spell(const spelli* ps, bool run) {
 	pushanswer push_answers;
 	if(ps->is(Ally))
 		add_targets(party, false, true, ps->is(You));
+	pointc enemy_position = party;
 	if(ps->is(Enemy)) {
       if(ps->isthrown()) {
-      } else
-         add_targets(to(party, party.d), true, false, ps->is(You));
+		  enemy_position = party;
+		  if(look_group(enemy_position, party.d))
+			  add_targets(enemy_position, true, false, false);
+	  } else {
+		  enemy_position = to(party, party.d);
+		  add_targets(enemy_position, true, false, ps->is(You));
+	  }
 	}
 	if(!ps->is(Ally) && !ps->is(Enemy) && ps->is(You))
 		an.add(player, player->getname());
@@ -199,12 +215,17 @@ static bool cast_spell(const spelli* ps, bool run) {
 	}
 	if(ps->is(WearItem))
 		select_items(ps->filter);
+	if(ps->isthrown()) {
+		auto n = distance(party, enemy_position);
+		thrown_item(party, Up, ps->avatar_thrown, player->side % 2, n);
+	}
 	auto level = player->getlevel();
 	if(ps->effect)
 		last_number = ps->effect->roll(level);
 	party.abilities[EffectCount] = 0;
 	apply_effect(ps->instant);
 	apply_enchant_effect(ps->duration, level, ps);
+	fix_animate();
 	if(party.abilities[EffectCount])
 		player->speakn(ps->id, "GainEffect", party.abilities[EffectCount]);
 	else

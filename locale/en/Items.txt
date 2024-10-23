@@ -10,6 +10,7 @@ LargeRation: Large ration
 LeatherArmor: Leather armor
 Longsword: Longsword
 Mace: Mace
+MageScroll: Scroll
 Ration: Ration
 RedRing: Red ring
 Robe: Robe

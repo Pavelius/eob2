@@ -143,7 +143,7 @@ RandomWeapon
 RandomArmorMinor
  chance Shield+5 DwarvenShield Helm+5 Boots+3 DwarvenHelm
 RandomArmor
- chance LeatherArmor+4 StuddedLeatherArmor+2 ScaleMail+2 ChainMail+2 BandedMail PlateMail
+ chance LeatherArmor+4 StuddedLeatherArmor+3 ScaleMail+2 ChainMail+2 BandedMail PlateMail
 RandomPotions
  chance RedPotion GreenPotion BluePotion
 RandomRings

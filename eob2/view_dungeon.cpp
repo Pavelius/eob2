@@ -288,20 +288,6 @@ static void fill_item_sprite(renderi* p, const itemi* pi, int frame = 0) {
 	p->frame[frame] = pi->avatar_ground;
 }
 
-static void fill_sprite(renderi* p, int avatar_thrown, directions drs, int side) {
-	p->frame[0] = avatar_thrown;
-	p->rdata = gres(THROWN);
-	if(avatar_thrown >= 6) {
-		p->flags[0] |= ImageMirrorV;
-		if(side == 0)
-			p->flags[0] |= ImageMirrorH;
-		if(drs==Down)
-			p->frame[0]++;
-	}
-	//} else
-	//	fill_item_sprite(p, pi);
-}
-
 static renderi* add_cellar_items(renderi* p, int i, dungeoni::overlayi* povr) {
 	if(!povr)
 		return p;
@@ -619,35 +605,6 @@ static int get_x_from_line(int y, int x1, int y1, int x2, int y2) {
 	return ((y - y1) * (x2 - x1)) / (y2 - y1) + x1;
 }
 
-static renderi* create_thrown(renderi* p, int i, int ps, int avatar_thrown, directions dr, int side) {
-	static int height_sizes[8] = {120, 96, 71, 64, 48, 40, 30, 24};
-	p->clear();
-	int m = pos_levels[i];
-	int d = pos_levels[i] * 2 + (1 - ps / 2);
-	int h = height_sizes[d] / 6 - height_sizes[d];
-	switch(side) {
-	case 0:
-		p->y = 24 + d * 2;
-		p->x = get_x_from_line(p->y, (176 - 72) / 2 + 14, 24, (176 - 32) / 2 + 6, 40);
-		break;
-	case 1:
-		p->y = 24 + d * 2;
-		p->x = get_x_from_line(p->y, (176 - 72) / 2 + 72 - 14, 24, (176 - 32) / 2 + 32 - 6, 40);
-		break;
-	default:
-		p->x = 176 / 2;
-		p->y = 40 + d;
-		break;
-	}
-	p->z = pos_levels[i] * distance_per_level + (1 - ps / 2);
-	fill_sprite(p, avatar_thrown, dr, side);
-	p->percent = item_distances[d][0];
-	p->alpha = (unsigned char)item_distances[d][1];
-	p++;
-	p->rdata = 0;
-	return p;
-}
-
 static renderi* create_items(renderi* p, int i, pointc v, directions dr) {
 	dungeoni::ground* result[64];
 	auto item_count = loc->getitems(result, lenghtof(result), v);
@@ -821,7 +778,7 @@ static void imagex(int x, int y, const sprite* res, int id, unsigned flags, int 
 	int ssy = f.sy * percent / 1000;
 	int sox = f.ox * percent / 1000;
 	int soy = f.oy * percent / 1000;
-	unsigned flags_addon = (flags & ImagePallette);
+	unsigned flags_addon = (flags & (ImagePallette));
 	if(true) {
 		rectpush push;
 		auto push_canvas = canvas;
@@ -1002,6 +959,56 @@ static int get_index_pos(pointc index) {
 	return -1;
 }
 
+static int thrown_side(int avatar_thrown, int side) {
+   if(avatar_thrown>=2 && avatar_thrown<6)
+      return -1;
+   return side;
+}
+
+static void fill_sprite(renderi* p, int avatar_thrown, directions drs, int side) {
+	p->frame[0] = avatar_thrown;
+	p->rdata = gres(THROWN);
+	if(avatar_thrown >= 6) {
+		if(side == 0)
+			p->flags[0] |= ImageMirrorH;
+		if(drs==Down) {
+         p->flags[0] |= ImageMirrorV;
+			p->frame[0]++;
+		}
+	}
+	//} else
+	//	fill_item_sprite(p, pi);
+}
+
+static renderi* create_thrown(renderi* p, int i, int ps, int avatar_thrown, directions dr, int side) {
+	static int height_sizes[8] = {120, 96, 71, 64, 48, 40, 30, 24};
+	p->clear();
+	int m = pos_levels[i];
+	int d = pos_levels[i] * 2 + (1 - ps / 2);
+	int h = height_sizes[d] / 6 - height_sizes[d];
+	switch(side) {
+	case 0:
+		p->y = 24 + d * 2;
+		p->x = get_x_from_line(p->y, (176 - 72) / 2 + 14, 24, (176 - 32) / 2 + 6, 40);
+		break;
+	case 1:
+		p->y = 24 + d * 2;
+		p->x = get_x_from_line(p->y, (176 - 72) / 2 + 72 - 14, 24, (176 - 32) / 2 + 32 - 6, 40);
+		break;
+	default:
+		p->x = 176 / 2;
+		p->y = 40 + d;
+		break;
+	}
+	p->z = pos_levels[i] * distance_per_level + (1 - ps / 2);
+	fill_sprite(p, avatar_thrown, dr, side);
+	p->percent = item_distances[d][0];
+	p->alpha = (unsigned char)item_distances[d][1];
+	p++;
+	p->rdata = 0;
+	return p;
+}
+
 static void thrown_step(pointc v, directions d, int avatar_thrown, int side) {
 	int i = get_index_pos(v);
 	if(i == -1)
@@ -1032,6 +1039,7 @@ static void thrown_step(pointc v, directions d, int avatar_thrown, int side) {
 void thrown_item(pointc v, directions d, int avatar_thrown, int side, int distance) {
 	if(!v)
 		return;
+	side = thrown_side(avatar_thrown, side);
 	for(int i = 0; i < distance; i++) {
 		thrown_step(v, d, avatar_thrown, side);
 		v = to(v, to(party.d, d));

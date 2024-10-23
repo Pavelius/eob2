@@ -304,7 +304,7 @@ static void test_dungeon() {
 	pointc v = party;
 	for(int i = 0; i < 3; i++)
 		v = to(v, party.d);
-	thrown_item(v, Down, 2, -1 /*get_party_index(player) % 2*/, 4);
+	thrown_item(v, Down, 6, get_party_index(player) % 2, 4);
 }
 
 static void city_adventure_input() {
@@ -885,6 +885,18 @@ static void all_languages(int bonus) {
 		player->languages = 0;
 }
 
+static void save_negate(int bonus) {
+   if(player->roll(SaveVsMagic, bonus*5)) {
+      last_number = 0;
+      script_stop();
+   }
+}
+
+static void save_half(int bonus) {
+   if(player->roll(SaveVsMagic, bonus*5))
+      last_number = last_number / 2;
+}
+
 static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
@@ -983,6 +995,8 @@ BSDATA(script) = {
 	{"Roll", make_roll},
 	{"SaveGame", save_game},
 	{"Saves", saves_modify},
+	{"SaveHalf", save_half},
+	{"SaveNegate", save_negate},
 	{"SetVariable", set_variable},
 };
 BSDATAF(script)

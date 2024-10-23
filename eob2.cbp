@@ -62,7 +62,6 @@
 		<Unit filename="eob2/bsreq.h" />
 		<Unit filename="eob2/cell.cpp" />
 		<Unit filename="eob2/cell.h" />
-		<Unit filename="eob2/cflags.h" />
 		<Unit filename="eob2/class.h" />
 		<Unit filename="eob2/color.cpp" />
 		<Unit filename="eob2/color.h" />

@@ -57,12 +57,12 @@
 
 1728387414 /home/user-331/projects/eob2/eob2/color.h
 
-1729491496 source:/home/user-331/projects/eob2/eob2/damage.cpp
+1729664081 source:/home/user-331/projects/eob2/eob2/damage.cpp
 	"bsdata.h"
 	"damage.h"
 	"feat.h"
 
-1729491496 /home/user-331/projects/eob2/eob2/damage.h
+1729664081 /home/user-331/projects/eob2/eob2/damage.h
 
 1728387414 source:/home/user-331/projects/eob2/eob2/dice.cpp
 	"dice.h"
@@ -91,7 +91,7 @@
 	"feat.h"
 	"nameable.h"
 
-1729491496 /home/user-331/projects/eob2/eob2/feat.h
+1729664081 /home/user-331/projects/eob2/eob2/feat.h
 	"nameable.h"
 
 1728387414 /home/user-331/projects/eob2/eob2/log.h
@@ -103,7 +103,7 @@
 	"flagable.h"
 	"nameable.h"
 
-1729491496 source:/home/user-331/projects/eob2/eob2/feat.cpp
+1729664081 source:/home/user-331/projects/eob2/eob2/feat.cpp
 	"bsdata.h"
 	"feat.h"
 
@@ -132,7 +132,7 @@
 1728387414 /home/user-331/projects/eob2/eob2/vector.h
 	"array.h"
 
-1729491496 source:/home/user-331/projects/eob2/eob2/creature.cpp
+1729664081 source:/home/user-331/projects/eob2/eob2/creature.cpp
 	"advancement.h"
 	"alignment.h"
 	"avatar.h"
@@ -202,7 +202,7 @@
 1728387414 /home/user-331/projects/eob2/eob2/wearable.h
 	"item.h"
 
-1729491496 /home/user-331/projects/eob2/eob2/item.h
+1729664081 /home/user-331/projects/eob2/eob2/item.h
 	"dice.h"
 	"feat.h"
 	"nameable.h"
@@ -324,7 +324,7 @@
 
 1728387414 source:/home/user-331/projects/eob2/eob2/math.cpp
 
-1729592418 source:/home/user-331/projects/eob2/eob2/metadata.cpp
+1729666784 source:/home/user-331/projects/eob2/eob2/metadata.cpp
 	"ability.h"
 	"action.h"
 	"advancement.h"
@@ -434,7 +434,7 @@
 	"rand.h"
 	"script.h"
 
-1729592418 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1729667379 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"alignment.h"
 	"answers.h"
@@ -687,7 +687,7 @@
 	"view.h"
 	"view_focus.h"
 
-1729592587 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
+1729667541 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
 	"creature.h"
 	"direction.h"
 	"draw.h"
@@ -757,7 +757,7 @@
 	"randomizer.h"
 	"script.h"
 
-1729592653 source:/home/user-331/projects/eob2/eob2/nix_draw3x.cpp
+1729593231 source:/home/user-331/projects/eob2/eob2/nix_draw3x.cpp
 	<X11/keysym.h>
 	<X11/Xlib.h>
 	<X11/Xutil.h>
@@ -800,7 +800,7 @@
 	"rand.h"
 	"view.h"
 
-1729592418 source:/home/user-331/projects/eob2/eob2/spell.cpp
+1729664081 source:/home/user-331/projects/eob2/eob2/spell.cpp
 	"answers.h"
 	"boost.h"
 	"bsdata.h"
@@ -809,6 +809,7 @@
 	"formula.h"
 	"modifier.h"
 	"party.h"
+	"rand.h"
 	"script.h"
 	"spell.h"
 	"view.h"

@@ -44,9 +44,9 @@ static char defence_adjustment[] = {
 };
 static char hit_probability[] = {
 	-5, -5, -3, -3, -2, -2, -1, -1, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 1, 1,
-	1, 2, 2, 2, 3,
-	3, 4, 4, 5, 6, 7
+		0, 0, 0, 0, 0, 0, 0, 1, 1,
+		1, 2, 2, 2, 3,
+		3, 4, 4, 5, 6, 7
 };
 static char damage_adjustment[] = {
 	-5, -5, -3, -3, -2, -2, -1, -1, 0, 0,
@@ -144,6 +144,8 @@ static int get_modified_strenght() {
 
 static void update_abilities() {
 	add_value(player->abilities[Strenght], -player->abilities[DrainStrenght]);
+	add_value(player->abilities[AttackMelee], -player->abilities[DrainStrenght]);
+	add_value(player->abilities[AttackRange], -player->abilities[DrainStrenght]);
 	add_value(player->abilities[Constitution], -player->abilities[DrainConstitution]);
 }
 
@@ -213,9 +215,29 @@ static void update_duration() {
 	modifier = push_modifier;
 }
 
+static bool have_boost_summon(const item& it) {
+	referencei target = player;
+	for(auto& e : bsdata<boosti>()) {
+		if(e.target == target && e.effect.iskind<spelli>()) {
+			auto& ei = bsdata<spelli>::elements[e.effect.value];
+			if(it.is(ei.summon))
+				return true;
+		}
+	}
+	return false;
+}
+
+static void update_summon() {
+	for(auto& it : player->wears) {
+		if(it.issummoned() && !have_boost_summon(it))
+			it.clear();
+	}
+}
+
 void update_player() {
 	update_basic();
 	update_languages();
+	update_summon();
 	update_wear();
 	update_duration();
 	update_abilities();
@@ -572,7 +594,7 @@ int creaturei::getexpaward() const {
 
 static void drop_loot(creaturei* player) {
 	for(auto& it : player->wears) {
-		if(!it || it.is(Natural))
+		if(!it || it.isnatural())
 			continue;
 		if(it.is(Unique) || (d100() < 15)) {
 			it.identify(0);
@@ -590,6 +612,12 @@ void creaturei::kill() {
 	drop_loot(this);
 	loc->state.monsters_killed++;
 	clear();
+}
+
+static bool isf(const creaturei* player, const item& weapon, featn v) {
+	if(player->is(v) || weapon.geti().is(v))
+		return true;
+	return false;
 }
 
 void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
@@ -634,7 +662,7 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	auto rolls = xrand(1, 20);
 	auto hits = -1;
 	tohit = imax(2, imin(20, tohit));
-	if(is(BloodSucking) && is(Assembled))
+	if(isf(player, weapon, BloodSucking) && is(Assembled))
 		rolls = tohit;
 	if(rolls >= tohit || rolls >= chance_critical) {
 		// If weapon hits
@@ -649,7 +677,7 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 			if(weapon.is(Deadly))
 				multiplier += 1;
 		}
-		if(weapon.is(BloodSucking) && is(Assembled))
+		if(isf(player, weapon, BloodSucking) && is(Assembled))
 			hits = attack_damage.maximum();
 		else
 			hits = attack_damage.roll();
@@ -690,6 +718,9 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	defender->damage(damage_type, hits, magic_bonus);
 	fix_attack(this, slot, hits);
 	if(hits != -1) {
+		// Drain attacks
+		if(isf(player, weapon, DrainStrenghtAttack) && !defender->roll(SaveVsMagic))
+			defender->abilities[DrainStrenght]++;
 		//		// Poison attack
 		//		if(wi.is(OfPoison))
 		//			defender->add(Poison, Instant, SaveNegate);
@@ -699,8 +730,6 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 		//		// Drain ability
 		//		if(wi.is(OfEnergyDrain))
 		//			attack_drain(defender, defender->drain_energy, hits);
-		//		if(wi.is(OfStrenghtDrain))
-		//			attack_drain(defender, defender->drain_strenght, hits);
 		//		defender->damage(damage_type, hits, magic_bonus);
 	}
 	// Weapon can be broken

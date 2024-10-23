@@ -12,18 +12,21 @@
 #include "view.h"
 
 static void apply_summon(creaturei* player, const itemi* pi) {
-   auto wear = pi->wear;
-   if(player->wears[wear])
-      return;
-   player->wears[wear].create(pi);
+	auto wear = pi->wear;
+	if(player->wears[wear])
+		return;
+	player->wears[wear].create(pi);
+	player->wears[wear].identify(1);
+	player->wears[wear].curse(0);
+	player->wears[wear].summon(1);
 }
 
 template<> void ftscript<spelli>(int value, int bonus) {
 	spellseta* ps;
 	switch(modifier) {
 	case Standart:
-      if(bsdata<spelli>::elements[value].summon)
-         apply_summon(player, bsdata<spelli>::elements[value].summon);
+		if(bsdata<spelli>::elements[value].summon)
+			apply_summon(player, bsdata<spelli>::elements[value].summon);
 		script_run(bsdata<spelli>::elements[value].wearing);
 		break;
 	case Permanent:

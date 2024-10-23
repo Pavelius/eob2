@@ -104,7 +104,9 @@ MagicMap cost(10) avatar(86) avatar_ground(12)
  feats Small
 
 Mandibules damage_type(Slashing) damage(1 4)
- feats Natural
+ feats You
+ChillTouchHand avatar(80) damage_type(Cold) damage(1 4) wear(RightHand)
+ feats DrainStrenghtAttack
 
 #List
 

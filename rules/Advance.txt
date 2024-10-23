@@ -121,4 +121,4 @@ Cleric+7 SaveThrow
  elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
 
 Mage+1 Spells
- elements Armor Spell1+1
+ elements Armor ChillTouch Spell1+1

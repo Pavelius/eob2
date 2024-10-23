@@ -1,2 +1,2 @@
-﻿Error in file `rules/Spells.txt`:
- Line 56: Can't find variant `Shock`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `ChillTouchHand`

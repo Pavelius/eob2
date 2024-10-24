@@ -963,7 +963,7 @@ static int get_index_pos(pointc index) {
 }
 
 static int thrown_side(int avatar_thrown, int side) {
-   if(avatar_thrown>=2 && avatar_thrown<6)
+   if(avatar_thrown>=2 && avatar_thrown<7)
       return -1;
    return side;
 }
@@ -971,7 +971,7 @@ static int thrown_side(int avatar_thrown, int side) {
 static void fill_sprite(renderi* p, int avatar_thrown, directions drs, int side) {
 	p->frame[0] = avatar_thrown;
 	p->rdata = gres(THROWN);
-	if(avatar_thrown >= 6) {
+	if(avatar_thrown >= 7) {
 		if(side == 0)
 			p->flags[0] |= ImageMirrorH;
 		if(drs==Down) {

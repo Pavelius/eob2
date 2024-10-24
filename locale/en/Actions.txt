@@ -1,4 +1,5 @@
-﻿CampMenu: Camp Options:
+﻿AmbushTest: You were ambushed by enemy!
+CampMenu: Camp Options:
 CastSpell: Cast what spell?
 CastOnWho: Cast on who?
 ChooseBet: Bed how match?

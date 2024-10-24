@@ -1,6 +1,7 @@
 #include "boost.h"
 #include "bsdata.h"
 #include "class.h"
+#include "console.h"
 #include "creature.h"
 #include "direction.h"
 #include "dungeon.h"
@@ -146,10 +147,33 @@ static bool can_see_party(pointc v, directions d) {
 	return false;
 }
 
+static void set_monster_moved(pointc v) {
+	for(auto& e : loc->monsters) {
+		if(e != v)
+			continue;
+		e.set(Moved);
+	}
+}
+
+void test_surprise(pointc v) {
+	if(party == v) {
+		consolen(getnm("AmbushTest"));
+	} else{
+
+	}
+}
+
 static void monster_move(pointc v, directions d) {
 	auto n = to(v, d);
-	if(n == party)
+	if(n == party) {
+		set_monster_moved(v);
+		auto can_surprise = false;
+		turnto(party, to(d, Down), &can_surprise);
+		if(can_surprise)
+			test_surprise(party);
+		monster_interaction();
 		return;
+	}
 	if(!n || loc->ismonster(n) || !loc->ispassable(n))
 		return;
 	for(auto& e : loc->monsters) {

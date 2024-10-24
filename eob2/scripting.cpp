@@ -747,11 +747,19 @@ static bool party_move_interact(pointc v) {
 	return true;
 }
 
+void monster_interaction() {
+	make_melee_attacks();
+}
+
 void move_party(pointc v) {
 	if(!is_passable(v))
 		return;
 	if(loc->ismonster(v)) {
-		turnto(v, to(party.d, Down));
+		auto can_surprise = false;
+		turnto(v, to(party.d, Down), &can_surprise);
+		if(can_surprise)
+			test_surprise(v);
+		monster_interaction();
 		pass_round();
 		return;
 	}

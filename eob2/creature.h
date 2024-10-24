@@ -45,6 +45,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	void			kill();
 	void			remove(featn v) { featable::remove(v); }
 	bool			roll(abilityn v, int bonus = 0) const;
+	bool			surpriseroll(int bonus = 0) const;
 	void			set(featn v) { featable::set(v); }
 	void			setframe(short* frames, short index) const;
 };

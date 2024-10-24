@@ -1,8 +1,7 @@
 #pragma once
 
 struct referencei {
-	short unsigned parent;
-	short unsigned index;
+	short unsigned parent, index;
 	constexpr explicit operator bool() const { return parent != 0xFFFF && index != 0xFFFF; }
 	constexpr bool operator==(const referencei& v) const { return parent == v.parent && index == v.index; }
 	constexpr bool operator!=(const referencei& v) const { return parent != v.parent || index != v.index; }

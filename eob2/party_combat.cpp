@@ -132,5 +132,6 @@ void make_melee_attacks() {
 			make_full_attack(p, get_opponent(left_side, true), 0, 1);
 		}
 		fix_animate();
+		p->set(Moved);
 	}
 }

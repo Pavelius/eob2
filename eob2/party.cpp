@@ -156,8 +156,15 @@ static void set_monster_moved(pointc v) {
 }
 
 void test_surprise(pointc v) {
+	creaturei* monsters[6] = {};
 	if(party == v) {
 		consolen(getnm("AmbushTest"));
+		loc->getmonsters(monsters, to(party, party.d));
+		auto sneaky = party_median(monsters, Sneaky);
+		for(auto p : characters) {
+			if(p && !p->surpriseroll(-sneaky))
+				p->set(Surprised);
+		}
 	} else{
 
 	}
@@ -254,4 +261,18 @@ void pass_hours(int value) {
 	allcreatures(update_every_round);
 	for(auto i = 0; i < 6 * value; i++)
 		allcreatures(update_every_turn);
+}
+
+int party_median(creaturei** creatures, abilityn v) {
+	auto count = 0;
+	auto value = 0;
+	for(int i = 0; i < 6; i++) {
+		if(!creatures[i])
+			continue;
+		value += creatures[i]->abilities[v];
+		count++;
+	}
+	if(!count)
+		return 0;
+	return value / count;
 }

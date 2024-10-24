@@ -20,6 +20,8 @@ BSDATA(abilityi) = {
 	{"ReadLanguages"},
 	{"LearnSpell"},
 	{"ResistMagic"},
+	{"Sneaky"},
+	{"Alertness"},
 	{"CriticalDeflect"},
 	{"DetectSecrets"},
 	{"AC"},

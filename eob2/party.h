@@ -9,6 +9,8 @@ typedef flagable<8, unsigned> questa;
 
 struct creaturei;
 
+enum abilityn : unsigned char;
+
 enum partystatn : unsigned char {
 	GoldPiece, Reputation, Blessing,
 	StartYear, StartDeadLine, StopDeadLine, Minutes,
@@ -46,5 +48,6 @@ void turnto(pointc v, directions d, bool* surprise = 0);
 
 int getparty(partystatn id);
 int get_party_index(const creaturei* target);
+int party_median(creaturei** creatures, abilityn v);
 
 char* get_spells_prepared(const creaturei* target);

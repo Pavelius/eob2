@@ -7,7 +7,7 @@ enum abilityn : unsigned char {
 	SaveVsParalization, SaveVsPoison, SaveVsTraps, SaveVsMagic,
 	ClimbWalls, HearNoise, MoveSilently, OpenLocks, RemoveTraps, ReadLanguages,
 	LearnSpell,
-	ResistMagic,
+	ResistMagic, Sneaky, Alertness,
 	CriticalDeflect, DetectSecrets,
 	AC,
 	AttackMelee, AttackRange,

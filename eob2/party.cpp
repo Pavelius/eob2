@@ -155,18 +155,25 @@ static void set_monster_moved(pointc v) {
 	}
 }
 
-void test_surprise(pointc v) {
-	creaturei* monsters[6] = {};
-	if(party == v) {
-		consolen(getnm("AmbushTest"));
-		loc->getmonsters(monsters, to(party, party.d));
-		auto sneaky = party_median(monsters, Sneaky);
-		for(auto p : characters) {
-			if(p && !p->surpriseroll(-sneaky))
-				p->set(Surprised);
-		}
-	} else{
+static int get_monster_best(pointc v, abilityn a) {
+	auto result = 0;
+	for(auto& e : loc->monsters) {
+		if(e != v)
+			continue;
+		auto n = e.get(a);
+		if(result < n)
+			result = n;
+	}
+	return result;
+}
 
+void surprise_roll(creaturei** creatures, int bonus) {
+	for(auto i = 0; i < 6; i++) {
+		auto p = creatures[i];
+		if(p && !p->roll(Alertness, bonus)) {
+			consolen(getnm("SurpriseFailed"), p->getname());
+			p->set(Surprised);
+		}
 	}
 }
 
@@ -174,10 +181,8 @@ static void monster_move(pointc v, directions d) {
 	auto n = to(v, d);
 	if(n == party) {
 		set_monster_moved(v);
-		auto can_surprise = false;
-		turnto(party, to(d, Down), &can_surprise);
-		if(can_surprise)
-			test_surprise(party);
+		// CHEAT: Monster have best sneak. Party only median.
+		turnto(party, to(d, Down), true, get_monster_best(v, Sneaky));
 		monster_interaction();
 		return;
 	}

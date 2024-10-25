@@ -755,10 +755,7 @@ void move_party(pointc v) {
 	if(!is_passable(v))
 		return;
 	if(loc->ismonster(v)) {
-		auto can_surprise = false;
-		turnto(v, to(party.d, Down), &can_surprise);
-		if(can_surprise)
-			test_surprise(v);
+		turnto(v, to(party.d, Down), true, -party_median(characters, Sneaky));
 		monster_interaction();
 		pass_round();
 		return;

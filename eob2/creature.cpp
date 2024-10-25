@@ -361,11 +361,16 @@ static bool is_party_name(unsigned short value) {
 	return false;
 }
 
+static void set_basic_ability() {
+	player->basic.abilities[Alertness] += 70;
+}
+
 void create_player() {
 	player = bsdata<creaturei>::add();
 	player->clear();
 	create_npc(player, no_party_avatars, is_party_name);
 	generate_abilities();
+	set_basic_ability();
 	set_race_ability();
 	set_class_ability();
 	update_player();
@@ -403,11 +408,19 @@ void create_monster(const monsteri* pi) {
 	player->monster_id = getbsi(pi);
 	player->levels[0] = pi->hd;
 	player->basic.abilities[AC] = (10 - pi->ac);
+	set_basic_ability();
 	apply_default_ability();
 	apply_feats(pi->feats);
 	raise_monster_level();
 	update_player();
 	player->hp = player->hpm;
+}
+
+const char*	creaturei::getname() const {
+	auto pm = getmonster();
+	if(pm)
+		return pm->getname();
+	return npc::getname();
 }
 
 creaturei* item_owner(const void* p) {
@@ -479,10 +492,6 @@ static bool make_roll(int chance) {
 
 bool creaturei::roll(abilityn v, int bonus) const {
 	return make_roll(getchance(v) + bonus);
-}
-
-bool creaturei::surpriseroll(int bonus) const {
-	return make_roll(30 + bonus);
 }
 
 const char* creaturei::getbadstate() const {

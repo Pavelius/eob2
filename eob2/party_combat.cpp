@@ -93,20 +93,27 @@ static void make_full_attack(creaturei* player, creaturei* enemy, int bonus, int
 	fix_monster_attack_end(player);
 }
 
-void turnto(pointc v, directions d, bool* surprise) {
+void turnto(pointc v, directions d, bool test_surprise, int sneaky_bonus) {
 	if(!d)
 		return;
 	if(v == party) {
-		if(surprise)
-			*surprise = (party.d != d);
+		if(test_surprise) {
+			if(party.d != d)
+				surprise_roll(characters, sneaky_bonus);
+		}
 		set_party_position(v, d);
 	} else {
-		creaturei* result[4]; loc->getmonsters(result, v, party.d);
-		for(auto pc : result) {
+		creaturei* result[6] = {}; loc->getmonsters(result, v, party.d);
+		for(int i = 0; i < 6; i++) {
+			auto pc = result[i];
 			if(!pc)
 				continue;
-			if(surprise && !(*surprise))
-				*surprise = (pc->d != d);
+			if(test_surprise) {
+				if(pc->d != d) {
+					surprise_roll(result, sneaky_bonus);
+					test_surprise = false;
+				}
+			}
 			pc->d = d;
 		}
 	}
@@ -122,6 +129,11 @@ void make_melee_attacks() {
 	for(auto p : combatants) {
 		if(p->isdisabled())
 			continue;
+		// RULE: Surprised creatures do not move first round in combat
+		if(p->is(Surprised)) {
+			p->remove(Surprised);
+			continue;
+		}
 		if(p->ismonster()) {
 			auto left_side = (get_side(p->side, d) % 2) == 0;
 			if(p->is(Large))

@@ -33,6 +33,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	int				getexpaward() const;
 	int				gethitpenalty(int bonus) const;
 	const monsteri*	getmonster() const;
+	const char*		getname() const;
 	const racei&	getrace() const;
 	bool			is(abilityn v) const { return abilities[v] > 0; }
 	bool			is(featn v) const { return featable::is(v); }
@@ -45,7 +46,6 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	void			kill();
 	void			remove(featn v) { featable::remove(v); }
 	bool			roll(abilityn v, int bonus = 0) const;
-	bool			surpriseroll(int bonus = 0) const;
 	void			set(featn v) { featable::set(v); }
 	void			setframe(short* frames, short index) const;
 };

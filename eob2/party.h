@@ -43,8 +43,8 @@ bool read_game(const char* id);
 void save_game(const char* id);
 void set_party_position(pointc v);
 void set_party_position(pointc v, directions d);
-void test_surprise(pointc v);
-void turnto(pointc v, directions d, bool* surprise = 0);
+void surprise_roll(creaturei** creatures, int bonus);
+void turnto(pointc v, directions d, bool test_surprise = false, int sneaky_bonus = 0);
 
 int getparty(partystatn id);
 int get_party_index(const creaturei* target);

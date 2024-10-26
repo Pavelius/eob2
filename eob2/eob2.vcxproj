@@ -265,6 +265,7 @@
     <ClCompile Include="speech.cpp" />
     <ClCompile Include="spell.cpp" />
     <ClCompile Include="sprite_util.cpp" />
+    <ClCompile Include="statable.cpp" />
     <ClCompile Include="surface_util.cpp" />
     <ClCompile Include="textscript.cpp" />
     <ClCompile Include="variant.cpp" />

@@ -143,10 +143,10 @@ static int get_modified_strenght() {
 }
 
 static void update_abilities() {
-	add_value(player->abilities[Strenght], -player->abilities[DrainStrenght]);
-	add_value(player->abilities[AttackMelee], -player->abilities[DrainStrenght]);
-	add_value(player->abilities[AttackRange], -player->abilities[DrainStrenght]);
-	add_value(player->abilities[Constitution], -player->abilities[DrainConstitution]);
+	player->add(Strenght, -player->abilities[DrainStrenght]);
+	player->add(AttackMelee, -player->abilities[DrainStrenght]);
+	player->add(AttackRange, -player->abilities[DrainStrenght]);
+	player->add(Constitution, -player->abilities[DrainConstitution]);
 }
 
 static void add_additional_spell(abilityn v) {
@@ -773,5 +773,13 @@ const classi& creaturei::getclass() const {
 }
 
 void creaturei::add(abilityn i, int v) {
-	ftscript<abilityi>(i, v);
+	if(v >= 0) {
+		switch(i) {
+		case DiseaseLevel:
+			if(is(ImmuneDisease))
+				return;
+			break;
+		}
+	}
+	statable::add(i, v);
 }

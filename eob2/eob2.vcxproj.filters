@@ -249,6 +249,9 @@
     <ClCompile Include="alignment.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="statable.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">

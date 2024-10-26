@@ -34,18 +34,31 @@ assert_enum(weari, LastBelt)
 
 void wearable::equip(item& v) {
 	for(auto i = Head; i <= LastBelt; i = (wearn)(i + 1)) {
-		if(wears[i])
-			continue;
 		if(!v.isallow(i))
 			continue;
-		wears[i] = v;
 		last_item = &wears[i];
-		v.clear();
+		if(v.iscountable()) {
+			if(!wears[i].join(v))
+				continue;
+		} else {
+			if(wears[i])
+				continue;
+			wears[i] = v;
+			v.clear();
+		}
 		break;
 	}
 }
 
 void wearable::additem(item& v) {
+	if(v.iscountable()) {
+		for(auto& e : backpack()) {
+			if(!e.join(v))
+				continue;
+			last_item = &e;
+			return;
+		}
+	}
 	for(auto& e : backpack()) {
 		if(e)
 			continue;

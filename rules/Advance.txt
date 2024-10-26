@@ -36,7 +36,7 @@ Halfling AbilityAdjustment
 
 Fighter+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UseMartial BonusHP
-Fighter+1 BasicAbility
+Fighter+1 BasicAbilities
  elements WeaponSpecialist
 
 Fighter+2 CombatSkills

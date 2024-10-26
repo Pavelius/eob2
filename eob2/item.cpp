@@ -1,5 +1,6 @@
 #include "bsdata.h"
 #include "item.h"
+#include "rand.h"
 #include "wearable.h"
 
 static_assert(sizeof(item) == 4, "Size of item structure must be 4 bytes");
@@ -36,7 +37,14 @@ bool item::isallow(wearn v) const {
 		return n == LeftHand
 			|| n == RightHand;
 	case FirstBelt: case SecondBelt: case LastBelt:
-		return (n == LeftHand || n == RightHand);
+		switch(n) {
+		case LeftHand:
+		case RightHand:
+		case Drinkable:
+			return true;
+		default:
+			return false;
+		}
 	default:
 		if(v >= Backpack && v <= LastBackpack)
 			return true;
@@ -56,6 +64,8 @@ void item::create(int value) {
 	flags = 0;
 	power = 0;
 	count = 0;
+	if(iscountable())
+		count += xrand(0, 4);
 }
 
 const char*	item::getname() const {
@@ -88,4 +98,21 @@ void item::damage(int bonus) {
 			count = bonus;
 	} else
 		count = 0;
+}
+
+bool item::join(item& it) {
+	if(type != it.type || flags != it.flags || power != it.power)
+		return false;
+	if(iscountable())
+		return false;
+	auto v = getcount() + it.getcount();
+	if(v <= 256) {
+		setcount(v);
+		it.clear();
+		return true;
+	} else {
+		setcount(256);
+		it.setcount(v - 256);
+		return false;
+	}
 }

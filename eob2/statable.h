@@ -5,4 +5,5 @@
 
 struct statable : featable {
 	char	abilities[Hits + 1];
+	void	add(abilityn i, int v);
 };

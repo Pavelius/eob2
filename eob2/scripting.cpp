@@ -98,8 +98,8 @@ template<> void ftscript<abilityi>(int value, int bonus) {
 	if(!bonus)
 		return;
 	switch(modifier) {
-	case Permanent: add_value(player->basic.abilities[value], get_bonus(bonus)); break;
-	default: add_value(player->abilities[value], get_bonus(bonus)); break;
+	case Permanent: player->basic.add((abilityn)value, get_bonus(bonus)); break;
+	default: player->add((abilityn)value, get_bonus(bonus)); break;
 	}
 }
 
@@ -318,6 +318,10 @@ static void use_item() {
 		pn->speak("MustBeQuiver", 0);
 		break;
 	case Edible:
+		if(last_item->isdamaged()) {
+			player->speak("MakeCamp", "RottenFood");
+			return;
+		}
 		if(confirm(getnm("MakeCampConfirm"))) {
 			if(last_item->iscursed())
 				rest_party(-2);

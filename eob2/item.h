@@ -52,6 +52,7 @@ public:
 	bool		isranged() const { return false; }
 	bool		issummoned() const { return summoned != 0; }
 	bool		isweapon() const;
+	bool		join(item& it);
 	int			getcost() const;
 	int			getcount() const { return iscountable() ? count + 1 : 1; }
 	const char*	getname() const;

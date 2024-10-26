@@ -587,6 +587,16 @@ static void paint_item(item& it, wearn id, int emphty_avatar = -1, int pallette_
 		} else
 			image(caret.x + width / 2, caret.y + height / 2, gres(ITEMS), avatar, 0);
 	}
+	auto count = it.getcount();
+	if(count > 1) {
+		auto ps = str("%1i", count);
+		caret.y = push.caret.y + push.height - 6 - 2;
+		caret.x = push.caret.x + push.width - textw(ps) - 1;
+		auto push_fore = fore;
+		fore = colors::white;
+		text(ps);
+		fore = push_fore;
+	}
 }
 
 static void paint_ring(item& it, wearn id) {

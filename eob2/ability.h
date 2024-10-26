@@ -21,9 +21,5 @@ enum abilityn : unsigned char {
 	Hits
 };
 struct abilityi : nameable {
-	int minimal = 0;
-	int maximal = 100;
 };
-void add_value(char& result, int i, int minimum = 0, int maximum = 120);
-
 extern abilityn last_ability;

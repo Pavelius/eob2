@@ -119,3 +119,7 @@ I don't see any rotten food
 Who is here?
 What is going on here?
 Oh, shit!
+
+#MakeCampRottenFood
+This food is rotten
+Food is spoiled. We need clean it

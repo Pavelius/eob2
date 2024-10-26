@@ -24,6 +24,7 @@ struct partyi : posable {
 	int				abilities[EffectCount + 1];
 };
 extern creaturei* characters[6];
+extern creaturei* monsters[6];
 extern partyi party;
 extern partystatn last_variable;
 

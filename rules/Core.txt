@@ -25,4 +25,4 @@ AddTestItems
  elements BattleAxe CurseItem+1 Ration IdentifyItem+1 DamageItem+5
 
 StartGame
- elements CreateTestParty AddTestItems FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 HunterVillage FloodedSewers EnterLocation
+ elements CreateTestParty AddTestItems FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 HunterVillage EnterLocation

@@ -22,6 +22,7 @@ BSDATA(partystati) = {
 assert_enum(partystati, EffectCount)
 
 creaturei* characters[6];
+creaturei* monsters[6];
 spella spells_prepared[6];
 partyi party;
 partystatn last_variable;

@@ -263,15 +263,23 @@ static void use_item() {
 	case LeftHand:
 	case RightHand:
 		if(w != LeftHand && w != RightHand)
-			pn->speak("MustBeUseInHand", pi->getname());
-		else if(pi->isweapon()) {
+			pn->speak("MustBeUseInHand", 0);
+		else if(pi->isweapon())
 			make_melee_attacks();
-		} else if(ei.use) {
-
-		}
 		break;
 	case Body: case Neck: case Elbow: case Legs: case Head:
-		pn->speak("MustBeWearing", pi->getname());
+	case LeftRing: case RightRing:
+		pn->speak("MustBeWearing", 0);
+		break;
+	case Quiver:
+		pn->speak("MustBeQuiver", 0);
+		break;
+	case Readable:
+		if(!pn->canread())
+			pn->speak("CantRead", 0);
+		else {
+
+		}
 		break;
 	default:
 		break;

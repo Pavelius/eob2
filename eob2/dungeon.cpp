@@ -350,7 +350,7 @@ size_t dungeoni::getitems(item** result, size_t result_maximum, const overlayi* 
 }
 
 void dungeoni::getmonsters(creaturei** result, pointc index, directions dr) {
-	result[0] = result[1] = result[2] = result[3] = 0;
+	memset(result, 0, sizeof(creaturei*) * 6);
 	if(!index)
 		return;
 	for(auto& e : monsters) {

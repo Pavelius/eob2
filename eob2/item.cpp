@@ -14,6 +14,17 @@ const itemi& item::geti() const {
 	return bsdata<itemi>::elements[type];
 }
 
+void item::setcount(int v) {
+	if(!v)
+		clear();
+	else if(iscountable())
+		count = v - 1;
+}
+
+bool item::iscountable() const {
+	return geti().wear == Quiver;
+}
+
 bool item::isallow(wearn v) const {
 	auto n = geti().wear;
 	switch(v) {
@@ -24,6 +35,8 @@ bool item::isallow(wearn v) const {
 	case RightHand:
 		return n == LeftHand
 			|| n == RightHand;
+	case FirstBelt: case SecondBelt: case LastBelt:
+		return (n == LeftHand || n == RightHand);
 	default:
 		if(v >= Backpack && v <= LastBackpack)
 			return true;

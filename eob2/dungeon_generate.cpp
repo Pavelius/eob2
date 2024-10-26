@@ -140,6 +140,11 @@ static void items(pointc v, itemi* pi, int bonus_level = 0) {
 		return;
 	item it;
 	it.create(pi - bsdata<itemi>::elements);
+	// Food can be rotten
+	if(it.is(Disease)) {
+		if(d100()<60)
+			it.damage(5);
+	}
 	loc->drop(v, it, xrand(0, 3));
 }
 

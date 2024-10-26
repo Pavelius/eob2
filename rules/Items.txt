@@ -91,16 +91,16 @@ GreenPotion cost(120) avatar(41) avatar_ground(19)
 BluePotion cost(150) avatar(40) avatar_ground(19)
  feats Small
 
-LargeRation avatar(37) avatar_ground(14)
+LargeRation avatar(37) avatar_ground(14) wear(Edible)
  feats Small Disease
-Ration avatar(38) avatar_ground(14)
+Ration avatar(38) avatar_ground(14) wear(Edible)
  feats Small Disease
 
-MageScroll cost(20) avatar(36) avatar_ground(12)
+MageScroll cost(20) avatar(36) avatar_ground(12) wear(Readable)
  feats Small
-PriestScroll cost(20) avatar(85) avatar_ground(12)
+PriestScroll cost(20) avatar(85) avatar_ground(12) wear(Readable)
  feats Small
-MagicMap cost(10) avatar(86) avatar_ground(12)
+MagicMap cost(10) avatar(86) avatar_ground(12) wear(Readable)
  feats Small
 
 Mandibules damage_type(Slashing) damage(1 4)

@@ -44,9 +44,9 @@ static char defence_adjustment[] = {
 };
 static char hit_probability[] = {
 	-5, -5, -3, -3, -2, -2, -1, -1, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 1, 1,
-		1, 2, 2, 2, 3,
-		3, 4, 4, 5, 6, 7
+	0, 0, 0, 0, 0, 0, 0, 1, 1,
+	1, 2, 2, 2, 3,
+	3, 4, 4, 5, 6, 7
 };
 static char damage_adjustment[] = {
 	-5, -5, -3, -3, -2, -2, -1, -1, 0, 0,
@@ -469,6 +469,8 @@ dice creaturei::getdamage(wearn id, bool large_enemy) const {
 	if(large_enemy && ei.damage_large)
 		result = ei.damage_large;
 	result.b += player->get(DamageMelee);
+	if(is(WeaponSpecialist) && isspecialist(&ei))
+		result.b += 2;
 	return result;
 }
 
@@ -636,7 +638,7 @@ static bool isf(const creaturei* player, const item& weapon, featn v) {
 	return false;
 }
 
-void creaturei::attack(creaturei* defender, wearn slot, int bonus, int damage_bonus, int multiplier) {
+void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
 	auto& weapon = wears[slot];
 	auto attack_damage = getdamage(slot, defender->is(Large));
 	auto damage_type = weapon.geti().damage_type;

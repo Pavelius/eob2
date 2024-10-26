@@ -625,7 +625,7 @@ static renderi* create_items(renderi* p, int i, pointc v, directions dr) {
 }
 
 static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, bool flip) {
-	creaturei* result[4]; loc->getmonsters(result, index, dr);
+	creaturei* result[6]; loc->getmonsters(result, index, dr);
 	for(int n = 0; n < 4; n++) {
 		auto pc = result[n];
 		if(!pc)
@@ -829,6 +829,7 @@ void fix_monster_attack(const creaturei* target) {
 		target->setframe(p->frame, 4);
 		fix_animate();
 		target->setframe(p->frame, 5);
+		need_update_animation = true;
 	}
 }
 

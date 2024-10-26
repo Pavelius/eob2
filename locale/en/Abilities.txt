@@ -16,6 +16,7 @@ ReactionBonusShort: Ra
 
 Class: Class
 
+Alertness: Alertness
 ClimbWalls: Climb Walls
 CriticalDeflect: Critical deflect
 DetectSecrets: Detect Secrets

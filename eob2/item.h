@@ -43,8 +43,9 @@ public:
 	bool		is(featn v) const { return geti().is(v); }
 	bool		is(const itemi* pi) const { return pi == &geti(); }
 	bool		isallow(wearn v) const;
+	bool		iscountable() const;
 	bool		iscursed() const { return cursed != 0; }
-	bool		isdamaged() const { return count >= 5; }
+	bool		isdamaged() const { return !iscountable() && count >= 5; }
 	bool		isidentified() const { return identified != 0; }
 	bool		isnatural() const { return is(You); }
 	bool		ismagical() const { return iscursed() || getpower(); }
@@ -52,8 +53,10 @@ public:
 	bool		issummoned() const { return summoned != 0; }
 	bool		isweapon() const;
 	int			getcost() const;
+	int			getcount() const { return iscountable() ? count + 1 : 1; }
 	const char*	getname() const;
 	variant		getpower() const { return variant(); }
+	void		setcount(int v);
 	void		summon(int v) { summoned = (v >= 0) ? 1 : 0; }
 };
 extern item* last_item;

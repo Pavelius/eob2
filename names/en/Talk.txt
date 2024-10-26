@@ -1,83 +1,84 @@
 #CellSecrectButtonAccept
 A secret door! I know it!
-Good, secret door.
+Good, secret door
 
 #CellKeyHoleAbout
-This is hole for a key.
-I can insert proper key in this hole.
-This one open door nearbe.
+This is hole for a key
+I can insert proper key in this hole
+This one open door nearbe
 
 #CellDecor1Brick
-Some kind of theives signs.
-I don't known what is it.
+Some kind of theives signs
+I don't known what is it
 
 #CellDecor1BrickTheif
-Stairs down lie in %StairsDownSide part of dungeon.
+Stairs down lie in %StairsDownSide part of dungeon
 
 #CellDecor2Brick
-A drainage gate. I think.
+A drainage gate. I think
 
 #CellDecor3Brick
 What a stench!
 
 #CellDecor3BrickMage
-Old water aqueduct.
+Old water aqueduct
 
 #CellPortalAbout
-This is a strange device.
-This is some kind of magic.
+This is a strange device
+This is some kind of magic
 
 #CellPortalAboutMage
-This is a portal.
+This is a portal
 
 #CellTrapLauncherAboutTheif
-This is a trap launcher.
-A trap launcher. I can disarm it by tools.
+This is a trap launcher
+A trap launcher. I can disarm it by tools
 
 #CellTrapLauncherAbout
-A hole in the wall.
+A hole in the wall
 
 #CellCellarNotFit
-This item does not fit in cellar.
-Too big item.
-Try something small.
+This item does not fit in cellar
+Too big item
+Try something small
 
 #CellCellarEmpthy
-There is nothing there.
-Nothing to grab.
-Cellar is empthy.
+There is nothing there
+Nothing to grab
+Cellar is empthy
 
 #CantDropCursedItem
 This is mine!
-No! I can't remove this item.
+No! I can't remove this item
 This is my treasure!
 
 #MessageMagicRingMiss
-There is no magic ring around.
+There is no magic ring around
 #MessageMagicWeaponsPresent
-Find %MessageMagicRings magic ring in this halls.
+Find %MessageMagicRings magic ring in this halls
 
 #MessageMagicWeaponsMiss
-You not find any magic weapons here.
+You not find any magic weapons here
 #MessageMagicWeaponsPresent
-There is %MessageMagicWeapons magic weapons on this level.
+There is %MessageMagicWeapons magic weapons on this level
 
 #MessageTrapsMiss
-This level is safe.
+This level is safe
 #MessageTrapsPresent
-Beware %MessageTraps deadly traps.
+Beware %MessageTraps deadly traps
 
 #WhatDoYouSay
 What?
 I have no speech!
 
 #MustBeUseInHand
-%1 must be used in hands.
-I need take %1 in hand.
+Must be used in hands
+I need take item in hand
 
 #MustBeWearing
-The %1 used when weared.
-%1 used automatically.
+This item used when weared
+Item used automatically
+This must be weared
 
 #GamblerAppearance
 guy
@@ -95,17 +96,17 @@ You found a %GamblerAppearance who play dice game and win. Your profit is %Numbe
 You found some %GamblerAppearance who play dice game and lose. Your lose is your bet %Number gold pieces.
 
 #CastSpellNoCaster
-I do not know any spells.
-I have no spells to cast.
+I do not know any spells
+I have no spells to cast
 Spells? What is it?
 
 #CastSpellNoSpells
 My spells is over!
-I use last spell.
+I use last spell
 
 #CastSpellNoTargets
-I don't see any target.
-No suitable spell target near.
+I don't see any target
+No suitable spell target near
 Cast this on who???
 
 #PurifyFoodGainEffect
@@ -113,3 +114,8 @@ The %1i pieces of food were purified
 
 #PurifyFoodNoEffect
 I don't see any rotten food
+
+#SurpriseApply
+Who is here?
+What is going on here?
+Oh, shit!

@@ -122,7 +122,7 @@ BSMETA(itemi) = {
 	BSREQ(attack), BSREQ(number_attacks), BSREQ(speed),
 	BSREQ(damage), BSREQ(damage_large),
 	BSFLG(feats, feati),
-	BSREQ(avatar), BSREQ(avatar_ground),
+	BSREQ(avatar), BSREQ(avatar_ground), BSREQ(avatar_thrown),
 	BSREQ(ammo),
 	BSREQ(wearing), BSREQ(use),
 	BSREQ(cost),

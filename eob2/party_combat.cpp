@@ -7,7 +7,7 @@
 #include "view.h"
 
 static adat<creaturei*, 16> combatants;
-static int enemy_distance;
+int enemy_distance;
 
 static size_t shrink_creatures(creaturei** dest, creaturei** units, size_t count) {
 	auto ps = dest;
@@ -195,6 +195,9 @@ void make_attacks() {
 			p->remove(Surprised);
 			continue;
 		}
+		// If we can only shoot
+		if(enemy_distance > 1 && !p->wears[RightHand].isranged())
+			continue;
 		if(p->ismonster()) {
 			auto left_side = (get_side(p->side, d) % 2) == 0;
 			if(p->is(Large))

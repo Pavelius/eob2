@@ -2,7 +2,7 @@
 
 NoItem damage(1 2) avatar(84)
 
-Arrow avatar(16) damage_type(Piercing) avatar_ground(5) wear(Quiver)
+Arrow avatar(16) damage_type(Piercing) avatar_ground(5) wear(Quiver) avatar_thrown(13)
  feats Small
 Stone avatar(19) avatar_ground(2) wear(Quiver)
  feats Small

@@ -6,6 +6,7 @@
 #include "class.h"
 #include "console.h"
 #include "creature.h"
+#include "direction.h"
 #include "dungeon.h"
 #include "gender.h"
 #include "list.h"
@@ -663,6 +664,15 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 		attack_damage.b += ammo->damage.b;
 		if(wears[Quiver].is(Precise))
 			chance_critical++;
+		if(enemy_distance > 1) {
+			if(ammo->avatar_thrown) {
+				if(player->ismonster()) {
+				} else
+					thrown_item(party, Up, ammo->avatar_thrown, side, enemy_distance);
+			}
+		}
+		// Use ammo
+		wears[Quiver].setcount(wears[Quiver].getcount() - 1);
 	}
 	if(weapon.is(Precise))
 		chance_critical++;

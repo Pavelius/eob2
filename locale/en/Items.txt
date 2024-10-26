@@ -2,6 +2,7 @@
 Arrow: Arrow
 BastardSword: BasterdSword
 BattleAxe: Battle axe
+Bow: Bow
 ChillTouchHand: Cold hand
 Club: Club
 Dagger: Dagger

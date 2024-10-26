@@ -1,4 +1,3 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Arrow`
- Define translation for `BluePotion`
- Define translation for `Spear`
+﻿Error in file `rules/Items.txt`:
+ Line 5: Not found requisit `avatar_throw`
+ Line 5: Not found resuisit `avatar_throw`

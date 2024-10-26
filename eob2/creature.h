@@ -50,6 +50,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	bool			roll(abilityn v, int bonus = 0) const;
 	void			set(featn v) { featable::set(v); }
 	void			setframe(short* frames, short index) const;
+	bool			useammo();
 };
 extern creaturei *player, *opponent;
 extern int last_roll, last_chance;

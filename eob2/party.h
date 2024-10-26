@@ -27,6 +27,7 @@ extern creaturei* characters[6];
 extern creaturei* monsters[6];
 extern partyi party;
 extern partystatn last_variable;
+extern int enemy_distance;
 
 void add_party(partystatn id, int value);
 void continue_game();
@@ -34,6 +35,7 @@ void delete_game(const char* id);
 bool is_dead_line();
 void join_party(int bonus);
 void make_melee_attacks();
+void make_attacks();
 void monster_interaction();
 void move_party(pointc v);
 void party_addexp(int value);

@@ -307,8 +307,10 @@ static void use_item() {
 	case RightHand:
 		if(w != LeftHand && w != RightHand)
 			pn->speak("MustBeUseInHand", 0);
-		else if(last_item->isweapon())
-			make_melee_attacks();
+		else if(last_item->isweapon()) {
+			make_attacks();
+			pass_round();
+		}
 		break;
 	case Body: case Neck: case Elbow: case Legs: case Head:
 	case LeftRing: case RightRing:

@@ -91,7 +91,7 @@ GreenPotion cost(120) avatar(41) avatar_ground(19)
 BluePotion cost(150) avatar(40) avatar_ground(19)
  feats Small
 
-LargeRation avatar(37) avatar_ground(14) wear(Edible)
+LargeRation avatar(37) avatar_ground(14) damage(1 3) wear(Edible)
  feats Small Disease
 Ration avatar(38) avatar_ground(14) wear(Edible)
  feats Small Disease

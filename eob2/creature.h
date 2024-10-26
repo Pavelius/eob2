@@ -20,6 +20,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	spella			spells;
 	racef			hate;
 	flag32			languages;
+	void			add(abilityn i, int v);
 	void			addexp(int value);
 	void			additem(item& it);
 	void			attack(creaturei* enemy, wearn slot, int bonus, int multiplier);

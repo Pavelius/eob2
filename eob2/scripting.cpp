@@ -250,21 +250,64 @@ static void drop_city_item() {
 	add_party(GoldPiece, cost);
 }
 
+static void player_heal(int bonus) {
+	bonus = get_bonus(bonus);
+	if(bonus <= 0)
+		return;
+	player->hp += bonus;
+	if(player->hp > player->hpm)
+		player->hp = player->hpm;
+}
+
+static void natural_heal(int bonus) {
+	if(bonus >= 0)
+		player_heal(xrand(1, 3) + bonus);
+	else {
+		if(d100()<70)
+			player->add(PoisonLevel, -bonus);
+		else
+			player->add(DiseaseLevel, -bonus);
+		consolen(getnm("FeelWorse"));
+	}
+}
+
+static void restore_spells(int bonus) {
+	auto spell_book = get_spells_prepared(player);
+	if(spell_book)
+		memcpy(player->spells, spell_book, sizeof(player->spells));
+}
+
+static void rest_character(int bonus) {
+	natural_heal(bonus);
+	restore_spells(0);
+}
+
+static void rest_party(int bonus) {
+	auto push_player = player;
+	for(auto p : characters) {
+		if(!p)
+			continue;
+		player = p;
+		rest_character(bonus);
+	}
+	player = push_player;
+}
+
 static void use_item() {
-	auto pi = (item*)current_focus;
-	auto pn = item_owner(pi);
+	last_item = (item*)current_focus;
+	auto pn = item_owner(last_item);
 	if(!pn)
 		return;
 	if(!pn->isactable())
 		return;
-	auto w = item_wear(pi);
-	auto& ei = pi->geti();
+	auto w = item_wear(last_item);
+	auto& ei = last_item->geti();
 	switch(ei.wear) {
 	case LeftHand:
 	case RightHand:
 		if(w != LeftHand && w != RightHand)
 			pn->speak("MustBeUseInHand", 0);
-		else if(pi->isweapon())
+		else if(last_item->isweapon())
 			make_melee_attacks();
 		break;
 	case Body: case Neck: case Elbow: case Legs: case Head:
@@ -273,6 +316,15 @@ static void use_item() {
 		break;
 	case Quiver:
 		pn->speak("MustBeQuiver", 0);
+		break;
+	case Edible:
+		if(confirm(getnm("MakeCampConfirm"))) {
+			if(last_item->iscursed())
+				rest_party(-2);
+			else
+				rest_party(last_item->geti().damage.roll());
+			last_item->setcount(0);
+		}
 		break;
 	case Readable:
 		if(!pn->canread())
@@ -338,13 +390,6 @@ static void enter_location(int bonus) {
 	picture = last_location->avatar;
 	save_focus = current_focus;
 	set_next_scene(play_location);
-}
-
-static void restore_spells(int bonus) {
-	auto spell_book = get_spells_prepared(player);
-	if(spell_book) {
-		memcpy(player->spells, spell_book, sizeof(player->spells));
-	}
 }
 
 static void return_to_street(int bonus) {
@@ -870,15 +915,6 @@ static void dialog_message(int bonus) {
 	}
 }
 
-static void player_heal(int bonus) {
-	bonus = get_bonus(bonus);
-	if(bonus <= 0)
-		return;
-	player->hp += bonus;
-	if(player->hp > player->hpm)
-		player->hp = player->hpm;
-}
-
 static void get_last_random_effect(int bonus) {
 	last_number = last_random_effect();
 }
@@ -899,15 +935,15 @@ static void all_languages(int bonus) {
 }
 
 static void save_negate(int bonus) {
-   if(player->roll(SaveVsMagic, bonus*5)) {
-      last_number = 0;
-      script_stop();
-   }
+	if(player->roll(SaveVsMagic, bonus * 5)) {
+		last_number = 0;
+		script_stop();
+	}
 }
 
 static void save_half(int bonus) {
-   if(player->roll(SaveVsMagic, bonus*5))
-      last_number = last_number / 2;
+	if(player->roll(SaveVsMagic, bonus * 5))
+		last_number = last_number / 2;
 }
 
 static void player_name(stringbuilder& sb) {
@@ -998,6 +1034,7 @@ BSDATA(script) = {
 	{"LearnClericSpells", learn_cleric_spells},
 	{"LoadGame", load_game},
 	{"Message", dialog_message},
+	{"NaturalHeal", natural_heal},
 	{"JoinParty", join_party},
 	{"PartyAdventure", party_adventure},
 	{"PayGold", pay_gold},

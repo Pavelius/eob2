@@ -771,3 +771,7 @@ const racei& creaturei::getrace() const {
 const classi& creaturei::getclass() const {
 	return bsdata<classi>::elements[type];
 }
+
+void creaturei::add(abilityn i, int v) {
+	ftscript<abilityi>(i, v);
+}

@@ -8,6 +8,8 @@ GameOptions
  elements ChooseMenu LoadGame SaveGame ExitGame
 RestorePartySpells
  elements ForEachParty RestoreSpells
+NaturallyPartyHeal
+ elements ForEachParty NaturalHeal
 
 #Action
 
@@ -24,7 +26,7 @@ PrayForSpells
  classes Cleric Paladin Ranger
  effect ChooseSpells+0
 RestParty
- effect ConfirmAction RestorePartySpells PassHours+8 ReturnToStreet
+ effect ConfirmAction RestorePartySpells NaturallyPartyHeal PassHours+8 ReturnToStreet
 ScribleScrolls
  classes Mage
 

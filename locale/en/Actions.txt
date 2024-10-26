@@ -14,6 +14,7 @@ GameOptionsOptions: Game Options
 GlobalCampMenu: Camp menu
 GlobalOptions: What %Name want?
 GlobalVisit: Visit %1
+MakeCampConfirm: Do you want to make camp?
 MemorizeSpells: Memorize Spells
 MulGambleVisitors: Bet %1i gold pieces
 PartyAdventure: Go to adventure

@@ -1,2 +1,2 @@
-﻿Error in file `rules/Spells.txt`:
- Line 43: Can't find variant `Magic`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `Leech`

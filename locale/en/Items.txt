@@ -27,3 +27,6 @@ Rotten: Rotten
 ExamineItem: A %1
 ExamineIdentifiedItem: The %1
 WrongItem: I don't see any item
+
+Kobold: Kobold
+Leech: Leech

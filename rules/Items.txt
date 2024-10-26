@@ -156,3 +156,16 @@ RandomItem
 
 RandomSmallItem
  chance RandomPotions RandomRings
+
+#Race
+
+Human
+ specialization BastardSword Longsword
+Dwarf
+ specialization BattleAxe
+HalfElf
+ specialization Longsword
+Elf
+ specialization Longsword Bow
+Halfling
+ specialization ShortSword

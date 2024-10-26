@@ -159,6 +159,7 @@ BSMETA(racei) = {
 	BSREQ(id),
 	BSREQ(minimal), BSREQ(maximal),
 	BSFLG(languages, racei),
+	BSFLG(specialization, itemi),
 	BSENM(origin, racei),
 	{}};
 BSMETA(randomeffecti) = {

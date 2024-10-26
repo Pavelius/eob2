@@ -25,6 +25,7 @@ BSDATA(feati) = {
 	{"BloodSucking"},
 	{"Disease"},
 	{"DrainStrenghtAttack"},
+	{"WeaponSpecialist"},
 	{"Small"},
 	{"Large"},
 	{"Undead"},

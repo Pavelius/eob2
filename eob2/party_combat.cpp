@@ -76,6 +76,21 @@ static creaturei* get_opponent(bool left, bool enemies) {
 	return 0;
 }
 
+static void single_main_attack(creaturei* player, wearn wear, creaturei* enemy, int bonus, int multiplier) {
+	auto number_attacks = 2;
+	auto damage_bonus = 0;
+	if(player->is(WeaponSpecialist) && player->isspecialist(&player->wears[wear].geti())) {
+		bonus += 1;
+		damage_bonus += 2;
+		number_attacks += 1;
+	}
+	if(party.abilities[Minutes]%2)
+		number_attacks += 1;
+	number_attacks /= 2;
+	while(number_attacks-- > 0)
+		player->attack(enemy, wear, bonus, damage_bonus, multiplier);
+}
+
 static void make_full_attack(creaturei* player, creaturei* enemy, int bonus, int multiplier) {
 	if(!enemy)
 		return;
@@ -88,12 +103,12 @@ static void make_full_attack(creaturei* player, creaturei* enemy, int bonus, int
 	if(!wp3.isweapon())
 		wp3.clear();
 	if(wp2) {
-		player->attack(enemy, RightHand, bonus + player->gethitpenalty(-4), multiplier);
-		player->attack(enemy, LeftHand, bonus + player->gethitpenalty(-6), multiplier);
+		single_main_attack(player, RightHand, enemy, bonus + player->gethitpenalty(-4), multiplier);
+		player->attack(enemy, LeftHand, bonus + player->gethitpenalty(-6), 0, multiplier);
 	} else
-		player->attack(enemy, RightHand, bonus, multiplier);
+		single_main_attack(player, RightHand, enemy, bonus, multiplier);
 	if(wp3)
-		player->attack(enemy, Head, bonus, multiplier);
+		player->attack(enemy, Head, bonus, 0, multiplier);
 	fix_monster_attack_end(player);
 }
 

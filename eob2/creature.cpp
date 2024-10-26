@@ -636,7 +636,7 @@ static bool isf(const creaturei* player, const item& weapon, featn v) {
 	return false;
 }
 
-void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
+void creaturei::attack(creaturei* defender, wearn slot, int bonus, int damage_bonus, int multiplier) {
 	auto& weapon = wears[slot];
 	auto attack_damage = getdamage(slot, defender->is(Large));
 	auto damage_type = weapon.geti().damage_type;

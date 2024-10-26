@@ -114,7 +114,6 @@ void fix_damage(const creaturei* target, int value) {
 
 // If hits == -1 the attack is missed
 void fix_attack(const creaturei* attacker, wearn slot, int hits) {
-	need_update_animation = true;
 	auto pind = get_party_index(attacker);
 	if(pind == -1)
 		return;
@@ -122,7 +121,10 @@ void fix_attack(const creaturei* attacker, wearn slot, int hits) {
 	//auto sht = bsdata<itemi>::elements[attacker->get(slot).gettype()].image.shoot;
 	//if(sht)
 	//	animation_thrown(attacker->getindex(), attacker->getdirection(), sht, sdr, 50, true);
+	if(disp_weapon[pind][((slot == RightHand) ? 0 : 1)] != -1)
+		fix_animate();
 	disp_weapon[pind][((slot == RightHand) ? 0 : 1)] = hits;
+	need_update_animation = true;
 }
 
 static void copy_image(point origin, point dest, int w, int h) {

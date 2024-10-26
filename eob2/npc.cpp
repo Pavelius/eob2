@@ -5,6 +5,7 @@
 #include "class.h"
 #include "gender.h"
 #include "speech.h"
+#include "item.h"
 #include "npc.h"
 #include "race.h"
 #include "stringbuilder.h"
@@ -82,4 +83,11 @@ void npc::sayv(const char* format, const char* format_param) const {
 	console("%1 \"", getname());
 	consolev(format, format_param);
 	console("\"");
+}
+
+bool npc::isspecialist(const itemi* pi) const {
+	auto i = bsdata<itemi>::source.indexof(pi);
+	if(i == -1)
+		return false;
+	return bsdata<racei>::elements[race].specialization.is(i);
 }

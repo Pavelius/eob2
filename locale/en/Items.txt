@@ -1,4 +1,5 @@
 ﻿Axe: Axe
+Arrow: Arrow
 BastardSword: BasterdSword
 BattleAxe: Battle axe
 ChillTouchHand: Cold hand
@@ -16,9 +17,13 @@ RedRing: Red ring
 Robe: Robe
 Shield: Shield
 ShortSword: Short sword
+Spear: Spear
+Staff: Staff
 Stone: Stone
 TwoHandedSword: Two-handed sword
 Warhammer: Warhammer
+
+BluePotion: Blue potion
 
 Cursed: Cursed
 Damaged: Damaged

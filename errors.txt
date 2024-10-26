@@ -1,2 +1,4 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `Alertness`
+ Define translation for `Arrow`
+ Define translation for `BluePotion`
+ Define translation for `Spear`

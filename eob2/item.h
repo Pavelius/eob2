@@ -49,7 +49,7 @@ public:
 	bool		isidentified() const { return identified != 0; }
 	bool		isnatural() const { return is(You); }
 	bool		ismagical() const { return iscursed() || getpower(); }
-	bool		isranged() const { return false; }
+	bool		isranged() const { return geti().avatar_thrown || geti().ammo != 0; }
 	bool		issummoned() const { return summoned != 0; }
 	bool		isweapon() const;
 	bool		join(item& it);

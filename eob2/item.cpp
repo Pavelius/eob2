@@ -103,7 +103,7 @@ void item::damage(int bonus) {
 bool item::join(item& it) {
 	if(type != it.type || flags != it.flags || power != it.power)
 		return false;
-	if(iscountable())
+	if(!iscountable())
 		return false;
 	auto v = getcount() + it.getcount();
 	if(v <= 256) {

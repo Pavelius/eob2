@@ -200,6 +200,10 @@ static void update_wear() {
 		auto& ei = e.geti();
 		if(!ei.wearing)
 			continue;
+		if(ei.wear == LeftHand) {
+			if(player->wears[RightHand] && player->wears[RightHand].is(TwoHanded))
+				continue; // RULE: Two handed weapon
+		}
 		script_run(ei.wearing);
 	}
 	modifier = push_modifier;
@@ -463,14 +467,22 @@ void creaturei::additem(item& it) {
 		wearable::additem(it);
 }
 
-dice creaturei::getdamage(wearn id, bool large_enemy) const {
+dice creaturei::getdamage(int& bonus, wearn id, bool large_enemy) const {
 	auto& ei = wears[id].geti();
 	dice result = ei.damage;
 	if(large_enemy && ei.damage_large)
 		result = ei.damage_large;
-	result.b += player->get(DamageMelee);
-	if(is(WeaponSpecialist) && isspecialist(&ei))
-		result.b += 2;
+	auto isranged = wears[id].isranged();
+	bonus += player->get(isranged ? AttackRange : AttackMelee);
+	result.b += player->get(isranged ? DamageRange : DamageMelee);
+	if(is(WeaponSpecialist) && isspecialist(&ei)) {
+		if(wears[id].isranged())
+			bonus += 2;
+		else {
+			bonus += 1;
+			result.b += 2;
+		}
+	}
 	return result;
 }
 
@@ -640,13 +652,14 @@ static bool isf(const creaturei* player, const item& weapon, featn v) {
 
 void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
 	auto& weapon = wears[slot];
-	auto attack_damage = getdamage(slot, defender->is(Large));
-	auto damage_type = weapon.geti().damage_type;
 	auto chance_critical = 20;
+	auto attack_damage = getdamage(bonus, slot, defender->is(Large));
+	auto damage_type = weapon.geti().damage_type;
+	auto isrange = weapon.isranged();
 	auto ammo = weapon.geti().ammo;
 	if(ammo) {
 		if(!wears[Quiver].is(ammo))
-			return;
+			return; // No Ammo!
 		attack_damage.b += ammo->damage.b;
 		if(wears[Quiver].is(Precise))
 			chance_critical++;
@@ -654,15 +667,17 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	if(weapon.is(Precise))
 		chance_critical++;
 	auto ac = defender->get(AC);
-	if(defender->is(BonusACVsLargeEnemy) && is(Large))
-		ac += 4;
+	// RULE: Small dwarf use special tactics vs large opponents
+	if(!isrange) {
+		if(defender->is(BonusACVsLargeEnemy) && is(Large))
+			ac += 4;
+	}
 	if(hate.is(defender->race)) {
 		if(is(BonusAttackVsHated))
 			bonus += 1;
 		if(is(BonusDamageVsEnemy))
 			bonus += 4;
 	}
-	bonus += get(AttackMelee);
 	auto magic_bonus = 0;
 	//if(wi.weapon) {
 	//	magic_bonus = wi.weapon->getmagic();
@@ -674,8 +689,6 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	//			wi.damage.b += 2;
 	//	}
 	//}
-	//	if(!useammo(ammo, slot, true))
-	//		return;
 	auto tohit = 20 - bonus - (10 - ac);
 	auto rolls = xrand(1, 20);
 	auto hits = -1;

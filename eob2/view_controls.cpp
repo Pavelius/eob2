@@ -549,7 +549,17 @@ static void paint_select_rect() {
 	fore = push_fore;
 }
 
-static void paint_item(item& it, wearn id, int emphty_avatar = -1, int pallette_feat = -1) {
+static void paint_disabled() {
+	auto push_alpha = alpha;
+	auto push_fore = fore;
+	alpha = 128;
+	fore = colors::black;
+	rectf();
+	fore = push_fore;
+	alpha = push_alpha;
+}
+
+static void paint_item(item& it, wearn id, int emphty_avatar = -1, int pallette_feat = -1, bool show_disabled = false) {
 	rectpush push;
 	if(pallette_feat == -1) {
 		if(player->is(SeeCursed) && it.iscursed())
@@ -595,8 +605,11 @@ static void paint_item(item& it, wearn id, int emphty_avatar = -1, int pallette_
 		auto push_fore = fore;
 		fore = colors::white;
 		text(ps);
+		caret = push.caret;
 		fore = push_fore;
 	}
+	if(show_disabled)
+		paint_disabled();
 }
 
 static void paint_ring(item& it, wearn id) {
@@ -676,12 +689,14 @@ static void addv(stringbuilder& sb, const dice& value) {
 
 static void textn(abilityn id) {
 	char temp[260]; stringbuilder sb(temp);
+	int bonus;
 	switch(id) {
 	case AttackMelee:
 		sb.add("%1i", 20 - player->get(id));
 		break;
 	case DamageMelee:
-		addv(sb, player->getdamage(RightHand, false));
+		bonus = 0;
+		addv(sb, player->getdamage(bonus, RightHand, false));
 		break;
 	case AC:
 		sb.add("%1i", 10 - player->get(id));
@@ -785,7 +800,7 @@ static void paint_sheet() {
 	paint_blank();
 	header(getnm("Characterinfo"));
 	textn(getnm(bsdata<classi>::elements[player->type].id));
-	//text(bsdata<alignmenti>::elements[pc->getalignment()].name); y1 += draw::texth();
+	textn(bsdata<alignmenti>::elements[player->alignment].getname());
 	textn(str("%1 %2", bsdata<racei>::elements[player->race].getname(), bsdata<genderi>::elements[player->gender].getname()));
 	caret.y += texth();
 	auto push_block = caret;
@@ -885,16 +900,6 @@ static void paint_inventory() {
 	fore = push_fore;
 }
 
-static void paint_disabled() {
-	auto push_alpha = alpha;
-	auto push_fore = fore;
-	alpha = 128;
-	fore = colors::black;
-	rectf();
-	fore = push_fore;
-	alpha = push_alpha;
-}
-
 static void paint_character() {
 	rectpush push;
 	auto push_font = font;
@@ -913,7 +918,8 @@ static void paint_character() {
 	paint_item(player->wears[RightHand], RightHand, 84);
 	paint_player_hit(player, RightHand);
 	caret.y = push.caret.y + 26;
-	paint_item(player->wears[LeftHand], LeftHand, 83);
+	auto disable_offhand = player->wears[RightHand] && player->wears[RightHand].is(TwoHanded);
+	paint_item(player->wears[LeftHand], LeftHand, 83, -1, disable_offhand);
 	paint_player_hit(player, LeftHand);
 	caret.x = push.caret.x + 2;
 	caret.y = push.caret.y + 10;
@@ -1262,7 +1268,8 @@ static void pick_up_item() {
 			return;
 		if(!can_place(c2, w2, p1))
 			return;
-		iswap(*p1, *p2);
+		if(!p2->join(*p1))
+			iswap(*p1, *p2);
 		update_player(c1);
 		update_player(c2);
 	}

@@ -701,6 +701,8 @@ static void drop_dungeon_item() {
 
 static item* find_item_to_get(pointc v, directions d, int side) {
 	dungeoni::ground* items[64];
+	if(!loc)
+		return 0;
 	auto count = loc->getitems(items, lenghtof(items), v);
 	if(!count)
 		return 0;
@@ -950,6 +952,10 @@ static void save_half(int bonus) {
 		last_number = last_number / 2;
 }
 
+static void set_character(int bonus) {
+	player = characters[bonus];
+}
+
 static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
@@ -1021,6 +1027,7 @@ BSDATA(script) = {
 	{"ApplyAction", apply_action},
 	{"ApplyRacialEnemy", apply_racial_enemy},
 	{"ConfirmAction", confirm_action},
+	{"Character", set_character},
 	{"ChooseSpells", choose_spells},
 	{"ChooseMenu", choose_menu},
 	{"CreateCharacter", create_character},

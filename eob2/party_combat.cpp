@@ -7,6 +7,7 @@
 #include "view.h"
 
 static adat<creaturei*, 16> combatants;
+static int enemy_distance;
 
 static size_t shrink_creatures(creaturei** dest, creaturei** units, size_t count) {
 	auto ps = dest;
@@ -26,7 +27,7 @@ static int compare_creatures(const void* v1, const void* v2) {
 
 static bool select_combatants(pointc position) {
 	loc->getmonsters(combatants.data, position);
-	combatants.count = shrink_creatures(combatants.data, combatants.data, 4);
+	combatants.count = shrink_creatures(combatants.data, combatants.data, 6);
 	if(!combatants)
 		return false;
 	combatants.count += shrink_creatures(combatants.data + combatants.count, characters, 6);
@@ -39,6 +40,22 @@ static bool select_combatants(pointc position) {
 	}
 	qsort(combatants.data, combatants.count, sizeof(combatants.data[0]), compare_creatures);
 	return true;
+}
+
+static bool select_combatants(pointc v, directions d) {
+	enemy_distance = 0;
+	for(auto i = 0; i < 3; i++) {
+		v = to(v, d);
+		if(!v)
+			return false;
+		if(select_combatants(v)) {
+			enemy_distance = i + 1;
+			turnto(v, to(d, Down));
+			animation_update();
+			return true;
+		}
+	}
+	return false;
 }
 
 static void select_combatants(creaturei** result, bool enemies) {
@@ -82,7 +99,7 @@ static void single_main_attack(creaturei* player, wearn wear, creaturei* enemy, 
 		bonus += 1;
 		number_attacks += 1;
 	}
-	if(party.abilities[Minutes]%2)
+	if(party.abilities[Minutes] % 2)
 		number_attacks += 1;
 	number_attacks /= 2;
 	while(number_attacks-- > 0)
@@ -143,6 +160,33 @@ void make_melee_attacks() {
 	animation_update();
 	if(!select_combatants(v))
 		return;
+	for(auto p : combatants) {
+		if(p->isdisabled())
+			continue;
+		// RULE: Surprised creatures do not move first round in combat
+		if(p->is(Surprised)) {
+			p->remove(Surprised);
+			continue;
+		}
+		if(p->ismonster()) {
+			auto left_side = (get_side(p->side, d) % 2) == 0;
+			if(p->is(Large))
+				left_side = (rand() % 2);
+			make_full_attack(p, get_opponent(left_side, false), 0, 1);
+		} else {
+			auto left_side = (p->side % 2) == 0;
+			make_full_attack(p, get_opponent(left_side, true), 0, 1);
+		}
+		animation_update();
+		fix_animate();
+		p->set(Moved);
+	}
+}
+
+void make_attacks() {
+	if(!select_combatants(party, party.d))
+		return;
+	auto d = to(party.d, Down);
 	for(auto p : combatants) {
 		if(p->isdisabled())
 			continue;

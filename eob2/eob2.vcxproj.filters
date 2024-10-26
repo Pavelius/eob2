@@ -565,6 +565,9 @@
     <Text Include="..\rules\Monsters.txt">
       <Filter>rules</Filter>
     </Text>
+    <Text Include="..\locale\en\Alignments.txt">
+      <Filter>locale</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">

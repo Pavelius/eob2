@@ -59,5 +59,6 @@ public:
 	variant		getpower() const { return variant(); }
 	void		setcount(int v);
 	void		summon(int v) { summoned = (v >= 0) ? 1 : 0; }
+	void		consume() { setcount(getcount() - 1); }
 };
 extern item* last_item;

@@ -973,8 +973,6 @@ static void fill_sprite(renderi* p, int avatar_thrown, directions drs, int side)
 	p->frame[0] = avatar_thrown;
 	p->rdata = gres(THROWN);
 	if(avatar_thrown >= 7) {
-		if(side == 0)
-			p->flags[0] |= ImageMirrorH;
 		if(drs == Down) {
 			p->flags[0] |= ImageMirrorV;
 			p->frame[0]++;

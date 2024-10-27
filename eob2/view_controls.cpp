@@ -117,10 +117,10 @@ void fix_attack(const creaturei* attacker, wearn slot, int hits) {
 	auto pind = get_party_index(attacker);
 	if(pind == -1)
 		return;
-	auto sdr = (pind == 0 || pind == 2) ? Left : Right;
-	//auto sht = bsdata<itemi>::elements[attacker->get(slot).gettype()].image.shoot;
-	//if(sht)
-	//	animation_thrown(attacker->getindex(), attacker->getdirection(), sht, sdr, 50, true);
+	// If thrown animation fix attack
+	auto avatar_thrown = attacker->wears[slot].geti().avatar_thrown;
+	if(avatar_thrown)
+		thrown_item(party, Up, avatar_thrown, pind % 2, enemy_distance);
 	if(disp_weapon[pind][((slot == RightHand) ? 0 : 1)] != -1)
 		fix_animate();
 	disp_weapon[pind][((slot == RightHand) ? 0 : 1)] = hits;

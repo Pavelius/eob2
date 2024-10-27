@@ -2,7 +2,7 @@
 
 NoItem damage(1 2) avatar(84)
 
-Arrow avatar(16) damage_type(Piercing) avatar_ground(5) wear(Quiver) avatar_thrown(13)
+Arrow avatar(16) damage_type(Piercing) avatar_ground(5) wear(Quiver)
  feats Small
 Stone avatar(19) avatar_ground(2) wear(Quiver)
  feats Small
@@ -36,7 +36,7 @@ ShortSword cost(10) speed(4) damage(1 6) avatar(2) avatar_ground(0) wear(RightHa
  feats UseRogish UseElvish UseMartial Precise
 TwoHandedSword cost(50) speed(10) damage(1 10) damage_large(3 18) avatar(42) avatar_ground(0) wear(RightHand)
  feats UseMartial TwoHanded Precise
-Bow cost(60) speed(8) damage_type(Piercing) damage(1 6) ammo(Arrow) avatar(10) avatar_ground(6) wear(RightHand)
+Bow cost(60) speed(8) damage_type(Piercing) damage(1 6) ammo(Arrow) avatar(10) avatar_ground(6) wear(RightHand) avatar_thrown(13)
  feats UseMartial UseRogish TwoHanded
 Sling speed(6) damage(1 4) ammo(Stone) avatar(18) avatar_ground(4) wear(RightHand)
  feats Small

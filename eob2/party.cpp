@@ -8,6 +8,7 @@
 #include "math.h"
 #include "party.h"
 #include "rand.h"
+#include "view.h"
 
 BSDATA(partystati) = {
 	{"GoldPiece"},
@@ -234,7 +235,17 @@ static void update_every_round() {
 	update_player();
 }
 
+static void check_poison() {
+	if(!player->is(PoisonLevel))
+		return;
+	auto penalty = player->get(PoisonLevel) / 5;
+	if(!player->roll(SaveVsPoison, -penalty))
+		player->damage(Poison, 1, 100);
+	player->add(PoisonLevel, -1);
+}
+
 static void update_every_turn() {
+	check_poison();
 }
 
 static void allcreatures(fnevent proc) {
@@ -259,6 +270,9 @@ void pass_round() {
 	monsters_movement();
 	add_party(Minutes, 1);
 	allcreatures(update_every_round);
+	if((party.abilities[Minutes] % 6) == 0)
+		allcreatures(update_every_turn);
+	fix_animate();
 }
 
 void pass_hours(int value) {

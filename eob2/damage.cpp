@@ -10,6 +10,7 @@ BSDATA(damagei) = {
 	{"Fire", ResistFire},
 	{"Cold", ResistCold},
 	{"Acid"},
-	{"Shock"},	
+	{"Shock"},
+	{"Poison"},
 };
-assert_enum(damagei, Shock)
+assert_enum(damagei, Poison)

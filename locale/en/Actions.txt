@@ -2,6 +2,7 @@
 CampMenu: Camp Options:
 CastSpell: Cast what spell?
 CastOnWho: Cast on who?
+CellKeyHoleDisable: Lock is picked up
 ChooseBet: Bed how match?
 CreateNewGame: Create new game
 DebugTest: Debug Test

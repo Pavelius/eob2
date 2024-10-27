@@ -124,3 +124,9 @@ Cleric+7 SaveThrow
 
 Mage+1 Spells
  elements Armor ChillTouch MagicMissile Spell1+1
+
+Theif+1 SaveThrow
+ elements SaveVsParalization+40 SaveVsPoison+40 SaveVsTraps+35 SaveVsMagic+30
+
+Theif+1 Skills
+ elements PickPockets+30 OpenLocks+25 RemoveTraps+20 MoveSilently+15 HearNoise+10 ClimbWalls+85

@@ -23,6 +23,10 @@ What a stench!
 #CellDecor3BrickMage
 Old water aqueduct
 
+#CellKeyHoleActive
+Already opened
+Stop! The door is already open
+
 #CellPortalAbout
 This is a strange device
 This is some kind of magic

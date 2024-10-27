@@ -16,6 +16,7 @@ BSDATA(abilityi) = {
 	{"HearNoise"},
 	{"MoveSilently"},
 	{"OpenLocks"},
+	{"PickPockets"},
 	{"RemoveTraps"},
 	{"ReadLanguages"},
 	{"LearnSpell"},

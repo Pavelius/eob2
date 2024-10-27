@@ -692,6 +692,11 @@ static bool use_tool_item(abilityn skill) {
 	return false;
 }
 
+static void use_tool_success(celln n) {
+	player->addexp(100);
+	consolen(getnm(ids(bsdata<celli>::elements[n].id, "Disable")));
+}
+
 static void use_theif_tools(int bonus) {
 	auto p = loc->get(party, party.d);
 	if(p) {
@@ -700,9 +705,9 @@ static void use_theif_tools(int bonus) {
 			if(active_overlay(p))
 				return;
 			if(use_tool_item(OpenLocks)) {
-				player->addexp(100);
 				if(p->link) {
-
+					use_tool_success(p->type);
+					loc->set(p->link, CellActive);
 				}
 			}
 			pass_round();
@@ -711,7 +716,7 @@ static void use_theif_tools(int bonus) {
 			if(active_overlay(p))
 				return;
 			if(use_tool_item(RemoveTraps)) {
-				player->addexp(100);
+				use_tool_success(p->type);
 				p->set(CellActive);
 			}
 			pass_round();
@@ -721,8 +726,8 @@ static void use_theif_tools(int bonus) {
 	switch(loc->get(to(party, party.d))) {
 	case CellPit:
 		if(use_tool_item(RemoveTraps)) {
-			player->addexp(100);
 			loc->set(to(party, party.d), CellPassable);
+			use_tool_success(CellPit);
 		}
 		pass_round();
 		return;

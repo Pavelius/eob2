@@ -248,7 +248,9 @@ static void treasure(pointc v, directions d) {
 		return;
 	auto magic_bonus = 2;
 	loc->set(v1, CellDoor);
-	loc->add(to(v, to(d, Right)), d, CellKeyHole);
+	auto po = loc->add(to(v, to(d, Right)), d, CellKeyHole);
+	if(po)
+		po->link = v1;
 	loc->set(to(v1, to(d, Left)), CellWall);
 	loc->set(to(v1, to(d, Right)), CellWall);
 	loc->set(v2, CellPassable);

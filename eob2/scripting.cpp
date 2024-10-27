@@ -677,6 +677,18 @@ static bool active_overlay(dungeoni::overlayi* p) {
 	return false;
 }
 
+static bool use_tool_item(abilityn skill) {
+	if(player->roll(skill))
+		return true;
+	consolen(getnm(ids(bsdata<abilityi>::elements[skill].id, "Fail")));
+	if(d100() < 35) {
+		auto tool_id = last_item->geti().id;
+		last_item->damage(1);
+		if(!(*last_item))
+			consolen(getnm("ToolBroken"), tool_id);
+	}
+}
+
 static void use_theif_tools(int bonus) {
 	auto p = loc->get(party, party.d);
 	if(p) {
@@ -684,7 +696,7 @@ static void use_theif_tools(int bonus) {
 		case CellKeyHole:
 			if(active_overlay(p))
 				return;
-			if(player->roll(OpenLocks)) {
+			if(use_tool_item(OpenLocks)) {
 				player->addexp(100);
 			}
 			pass_round();
@@ -692,7 +704,7 @@ static void use_theif_tools(int bonus) {
 		case CellTrapLauncher:
 			if(active_overlay(p))
 				return;
-			if(player->roll(RemoveTraps)) {
+			if(use_tool_item(RemoveTraps)) {
 				player->addexp(100);
 			}
 			pass_round();
@@ -701,7 +713,7 @@ static void use_theif_tools(int bonus) {
 	}
 	switch(loc->get(to(party, party.d))) {
 	case CellPit:
-		if(player->roll(RemoveTraps)) {
+		if(use_tool_item(RemoveTraps)) {
 			player->addexp(100);
 			loc->set(to(party, party.d), CellPassable);
 		}

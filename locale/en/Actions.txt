@@ -22,6 +22,7 @@ MemorizeSpells: Memorize Spells
 MulGambleVisitors: Bet %1i gold pieces
 PartyAdventure: Go to adventure
 PartysAdventureAsk: Which way to go?
+OpenLocksFail: Pick locks fail
 PickPockets: Pick pockets
 PickPocketsVisit: Pick some pockets
 PrayForSpells: Pray for Spells
@@ -33,6 +34,7 @@ ScribleScrolls: Scrible Scrolls
 SellConfirm: Do you really want sell %-1 for %2i gold pieces?
 StartGame: Create new game
 SurpriseFailed: %1 is surprised
+ToolBroken: %1 is broken
 
 Options: Options
 ReturnBack: Back

@@ -24,6 +24,7 @@ struct dungeoni : dungeon_site {
 		void		clear();
 		bool		is(cellfn v) const { return flags.is(v); }
 		void		remove() { clear(); }
+		void		set(cellfn v) { flags.set(v); }
 	};
 	struct overlayitem : item {
 		unsigned short storage_index;

@@ -363,6 +363,7 @@ static void use_item() {
 			pn->speak("CantUse", 0);
 			return;
 		}
+		script_run(last_item->geti().use);
 		break;
 	default:
 		break;
@@ -670,7 +671,7 @@ static void read_wall_messages(creaturei* player, dungeoni::overlayi* p) {
 }
 
 static bool active_overlay(dungeoni::overlayi* p) {
-	if(p->is(CellActive)) {
+	if(p->is(CellActive) || (p->link && loc->is(p->link, CellActive))) {
 		player->speak(bsdata<celli>::elements[p->type].id, "Active");
 		return true;
 	}
@@ -681,12 +682,14 @@ static bool use_tool_item(abilityn skill) {
 	if(player->roll(skill))
 		return true;
 	consolen(getnm(ids(bsdata<abilityi>::elements[skill].id, "Fail")));
-	if(d100() < 35) {
+	auto chance = 60;
+	if(d100() < chance) {
 		auto tool_id = last_item->geti().id;
 		last_item->damage(1);
 		if(!(*last_item))
-			consolen(getnm("ToolBroken"), tool_id);
+			consolen(getnm("ToolBroken"), getnm(tool_id));
 	}
+	return false;
 }
 
 static void use_theif_tools(int bonus) {
@@ -698,6 +701,9 @@ static void use_theif_tools(int bonus) {
 				return;
 			if(use_tool_item(OpenLocks)) {
 				player->addexp(100);
+				if(p->link) {
+
+				}
 			}
 			pass_round();
 			return;
@@ -706,6 +712,7 @@ static void use_theif_tools(int bonus) {
 				return;
 			if(use_tool_item(RemoveTraps)) {
 				player->addexp(100);
+				p->set(CellActive);
 			}
 			pass_round();
 			return;
@@ -1172,5 +1179,6 @@ BSDATA(script) = {
 	{"SaveHalf", save_half},
 	{"SaveNegate", save_negate},
 	{"SetVariable", set_variable},
+	{"UseTheifTool", use_theif_tools},
 };
 BSDATAF(script)

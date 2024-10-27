@@ -105,6 +105,7 @@ MagicMap cost(10) avatar(86) avatar_ground(12) wear(Readable)
 
 TheifTools cost(10) avatar(54) avatar_ground(1) wear(Usable)
  feats Small UseRogish
+ use UseTheifTool
 
 Mandibules damage_type(Slashing) damage(1 4)
  feats You

@@ -601,10 +601,10 @@ static void paint_item(item& it, wearn id, int emphty_avatar = -1, int pallette_
 	if(count > 1) {
 		auto ps = str("%1i", count);
 		caret.y = push.caret.y + push.height - 6 - 2;
-		caret.x = push.caret.x + push.width - textw(ps) - 1;
+		caret.x = push.caret.x + push.width - textw(ps) - 3;
 		auto push_fore = fore;
 		fore = colors::white;
-		text(ps);
+		text(ps, -1, TextBold);
 		caret = push.caret;
 		fore = push_fore;
 	}

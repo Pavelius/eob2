@@ -1,2 +1,2 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `StartGame`
+ Define translation for `Halberd`

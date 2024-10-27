@@ -7,6 +7,7 @@ ChillTouchHand: Cold hand
 Club: Club
 Dagger: Dagger
 DwarvenHelm: Dwarven helm
+Halberd: Halberd
 Helm: Helm
 LargeRation: Large ration
 LeatherArmor: Leather armor

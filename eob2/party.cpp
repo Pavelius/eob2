@@ -317,3 +317,11 @@ int party_median(creaturei** creatures, abilityn v) {
 		return 0;
 	return value / count;
 }
+
+quest* partyi::getquest() const {
+	return getbs<quest>(quest_id);
+}
+
+locationi* partyi::getlocation() const {
+	return getbs<locationi>(location_id);
+}

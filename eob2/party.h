@@ -8,6 +8,8 @@
 typedef flagable<8, unsigned> questa;
 
 struct creaturei;
+struct locationi;
+struct quest;
 
 enum abilityn : unsigned char;
 
@@ -19,9 +21,11 @@ enum partystatn : unsigned char {
 struct partystati : nameable {
 };
 struct partyi : posable {
-	short unsigned	location;
+	short unsigned	location_id, quest_id;
 	questa			active, done, prepared;
 	int				abilities[EffectCount + 1];
+	locationi*		getlocation() const;
+	quest*			getquest() const;
 };
 extern creaturei* characters[6];
 extern creaturei* monsters[6];

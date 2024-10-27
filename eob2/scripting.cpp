@@ -222,8 +222,8 @@ static void choose_options(const char* id, const variants& options) {
 }
 
 static void choose_city_menu() {
-	auto& e = bsdata<locationi>::elements[party.location];
-	choose_options("Visit", e.options);
+	auto p = party.getlocation();
+	choose_options("Visit", p->options);
 	apply_result();
 }
 
@@ -449,14 +449,14 @@ static void enter_location(int bonus) {
 		all_party(clear_mission_equipment, false);
 	}
 	loc = 0;
-	party.location = getbsi(last_location);
+	party.location_id = getbsi(last_location);
 	picture = last_location->avatar;
 	save_focus = current_focus;
 	set_next_scene(play_location);
 }
 
 static void return_to_street(int bonus) {
-	last_location = bsdata<locationi>::elements + party.location;
+	last_location = party.getlocation();
 	if(last_location->parent) {
 		last_location = last_location->parent;
 		enter_location(0);
@@ -973,7 +973,7 @@ static void party_adventure(int bonus) {
 }
 
 void continue_game() {
-	last_location = bsdata<locationi>::elements + party.location;
+	last_location = party.getlocation();
 	current_focus = 0;
 	if(loc)
 		enter_active_dungeon();

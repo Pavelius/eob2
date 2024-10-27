@@ -1018,7 +1018,7 @@ void paint_party_status() {
 	paint_menu({0, 122}, 178, 52);
 	caret.x = 8; caret.y = 126;
 	width = 160; height = texth();
-	texta(bsdata<locationi>::elements[party.location].getname(), AlignCenter, colors::yellow);
+	texta(party.getlocation()->getname(), AlignCenter, colors::yellow);
 	caret.y += texth() + 3;
 	if(is_dead_line()) {
 		auto v = getparty(Minutes);

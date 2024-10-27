@@ -158,8 +158,10 @@ void make_melee_attacks() {
 	auto d = to(party.d, Down);
 	turnto(v, d);
 	animation_update();
+	enemy_distance = 0;
 	if(!select_combatants(v))
 		return;
+	enemy_distance = 1;
 	for(auto p : combatants) {
 		if(p->isdisabled())
 			continue;

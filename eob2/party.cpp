@@ -4,6 +4,7 @@
 #include "console.h"
 #include "creature.h"
 #include "direction.h"
+#include "draw.h"
 #include "dungeon.h"
 #include "math.h"
 #include "party.h"
@@ -248,6 +249,14 @@ static void update_every_turn() {
 	check_poison();
 }
 
+static bool all_party_disabled() {
+	for(auto p : characters) {
+		if(p && !p->isdisabled())
+			return false;
+	}
+	return true;
+}
+
 static void allcreatures(fnevent proc) {
 	auto push_player = player;
 	for(auto p : characters) {
@@ -273,6 +282,10 @@ void pass_round() {
 	if((party.abilities[Minutes] % 6) == 0)
 		allcreatures(update_every_turn);
 	fix_animate();
+	if(all_party_disabled()) {
+		message_box(getnm("AllPartyDead"));
+		set_next_scene(main_menu);
+	}
 }
 
 void pass_hours(int value) {

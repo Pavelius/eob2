@@ -1,3 +1,2 @@
-﻿Error in file `rules/Items.txt`:
- Line 5: Not found requisit `avatar_throw`
- Line 5: Not found resuisit `avatar_throw`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `StartGame`

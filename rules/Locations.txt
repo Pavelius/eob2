@@ -46,5 +46,8 @@ HunterVillage avatar(buildngs 26)
 
 #List
 
+StartGame
 CampMenu
  elements MemorizeSpells PrayForSpells ScribleScrolls GameOptions
+MainMenu
+ elements StartGame LoadGame ExitGame

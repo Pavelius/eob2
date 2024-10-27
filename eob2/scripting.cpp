@@ -154,6 +154,9 @@ static void saves_modify(int bonus) {
 	ftscript<abilityi>(SaveVsTraps, bonus);
 }
 
+static void create_new_game(int bonus) {
+}
+
 static void create_character(int bonus) {
 	create_player();
 }
@@ -230,6 +233,23 @@ static void choose_dungeon_menu() {
 		return;
 	choose_options(pi->id, pi->elements);
 	apply_result();
+}
+
+static void main_menu(const char* id) {
+	pushanswer push;
+	auto pi = bsdata<listi>::find(id);
+	if(!pi)
+		return;
+	for(auto& v : pi->elements)
+		add_menu(v);
+	last_result = choose_main_menu();
+	apply_result();
+}
+
+void main_menu() {
+	main_menu("MainMenu");
+	if(!is_next_scene())
+		set_next_scene(main_menu);
 }
 
 static void drop_city_item() {
@@ -1033,6 +1053,7 @@ BSDATA(script) = {
 	{"ChooseSpells", choose_spells},
 	{"ChooseMenu", choose_menu},
 	{"CreateCharacter", create_character},
+	{"CreateNewGame", create_new_game},
 	{"CurseItem", curse_item},
 	{"Damage", damage_modify},
 	{"DamageItem", damage_item},

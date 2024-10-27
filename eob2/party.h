@@ -34,6 +34,7 @@ void continue_game();
 void delete_game(const char* id);
 bool is_dead_line();
 void join_party(int bonus);
+void main_menu();
 void make_melee_attacks();
 void make_attacks();
 void monster_interaction();

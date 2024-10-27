@@ -3,6 +3,7 @@ CampMenu: Camp Options:
 CastSpell: Cast what spell?
 CastOnWho: Cast on who?
 ChooseBet: Bed how match?
+CreateNewGame: Create new game
 DebugTest: Debug Test
 DebugTestVisit: Debug test string
 EatAndDrink: Eat and drink
@@ -28,6 +29,7 @@ ReturnToStreet: Leave to the street
 ReturnToTownConfirm: Do you really want return to town?
 ScribleScrolls: Scrible Scrolls
 SellConfirm: Do you really want sell %-1 for %2i gold pieces?
+StartGame: Create new game
 SurpriseFailed: %1 is surprised
 
 Options: Options
@@ -36,6 +38,7 @@ Visit: Visit
 Village: Village
 
 Accept: Accept
+AllPartyDead: All party members is dead. Try start game again.
 Cancel: Cancel
 Continue: Continue
 Decline: Decline

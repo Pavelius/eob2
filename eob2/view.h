@@ -27,6 +27,7 @@ extern bool need_update_animation;
 
 void* choose_dialog(const char* title, int dx);
 void* choose_large_menu(const char* header, const char* cancel);
+void* choose_main_menu();
 void* choose_small_menu(const char* header, const char* cancel);
 void* show_message(const char* format, bool add_anaswers, const char* cancel = 0, unsigned cancel_key = 27);
 void* dialogv(const char* cancel, const char* format);
@@ -53,6 +54,7 @@ void fix_monster_damage_end();
 void header_yellow(const char* format);
 bool hotkey_input(const hotkeyi* hotkeys);
 void initialize_gui();
+void message_box(const char* format);
 void paint_adventure();
 void paint_arrow(point camera, directions direct, int mpg);
 void paint_avatars();

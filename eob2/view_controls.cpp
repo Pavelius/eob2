@@ -1452,6 +1452,10 @@ void* choose_small_menu(const char* header, const char* cancel) {
 	return choose_answer(header, cancel, paint_small_menu, text_label_menu, 0, maximum, header_yellow);
 }
 
+void* choose_main_menu() {
+	return choose_answer(0, 0, paint_main_menu, text_label, 1, -1, 0);
+}
+
 static int get_total_use(char* source_value) {
 	auto result = 0;
 	for(auto& e : an.elements) {
@@ -1665,6 +1669,14 @@ bool confirm(const char* format) {
 	an.addv((void*)1, getnm("Yes"), 0, 'Y');
 	an.addv((void*)0, getnm("No"), 0, 'N');
 	return choose_dialog(format, 8) != 0;
+}
+
+void message_box(const char* format) {
+	if(!format)
+		return;
+	an.clear();
+	an.addv((void*)1, getnm("OK"), 0, KeyEnter);
+	choose_dialog(format, 8);
 }
 
 static void main_beforemodal() {

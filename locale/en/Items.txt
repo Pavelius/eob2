@@ -22,6 +22,7 @@ ShortSword: Short sword
 Spear: Spear
 Staff: Staff
 Stone: Stone
+TheifTools: Theif tools
 TwoHandedSword: Two-handed sword
 Warhammer: Warhammer
 

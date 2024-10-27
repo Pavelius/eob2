@@ -9,6 +9,8 @@ DebugTestVisit: Debug test string
 EatAndDrink: Eat and drink
 EatAndDrinkVisit: Eat and drink
 ExitConfirm: Do you really want to exit game?
+FeelPoison: %Name suffer from poison
+FeelWorse: %Name feels bad
 GambleVisitors: Gamble with someone
 GameOptions: Game Options
 GameOptionsOptions: Game Options
@@ -45,6 +47,7 @@ Decline: Decline
 ExitGame: Exit game
 LoadGame: Load game
 No: No
+OK: OK
 SaveGame: Save game
 Yes: Yes
 WhatCharacter: What character?

@@ -29,6 +29,8 @@ extern partyi party;
 extern partystatn last_variable;
 extern int enemy_distance;
 
+void all_creatures(fnevent proc);
+void all_party(fnevent proc, bool skip_disabled);
 void add_party(partystatn id, int value);
 void continue_game();
 void delete_game(const char* id);

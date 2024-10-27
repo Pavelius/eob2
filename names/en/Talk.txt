@@ -52,6 +52,11 @@ This is mine!
 No! I can't remove this item
 This is my treasure!
 
+#CantUse
+I don't use this item
+How do I use this item?
+This stuff is not for me
+
 #MessageMagicRingMiss
 There is no magic ring around
 #MessageMagicWeaponsPresent

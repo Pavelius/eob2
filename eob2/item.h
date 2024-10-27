@@ -25,7 +25,8 @@ class item {
 			unsigned char cursed : 1;
 			unsigned char identified : 1;
 			unsigned char summoned : 1;
-			unsigned char reserved : 5;
+			unsigned char tooled : 1;
+			unsigned char reserved : 4;
 		};
 		unsigned char flags;
 	};
@@ -34,6 +35,7 @@ class item {
 public:
 	explicit operator bool() const { return type != 0; }
 	void		clear();
+	void		tool(int v) { tooled = (v >= 0) ? 1 : 0; }
 	void		create(int value);
 	void		create(const itemi* pi);
 	void		curse(int v) { cursed = (v >= 0) ? 1 : 0; }
@@ -51,6 +53,7 @@ public:
 	bool		ismagical() const { return iscursed() || getpower(); }
 	bool		isranged() const { return geti().avatar_thrown || geti().ammo != 0; }
 	bool		issummoned() const { return summoned != 0; }
+	bool		istool() const { return tooled != 0; }
 	bool		isweapon() const;
 	bool		join(item& it);
 	int			getcost() const;

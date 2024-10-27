@@ -3,7 +3,7 @@
 #include "item.h"
 
 enum wearn : unsigned char {
-	Backpack, Edible, Drinkable, Readable, LastBackpack = Backpack + 13,
+	Backpack, Edible, Drinkable, Readable, Usable, LastBackpack = Backpack + 13,
 	Head, Neck, Body, RightHand, LeftHand, RightRing, LeftRing, Elbow, Legs, Quiver,
 	FirstBelt, SecondBelt, LastBelt,
 	FirstInvertory = Backpack, LastInvertory = LastBelt

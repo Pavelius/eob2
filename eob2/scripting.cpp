@@ -356,7 +356,12 @@ static void use_item() {
 		if(!pn->canread())
 			pn->speak("CantRead", 0);
 		else {
-
+		}
+		break;
+	case Usable:
+		if(!pn->isallow(*last_item)) {
+			pn->speak("CantUse", 0);
+			return;
 		}
 		break;
 	default:
@@ -410,7 +415,38 @@ static void play_location() {
 	show_scene(paint_city, city_adventure_input, save_focus);
 }
 
+static bool mission_equipment(const char* id) {
+	auto pi = bsdata<listi>::find(ids(id, "MissionEquipment"));
+	if(!pi)
+		return false;
+	for(auto v : pi->elements) {
+		if(v.iskind<itemi>()) {
+			ftscript<itemi>(v.value, v.counter);
+			last_item->tool(1);
+			last_item->identify(1);
+			last_item->curse(-1);
+		}
+	}
+	return true;
+}
+
+static void craft_mission_equipment() {
+	mission_equipment("Common");
+	mission_equipment(player->getclassmain().id);
+	mission_equipment(player->getrace().id);
+}
+
+static void clear_mission_equipment() {
+	for(auto& e : player->wears) {
+		if(e.istool())
+			e.clear();
+	}
+}
+
 static void enter_location(int bonus) {
+	if(loc) {
+		all_party(clear_mission_equipment, false);
+	}
 	loc = 0;
 	party.location = getbsi(last_location);
 	picture = last_location->avatar;
@@ -631,6 +667,47 @@ static void read_wall_messages(creaturei* player, dungeoni::overlayi* p) {
 			player->speak(p1, "Miss");
 	} else
 		player->speak(p1, "Read");
+}
+
+static bool active_overlay(dungeoni::overlayi* p) {
+	if(p->is(CellActive)) {
+		player->speak(bsdata<celli>::elements[p->type].id, "Active");
+		return true;
+	}
+	return false;
+}
+
+static void use_theif_tools(int bonus) {
+	auto p = loc->get(party, party.d);
+	if(p) {
+		switch(p->type) {
+		case CellKeyHole:
+			if(active_overlay(p))
+				return;
+			if(player->roll(OpenLocks)) {
+				player->addexp(100);
+			}
+			pass_round();
+			return;
+		case CellTrapLauncher:
+			if(active_overlay(p))
+				return;
+			if(player->roll(RemoveTraps)) {
+				player->addexp(100);
+			}
+			pass_round();
+			return;
+		}
+	}
+	switch(loc->get(to(party, party.d))) {
+	case CellPit:
+		if(player->roll(RemoveTraps)) {
+			player->addexp(100);
+			loc->set(to(party, party.d), CellPassable);
+		}
+		pass_round();
+		return;
+	}
 }
 
 static void manipulate() {
@@ -867,6 +944,7 @@ static void party_adventure(int bonus) {
 	if(pn)
 		message(pn);
 	picture = push_picture;
+	all_party(craft_mission_equipment, true);
 	enter_dungeon(0);
 }
 

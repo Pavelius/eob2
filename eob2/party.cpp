@@ -257,19 +257,27 @@ static bool all_party_disabled() {
 	return true;
 }
 
-static void allcreatures(fnevent proc) {
+void all_party(fnevent proc, bool skip_disabled) {
 	auto push_player = player;
 	for(auto p : characters) {
-		if(!p || p->isdisabled())
+		if(!p)
+			continue;
+		if(skip_disabled && p->isdisabled())
 			continue;
 		player = p; proc();
 	}
-	if(loc) {
-		for(auto& e : loc->monsters) {
-			if(!e)
-				continue;
-			player = &e; proc();
-		}
+	player = push_player;
+}
+
+void all_creatures(fnevent proc) {
+	all_party(proc, true);
+	if(!loc)
+		return;
+	auto push_player = player;
+	for(auto& e : loc->monsters) {
+		if(!e)
+			continue;
+		player = &e; proc();
 	}
 	player = push_player;
 }
@@ -278,9 +286,9 @@ void pass_round() {
 	clear_boost(party.abilities[Minutes]);
 	monsters_movement();
 	add_party(Minutes, 1);
-	allcreatures(update_every_round);
+	all_creatures(update_every_round);
 	if((party.abilities[Minutes] % 6) == 0)
-		allcreatures(update_every_turn);
+		all_creatures(update_every_turn);
 	fix_animate();
 	if(all_party_disabled()) {
 		message_box(getnm("AllPartyDead"));
@@ -291,9 +299,9 @@ void pass_round() {
 void pass_hours(int value) {
 	add_party(Minutes, 60 * value);
 	clear_boost(party.abilities[Minutes]);
-	allcreatures(update_every_round);
+	all_creatures(update_every_round);
 	for(auto i = 0; i < 6 * value; i++)
-		allcreatures(update_every_turn);
+		all_creatures(update_every_turn);
 }
 
 int party_median(creaturei** creatures, abilityn v) {

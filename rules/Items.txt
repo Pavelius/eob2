@@ -103,6 +103,9 @@ PriestScroll cost(20) avatar(85) avatar_ground(12) wear(Readable)
 MagicMap cost(10) avatar(86) avatar_ground(12) wear(Readable)
  feats Small
 
+TheifTools cost(10) avatar(54) avatar_ground(1) wear(Usable)
+ feats Small UseRogish
+
 Mandibules damage_type(Slashing) damage(1 4)
  feats You
 ChillTouchHand avatar(80) damage_type(Cold) damage(1 4) wear(RightHand)
@@ -124,6 +127,12 @@ TheifStartEquipment
  elements Longsword LeatherArmor
 MageStartEquipment
  elements Robe Staff
+CommonMissionEquipment
+ elements Ration
+TheifMissionEquipment
+ elements TheifTools
+FighterMissionEquipment
+ elements LargeRation
 
 #RandomList
 

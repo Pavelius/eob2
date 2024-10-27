@@ -579,7 +579,14 @@ bool creaturei::isactable() const {
 void creaturei::damage(damagen type, int value, char magic_bonus) {
 	if(value <= 0)
 		return;
-	fix_damage(this, value);
+	switch(type) {
+	case Poison:
+		consolen(getnm(ids("Feel", bsdata<damagei>::elements[type].id)));
+		break;
+	default:
+		fix_damage(this, value);
+		break;
+	}
 	auto& ei = bsdata<damagei>::elements[type];
 	if(ei.resist && is(ei.resist))
 		value = value / 2;
@@ -785,6 +792,10 @@ const racei& creaturei::getrace() const {
 
 const classi& creaturei::getclass() const {
 	return bsdata<classi>::elements[type];
+}
+
+const classi& creaturei::getclassmain() const {
+	return bsdata<classi>::elements[bsdata<classi>::elements[type].classes[0]];
 }
 
 void creaturei::add(abilityn i, int v) {

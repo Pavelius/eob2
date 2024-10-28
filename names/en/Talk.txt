@@ -65,20 +65,30 @@ I don't use this item
 How do I use this item?
 This stuff is not for me
 
-#MessageMagicRingMiss
-There is no magic ring around
-#MessageMagicWeaponsPresent
-Find %MessageMagicRings magic ring in this halls
-
 #MessageMagicWeaponsMiss
 You not find any magic weapons here
 #MessageMagicWeaponsPresent
 There is %MessageMagicWeapons magic weapons on this level
 
+#MessageMagicRingMiss
+There is no magic ring around
+#MessageMagicWeaponsPresent
+Find %MessageMagicRings magic ring in this halls
+
+#MessageSecretsMiss
+This place is what it seems to be
+#MessageAtifactsPresent
+Find %MessageSecrets hidden rooms in this place
+
 #MessageTrapsMiss
 This level is safe
 #MessageTrapsPresent
 Beware %MessageTraps deadly traps
+
+#MessageAtifactsMiss
+Magic power leave this place long ago
+#MessageAtifactsPresent
+Mighty artifact lie in this halls
 
 #WhatDoYouSay
 What?

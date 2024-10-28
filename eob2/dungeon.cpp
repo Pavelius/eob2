@@ -189,6 +189,16 @@ dungeoni::overlayi* dungeoni::get(pointc v, directions d) {
 	return 0;
 }
 
+dungeoni::overlayi* dungeoni::getlinked(pointc v) {
+	if(!v)
+		return 0;
+	for(auto& e : overlays) {
+		if(e && e.link == v)
+			return &e;
+	}
+	return 0;
+}
+
 dungeoni::overlayi* dungeoni::getoverlay(pointc v, celln type) {
 	for(auto& e : overlays) {
 		if(e == v && e.type == type)

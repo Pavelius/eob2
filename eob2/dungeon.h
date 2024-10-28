@@ -46,6 +46,7 @@ struct dungeoni : dungeon_site {
 	void			drop(pointc v, item& it, int side);
 	celln			get(pointc v) const;
 	overlayi*		get(pointc v, directions d);
+	overlayi*		getlinked(pointc v);
 	size_t			getitems(ground** result, size_t result_maximum, pointc v);
 	size_t			getitems(item** result, size_t result_maximum, const overlayi* po);
 	void			getmonsters(creaturei** result, pointc index, directions dr);

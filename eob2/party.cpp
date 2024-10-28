@@ -1,5 +1,6 @@
 #include "boost.h"
 #include "bsdata.h"
+#include "cell.h"
 #include "class.h"
 #include "console.h"
 #include "creature.h"
@@ -269,6 +270,49 @@ void all_party(fnevent proc, bool skip_disabled) {
 	player = push_player;
 }
 
+static void update_floor_buttons() {
+	unsigned char map[mpy][mpx] = {0};
+	if(party)
+		map[party.y][party.x]++;
+	for(auto& e : loc->monsters) {
+		if(!e)
+			continue;
+		if(map[e.y][e.x] > 0)
+			continue;
+		map[e.y][e.x]++;
+	}
+	for(auto& e : loc->items) {
+		if(!e)
+			continue;
+		if(map[e.y][e.x] > 0)
+			continue;
+		map[e.y][e.x]++;
+	}
+	pointc pt;
+	for(pt.y = 0; pt.y < mpy; pt.y++) {
+		for(pt.x = 0; pt.x < mpx; pt.x++) {
+			auto t = loc->get(pt);
+			if(t == CellButton) {
+				auto new_active = map[pt.y][pt.x] > 0;
+				auto active = loc->is(pt, CellActive);
+				if(active != new_active && new_active) {
+					auto po = loc->getlinked(pt);
+					if(po) {
+						switch(po->type) {
+						case CellTrapLauncher:
+							break;
+						}
+					}
+				}
+				if(new_active)
+					loc->set(pt, CellActive);
+				else
+					loc->remove(pt, CellActive);
+			}
+		}
+	}
+}
+
 void all_creatures(fnevent proc) {
 	all_party(proc, true);
 	if(!loc)
@@ -286,6 +330,7 @@ void pass_round() {
 	clear_boost(party.abilities[Minutes]);
 	monsters_movement();
 	add_party(Minutes, 1);
+	update_floor_buttons();
 	all_creatures(update_every_round);
 	if((party.abilities[Minutes] % 6) == 0)
 		all_creatures(update_every_turn);

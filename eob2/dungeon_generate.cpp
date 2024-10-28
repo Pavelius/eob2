@@ -142,7 +142,7 @@ static void items(pointc v, itemi* pi, int bonus_level = 0) {
 	it.create(pi - bsdata<itemi>::elements);
 	// Food can be rotten
 	if(it.is(Disease)) {
-		if(d100()<60)
+		if(d100() < 60)
 			it.damage(5);
 	}
 	loc->drop(v, it, xrand(0, 3));
@@ -378,7 +378,7 @@ static int random_cellar_count() {
 }
 
 static void cellar(pointc v, directions d) {
-	static variant random_list("RandomSmallItems");
+	static variant random_list("RandomSmallItem");
 	if(loc->type == FOREST)
 		return;
 	auto v1 = to(v, d);

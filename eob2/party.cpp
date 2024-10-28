@@ -270,6 +270,38 @@ void all_party(fnevent proc, bool skip_disabled) {
 	player = push_player;
 }
 
+static void group_damage(creaturei** creatures, damagen type, dice damage) {
+	for(auto i = 0; i < 6; i++) {
+		auto p = creatures[i];
+		if(!p)
+			continue;
+		p->damage(type, damage.roll(), 0);
+	}
+}
+
+static void trap_launch(pointc v, directions d, damagen type, dice damage) {
+	auto start = v;
+	while(v) {
+		if(party == v) {
+			if(to(party.d, Down) == d && party.x==v.x || party.y==v.y)
+				thrown_item(start, Down, 2, -1, start.distance(party)+1);
+			group_damage(characters, type, damage);
+			break;
+		} else if(loc->ismonster(v)) {
+			creaturei* creatures[6]; loc->getmonsters(creatures, v);
+			group_damage(characters, type, damage);
+			break;
+		} else {
+			auto t = loc->get(v);
+			if(t == CellDoor && loc->is(v, CellActive))
+				break;
+			else if(t == CellWall || t==CellStairsUp || t==CellStairsDown)
+				break;
+		}
+		v = to(v, d);
+	}
+}
+
 static void update_floor_buttons() {
 	unsigned char map[mpy][mpx] = {0};
 	if(party)
@@ -300,6 +332,8 @@ static void update_floor_buttons() {
 					if(po) {
 						switch(po->type) {
 						case CellTrapLauncher:
+							if(!po->is(CellActive))
+								trap_launch(*po, to(po->d, Down), Fire, {1, 6});
 							break;
 						}
 					}
@@ -326,6 +360,13 @@ void all_creatures(fnevent proc) {
 	player = push_player;
 }
 
+static void party_clear() {
+	memset(characters, 0, sizeof(characters));
+	bsdata<creaturei>::source.clear();
+	bsdata<dungeoni>::source.clear();
+	party.clear();
+}
+
 void pass_round() {
 	clear_boost(party.abilities[Minutes]);
 	monsters_movement();
@@ -334,9 +375,11 @@ void pass_round() {
 	all_creatures(update_every_round);
 	if((party.abilities[Minutes] % 6) == 0)
 		all_creatures(update_every_turn);
+	animation_update();
 	fix_animate();
 	if(all_party_disabled()) {
 		message_box(getnm("AllPartyDead"));
+		party_clear();
 		set_next_scene(main_menu);
 	}
 }
@@ -369,4 +412,9 @@ quest* partyi::getquest() const {
 
 locationi* partyi::getlocation() const {
 	return getbs<locationi>(location_id);
+}
+
+void partyi::clear() {
+	memset(this, 0, sizeof(*this));
+	posable::clear();
 }

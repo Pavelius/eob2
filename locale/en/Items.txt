@@ -9,14 +9,16 @@ Dagger: Dagger
 DwarvenHelm: Dwarven helm
 Halberd: Halberd
 Helm: Helm
+GreenPotion: Potion
 LargeRation: Large ration
 LeatherArmor: Leather armor
 Longsword: Longsword
 Mace: Mace
 MageScroll: Scroll
 Ration: Ration
-RedRing: Red ring
+RedRing: Ring
 Robe: Robe
+ScaleMail: Scale mail
 Shield: Shield
 ShortSword: Short sword
 Spear: Spear

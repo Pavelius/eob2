@@ -24,6 +24,7 @@ struct partyi : posable {
 	short unsigned	location_id, quest_id;
 	questa			active, done, prepared;
 	int				abilities[EffectCount + 1];
+	void			clear();
 	locationi*		getlocation() const;
 	quest*			getquest() const;
 };

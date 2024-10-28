@@ -3,6 +3,7 @@ CampMenu: Camp Options:
 CastSpell: Cast what spell?
 CastOnWho: Cast on who?
 CellKeyHoleDisable: Lock is picked up
+CellTrapLauncherDisable: Trap is removed
 ChooseBet: Bed how match?
 CreateNewGame: Create new game
 DebugTest: Debug Test
@@ -27,6 +28,7 @@ OpenLocksFail: Pick locks fail
 PickPockets: Pick pockets
 PickPocketsVisit: Pick some pockets
 PrayForSpells: Pray for Spells
+RemoveTrapsFail: Fail remove trap
 RestParty: Rest party
 RestPartyConfirm: Rest all party for 8 hours?
 ReturnToStreet: Leave to the street

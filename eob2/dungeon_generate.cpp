@@ -361,7 +361,8 @@ static void resolve_traps() {
 				launch_direction = d;
 			}
 			auto po = loc->add(trap_launch, launch_direction, CellTrapLauncher);
-			po->link = v;
+			if(po)
+				po->link = v;
 			loc->state.wallmessages[MessageTraps]++;
 		}
 	}
@@ -392,7 +393,7 @@ static void cellar(pointc v, directions d) {
 		// Items in cellar can be identified
 		if(d100() < 60)
 			last_item->identify(1);
-		//loc->add(po, i1);
+		loc->add(po, it);
 		count--;
 	}
 }

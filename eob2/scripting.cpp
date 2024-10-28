@@ -113,9 +113,7 @@ template<> void ftscript<itemi>(int value, int bonus) {
 }
 
 static dungeoni* find_dungeon(int level) {
-	auto id = getbsi(last_quest);
-	if(id == 0xFFFF)
-		return 0;
+	auto id = party.quest_id;
 	for(auto& e : bsdata<dungeoni>()) {
 		if(e.quest_id == id && e.level == level)
 			return &e;
@@ -449,6 +447,8 @@ static void enter_location(int bonus) {
 		all_party(clear_mission_equipment, false);
 	}
 	loc = 0;
+	last_quest = 0;
+	party.quest_id = 0xFFFF;
 	party.location_id = getbsi(last_location);
 	picture = last_location->avatar;
 	save_focus = current_focus;
@@ -968,11 +968,13 @@ static void party_adventure(int bonus) {
 	if(pn)
 		message(pn);
 	picture = push_picture;
+	party.quest_id = getbsi(last_quest);
 	all_party(craft_mission_equipment, true);
 	enter_dungeon(0);
 }
 
 void continue_game() {
+	last_quest = party.getquest();
 	last_location = party.getlocation();
 	current_focus = 0;
 	if(loc)

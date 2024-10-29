@@ -58,6 +58,7 @@ struct dungeoni : dungeon_site {
 	bool			is(pointc v, cellfn i) const;
 	bool			is(pointc v, celln t1, celln t2) const;
 	bool			ismonster(pointc v) const;
+	bool			ismonster(pointc v, featn f) const;
 	bool			ispassable(pointc v) const;
 	void			makewave(pointc start) const;
 	void			remove(pointc v, cellfn i);

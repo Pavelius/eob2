@@ -39,6 +39,7 @@ assert_enum(celli, CellDoorButton)
 BSDATA(cellfi) = {
 	{"CellExplored"},
 	{"CellActive"},
+	{"CellExperience"},
 	{"Passable"},
 	{"LookWall"},
 	{"LookOverlay"},

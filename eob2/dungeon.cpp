@@ -283,6 +283,14 @@ bool dungeoni::ismonster(pointc v) const {
 	return false;
 }
 
+bool dungeoni::ismonster(pointc v, featn f) const {
+	for(auto& e : monsters) {
+		if(e && e == v && e.is(f))
+			return true;
+	}
+	return false;
+}
+
 bool dungeoni::ispassable(pointc v) const {
 	if(!v)
 		return false;

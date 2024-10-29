@@ -24,7 +24,7 @@ enum celln : unsigned char {
 	CellDoorButton
 };
 enum cellfn : unsigned char {
-	CellExplored, CellActive,
+	CellExplored, CellActive, CellExperience,
 	Passable,
 	LookWall, LookOverlay, LookObject,
 	PassableActivated

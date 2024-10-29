@@ -314,17 +314,34 @@ static void check_disease() {
 	}
 }
 
+static void random_characters() {
+	memcpy(monsters, characters, sizeof(monsters));
+	zshuffle(monsters, 6);
+}
+
+static size_t shrink(creaturei** target, creaturei** source) {
+	auto ps = target;
+	for(auto i = 0; i < 6; i++) {
+		if(source[i] && !source[i]->isdisabled())
+			*ps++ = source[i];
+	}
+	return ps - target;
+}
+
+static slice<creaturei*> random_party() {
+	static creaturei* monsters[6];
+	auto count = shrink(monsters, characters);
+	zshuffle(monsters, count);
+	return slice<creaturei*>(monsters, count);
+}
+
 static bool check_secrets(directions d) {
 	if(!loc)
 		return false;
 	auto po = loc->get(party, to(party.d, d));
 	if(!po || po->type != CellSecrectButton)
 		return false;
-	creaturei* source[6]; memcpy(source, characters, sizeof(source));
-	zshuffle(source, 6);
-	for(auto p : source) {
-		if(!p)
-			continue;
+	for(auto p : random_party()) {
 		if(!p->roll(DetectSecrets, -10))
 			continue;
 		p->speak("DetectSecrets", "Success");
@@ -337,6 +354,41 @@ static void check_secrets() {
 	if(check_secrets(Right))
 		return;
 	if(check_secrets(Left))
+		return;
+}
+
+static bool check_noises_behind_door(directions d) {
+	if(!loc)
+		return false;
+	auto v = to(party, to(party.d, d));
+	auto t = loc->get(v);
+	if(t != CellDoor || loc->is(v, CellActive) || loc->is(v, CellExperience))
+		return false;
+	creaturei* monsters[6]; loc->getmonsters(monsters, v);
+	auto count = shrink(monsters, monsters);
+	loc->set(v, CellExperience);
+	for(auto p : random_party()) {
+		if(!p->roll(HearNoise))
+			continue;
+		p->addexp(20);
+		if(count) {
+			if(count==1 && monsters[0]->is(Large))
+				p->speak("HearNoise", "Large");
+			else
+				p->speak("HearNoise", "Medium", count);
+		} else
+			p->speak("HearNoise", "Nobody");
+		return true;
+	}
+	return true;
+}
+
+static void check_noises_behind_door() {
+	if(check_noises_behind_door(Right))
+		return;
+	if(check_noises_behind_door(Left))
+		return;
+	if(check_noises_behind_door(Up))
 		return;
 }
 
@@ -473,6 +525,7 @@ void pass_round() {
 	animation_update();
 	update_floor_buttons();
 	check_secrets();
+	check_noises_behind_door();
 	all_creatures(update_every_round);
 	if((party.abilities[Minutes] % 6) == 0)
 		all_creatures(update_every_turn);

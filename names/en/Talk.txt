@@ -137,6 +137,18 @@ This must be weared
 I see something on the wall
 Wait! I see something
 
+#HearNoiseNobody
+There is nobody behind this door
+No one behind this door
+I hear nothing behind this door
+
+#HearNoiseLarge
+Behind this door something large
+Some large monster sneak behind this door
+
+#HearNoiseMedium
+Behind this door %1i creatures
+
 #GamblerAppearance
 guy
 ugly woman

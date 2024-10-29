@@ -153,45 +153,24 @@ void turnto(pointc v, directions d, bool test_surprise, int sneaky_bonus) {
 	}
 }
 
-void make_melee_attacks() {
-	auto v = to(party, party.d);
-	auto d = to(party.d, Down);
-	turnto(v, d);
-	animation_update();
-	enemy_distance = 0;
-	if(!select_combatants(v))
-		return;
-	enemy_distance = 1;
-	for(auto p : combatants) {
-		if(p->isdisabled())
-			continue;
-		// RULE: Surprised creatures do not move first round in combat
-		if(p->is(Surprised)) {
-			p->remove(Surprised);
-			continue;
-		}
-		if(p->ismonster()) {
-			auto left_side = (get_side(p->side, d) % 2) == 0;
-			if(p->is(Large))
-				left_side = (rand() % 2);
-			make_full_attack(p, get_opponent(left_side, false), 0, 1);
-		} else {
-			auto left_side = (p->side % 2) == 0;
-			make_full_attack(p, get_opponent(left_side, true), 0, 1);
-		}
+void make_attacks(bool melee_combat) {
+	if(melee_combat) {
+		auto v = to(party, party.d);
+		auto d = to(party.d, Down);
+		turnto(v, d);
 		animation_update();
-		fix_animate();
-		p->set(Moved);
+		enemy_distance = 1;
+		if(!select_combatants(v))
+			return;
+	} else {
+		if(!select_combatants(party, party.d))
+			return;
 	}
-}
-
-void make_attacks() {
-	if(!select_combatants(party, party.d))
-		return;
 	auto d = to(party.d, Down);
 	for(auto p : combatants) {
 		if(p->isdisabled())
 			continue;
+		p->set(Moved);
 		// RULE: Surprised creatures do not move first round in combat
 		if(p->is(Surprised)) {
 			p->remove(Surprised);
@@ -209,7 +188,7 @@ void make_attacks() {
 			auto left_side = (p->side % 2) == 0;
 			make_full_attack(p, get_opponent(left_side, true), 0, 1);
 		}
+		animation_update();
 		fix_animate();
-		p->set(Moved);
 	}
 }

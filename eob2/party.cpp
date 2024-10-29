@@ -291,8 +291,38 @@ static void check_poison() {
 	player->add(PoisonLevel, -1);
 }
 
+static void check_disease() {
+	if(!player->is(DiseaseLevel))
+		return;
+	// Two test in row to overcome disease or two failed tests to get worse
+	if(player->roll(SaveVsPoison, 0)) {
+		if(player->roll(SaveVsPoison, 0))
+			player->add(DiseaseLevel, -1);
+	} else {
+		if(!player->roll(SaveVsPoison, 0)) {
+			player->add(DiseaseLevel, 1);
+			consolen(getnm("FeelDisease"));
+		}
+	}
+	// Reduce hp (can die if disease level high)
+	if(player->is(DiseaseLevel)) {
+		auto m = player->hpm / 3;
+		if(player->get(DiseaseLevel) > 20)
+			m = 0;
+		if(player->hp > m)
+			player->hp--;
+	}
+}
+
+static void check_secrets() {
+}
+
 static void update_every_turn() {
 	check_poison();
+}
+
+static void update_every_hour() {
+	check_disease();
 }
 
 static bool all_party_disabled() {

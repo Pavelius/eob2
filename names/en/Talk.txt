@@ -5,7 +5,15 @@ Good, secret door
 #CellKeyHoleAbout
 This is hole for a key
 I can insert proper key in this hole
-This one open door nearbe
+This one open nearest door
+
+#CellKeyHoleAboutTheif
+I need %DungeonKey to open door
+This key hole open nearest door
+
+#CellKeyHoleActive
+Already opened
+Stop! The door is already open
 
 #CellDecor1Brick
 Some kind of theives signs
@@ -22,10 +30,6 @@ What a stench!
 
 #CellDecor3BrickMage
 Old water aqueduct
-
-#CellKeyHoleActive
-Already opened
-Stop! The door is already open
 
 #CellPortalAbout
 This is a strange device

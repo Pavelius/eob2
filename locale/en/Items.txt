@@ -2,7 +2,7 @@
 Arrow: Arrow
 BastardSword: BasterdSword
 BattleAxe: Battle axe
-BluePotion: Blue potion
+BluePotion: Potion
 Bow: Bow
 ChillTouchHand: Cold hand
 Club: Club
@@ -11,6 +11,7 @@ DwarvenHelm: Dwarven helm
 Halberd: Halberd
 Helm: Helm
 GreenPotion: Potion
+IronKey: Iron key
 LargeRation: Large ration
 LeatherArmor: Leather armor
 Longsword: Longsword
@@ -18,6 +19,7 @@ Mace: Mace
 MageScroll: Scroll
 PriestScroll: Scroll
 Ration: Ration
+RedPotion: Potion
 RedRing: Ring
 Robe: Robe
 ScaleMail: Scale mail

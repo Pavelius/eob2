@@ -333,7 +333,7 @@ static void use_item() {
 		if(w != LeftHand && w != RightHand)
 			pn->speak("MustBeUseInHand", 0);
 		else if(last_item->isweapon()) {
-			make_attacks();
+			make_attacks(false);
 			pass_round();
 		}
 		break;
@@ -958,7 +958,7 @@ static bool party_move_interact(pointc v) {
 }
 
 void monster_interaction() {
-	make_melee_attacks();
+	make_attacks(true);
 }
 
 void move_party(pointc v) {
@@ -1126,6 +1126,10 @@ static void dungeon_origin(stringbuilder& sb) {
 	sb.addv(getnm(ids(getid<racei>(loc->language), "Of")), 0);
 }
 
+static void dungeon_key(stringbuilder& sb) {
+	sb.addv(getnm(loc->getkey()->id), 0);
+}
+
 static void dungeon_habbitant2(stringbuilder& sb) {
 	sb.addv(getnm(getid<monsteri>(loc->habbits[1])), 0);
 }
@@ -1162,6 +1166,7 @@ BSDATA(formulai) = {
 };
 BSDATAF(formulai)
 BSDATA(textscript) = {
+	{"DungeonKey", dungeon_key},
 	{"DungeonOrigin", dungeon_origin},
 	{"Habbitant1", dungeon_habbitant1},
 	{"Habbitant2", dungeon_habbitant2},

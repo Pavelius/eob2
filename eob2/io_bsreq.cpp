@@ -215,7 +215,7 @@ static void read_value(valuei& e, const bsreq* req) {
 			e.text = szdup(temp);
 		else if(req->type == bsmeta<variant>::meta) {
 			variant v1 = (const char*)temp;
-			if(!v1)
+			if(!v1 && !equal(temp, "NoVariant"))
 				errorp(p, "Can't find variant `%1`", temp);
 			v1.counter = last_bonus;
 			e.number = v1.u;

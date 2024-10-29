@@ -660,6 +660,7 @@ static bool isf(const creaturei* player, const item& weapon, featn v) {
 
 void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
 	auto& weapon = wears[slot];
+	auto power = weapon.getpower();
 	auto chance_critical = 20;
 	auto attack_damage = getdamage(bonus, slot, defender->is(Large));
 	auto damage_type = weapon.geti().damage_type;
@@ -676,6 +677,9 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	}
 	if(weapon.is(Precise))
 		chance_critical++;
+	// Magical weapon stats
+	bonus += power.counter;
+	attack_damage.b += power.counter;
 	auto ac = defender->get(AC);
 	// RULE: Small dwarf use special tactics vs large opponents
 	if(!isrange) {
@@ -703,7 +707,7 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	auto rolls = xrand(1, 20);
 	auto hits = -1;
 	tohit = imax(2, imin(20, tohit));
-	if(isf(player, weapon, BloodSucking) && is(Assembled))
+	if(isf(this, weapon, BloodSucking) && is(Assembled))
 		rolls = tohit;
 	if(rolls >= tohit || rolls >= chance_critical) {
 		// If weapon hits
@@ -718,7 +722,7 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 			if(weapon.is(Deadly))
 				multiplier += 1;
 		}
-		if(isf(player, weapon, BloodSucking) && is(Assembled))
+		if(isf(this, weapon, BloodSucking) && is(Assembled))
 			hits = attack_damage.maximum();
 		else
 			hits = attack_damage.roll();
@@ -731,26 +735,25 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 		//	damage_type = Cold;
 		//	hits += xrand(2, 5);
 		//}
+		if(power.iskind<damagei>()) {
+
+		}
 		if(is_critical) {
-			if(weapon) {
-				// RULE: Weapon with spell cast it when critical hit occurs
-				auto power = weapon.getpower();
-				if(power.iskind<spelli>()) {
-					//	auto spell = (spell_s)power.value;
-					//	if(bsdata<spelli>::elements[spell].effect.type.type == Damage)
-					//		cast(spell, Mage, wi.weapon->getmagic(), defender);
-					//	else
-					//		cast(spell, Mage, wi.weapon->getmagic(), this);
-				}
+			// RULE: Weapon with spell cast it when critical hit occurs
+			if(power.iskind<spelli>()) {
+				//	auto spell = (spell_s)power.value;
+				//	if(bsdata<spelli>::elements[spell].effect.type.type == Damage)
+				//		cast(spell, Mage, wi.weapon->getmagic(), defender);
+				//	else
+				//		cast(spell, Mage, wi.weapon->getmagic(), this);
 			}
 		}
 		// RULE: vampiric ability allow user to drain blood and regain own HP
-		//if(wi.is(OfVampirism)) {
-		//	auto hits_healed = xrand(2, 5);
-		//	if(hits_healed > hits)
-		//		hits_healed = hits;
-		//		this->damage(Heal, hits_healed);
-		//	}
+		if(isf(this, weapon, VampiricAttack)) {
+			auto hits_healed = xrand(2, 5);
+			if(hits_healed > hits)
+				hits_healed = hits;
+		}
 		set(Assembled); // Fix assemble to victium
 		if(is(Disease))
 			defender->abilities[DiseaseLevel]++;

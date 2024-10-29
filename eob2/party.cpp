@@ -364,7 +364,7 @@ static bool check_noises_behind_door(directions d) {
 	auto t = loc->get(v);
 	if(t != CellDoor || loc->is(v, CellActive) || loc->is(v, CellExperience))
 		return false;
-	creaturei* monsters[6]; loc->getmonsters(monsters, v);
+	creaturei* monsters[6]; loc->getmonsters(monsters, to(v, to(party.d, d)));
 	auto count = shrink(monsters, monsters);
 	loc->set(v, CellExperience);
 	for(auto p : random_party()) {
@@ -372,7 +372,7 @@ static bool check_noises_behind_door(directions d) {
 			continue;
 		p->addexp(20);
 		if(count) {
-			if(count==1 && monsters[0]->is(Large))
+			if(count == 1 && monsters[0]->is(Large))
 				p->speak("HearNoise", "Large");
 			else
 				p->speak("HearNoise", "Medium", count);
@@ -452,13 +452,16 @@ static void trap_launch(pointc v, directions d, damagen type, dice damage) {
 	}
 }
 
-static void update_floor_buttons() {
+static void update_floor_state() {
 	unsigned char map[mpy][mpx] = {0};
+	loc->state.monsters_alive = 0;
+	loc->state.items_lying = 0;
 	if(party)
 		map[party.y][party.x]++;
 	for(auto& e : loc->monsters) {
 		if(!e)
 			continue;
+		loc->state.monsters_alive++;
 		if(map[e.y][e.x] > 0)
 			continue;
 		map[e.y][e.x]++;
@@ -466,6 +469,7 @@ static void update_floor_buttons() {
 	for(auto& e : loc->items) {
 		if(!e)
 			continue;
+		loc->state.items_lying++;
 		if(map[e.y][e.x] > 0)
 			continue;
 		map[e.y][e.x]++;
@@ -523,7 +527,7 @@ void pass_round() {
 	monsters_movement();
 	add_party(Minutes, 1);
 	animation_update();
-	update_floor_buttons();
+	update_floor_state();
 	check_secrets();
 	check_noises_behind_door();
 	all_creatures(update_every_round);

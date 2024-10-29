@@ -317,6 +317,13 @@ static dungeoni::overlayi* get_overlay() {
 	return loc->get(party, party.d);
 }
 
+static void apply_script(const char* action, const char* id, int bonus) {
+	auto p = bsdata<script>::find(ids("Use", id));
+	if(!p)
+		return;
+	p->proc(bonus);
+}
+
 static void use_item() {
 	last_item = (item*)current_focus;
 	auto pn = item_owner(last_item);
@@ -368,7 +375,7 @@ static void use_item() {
 			pn->speak("CantUse", 0);
 			return;
 		}
-		script_run(last_item->geti().use);
+		apply_script("Use", last_item->geti().id, 0);
 		break;
 	case Key:
 		po = get_overlay();
@@ -1110,6 +1117,12 @@ static void set_character(int bonus) {
 	player = characters[bonus];
 }
 
+static void empthy_script(int bonus) {
+}
+
+static void vampiric_touch(int bonus) {
+}
+
 static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
@@ -1209,6 +1222,7 @@ BSDATA(script) = {
 	{"IdentifyItem", identify_item},
 	{"LearnClericSpells", learn_cleric_spells},
 	{"LoadGame", load_game},
+	{"Magical", empthy_script},
 	{"Message", dialog_message},
 	{"NaturalHeal", natural_heal},
 	{"JoinParty", join_party},
@@ -1224,6 +1238,6 @@ BSDATA(script) = {
 	{"SaveHalf", save_half},
 	{"SaveNegate", save_negate},
 	{"SetVariable", set_variable},
-	{"UseTheifTool", use_theif_tools},
+	{"UseTheifTools", use_theif_tools},
 };
 BSDATAF(script)

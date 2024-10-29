@@ -5,6 +5,8 @@
 #include "nameable.h"
 #include "variant.h"
 
+struct listi;
+
 enum wearn : unsigned char;
 enum damagen : unsigned char;
 
@@ -13,10 +15,11 @@ struct itemi : nameable, featable {
 	damagen		damage_type;
 	dice		damage, damage_large;
 	itemi*		ammo;
-	variants	wearing, use, onhit;
+	variants	wearing, onhit;
 	wearn		wear;
 	char		avatar, avatar_ground, avatar_thrown;
 	int			cost;
+	listi*		powers;
 };
 class item {
 	unsigned char type;
@@ -59,7 +62,7 @@ public:
 	int			getcost() const;
 	int			getcount() const { return iscountable() ? count + 1 : 1; }
 	const char*	getname() const;
-	variant		getpower() const { return variant(); }
+	variant		getpower() const;
 	void		setcount(int v);
 	void		summon(int v) { summoned = (v >= 0) ? 1 : 0; }
 	void		consume() { setcount(getcount() - 1); }

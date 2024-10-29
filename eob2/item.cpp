@@ -1,5 +1,6 @@
 #include "bsdata.h"
 #include "item.h"
+#include "list.h"
 #include "rand.h"
 #include "wearable.h"
 
@@ -115,4 +116,11 @@ bool item::join(item& it) {
 		it.setcount(v - 256);
 		return false;
 	}
+}
+
+variant item::getpower() const {
+	auto pi = geti().powers;
+	if(!pi)
+		return variant();
+	return pi->elements.begin()[power];
 }

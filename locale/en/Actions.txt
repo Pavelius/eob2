@@ -12,6 +12,7 @@ DoorOpened: Locked door opened
 EatAndDrink: Eat and drink
 EatAndDrinkVisit: Eat and drink
 ExitConfirm: Do you really want to exit game?
+FeelDisease: %Name feels bad
 FeelPoison: %Name suffer from poison
 FeelWorse: %Name feels bad
 GambleVisitors: Gamble with someone

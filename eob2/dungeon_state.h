@@ -17,6 +17,7 @@ struct dungeon_state {
 	short unsigned	gems; // count of gems
 	short unsigned	relicts; // count of books and holy symbols originally placed
 	short unsigned	items; // total count of items originally placed
+	short unsigned	items_lying; // total count of items laying on ground
 	short unsigned	overlays; // total count of overlays
 	short unsigned	monsters; // total count of monsters
 	short unsigned	monsters_alive; // total alive monsters

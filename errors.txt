@@ -1,5 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `DoorOpened`
- Define translation for `Flail`
- Define translation for `GreenRing`
- Define translation for `Sling`
+﻿Error in file `rules/Items.txt`:
+ Line 4: Can't find variant `NoVariant`

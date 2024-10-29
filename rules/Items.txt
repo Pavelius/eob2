@@ -1,3 +1,8 @@
+#List
+
+MeleePowers
+ elements NoVariant Magical+1 Magical+2 Magical+3 Magical+4 Fire+2 Shock+2 VampiricAttack+1 VampiricAttack+2
+
 #Item
 
 NoItem damage(1 2) avatar(84)
@@ -9,32 +14,32 @@ Stone avatar(19) avatar_ground(2) wear(Quiver)
 Dart avatar(14) damage_type(Piercing) avatar_ground(0)
  feats Small
 
-BattleAxe cost(5) speed(7) damage_type(Slashing) damage(1 8) avatar(3) avatar_ground(4) wear(RightHand)
+BattleAxe cost(5) speed(7) damage_type(Slashing) damage(1 8) avatar(3) avatar_ground(4) wear(RightHand) powers(MeleePowers)
  feats UseMartial Deadly
-Axe cost(5) speed(4) damage_type(Slashing) damage(1 6) avatar(7) avatar_ground(4) wear(RightHand)
+Axe cost(5) speed(4) damage_type(Slashing) damage(1 6) avatar(7) avatar_ground(4) wear(RightHand) powers(MeleePowers)
  feats UseMartial Deadly
-Club speed(4) damage(1 6) avatar(76) avatar_ground(12) wear(RightHand)
-Dagger cost(2) speed(2) damage_type(Piercing) damage(1 4) avatar(15) avatar_ground(3) wear(RightHand)
+Club speed(4) damage(1 6) avatar(76) avatar_ground(12) wear(RightHand) powers(MeleePowers)
+Dagger cost(2) speed(2) damage_type(Piercing) damage(1 4) avatar(15) avatar_ground(3) wear(RightHand) powers(MeleePowers)
  feats Small Precise
-Flail cost(15) speed(7) damage(1 6 1) avatar(5) avatar_ground(2) wear(RightHand)
+Flail cost(15) speed(7) damage(1 6 1) avatar(5) avatar_ground(2) wear(RightHand) powers(MeleePowers)
  feats UseMartial
-Halberd cost(10) speed(9) damage(1 10) damage_large(3 6) avatar(9) avatar_ground(5) wear(RightHand)
+Halberd cost(10) speed(9) damage(1 10) damage_large(3 6) avatar(9) avatar_ground(5) wear(RightHand) powers(MeleePowers)
  feats TwoHanded UseMartial Precise Deadly
-Warhammer cost(5) speed(4) damage(1 4 2) avatar(99) avatar_ground(13) wear(RightHand)
+Warhammer cost(5) speed(4) damage(1 4 2) avatar(99) avatar_ground(13) wear(RightHand) powers(MeleePowers)
  feats UseMartial UsePriest
-Mace cost(10) speed(7) damage(1 6 1) avatar(4) avatar_ground(1) wear(RightHand)
+Mace cost(10) speed(7) damage(1 6 1) avatar(4) avatar_ground(1) wear(RightHand) powers(MeleePowers)
  feats UseMartial UsePriest
-Spear speed(6) damage_type(Piercing) damage(1 6) avatar(6) avatar_ground(3) wear(RightHand)
+Spear speed(6) damage_type(Piercing) damage(1 6) avatar(6) avatar_ground(3) wear(RightHand) powers(MeleePowers)
  feats UseMartial
-Staff speed(4) damage(1 6) avatar(8) avatar_ground(3) wear(RightHand)
+Staff speed(4) damage(1 6) avatar(8) avatar_ground(3) wear(RightHand) powers(MeleePowers)
  feats TwoHanded
-BastardSword cost(25) speed(6) damage(1 10) avatar(1) avatar_ground(0) wear(RightHand)
+BastardSword cost(25) speed(6) damage(1 10) avatar(1) avatar_ground(0) wear(RightHand) powers(MeleePowers)
  feats UseMartial Precise
-Longsword cost(15) speed(5) damage(1 8) avatar(1) avatar_ground(0) wear(RightHand)
+Longsword cost(15) speed(5) damage(1 8) avatar(1) avatar_ground(0) wear(RightHand) powers(MeleePowers)
  feats UseElvish UseMartial Precise
-ShortSword cost(10) speed(4) damage(1 6) avatar(2) avatar_ground(0) wear(RightHand)
+ShortSword cost(10) speed(4) damage(1 6) avatar(2) avatar_ground(0) wear(RightHand) powers(MeleePowers)
  feats UseRogish UseElvish UseMartial Precise
-TwoHandedSword cost(50) speed(10) damage(1 10) damage_large(3 18) avatar(42) avatar_ground(0) wear(RightHand)
+TwoHandedSword cost(50) speed(10) damage(1 10) damage_large(3 18) avatar(42) avatar_ground(0) wear(RightHand) powers(MeleePowers)
  feats UseMartial TwoHanded Precise
 Bow cost(60) speed(8) damage_type(Piercing) damage(1 6) ammo(Arrow) avatar(10) avatar_ground(6) wear(RightHand) avatar_thrown(13)
  feats UseMartial UseRogish TwoHanded
@@ -105,7 +110,6 @@ MagicMap cost(10) avatar(86) avatar_ground(12) wear(Readable)
 
 TheifTools cost(10) avatar(54) avatar_ground(1) wear(Usable)
  feats Small UseRogish
- use UseTheifTool
 
 IronKey avatar(47) avatar_ground(8) wear(Key)
  feats Small

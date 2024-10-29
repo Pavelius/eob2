@@ -4,6 +4,7 @@ BastardSword: BasterdSword
 BattleAxe: Battle axe
 BluePotion: Potion
 Bow: Bow
+ChainMail: Chain mail
 ChillTouchHand: Cold hand
 Club: Club
 Dagger: Dagger

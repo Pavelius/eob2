@@ -134,6 +134,10 @@ static bool door(pointc v, directions d, bool has_button, bool has_button_on_oth
 	return true;
 }
 
+static void lair_door(pointc v, directions d) {
+	door(v, d, true, true);
+}
+
 static void items(pointc v, itemi* pi, int bonus_level = 0) {
 	// TODO: item power generate
 	if(!pi)
@@ -575,8 +579,10 @@ static void apply_shape(pointc v, directions d, const shapei* shape, char sym, c
 	for(c.y = 0; c.y < shape->size.y; c.y++) {
 		for(c.x = 0; c.x < shape->size.x; c.x++) {
 			auto n = (*shape)[c];
-			if(n == sym)
-				loc->set(shape->translate(v, c, d), t);
+			if(n == sym) {
+				auto v1 = shape->translate(v, c, d);
+				loc->set(v1, t);
+			}
 		}
 	}
 }
@@ -608,7 +614,7 @@ static void stairs_down(pointc v, directions d, const shapei* ps) {
 
 static void create_lair(pointc v, directions d, const shapei* ps) {
 	apply_shape(v, d, ps, '0', CellPassable);
-	apply_shape(v, d, ps, '1', CellDoor);
+	apply_shape(v, d, ps, '1', lair_door);
 	apply_shape(v, d, ps, '.', monster);
 	loc->state.lair.d = d;
 }

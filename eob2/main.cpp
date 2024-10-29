@@ -13,6 +13,7 @@
 void util_main();
 
 int main() {
+	variant v = "NoVariant";
 	start_random_seed = getcputime();
 	//start_random_seed = 2831817;
 	srand(start_random_seed);

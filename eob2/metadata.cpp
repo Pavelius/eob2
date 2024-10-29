@@ -124,8 +124,9 @@ BSMETA(itemi) = {
 	BSFLG(feats, feati),
 	BSREQ(avatar), BSREQ(avatar_ground), BSREQ(avatar_thrown),
 	BSREQ(ammo),
-	BSREQ(wearing), BSREQ(use),
+	BSREQ(wearing),
 	BSREQ(cost),
+	BSREQ(powers),
 	{}};
 BSMETA(genderi) = {
 	BSREQ(id),
@@ -188,7 +189,7 @@ BSMETA(weari) = {
 	BSREQ(id),
 	{}};
 BSDATA(varianti) = {
-	{"NoVariant"},
+	{"NoVariant", VAR(varianti, 1)},
 	{"Ability", VAR(abilityi, 1), 0, 0, ftscript<abilityi>},
 	{"Action", VAR(actioni, 1), 0, 0, ftscript<actioni>},
 	{"Advance", VAR(advancement, 2)},

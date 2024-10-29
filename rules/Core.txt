@@ -20,8 +20,10 @@ HalflingTheif
  elements Halfling Female Theif CreateCharacter
 
 CreateTestParty
- elements HumanFighter PoisonLevel+4 JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty HalflingTheif JoinParty
-AddTestItems
+ elements HumanFighter JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty HalflingTheif JoinParty
+
+StartGameAbilities
+ elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 
 
 StartGame
- elements CreateTestParty AddTestItems FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 HunterVillage EnterLocation
+ elements CreateTestParty StartGameAbilities HunterVillage EnterLocation

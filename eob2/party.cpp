@@ -7,6 +7,7 @@
 #include "direction.h"
 #include "draw.h"
 #include "dungeon.h"
+#include "list.h"
 #include "math.h"
 #include "party.h"
 #include "rand.h"
@@ -45,6 +46,46 @@ static void update_party_side() {
 	}
 }
 
+static void update_default_spells() {
+	auto& ei = player->getclass();
+	auto spell_known = get_spells_known(player);
+	if(!spell_known)
+		return;
+	auto spell_prepared = get_spells_prepared(player);
+	if(!spell_prepared)
+		return;
+	for(auto i = 0; i < ei.count; i++) {
+		auto pc = bsdata<classi>::elements + ei.classes[i];
+		if(pc->caster == -1)
+			continue;
+		auto pi = bsdata<listi>::find(str("Default%1Spells", pc->id));
+		if(!pi)
+			continue;
+		for(auto level = 1; level < 9; level++) {
+			auto slot_left = player->get((abilityn)(level + Spell1 - 1));
+			for(auto v : pi->elements) {
+				if(slot_left <= 0)
+					break;
+				if(v.iskind<spelli>()) {
+					if(!spell_known->is(v.value))
+						continue;
+					auto spell_level = bsdata<spelli>::elements[v.value].levels[pc->caster];
+					if(spell_level != level)
+						continue;
+					auto n = slot_left;
+					auto k = v.counter;
+					if(k == 0)
+						k = 1;
+					if(n > k)
+						n = k;
+					spell_prepared[v.value] += n;
+					slot_left -= n;
+				}
+			}
+		}
+	}
+}
+
 void join_party(int bonus) {
 	for(auto& e : characters) {
 		if(e)
@@ -53,6 +94,7 @@ void join_party(int bonus) {
 		break;
 	}
 	update_party_side();
+	update_default_spells();
 }
 
 void add_party(partystatn id, int value) {
@@ -283,19 +325,19 @@ static void trap_launch(pointc v, directions d, damagen type, dice damage) {
 	auto start = v;
 	while(v) {
 		if(party == v) {
-			if(to(party.d, Down) == d && party.x==v.x || party.y==v.y)
-				thrown_item(start, Down, 2, -1, start.distance(party)+1);
+			if(to(party.d, Down) == d && party.x == v.x || party.y == v.y)
+				thrown_item(start, Down, 2, -1, start.distance(party) + 1);
 			group_damage(characters, type, damage);
 			break;
 		} else if(loc->ismonster(v)) {
 			creaturei* creatures[6]; loc->getmonsters(creatures, v);
-			group_damage(characters, type, damage);
+			group_damage(creatures, type, damage);
 			break;
 		} else {
 			auto t = loc->get(v);
 			if(t == CellDoor && loc->is(v, CellActive))
 				break;
-			else if(t == CellWall || t==CellStairsUp || t==CellStairsDown)
+			else if(t == CellWall || t == CellStairsUp || t == CellStairsDown)
 				break;
 		}
 		v = to(v, d);
@@ -362,6 +404,7 @@ void all_creatures(fnevent proc) {
 
 static void party_clear() {
 	memset(characters, 0, sizeof(characters));
+	memset(spells_prepared, 0, sizeof(spells_prepared));
 	bsdata<creaturei>::source.clear();
 	bsdata<dungeoni>::source.clear();
 	party.clear();
@@ -371,11 +414,11 @@ void pass_round() {
 	clear_boost(party.abilities[Minutes]);
 	monsters_movement();
 	add_party(Minutes, 1);
+	animation_update();
 	update_floor_buttons();
 	all_creatures(update_every_round);
 	if((party.abilities[Minutes] % 6) == 0)
 		all_creatures(update_every_turn);
-	animation_update();
 	fix_animate();
 	if(all_party_disabled()) {
 		message_box(getnm("AllPartyDead"));

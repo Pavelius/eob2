@@ -82,3 +82,10 @@ ResistCold levels(2)
  feats You Ally
 SlowPoison levels(2)
  feats Ally
+
+#List
+
+DefaultClericSpells
+ elements CureLightWounds+4 Bless
+DefaultMageSpells
+ elements Armor MagicMissile+2

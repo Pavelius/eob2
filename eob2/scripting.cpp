@@ -660,6 +660,10 @@ static bool change_overlay(pointc v, directions d) {
 }
 
 static void read_wall_messages(creaturei* player, dungeoni::overlayi* p) {
+	if(!player->isunderstand(loc->language)) {
+		player->speak("CellMessage", "Unrecognized");
+		return;
+	}
 	auto p1 = getid<wallmessagei>(p->subtype);
 	if(p->subtype < MessageHabbits) {
 		if(loc->state.wallmessages[p->subtype] > 0)
@@ -1095,6 +1099,10 @@ static void dungeon_habbitant1(stringbuilder& sb) {
 	sb.addv(getnm(getid<monsteri>(loc->habbits[0])), 0);
 }
 
+static void dungeon_origin(stringbuilder& sb) {
+	sb.addv(getnm(ids(getid<racei>(loc->language), "Of")), 0);
+}
+
 static void dungeon_habbitant2(stringbuilder& sb) {
 	sb.addv(getnm(getid<monsteri>(loc->habbits[1])), 0);
 }
@@ -1131,6 +1139,7 @@ BSDATA(formulai) = {
 };
 BSDATAF(formulai)
 BSDATA(textscript) = {
+	{"DungeonOrigin", dungeon_origin},
 	{"Habbitant1", dungeon_habbitant1},
 	{"Habbitant2", dungeon_habbitant2},
 	{"Name", player_name},

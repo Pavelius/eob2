@@ -104,10 +104,12 @@ Hey, lucky, no tought monsters live here
 #MessageBossPresent
 There is scarry monster prison in locked room
 
-#MessageHabbitsMiss
-Noone habbits this halls
-#MessageHabbitsPresent
+#MessageHabbitsRead
 %Habbit1 and %Habbit2 dwelve this place
+
+#CellMessageUnrecognized
+I don't undestand %DungeonOrigin language
+Some kind of %DungeonOrigin shit!
 
 #WhatDoYouSay
 What?

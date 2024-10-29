@@ -65,7 +65,6 @@ struct dungeoni : dungeon_site {
 	void			set(pointc v, celln i, directions d);
 	void			set(pointc v, celln i, pointc size);
 	void			set(pointc v, cellfn i);
-	void			turnto(pointc v, directions d, bool* surprise);
 };
 extern dungeoni *loc, *locup, *locdw;
 extern unsigned short pathmap[mpy][mpx];

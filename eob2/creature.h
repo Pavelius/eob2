@@ -52,6 +52,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	void			set(featn v) { featable::set(v); }
 	void			setframe(short* frames, short index) const;
 	bool			useammo();
+	void			understand(racen v) { languages.set(v); }
 };
 extern creaturei *player, *opponent;
 extern int last_roll, last_chance;

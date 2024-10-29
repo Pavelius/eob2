@@ -10,3 +10,9 @@ Halfling: Halfling
 
 Male: Male
 Female: Female
+
+DrakonoidOf: Drakonic
+DwarfOf: Dwarvish
+ElfOf: Elvish
+HalflingOf: Halflings
+HumanOf: Humans

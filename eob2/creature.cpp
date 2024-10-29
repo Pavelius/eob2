@@ -96,11 +96,11 @@ void creaturei::clear() {
 
 static void update_languages() {
 	player->languages = player->getrace().languages;
-	player->isunderstand(player->race);
+	player->understand(player->race);
 	if(player->getrace().origin)
-		player->isunderstand(player->getrace().origin);
-	if(player->basic.abilities[Intellegence] >= 13)
-		player->isunderstand((racen)0);
+		player->understand(player->getrace().origin);
+	if(player->basic.abilities[Intellegence] >= 11)
+		player->understand((racen)0); // All creatures with 11+ untellegence known common language
 }
 
 static void update_basic() {

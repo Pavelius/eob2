@@ -81,7 +81,7 @@ Find %MessageMagicRings magic ring in this halls
 
 #MessageSecretsMiss
 This place is what it seems to be
-#MessageAtifactsPresent
+#MessageSecretsPresent
 Find %MessageSecrets hidden rooms in this place
 
 #MessageTrapsMiss

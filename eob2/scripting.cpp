@@ -289,7 +289,7 @@ static void natural_heal(int bonus) {
 	}
 }
 
-static void restore_spells(int bonus) {
+void restore_spells(int bonus) {
 	auto spell_book = get_spells_prepared(player);
 	if(spell_book)
 		memcpy(player->spells, spell_book, sizeof(player->spells));

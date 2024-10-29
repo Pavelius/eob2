@@ -2,6 +2,7 @@
 Arrow: Arrow
 BastardSword: BasterdSword
 BattleAxe: Battle axe
+BluePotion: Blue potion
 Bow: Bow
 ChillTouchHand: Cold hand
 Club: Club
@@ -15,6 +16,7 @@ LeatherArmor: Leather armor
 Longsword: Longsword
 Mace: Mace
 MageScroll: Scroll
+PriestScroll: Scroll
 Ration: Ration
 RedRing: Ring
 Robe: Robe
@@ -27,8 +29,6 @@ Stone: Stone
 TheifTools: Theif tools
 TwoHandedSword: Two-handed sword
 Warhammer: Warhammer
-
-BluePotion: Blue potion
 
 Cursed: Cursed
 Damaged: Damaged

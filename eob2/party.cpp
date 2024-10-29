@@ -46,6 +46,8 @@ static void update_party_side() {
 	}
 }
 
+void restore_spells(int bonus);
+
 static void update_default_spells() {
 	auto& ei = player->getclass();
 	auto spell_known = get_spells_known(player);
@@ -95,6 +97,7 @@ void join_party(int bonus) {
 	}
 	update_party_side();
 	update_default_spells();
+	restore_spells(0);
 }
 
 void add_party(partystatn id, int value) {

@@ -1,2 +1,5 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `RedPotion`
+ Define translation for `DoorOpened`
+ Define translation for `Flail`
+ Define translation for `GreenRing`
+ Define translation for `Sling`

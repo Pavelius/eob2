@@ -8,6 +8,7 @@ ChooseBet: Bed how match?
 CreateNewGame: Create new game
 DebugTest: Debug Test
 DebugTestVisit: Debug test string
+DoorOpened: Locked door opened
 EatAndDrink: Eat and drink
 EatAndDrinkVisit: Eat and drink
 ExitConfirm: Do you really want to exit game?

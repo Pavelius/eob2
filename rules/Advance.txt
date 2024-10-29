@@ -29,12 +29,18 @@
 
 Dwarf AbilityAdjustment
  elements Constitution+1 Charisma-1
+Dwarf RacialFeatures
+ elements DetectSecrets+20
 Dwarf TheifSkills
  elements OpenLocks+10 RemoveTraps+15 ClimbWalls-10 ReadLanguages-5
+
 Elf AbilityAdjustment
  elements Dexterity+1 Constitution-1
+Elf RacialFeatures
+ elements DetectSecrets+30
 Elf TheifSkills
  elements PickPockets+5 OpenLocks-5 MoveSilently+5 HearNoise+5
+
 Halfling AbilityAdjustment
  elements Dexterity+1 Strenght-1
 Halfling TheifSkills

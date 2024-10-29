@@ -133,6 +133,10 @@ This item used when weared
 Item used automatically
 This must be weared
 
+#DetectSecretsSuccess
+I see something on the wall
+Wait! I see something
+
 #GamblerAppearance
 guy
 ugly woman

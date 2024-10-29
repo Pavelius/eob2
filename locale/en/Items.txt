@@ -8,9 +8,11 @@ ChillTouchHand: Cold hand
 Club: Club
 Dagger: Dagger
 DwarvenHelm: Dwarven helm
+Flail: Flail
 Halberd: Halberd
 Helm: Helm
 GreenPotion: Potion
+GreenRing: Ring
 IronKey: Iron key
 LargeRation: Large ration
 LeatherArmor: Leather armor
@@ -23,6 +25,7 @@ RedPotion: Potion
 RedRing: Ring
 Robe: Robe
 ScaleMail: Scale mail
+Sling: Sling
 Shield: Shield
 ShortSword: Short sword
 Spear: Spear

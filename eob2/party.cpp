@@ -314,7 +314,30 @@ static void check_disease() {
 	}
 }
 
+static bool check_secrets(directions d) {
+	if(!loc)
+		return false;
+	auto po = loc->get(party, to(party.d, d));
+	if(!po || po->type != CellSecrectButton)
+		return false;
+	creaturei* source[6]; memcpy(source, characters, sizeof(source));
+	zshuffle(source, 6);
+	for(auto p : source) {
+		if(!p)
+			continue;
+		if(!p->roll(DetectSecrets, -10))
+			continue;
+		p->speak("DetectSecrets", "Success");
+		return true;
+	}
+	return false;
+}
+
 static void check_secrets() {
+	if(check_secrets(Right))
+		return;
+	if(check_secrets(Left))
+		return;
 }
 
 static void update_every_turn() {
@@ -449,9 +472,12 @@ void pass_round() {
 	add_party(Minutes, 1);
 	animation_update();
 	update_floor_buttons();
+	check_secrets();
 	all_creatures(update_every_round);
 	if((party.abilities[Minutes] % 6) == 0)
 		all_creatures(update_every_turn);
+	if((party.abilities[Minutes] % 60) == 0)
+		all_creatures(update_every_hour);
 	fix_animate();
 	if(all_party_disabled()) {
 		message_box(getnm("AllPartyDead"));
@@ -466,6 +492,8 @@ void pass_hours(int value) {
 	all_creatures(update_every_round);
 	for(auto i = 0; i < 6 * value; i++)
 		all_creatures(update_every_turn);
+	for(auto i = 0; i < value; i++)
+		all_creatures(update_every_hour);
 }
 
 int party_median(creaturei** creatures, abilityn v) {

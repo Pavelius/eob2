@@ -678,8 +678,10 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	if(weapon.is(Precise))
 		chance_critical++;
 	// Magical weapon stats
-	bonus += power.counter;
-	attack_damage.b += power.counter;
+	auto magic_bonus = power.counter;
+	bonus += magic_bonus;
+	attack_damage.b += magic_bonus;
+	// Other stats
 	auto ac = defender->get(AC);
 	// RULE: Small dwarf use special tactics vs large opponents
 	if(!isrange) {
@@ -692,7 +694,6 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 		if(is(BonusDamageVsEnemy))
 			bonus += 4;
 	}
-	auto magic_bonus = 0;
 	//if(wi.weapon) {
 	//	magic_bonus = wi.weapon->getmagic();
 	//	if(defender->is(Undead)) {
@@ -727,16 +728,14 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 		else
 			hits = attack_damage.roll();
 		hits = hits * multiplier;
-		//if(wi.is(OfFire)) {
-		//	damage_type = Fire;
-		//	hits += xrand(1, 6);
-		//}
-		//if(wi.is(OfCold)) {
-		//	damage_type = Cold;
-		//	hits += xrand(2, 5);
-		//}
+		// Weapon of specific damage type
 		if(power.iskind<damagei>()) {
-
+			switch(power.value) {
+			case Fire: hits += xrand(1, 6); break;
+			case Cold: hits += xrand(2, 5); break;
+			default: hits += xrand(1, 3); break;
+			}
+			damage_type = (damagen)power.value;
 		}
 		if(is_critical) {
 			// RULE: Weapon with spell cast it when critical hit occurs

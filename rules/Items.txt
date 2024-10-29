@@ -179,12 +179,16 @@ RandomRings
  chance RedRing GreenRing BluePotion
 RandomScrolls
  chance MageScroll+3 PriestScroll+2 MagicMap
+RandomTools
+ chance TheifTools
+RandomKeys
+ chance IronKey
 
 RandomItem
- chance RandomWeapon+4 RandomArmor RandomArmorMinor RandomRings RandomScrolls RandomPotions IronKey
+ chance RandomWeapon+4 RandomArmor RandomArmorMinor RandomRings RandomScrolls RandomPotions RandomKeys RandomTools
 
 RandomSmallItem
- chance RandomPotions+4 RandomRings IronKey
+ chance RandomPotions+4 RandomRings RandomKeys RandomTools
 
 #Race
 

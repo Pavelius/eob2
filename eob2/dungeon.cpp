@@ -408,3 +408,7 @@ int get_side(int side, directions d) {
 		return side;
 	return place_sides[d - Left][side];
 }
+
+itemi* dungeoni::getkey() const {
+	return bsdata<itemi>::elements + key;
+}

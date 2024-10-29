@@ -89,6 +89,11 @@ This level is safe
 #MessageTrapsPresent
 Beware %MessageTraps deadly traps
 
+#MessageLockedMiss
+This place is open for all visitors
+#MessageLockedPresent
+Found %MessageLocked key to open treasure doors
+
 #MessageAtifactsMiss
 Magic power leave this place long ago
 #MessageAtifactsPresent
@@ -105,7 +110,7 @@ Hey, lucky, no tought monsters live here
 There is scarry monster prison in locked room
 
 #MessageHabbitsRead
-%Habbit1 and %Habbit2 dwelve this place
+%Habbitant1 and %Habbitant2 dwelve this place
 
 #CellMessageUnrecognized
 I don't undestand %DungeonOrigin language

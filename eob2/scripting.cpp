@@ -281,7 +281,7 @@ static void natural_heal(int bonus) {
 	if(bonus >= 0)
 		player_heal(xrand(1, 3) + bonus);
 	else {
-		if(d100()<70)
+		if(d100() < 70)
 			player->add(PoisonLevel, -bonus);
 		else
 			player->add(DiseaseLevel, -bonus);
@@ -311,6 +311,12 @@ static void rest_party(int bonus) {
 	player = push_player;
 }
 
+static dungeoni::overlayi* get_overlay() {
+	if(!loc)
+		return 0;
+	return loc->get(party, party.d);
+}
+
 static void use_item() {
 	last_item = (item*)current_focus;
 	auto pn = item_owner(last_item);
@@ -320,6 +326,7 @@ static void use_item() {
 		return;
 	auto w = item_wear(last_item);
 	auto& ei = last_item->geti();
+	dungeoni::overlayi* po;
 	switch(ei.wear) {
 	case LeftHand:
 	case RightHand:
@@ -362,6 +369,22 @@ static void use_item() {
 			return;
 		}
 		script_run(last_item->geti().use);
+		break;
+	case Key:
+		po = get_overlay();
+		if(!po || po->type != CellKeyHole) {
+			pn->speak("Key", "NoTargets");
+			return;
+		}
+		if(!last_item->is(loc->getkey())) {
+			pn->speak("Key", "WrongKey");
+			return;
+		}
+		if(po->link) {
+			consolen(getnm("DoorOpened"));
+			loc->set(po->link, CellActive);
+		}
+		last_item->clear();
 		break;
 	default:
 		break;

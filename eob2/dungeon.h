@@ -49,6 +49,7 @@ struct dungeoni : dungeon_site {
 	overlayi*		getlinked(pointc v);
 	size_t			getitems(ground** result, size_t result_maximum, pointc v);
 	size_t			getitems(item** result, size_t result_maximum, const overlayi* po);
+	itemi*			getkey() const;
 	void			getmonsters(creaturei** result, pointc index, directions dr);
 	void			getmonsters(creaturei** result, pointc index);
 	overlayi*		getoverlay(pointc v, celln type);

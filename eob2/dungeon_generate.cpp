@@ -138,6 +138,9 @@ static void items(pointc v, itemi* pi, int bonus_level = 0) {
 	// TODO: item power generate
 	if(!pi)
 		return;
+	// Any generated key match to dungeon key
+	if(pi->wear == Key)
+		pi = loc->getkey();
 	item it;
 	it.create(pi - bsdata<itemi>::elements);
 	// Food can be rotten
@@ -251,6 +254,7 @@ static void treasure(pointc v, directions d) {
 	auto po = loc->add(to(v, to(d, Right)), d, CellKeyHole);
 	if(po)
 		po->link = v1;
+	loc->state.wallmessages[MessageLocked]++;
 	loc->set(to(v1, to(d, Left)), CellWall);
 	loc->set(to(v1, to(d, Right)), CellWall);
 	loc->set(v2, CellPassable);

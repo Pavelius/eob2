@@ -107,6 +107,25 @@ TheifTools cost(10) avatar(54) avatar_ground(1) wear(Usable)
  feats Small UseRogish
  use UseTheifTool
 
+IronKey avatar(47) avatar_ground(8) wear(Key)
+ feats Small
+BronzeKey avatar(46) avatar_ground(8) wear(Key)
+ feats Small
+CooperKey avatar(48) avatar_ground(8) wear(Key)
+ feats Small
+BoneKey avatar(49) avatar_ground(8) wear(Key)
+ feats Small
+ManistKey avatar(50) avatar_ground(8) wear(Key)
+ feats Small
+SteelKey avatar(58) avatar_ground(8) wear(Key)
+ feats Small
+SkullKey avatar(87) avatar_ground(8) wear(Key)
+ feats Small
+MoonKey avatar(88) avatar_ground(8) wear(Key)
+ feats Small
+JewelKey avatar(102) avatar_ground(8) wear(Key)
+ feats Small
+
 Mandibules damage_type(Slashing) damage(1 4)
  feats You
 ChillTouchHand avatar(80) damage_type(Cold) damage(1 4) wear(RightHand)
@@ -143,7 +162,7 @@ RandomStone
  chance Stone
 
 RandomSword
- chance ShortSword Longsword BastardSword TwoHandedSword Dagger
+ chance ShortSword+2 Longsword+2 BastardSword TwoHandedSword Dagger
 RandomSimpleWeapon
  chance Axe BattleAxe Club Flail Warhammer Mace Spear Sling
 RandomExoticWeapon
@@ -162,10 +181,10 @@ RandomScrolls
  chance MageScroll+3 PriestScroll+2 MagicMap
 
 RandomItem
- chance RandomWeapon+4 RandomArmor RandomArmorMinor RandomRings RandomScrolls RandomPotions
+ chance RandomWeapon+4 RandomArmor RandomArmorMinor RandomRings RandomScrolls RandomPotions IronKey
 
 RandomSmallItem
- chance RandomPotions RandomRings
+ chance RandomPotions+4 RandomRings IronKey
 
 #Race
 

@@ -6,6 +6,7 @@ BSDATA(wallmessagei) = {
 	{"MessageMagicRings"},
 	{"MessageSecrets"},
 	{"MessageTraps"},
+	{"MessageLocked"},
 	{"MessageAtifacts"},
 	{"MessageSpecialItem"},
 	{"MessageBoss"},

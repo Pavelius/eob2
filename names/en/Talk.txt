@@ -65,12 +65,16 @@ I don't use this item
 How do I use this item?
 This stuff is not for me
 
+#TheifToolNoTargets
+Use on pit, trap launcher or key hole
+I don't see valid target
+
 #MessageMagicWeaponsMiss
 You not find any magic weapons here
 #MessageMagicWeaponsPresent
 There is %MessageMagicWeapons magic weapons on this level
 
-#MessageMagicRingMiss
+#MessageMagicRingsMiss
 There is no magic ring around
 #MessageMagicWeaponsPresent
 Find %MessageMagicRings magic ring in this halls
@@ -89,6 +93,21 @@ Beware %MessageTraps deadly traps
 Magic power leave this place long ago
 #MessageAtifactsPresent
 Mighty artifact lie in this halls
+
+#MessageSpecialItemMiss
+There is no something special on this level
+#MessageBossPresent
+Find special item on this level
+
+#MessageBossMiss
+Hey, lucky, no tought monsters live here
+#MessageBossPresent
+There is scarry monster prison in locked room
+
+#MessageHabbitsMiss
+Noone habbits this halls
+#MessageHabbitsPresent
+%Habbit1 and %Habbit2 dwelve this place
 
 #WhatDoYouSay
 What?

@@ -670,8 +670,8 @@ static void read_wall_messages(creaturei* player, dungeoni::overlayi* p) {
 		player->speak(p1, "Read");
 }
 
-static bool active_overlay(dungeoni::overlayi* p) {
-	if(p->is(CellActive) || (p->link && loc->is(p->link, CellActive))) {
+static bool active_overlay(dungeoni::overlayi* p, bool test_linked) {
+	if(p->is(CellActive) || (test_linked && p->link && loc->is(p->link, CellActive))) {
 		player->speak(bsdata<celli>::elements[p->type].id, "Active");
 		return true;
 	}
@@ -702,7 +702,7 @@ static void use_theif_tools(int bonus) {
 	if(p) {
 		switch(p->type) {
 		case CellKeyHole:
-			if(active_overlay(p))
+			if(active_overlay(p, true))
 				return;
 			if(use_tool_item(OpenLocks)) {
 				if(p->link) {
@@ -713,7 +713,7 @@ static void use_theif_tools(int bonus) {
 			pass_round();
 			return;
 		case CellTrapLauncher:
-			if(active_overlay(p))
+			if(active_overlay(p, false))
 				return;
 			if(use_tool_item(RemoveTraps)) {
 				use_tool_success(p->type);
@@ -732,6 +732,7 @@ static void use_theif_tools(int bonus) {
 		pass_round();
 		return;
 	}
+	player->speak("TheifTool", "NoTargets");
 }
 
 static void manipulate() {

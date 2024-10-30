@@ -163,10 +163,15 @@ variant item::getpower() const {
 	return pi->elements.begin()[power];
 }
 
-void item::createpower(char magic_bonus) {
+void item::createpower(char magic_bonus, int chance_magical) {
 	auto& ei = geti();
 	if(!ei.powers)
 		return;
+	if(!ei.powers[0]) {
+		// Item may be non-magical if first power is empthy
+		if(d100() >= chance_magical)
+			return;
+	}
 	adat<variant, 32> source;
 	while(magic_bonus >= 0) {
 		source.clear();

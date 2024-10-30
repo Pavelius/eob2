@@ -23,6 +23,21 @@ void item::setcount(int v) {
 		count = v - 1;
 }
 
+void item::setpower(variant v) {
+	power = 0;
+	auto& ei = geti();
+	if(!ei.powers)
+		return;
+	auto index = 0;
+	for(auto e : ei.powers->elements) {
+		if(e == v) {
+			power = index;
+			return;
+		}
+		index++;
+	}
+}
+
 bool item::iscountable() const {
 	return geti().wear == Quiver;
 }

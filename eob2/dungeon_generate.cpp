@@ -3,6 +3,7 @@
 #include "cell.h"
 #include "dungeon.h"
 #include "direction.h"
+#include "list.h"
 #include "math.h"
 #include "monster.h"
 #include "pointca.h"
@@ -138,16 +139,43 @@ static void lair_door(pointc v, directions d) {
 	door(v, d, true, true);
 }
 
+static void add_magical_power(item& it, char magic_bonus) {
+	auto& ei = it.geti();
+	if(!ei.powers)
+		return;
+	adat<variant, 32> source;
+	while(magic_bonus >= 0) {
+		source.clear();
+		for(auto v : ei.powers->elements) {
+			if(!v)
+				continue;
+			if(v.counter == magic_bonus)
+				source.add(v);
+		}
+		if(source) {
+			zshuffle(source.data, source.count);
+			it.setpower(source.data[0]);
+			return;
+		}
+		magic_bonus--;
+	}
+}
+
 static void create_item(item& it, itemi* pi, int bonus_level = 0) {
 	// Any generated key match to dungeon key
 	if(pi->wear == Key)
 		pi = loc->getkey();
 	it.create(pi - bsdata<itemi>::elements);
-	// Food can be rotten
-	if(it.geti().wear == Edible) {
+	switch(pi->wear) {
+	case Edible:
+		// Food can be rotten
 		if(d100() < 60)
 			it.damage(5);
+		break;
 	}
+	auto chance_magic = 5 + (iabs(loc->level) + bonus_level) * 5;
+	if(d100() < chance_magic)
+		add_magical_power(it, 5);
 }
 
 static void items(pointc v, itemi* pi, int bonus_level = 0) {
@@ -707,13 +735,13 @@ static void dungeon_create(unsigned short quest_id, slice<dungeon_site> source) 
 			//add_spawn_points(e);
 			//add_corners(e, p->crypt.corner, p->crypt.corner_count);
 			previous = loc;
-		}
+			}
 		base += ei.level;
-	}
+		}
 	// Add dungeon pits and other stuff
 	//for(unsigned i = 0; i < count - 1; i++)
 	//	link_dungeon(dungeons[i], dungeons[i + 1]);
-}
+	}
 
 void dungeon_create() {
 	auto push_loc = loc;

@@ -71,10 +71,14 @@ void archive::setpointer(void** value) {
 		set(v);
 	} else {
 		variant v; set(v);
-		auto pi = bsdata<varianti>::elements[v.type].source;
-		if(!pi)
+		if(!v.type)
 			*value = 0;
-		else
-			*value = pi->ptr(v.value);
+		else {
+			auto pi = bsdata<varianti>::elements[v.type].source;
+			if(!pi)
+				*value = 0;
+			else
+				*value = pi->ptr(v.value);
+		}
 	}
 }

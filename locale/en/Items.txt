@@ -20,6 +20,7 @@ LeatherArmor: Leather armor
 Longsword: Longsword
 Mace: Mace
 MageScroll: Scroll
+MagicMap: Map
 PriestScroll: Scroll
 Ration: Ration
 RedPotion: Potion

@@ -1,3 +1,2 @@
-﻿Error in file `rules/Monsters.txt`:
- Line 6: Can't find variant `BloodSucking`
- Line 6: Can't find variant `Disease`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `MagicMap`

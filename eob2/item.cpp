@@ -73,7 +73,7 @@ const char*	item::getname() const {
 	static char temp[32];
 	stringbuilder sb(temp);
 	if(isdamaged())
-		sb.adds(getnm(is(Disease) ? "Rotten" : "Damaged"));
+		sb.adds(getnm((geti().wear == Edible) ? "Rotten" : "Damaged"));
 	if(identified) {
 		if(cursed)
 			sb.adds(getnm("Cursed"));
@@ -93,9 +93,12 @@ bool item::isweapon() const {
 void item::damage(int bonus) {
 	if(bonus >= 0) {
 		bonus += count;
-		if(bonus >= 10)
-			clear();
-		else
+		if(bonus >= 10) {
+			if(isartifact())
+				count = 9;
+			else
+				clear();
+		} else
 			count = bonus;
 	} else
 		count = 0;

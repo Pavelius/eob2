@@ -1,2 +1,3 @@
-﻿Error in file `rules/Items.txt`:
- Line 4: Can't find variant `NoVariant`
+﻿Error in file `rules/Monsters.txt`:
+ Line 6: Can't find variant `BloodSucking`
+ Line 6: Can't find variant `Disease`

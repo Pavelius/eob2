@@ -3,4 +3,4 @@
 Kobold res(kobold) hd(0) ac(7) experience(7)
  feats Dagger
 Leech res(leech) hd(4) ac(9) experience(175)
- feats Large BloodSucking Disease Mandibules
+ feats Large VampiricAttack DiseaseAttack Mandibules

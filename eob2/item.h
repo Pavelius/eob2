@@ -48,6 +48,7 @@ public:
 	bool		is(featn v) const { return geti().is(v); }
 	bool		is(const itemi* pi) const { return pi == &geti(); }
 	bool		isallow(wearn v) const;
+	bool		isartifact() const { return getpower().counter >= 4; }
 	bool		iscountable() const;
 	bool		iscursed() const { return cursed != 0; }
 	bool		isdamaged() const { return !iscountable() && count >= 5; }

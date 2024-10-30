@@ -27,6 +27,7 @@ creaturei *player, *opponent;
 int last_roll, last_chance;
 classn last_class;
 racen last_race;
+bool is_critical_hit;
 
 static char hit_points_adjustment[] = {
 	-4, -3, -2, -2, -1, -1, -1, 0, 0, 0,
@@ -658,6 +659,15 @@ static bool isf(const creaturei* player, const item& weapon, featn v) {
 	return false;
 }
 
+bool creaturei::is(const item& weapon, featn v) const {
+	if(is(v) || weapon.geti().is(v))
+		return true;
+	auto power = weapon.getpower();
+	if(power.iskind<feati>() && power.value == v)
+		return true;
+	return false;
+}
+
 void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
 	auto& weapon = wears[slot];
 	auto power = weapon.getpower();
@@ -708,36 +718,37 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	auto rolls = xrand(1, 20);
 	auto hits = -1;
 	tohit = imax(2, imin(20, tohit));
-	if(isf(this, weapon, BloodSucking) && is(Assembled))
-		rolls = tohit;
+	is_critical_hit = false;
 	if(rolls >= tohit || rolls >= chance_critical) {
 		// If weapon hits
-		auto is_critical = false;
 		if(rolls >= tohit && rolls >= chance_critical) {
 			// RULE: crtitical hit can apply only if attack hit and can be deflected
 			if(!defender->roll(CriticalDeflect))
-				is_critical = true;
+				is_critical_hit = true;
 		}
-		if(is_critical) {
+		if(is_critical_hit) {
 			multiplier += 1;
 			if(weapon.is(Deadly))
 				multiplier += 1;
 		}
-		if(isf(this, weapon, BloodSucking) && is(Assembled))
-			hits = attack_damage.maximum();
-		else
-			hits = attack_damage.roll();
-		hits = hits * multiplier;
+		attack_damage.m = multiplier;
+		hits = attack_damage.roll();
 		// Weapon of specific damage type
 		if(power.iskind<damagei>()) {
+			damage_type = (damagen)power.value;
 			switch(power.value) {
 			case Fire: hits += xrand(1, 6); break;
 			case Cold: hits += xrand(2, 5); break;
-			default: hits += xrand(1, 3); break;
+			default: hits += xrand(0, 2); break;
 			}
-			damage_type = (damagen)power.value;
 		}
-		if(is_critical) {
+	}
+	// Show result
+	defender->damage(damage_type, hits, magic_bonus);
+	fix_attack(this, slot, hits);
+	if(hits != -1) {
+		// After all effects, if hit, do additional effects
+		if(is_critical_hit) {
 			// RULE: Weapon with spell cast it when critical hit occurs
 			if(power.iskind<spelli>()) {
 				//	auto spell = (spell_s)power.value;
@@ -748,21 +759,19 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 			}
 		}
 		// RULE: vampiric ability allow user to drain blood and regain own HP
-		if(isf(this, weapon, VampiricAttack)) {
-			auto hits_healed = xrand(2, 5);
+		if(is(weapon, VampiricAttack)) {
+			auto hits_healed = xrand(1, 3);
 			if(hits_healed > hits)
 				hits_healed = hits;
+			heal(hits_healed);
 		}
-		set(Assembled); // Fix assemble to victium
-		if(is(Disease))
-			defender->abilities[DiseaseLevel]++;
-	}
-	// Show result
-	defender->damage(damage_type, hits, magic_bonus);
-	fix_attack(this, slot, hits);
-	if(hits != -1) {
-		// Drain attacks
-		if(isf(player, weapon, DrainStrenghtAttack) && !defender->roll(SaveVsMagic))
+		// RULE: diseased weapon can cause disease if hit
+		if(is(weapon, DiseaseAttack)) {
+			if(!defender->roll(SaveVsPoison))
+				defender->abilities[DiseaseLevel]++;
+		}
+		// RULE: Drain attacks
+		if(is(weapon, DrainStrenghtAttack) && !defender->roll(SaveVsMagic))
 			defender->abilities[DrainStrenght]++;
 		//		// Poison attack
 		//		if(wi.is(OfPoison))
@@ -786,6 +795,12 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 			damage(Bludgeon, 1, 3);
 		return;
 	}
+}
+
+void creaturei::heal(int v) {
+	v += hp;
+	if(v >= hpm)
+		hp = v;
 }
 
 const racei& creaturei::getrace() const {

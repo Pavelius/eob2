@@ -1168,7 +1168,7 @@ static bool if_item_damaged() {
 }
 
 static bool if_item_edible() {
-	return last_item->is(Disease);
+	return last_item->geti().wear==Edible;
 }
 
 BSDATA(formulai) = {

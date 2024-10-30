@@ -138,20 +138,24 @@ static void lair_door(pointc v, directions d) {
 	door(v, d, true, true);
 }
 
+static void create_item(item& it, itemi* pi, int bonus_level = 0) {
+	// Any generated key match to dungeon key
+	if(pi->wear == Key)
+		pi = loc->getkey();
+	it.create(pi - bsdata<itemi>::elements);
+	// Food can be rotten
+	if(it.geti().wear == Edible) {
+		if(d100() < 60)
+			it.damage(5);
+	}
+}
+
 static void items(pointc v, itemi* pi, int bonus_level = 0) {
 	// TODO: item power generate
 	if(!pi)
 		return;
-	// Any generated key match to dungeon key
-	if(pi->wear == Key)
-		pi = loc->getkey();
 	item it;
-	it.create(pi - bsdata<itemi>::elements);
-	// Food can be rotten
-	if(it.is(Disease)) {
-		if(d100() < 60)
-			it.damage(5);
-	}
+	create_item(it, pi, bonus_level);
 	loc->drop(v, it, xrand(0, 3));
 }
 
@@ -397,10 +401,10 @@ static void cellar(pointc v, directions d) {
 	auto count = random_cellar_count();
 	while(count > 0) {
 		item it;
-		it.create(single(random_list));
+		create_item(it, single(random_list), 0);
 		// Items in cellar can be identified
 		if(d100() < 60)
-			last_item->identify(1);
+			it.identify(1);
 		loc->add(po, it);
 		count--;
 	}

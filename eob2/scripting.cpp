@@ -269,12 +269,16 @@ static void drop_city_item() {
 }
 
 static void player_heal(int bonus) {
-	bonus = get_bonus(bonus);
-	if(bonus <= 0)
-		return;
-	player->hp += bonus;
-	if(player->hp > player->hpm)
-		player->hp = player->hpm;
+	player->heal(get_bonus(bonus));
+}
+
+static void player_heal_effect(int bonus) {
+	static dice effect[] = {
+		{1, 3},
+		{2, 4, 2},
+		{3, 8, 3},
+	};
+	player->heal(maptbl(effect, bonus).roll());
 }
 
 static void natural_heal(int bonus) {
@@ -1219,6 +1223,7 @@ BSDATA(script) = {
 	{"EnterLocation", enter_location},
 	{"ForEachParty", for_each_party},
 	{"Heal", player_heal},
+	{"HealEffect", player_heal_effect},
 	{"IdentifyItem", identify_item},
 	{"LearnClericSpells", learn_cleric_spells},
 	{"LoadGame", load_game},

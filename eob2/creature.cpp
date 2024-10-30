@@ -798,9 +798,12 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 }
 
 void creaturei::heal(int v) {
+	if(v <= 0)
+		return;
 	v += hp;
 	if(v >= hpm)
-		hp = v;
+		v = hpm;
+	hp = v;
 }
 
 const racei& creaturei::getrace() const {

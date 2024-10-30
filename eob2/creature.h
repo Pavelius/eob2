@@ -23,7 +23,6 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	void			add(abilityn i, int v);
 	void			addexp(int value);
 	void			additem(item& it);
-	void			attack(creaturei* enemy, wearn slot, int bonus, int multiplier);
 	bool			canread() const { return get(Intellegence) >= 9; }
 	void			clear();
 	void			damage(damagen type, int hits, char magic_bonus = 0);

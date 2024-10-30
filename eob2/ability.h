@@ -21,5 +21,6 @@ enum abilityn : unsigned char {
 	Hits
 };
 struct abilityi : nameable {
+	int		wearing_multiplier;
 };
 extern abilityn last_ability;

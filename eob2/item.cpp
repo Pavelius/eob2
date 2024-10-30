@@ -1,3 +1,4 @@
+#include "adat.h"
 #include "bsdata.h"
 #include "item.h"
 #include "list.h"
@@ -106,11 +107,12 @@ void item::getname(stringbuilder& sb) const {
 		if(power) {
 			auto pn = getnme(str("Of%1%2i", power.getid(), iabs(power.counter)));
 			if(!pn)
-				auto pn = getnme(ids("Of", power.getid()));
+				pn = getnme(ids("Of", power.getid()));
 			if(pn) {
 				sb.adds("of ");
 				sb.add(pn, power.counter);
-			}
+			} else
+				sb.add("%+1i", power.counter);
 		}
 	}
 }
@@ -159,4 +161,26 @@ variant item::getpower() const {
 	if(!pi)
 		return variant();
 	return pi->elements.begin()[power];
+}
+
+void item::createpower(char magic_bonus) {
+	auto& ei = geti();
+	if(!ei.powers)
+		return;
+	adat<variant, 32> source;
+	while(magic_bonus >= 0) {
+		source.clear();
+		for(auto v : ei.powers->elements) {
+			if(!v)
+				continue;
+			if(v.counter == magic_bonus)
+				source.add(v);
+		}
+		if(source) {
+			zshuffle(source.data, source.count);
+			setpower(source.data[0]);
+			return;
+		}
+		magic_bonus--;
+	}
 }

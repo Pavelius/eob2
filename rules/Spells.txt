@@ -89,3 +89,8 @@ DefaultClericSpells
  elements CureLightWounds+4 Bless
 DefaultMageSpells
  elements Armor MagicMissile+2
+
+MageSpells
+ elements Armor BurningHands ChillTouch ComprehendLanguages DetectEvil DetectMagic Friends MagicMissile Mending ShieldSpell ShockingGrasp
+PriestSpells
+ elements Bless CureLightWounds DetectEvil DetectMagic PurifyFood

@@ -193,6 +193,25 @@ static void update_bonus_saves() {
 		player->abilities[SaveVsMagic] += maptbl(dwarven_bonus, k) * 5;
 }
 
+static int magic_wear_value(int magic_bonus) {
+	return 17 + magic_bonus;
+}
+
+static void magic_wear(variant v) {
+	if(v.iskind<abilityi>()) {
+		auto m = bsdata<abilityi>::elements[v.value].wearing_multiplier;
+		if(m == 100) {
+			auto k = magic_wear_value(v.counter);
+			auto n = player->abilities[v.value];
+			if(n < k)
+				n = k;
+			player->abilities[v.value] = n;
+		} else
+			player->add((abilityn)v.value, v.counter * m);
+	} else
+		script_run(v);
+}
+
 static void update_wear() {
 	auto push_modifier = modifier;
 	modifier = Standart;
@@ -200,13 +219,16 @@ static void update_wear() {
 		if(!e)
 			continue;
 		auto& ei = e.geti();
-		if(!ei.wearing)
-			continue;
-		if(ei.wear == LeftHand) {
-			if(player->wears[RightHand] && player->wears[RightHand].is(TwoHanded))
-				continue; // RULE: Two handed weapon
+		if(ei.wearing) {
+			if(ei.wear == LeftHand) {
+				if(player->wears[RightHand] && player->wears[RightHand].is(TwoHanded))
+					continue; // RULE: Two handed weapon
+			}
+			script_run(ei.wearing);
 		}
-		script_run(ei.wearing);
+		auto power = e.getpower();
+		if(power)
+			magic_wear(power);
 	}
 	modifier = push_modifier;
 }
@@ -666,137 +688,6 @@ bool creaturei::is(const item& weapon, featn v) const {
 	if(power.iskind<feati>() && power.value == v)
 		return true;
 	return false;
-}
-
-void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
-	auto& weapon = wears[slot];
-	auto power = weapon.getpower();
-	auto chance_critical = 20;
-	auto attack_damage = getdamage(bonus, slot, defender->is(Large));
-	auto damage_type = weapon.geti().damage_type;
-	auto isrange = weapon.isranged();
-	auto ammo = weapon.geti().ammo;
-	if(ammo) {
-		if(!wears[Quiver].is(ammo))
-			return; // No Ammo!
-		attack_damage.b += ammo->damage.b;
-		if(wears[Quiver].is(Precise))
-			chance_critical++;
-		// Use ammo
-		wears[Quiver].consume();
-	}
-	if(weapon.is(Precise))
-		chance_critical++;
-	// Magical weapon stats
-	auto magic_bonus = power.counter;
-	bonus += magic_bonus;
-	attack_damage.b += magic_bonus;
-	// Other stats
-	auto ac = defender->get(AC);
-	if(!isrange) {
-		if((is(ChaoticEvil) || is(Undead)) && defender->is(ProtectedFromEvil))
-			ac += 2;
-		// RULE: Small dwarf use special tactics vs large opponents
-		if(is(Large) && defender->is(BonusACVsLargeEnemy))
-			ac += 4;
-	}
-	if(hate.is(defender->race)) {
-		if(is(BonusAttackVsHated))
-			bonus += 1;
-		if(is(BonusDamageVsEnemy))
-			bonus += 4;
-	}
-	//if(wi.weapon) {
-	//	magic_bonus = wi.weapon->getmagic();
-	//	if(defender->is(Undead)) {
-	//		auto holyness = wi.weapon->getenchant(OfHolyness);
-	//		bonus += holyness;
-	//		wi.damage.b += holyness * 2;
-	//		if(wi.weapon->is(SevereDamageUndead))
-	//			wi.damage.b += 2;
-	//	}
-	//}
-	auto tohit = 20 - bonus - (10 - ac);
-	auto rolls = xrand(1, 20);
-	auto hits = -1;
-	tohit = imax(2, imin(20, tohit));
-	is_critical_hit = false;
-	if(rolls >= tohit || rolls >= chance_critical) {
-		// If weapon hits
-		if(rolls >= tohit && rolls >= chance_critical) {
-			// RULE: crtitical hit can apply only if attack hit and can be deflected
-			if(!defender->roll(CriticalDeflect))
-				is_critical_hit = true;
-		}
-		if(is_critical_hit) {
-			multiplier += 1;
-			if(weapon.is(Deadly))
-				multiplier += 1;
-		}
-		attack_damage.m = multiplier;
-		hits = attack_damage.roll();
-		// Weapon of specific damage type
-		if(power.iskind<damagei>()) {
-			damage_type = (damagen)power.value;
-			switch(power.value) {
-			case Fire: hits += xrand(1, 6); break;
-			case Cold: hits += xrand(2, 5); break;
-			default: hits += xrand(0, 2); break;
-			}
-		}
-	}
-	// Show result
-	defender->damage(damage_type, hits, magic_bonus);
-	fix_attack(this, slot, hits);
-	if(hits != -1) {
-		// After all effects, if hit, do additional effects
-		if(is_critical_hit) {
-			// RULE: Weapon with spell cast it when critical hit occurs
-			if(power.iskind<spelli>()) {
-				//	auto spell = (spell_s)power.value;
-				//	if(bsdata<spelli>::elements[spell].effect.type.type == Damage)
-				//		cast(spell, Mage, wi.weapon->getmagic(), defender);
-				//	else
-				//		cast(spell, Mage, wi.weapon->getmagic(), this);
-			}
-		}
-		// RULE: vampiric ability allow user to drain blood and regain own HP
-		if(is(weapon, VampiricAttack)) {
-			auto hits_healed = xrand(1, 3);
-			if(hits_healed > hits)
-				hits_healed = hits;
-			heal(hits_healed);
-		}
-		// RULE: diseased weapon can cause disease if hit
-		if(is(weapon, DiseaseAttack)) {
-			if(!defender->roll(SaveVsPoison))
-				defender->add(DiseaseLevel, 1);
-		}
-		// RULE: Drain attacks
-		if(is(weapon, DrainStrenghtAttack) && !defender->roll(SaveVsMagic))
-			defender->add(DrainStrenght, 1);
-		//		// Poison attack
-		//		if(wi.is(OfPoison))
-		//			defender->add(Poison, Instant, SaveNegate);
-		//		// Paralize attack
-		//		if(wi.is(OfParalize))
-		//			defender->add(HoldPerson, xrand(1, 3), SaveNegate);
-		//		// Drain ability
-		//		if(wi.is(OfEnergyDrain))
-		//			attack_drain(defender, defender->drain_energy, hits);
-		//		defender->damage(damage_type, hits, magic_bonus);
-	}
-	// Weapon can be broken
-	if(rolls == 1) {
-		if(weapon && d100() < 60) {
-			auto name = weapon.getname();
-			weapon.damage(1);
-			if(!weapon)
-				speak("Weapon", "Broken", name);
-		} else
-			damage(Bludgeon, 1, 3);
-		return;
-	}
 }
 
 void creaturei::heal(int v) {

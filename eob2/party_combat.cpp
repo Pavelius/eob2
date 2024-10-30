@@ -3,6 +3,7 @@
 #include "direction.h"
 #include "dungeon.h"
 #include "party.h"
+#include "math.h"
 #include "rand.h"
 #include "view.h"
 
@@ -93,7 +94,138 @@ static creaturei* get_opponent(bool left, bool enemies) {
 	return 0;
 }
 
-static void single_main_attack(creaturei* player, wearn wear, creaturei* enemy, int bonus, int multiplier) {
+static void single_attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
+	auto& weapon = player->wears[slot];
+	auto power = weapon.getpower();
+	auto chance_critical = 20;
+	auto attack_damage = player->getdamage(bonus, slot, defender->is(Large));
+	auto damage_type = weapon.geti().damage_type;
+	auto isrange = weapon.isranged();
+	auto ammo = weapon.geti().ammo;
+	if(ammo) {
+		if(!player->wears[Quiver].is(ammo))
+			return; // No Ammo!
+		attack_damage.b += ammo->damage.b;
+		if(player->wears[Quiver].is(Precise))
+			chance_critical++;
+		// Use ammo
+		player->wears[Quiver].consume();
+	}
+	if(weapon.is(Precise))
+		chance_critical++;
+	// Magical weapon stats
+	auto magic_bonus = power.counter;
+	bonus += magic_bonus;
+	attack_damage.b += magic_bonus;
+	// Other stats
+	auto ac = defender->get(AC);
+	if(!isrange) {
+		if((player->is(ChaoticEvil) || player->is(Undead)) && defender->is(ProtectedFromEvil))
+			ac += 2;
+		// RULE: Small dwarf use special tactics vs large opponents
+		if(player->is(Large) && defender->is(BonusACVsLargeEnemy))
+			ac += 4;
+	}
+	if(player->hate.is(defender->race)) {
+		if(player->is(BonusAttackVsHated))
+			bonus += 1;
+		if(player->is(BonusDamageVsEnemy))
+			bonus += 4;
+	}
+	//if(wi.weapon) {
+	//	magic_bonus = wi.weapon->getmagic();
+	//	if(defender->is(Undead)) {
+	//		auto holyness = wi.weapon->getenchant(OfHolyness);
+	//		bonus += holyness;
+	//		wi.damage.b += holyness * 2;
+	//		if(wi.weapon->is(SevereDamageUndead))
+	//			wi.damage.b += 2;
+	//	}
+	//}
+	auto tohit = 20 - bonus - (10 - ac);
+	auto rolls = xrand(1, 20);
+	auto hits = -1;
+	tohit = imax(2, imin(20, tohit));
+	is_critical_hit = false;
+	if(rolls >= tohit || rolls >= chance_critical) {
+		// If weapon hits
+		if(rolls >= tohit && rolls >= chance_critical) {
+			// RULE: crtitical hit can apply only if attack hit and can be deflected
+			if(!defender->roll(CriticalDeflect))
+				is_critical_hit = true;
+		}
+		if(is_critical_hit) {
+			multiplier += 1;
+			if(weapon.is(Deadly))
+				multiplier += 1;
+		}
+		attack_damage.m = multiplier;
+		hits = attack_damage.roll();
+		// Weapon of specific damage type
+		if(power.iskind<damagei>()) {
+			damage_type = (damagen)power.value;
+			switch(power.value) {
+			case Fire: hits += xrand(1, 6); break;
+			case Cold: hits += xrand(2, 5); break;
+			default: hits += xrand(0, 2); break;
+			}
+		}
+	}
+	// Show result
+	defender->damage(damage_type, hits, magic_bonus);
+	fix_attack(player, slot, hits);
+	if(hits != -1) {
+		// After all effects, if hit, do additional effects
+		if(is_critical_hit) {
+			// RULE: Weapon with spell cast it when critical hit occurs
+			if(power.iskind<spelli>()) {
+				//	auto spell = (spell_s)power.value;
+				//	if(bsdata<spelli>::elements[spell].effect.type.type == Damage)
+				//		cast(spell, Mage, wi.weapon->getmagic(), defender);
+				//	else
+				//		cast(spell, Mage, wi.weapon->getmagic(), this);
+			}
+		}
+		// RULE: vampiric ability allow user to drain blood and regain own HP
+		if(player->is(weapon, VampiricAttack)) {
+			auto hits_healed = xrand(1, 3);
+			if(hits_healed > hits)
+				hits_healed = hits;
+			player->heal(hits_healed);
+		}
+		// RULE: diseased weapon can cause disease if hit
+		if(player->is(weapon, DiseaseAttack)) {
+			if(!defender->roll(SaveVsPoison))
+				defender->add(DiseaseLevel, 1);
+		}
+		// RULE: Drain attacks
+		if(player->is(weapon, DrainStrenghtAttack) && !defender->roll(SaveVsMagic))
+			defender->add(DrainStrenght, 1);
+		//		// Poison attack
+		//		if(wi.is(OfPoison))
+		//			defender->add(Poison, Instant, SaveNegate);
+		//		// Paralize attack
+		//		if(wi.is(OfParalize))
+		//			defender->add(HoldPerson, xrand(1, 3), SaveNegate);
+		//		// Drain ability
+		//		if(wi.is(OfEnergyDrain))
+		//			attack_drain(defender, defender->drain_energy, hits);
+		//		defender->damage(damage_type, hits, magic_bonus);
+	}
+	// Weapon can be broken
+	if(rolls == 1) {
+		if(weapon && d100() < 60) {
+			auto name = weapon.getname();
+			weapon.damage(1);
+			if(!weapon)
+				player->speak("Weapon", "Broken", name);
+		} else
+			player->damage(Bludgeon, 1, 3);
+		return;
+	}
+}
+
+static void single_main_attack(wearn wear, creaturei* enemy, int bonus, int multiplier) {
 	auto number_attacks = 2;
 	if(player->is(WeaponSpecialist) && player->isspecialist(&player->wears[wear].geti())) {
 		bonus += 1;
@@ -103,10 +235,10 @@ static void single_main_attack(creaturei* player, wearn wear, creaturei* enemy, 
 		number_attacks += 1;
 	number_attacks /= 2;
 	while(number_attacks-- > 0)
-		player->attack(enemy, wear, bonus, multiplier);
+		single_attack(enemy, wear, bonus, multiplier);
 }
 
-static void make_full_attack(creaturei* player, creaturei* enemy, int bonus, int multiplier) {
+static void make_full_attack(creaturei* enemy, int bonus, int multiplier) {
 	if(!enemy)
 		return;
 	fix_monster_attack(player);
@@ -118,12 +250,12 @@ static void make_full_attack(creaturei* player, creaturei* enemy, int bonus, int
 	if(!wp3.isweapon())
 		wp3.clear();
 	if(wp2) {
-		single_main_attack(player, RightHand, enemy, bonus + player->gethitpenalty(-4), multiplier);
-		player->attack(enemy, LeftHand, bonus + player->gethitpenalty(-6), multiplier);
+		single_main_attack(RightHand, enemy, bonus + player->gethitpenalty(-4), multiplier);
+		single_attack(enemy, LeftHand, bonus + player->gethitpenalty(-6), multiplier);
 	} else
-		single_main_attack(player, RightHand, enemy, bonus, multiplier);
+		single_main_attack(RightHand, enemy, bonus, multiplier);
 	if(wp3)
-		player->attack(enemy, Head, bonus, multiplier);
+		single_attack(enemy, Head, bonus, multiplier);
 	fix_monster_attack_end(player);
 }
 
@@ -166,29 +298,32 @@ void make_attacks(bool melee_combat) {
 		if(!select_combatants(party, party.d))
 			return;
 	}
+	auto push_player = player;
 	auto d = to(party.d, Down);
 	for(auto p : combatants) {
-		if(p->isdisabled())
+		player = p;
+		if(player->isdisabled())
 			continue;
-		p->set(Moved);
+		player->set(Moved);
 		// RULE: Surprised creatures do not move first round in combat
-		if(p->is(Surprised)) {
-			p->remove(Surprised);
+		if(player->is(Surprised)) {
+			player->remove(Surprised);
 			continue;
 		}
 		// If we can only shoot
-		if(enemy_distance > 1 && !p->wears[RightHand].isranged())
+		if(enemy_distance > 1 && !player->wears[RightHand].isranged())
 			continue;
-		if(p->ismonster()) {
-			auto left_side = (get_side(p->side, d) % 2) == 0;
-			if(p->is(Large))
+		if(player->ismonster()) {
+			auto left_side = (get_side(player->side, d) % 2) == 0;
+			if(player->is(Large))
 				left_side = (rand() % 2);
-			make_full_attack(p, get_opponent(left_side, false), 0, 1);
+			make_full_attack(get_opponent(left_side, false), 0, 1);
 		} else {
-			auto left_side = (p->side % 2) == 0;
-			make_full_attack(p, get_opponent(left_side, true), 0, 1);
+			auto left_side = (player->side % 2) == 0;
+			make_full_attack(get_opponent(left_side, true), 0, 1);
 		}
 		animation_update();
 		fix_animate();
 	}
+	player = push_player;
 }

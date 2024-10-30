@@ -1120,6 +1120,10 @@ static void curse_item(int bonus) {
 	last_item->curse(bonus);
 }
 
+static void create_power(int bonus) {
+	last_item->createpower(bonus);
+}
+
 static void learn_cleric_spells(int bonus) {
 	auto ps = get_spells_known(player);
 	if(!ps)
@@ -1304,6 +1308,7 @@ BSDATA(script) = {
 	{"ChooseMenu", choose_menu},
 	{"CreateCharacter", create_character},
 	{"CreateNewGame", create_new_game},
+	{"CreatePower", create_power},
 	{"CurseItem", curse_item},
 	{"Damage", damage_modify},
 	{"DamageItem", damage_item},

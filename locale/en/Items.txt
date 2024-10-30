@@ -3,6 +3,7 @@ Arrow: Arrow
 BastardSword: BasterdSword
 BattleAxe: Battle axe
 BluePotion: Potion
+Boots: Boots
 Bow: Bow
 ChainMail: Chain mail
 ChillTouchHand: Cold hand
@@ -41,7 +42,13 @@ Cursed: Cursed
 Damaged: Damaged
 Rotten: Rotten
 
-OfHealEffect1: healing
+OfAC: defence%+1i
+OfMoveSilently: chameleon power
+OfClimbWalls: feather fall
+OfResistFire: fire resistance
+OfResistCold: cold resistance
+OfResistCold: cold resistance
+OfCharisma: human control
 OfHealEffect2: extra-healing
 OfHealth: health
 

@@ -139,28 +139,6 @@ static void lair_door(pointc v, directions d) {
 	door(v, d, true, true);
 }
 
-static void add_magical_power(item& it, char magic_bonus) {
-	auto& ei = it.geti();
-	if(!ei.powers)
-		return;
-	adat<variant, 32> source;
-	while(magic_bonus >= 0) {
-		source.clear();
-		for(auto v : ei.powers->elements) {
-			if(!v)
-				continue;
-			if(v.counter == magic_bonus)
-				source.add(v);
-		}
-		if(source) {
-			zshuffle(source.data, source.count);
-			it.setpower(source.data[0]);
-			return;
-		}
-		magic_bonus--;
-	}
-}
-
 static void create_item(item& it, itemi* pi, int bonus_level = 0) {
 	// Any generated key match to dungeon key
 	if(pi->wear == Key)
@@ -168,7 +146,7 @@ static void create_item(item& it, itemi* pi, int bonus_level = 0) {
 	it.create(pi - bsdata<itemi>::elements);
 	auto chance_magic = 5 + (iabs(loc->level) + bonus_level) * 5;
 	if(d100() < chance_magic)
-		add_magical_power(it, 5);
+		it.createpower(5);
 	if(it.isartifact())
 		loc->state.wallmessages[MessageAtifacts]++;
 	switch(pi->wear) {

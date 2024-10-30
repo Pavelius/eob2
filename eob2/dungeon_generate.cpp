@@ -166,16 +166,26 @@ static void create_item(item& it, itemi* pi, int bonus_level = 0) {
 	if(pi->wear == Key)
 		pi = loc->getkey();
 	it.create(pi - bsdata<itemi>::elements);
+	auto chance_magic = 5 + (iabs(loc->level) + bonus_level) * 5;
+	if(d100() < chance_magic)
+		add_magical_power(it, 5);
+	if(it.isartifact())
+		loc->state.wallmessages[MessageAtifacts]++;
 	switch(pi->wear) {
 	case Edible:
 		// Food can be rotten
 		if(d100() < 60)
 			it.damage(5);
 		break;
+	case LeftRing: case RightRing:
+		if(it.ismagical())
+			loc->state.wallmessages[MessageMagicRings]++;
+		break;
+	case LeftHand: case RightHand:
+		if(it.ismagical())
+			loc->state.wallmessages[MessageMagicWeapons]++;
+		break;
 	}
-	auto chance_magic = 5 + (iabs(loc->level) + bonus_level) * 5;
-	if(d100() < chance_magic)
-		add_magical_power(it, 5);
 }
 
 static void items(pointc v, itemi* pi, int bonus_level = 0) {

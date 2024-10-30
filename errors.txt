@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `MagicMap`
+﻿Error in file `rules/Items.txt`:
+ Line 19: Can't find variant `ImmuneAcid`

@@ -693,9 +693,11 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 	attack_damage.b += magic_bonus;
 	// Other stats
 	auto ac = defender->get(AC);
-	// RULE: Small dwarf use special tactics vs large opponents
 	if(!isrange) {
-		if(defender->is(BonusACVsLargeEnemy) && is(Large))
+		if((is(ChaoticEvil) || is(Undead)) && defender->is(ProtectedFromEvil))
+			ac += 2;
+		// RULE: Small dwarf use special tactics vs large opponents
+		if(is(Large) && defender->is(BonusACVsLargeEnemy))
 			ac += 4;
 	}
 	if(hate.is(defender->race)) {
@@ -768,11 +770,11 @@ void creaturei::attack(creaturei* defender, wearn slot, int bonus, int multiplie
 		// RULE: diseased weapon can cause disease if hit
 		if(is(weapon, DiseaseAttack)) {
 			if(!defender->roll(SaveVsPoison))
-				defender->abilities[DiseaseLevel]++;
+				defender->add(DiseaseLevel, 1);
 		}
 		// RULE: Drain attacks
 		if(is(weapon, DrainStrenghtAttack) && !defender->roll(SaveVsMagic))
-			defender->abilities[DrainStrenght]++;
+			defender->add(DrainStrenght, 1);
 		//		// Poison attack
 		//		if(wi.is(OfPoison))
 		//			defender->add(Poison, Instant, SaveNegate);
@@ -823,6 +825,10 @@ void creaturei::add(abilityn i, int v) {
 		switch(i) {
 		case DiseaseLevel:
 			if(is(ImmuneDisease))
+				return;
+			break;
+		case DrainStrenght:
+			if(is(ProtectedFromEvil))
 				return;
 			break;
 		}

@@ -41,6 +41,10 @@ Cursed: Cursed
 Damaged: Damaged
 Rotten: Rotten
 
+OfHealEffect1: healing
+OfHealEffect2: extra-healing
+OfHealth: health
+
 ExamineItem: A %1
 ExamineIdentifiedItem: The %1
 WrongItem: I don't see any item

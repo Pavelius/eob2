@@ -274,9 +274,9 @@ static void player_heal(int bonus) {
 
 static void player_heal_effect(int bonus) {
 	static dice effect[] = {
-		{1, 3},
-		{2, 4, 2},
-		{3, 8, 3},
+		{1, 3}, // Small remedy
+		{2, 4, 2}, // Potion of healing
+		{3, 8, 3}, // Potion of extra-healing
 	};
 	player->heal(maptbl(effect, bonus).roll());
 }
@@ -328,6 +328,74 @@ static void apply_script(const char* action, const char* id, int bonus) {
 	p->proc(bonus);
 }
 
+static int get_permanent_raise(creaturei* player, abilityn a, int magical_bonus) {
+	if(a >= Strenght && a <= Charisma)
+		return 4;
+	return 2;
+}
+
+static int get_ability_number(creaturei* player, abilityn a, int magical_bonus) {
+	if(a>=Strenght && a<=Charisma)
+		return 17 + magical_bonus - player->basic.abilities[a];
+	switch(magical_bonus) {
+	case 1: return 100;
+	default: return 40;
+	}
+}
+
+static void drink_effect(variant v, unsigned duration) {
+	if(v.iskind<listi>()) {
+		for(auto e : bsdata<listi>::elements[v.value].elements)
+			drink_effect(e, duration);
+	} else if(v.iskind<script>())
+		bsdata<script>::elements[v.value].proc(v.counter);
+	else if(v.iskind<abilityi>()) {
+		auto permanent = get_permanent_raise(player, (abilityn)v.value, v.counter);
+		if(v.counter >= permanent)
+			player->basic.add((abilityn)v.value, v.counter - permanent + 1);
+		else {
+			v.counter = get_ability_number(player, (abilityn)v.value, v.counter);
+			if(v.counter)
+				add_boost(party.abilities[Minutes] + duration, player, v);
+		}
+	} else if(v.iskind<feati>()) {
+		v.counter = 1;
+		add_boost(party.abilities[Minutes] + duration, player, v);
+	}
+}
+
+static bool read_effect(creaturei* pn, variant v, unsigned duration) {
+	bool result = false;
+	if(v.iskind<spelli>()) {
+		auto push_player = player; player = pn;
+		result = cast_spell(bsdata<spelli>::elements + v.value, player->getlevel() + v.counter, true);
+		player = push_player;
+	}
+	return result;
+}
+
+static void drink_effect(creaturei* pn, variant v, unsigned duration) {
+	auto push_player = player; player = pn;
+	drink_effect(v, duration);
+	player = push_player;
+}
+
+static bool allow_use(creaturei* player, item* p) {
+	if(!player->isallow(*p)) {
+		player->speak("CantUse", 0);
+		return false;
+	}
+	return true;
+}
+
+static bool dungeon_use() {
+	if(!loc) {
+		player->speak("CantUse", "City");
+		return false;
+	}
+	return true;
+}
+
 static void use_item() {
 	last_item = (item*)current_focus;
 	auto pn = item_owner(last_item);
@@ -341,6 +409,8 @@ static void use_item() {
 	switch(ei.wear) {
 	case LeftHand:
 	case RightHand:
+		if(!dungeon_use())
+			return;
 		if(w != LeftHand && w != RightHand)
 			pn->speak("MustBeUseInHand", 0);
 		else if(last_item->isweapon()) {
@@ -355,7 +425,18 @@ static void use_item() {
 	case Quiver:
 		pn->speak("MustBeQuiver", 0);
 		break;
+	case Drinkable:
+		if(!allow_use(pn, last_item))
+			return;
+		drink_effect(pn, last_item->getpower(), xrand(5, 20) * 10);
+		consolen(getnm("DrinkPotionAct"));
+		last_item->clear();
+		break;
 	case Edible:
+		if(!allow_use(pn, last_item))
+			return;
+		if(!dungeon_use())
+			return;
 		if(last_item->isdamaged()) {
 			player->speak("MakeCamp", "RottenFood");
 			return;
@@ -365,23 +446,27 @@ static void use_item() {
 				rest_party(-2);
 			else
 				rest_party(last_item->geti().damage.roll());
-			last_item->setcount(0);
+			last_item->clear();
 		}
 		break;
 	case Readable:
+		if(!allow_use(pn, last_item))
+			return;
 		if(!pn->canread())
 			pn->speak("CantRead", 0);
 		else {
+			if(read_effect(pn, last_item->getpower(), xrand(5, 20) * 10))
+				last_item->clear();
 		}
 		break;
 	case Usable:
-		if(!pn->isallow(*last_item)) {
-			pn->speak("CantUse", 0);
+		if(!allow_use(pn, last_item))
 			return;
-		}
 		apply_script("Use", last_item->geti().id, 0);
 		break;
 	case Key:
+		if(!dungeon_use())
+			return;
 		po = get_overlay();
 		if(!po || po->type != CellKeyHole) {
 			pn->speak("Key", "NoTargets");
@@ -458,7 +543,8 @@ static bool mission_equipment(const char* id) {
 			last_item->tool(1);
 			last_item->identify(1);
 			last_item->curse(-1);
-		}
+		} else
+			last_item->setpower(v);
 	}
 	return true;
 }
@@ -1131,6 +1217,10 @@ static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
 
+static void item_name(stringbuilder& sb) {
+	last_item->getname(sb);
+}
+
 static void effect_number(stringbuilder& sb) {
 	sb.add("%1i", last_number);
 }
@@ -1172,7 +1262,7 @@ static bool if_item_damaged() {
 }
 
 static bool if_item_edible() {
-	return last_item->geti().wear==Edible;
+	return last_item->geti().wear == Edible;
 }
 
 BSDATA(formulai) = {
@@ -1187,6 +1277,7 @@ BSDATA(textscript) = {
 	{"DungeonOrigin", dungeon_origin},
 	{"Habbitant1", dungeon_habbitant1},
 	{"Habbitant2", dungeon_habbitant2},
+	{"ItemName", item_name},
 	{"Name", player_name},
 	{"Number", effect_number},
 	{"StairsDownSide", stairs_down_side},

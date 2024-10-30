@@ -1,6 +1,7 @@
 #include "bsdata.h"
 #include "item.h"
 #include "list.h"
+#include "math.h"
 #include "rand.h"
 #include "wearable.h"
 
@@ -87,6 +88,12 @@ void item::create(int value) {
 const char*	item::getname() const {
 	static char temp[32];
 	stringbuilder sb(temp);
+	sb.clear();
+	getname(sb);
+	return temp;
+}
+
+void item::getname(stringbuilder& sb) const {
 	if(isdamaged())
 		sb.adds(getnm((geti().wear == Edible) ? "Rotten" : "Damaged"));
 	if(identified) {
@@ -94,7 +101,18 @@ const char*	item::getname() const {
 			sb.adds(getnm("Cursed"));
 	}
 	sb.adds(bsdata<itemi>::elements[type].getname());
-	return temp;
+	if(identified) {
+		auto power = getpower();
+		if(power) {
+			auto pn = getnme(str("Of%1%2i", power.getid(), iabs(power.counter)));
+			if(!pn)
+				auto pn = getnme(ids("Of", power.getid()));
+			if(pn) {
+				sb.adds("of ");
+				sb.add(pn, power.counter);
+			}
+		}
+	}
 }
 
 int	item::getcost() const {

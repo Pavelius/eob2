@@ -41,6 +41,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	void			heal(int value);
 	bool			is(abilityn v) const { return abilities[v] > 0; }
 	bool			is(featn v) const { return featable::is(v); }
+	bool			is(alignmentn v) const { return alignment == v; }
 	bool			is(const item& weapon, featn v) const;
 	bool			isactable() const;
 	bool			isallow(const item& it) const;

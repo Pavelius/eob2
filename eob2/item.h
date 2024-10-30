@@ -15,7 +15,8 @@ struct itemi : nameable, featable {
 	damagen		damage_type;
 	dice		damage, damage_large;
 	itemi*		ammo;
-	variants	wearing, onhit;
+	variants	wearing;
+	variant		cursed;
 	wearn		wear;
 	char		avatar, avatar_ground, avatar_thrown;
 	int			cost;
@@ -63,6 +64,7 @@ public:
 	int			getcost() const;
 	int			getcount() const { return iscountable() ? count + 1 : 1; }
 	const char*	getname() const;
+	void		getname(stringbuilder& sb) const;
 	variant		getpower() const;
 	void		setcount(int v);
 	void		setpower(variant v);

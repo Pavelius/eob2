@@ -313,9 +313,24 @@ void restore_spells(int bonus) {
 		memcpy(player->spells, spell_book, sizeof(player->spells));
 }
 
+static void update_camp_spells(int bonus) {
+	for(auto& e : player->equipment()) {
+		if(!e)
+			continue;
+		if(e.geti().wear == RightHand || e.geti().wear == LeftHand)
+			continue;
+		auto power = e.getpower();
+		if(!power)
+			continue;
+		if(power.iskind<spelli>())
+			player->spells[power.value] += power.counter;
+	}
+}
+
 static void rest_character(int bonus) {
 	natural_heal(bonus);
 	restore_spells(0);
+	update_camp_spells(0);
 }
 
 static void rest_party(int bonus) {

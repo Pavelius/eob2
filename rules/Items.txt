@@ -4,6 +4,8 @@ Health
  elements PoisonLevel-100 DiseaseLevel-100
 Invulnerability
  elements ImmuneNormalWeapon AC+2 SaveVsPoison+2 SaveVsTraps+2 SaveVsMagic+2
+Displacement
+ elements AC+2 SaveVsTraps+2 Displaced
 
 MeleePowers
  elements NoVariant Magical+1 Magical+2 Magical+3 Magical+4 Fire+2 Shock+2 VampiricAttack+1 VampiricAttack+2
@@ -24,9 +26,10 @@ RingPowers
 
 BootsPowers
  elements NoVariant MoveSilently+1 AC+2
-
 BracerPowers
  elements NoVariant AC+1 AC+2 AC+3 AC+4 AC+5 Dexterity+1
+CloackPowers
+ elements NoVariant Protection+1 Protection+2 Protection+3 Protection+4 Protection+5 Displacement+3
 
 #Item
 
@@ -72,6 +75,8 @@ Sling speed(6) damage(1 4) ammo(Stone) avatar(18) avatar_ground(4) wear(RightHan
  feats Small
 
 Robe avatar(32) avatar_ground(8) wear(Body)
+RedCloack avatar(17) avatar_ground(8) wear(Body) powers(CloackPowers)
+BlueCloack avatar(92) avatar_ground(8) wear(Body) powers(CloackPowers)
 LeatherArmor cost(10) avatar(31) avatar_ground(11) wear(Body)
  feats UseLeather
  wearing AC+2 CriticalDeflect+5

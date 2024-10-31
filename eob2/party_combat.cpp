@@ -1,4 +1,5 @@
 #include "adat.h"
+#include "console.h"
 #include "creature.h"
 #include "direction.h"
 #include "dungeon.h"
@@ -249,6 +250,12 @@ static void make_full_attack(creaturei* enemy, int bonus, int multiplier) {
 		wp2.clear();
 	if(!wp3.isweapon())
 		wp3.clear();
+	// RULE: sneak attack depend on move silently check
+	auto theif = player->get(Theif);
+	if(theif > 0 && (player->is(Invisibled) || player->roll(MoveSilently))) {
+		consolen(getnm("SneakAttackAct"));
+		multiplier += (theif + 7) / 4;
+	}
 	if(wp2) {
 		single_main_attack(RightHand, enemy, bonus + player->gethitpenalty(-4), multiplier);
 		single_attack(enemy, LeftHand, bonus + player->gethitpenalty(-6), multiplier);

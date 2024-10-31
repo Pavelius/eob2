@@ -11,4 +11,5 @@ struct dungeon_site {
 	unsigned char special; // Special item find somewhere
 	racen language; // All messages in this language (by race)
 	char cursed; // Chance to all items found be cursed
+	char magical; // Chance to all items found be magical
 };

@@ -1121,7 +1121,7 @@ static void curse_item(int bonus) {
 }
 
 static void create_power(int bonus) {
-	last_item->createpower(bonus, 100);
+	last_item->createpower(bonus, 100, 0);
 }
 
 static void learn_cleric_spells(int bonus) {

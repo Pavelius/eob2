@@ -726,3 +726,15 @@ void creaturei::add(abilityn i, int v) {
 	}
 	statable::add(i, v);
 }
+
+int creaturei::get(classn v) const {
+	auto& ei = getclass();
+	if(ei.classes[0] == v)
+		return levels[0];
+	else if(ei.classes[1] == v)
+		return levels[1];
+	else if(ei.classes[2] == v)
+		return levels[2];
+	else
+		return 0;
+}

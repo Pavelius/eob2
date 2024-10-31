@@ -27,6 +27,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	void			clear();
 	void			damage(damagen type, int hits, char magic_bonus = 0);
 	int				get(abilityn v) const { return abilities[v]; }
+	int				get(classn v) const;
 	const char*		getbadstate() const;
 	int				getchance(abilityn v) const;
 	const classi&	getclass() const;

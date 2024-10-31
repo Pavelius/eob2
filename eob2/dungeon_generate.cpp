@@ -144,8 +144,9 @@ static void create_item(item& it, itemi* pi, int bonus_level = 0) {
 	if(pi->wear == Key)
 		pi = loc->getkey();
 	it.create(pi - bsdata<itemi>::elements);
-	auto chance_magic = 5 + (iabs(loc->level) + bonus_level) * 5;
-	it.createpower(5, chance_magic);
+	auto chance_magic = (iabs(loc->level) + bonus_level) * 5 + loc->magical;
+	auto chance_cursed = 5 + loc->cursed;
+	it.createpower(5, chance_magic, chance_cursed);
 	if(it.isartifact())
 		loc->state.wallmessages[MessageAtifacts]++;
 	switch(pi->wear) {

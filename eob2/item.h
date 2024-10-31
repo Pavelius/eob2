@@ -42,7 +42,7 @@ public:
 	void		tool(int v) { tooled = (v >= 0) ? 1 : 0; }
 	void		create(int value);
 	void		create(const itemi* pi);
-	void		createpower(char magic_bonus, int chance_magical);
+	void		createpower(char magic_bonus, int chance_magical, int chance_cursed);
 	void		curse(int v) { cursed = (v >= 0) ? 1 : 0; }
 	void		damage(int v);
 	const itemi& geti() const;

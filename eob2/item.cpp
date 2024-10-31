@@ -163,10 +163,14 @@ variant item::getpower() const {
 	return pi->elements.begin()[power];
 }
 
-void item::createpower(char magic_bonus, int chance_magical) {
+void item::createpower(char magic_bonus, int chance_magical, int chance_cursed) {
 	auto& ei = geti();
 	if(!ei.powers)
 		return;
+	if(chance_cursed) {
+		if(d100() < chance_cursed)
+			curse(1);
+	}
 	if(!ei.powers[0]) {
 		// Item may be non-magical if first power is empthy
 		if(d100() >= chance_magical)

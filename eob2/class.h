@@ -6,7 +6,12 @@
 #include "nameable.h"
 
 enum abilityn : unsigned char;
-enum classn : unsigned char;
+enum classn : unsigned char {
+	Monster,
+	Fighter, Cleric, Mage, Theif, Ranger, Paladin,
+	FighterCleric, FighterTheif, FighterMage, MageTheif,
+	FighterMageTheif
+};
 
 typedef char abilitya[6];
 

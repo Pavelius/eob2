@@ -563,15 +563,17 @@ const monsteri*	creaturei::getmonster() const {
 	return getbs<monsteri>(monster_id);
 }
 
-bool can_remove(const item* pi, bool speech) {
+bool can_remove(item* pi, bool speech) {
 	auto player = item_owner(pi);
 	if(!player)
 		return true;
 	auto w = item_wear(pi);
 	if(w >= Head && w <= Quiver) {
 		if(pi->iscursed()) {
-			if(speech)
+			if(speech) {
 				player->say(speech_get("CantDropCursedItem"));
+				pi->identify(1);
+			}
 			return false;
 		}
 	}

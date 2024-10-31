@@ -162,7 +162,7 @@ DwarfClericStartEquipment
 HalflingTheifStartEquipment
  elements ShortSword RedRing CreatePower+1 IdentifyItem
 FighterStartEquipment
- elements Longsword LeatherArmor Shield Helm CurseItem
+ elements Longsword LeatherArmor Shield Helm
 ClericStartEquipment
  elements Mace LeatherArmor Shield Helm
 TheifStartEquipment

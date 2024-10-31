@@ -43,14 +43,16 @@ Damaged: Damaged
 Rotten: Rotten
 
 OfAC: defence%+1i
-OfMoveSilently: chameleon power
+OfCharisma: human control
 OfClimbWalls: feather fall
+OfHealEffect1: healing
+OfHealEffect2: extra-healing
+OfHealth: health
+OfInvisibled: invisibility
+OfMoveSilently: chameleon power
 OfResistFire: fire resistance
 OfResistCold: cold resistance
 OfResistCold: cold resistance
-OfCharisma: human control
-OfHealEffect2: extra-healing
-OfHealth: health
 
 ExamineItem: A %1
 ExamineIdentifiedItem: The %1

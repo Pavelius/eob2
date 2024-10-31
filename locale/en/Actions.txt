@@ -38,6 +38,7 @@ ReturnToStreet: Leave to the street
 ReturnToTownConfirm: Do you really want return to town?
 ScribleScrolls: Scrible Scrolls
 SellConfirm: Do you really want sell %-1 for %2i gold pieces?
+SneakAttackAct: %Name use sneack attack
 StartGame: Create new game
 SurpriseFailed: %1 is surprised
 ToolBroken: %1 is broken

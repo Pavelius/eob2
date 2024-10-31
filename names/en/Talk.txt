@@ -85,7 +85,7 @@ Find %MessageMagicWeapons magic weapons on this level
 
 #MessageMagicRingsMiss
 There is no magic ring around
-#MessageMagicWeaponsPresent
+#MessageMagicRingsPresent
 Find %MessageMagicRings magic ring in this halls
 
 #MessageSecretsMiss
@@ -107,6 +107,11 @@ Find %MessageLocked keys to open treasure doors
 Magic power leave this place long ago
 #MessageAtifactsPresent
 Mighty artifact lie somewhere in this halls
+
+#MessageCursedItemsMiss
+There is no evil items around
+#MessageCursedItemsPresent
+Beware cursed items
 
 #MessageSpecialItemMiss
 There is no something special on this level

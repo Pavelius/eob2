@@ -167,7 +167,7 @@ void item::createpower(char magic_bonus, int chance_magical, int chance_cursed) 
 	auto& ei = geti();
 	if(!ei.powers)
 		return;
-	if(chance_cursed) {
+	if(chance_cursed > 0) {
 		if(d100() < chance_cursed)
 			curse(1);
 	}

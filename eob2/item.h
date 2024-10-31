@@ -30,7 +30,6 @@ class item {
 			unsigned char identified : 1;
 			unsigned char summoned : 1;
 			unsigned char tooled : 1;
-			unsigned char reserved : 4;
 		};
 		unsigned char flags;
 	};

@@ -335,31 +335,42 @@ static int get_permanent_raise(creaturei* player, abilityn a, int magical_bonus)
 }
 
 static int get_ability_number(creaturei* player, abilityn a, int magical_bonus) {
-	if(a>=Strenght && a<=Charisma)
+	if(a >= Strenght && a <= Charisma) {
+		if(magical_bonus < 0)
+			return 3;
 		return 17 + magical_bonus - player->basic.abilities[a];
+	}
 	switch(magical_bonus) {
-	case 1: return 100;
-	default: return 40;
+	case -1: return -20;
+	case -2: return -40;
+	case -3: return -60;
+	case -4: return -80;
+	case -5: return -100;
+	case 0: return 40;
+	default: return 100;
 	}
 }
 
-static void drink_effect(variant v, unsigned duration) {
+static void drink_effect(variant v, unsigned duration, int multiplier) {
 	if(v.iskind<listi>()) {
 		for(auto e : bsdata<listi>::elements[v.value].elements)
-			drink_effect(e, duration);
-	} else if(v.iskind<script>())
-		bsdata<script>::elements[v.value].proc(v.counter);
-	else if(v.iskind<abilityi>()) {
+			drink_effect(e, duration, multiplier);
+	} else if(v.iskind<script>()) {
+		if(multiplier < 0)
+			player->add(PoisonLevel, xrand(3, 6));
+		else
+			bsdata<script>::elements[v.value].proc(v.counter);
+	} else if(v.iskind<abilityi>()) {
 		auto permanent = get_permanent_raise(player, (abilityn)v.value, v.counter);
 		if(v.counter >= permanent)
-			player->basic.add((abilityn)v.value, v.counter - permanent + 1);
+			player->basic.add((abilityn)v.value, (v.counter - permanent + 1) * multiplier);
 		else {
-			v.counter = get_ability_number(player, (abilityn)v.value, v.counter);
+			v.counter = get_ability_number(player, (abilityn)v.value, v.counter * multiplier);
 			if(v.counter)
 				add_boost(party.abilities[Minutes] + duration, player, v);
 		}
 	} else if(v.iskind<feati>()) {
-		v.counter = 1;
+		v.counter = multiplier;
 		add_boost(party.abilities[Minutes] + duration, player, v);
 	}
 }
@@ -374,9 +385,9 @@ static bool read_effect(creaturei* pn, variant v, unsigned duration) {
 	return result;
 }
 
-static void drink_effect(creaturei* pn, variant v, unsigned duration) {
+static void drink_effect(creaturei* pn, variant v, unsigned duration, int multiplier) {
 	auto push_player = player; player = pn;
-	drink_effect(v, duration);
+	drink_effect(v, duration, multiplier);
 	player = push_player;
 }
 
@@ -428,7 +439,7 @@ static void use_item() {
 	case Drinkable:
 		if(!allow_use(pn, last_item))
 			return;
-		drink_effect(pn, last_item->getpower(), xrand(5, 20) * 10);
+		drink_effect(pn, last_item->getpower(), xrand(5, 20) * 10, last_item->iscursed() ? -1 : 1);
 		consolen(getnm("DrinkPotionAct"));
 		last_item->clear();
 		break;

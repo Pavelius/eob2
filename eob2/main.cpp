@@ -13,7 +13,6 @@
 void util_main();
 
 int main() {
-	variant v = "NoVariant";
 	start_random_seed = getcputime();
 	//start_random_seed = 2831817;
 	srand(start_random_seed);
@@ -34,10 +33,6 @@ int main() {
 	draw::setcaption("Eye of beholder (remake)");
 	draw::settimer(100);
 	set_next_scene(main_menu);
-	//if(!read_game("autosave")) {
-	//	delete_game("autosave");
-	//	script_run("StartGame");
-	//}
 	run_next_scene();
 }
 

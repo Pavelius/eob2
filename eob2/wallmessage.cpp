@@ -8,6 +8,7 @@ BSDATA(wallmessagei) = {
 	{"MessageTraps"},
 	{"MessageLocked"},
 	{"MessageAtifacts"},
+	{"MessageCursedItems"},
 	{"MessageSpecialItem"},
 	{"MessageBoss"},
 	{"MessageHabbits"},

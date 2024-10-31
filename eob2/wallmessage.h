@@ -2,7 +2,7 @@
 
 enum messages : unsigned char {
 	MessageMagicWeapons, MessageMagicRings, MessageSecrets, MessageTraps, MessageLocked,
-	MessageAtifacts, MessageSpecialItem, MessageBoss,
+	MessageAtifacts, MessageCursedItems, MessageSpecialItem, MessageBoss,
 	MessageHabbits
 };
 struct wallmessagei {

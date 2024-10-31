@@ -144,11 +144,13 @@ static void create_item(item& it, itemi* pi, int bonus_level = 0) {
 	if(pi->wear == Key)
 		pi = loc->getkey();
 	it.create(pi - bsdata<itemi>::elements);
-	auto chance_magic = (iabs(loc->level) + bonus_level) * 5 + loc->magical;
+	auto chance_magic = (iabs(loc->level) + bonus_level) * 4 + loc->magical;
 	auto chance_cursed = 5 + loc->cursed;
 	it.createpower(5, chance_magic, chance_cursed);
 	if(it.isartifact())
 		loc->state.wallmessages[MessageAtifacts]++;
+	if(it.iscursed())
+		loc->state.wallmessages[MessageCursedItems]++;
 	switch(pi->wear) {
 	case Edible:
 		// Food can be rotten
@@ -211,7 +213,7 @@ static void secret(pointc v, directions d) {
 	if(d100() < 25)
 		count = 2;
 	for(int i = 0; i < count; i++)
-		items(v2, 3);
+		items(v2, 2);
 	loc->set(to(v2, to(d, Left)), CellWall);
 	loc->set(to(v2, to(d, Right)), CellWall);
 	loc->set(to(v2, to(d, Up)), CellWall);
@@ -273,7 +275,6 @@ static void treasure(pointc v, directions d) {
 	auto v2 = to(v1, d);
 	if(!isaround(v2, d, CellWall))
 		return;
-	auto magic_bonus = 2;
 	loc->set(v1, CellDoor);
 	auto po = loc->add(to(v, to(d, Right)), d, CellKeyHole);
 	if(po)
@@ -283,7 +284,7 @@ static void treasure(pointc v, directions d) {
 	loc->set(to(v1, to(d, Right)), CellWall);
 	loc->set(v2, CellPassable);
 	for(auto i = 1 + random_count(); i > 0; i--)
-		items(v2, magic_bonus);
+		items(v2, 1);
 	loc->set(to(v2, to(d, Left)), CellWall);
 	loc->set(to(v2, to(d, Right)), CellWall);
 	loc->set(to(v2, to(d, Up)), CellWall);

@@ -36,7 +36,7 @@ static bool select_combatants(pointc position) {
 	// Lowest initiative win, so positive speed is substracted
 	for(auto p : combatants) {
 		if(p->is(Surprised))
-			p->initiative = 50; // Move last
+			p->initiative = 100; // Move last
 		else
 			p->initiative = xrand(1, 10) - p->get(Speed);
 	}
@@ -250,11 +250,13 @@ static void make_full_attack(creaturei* enemy, int bonus, int multiplier) {
 		wp2.clear();
 	if(!wp3.isweapon())
 		wp3.clear();
-	// RULE: sneak attack depend on move silently check
-	auto theif = player->get(Theif);
-	if(theif > 0 && (player->is(Invisibled) || player->roll(MoveSilently))) {
-		consolen(getnm("SneakAttackAct"));
-		multiplier += (theif + 7) / 4;
+	// RULE: sneak attack depend on move silently check and invisibility
+	if(enemy->is(Surprised) || player->is(Invisibled)) {
+		auto theif = player->get(Theif);
+		if(theif > 0 && player->roll(MoveSilently)) {
+			consolen(getnm("SneakAttackAct"));
+			multiplier += (theif + 7) / 4;
+		}
 	}
 	if(wp2) {
 		single_main_attack(RightHand, enemy, bonus + player->gethitpenalty(-4), multiplier);

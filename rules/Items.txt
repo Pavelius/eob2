@@ -35,6 +35,9 @@ BracerPowers
 CloackPowers
  elements NoVariant Protection+1 Protection+2 Protection+3 Protection+4 Protection+5 Displacement+3 Arachemida+2
 
+HelmPowers
+ elements NoVariant AllLanguages+1 AC+2
+
 #Item
 
 NoItem damage(1 2) avatar(84)
@@ -100,10 +103,10 @@ PlateMail cost(1000) avatar(26) avatar_ground(9) wear(Body)
  feats UseMetal
  wearing AC+8 CriticalDeflect+20
 
-Helm cost(10) avatar(20) avatar_ground(6) wear(Head)
+Helm cost(10) avatar(20) avatar_ground(6) wear(Head) powers(HelmPowers)
  feats UseShield Small
  wearing CriticalDeflect+20
-DwarvenHelm cost(30) avatar(73) avatar_ground(6) wear(Head)
+DwarvenHelm cost(30) avatar(73) avatar_ground(6) wear(Head) powers(HelmPowers)
  feats UseShield Small
  wearing CriticalDeflect+20 SaveVsMagic+5
 Shield cost(10) avatar(23) avatar_ground(7) wear(LeftHand)

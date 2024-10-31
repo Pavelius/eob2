@@ -34,6 +34,8 @@ BSDATA(feati) = {
 	{"Surprised"},	
 	{"ProtectedFromEvil"},
 	{"Invisibled"},	
+	{"Regenerated"},
+	{"Hasted"},
 	{"ResistBludgeon"},
 	{"ResistSlashing"},
 	{"ResistPierce"},

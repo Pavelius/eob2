@@ -277,9 +277,15 @@ static void monsters_movement() {
 	}
 }
 
+static void check_regeneration() {
+	if(player->is(Regenerated))
+		player->heal(1);
+}
+
 static void update_every_round() {
 	player->remove(Moved);
 	update_player();
+	check_regeneration();
 }
 
 static void check_poison() {

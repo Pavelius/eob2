@@ -19,7 +19,8 @@ MageSpells
 PriestSpells
 
 RingPowers
- elements NoVariant AC+1 AC+2 AC+3 MoveSilently+1 ClimbWalls+1 ResistFire+1 ResistCold+1 Charisma+1 Invisibled+3
+ elements NoVariant Protection+1 Protection+2 Protection+3 Protection+4 MoveSilently+1 ClimbWalls+1\
+	ResistFire+1 ResistCold+1 Charisma+2 Invisibled+3 Hasted+4 Regenerated+4 Wizardy+1 Wizardy+2 Wizardy+3
 
 #Item
 

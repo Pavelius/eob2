@@ -152,6 +152,20 @@ static void saves_modify(int bonus) {
 	ftscript<abilityi>(SaveVsTraps, bonus);
 }
 
+static void protection_modify(int bonus) {
+	ftscript<abilityi>(AC, bonus);
+	saves_modify(bonus);
+}
+
+static void wizardy_effect(int bonus) {
+	switch(bonus) {
+	case 1: ftscript<abilityi>(Spell1, player->basic.abilities[Spell1]); break;
+	case 2: ftscript<abilityi>(Spell2, player->basic.abilities[Spell2]); break;
+	case 3: ftscript<abilityi>(Spell3, player->basic.abilities[Spell3]); break;
+	default: break;
+	}
+}
+
 static void create_new_game(int bonus) {
 }
 
@@ -1341,6 +1355,7 @@ BSDATA(script) = {
 	{"PartyAdventure", party_adventure},
 	{"PayGold", pay_gold},
 	{"PassHours", pass_hours},
+	{"Protection", protection_modify},
 	{"RandomEffect", get_last_random_effect},
 	{"RestoreSpells", restore_spells},
 	{"ReturnToStreet", return_to_street},
@@ -1351,5 +1366,6 @@ BSDATA(script) = {
 	{"SaveNegate", save_negate},
 	{"SetVariable", set_variable},
 	{"UseTheifTools", use_theif_tools},
+	{"Wizardy", wizardy_effect},
 };
 BSDATAF(script)

@@ -45,11 +45,13 @@ Rotten: Rotten
 OfAC: defence%+1i
 OfCharisma: human control
 OfClimbWalls: feather fall
+OfHasted: speed
 OfHealEffect1: healing
 OfHealEffect2: extra-healing
 OfHealth: health
 OfInvisibled: invisibility
 OfMoveSilently: chameleon power
+OfProtection: protection%+1i
 OfResistFire: fire resistance
 OfResistCold: cold resistance
 OfResistCold: cold resistance

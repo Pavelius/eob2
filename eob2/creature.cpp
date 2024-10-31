@@ -208,6 +208,8 @@ static void magic_wear(variant v) {
 			player->abilities[v.value] = n;
 		} else
 			player->add((abilityn)v.value, v.counter * m);
+	} else if(v.iskind<spelli>()) {
+		// Nothing to do. Camp spell add.
 	} else
 		script_run(v);
 }
@@ -226,9 +228,11 @@ static void update_wear() {
 			}
 			script_run(ei.wearing);
 		}
-		auto power = e.getpower();
-		if(power)
-			magic_wear(power);
+		if(ei.wear != LeftHand && ei.wear != RightHand) {
+			auto power = e.getpower();
+			if(power)
+				magic_wear(power);
+		}
 	}
 	modifier = push_modifier;
 }

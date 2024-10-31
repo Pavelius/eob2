@@ -139,6 +139,19 @@ static void lair_door(pointc v, directions d) {
 	door(v, d, true, true);
 }
 
+static int get_magic_bonus(int chance_upgrade, int chance_downgrade) {
+	auto base = loc ? loc->level/ 2 : 1;
+	if(base < 1)
+		base = 1;
+	while(base < 5 && d100() < chance_upgrade) {
+		if(base > 1 && d100() < chance_downgrade)
+			base--;
+		else
+			base++;
+	}
+	return base;
+}
+
 static void create_item(item& it, itemi* pi, int bonus_level = 0) {
 	// Any generated key match to dungeon key
 	if(pi->wear == Key)
@@ -146,7 +159,8 @@ static void create_item(item& it, itemi* pi, int bonus_level = 0) {
 	it.create(pi - bsdata<itemi>::elements);
 	auto chance_magic = (iabs(loc->level) + bonus_level) * 4 + loc->magical;
 	auto chance_cursed = 5 + loc->cursed;
-	it.createpower(5, chance_magic, chance_cursed);
+	auto magic_bonus = get_magic_bonus(20, 30);
+	it.createpower(magic_bonus, chance_magic, chance_cursed);
 	if(it.isartifact())
 		loc->state.wallmessages[MessageAtifacts]++;
 	if(it.iscursed())

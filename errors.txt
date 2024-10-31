@@ -1,2 +1,2 @@
 ﻿Error in file `rules/Items.txt`:
- Line 163: Can't find variant `Identify`
+ Line 23: Can't find variant `DetectMagic`

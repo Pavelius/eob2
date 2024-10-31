@@ -22,6 +22,12 @@ RingPowers
  elements NoVariant Protection+1 Protection+2 Protection+3 Protection+4 MoveSilently+1 ClimbWalls+1\
 	ResistFire+1 ResistCold+1 Charisma+2 Invisibled+3 Hasted+4 Regenerated+4 Wizardy+1 Wizardy+2 Wizardy+3
 
+BootsPowers
+ elements NoVariant MoveSilently+1 AC+2
+
+BracerPowers
+ elements NoVariant AC+1 AC+2 AC+3 AC+4 AC+5 Dexterity+1
+
 #Item
 
 NoItem damage(1 2) avatar(84)
@@ -97,7 +103,10 @@ Shield cost(10) avatar(23) avatar_ground(7) wear(LeftHand)
 DwarvenShield cost(30) avatar(23) avatar_ground(7) wear(LeftHand)
  feats UseShield
  wearing AC+1 CriticalDeflect+20
-Boots avatar(21) avatar_ground(9) wear(Legs)
+Boots avatar(21) avatar_ground(9) wear(Legs) powers(BootsPowers)
+ feats Small
+ wearing CriticalDeflect+10
+Bracers avatar(25) avatar_ground(16) wear(Elbow) powers(BracerPowers)
  feats Small
  wearing CriticalDeflect+10
 
@@ -126,6 +135,9 @@ PriestScroll cost(20) avatar(85) avatar_ground(12) wear(Readable) powers(PriestS
  feats Small
 MagicMap cost(10) avatar(86) avatar_ground(12) wear(Readable)
  feats Small
+
+Wand cost(100) avatar(52) avatar_ground(10) wear(Rod) powers(MageSpells)
+ feats Small UseMage
 
 TheifTools cost(10) avatar(54) avatar_ground(1) wear(Usable)
  feats Small UseRogish
@@ -205,16 +217,18 @@ RandomRings
  chance RedRing GreenRing BluePotion
 RandomScrolls
  chance MageScroll+3 PriestScroll+2 MagicMap
+RandomWands
+ chance Wand
 RandomTools
  chance TheifTools
 RandomKeys
  chance IronKey
 
 RandomItem
- chance RandomWeapon+4 RandomArmor RandomArmorMinor RandomRings RandomScrolls RandomPotions RandomKeys RandomTools
+ chance RandomWeapon+4 RandomArmor RandomArmorMinor RandomRings RandomScrolls RandomWands RandomPotions RandomKeys RandomTools
 
 RandomSmallItem
- chance RandomPotions+4 RandomRings RandomKeys RandomTools
+ chance RandomPotions+4 RandomRings RandomKeys RandomTools RandomWands RandomScrolls
 
 #Race
 

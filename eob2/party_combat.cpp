@@ -133,16 +133,11 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		if(player->is(BonusDamageVsEnemy))
 			bonus += 4;
 	}
-	//if(wi.weapon) {
-	//	magic_bonus = wi.weapon->getmagic();
-	//	if(defender->is(Undead)) {
-	//		auto holyness = wi.weapon->getenchant(OfHolyness);
-	//		bonus += holyness;
-	//		wi.damage.b += holyness * 2;
-	//		if(wi.weapon->is(SevereDamageUndead))
-	//			wi.damage.b += 2;
-	//	}
-	//}
+	if(defender->is(Undead)) {
+		//auto holyness = wi.weapon->getenchant(OfHolyness);
+		//bonus += holyness;
+		//wi.damage.b += holyness * 2;
+	}
 	auto tohit = 20 - bonus - (10 - ac);
 	auto rolls = xrand(1, 20);
 	auto hits = -1;
@@ -171,6 +166,8 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 			default: hits += xrand(0, 2); break;
 			}
 		}
+		if(defender->is(Displaced) && d100() < 50)
+			hits = -1; // Miss if displaced
 	}
 	// Show result
 	defender->damage(damage_type, hits, magic_bonus);

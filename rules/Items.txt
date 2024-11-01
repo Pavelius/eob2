@@ -192,6 +192,8 @@ HalflingTheifStartEquipment
  elements ShortSword RedRing CreatePower+1 IdentifyItem
 FighterStartEquipment
  elements Longsword LeatherArmor Shield Helm
+PaladinStartEquipment
+ elements BastardSword LeatherArmor Helm
 ClericStartEquipment
  elements Mace LeatherArmor Shield Helm
 TheifStartEquipment

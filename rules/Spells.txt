@@ -3,6 +3,7 @@
 Damage1d4p1x1d4p1s3p2c9 base(1 4 1) raise(1 4 1) perlevel(3 2 9)
 Damage1d8x1 base(1 8) raise(1) perlevel(1 1)
 Effect1d8 base(1 8)
+Effect2x1 base(2) raise(1) perlevel(1 1)
 Minute3x1 base(3) raise(1) perlevel(1 1)
 Minute5x1 base(5) raise(1) perlevel(2 1)
 Minute5x5 base(5) raise(1) perlevel(2 5)
@@ -11,6 +12,12 @@ Turn5x1 base(5) raise(1) perlevel(2 1) multiplier(10)
 Hour8 base(8) multiplier(60)
 
 #Spell
+
+LayOnHand
+ feats Ally
+ filter IfAlive IfWounded
+ effect Effect2x1
+ instant Heal+101
 
 Armor levels(0 1) duration(Minute5x1) lighting(50 205 50)
  feats You
@@ -83,6 +90,15 @@ ResistCold levels(2)
 SlowPoison levels(2)
  feats Ally
 
+CureDisease levels(3)
+ feats Ally You
+ filter IfAlive IfDiseased
+ instant DiseaseLevel-100
+CurePoison levels(3)
+ feats Ally You
+ filter IfAlive IfPoisoned
+ instant PoisonLevel-100
+
 #List
 
 DefaultClericSpells
@@ -97,3 +113,10 @@ PriestSpells
 
 AmuletPowers
  elements NoVariant DetectMagic+1 AC+1 ImmuneFire+2 ImmuneCold+2 ImmuneDisease+3 ProtectedFromEvil+1
+
+
+#KeyValue
+
+Paladin+1 DetectEvil+3
+Paladin+1 LayOnHand+1
+Paladin+1 CureDisease+1

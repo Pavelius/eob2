@@ -81,6 +81,8 @@ Fighter+7 SaveThrow
 
 Paladin+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UseMartial BonusHP
+Paladin+1 BasicAbilities
+ elements ProtectedFromEvil ImmuneDisease
 
 Paladin+2 CombatSkills
  elements Attack+1

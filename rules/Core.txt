@@ -12,6 +12,8 @@
 
 HumanFighter
  elements Human Male Fighter CreateCharacter
+HumanPaladin
+ elements Human Male Paladin CreateCharacter
 DwarfCleric
  elements Dwarf Male Cleric CreateCharacter
 ElfMage
@@ -20,7 +22,7 @@ HalflingTheif
  elements Halfling Female Theif CreateCharacter
 
 CreateTestParty
- elements HumanFighter JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty HalflingTheif JoinParty
+ elements HumanPaladin JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty HalflingTheif JoinParty
 
 StartGameAbilities
  elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 

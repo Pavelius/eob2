@@ -10,6 +10,7 @@
 #include "damage.h"
 #include "dungeon.h"
 #include "item.h"
+#include "keyvalue.h"
 #include "list.h"
 #include "location.h"
 #include "feat.h"
@@ -204,6 +205,7 @@ BSDATA(varianti) = {
 	{"Formula", VAR(formulai, 1), 0, 0, ftscript<formulai>},
 	{"Gender", VAR(genderi, 1), 0, 0, ftscript<genderi>},
 	{"Item", VAR(itemi, 1), 0, 0, ftscript<itemi>},
+	{"KeyValue", VAR(keyvaluei, 2)},
 	{"List", VAR(listi, 1), 0, 0, ftscript<listi>},
 	{"Location", VAR(locationi, 1), 0, 0, ftscript<locationi>},
 	{"Modifier", VAR(modifieri, 1), 0, 0, ftscript<modifieri>},

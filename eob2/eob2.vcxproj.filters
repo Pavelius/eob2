@@ -252,6 +252,9 @@
     <ClCompile Include="statable.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="keyvalue.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -490,6 +493,9 @@
     </ClInclude>
     <ClInclude Include="variable.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="keyvalue.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

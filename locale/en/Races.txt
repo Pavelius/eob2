@@ -2,6 +2,7 @@
 Cleric: Cleric
 Mage: Mage
 Theif: Theif
+Paladin: Paladin
 
 Human: Human
 Dwarf: Dwarf

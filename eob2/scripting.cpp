@@ -13,6 +13,7 @@
 #include "formula.h"
 #include "gender.h"
 #include "hotkey.h"
+#include "keyvalue.h"
 #include "list.h"
 #include "location.h"
 #include "math.h"
@@ -307,13 +308,28 @@ static void natural_heal(int bonus) {
 	}
 }
 
-void restore_spells(int bonus) {
-	auto spell_book = get_spells_prepared(player);
-	if(spell_book)
-		memcpy(player->spells, spell_book, sizeof(player->spells));
+static void add_type_spells(variant type) {
+	for(auto& e : bsdata<keyvaluei>()) {
+		if(e.key.value != type.value || e.key.counter > type.counter)
+			continue;
+		if(e.value.iskind<spelli>())
+			player->spells[e.value.value] += e.value.counter;
+	}
 }
 
-static void update_camp_spells(int bonus) {
+static void update_class_spells() {
+	auto& ei = player->getclass();
+	variant type = "Fighter";
+	if(!type)
+		return;
+	for(auto i = 0; i < ei.count; i++) {
+		type.value = ei.classes[i];
+		type.counter = player->levels[i];
+		add_type_spells(type);
+	}
+}
+
+static void update_camp_spells() {
 	for(auto& e : player->equipment()) {
 		if(!e)
 			continue;
@@ -327,10 +343,17 @@ static void update_camp_spells(int bonus) {
 	}
 }
 
+void restore_spells(int bonus) {
+	auto spell_book = get_spells_prepared(player);
+	if(spell_book)
+		memcpy(player->spells, spell_book, sizeof(player->spells));
+	update_camp_spells();
+	update_class_spells();
+}
+
 static void rest_character(int bonus) {
 	natural_heal(bonus);
 	restore_spells(0);
-	update_camp_spells(0);
 }
 
 static void rest_party(int bonus) {
@@ -1297,6 +1320,14 @@ static bool if_alive() {
 	return !player->isdead();
 }
 
+static bool if_diseased() {
+	return player->is(DiseaseLevel);
+}
+
+static bool if_poisoned() {
+	return player->is(PoisonLevel);
+}
+
 static bool if_wounded() {
 	return player->hp < player->hpm;
 }
@@ -1330,8 +1361,10 @@ BSDATA(textscript) = {
 BSDATAF(textscript)
 BSDATA(conditioni) = {
 	{"IfAlive", if_alive},
+	{"IfDiseased", if_diseased},
 	{"IfItemDamaged", if_item_damaged},
 	{"IfItemEdible", if_item_edible},
+	{"IfPoisoned", if_poisoned},
 	{"IfWounded", if_wounded},
 };
 BSDATAF(conditioni)

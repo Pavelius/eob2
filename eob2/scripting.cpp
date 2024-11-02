@@ -606,12 +606,41 @@ static void test_dungeon() {
 	thrown_item(v, Down, 6, get_party_index(player) % 2, 4);
 }
 
+static void change_quick_item() {
+	auto pi = (item*)current_focus;
+	auto pn = item_owner(pi);
+	auto w = item_wear(pi);
+	if(!pn || w != RightHand)
+		return;
+	if(!pn->wears[FirstBelt]) {
+		pn->speak("NoQuickItem", 0);
+		return;
+	}
+	if(!pn->wears[FirstBelt].isallow(w))
+		return;
+	if(!pn->isallow(pn->wears[FirstBelt]))
+		return;
+	if(!can_remove(pi, true))
+		return;
+	auto it = *pi;
+	*pi = pn->wears[FirstBelt];
+	memmove(pn->wears + FirstBelt, pn->wears + SecondBelt, sizeof(it) * 2);
+	pn->wears[LastBelt].clear();
+	for(auto i = FirstBelt; i <= LastBelt; i = (wearn)(i + 1)) {
+		if(!pn->wears[i]) {
+			pn->wears[i] = it;
+			break;
+		}
+	}
+}
+
 static void city_adventure_input() {
 	static hotkeyi keys[] = {
 		{KeyEscape, choose_city_menu},
 		{'E', cast_spell},
 		{'D', drop_city_item},
 		{'U', use_item},
+		{'R', change_quick_item},
 		{'T', test_dungeon},
 		{}};
 	city_input(keys);
@@ -1077,23 +1106,6 @@ void pick_up_dungeon_item() {
 	*pi = *gpi;
 	gpi->clear();
 	consolen("%1 picked up", pi->getname());
-}
-
-static void change_quick_item() {
-	auto pi = (item*)current_focus;
-	auto pn = item_owner(pi);
-	auto w = item_wear(pi);
-	if(!pn || w != RightHand)
-		return;
-	if(!pn->wears[FirstBelt]) {
-		pn->speak("NoQuickItem", 0);
-		return;
-	}
-	if(!pn->wears[FirstBelt].isallow(w))
-		return;
-	if(!can_remove(pi, true))
-		return;
-	iswap(*pi, pn->wears[FirstBelt]);
 }
 
 static void play_dungeon_input() {

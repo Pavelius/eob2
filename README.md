@@ -25,3 +25,4 @@ There are diffirence in hotkeys when party is in dungeon and in the city.
 - `C` Show character characteristic like level, class, alignment.
 - `X` Show character skills values.
 - `P` Pick item and drop in other inventory slot. Or pick up items from floor to empthy inventiry slot (equip item if needed).
+- `R` Pick item from body belt (right side of character sheet). Opening inventiry take action. Take item from belt - not.

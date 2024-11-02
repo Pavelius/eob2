@@ -738,6 +738,9 @@ static void link_dungeon(dungeoni& current, dungeoni& below) {
 			// Dungeon must be passable
 			if(!pm2[v.y][v.x] || pm2[v.y][v.x] >= 0xFF00)
 				pm1[v.y][v.x] = 0xFFFF;
+			// Dungeon must do not have monster in cell
+			if(below.ismonster(v))
+				pm1[v.y][v.x] = 0xFFFF;
 			// Dungeon must not have door in this cell (door cell is passable)
 			if(below.get(v) == CellDoor || current.get(v) == CellDoor)
 				pm1[v.y][v.x] = 0xFFFF;

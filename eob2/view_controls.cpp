@@ -1266,7 +1266,11 @@ static void pick_up_item() {
 		auto w2 = item_wear(p2);
 		if(!can_place(c1, w1, p2))
 			return;
+		if(!can_place(c1, w2, p2))
+			return;
 		if(!can_place(c2, w2, p1))
+			return;
+		if(!can_place(c2, w1, p1))
 			return;
 		if(!p2->join(*p1))
 			iswap(*p1, *p2);

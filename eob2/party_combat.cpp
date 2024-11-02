@@ -126,7 +126,7 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 	auto ac = defender->get(AC);
 	if(!isrange) {
 		if((player->is(ChaoticEvil) || player->is(Undead)) && defender->is(ProtectedFromEvil))
-			ac += 2;
+			ac += 1;
 		// RULE: Small dwarf use special tactics vs large opponents
 		if(player->is(Large) && defender->is(BonusACVsLargeEnemy))
 			ac += 4;
@@ -253,7 +253,7 @@ static void make_full_attack(creaturei* enemy, int bonus, int multiplier) {
 		wp3.clear();
 	// RULE: sneak attack depend on move silently check and invisibility
 	if(enemy->is(Surprised) || player->is(Invisibled)) {
-		auto theif = player->get(Theif);
+		auto theif = player->getlevel(Theif);
 		if(theif > 0 && player->roll(MoveSilently)) {
 			consolen(getnm("SneakAttackAct"));
 			multiplier += (theif + 7) / 4;

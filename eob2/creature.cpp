@@ -440,6 +440,7 @@ void create_monster(const monsteri* pi) {
 	player->monster_id = getbsi(pi);
 	player->levels[0] = pi->hd;
 	player->basic.abilities[AC] = (10 - pi->ac);
+	player->alignment = pi->alignment;
 	set_basic_ability();
 	apply_default_ability();
 	apply_feats(pi->feats);
@@ -719,16 +720,4 @@ void creaturei::add(abilityn i, int v) {
 		}
 	}
 	statable::add(i, v);
-}
-
-int creaturei::get(classn v) const {
-	auto& ei = getclass();
-	if(ei.classes[0] == v)
-		return levels[0];
-	else if(ei.classes[1] == v)
-		return levels[1];
-	else if(ei.classes[2] == v)
-		return levels[2];
-	else
-		return 0;
 }

@@ -439,7 +439,7 @@ static bool use_rod(creaturei* pn, item* rod, variant v) {
 	if(v.iskind<spelli>()) {
 		auto push_player = player; player = pn;
 		auto ps = bsdata<spelli>::elements + v.value;
-		result = cast_spell(ps, player->getlevel() + v.counter, 0, true);
+		result = cast_spell(ps, 1 + v.counter * 4, 0, true);
 		if(result) {
 			consolen("%Name cast %1", ps->getname());
 			rod->identify(1);
@@ -1329,15 +1329,31 @@ static void monsters_flee(int bonus) {
 	if(!points)
 		return;
 	auto v = points.random();
-	creaturei* creatures[6]; loc->getmonsters(creatures, v);
+	creaturei* creatures[6]; loc->getmonsters(creatures, to(party, party.d));
 	for(auto p : creatures) {
-		p->x = v.x;
-		p->y = v.y;
-		p->set(Moved);
+		if(p) {
+			p->x = v.x;
+			p->y = v.y;
+			p->set(Moved);
+		}
 	}
 }
 
-static void turning_undead(int bonus) {
+static void monsters_kill(int bonus) {
+	if(!loc)
+		return;
+	creaturei* creatures[6]; loc->getmonsters(creatures, to(party, party.d));
+	for(auto p : creatures) {
+		if(p && *p)
+			p->kill();
+	}
+}
+
+static void turning_monsters(int bonus) {
+	// -2 value is automatic dispell and additional 2d4 turned (actually no work)
+	// -1 value is automatic dispell
+	// 0 value is automatic turned
+	// 30 value is impossible turned
 	static char chances[][14] = {
 		{10, 7, 4, 0, 0, -1, -1, -2, -2, -2, -2, -2, -2, -2}, // 0 HD
 		{13, 10, 7, 4, 0, 0, -1, -1, -2, -2, -2, -2, -2, -2}, // 1 HD
@@ -1352,7 +1368,37 @@ static void turning_undead(int bonus) {
 		{30, 30, 30, 30, 30, 20, 19, 16, 13, 10, 7, 4, 0, 0}, // 10 HD
 		{30, 30, 30, 30, 30, 30, 20, 19, 16, 13, 10, 7, 4, 0}, // 11 HD
 	};
-	auto hd = player->getlevel();
+	auto v = to(party, party.d);
+	creaturei* creatures[6]; loc->getmonsters(creatures, v);
+	for(auto p : creatures) {
+		if(!p || p->isdisabled())
+			continue;
+		auto hd = p->getlevel();
+		auto pl = player->getlevel(Cleric);
+		if(!pl)
+			pl = player->getlevel(Paladin) - 2;
+		if(pl <= 0)
+			return;
+		pl += bonus;
+		if(pl <= 0)
+			return;
+		if(pl > 14)
+			pl = 14;
+		if(hd > 11)
+			hd = 11;
+		auto chance = chances[hd][pl - 1] - 5;
+		if(chance < 0) {
+			consolen("%1 turned %2 to dust", player->getname(), p->getname());
+			monsters_kill(0);
+		} else if(chance > 20) {
+			consolen("%1 can't turn this creatures!", player->getname());
+		} else if(chance == 0 || (d20() >= chance)) {
+			consolen("%1 turned %2 to flee", player->getname(), p->getname());
+			monsters_flee(0);
+		} else
+			consolen("%1 fail to turn %2", player->getname(), p->getname());
+		break;
+	}
 }
 
 static void empthy_script(int bonus) {
@@ -1414,6 +1460,26 @@ static bool if_undead() {
 	return player->is(Undead);
 }
 
+static bool if_monsters(conditioni::fntest test) {
+	creaturei* creatures[6]; loc->getmonsters(creatures, to(party, party.d));
+	auto push_player = player;
+	for(auto p : creatures) {
+		if(!p || p->isdisabled())
+			continue;
+		player = p;
+		if(test()) {
+			player = push_player;
+			return true;
+		}
+	}
+	player = push_player;
+	return false;
+}
+
+static bool if_monsters_undead() {
+	return if_monsters(if_undead);
+}
+
 static bool if_item_damaged() {
 	return last_item->isdamaged();
 }
@@ -1446,6 +1512,7 @@ BSDATA(conditioni) = {
 	{"IfDiseased", if_diseased},
 	{"IfItemDamaged", if_item_damaged},
 	{"IfItemEdible", if_item_edible},
+	{"IfMonstersUndead", if_monsters_undead},
 	{"IfPoisoned", if_poisoned},
 	{"IfUndead", if_undead},
 	{"IfWounded", if_wounded},
@@ -1497,6 +1564,7 @@ BSDATA(script) = {
 	{"SaveHalf", save_half},
 	{"SaveNegate", save_negate},
 	{"SetVariable", set_variable},
+	{"TurningMonsters", turning_monsters},
 	{"UseTheifTools", use_theif_tools},
 	{"Wizardy", wizardy_effect},
 };

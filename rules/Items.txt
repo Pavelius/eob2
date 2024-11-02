@@ -69,8 +69,6 @@ Spear speed(6) damage_type(Piercing) damage(1 6) avatar(6) avatar_ground(3) wear
  feats UseMartial
 Staff speed(4) damage(1 6) avatar(8) avatar_ground(3) wear(RightHand) powers(MeleePowers)
  feats TwoHanded
-BastardSword cost(25) speed(6) damage(1 10) avatar(1) avatar_ground(0) wear(RightHand) powers(MeleePowers)
- feats UseMartial Precise
 Longsword cost(15) speed(5) damage(1 8) avatar(1) avatar_ground(0) wear(RightHand) powers(MeleePowers)
  feats UseElvish UseMartial Precise
 ShortSword cost(10) speed(4) damage(1 6) avatar(2) avatar_ground(0) wear(RightHand) powers(MeleePowers)
@@ -196,7 +194,7 @@ HalflingTheifStartEquipment
 FighterStartEquipment
  elements Longsword LeatherArmor Shield Helm
 PaladinStartEquipment
- elements BastardSword LeatherArmor Helm
+ elements Longsword LeatherArmor Helm
 ClericStartEquipment
  elements Mace LeatherArmor Shield Helm
 TheifStartEquipment
@@ -221,7 +219,7 @@ RandomStone
  chance Stone
 
 RandomSword
- chance ShortSword+2 Longsword+2 BastardSword TwoHandedSword Dagger
+ chance ShortSword+3 Longsword+3 TwoHandedSword Dagger
 RandomSimpleWeapon
  chance Axe BattleAxe Club Flail Warhammer Mace Spear Sling
 RandomExoticWeapon
@@ -256,9 +254,9 @@ RandomSmallItem
 #Race
 
 Human
- specialization BastardSword Longsword
+ specialization Longsword
 Dwarf
- specialization BattleAxe
+ specialization Axe BattleAxe
 HalfElf
  specialization Longsword
 Elf

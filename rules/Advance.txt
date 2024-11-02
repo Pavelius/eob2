@@ -48,6 +48,14 @@ Halfling TheifSkills
 
 Monster+1 CombatSkills
  elements Attack+1
+Monster+3 CombatSkills
+ elements Attack+2
+Monster+5 CombatSkills
+ elements Attack+2
+Monster+7 CombatSkills
+ elements Attack+2
+Monster+9 CombatSkills
+ elements Attack+2
 
 Fighter+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UseMartial BonusHP

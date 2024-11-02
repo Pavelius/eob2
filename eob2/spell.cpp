@@ -67,6 +67,8 @@ static spelli* choose_prepared_spell() {
 }
 
 static void filter_creatures(const variants& source) {
+	if(!source)
+		return;
 	auto ps = an.elements.begin();
 	auto push_player = player;
 	for(auto& e : an.elements) {
@@ -182,41 +184,49 @@ static int distance(pointc v1, pointc v2) {
 
 bool cast_spell(const spelli* ps, int level, int experience, bool run) {
 	pushanswer push_answers;
-	if(ps->is(Ally))
-		add_targets(party, false, true, ps->is(You));
-	pointc enemy_position = party;
-	if(ps->is(Enemy)) {
-      if(ps->isthrown()) {
-		  enemy_position = party;
-		  if(look_group(enemy_position, party.d))
-			  add_targets(enemy_position, true, false, false);
-	  } else {
-		  enemy_position = to(party, party.d);
-		  add_targets(enemy_position, true, false, ps->is(You));
-	  }
-	}
-	if(!ps->is(Ally) && !ps->is(Enemy) && ps->is(You))
-		an.add(player, player->getname());
-	if(!ps->is(WearItem) && ps->filter)
-		filter_creatures(ps->filter);
-	if(!an) {
-		if(run)
-			player->speak("CastSpell", "NoTargets");
-		return false;
-	}
-	if(!run)
-		return true;
-	if(!ps->is(Group)) {
-		if(ps->is(Ally) && !ps->is(Enemy)) {
-			if(!choose_single(getnm("CastOnWho")))
-				return false;
-		} else {
-			zshuffle(an.elements.data, an.elements.count);
-			an.elements.count = 1;
+	pointc enemy_position = to(party, party.d);
+	auto need_creatures = ps->is(Ally) || ps->is(Enemy) || ps->is(You);
+	if(need_creatures) {
+		if(ps->is(Ally))
+			add_targets(party, false, true, ps->is(You));
+		if(ps->is(Enemy)) {
+			if(ps->isthrown()) {
+				enemy_position = party;
+				if(look_group(enemy_position, party.d))
+					add_targets(enemy_position, true, false, false);
+			} else {
+				enemy_position = to(party, party.d);
+				add_targets(enemy_position, true, false, ps->is(You));
+			}
 		}
+		if(!ps->is(Ally) && !ps->is(Enemy) && ps->is(You))
+			an.add(player, player->getname());
+		if(!ps->is(WearItem))
+			filter_creatures(ps->filter);
+		if(!an) {
+			if(run)
+				player->speak("CastSpell", "NoTargets");
+			return false;
+		}
+		if(!run)
+			return true;
+		if(!ps->is(Group)) {
+			if(ps->is(Ally) && !ps->is(Enemy)) {
+				if(!choose_single(getnm("CastOnWho")))
+					return false;
+			} else {
+				zshuffle(an.elements.data, an.elements.count);
+				an.elements.count = 1;
+			}
+		}
+		if(ps->is(WearItem))
+			select_items(ps->filter);
+	} else if(!ps->is(WearItem)) {
+		if(!script_allow(ps->filter))
+			return false;
+		if(!run)
+			return true;
 	}
-	if(ps->is(WearItem))
-		select_items(ps->filter);
 	if(ps->isthrown()) {
 		auto n = distance(party, enemy_position);
 		thrown_item(party, Up, ps->avatar_thrown, player->side % 2, n);
@@ -226,7 +236,10 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run) {
 	if(ps->effect)
 		last_number = ps->effect->roll(level);
 	party.abilities[EffectCount] = 0;
-	apply_effect(ps->instant);
+	if(need_creatures)
+		apply_effect(ps->instant);
+	else
+		script_run(ps->instant);
 	apply_enchant_effect(ps->duration, level, ps);
 	fix_animate();
 	if(party.abilities[EffectCount])

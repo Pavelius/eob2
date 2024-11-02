@@ -26,7 +26,6 @@ struct creaturei : npc, statable, wearable, posable {
 	void			clear();
 	void			damage(damagen type, int hits, char magic_bonus = 0);
 	int				get(abilityn v) const { return abilities[v]; }
-	int				get(classn v) const;
 	const char*		getbadstate() const;
 	int				getchance(abilityn v) const;
 	dice			getdamage(int& bonus, wearn id, bool large_enemy) const;

@@ -35,6 +35,7 @@ ShortSword: Short sword
 Spear: Spear
 Staff: Staff
 Stone: Stone
+StuddedLeatherArmor: Studded leather armor
 TheifTools: Theif tools
 TwoHandedSword: Two-handed sword
 Wand: Wand

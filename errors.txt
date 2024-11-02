@@ -1,2 +1,2 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `Slam1d8`
+ Define translation for `StuddedLeatherArmor`

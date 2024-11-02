@@ -15,12 +15,19 @@ This key hole open nearest door
 Already opened
 Stop! The door is already open
 
+#CellDecor1Blue
+Some kind of runes
+I don't known what is it
+
 #CellDecor1Brick
 Some kind of theives signs
 I don't known what is it
 
+#CellDecor1BlueTheif
+Stairs lie in %StairsDownSide part of tomb
+
 #CellDecor1BrickTheif
-Stairs down lie in %StairsDownSide part of dungeon
+Find ladder in %StairsDownSide part of dungeon
 
 #CellDecor2Brick
 A drainage gate. I think

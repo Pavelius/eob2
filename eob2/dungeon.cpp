@@ -421,3 +421,23 @@ int get_side(int side, directions d) {
 itemi* dungeoni::getkey() const {
 	return bsdata<itemi>::elements + key;
 }
+
+int	dungeoni::getpassables(bool explored) const {
+	auto result = 0;
+	pointc v;
+	for(v.y = 0; v.y < mpy; v.y++) {
+		for(v.x = 0; v.x < mpx; v.x++) {
+			switch(get(v)) {
+			case CellPassable:
+			case CellButton:
+			case CellDoor:
+			case CellPit:
+				if(explored && !is(v, CellExplored))
+					break;
+				result++;
+				break;
+			}
+		}
+	}
+	return result;
+}

@@ -491,6 +491,9 @@
     <ClInclude Include="keyvalue.h">
       <Filter>support</Filter>
     </ClInclude>
+    <ClInclude Include="goal.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">

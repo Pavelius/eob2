@@ -461,6 +461,7 @@ static void update_floor_state() {
 	unsigned char map[mpy][mpx] = {0};
 	loc->state.monsters_alive = 0;
 	loc->state.items_lying = 0;
+	loc->state.explored_passable = loc->getpassables(true);
 	if(party)
 		map[party.y][party.x]++;
 	for(auto& e : loc->monsters) {
@@ -506,6 +507,11 @@ static void update_floor_state() {
 	}
 }
 
+static void check_all_goals() {
+	if(!loc)
+		return;
+}
+
 void all_creatures(fnevent proc) {
 	all_party(proc, true);
 	if(!loc)
@@ -527,6 +533,22 @@ static void party_clear() {
 	party.clear();
 }
 
+static void check_goals() {
+	if(!loc || !player)
+		return;
+	for(auto i = (goaln)0; i <= KillAlmostAllMonsters; i = (goaln)(i + 1)) {
+		if(loc->rewards.is(i))
+			continue;
+		auto& ei = bsdata<goali>::elements[i];
+		if(ei.test()) {
+			loc->rewards.set(i);
+			if(!player->isdisabled())
+				player->speak(ei.id, "Reward");
+			party_addexp(ei.experience);
+		}
+	}
+}
+
 void pass_round() {
 	clear_boost(party.abilities[Minutes]);
 	monsters_movement();
@@ -540,6 +562,7 @@ void pass_round() {
 		all_creatures(update_every_turn);
 	if((party.abilities[Minutes] % 60) == 0)
 		all_creatures(update_every_hour);
+	check_goals();
 	fix_animate();
 	if(all_party_disabled()) {
 		message_box(getnm("AllPartyDead"));
@@ -584,3 +607,44 @@ void partyi::clear() {
 	memset(this, 0, sizeof(*this));
 	posable::clear();
 }
+
+item* party_get_item(const itemi* pi) {
+	for(auto p : characters) {
+		if(!p)
+			continue;
+		for(auto& it : p->wears) {
+			if(it && it.is(pi))
+				return &it;
+		}
+	}
+	return 0;
+}
+
+static bool if_take_special_item() {
+	return loc->special && party_get_item(bsdata<itemi>::elements + loc->special);
+}
+
+static bool if_kill_almost_all_monsters() {
+	return loc->state.monsters_killed >= (90 * loc->state.monsters / 100);
+}
+
+static bool if_disable_all_traps() {
+	return loc->state.wallmessages[MessageTraps] && loc->state.traps_disabled >= loc->state.wallmessages[MessageTraps];
+}
+
+static bool if_open_all_locked_doors() {
+	return loc->state.wallmessages[MessageLocked] && loc->state.locks_open >= loc->state.wallmessages[MessageLocked];
+}
+
+static bool if_find_all_secrets() {
+	return loc->state.wallmessages[MessageSecrets] && loc->state.secrets_found >= loc->state.wallmessages[MessageSecrets];
+}
+
+BSDATA(goali) = {
+	{"FindAllSecrets", if_find_all_secrets, 1000},
+	{"TakeSpecialItem", if_take_special_item, 500},
+	{"OpenAllLockedDoors", if_open_all_locked_doors, 1000},
+	{"DisableAllTraps", if_disable_all_traps, 1000},
+	{"KillAlmostAllMonsters", if_kill_almost_all_monsters, 800},
+};
+assert_enum(goali, KillAlmostAllMonsters)

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "dungeon_site.h"
-#include "nameable.h"
+#include "goal.h"
 
 struct quest : nameable {
 	dungeon_site	sites[8];

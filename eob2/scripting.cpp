@@ -569,6 +569,7 @@ static void use_item() {
 		if(po->link) {
 			consolen(getnm("DoorOpened"));
 			loc->set(po->link, CellActive);
+			loc->state.locks_open++;
 		}
 		last_item->clear();
 		break;
@@ -950,6 +951,7 @@ static void use_theif_tools(int bonus) {
 				if(p->link) {
 					use_tool_success(p->type);
 					loc->set(p->link, CellActive);
+					loc->state.locks_open++;
 				}
 			}
 			pass_round();
@@ -960,6 +962,7 @@ static void use_theif_tools(int bonus) {
 			if(use_tool_item(RemoveTraps)) {
 				use_tool_success(p->type);
 				p->set(CellActive);
+				loc->state.traps_disabled++;
 			}
 			pass_round();
 			return;

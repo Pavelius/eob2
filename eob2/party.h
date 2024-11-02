@@ -7,7 +7,10 @@
 
 typedef flagable<8, unsigned> questa;
 
+class item;
+
 struct creaturei;
+struct itemi;
 struct locationi;
 struct quest;
 
@@ -61,3 +64,5 @@ int get_party_index(const creaturei* target);
 int party_median(creaturei** creatures, abilityn v);
 
 char* get_spells_prepared(const creaturei* target);
+
+item* party_get_item(const itemi* pi);

@@ -3,6 +3,7 @@
 #include "creature.h"
 #include "dungeon_site.h"
 #include "dungeon_state.h"
+#include "goal.h"
 #include "item.h"
 #include "slice.h"
 
@@ -36,6 +37,7 @@ struct dungeoni : dungeon_site {
 	overlayi		overlays[255];
 	overlayitem		overlayitems[256];
 	unsigned char	data[mpy][mpx];
+	goalf			rewards;
 	overlayi*		add(pointc v, directions d, celln i);
 	void			add(overlayi* po, item& it);
 	void			addmonster(pointc v, directions d, int side, const monsteri* pi);
@@ -53,10 +55,12 @@ struct dungeoni : dungeon_site {
 	void			getmonsters(creaturei** result, pointc index, directions dr);
 	void			getmonsters(creaturei** result, pointc index);
 	overlayi*		getoverlay(pointc v, celln type);
+	int				getpassables(bool explored) const;
 	bool			have(const overlayi* p) const { return p >= overlays && p <= overlays + lenghtof(overlays); }
 	bool			have(const creaturei* p) const { return p >= monsters && p <= monsters + lenghtof(monsters); }
 	bool			is(pointc v, cellfn i) const;
 	bool			is(pointc v, celln t1, celln t2) const;
+	bool			is(goaln v) const { return rewards.is(v); }
 	bool			ismonster(pointc v) const;
 	bool			ismonster(pointc v, featn f) const;
 	bool			ispassable(pointc v) const;

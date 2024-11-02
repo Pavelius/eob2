@@ -819,6 +819,7 @@ static void dungeon_create(unsigned short quest_id, slice<dungeon_site> source) 
 #ifdef DEBUG_DUNGEON
 			show_map_pathfind();
 #endif
+			loc->state.total_passable = loc->getpassables(false);
 			//add_spawn_points(e);
 			//add_corners(e, p->crypt.corner, p->crypt.corner_count);
 			previous = loc;

@@ -164,6 +164,7 @@
     <ClInclude Include="flagable.h" />
     <ClInclude Include="formula.h" />
     <ClInclude Include="gender.h" />
+    <ClInclude Include="goal.h" />
     <ClInclude Include="hotkey.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="keyvalue.h" />

@@ -677,8 +677,10 @@ void creaturei::kill() {
 	// auto hitd = getlevel();
 	party_addexp(getexpaward());
 	party_addexp_per_killed(getlevel());
-	drop_loot(this);
-	loc->state.monsters_killed++;
+	if(loc) {
+		drop_loot(this);
+		loc->state.monsters_killed++;
+	}
 	clear();
 }
 

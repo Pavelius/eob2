@@ -3,6 +3,7 @@ CampMenu: Camp Options:
 CastSpell: Cast what spell?
 CastOnWho: Cast on who?
 CellKeyHoleDisable: Lock is picked up
+CellPitDisable: Pit is removed
 CellTrapLauncherDisable: Trap is removed
 ChooseBet: Bed how match?
 ConsumeRod: %Name use last charge
@@ -29,6 +30,7 @@ MulGambleVisitors: Bet %1i gold pieces
 PartyAdventure: Go to adventure
 PartysAdventureAsk: Which way to go?
 OpenLocksFail: Pick locks fail
+PartyFallPit: Party fall down...
 PickPockets: Pick pockets
 PickPocketsVisit: Pick some pockets
 PrayForSpells: Pray for Spells

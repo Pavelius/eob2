@@ -653,9 +653,8 @@ static void clear_mission_equipment() {
 }
 
 static void enter_location(int bonus) {
-	if(loc) {
+	if(loc)
 		all_party(clear_mission_equipment, false);
-	}
 	loc = 0;
 	last_quest = 0;
 	party.quest_id = 0xFFFF;
@@ -1142,19 +1141,33 @@ static void enter_dungeon(int bonus) {
 	enter_active_dungeon();
 }
 
+static void pit_fall_down() {
+	if(!player->roll(ClimbWalls))
+		player->damage(Bludgeon, xrand(3, 18), 3);
+}
+
 static bool party_move_interact(pointc v) {
 	switch(loc->get(v)) {
 	case CellStairsUp:
-		if(find_dungeon(loc->level - 1))
+		if(find_dungeon(loc->level - 1)) {
 			enter_dungeon(loc->level - 1);
-		else if(confirm(getnm("ReturnToTownConfirm")))
+			consolen(getnm("PartyGoingUp"));
+		} else if(confirm(getnm("ReturnToTownConfirm")))
 			enter_location(0);
 		break;
 	case CellStairsDown:
-		if(find_dungeon(loc->level + 1))
+		if(find_dungeon(loc->level + 1)) {
 			enter_dungeon(loc->level + 1);
-		else if(confirm(getnm("ReturnToTownConfirm")))
+			consolen(getnm("PartyGoingDown"));
+		} else if(confirm(getnm("ReturnToTownConfirm")))
 			enter_location(0);
+		break;
+	case CellPit:
+		loc = find_dungeon(loc->level + 1);
+		animation_update();
+		all_party(pit_fall_down, true);
+		consolen(getnm("PartyFallPit"));
+		pass_round();
 		break;
 	default:
 		return false;

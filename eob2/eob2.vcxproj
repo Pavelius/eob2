@@ -197,7 +197,6 @@
     <ClInclude Include="textscript.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="io_stream.h" />
-    <ClInclude Include="levelable.h" />
     <ClInclude Include="log.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="nameable.h" />
@@ -275,7 +274,6 @@
     <ClCompile Include="view_dungeon.cpp" />
     <ClCompile Include="view_focus.cpp" />
     <ClCompile Include="io_stream.cpp" />
-    <ClCompile Include="levelable.cpp" />
     <ClCompile Include="locale.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="main.cpp" />

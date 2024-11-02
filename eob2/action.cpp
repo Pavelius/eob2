@@ -17,7 +17,7 @@ static bool have_class(const flag32& classes, int type) {
 bool actioni::isallow(const creaturei* player) const {
 	if(races && !races.is(player->race))
 		return false;
-	if(classes && !have_class(classes, player->type))
+	if(classes && !have_class(classes, player->character_class))
 		return false;
 	return true;
 }

@@ -8,10 +8,13 @@
 #include "math.h"
 #include "modifier.h"
 #include "party.h"
+#include "pushvalue.h"
 #include "rand.h"
 #include "script.h"
 #include "spell.h"
 #include "view.h"
+
+creaturei* caster;
 
 static void apply_summon(creaturei* player, const itemi* pi) {
 	auto wear = pi->wear;
@@ -219,6 +222,7 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run) {
 		thrown_item(party, Up, ps->avatar_thrown, player->side % 2, n);
 	}
 	player->addexp(experience);
+	auto push_caster = caster; caster = player;
 	if(ps->effect)
 		last_number = ps->effect->roll(level);
 	party.abilities[EffectCount] = 0;
@@ -229,6 +233,7 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run) {
 		player->speakn(ps->id, "GainEffect", party.abilities[EffectCount]);
 	else
 		player->speakn(ps->id, "NoEffect", party.abilities[EffectCount]);
+	caster = push_caster;
 	return true;
 }
 

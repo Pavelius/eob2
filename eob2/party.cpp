@@ -156,8 +156,7 @@ void party_addexp_per_killed(int hd) {
 	for(auto p : characters) {
 		if(!p || p->isdisabled())
 			continue;
-		auto pc = bsdata<classi>::elements + p->type;
-		p->addexp(hd * pc->exp_per_hd / 100);
+		p->addexp(hd * p->getclass().exp_per_hd / 100);
 	}
 }
 

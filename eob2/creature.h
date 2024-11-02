@@ -3,7 +3,6 @@
 #include "class.h"
 #include "damage.h"
 #include "statable.h"
-#include "levelable.h"
 #include "posable.h"
 #include "race.h"
 #include "spell.h"
@@ -12,7 +11,7 @@
 
 struct monsteri;
 
-struct creaturei : npc, statable, levelable, wearable, posable {
+struct creaturei : npc, statable, wearable, posable {
 	statable		basic;
 	short			hp, hpm, hpr;
 	short unsigned	monster_id;
@@ -30,14 +29,11 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	int				get(classn v) const;
 	const char*		getbadstate() const;
 	int				getchance(abilityn v) const;
-	const classi&	getclass() const;
-	const classi&	getclassmain() const;
 	dice			getdamage(int& bonus, wearn id, bool large_enemy) const;
 	int				getexpaward() const;
 	int				gethitpenalty(int bonus) const;
 	const monsteri*	getmonster() const;
 	const char*		getname() const;
-	const racei&	getrace() const;
 	void			heal(int value);
 	bool			is(abilityn v) const { return abilities[v] > 0; }
 	bool			is(featn v) const { return featable::is(v); }
@@ -57,7 +53,7 @@ struct creaturei : npc, statable, levelable, wearable, posable {
 	bool			useammo();
 	void			understand(racen v) { languages.set(v); }
 };
-extern creaturei *player, *opponent;
+extern creaturei *player, *opponent, *caster;
 extern int last_roll, last_chance;
 extern bool is_critical_hit;
 

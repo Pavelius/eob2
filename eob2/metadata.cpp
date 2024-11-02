@@ -82,7 +82,7 @@ BSMETA(classi) = {
 	BSREQ(id),
 	BSREQ(minimal),
 	BSENM(primary, abilityi),
-	BSREQ(hd), BSREQ(caster),
+	BSREQ(hd), BSREQ(exp_per_hd), BSREQ(caster),
 	BSENM(classes, classi), BSREQ(count),
 	BSFLG(alignment, alignmenti),
 	{}};

@@ -40,6 +40,8 @@ TwoHandedSword: Two-handed sword
 Wand: Wand
 Warhammer: Warhammer
 
+Slam1d8: Slam
+
 Cursed: Cursed
 Damaged: Damaged
 Rotten: Rotten

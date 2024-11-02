@@ -3,23 +3,24 @@
 #include "direction.h"
 #include "dungeon.h"
 #include "math.h"
+#include "pointca.h"
 #include "reference.h"
 
 const unsigned char	CellMask = 0x1F;
 const unsigned short Blocked = 0xFFFF;
+static directions all_directions[] = {Up, Right, Down, Left};
+unsigned short pathmap[mpy][mpx];
 static pointc path_stack[256];
 static unsigned char path_push;
 static unsigned char path_pop;
-static directions all_directions[] = {Up, Right, Down, Left};
-unsigned short pathmap[mpy][mpx];
 
-dungeoni *loc, *locup, *locdw;
+dungeoni *loc, *locup;
 
 static void snode(pointc v, short unsigned cost) {
 	if(!v)
 		return;
 	auto a = pathmap[v.y][v.x];
-	if(a != Blocked && (!a || cost < a)) {
+	if(a != 0xFFFF && (!a || cost < a)) {
 		path_stack[path_push++] = v;
 		pathmap[v.y][v.x] = cost;
 	}
@@ -47,6 +48,24 @@ template<> referencei::referencei(creaturei* p) {
 	} else {
 		parent = 0xFFFF;
 		index = 0xFFFF;
+	}
+}
+
+void dungeoni::makewave(pointc start) {
+	if(!start)
+		return;
+	path_push = path_pop = 0;
+	path_stack[path_push++] = start;
+	pathmap[start.y][start.x] = 1;
+	while(path_push != path_pop) {
+		auto v = path_stack[path_pop++];
+		auto cost = pathmap[v.y][v.x] + 1;
+		if(cost >= 0xFF00)
+			break;
+		snode(to(v, Left), cost);
+		snode(to(v, Right), cost);
+		snode(to(v, Up), cost);
+		snode(to(v, Down), cost);
 	}
 }
 
@@ -104,24 +123,6 @@ void dungeoni::block(bool treat_door_as_passable) const {
 				break;
 			}
 		}
-	}
-}
-
-void dungeoni::makewave(pointc start) const {
-	if(!start)
-		return;
-	path_push = path_pop = 0;
-	path_stack[path_push++] = start;
-	pathmap[start.y][start.x] = 1;
-	while(path_push != path_pop) {
-		auto v = path_stack[path_pop++];
-		auto cost = pathmap[v.y][v.x] + 1;
-		if(cost >= 0xFF00)
-			break;
-		snode(to(v, Left), cost);
-		snode(to(v, Right), cost);
-		snode(to(v, Up), cost);
-		snode(to(v, Down), cost);
 	}
 }
 

@@ -778,12 +778,12 @@ static void paint_level_experience() {
 	headern(getnm("ExperienceShort"));
 	caret.y += texth() + 2;
 	auto push_caret = caret;
-	auto pc = bsdata<classi>::elements + player->type;
-	auto exp = player->experience / pc->count;
-	for(int i = 0; i < pc->count; i++) {
-		auto m = pc->classes[i];
+	auto& pc = player->getclass();
+	auto exp = player->experience / pc.count;
+	for(int i = 0; i < pc.count; i++) {
+		auto m = pc.classes[i];
 		caret.x = push.caret.x;
-		text(bsdata<classi>::elements[pc->classes[i]].getname());
+		text(bsdata<classi>::elements[pc.classes[i]].getname());
 		caret.x = push.caret.x + 6 * 8;
 		text(str("%1i", player->levels[i]));
 		caret.x = push.caret.x + 6 * 11;
@@ -799,9 +799,9 @@ static void paint_sheet() {
 	paint_sheet_head();
 	paint_blank();
 	header(getnm("Characterinfo"));
-	textn(getnm(bsdata<classi>::elements[player->type].id));
+	textn(player->getclass().getname());
 	textn(bsdata<alignmenti>::elements[player->alignment].getname());
-	textn(str("%1 %2", bsdata<racei>::elements[player->race].getname(), bsdata<genderi>::elements[player->gender].getname()));
+	textn(str("%1 %2", player->getrace().getname(), bsdata<genderi>::elements[player->gender].getname()));
 	caret.y += texth();
 	auto push_block = caret;
 	width = 88;

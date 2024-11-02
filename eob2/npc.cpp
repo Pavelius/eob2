@@ -25,9 +25,9 @@ void create_npc(npc* p, fnallowuc avatar_test, fnallowus name_filter) {
 	p->alignment = last_alignment;
 	p->race = last_race;
 	p->gender = last_gender;
-	p->type = last_class;
+	p->character_class = last_class;
 	p->name = generate_name(p->race, p->gender, name_filter);
-	p->avatar = generate_avatar(p->race, p->gender, p->type, avatar_test);
+	p->avatar = generate_avatar(p->race, p->gender, p->character_class, avatar_test);
 }
 
 const char*	npc::getname() const {
@@ -43,7 +43,7 @@ void npc::say(const char* format, ...) const {
 
 const char* npc_speech(const npc* player, const char* id, const char* action) {
 	char temp[64]; stringbuilder sb(temp);
-	auto& ei = bsdata<classi>::elements[player->type];
+	auto& ei = player->getclass();
 	for(auto i = 0; i < ei.count; i++) {
 		sb.clear(); sb.add("%+1%+2%3", id, action, bsdata<classi>::elements[ei.classes[i]].id);
 		auto p = speech_find(temp);
@@ -90,4 +90,27 @@ bool npc::isspecialist(const itemi* pi) const {
 	if(i == -1)
 		return false;
 	return bsdata<racei>::elements[race].specialization.is(i);
+}
+
+int npc::getlevel(classn v) const {
+	auto& e = bsdata<classi>::elements[character_class];
+	if(e.classes[0] == v)
+		return levels[0];
+	else if(e.classes[1] == v)
+		return levels[1];
+	else if(e.classes[2] == v)
+		return levels[2];
+	return 0;
+}
+
+const racei& npc::getrace() const {
+	return bsdata<racei>::elements[race];
+}
+
+const classi& npc::getclass() const {
+	return bsdata<classi>::elements[character_class];
+}
+
+const classi& npc::getclassmain() const {
+	return bsdata<classi>::elements[bsdata<classi>::elements[character_class].classes[0]];
 }

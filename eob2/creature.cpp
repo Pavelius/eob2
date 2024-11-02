@@ -110,7 +110,7 @@ static void update_basic() {
 }
 
 static int get_maximum_hits() {
-	auto n = bsdata<classi>::elements[player->type].count;
+	auto n = player->getclass().count;
 	auto m = player->getlevel();
 	auto a = player->get(Constitution);
 	auto h = maptbl(hit_points_adjustment, a);
@@ -315,8 +315,8 @@ static void apply_maximal(char* abilities, const char* maximal) {
 }
 
 static void generate_abilities() {
-	auto pc = bsdata<classi>::elements + player->type;
-	auto pr = bsdata<racei>::elements + player->race;
+	auto& pc = player->getclass();
+	auto& pr = player->getrace();
 	char result[12] = {};
 	if(true) {
 		for(size_t i = 0; i < sizeof(result) / sizeof(result[0]); i++)
@@ -329,10 +329,10 @@ static void generate_abilities() {
 	}
 	for(size_t i = 0; i < 6; i++)
 		player->basic.abilities[Strenght + i] = result[i];
-	iswap(player->basic.abilities[get_best_index(player->basic.abilities + Strenght, 6)], player->basic.abilities[pc->primary]);
-	apply_minimal(player->basic.abilities, pc->minimal);
-	apply_minimal(player->basic.abilities, pr->minimal);
-	apply_maximal(player->basic.abilities, pr->maximal);
+	iswap(player->basic.abilities[get_best_index(player->basic.abilities + Strenght, 6)], player->basic.abilities[pc.primary]);
+	apply_minimal(player->basic.abilities, pc.minimal);
+	apply_minimal(player->basic.abilities, pr.minimal);
+	apply_maximal(player->basic.abilities, pr.maximal);
 	player->basic.abilities[ExeptionalStrenght] = d100() + 1;
 }
 
@@ -348,11 +348,11 @@ static void advance_level(variant id, int level) {
 }
 
 static void set_class_ability() {
-	auto pc = bsdata<classi>::elements + player->type;
-	advance_level(pc, 0);
+	auto& pc = player->getclass();
+	advance_level(&pc, 0);
 	// Roll for hits first time
-	for(char i = 0; i < pc->count; i++) {
-		auto pd = bsdata<classi>::elements + pc->classes[i];
+	for(char i = 0; i < pc.count; i++) {
+		auto pd = bsdata<classi>::elements + pc.classes[i];
 		player->levels[i]++;
 		if(pd->hd) {
 			player->hpr = 1 + rand() % pd->hd;
@@ -368,11 +368,11 @@ static void set_race_ability() {
 }
 
 static void set_starting_equipment() {
-	auto pc = bsdata<classi>::elements + player->type;
-	auto pr = bsdata<racei>::elements + player->race;
-	auto p = bsdata<listi>::find(ids(pr->id, pc->id, "StartEquipment"));
+	auto& pc = player->getclass();
+	auto& pr = player->getrace();
+	auto p = bsdata<listi>::find(ids(pr.id, pc.id, "StartEquipment"));
 	if(!p)
-		p = bsdata<listi>::find(ids(pc->id, "StartEquipment"));
+		p = bsdata<listi>::find(ids(pc.id, "StartEquipment"));
 	if(p)
 		script_run(p->elements);
 }
@@ -421,8 +421,8 @@ static void apply_feats(const variants& elements) {
 static void raise_monster_level() {
 	if(player->levels[0]) {
 		for(auto i = 1; i <= player->levels[0]; i++) {
-			advance_level(bsdata<classi>::elements + player->type, i);
-			player->hpr = xrand(1, bsdata<classi>::elements[player->type].hd);
+			advance_level(&player->getclass(), i);
+			player->hpr = xrand(1, bsdata<classi>::elements[player->character_class].hd);
 		}
 	} else
 		player->hpr = xrand(1, 6);
@@ -703,18 +703,6 @@ void creaturei::heal(int v) {
 	if(v >= hpm)
 		v = hpm;
 	hp = v;
-}
-
-const racei& creaturei::getrace() const {
-	return bsdata<racei>::elements[type];
-}
-
-const classi& creaturei::getclass() const {
-	return bsdata<classi>::elements[type];
-}
-
-const classi& creaturei::getclassmain() const {
-	return bsdata<classi>::elements[bsdata<classi>::elements[type].classes[0]];
 }
 
 void creaturei::add(abilityn i, int v) {

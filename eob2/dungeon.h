@@ -60,7 +60,7 @@ struct dungeoni : dungeon_site {
 	bool			ismonster(pointc v) const;
 	bool			ismonster(pointc v, featn f) const;
 	bool			ispassable(pointc v) const;
-	void			makewave(pointc start) const;
+	static void		makewave(pointc start);
 	void			remove(pointc v, cellfn i);
 	void			removeov(pointc v);
 	void			set(pointc v, celln i);
@@ -68,8 +68,7 @@ struct dungeoni : dungeon_site {
 	void			set(pointc v, celln i, pointc size);
 	void			set(pointc v, cellfn i);
 };
-extern dungeoni *loc, *locup, *locdw;
-extern unsigned short pathmap[mpy][mpx];
+extern dungeoni *loc, *locup;
 
 const char* get_part_placement(pointc v);
 

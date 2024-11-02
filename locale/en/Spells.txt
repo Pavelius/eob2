@@ -18,6 +18,7 @@ PurifyFood: Purify Food
 
 CureDisease: Cure disease
 LayOnHand: Lay on hand
+TurnUndead: Turn undead
 
 SpellsAvailable: %1i of %2i remaining
 NoSpellsAvailable: Not available any spells on this level

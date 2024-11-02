@@ -18,6 +18,9 @@ LayOnHand
  filter IfAlive IfWounded
  effect Effect2x1
  instant Heal+101
+TurnUndead
+ feats Enemy Group
+ filter IfUndead
 
 Armor levels(0 1) duration(Minute5x1) lighting(50 205 50)
  feats You
@@ -119,6 +122,9 @@ AmuletPowers
 
 #KeyValue
 
-Paladin+1 DetectEvil+3
+Paladin+1 DetectEvil+1
 Paladin+1 LayOnHand+1
 Paladin+1 CureDisease+1
+
+Cleric+1 TurnUndead+3
+Paladin+3 TurnUndead+3

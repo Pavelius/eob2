@@ -20,6 +20,7 @@
 #include "modifier.h"
 #include "monster.h"
 #include "party.h"
+#include "pointca.h"
 #include "quest.h"
 #include "race.h"
 #include "rand.h"
@@ -297,7 +298,7 @@ static void natural_heal(int bonus) {
 		player_heal(xrand(1, 3) + bonus);
 	else {
 		if(d100() < 70)
-			player->add(PoisonLevel, -bonus*3);
+			player->add(PoisonLevel, -bonus * 3);
 		else
 			player->add(DiseaseLevel, -bonus);
 		consolen(getnm("FeelWorse"));
@@ -1079,6 +1080,23 @@ void pick_up_dungeon_item() {
 	consolen("%1 picked up", pi->getname());
 }
 
+static void change_quick_item() {
+	auto pi = (item*)current_focus;
+	auto pn = item_owner(pi);
+	auto w = item_wear(pi);
+	if(!pn || w != RightHand)
+		return;
+	if(!pn->wears[FirstBelt]) {
+		pn->speak("NoQuickItem", 0);
+		return;
+	}
+	if(!pn->wears[FirstBelt].isallow(w))
+		return;
+	if(!can_remove(pi, true))
+		return;
+	iswap(*pi, pn->wears[FirstBelt]);
+}
+
 static void play_dungeon_input() {
 	static hotkeyi source[] = {
 		{KeyLeft, move_party_left},
@@ -1093,6 +1111,7 @@ static void play_dungeon_input() {
 		{'T', test_dungeon},
 		{'U', use_item},
 		{'E', cast_spell},
+		{'R', change_quick_item},
 		{KeyEscape, choose_dungeon_menu},
 		{}};
 	adventure_input(source);
@@ -1300,10 +1319,43 @@ static void set_character(int bonus) {
 	player = characters[bonus];
 }
 
-static void empthy_script(int bonus) {
+static void monsters_flee(int bonus) {
+	if(!loc)
+		return;
+	pointca points;
+	loc->block(false);
+	loc->makewave(party);
+	points.select(8, 16);
+	if(!points)
+		return;
+	auto v = points.random();
+	creaturei* creatures[6]; loc->getmonsters(creatures, v);
+	for(auto p : creatures) {
+		p->x = v.x;
+		p->y = v.y;
+		p->set(Moved);
+	}
 }
 
-static void vampiric_touch(int bonus) {
+static void turning_undead(int bonus) {
+	static char chances[][14] = {
+		{10, 7, 4, 0, 0, -1, -1, -2, -2, -2, -2, -2, -2, -2}, // 0 HD
+		{13, 10, 7, 4, 0, 0, -1, -1, -2, -2, -2, -2, -2, -2}, // 1 HD
+		{16, 13, 10, 7, 4, 0, 0, -1, -1, -2, -2, -2, -2, -2}, // 2 HD
+		{19, 16, 13, 10, 7, 4, 0, 0, -1, -1, -2, -2, -2, -2}, // 3 HD
+		{19, 16, 13, 10, 7, 4, 0, 0, -1, -1, -2, -2, -2, -2}, // 4 HD
+		{20, 19, 16, 13, 10, 7, 4, 0, 0, -1, -1, -2, -2, -2}, // 5 HD
+		{30, 20, 19, 16, 13, 10, 7, 4, 0, 0, -1, -1, -2, -2}, // 6 HD
+		{30, 30, 20, 19, 16, 13, 10, 7, 4, 0, 0, -1, -1, -2}, // 7 HD
+		{30, 30, 30, 20, 19, 16, 13, 10, 7, 4, 0, 0, -1, -1}, // 8 HD
+		{30, 30, 30, 30, 20, 19, 16, 13, 10, 7, 4, 0, 0, -1}, // 9 HD
+		{30, 30, 30, 30, 30, 20, 19, 16, 13, 10, 7, 4, 0, 0}, // 10 HD
+		{30, 30, 30, 30, 30, 30, 20, 19, 16, 13, 10, 7, 4, 0}, // 11 HD
+	};
+	auto hd = player->getlevel();
+}
+
+static void empthy_script(int bonus) {
 }
 
 static void player_name(stringbuilder& sb) {
@@ -1358,6 +1410,10 @@ static bool if_wounded() {
 	return player->hp < player->hpm;
 }
 
+static bool if_undead() {
+	return player->is(Undead);
+}
+
 static bool if_item_damaged() {
 	return last_item->isdamaged();
 }
@@ -1391,6 +1447,7 @@ BSDATA(conditioni) = {
 	{"IfItemDamaged", if_item_damaged},
 	{"IfItemEdible", if_item_edible},
 	{"IfPoisoned", if_poisoned},
+	{"IfUndead", if_undead},
 	{"IfWounded", if_wounded},
 };
 BSDATAF(conditioni)
@@ -1424,6 +1481,7 @@ BSDATA(script) = {
 	{"LoadGame", load_game},
 	{"Magical", empthy_script},
 	{"Message", dialog_message},
+	{"MonstersFlee", monsters_flee},
 	{"NaturalHeal", natural_heal},
 	{"JoinParty", join_party},
 	{"PartyAdventure", party_adventure},

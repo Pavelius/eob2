@@ -60,9 +60,6 @@
     <ClCompile Include="szdup.cpp">
       <Filter>support</Filter>
     </ClCompile>
-    <ClCompile Include="levelable.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="party.cpp">
       <Filter>logic</Filter>
     </ClCompile>
@@ -280,9 +277,6 @@
     </ClInclude>
     <ClInclude Include="slice.h">
       <Filter>support</Filter>
-    </ClInclude>
-    <ClInclude Include="levelable.h">
-      <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="feat.h">
       <Filter>logic</Filter>

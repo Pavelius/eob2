@@ -54,7 +54,9 @@ bool item::isallow(wearn v) const {
 	case RightHand:
 		return n == LeftHand
 			|| n == RightHand
-			|| n == Rod;
+			|| n == Rod
+			|| n == Readable
+			|| n == Drinkable;
 	case FirstBelt: case SecondBelt: case LastBelt:
 		switch(n) {
 		case LeftHand:

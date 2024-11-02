@@ -2,6 +2,8 @@
 
 #include "slice.h"
 
+extern "C" int rand(void);
+
 template<class T, size_t count_max = 128>
 struct adat {
 	typedef T data_type;
@@ -28,6 +30,7 @@ struct adat {
 	int	indexof(const void* e) const { if(e >= data && e < data + count) return (T*)e - data; return -1; }
 	bool have(const T t) const { for(auto& e : *this) if(e == t) return true; return false; }
 	bool have(const void* element) const { return element >= data && element < (data + count); }
+	T random() const { return count ? data[rand() % count] : T(); }
 	void remove(int index, int remove_count = 1) { if(index < 0) return; if(index<int(count - 1)) memcpy(data + index, data + index + 1, sizeof(data[0]) * (count - index - 1)); count--; }
 	void remove(const T t) { remove(find(t), 1); }
 	void top(size_t v) { if(count > v) count = v; }

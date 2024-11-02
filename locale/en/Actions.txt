@@ -5,6 +5,7 @@ CastOnWho: Cast on who?
 CellKeyHoleDisable: Lock is picked up
 CellTrapLauncherDisable: Trap is removed
 ChooseBet: Bed how match?
+ConsumeRod: %Name use last charge
 CreateNewGame: Create new game
 DebugTest: Debug Test
 DebugTestVisit: Debug test string

@@ -176,6 +176,13 @@ MoonKey avatar(88) avatar_ground(8) wear(Key)
 JewelKey avatar(102) avatar_ground(8) wear(Key)
  feats Small
 
+StoneDagger speed(2) damage_type(Piercing) damage(1 4) avatar(60) avatar_ground(3) wear(RightHand) powers(MeleePowers)
+ feats Small
+StoneGem avatar(57) avatar_ground(3) wear(Backpack)
+ feats Small
+StoneAmulet avatar(64) avatar_ground(13) wear(Neck) powers(AmuletPowers)
+ feats Small
+
 Mandibules damage_type(Slashing) damage(1 4)
  feats You
 ChillTouchHand avatar(80) damage_type(Cold) damage(1 4) wear(RightHand)

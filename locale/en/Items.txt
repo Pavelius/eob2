@@ -11,6 +11,7 @@ ChillTouchHand: Cold hand
 Club: Club
 Dagger: Dagger
 DwarvenHelm: Dwarven helm
+DwarvenShield: Dwarven shield
 Flail: Flail
 Halberd: Halberd
 Helm: Helm

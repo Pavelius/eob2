@@ -1,15 +1,15 @@
+#include "formula.h"
 #include "randomeffect.h"
+#include "script.h"
 
-static const randomeffecti* last_effect;
-static int last_level;
+randomeffecti* last_effect;
+int last_level;
 
 int randomeffecti::roll(int level) const {
 	auto result = base.roll();
 	auto start_level = perlevel[0];
 	auto per_level = perlevel[1];
 	auto cap_level = perlevel[2];
-	last_effect = this;
-	last_level = level;
 	if(cap_level && level > cap_level)
 		level = cap_level;
 	if(raise && per_level && level > start_level) {
@@ -22,8 +22,7 @@ int randomeffecti::roll(int level) const {
 	return result;
 }
 
-int last_random_effect() {
-	if(!last_effect)
-		return 0;
-	return last_effect->roll(last_level);
+template<> void ftscript<randomeffecti>(int value, int bonus) {
+	last_effect = bsdata<randomeffecti>::elements + value;
+	last_number = bsdata<randomeffecti>::elements[value].roll(last_level) + bonus;
 }

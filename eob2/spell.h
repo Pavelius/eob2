@@ -15,7 +15,6 @@ struct spelli : nameable, featable {
 	char		levels[4];
 	char		avatar_thrown;
 	color		lighting;
-	const randomeffecti* effect; // Damage or other effect
 	const randomeffecti* duration; // Enchantment spell
 	const itemi* summon; // Which item summoned in hand
 	variants	filter;

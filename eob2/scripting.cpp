@@ -439,7 +439,7 @@ static bool use_rod(creaturei* pn, item* rod, variant v) {
 	if(v.iskind<spelli>()) {
 		auto push_player = player; player = pn;
 		auto ps = bsdata<spelli>::elements + v.value;
-		result = cast_spell(ps, 1 + v.counter * 4, 0, true);
+		result = cast_spell(ps, 1 + v.counter * 2, 0, true);
 		if(result) {
 			consolen("%Name cast %1", ps->getname());
 			rod->identify(1);
@@ -1284,10 +1284,6 @@ static void dialog_message(int bonus) {
 	}
 }
 
-static void get_last_random_effect(int bonus) {
-	last_number = last_random_effect();
-}
-
 static void set_variable(int bonus) {
 	party.abilities[last_variable] = get_bonus(bonus);
 }
@@ -1488,6 +1484,10 @@ static bool if_item_edible() {
 	return last_item->geti().wear == Edible;
 }
 
+static bool if_item_charged() {
+	return last_item->geti().wear == Rod;
+}
+
 BSDATA(formulai) = {
 	{"Add", add_formula},
 	{"Mul", mul_formula},
@@ -1512,6 +1512,7 @@ BSDATA(conditioni) = {
 	{"IfDiseased", if_diseased},
 	{"IfItemDamaged", if_item_damaged},
 	{"IfItemEdible", if_item_edible},
+	{"ifItemCharged", if_item_edible},
 	{"IfMonstersUndead", if_monsters_undead},
 	{"IfPoisoned", if_poisoned},
 	{"IfUndead", if_undead},
@@ -1555,7 +1556,6 @@ BSDATA(script) = {
 	{"PayGold", pay_gold},
 	{"PassHours", pass_hours},
 	{"Protection", protection_modify},
-	{"RandomEffect", get_last_random_effect},
 	{"RestoreSpells", restore_spells},
 	{"ReturnToStreet", return_to_street},
 	{"Roll", make_roll},

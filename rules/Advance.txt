@@ -57,6 +57,15 @@ Monster+7 CombatSkills
 Monster+9 CombatSkills
  elements Attack+2
 
+Monster+1 SaveThrow
+ elements SaveVsParalization+35 SaveVsPoison+35 SaveVsTraps+25 SaveVsMagic+20
+Monster+3 SaveThrow
+ elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
+Monster+5 SaveThrow
+ elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
+Monster+7 SaveThrow
+ elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
+
 Fighter+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UseMartial BonusHP
 Fighter+1 BasicAbilities

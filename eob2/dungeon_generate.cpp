@@ -140,7 +140,7 @@ static void lair_door(pointc v, directions d) {
 }
 
 static int get_magic_bonus(int chance_upgrade, int chance_downgrade) {
-	auto base = loc ? loc->level/ 2 : 1;
+	auto base = loc ? loc->level / 2 : 1;
 	if(base < 1)
 		base = 1;
 	while(base < 5 && d100() < chance_upgrade) {
@@ -690,16 +690,53 @@ static void create_rooms(pointc start, bool last_level) {
 	create_room(loc->state.feature, "ShapeLargeRoom", create_lair);
 }
 
+static void drop_special_item() {
+	if(!loc->special)
+		return;
+	if(loc->state.special)
+		return;
+	item it; it.create(loc->special);
+	if(d100() < 50)
+		it.createpower(xrand(2, 5), 100, 5);
+	pointc v;
+	if(it) {
+		pointca points;
+		for(auto& e : loc->items) {
+			if(!e || e.is(Quiver) || e.is(Edible))
+				continue;
+			points.add(e);
+		}
+		if(points)
+			v = points.random();
+	}
+	if(loc->state.portal)
+		v = loc->state.portal;
+	if(loc->state.down)
+		v = loc->state.down;
+	if(loc->state.up)
+		v = loc->state.up;
+	if(v) {
+		loc->drop(v, it, xrand(0, 3));
+		loc->state.special = v;
+	}
+}
+
+static void link_dungeon(dungeoni* above, dungeoni* current) {
+}
+
 static void dungeon_create(unsigned short quest_id, slice<dungeon_site> source) {
 	auto base = 0;
 	auto total_level_count = total_levels(source);
 	dungeoni* previous = 0;
+	dungeoni* start = 0;
 	for(auto& ei : source) {
 		auto special_item_level = -1;
 		if(ei.special)
 			special_item_level = rand() % ei.level;
 		for(auto j = 0; j < ei.level; j++) {
 			loc = bsdata<dungeoni>::add();
+			if(!start)
+				start = loc;
 			auto level = base + j + 1;
 			posable start;
 			if(previous)
@@ -711,8 +748,6 @@ static void dungeon_create(unsigned short quest_id, slice<dungeon_site> source) 
 				loc->quest_id = quest_id;
 				loc->level = level;
 				loc->cursed = 5;
-				if(special_item_level != j)
-					loc->special = 0;
 				create_rooms(start, last_level);
 				while(stack_get != stack_put) {
 					auto& ev = rooms[stack_get++];
@@ -730,21 +765,24 @@ static void dungeon_create(unsigned short quest_id, slice<dungeon_site> source) 
 			}
 			remove_dead_door();
 			resolve_traps();
+			if(special_item_level == j)
+				drop_special_item();
+			else
+				loc->special = 0;
 #ifdef DEBUG_DUNGEON
 			show_map_pathfind();
 #endif
-			//if(j == special_item_level)
-			//	validate_special_items(e);
 			//add_spawn_points(e);
 			//add_corners(e, p->crypt.corner, p->crypt.corner_count);
 			previous = loc;
-			}
-		base += ei.level;
 		}
-	// Add dungeon pits and other stuff
-	//for(unsigned i = 0; i < count - 1; i++)
-	//	link_dungeon(dungeons[i], dungeons[i + 1]);
+		base += ei.level;
 	}
+	auto finish = loc;
+	// Add dungeon pits and other stuff
+	for(auto p = start; p < finish; p++)
+		link_dungeon(p, p + 1);
+}
 
 void dungeon_create() {
 	auto push_loc = loc;

@@ -123,10 +123,10 @@ static void apply_effect(const variants& source) {
 	player = push_player;
 }
 
-static void apply_enchant_effect(const randomeffecti* duration, int level, variant action) {
+static void apply_enchant_effect(const randomeffecti* duration, variant action) {
 	if(!action || !duration)
 		return;
-	auto rounds = duration->roll(level);
+	auto rounds = duration->roll(last_level);
 	auto push_player = player;
 	for(auto& e : an) {
 		auto p = e.value;
@@ -233,19 +233,19 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run) {
 	}
 	player->addexp(experience);
 	auto push_caster = caster; caster = player;
-	if(ps->effect)
-		last_number = ps->effect->roll(level);
+	auto push_level = last_level; last_level = level;
 	party.abilities[EffectCount] = 0;
 	if(need_creatures)
 		apply_effect(ps->instant);
 	else
 		script_run(ps->instant);
-	apply_enchant_effect(ps->duration, level, ps);
+	apply_enchant_effect(ps->duration, ps);
 	fix_animate();
 	if(party.abilities[EffectCount])
 		player->speakn(ps->id, "GainEffect", party.abilities[EffectCount]);
 	else
 		player->speakn(ps->id, "NoEffect", party.abilities[EffectCount]);
+	last_level = push_level;
 	caster = push_caster;
 	return true;
 }

@@ -8,4 +8,5 @@ struct randomeffecti : nameable {
 	int		perlevel[3], multiplier;
 	int		roll(int level) const;
 };
-int last_random_effect();
+extern randomeffecti* last_effect;
+extern int last_level;

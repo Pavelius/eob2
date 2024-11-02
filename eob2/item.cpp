@@ -198,7 +198,7 @@ void item::createpower(char magic_bonus, int chance_magical, int chance_cursed) 
 }
 
 void item::usecharge() {
-	if(d100() < 50)
+	if(d100() < 36)
 		return;
 	count++;
 	if(count > 10)

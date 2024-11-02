@@ -48,6 +48,7 @@ public:
 	void		identify(int v) { identified = (v >= 0) ? 1 : 0; }
 	bool		is(featn v) const { return geti().is(v); }
 	bool		is(const itemi* pi) const { return pi == &geti(); }
+	bool		is(wearn v) const { return geti().wear == v; }
 	bool		isallow(wearn v) const;
 	bool		isartifact() const { return getpower().counter >= 4; }
 	bool		iscountable() const;

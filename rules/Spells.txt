@@ -1,5 +1,6 @@
 #RandomEffect
 
+Damage1d3x2s0p1c10 base(1 3) raise(2) perlevel(0 1 10)
 Damage1d4p1x1d4p1s3p2c9 base(1 4 1) raise(1 4 1) perlevel(3 2 9)
 Damage1d8x1 base(1 8) raise(1) perlevel(1 1)
 Effect1d8 base(1 8)
@@ -16,8 +17,7 @@ Hour8 base(8) multiplier(60)
 LayOnHand
  feats Ally
  filter IfAlive IfWounded
- effect Effect2x1
- instant Heal+101
+ instant Effect2x1 Heal+101
 TurnUndead
  filter IfMonstersUndead
  instant TurningMonsters
@@ -29,6 +29,8 @@ Bless levels(1 0) duration(Minute5x1) lighting(255 239 0)
  feats Ally
  wearing Attack+1 Damage+1 Saves+1
 BurningHands levels(0 1)
+ feats Enemy Group
+ instant Damage1d3x2s0p1c10 SaveHalf Fire+101
 ChillTouch levels(0 1) duration(Minute3x1) summon(ChillTouchHand)
  feats You
 ComprehendLanguages levels(0 1) duration(Minute5x5)
@@ -37,8 +39,7 @@ ComprehendLanguages levels(0 1) duration(Minute5x5)
 CureLightWounds levels(1 0)
  feats Ally You
  filter IfAlive IfWounded
- effect Effect1d8
- instant Heal+101
+ instant Effect1d8 Heal+101
 DetectEvil levels(1 1) duration(Minute0x2)
  feats Ally Group
  wearing SeeCursed
@@ -48,12 +49,12 @@ DetectMagic levels(1 1) duration(Minute0x2)
 Friends levels(0 1)
 Identify levels(0 1)
  feats Ally
-MagicMissile levels(0 1) effect(Damage1d4p1x1d4p1s3p2c9) avatar_thrown(5)
+MagicMissile levels(0 1) avatar_thrown(5)
  feats Enemy
- instant Magic+101
+ instant Damage1d4p1x1d4p1s3p2c9 Magic+101
 Mending levels(0 1)
  feats Ally You WearItem
- filter IfItemEdible-1 IfItemDamaged
+ filter IfItemEdible-1 ifItemCharged-1 IfItemDamaged
  instant DamageItem-1
 ProtectionFromEvil levels(1 1) duration(Turn5x1) lighting(150 00 24)
  feats Ally
@@ -64,9 +65,9 @@ PurifyFood levels(1 0)
  instant DamageItem-1 EffectCount+1
 ShieldSpell levels(0 1)
  wearing AC+5
-ShockingGrasp levels(0 1) effect(Damage1d8x1)
+ShockingGrasp levels(0 1)
  feats Enemy
- instant Shock+101
+ instant Damage1d8x1 Shock+101
 
 Aid levels(2) duration(Minute5x1)
  feats Ally
@@ -118,7 +119,6 @@ WandSpells
 
 AmuletPowers
  elements NoVariant DetectMagic+1 AC+1 ImmuneFire+2 ImmuneCold+2 ImmuneDisease+3 ProtectedFromEvil+1
-
 
 #KeyValue
 

@@ -34,6 +34,7 @@ PartyFallPit: Party fall down...
 PickPockets: Pick pockets
 PickPocketsVisit: Pick some pockets
 PrayForSpells: Pray for Spells
+QuestGoals: Quest Goals
 RemoveTrapsFail: Fail remove trap
 RestParty: Rest party
 RestPartyConfirm: Rest all party for 8 hours?
@@ -64,3 +65,5 @@ SaveGame: Save game
 Yes: Yes
 WhatCharacter: What character?
 WhatSpell: What spell?
+
+TakeSpecialItem: Find special items

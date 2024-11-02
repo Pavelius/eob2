@@ -11,6 +11,7 @@
 #include "location.h"
 #include "math.h"
 #include "picture.h"
+#include "quest.h"
 #include "race.h"
 #include "resid.h"
 #include "timer.h"
@@ -984,6 +985,40 @@ static void paint_party_sheets() {
 		paint_avatars();
 }
 
+static void get_closed_goals(goala goals) {
+	auto quest_id = getbsi(last_quest);
+	if(!quest_id)
+		return;
+	for(auto& e : bsdata<dungeoni>()) {
+		if(e.quest_id != quest_id)
+			continue;
+		for(auto i = (goaln)0; i <= KillAlmostAllMonsters; i = (goaln)(i + 1)) {
+			if(e.is(i))
+				goals[i]++;
+		}
+	}
+}
+
+static void paint_quest_goals() {
+	goala goals = {}; get_closed_goals(goals);
+	rectpush push;
+	auto push_font = font;
+	auto push_fore = fore;
+	paint_sheet_head();
+	paint_blank();
+	if(last_quest) {
+		header(getnm("QuestGoals"));
+		width -= 2;
+		for(auto i = (goaln)0; i <= KillAlmostAllMonsters; i = (goaln)(i + 1)) {
+			if(last_quest->goals[i] <= 0)
+				continue;
+			textn(bsdata<goali>::elements[i].getname(), last_quest->goals[i], "0/%1i");
+		}
+	}
+	font = push_font;
+	fore = push_fore;
+}
+
 static void field(const char* header, int title_width, int total, int value, int maximum) {
 	auto push_width = width;
 	auto push_height = height;
@@ -1314,6 +1349,7 @@ bool character_input() {
 		break;
 	case 'I': switch_page(paint_inventory); break;
 	case 'C': switch_page(paint_sheet); break;
+	case 'G': switch_page(paint_quest_goals); break;
 	case 'X': switch_page(paint_skills); break;
 	case 'P': pick_up_item(); break;
 	case 'Q': examine_item(); break;

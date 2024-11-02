@@ -234,9 +234,8 @@ static void secret(pointc v, directions d) {
 	loc->state.wallmessages[MessageSecrets]++;
 }
 
-static void monster(pointc v, directions d) {
-	auto n = (d100() < 30) ? 1 : 0;
-	auto pi = bsdata<monsteri>::elements + loc->habbits[n];
+static void monster(pointc v, directions d, const monsteri* pi) {
+	loc->set(v, CellPassable);
 	if(pi->is(Large))
 		loc->addmonster(v, d, 0, pi);
 	else {
@@ -246,6 +245,20 @@ static void monster(pointc v, directions d) {
 		for(auto i = 0; i < count; i++)
 			loc->addmonster(v, d, sides[i], pi);
 	}
+}
+
+static void monster(pointc v, directions d) {
+	auto n = (d100() < 30) ? 1 : 0;
+	auto pi = bsdata<monsteri>::elements + loc->habbits[n];
+	monster(v, d, pi);
+}
+
+static void monster_boss(pointc v, directions d) {
+	monster(v, d, bsdata<monsteri>::elements + (loc->boss ? loc->boss : loc->habbits[1]));
+}
+
+static void monster_minion(pointc v, directions d) {
+	monster(v, d, bsdata<monsteri>::elements + (loc->minions ? loc->minions : loc->habbits[1]));
 }
 
 static void prison(pointc v, directions d) {
@@ -648,8 +661,9 @@ static void stairs_down(pointc v, directions d, const shapei* ps) {
 }
 
 static void create_lair(pointc v, directions d, const shapei* ps) {
-	apply_shape(v, d, ps, '0', CellPassable);
 	apply_shape(v, d, ps, '1', lair_door);
+	apply_shape(v, d, ps, '0', monster_boss);
+	apply_shape(v, d, ps, '2', monster_minion);
 	apply_shape(v, d, ps, '.', monster);
 	loc->state.lair.d = d;
 }
@@ -828,8 +842,10 @@ static void dungeon_create(unsigned short quest_id, slice<dungeon_site> source) 
 	}
 	auto finish = loc;
 	// Add dungeon pits and other stuff
-	for(auto p = start; p < finish; p++)
-		link_dungeon(p[0], p[1]);
+	if(start) {
+		for(auto p = start; p < finish; p++)
+			link_dungeon(p[0], p[1]);
+	}
 }
 
 void dungeon_create() {

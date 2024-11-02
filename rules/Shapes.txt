@@ -11,8 +11,8 @@ XXXXXXXXX
 #ShapeRoom
 
 XX1XX
-X...X
-X.0.X
+X.2.X
+X202X
 X...X
 XXXXX
 

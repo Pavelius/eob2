@@ -696,7 +696,7 @@ static void drop_special_item() {
 	if(loc->state.special)
 		return;
 	item it; it.create(loc->special);
-	if(d100() < 50)
+	if(d100() < 60)
 		it.createpower(xrand(2, 5), 100, 5);
 	pointc v;
 	if(it) {
@@ -709,11 +709,11 @@ static void drop_special_item() {
 		if(points)
 			v = points.random();
 	}
-	if(loc->state.portal)
+	if(!v && loc->state.portal)
 		v = loc->state.portal;
-	if(loc->state.down)
+	if(!v && loc->state.down)
 		v = loc->state.down;
-	if(loc->state.up)
+	if(!v && loc->state.up)
 		v = loc->state.up;
 	if(v) {
 		loc->drop(v, it, xrand(0, 3));
@@ -721,15 +721,59 @@ static void drop_special_item() {
 	}
 }
 
-static void link_dungeon(dungeoni* above, dungeoni* current) {
+static void link_dungeon(dungeoni& current, dungeoni& below) {
+	pointc v;
+	unsigned short pm1[mpy][mpx];
+	unsigned short pm2[mpy][mpx];
+	// 1) Get idicies of two linked dungeons
+	current.block(true);
+	current.makewave(to(current.state.down, current.state.down.d));
+	memcpy(pm1, pathmap, sizeof(pathmap));
+	below.block(true);
+	below.makewave(to(below.state.up, below.state.up.d));
+	memcpy(pm2, pathmap, sizeof(pathmap));
+	// 2) Get valid indicies
+	for(v.y = 0; v.y < mpy; v.y++) {
+		for(v.x = 0; v.x < mpx; v.x++) {
+			// Dungeon must be passable
+			if(!pm2[v.y][v.x] || pm2[v.y][v.x] >= 0xFF00)
+				pm1[v.y][v.x] = 0xFFFF;
+			// Dungeon must not have door in this cell (door cell is passable)
+			if(below.get(v) == CellDoor || current.get(v) == CellDoor)
+				pm1[v.y][v.x] = 0xFFFF;
+			// There is no location right before stairs
+			if(v == to(below.state.down, below.state.down.d)
+				|| v == to(below.state.up, below.state.up.d)
+				|| v == to(current.state.up, current.state.up.d)
+				|| v == to(current.state.down, current.state.down.d))
+				pm1[v.y][v.x] = 0xFFFF;
+		}
+	}
+	// 3) Get possible pits indicies
+	pointca points;
+	for(v.y = 0; v.y < mpy; v.y++) {
+		for(v.x = 0; v.x < mpx; v.x++) {
+			if(pm1[v.y][v.x] && pm1[v.y][v.x] < 0xFF00)
+				points.add(v);
+		}
+	}
+	// 4) Place random count of pits
+	size_t pits_count = xrand(1, 4);
+	zshuffle(points.data, points.count);
+	if(pits_count > points.count)
+		pits_count = points.count;
+	for(size_t i = 0; i < pits_count; i++)
+		current.set(points[i], CellPit);
 }
 
 static void dungeon_create(unsigned short quest_id, slice<dungeon_site> source) {
-	auto base = 0;
+	auto base = 1;
 	auto total_level_count = total_levels(source);
 	dungeoni* previous = 0;
 	dungeoni* start = 0;
 	for(auto& ei : source) {
+		if(!ei || !ei.level)
+			continue;
 		auto special_item_level = -1;
 		if(ei.special)
 			special_item_level = rand() % ei.level;
@@ -737,7 +781,7 @@ static void dungeon_create(unsigned short quest_id, slice<dungeon_site> source) 
 			loc = bsdata<dungeoni>::add();
 			if(!start)
 				start = loc;
-			auto level = base + j + 1;
+			auto level = base + j;
 			posable start;
 			if(previous)
 				start = previous->state.down;
@@ -781,7 +825,7 @@ static void dungeon_create(unsigned short quest_id, slice<dungeon_site> source) 
 	auto finish = loc;
 	// Add dungeon pits and other stuff
 	for(auto p = start; p < finish; p++)
-		link_dungeon(p, p + 1);
+		link_dungeon(p[0], p[1]);
 }
 
 void dungeon_create() {

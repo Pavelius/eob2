@@ -12,4 +12,5 @@ struct dungeon_site {
 	racen language; // All messages in this language (by race)
 	char cursed; // Chance to all items found be cursed
 	char magical; // Chance to all items found be magical
+	constexpr explicit operator bool() const { return type != (resid)0; }
 };

@@ -4,4 +4,5 @@ FloodedSewers
  sites type(brick) level(3) habbits(Kobold Leech) language(Human) key(IronKey)
 
 CursedDungeon
+// goals TakeSpecialItem+1
  sites type(blue) level(3) habbits(Skeleton Zombie) language(Human) key(IronKey) special(StoneAmulet)

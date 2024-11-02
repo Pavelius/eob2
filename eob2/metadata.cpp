@@ -116,6 +116,9 @@ BSMETA(formulai) = {
 BSMETA(feati) = {
 	BSREQ(id),
 	{}};
+BSMETA(goali) = {
+	BSREQ(id),
+	{}};
 BSMETA(itemi) = {
 	BSREQ(id),
 	BSENM(wear, weari),
@@ -157,6 +160,7 @@ BSMETA(picturei) = {
 BSMETA(quest) = {
 	BSREQ(id),
 	BSREQ(sites),
+	BSDST(goals, goali),
 	{}};
 BSMETA(racei) = {
 	BSREQ(id),

@@ -268,7 +268,7 @@ static void monsters_movement() {
 			continue;
 		if(can_see_party(e, e.d))
 			monster_move(e, e.d);
-		else if(d100() < 45) {
+		else if(e.roll(Dexterity)) {
 			auto d = random_free_look(e, e.d);
 			if(d != Center)
 				monster_move(e, d);

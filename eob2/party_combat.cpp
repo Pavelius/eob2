@@ -99,6 +99,8 @@ static creaturei* get_opponent(bool left, bool enemies) {
 
 static void single_attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
 	auto& weapon = player->wears[slot];
+	if(!weapon)
+		return;
 	auto power = weapon.getpower();
 	auto chance_critical = 20;
 	auto attack_damage = player->getdamage(bonus, slot, defender->is(Large));

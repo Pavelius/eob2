@@ -6,5 +6,5 @@ Leech res(leech) hd(4) ac(9) experience(175)
  feats Large VampiricAttack DiseaseAttack Mandibules
 Skeleton res(skeleton) hd(1) ac(7) experience(65)
  feats Axe Undead ResistPierce ResistSlashing ImmuneCharm ImmuneCold
-Zombie res(zombie) hd(2)
+Zombie res(zombie) hd(2) ac(8)
  feats Slam1d8 Dexterity-3 Undead SlowMove ResistPierce ResistSlashing ImmuneCharm

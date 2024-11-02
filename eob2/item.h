@@ -55,7 +55,7 @@ public:
 	bool		isdamaged() const { return !iscountable() && count >= 5; }
 	bool		isidentified() const { return identified != 0; }
 	bool		isnatural() const { return is(You); }
-	bool		ismagical() const { return iscursed() || getpower(); }
+	bool		ismagical() const { return iscursed() || getpower().counter != 0; }
 	bool		isranged() const { return geti().avatar_thrown || geti().ammo != 0; }
 	bool		issummoned() const { return summoned != 0; }
 	bool		istool() const { return tooled != 0; }

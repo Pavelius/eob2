@@ -433,14 +433,16 @@ static bool read_effect(creaturei* pn, variant v, int experience, unsigned durat
 	return result;
 }
 
-static bool rod_use(creaturei* pn, item* rod, variant v) {
+static bool use_rod(creaturei* pn, item* rod, variant v) {
 	bool result = false;
 	if(v.iskind<spelli>()) {
 		auto push_player = player; player = pn;
 		auto ps = bsdata<spelli>::elements + v.value;
 		result = cast_spell(ps, player->getlevel() + v.counter, 0, true);
-		if(result)
+		if(result) {
 			consolen("%Name cast %1", ps->getname());
+			rod->identify(1);
+		}
 		player = push_player;
 	}
 	if(result) {
@@ -539,9 +541,11 @@ static void use_item() {
 	case Rod:
 		if(!allow_use(pn, last_item))
 			return;
-		if(w != RightHand)
+		if(w != RightHand) {
 			pn->speak("MustBeWearing", "RightHand");
-		if(rod_use(pn, last_item, last_item->getpower()))
+			return;
+		}
+		if(use_rod(pn, last_item, last_item->getpower()))
 			pass_round();
 		break;
 	case Usable:

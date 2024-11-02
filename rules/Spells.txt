@@ -40,7 +40,7 @@ DetectEvil levels(1 1) duration(Minute0x2)
  feats Ally Group
  wearing SeeCursed
 DetectMagic levels(1 1) duration(Minute0x2)
- feats Ally Group
+ feats You Ally Group
  wearing SeeMagical
 Friends levels(0 1)
 Identify levels(0 1)

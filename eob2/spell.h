@@ -27,6 +27,6 @@ typedef char spella[128];
 typedef flagable<16> spellseta;
 
 void cast_spell();
-bool cast_spell(const spelli* ps, int level, bool run);
+bool cast_spell(const spelli* ps, int level, int experience, bool run);
 
 spellseta* get_spells_known(const creaturei* target);

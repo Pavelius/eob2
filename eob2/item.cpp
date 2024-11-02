@@ -53,7 +53,8 @@ bool item::isallow(wearn v) const {
 			|| n == RightRing;
 	case RightHand:
 		return n == LeftHand
-			|| n == RightHand;
+			|| n == RightHand
+			|| n == Rod;
 	case FirstBelt: case SecondBelt: case LastBelt:
 		switch(n) {
 		case LeftHand:
@@ -171,7 +172,7 @@ void item::createpower(char magic_bonus, int chance_magical, int chance_cursed) 
 		if(d100() < chance_cursed)
 			curse(1);
 	}
-	if(!ei.powers[0]) {
+	if(!ei.powers->elements.begin()[0]) {
 		// Item may be non-magical if first power is empthy
 		if(d100() >= chance_magical)
 			return;
@@ -192,4 +193,12 @@ void item::createpower(char magic_bonus, int chance_magical, int chance_cursed) 
 		}
 		magic_bonus--;
 	}
+}
+
+void item::usecharge() {
+	if(d100() < 50)
+		return;
+	count++;
+	if(count > 10)
+		clear();
 }

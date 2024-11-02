@@ -23,6 +23,7 @@ AmuletPowers
 
 MageSpells
 PriestSpells
+WandSpells
 
 RingPowers
  elements NoVariant Protection+1 Protection+2 Protection+3 Protection+4 MoveSilently+1 ClimbWalls+1\
@@ -152,7 +153,7 @@ PriestScroll cost(20) avatar(85) avatar_ground(12) wear(Readable) powers(PriestS
 MagicMap cost(10) avatar(86) avatar_ground(12) wear(Readable)
  feats Small
 
-Wand cost(100) avatar(52) avatar_ground(10) wear(Rod) powers(MageSpells)
+Wand cost(100) avatar(52) avatar_ground(10) wear(Rod) powers(WandSpells)
  feats Small UseMage
 
 TheifTools cost(10) avatar(54) avatar_ground(1) wear(Usable)
@@ -180,7 +181,9 @@ JewelKey avatar(102) avatar_ground(8) wear(Key)
 Mandibules damage_type(Slashing) damage(1 4)
  feats You
 ChillTouchHand avatar(80) damage_type(Cold) damage(1 4) wear(RightHand)
- feats DrainStrenghtAttack
+ feats You DrainStrenghtAttack
+Slam1d8 damage_type(Bludgeon) damage(1 8) wear(RightHand)
+ feats You
 
 #List
 
@@ -199,7 +202,7 @@ ClericStartEquipment
 TheifStartEquipment
  elements Longsword LeatherArmor
 MageStartEquipment
- elements Robe Staff
+ elements Robe Wand Staff
 
 CommonMissionEquipment
  elements Ration

@@ -1,0 +1,2 @@
+﻿Skeleton: Skeleton
+Zombie: Zombie

@@ -304,6 +304,8 @@
     <Text Include="..\locale\en\Campaign.txt" />
     <Text Include="..\locale\en\Directions.txt" />
     <Text Include="..\locale\en\Items.txt" />
+    <Text Include="..\locale\en\Monsters.txt" />
+    <Text Include="..\locale\en\QuestCursedDungeon.txt" />
     <Text Include="..\locale\en\QuestFloodedSewers.txt" />
     <Text Include="..\locale\en\Races.txt" />
     <Text Include="..\locale\en\Spells.txt" />

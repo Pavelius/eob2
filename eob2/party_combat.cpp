@@ -35,7 +35,9 @@ static bool select_combatants(pointc position) {
 	combatants.count += shrink_creatures(combatants.data + combatants.count, characters, 6);
 	// Lowest initiative win, so positive speed is substracted
 	for(auto p : combatants) {
-		if(p->is(Surprised))
+		if(p->is(SlowMove))
+			p->initiative = 30 + xrand(1, 10);
+		else if(p->is(Surprised))
 			p->initiative = 100; // Move last
 		else
 			p->initiative = xrand(1, 10) - p->get(Speed);

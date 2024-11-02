@@ -2,3 +2,6 @@
 
 FloodedSewers
  sites type(brick) level(3) habbits(Kobold Leech) language(Human) key(IronKey)
+
+CursedDungeon
+ sites type(dung) level(3) habbits(Skeleton Zombie) language(Human) key(IronKey)

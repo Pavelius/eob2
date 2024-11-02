@@ -1,0 +1,22 @@
+#CursedDungeon
+Cursed dungeon
+
+#CursedDungeonSummary
+/npc 51
+"Are you that wandered adventures?" man smoking tabacco sitting in tavern ask to you "My name is Dunkan. And I have a job for you."
+"I need you service to find some item from ruin, hauted by evil undead long time ago. That item is my familiy relict and if you get it to me I say you 500 gold pieces."
+
+#CursedDungeonAgree
+/npc 51
+"You are good bussiness man! Meet there when you will get this item."
+
+#CursedDungeonEntering
+/adventure 2
+After a several hours of feet travel to north you found ruins.
+/adventure 3
+When you search ruins you found an entrance to ruins dungeon.
+
+#CursedDungeonFinish
+/npc 51
+"You are back? I don't expect this. So ... here you reward."
+"And found me later. You may give a service to goverment and army."

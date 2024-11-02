@@ -110,6 +110,8 @@ MageSpells
  elements Armor BurningHands ChillTouch ComprehendLanguages DetectEvil DetectMagic Friends MagicMissile Mending ShieldSpell ShockingGrasp
 PriestSpells
  elements Bless CureLightWounds DetectEvil DetectMagic PurifyFood
+WandSpells
+ elements BurningHands+1 DetectMagic+1 MagicMissile+1 ShockingGrasp+1
 
 AmuletPowers
  elements NoVariant DetectMagic+1 AC+1 ImmuneFire+2 ImmuneCold+2 ImmuneDisease+3 ProtectedFromEvil+1

@@ -1,4 +1,5 @@
 ﻿Axe: Axe
+Amulet: Amulet
 Arrow: Arrow
 BastardSword: BasterdSword
 BattleAxe: Battle axe
@@ -36,6 +37,7 @@ Staff: Staff
 Stone: Stone
 TheifTools: Theif tools
 TwoHandedSword: Two-handed sword
+Wand: Wand
 Warhammer: Warhammer
 
 Cursed: Cursed

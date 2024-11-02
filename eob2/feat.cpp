@@ -36,6 +36,7 @@ BSDATA(feati) = {
 	{"Invisibled"},	
 	{"Regenerated"},
 	{"Hasted"},
+	{"SlowMove"},
 	{"Displaced"},
 	{"ResistBludgeon"},
 	{"ResistSlashing"},

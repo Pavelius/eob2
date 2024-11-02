@@ -138,6 +138,11 @@ I have no speech!
 Must be used in hands
 I need take item in hand
 
+#MustBeWearingRightHand
+This item used when weared in right hand
+I need take this in right hand
+This must be taken in right hand
+
 #MustBeWearing
 This item used when weared
 Item used automatically

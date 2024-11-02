@@ -177,7 +177,7 @@ static int distance(pointc v1, pointc v2) {
 	return dx > dy ? dx : dy;
 }
 
-bool cast_spell(const spelli* ps, int level, bool run) {
+bool cast_spell(const spelli* ps, int level, int experience, bool run) {
 	pushanswer push_answers;
 	if(ps->is(Ally))
 		add_targets(party, false, true, ps->is(You));
@@ -218,6 +218,7 @@ bool cast_spell(const spelli* ps, int level, bool run) {
 		auto n = distance(party, enemy_position);
 		thrown_item(party, Up, ps->avatar_thrown, player->side % 2, n);
 	}
+	player->addexp(experience);
 	if(ps->effect)
 		last_number = ps->effect->roll(level);
 	party.abilities[EffectCount] = 0;
@@ -235,7 +236,8 @@ void cast_spell() {
 	auto ps = choose_prepared_spell();
 	if(!ps)
 		return;
-	if(!cast_spell(ps, player->getlevel(), true))
+	// RULE: add experience for each spell cast.
+	if(!cast_spell(ps, player->getlevel(), 35, true))
 		return;
 	auto index = getbsi(ps);
 	if(index == -1)

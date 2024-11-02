@@ -79,18 +79,13 @@ template<> void ftscript<quest>(int value, int bonus) {
 }
 
 template<> void ftscript<damagei>(int value, int bonus) {
-	bonus = get_bonus(bonus);
-	player->damage((damagen)value, bonus, 0);
+	player->damage((damagen)value, get_bonus(bonus), 0);
 }
 
 template<> void ftscript<feati>(int value, int bonus) {
 	switch(modifier) {
-	case Permanent:
-		player->basic.set((featn)value);
-		break;
-	default:
-		player->set((featn)value);
-		break;
+	case Permanent: player->basic.set((featn)value); break;
+	default: player->set((featn)value); break;
 	}
 }
 
@@ -110,6 +105,7 @@ template<> void ftscript<partystati>(int value, int bonus) {
 
 template<> void ftscript<itemi>(int value, int bonus) {
 	item v; v.create(value);
+	v.createpower(1, 0, 0);
 	player->additem(v);
 }
 
@@ -301,7 +297,7 @@ static void natural_heal(int bonus) {
 		player_heal(xrand(1, 3) + bonus);
 	else {
 		if(d100() < 70)
-			player->add(PoisonLevel, -bonus);
+			player->add(PoisonLevel, -bonus*3);
 		else
 			player->add(DiseaseLevel, -bonus);
 		consolen(getnm("FeelWorse"));
@@ -427,12 +423,30 @@ static void drink_effect(variant v, unsigned duration, int multiplier) {
 	}
 }
 
-static bool read_effect(creaturei* pn, variant v, unsigned duration) {
+static bool read_effect(creaturei* pn, variant v, int experience, unsigned duration) {
 	bool result = false;
 	if(v.iskind<spelli>()) {
 		auto push_player = player; player = pn;
-		result = cast_spell(bsdata<spelli>::elements + v.value, player->getlevel() + v.counter, true);
+		result = cast_spell(bsdata<spelli>::elements + v.value, player->getlevel() + v.counter, experience, true);
 		player = push_player;
+	}
+	return result;
+}
+
+static bool rod_use(creaturei* pn, item* rod, variant v) {
+	bool result = false;
+	if(v.iskind<spelli>()) {
+		auto push_player = player; player = pn;
+		auto ps = bsdata<spelli>::elements + v.value;
+		result = cast_spell(ps, player->getlevel() + v.counter, 0, true);
+		if(result)
+			consolen("%Name cast %1", ps->getname());
+		player = push_player;
+	}
+	if(result) {
+		rod->usecharge();
+		if(!rod->operator bool())
+			consolen(getnm("ConsumeRod"));
 	}
 	return result;
 }
@@ -518,14 +532,22 @@ static void use_item() {
 		if(!pn->canread())
 			pn->speak("CantRead", 0);
 		else {
-			if(read_effect(pn, last_item->getpower(), xrand(5, 20) * 10))
+			if(read_effect(pn, last_item->getpower(), 50, xrand(5, 20) * 10))
 				last_item->clear();
 		}
+		break;
+	case Rod:
+		if(!allow_use(pn, last_item))
+			return;
+		if(w != RightHand)
+			pn->speak("MustBeWearing", "RightHand");
+		if(rod_use(pn, last_item, last_item->getpower()))
+			pass_round();
 		break;
 	case Usable:
 		if(!allow_use(pn, last_item))
 			return;
-		apply_script("Use", last_item->geti().id, 0);
+		apply_script("Use", last_item->geti().id, last_item->iscursed() ? -2 : 0);
 		break;
 	case Key:
 		if(!dungeon_use())

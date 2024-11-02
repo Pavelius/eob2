@@ -70,5 +70,6 @@ public:
 	void		setpower(variant v);
 	void		summon(int v) { summoned = (v >= 0) ? 1 : 0; }
 	void		consume() { setcount(getcount() - 1); }
+	void		usecharge();
 };
 extern item* last_item;

@@ -46,6 +46,9 @@ Halfling AbilityAdjustment
 Halfling TheifSkills
  elements PickPockets+5 OpenLocks+5 RemoveTraps+5 MoveSilently+10 HearNoise+5 ClimbWalls-15 ReadLanguages-5
 
+Monster+1 CombatSkills
+ elements Attack+1
+
 Fighter+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UseMartial BonusHP
 Fighter+1 BasicAbilities
@@ -135,6 +138,8 @@ Cleric+7 SaveThrow
 
 Mage+1 Spells
  elements Armor ChillTouch MagicMissile Spell1+1
+Mage+1 AllowedEquipment
+ elements UseMage
 
 Theif+1 AllowedEquipment
  elements UseLeather UseRogish

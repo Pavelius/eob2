@@ -505,7 +505,7 @@ static bool corridor(pointc v, directions d) {
 		if(random_content) {
 			static fncorridor corridor_random[] = {empthy,
 				empthy, empthy, empthy, empthy, empthy, empthy,
-				empthy, empthy, empthy,
+				empthy, empthy, empthy, empthy,
 				secret,
 				monster, monster, monster, monster,
 				rations,

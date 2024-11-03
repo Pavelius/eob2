@@ -128,7 +128,7 @@ Find %DungeonSpecial somewere in this place
 #MessageBossMiss
 Hey, lucky, no tought monsters live here
 #MessageBossPresent
-There is scarry monster prison in locked room
+Deadly %DungeonBoss is hunt for you
 
 #MessageHabbitsRead
 %Habbitant1 and %Habbitant2 dwelve this place

@@ -1454,6 +1454,11 @@ static void dungeon_special(stringbuilder& sb) {
 		sb.addv(bsdata<itemi>::elements[loc->special].getname(), 0);
 }
 
+static void dungeon_boss(stringbuilder& sb) {
+	if(loc && loc->boss)
+		sb.addv(bsdata<monsteri>::elements[loc->boss].getname(), 0);
+}
+
 static void dungeon_key(stringbuilder& sb) {
 	sb.addv(getnm(loc->getkey()->id), 0);
 }
@@ -1530,6 +1535,7 @@ BSDATA(formulai) = {
 };
 BSDATAF(formulai)
 BSDATA(textscript) = {
+	{"DungeonBoss", dungeon_boss},
 	{"DungeonKey", dungeon_key},
 	{"DungeonOrigin", dungeon_origin},
 	{"DungeonSpecial", dungeon_special},

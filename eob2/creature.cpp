@@ -210,10 +210,16 @@ static int get_modified_strenght() {
 }
 
 static void update_abilities() {
+	auto n = -(player->abilities[DrainStrenght] + player->abilities[DrainLevel]);
+	auto s = -player->abilities[DrainLevel] * 5;
 	player->add(Strenght, -player->abilities[DrainStrenght]);
-	player->add(AttackMelee, -player->abilities[DrainStrenght]);
-	player->add(AttackRange, -player->abilities[DrainStrenght]);
+	player->add(AttackMelee, n);
+	player->add(AttackRange, n);
 	player->add(Constitution, -player->abilities[DrainConstitution]);
+	player->add(SaveVsParalization, s);
+	player->add(SaveVsPoison, s);
+	player->add(SaveVsTraps, s);
+	player->add(SaveVsMagic, s);
 }
 
 static void add_additional_spell(abilityn v) {
@@ -511,7 +517,7 @@ static void raise_monster_level() {
 	if(player->levels[0]) {
 		for(auto i = 1; i <= player->levels[0]; i++) {
 			advance_level(&player->getclass(), i);
-			player->hpr = xrand(1, bsdata<classi>::elements[player->character_class].hd);
+			player->hpr += xrand(1, bsdata<classi>::elements[player->character_class].hd);
 		}
 	} else
 		player->hpr = xrand(1, 6);
@@ -708,6 +714,11 @@ bool creaturei::isactable() const {
 void creaturei::damage(damagen type, int value, char magic_bonus) {
 	if(value <= 0)
 		return;
+	auto& ei = bsdata<damagei>::elements[type];
+	if(ei.immunity && is(ei.immunity) && (magic_bonus<=0))
+		value = 0;
+	else if(ei.resist && is(ei.resist))
+		value = value / 2;
 	switch(type) {
 	case Poison:
 		consolen(getnm(ids("Feel", bsdata<damagei>::elements[type].id)));
@@ -716,11 +727,6 @@ void creaturei::damage(damagen type, int value, char magic_bonus) {
 		fix_damage(this, value);
 		break;
 	}
-	auto& ei = bsdata<damagei>::elements[type];
-	if(ei.resist && is(ei.resist))
-		value = value / 2;
-	else if(ei.immunity && is(ei.immunity))
-		value = 0;
 	hp -= value;
 	if(hp <= 0)
 		kill();

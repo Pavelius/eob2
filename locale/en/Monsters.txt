@@ -1,3 +1,4 @@
 ﻿Ghoul: Ghoul
 Skeleton: Skeleton
 Zombie: Zombie
+Wight: Wight

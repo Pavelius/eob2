@@ -98,6 +98,25 @@ static creaturei* get_opponent(bool left, bool enemies) {
 	return 0;
 }
 
+static void drain_attack(creaturei* defender, const item& weapon, featn type, abilityn ability, int save_bonus) {
+	if(!player->is(weapon, type))
+		return;
+	if(player->is(Undead) && defender->is(ProtectedFromEvil))
+		return;
+	if(defender->roll(SaveVsMagic, save_bonus))
+		return;
+	defender->add(ability, 1);
+	auto drain_death = (defender->get(DrainLevel) >= defender->getlevel())
+		|| (defender->get(DrainStrenght) >= defender->basic.abilities[Strenght])
+		|| (defender->get(DrainConstitution) >= defender->basic.abilities[Constitution]);
+	if(drain_death) {
+		if(defender->ismonster())
+			defender->kill();
+		else
+			defender->hp = -10;
+	}
+}
+
 static void single_attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
 	if(!defender)
 		return;
@@ -206,15 +225,11 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		// RULE: paralized attack of ghouls and others
 		if(player->is(weapon, ParalizeAttack) && !defender->roll(SaveVsParalization))
 			add_boost(get_stamp(xrand(3, 8)), defender, bsdata<feati>::elements + Paralized);
-		// RULE: Drain attacks
-		if(player->is(weapon, DrainStrenghtAttack) && !defender->roll(SaveVsMagic))
-			defender->add(DrainStrenght, 1);
+		drain_attack(defender, weapon, DrainStrenghtAttack, DrainStrenght, 0);
+		drain_attack(defender, weapon, DrainEneryAttack, DrainLevel, -100);
 		//		// Poison attack
 		//		if(wi.is(OfPoison))
 		//			defender->add(Poison, Instant, SaveNegate);
-		//		// Drain ability
-		//		if(wi.is(OfEnergyDrain))
-		//			attack_drain(defender, defender->drain_energy, hits);
 	}
 	// Weapon can be broken
 	if(rolls == 1) {
@@ -224,7 +239,7 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 			if(!weapon)
 				player->speak("Weapon", "Broken", name);
 		} else
-			player->damage(Bludgeon, 1, 3);
+			player->damage(Bludgeon, 1, 5);
 		return;
 	}
 }

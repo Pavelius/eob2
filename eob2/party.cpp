@@ -292,7 +292,7 @@ static void check_poison() {
 		return;
 	auto penalty = player->get(PoisonLevel) / 5;
 	if(!player->roll(SaveVsPoison, -penalty))
-		player->damage(Poison, 1, 100);
+		player->damage(Poison, 1);
 	player->add(PoisonLevel, -1);
 }
 
@@ -430,7 +430,7 @@ static void group_damage(creaturei** creatures, damagen type, dice damage) {
 		auto p = creatures[i];
 		if(!p)
 			continue;
-		p->damage(type, damage.roll(), 0);
+		p->damage(type, damage.roll());
 	}
 }
 

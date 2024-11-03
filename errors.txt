@@ -1,2 +1,2 @@
-﻿Error in file `rules/Core.txt`:
- Line 28: Expected line feed
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `Wight`

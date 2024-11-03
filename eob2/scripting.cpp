@@ -80,7 +80,7 @@ template<> void ftscript<quest>(int value, int bonus) {
 }
 
 template<> void ftscript<damagei>(int value, int bonus) {
-	player->damage((damagen)value, get_bonus(bonus), 0);
+	player->damage((damagen)value, get_bonus(bonus));
 }
 
 template<> void ftscript<feati>(int value, int bonus) {
@@ -330,7 +330,8 @@ static void update_camp_spells() {
 	for(auto& e : player->equipment()) {
 		if(!e)
 			continue;
-		if(e.geti().wear == RightHand || e.geti().wear == LeftHand)
+		auto w = e.geti().wear;
+		if(w == RightHand || w == LeftHand || w == Rod)
 			continue;
 		auto power = e.getpower();
 		if(!power)
@@ -1158,7 +1159,7 @@ static void enter_dungeon(int bonus) {
 
 static void pit_fall_down() {
 	if(!player->roll(ClimbWalls))
-		player->damage(Bludgeon, xrand(3, 18), 3);
+		player->damage(Bludgeon, xrand(3, 18));
 }
 
 static bool party_move_interact(pointc v) {

@@ -645,7 +645,12 @@ static bool if_find_all_secrets() {
 	return loc->state.wallmessages[MessageSecrets] && loc->state.secrets_found >= loc->state.wallmessages[MessageSecrets];
 }
 
+static bool if_explore_most_area() {
+	return loc->state.explored_passable >= (90 * loc->state.explored_passable / 100);
+}
+
 BSDATA(goali) = {
+	{"ExmploreMostArea", if_explore_most_area, 500},
 	{"FindAllSecrets", if_find_all_secrets, 1000},
 	{"TakeSpecialItem", if_take_special_item, 500},
 	{"OpenAllLockedDoors", if_open_all_locked_doors, 1000},

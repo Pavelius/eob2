@@ -2,6 +2,8 @@
 
 ChooseBet
  elements Set+10 ChooseMenu Mul+1 Mul+2 Mul+4 Mul+6
+ChooseDonation
+ elements Set+100 ChooseMenu Mul+1 Mul+2 Mul+5
 GameOptions
  elements ChooseMenu LoadGame SaveGame ExitGame
 ChooseMageScrolls
@@ -15,7 +17,8 @@ NaturallyPartyHeal
 
 #Action
 
-Donate avatar(buildngs 1)
+Donate
+ effect ChooseDonation PayGold+101
 GambleVisitors avatar(buildngs 1)
  classes Fighter Theif
  effect ChooseBet PayGold+101 Charisma Roll-2 Mul+2 GoldPiece+101

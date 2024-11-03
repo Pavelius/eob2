@@ -1,3 +1,6 @@
+#DonateNotEnoughtGold
+"Come, when you got enought gold" say one priest "and god be with you"
+
 #ScribleScrollsSuccessSpeech
 I learn new spell %SpellName
 %SpellName has been learned

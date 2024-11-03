@@ -109,23 +109,19 @@ void item::getname(stringbuilder& sb) const {
 	if(identified) {
 		auto power = getpower();
 		if(power) {
-			auto show_power = false;
-			auto pn = getnme(str("Of%1%2i", power.getid(), iabs(power.counter)));
-			if(!pn) {
-				pn = getnme(ids(bsdata<weari>::elements[ei.wear].id, "OfPower"));
-				show_power = true;
-			}
-			if(!pn)
-				pn = getnme(ids("Of", power.getid()));
-			if(pn) {
-				if(show_power)
-					sb.adds(pn, power.getname());
-				else {
+			auto pn = getnme(ids(bsdata<weari>::elements[ei.wear].id, "OfPower"));
+			if(pn)
+				sb.adds(pn, power.getname(), power.counter);
+			else {
+				auto pn = getnme(str("Of%1%2i", power.getid(), iabs(power.counter)));
+				if(!pn)
+					pn = getnme(ids("Of", power.getid()));
+				if(pn) {
 					sb.adds("of ");
 					sb.add(pn, power.counter);
-				}
-			} else
-				sb.add("%+1i", power.counter);
+				} else
+					sb.add("%+1i", power.counter);
+			}
 		}
 	}
 }

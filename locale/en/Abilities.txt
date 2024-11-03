@@ -21,7 +21,7 @@ ClimbWalls: Climb Walls
 CriticalDeflect: Critical deflect
 DetectSecrets: Detect Secrets
 HearNoise: Hear Noise
-LearnSpell: Learn Spells
+LearnSpell: Learning
 MoveSilently: Move Silently
 OpenLocks: Open locks
 ReadLanguages: Read Languages

@@ -14,6 +14,13 @@ ScribleScrollsFail
  elements DestroyItem
 NaturallyPartyHeal
  elements ForEachParty NaturalHeal
+PickPocketsNothing
+PickPocketsFight
+
+#RandomList
+
+PickPocketsActionFailedRoll
+ chance PickPocketsNothing+4 PickPocketsFight
 
 #Action
 
@@ -25,8 +32,9 @@ GambleVisitors avatar(buildngs 1)
 MemorizeSpells
  classes Mage
  effect ChooseSpells+1
-PickPockets
+PickPocketsAction avatar(buildngs 10)
  classes Theif
+ effect PickPockets Roll Message
 PrayForSpells
  classes Cleric Paladin Ranger
  effect ChooseSpells+0
@@ -43,7 +51,7 @@ HunterVillage
 Inn avatar(buildngs 7) parent(HunterVillage)
  options RestParty MemorizeSpells PrayForSpells ScribleScrolls GameOptions
 Tavern avatar(buildngs 5) parent(HunterVillage)
- options EatAndDrink GambleVisitors PickPockets ReturnToStreet
+ options EatAndDrink GambleVisitors PickPocketsAction ReturnToStreet
 Temple avatar(buildngs 8) parent(HunterVillage)
  options Donate ReturnToStreet
 

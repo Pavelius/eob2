@@ -1339,9 +1339,17 @@ static void apply_racial_enemy(int bonus) {
 }
 
 static void run_script(const char* id, const char* action) {
-	auto p = bsdata<listi>::find(ids(id, action));
-	if(p)
+	auto aid = ids(id, action);
+	auto p = bsdata<listi>::find(aid);
+	if(p) {
 		ftscript<listi>(p - bsdata<listi>::elements, 0);
+		return;
+	}
+	auto p1 = bsdata<randomizeri>::find(aid);
+	if(p1) {
+		script_run(p1->random());
+		return;
+	}
 }
 
 static void dialog_message(const char* action) {
@@ -1480,6 +1488,10 @@ static void turning_monsters(int bonus) {
 }
 
 static void empthy_script(int bonus) {
+}
+
+static void script_message(int bonus) {
+	dialog_message("Message");
 }
 
 static void player_name(stringbuilder& sb) {
@@ -1681,6 +1693,7 @@ BSDATA(script) = {
 	{"LearnLastSpell", learn_last_spell},
 	{"LoadGame", load_game},
 	{"Magical", empthy_script},
+	{"Message", script_message},
 	{"MonstersFlee", monsters_flee},
 	{"NaturalHeal", natural_heal},
 	{"JoinParty", join_party},

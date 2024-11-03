@@ -36,6 +36,7 @@ PartysAdventureAsk: Which way to go?
 OpenLocksFail: Pick locks fail
 PartyFallPit: Party fall down...
 PickPockets: Pick pockets
+PickPocketsAction: Pick pockets
 PickPocketsVisit: Pick some pockets
 PrayForSpells: Pray for Spells
 QuestGoals: Quest Goals

@@ -8,3 +8,6 @@ I learn new spell %SpellName
 #ScribleScrollsFailSpeech
 I did not manage to learn spell
 Damn, I do not understand this spell
+
+#PickPocketsActionMessage
+You pick pockets of long man who payed on bar and pick %Number gold pieces.

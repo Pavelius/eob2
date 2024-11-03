@@ -1,2 +1,2 @@
-﻿Error in file `rules/Items.txt`:
- Line 244: Can't find variant `StuddedLeatherArmor`
+﻿Error in file `rules/Locations.txt`:
+ Line 23: Not found requisit `chances`

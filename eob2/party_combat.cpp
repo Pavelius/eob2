@@ -99,7 +99,7 @@ static creaturei* get_opponent(bool left, bool enemies) {
 }
 
 static void single_attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
-	if(!defender || !(*defender))
+	if(!defender)
 		return;
 	auto& weapon = player->wears[slot];
 	if(!weapon)

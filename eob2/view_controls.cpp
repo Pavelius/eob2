@@ -959,7 +959,8 @@ void paint_avatars() {
 		player = characters[i];
 		if(!player)
 			continue;
-		paint_character(player->isdisabled(), hilite_player && (player == push_player));
+		paint_character(player->isdisabled() || player->is(Paralized),
+			hilite_player && (player == push_player));
 	}
 	player = push_player;
 }

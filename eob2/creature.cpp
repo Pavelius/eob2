@@ -85,6 +85,71 @@ static const int hd_experience[] = {
 //	30, 30, 30, 35, 40, 45, 50, 55, 60, 65,
 //	70, 75, 80, 85, 88, 91, 95, 97, 99
 //};
+static char saves_advance[4][5][22] = {
+	// Warriors - 0
+	{{16, 14, 14, 13, 13, 11, 11, 10, 10, 8, 8, 7, 7, 5, 5, 4, 4, 3, 3, 2, 2, 2},
+	{18, 16, 16, 15, 15, 13, 13, 12, 12, 10, 10, 9, 9, 7, 7, 6, 6, 5, 5, 3, 3, 2},
+	{17, 15, 15, 14, 14, 12, 12, 11, 11, 9, 9, 8, 8, 6, 6, 5, 5, 4, 4, 3, 3, 2},
+	{20, 17, 17, 16, 16, 13, 13, 12, 12, 9, 9, 8, 8, 5, 5, 4, 4, 3, 3, 3, 3, 3},
+	{19, 17, 17, 16, 16, 14, 14, 13, 13, 11, 11, 10, 10, 8, 8, 7, 7, 6, 6, 5, 5, 4}},
+	// Priest - 1
+	{{10, 10, 10, 10, 9, 9, 9, 7, 7, 7, 6, 6, 6, 5, 5, 5, 4, 4, 4, 2, 2, 2},
+	{14, 14, 14, 14, 13, 13, 13, 11, 11, 11, 10, 10, 10, 9, 9, 9, 8, 8, 8, 6, 6, 6},
+	{13, 13, 13, 13, 12, 12, 12, 10, 10, 10, 9, 9, 9, 8, 8, 8, 7, 7, 7, 5, 5, 5},
+	{16, 16, 16, 16, 15, 15, 15, 13, 13, 13, 12, 12, 12, 11, 11, 11, 10, 10, 10, 8, 8, 8},
+	{15, 15, 15, 15, 14, 14, 14, 12, 12, 12, 11, 11, 11, 10, 10, 10, 9, 9, 9, 7, 7, 7}},
+	// Rogues - 2
+	{{13, 13, 13, 13, 13, 12, 12, 12, 12, 11, 11, 11, 11, 10, 10, 10, 10, 9, 9, 9, 9, 8},
+	{14, 14, 14, 14, 14, 12, 12, 12, 12, 10, 10, 10, 10, 8, 8, 8, 8, 6, 6, 6, 6, 4},
+	{12, 12, 12, 12, 12, 11, 11, 11, 11, 10, 10, 10, 10, 9, 9, 9, 9, 8, 8, 8, 8, 7},
+	{16, 16, 16, 16, 16, 15, 15, 15, 15, 14, 14, 14, 14, 13, 13, 13, 13, 12, 12, 12, 12, 11},
+	{15, 15, 15, 15, 15, 13, 13, 13, 13, 11, 11, 11, 11, 9, 9, 9, 9, 7, 7, 7, 7, 5}},
+	// Wizards - 3
+	{{14, 14, 14, 14, 14, 14, 13, 13, 13, 13, 13, 11, 11, 11, 11, 11, 10, 10, 10, 10, 10, 8},
+	{11, 11, 11, 11, 11, 11, 9, 9, 9, 9, 9, 7, 7, 7, 7, 7, 5, 5, 5, 5, 5, 3},
+	{13, 13, 13, 13, 13, 13, 11, 11, 11, 11, 11, 9, 9, 9, 9, 9, 7, 7, 7, 7, 7, 5},
+	{15, 15, 15, 15, 15, 15, 13, 13, 13, 13, 13, 11, 11, 11, 11, 11, 9, 9, 9, 9, 9, 7},
+	{12, 12, 12, 12, 12, 12, 10, 10, 10, 10, 10, 8, 8, 8, 8, 8, 6, 6, 6, 6, 6, 4}},
+};
+static char save_index[] = {
+	0, 0,
+	1,
+	4,
+};
+static_assert(sizeof(save_index) / sizeof(save_index[0]) == (SaveVsMagic - SaveVsParalization) + 1, "Invalid count of save index elements");
+
+static int experience_paladin[21] = {
+	0, 0, 2250, 4500, 9000, 18000, 36000, 75000, 150000, 300000,
+	600000, 900000, 1200000, 1500000, 1800000, 2100000, 2400000, 2700000, 3000000, 3300000,
+	3600000
+};
+static int experience_warrior[21] = {
+	0, 0, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 250000,
+	500000, 750000, 1000000, 1250000, 1500000, 1750000, 2000000, 2250000, 2500000, 2750000,
+	3000000
+};
+static int experience_wizard[21] = {
+	0, 0, 2500, 5000, 10000, 20000, 40000, 60000, 90000, 135000,
+	250000, 375000, 750000, 1125000, 1500000, 1875000, 2250000, 2625000, 3000000, 3375000, 3750000
+};
+static int experience_priest[21] = {
+	0, 0, 1500, 3000, 6000, 13000, 27500, 55000, 110000, 225000,
+	450000, 675000, 900000, 1125000, 1350000, 1575000, 1800000, 2025000, 2250000, 2475000, 2700000
+};
+static int experience_rogue[21] = {
+	0, 0, 1250, 2500, 5000, 10000, 20000, 40000, 70000, 110000,
+	160000, 220000, 440000, 660000, 880000, 1100000, 1320000, 1540000, 1760000, 1980000, 2200000
+};
+
+static int* get_experience_table(classn character_class) {
+	switch(character_class) {
+	case Cleric: return experience_priest;
+	case Fighter: return experience_warrior;
+	case Paladin: case Ranger: return experience_paladin;
+	case Mage: return experience_wizard;
+	default: return experience_rogue;
+	}
+}
 
 void creaturei::clear() {
 	memset(this, 0, sizeof(*this));
@@ -266,12 +331,36 @@ static void update_summon() {
 	}
 }
 
+static int get_save_value(int save_index_value) {
+	auto& ei = player->getclass();
+	auto result = 20;
+	for(auto i = 0; i < ei.count; i++) {
+		auto pi = bsdata<classi>::elements + ei.classes[i];
+		auto level = player->levels[i];
+		if(level > 22)
+			level = 22;
+		auto save_group = pi->save_group;
+		if(save_group > 3)
+			save_group = 3;
+		auto value = saves_advance[save_group][save_index_value][level];
+		if(value < result)
+			result = value;
+	}
+	return (20 - result + 1) * 5;
+}
+
+static void update_saves() {
+	for(auto i = SaveVsParalization; i <= SaveVsMagic; i = (abilityn)(i + 1))
+		player->abilities[i] += get_save_value(save_index[i - SaveVsParalization]);
+}
+
 void update_player() {
 	update_basic();
 	update_languages();
 	update_summon();
 	update_wear();
 	update_duration();
+	update_saves();
 	update_abilities();
 	update_depended_abilities();
 	update_additional_spells();
@@ -542,6 +631,8 @@ const char* creaturei::getbadstate() const {
 		return "Dead";
 	else if(isdisabled())
 		return "Disabled";
+	else if(is(Paralized))
+		return "Paralized";
 	else if(is(PoisonLevel))
 		return "Poisoned";
 	else if(is(DiseaseLevel))
@@ -648,12 +739,12 @@ int creaturei::getexpaward() const {
 		r++;
 	//if(is(OfFear))
 	//	r += 1;
-	//if(is(OfParalize))
-	//	r += 2;
+	if(is(ParalizeAttack))
+		r += 1;
 	if(basic.abilities[ResistMagic] >= 50)
-		r++;
+		r += 1;
 	if(basic.abilities[ResistMagic] >= 90)
-		r++;
+		r += 1;
 	auto exp = maptbl(hd_experience, r);
 	if(r > 13)
 		exp += (r - 13) * 1000;
@@ -674,7 +765,6 @@ static void drop_loot(creaturei* player) {
 void creaturei::kill() {
 	if(!ismonster())
 		return;
-	// auto hitd = getlevel();
 	party_addexp(getexpaward());
 	party_addexp_per_killed(getlevel());
 	if(loc) {
@@ -722,4 +812,24 @@ void creaturei::add(abilityn i, int v) {
 		}
 	}
 	statable::add(i, v);
+}
+
+void check_levelup() {
+	auto& ei = player->getclass();
+	auto experience = player->experience / ei.count;
+	auto need_update = false;
+	for(auto i = 0; i < ei.count; i++) {
+		auto pi = bsdata<classi>::elements + ei.classes[i];
+		auto tbl = get_experience_table(ei.classes[i]);
+		auto lev = player->levels[i];
+		if(experience >= tbl[lev + 1]) {
+			player->levels[i]++;
+			player->hpr += 1 + (rand() % pi->hd);
+			advance_level(pi, player->levels[i]);
+			consolen("%Name become %1i level %2", player->levels[i], pi->getname());
+			need_update = true;
+		}
+	}
+	if(need_update)
+		update_player();
 }

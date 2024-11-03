@@ -1,2 +1,3 @@
-﻿Skeleton: Skeleton
+﻿Ghoul: Ghoul
+Skeleton: Skeleton
 Zombie: Zombie

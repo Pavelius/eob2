@@ -1,2 +1,4 @@
-﻿Error in file `rules/Monsters.txt`:
- Line 7: Can't find variant `ParalizeAttack`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `Bite1d6`
+ Define translation for `Claws1d3`
+ Define translation for `Ghoul`

@@ -57,6 +57,7 @@ extern int last_roll, last_chance;
 extern bool is_critical_hit;
 
 void add_spells(int type, int level, const spellseta* include);
+void check_levelup();
 void create_player();
 void create_monster(const monsteri* pi);
 void update_player();

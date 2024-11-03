@@ -57,15 +57,6 @@ Monster+7 CombatSkills
 Monster+9 CombatSkills
  elements Attack+2
 
-Monster+1 SaveThrow
- elements SaveVsParalization+35 SaveVsPoison+35 SaveVsTraps+25 SaveVsMagic+20
-Monster+3 SaveThrow
- elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
-Monster+5 SaveThrow
- elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
-Monster+7 SaveThrow
- elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
-
 Fighter+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UseMartial BonusHP
 Fighter+1 BasicAbilities
@@ -90,19 +81,12 @@ Fighter+9 CombatSkills
 Fighter+10 CombatSkills
  elements Attack+1
 
-Fighter+1 SaveThrow
- elements SaveVsParalization+35 SaveVsPoison+35 SaveVsTraps+25 SaveVsMagic+20
-Fighter+3 SaveThrow
- elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
-Fighter+5 SaveThrow
- elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
-Fighter+7 SaveThrow
- elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
-
 Paladin+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UseMartial BonusHP
 Paladin+1 BasicAbilities
  elements ProtectedFromEvil ImmuneDisease
+Paladin+1 SaveThrow
+ elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
 
 Paladin+2 CombatSkills
  elements Attack+1
@@ -123,15 +107,6 @@ Paladin+9 CombatSkills
 Paladin+10 CombatSkills
  elements Attack+1
 
-Paladin+1 SaveThrow
- elements SaveVsParalization+45 SaveVsPoison+45 SaveVsTraps+35 SaveVsMagic+30
-Paladin+3 SaveThrow
- elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
-Paladin+5 SaveThrow
- elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
-Paladin+7 SaveThrow
- elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
-
 Cleric+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UsePriest
 
@@ -146,13 +121,6 @@ Cleric+4 Spells
 Cleric+5 Spells
  elements LearnClericSpells+3 Spell2+1 Spell3+1
 
-Cleric+1 SaveThrow
- elements SaveVsParalization+55 SaveVsPoison+55 SaveVsTraps+35 SaveVsMagic+30
-Cleric+4 SaveThrow
- elements SaveVsParalization+5 SaveVsPoison+5 SaveVsTraps+5 SaveVsMagic+5
-Cleric+7 SaveThrow
- elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
-
 Mage+1 Spells
  elements Armor ChillTouch MagicMissile Spell1+1
 Mage+1 AllowedEquipment
@@ -160,7 +128,5 @@ Mage+1 AllowedEquipment
 
 Theif+1 AllowedEquipment
  elements UseLeather UseRogish
-Theif+1 SaveThrow
- elements SaveVsParalization+40 SaveVsPoison+40 SaveVsTraps+35 SaveVsMagic+30
 Theif+1 TheifSkills
  elements PickPockets+30 OpenLocks+25 RemoveTraps+20 MoveSilently+15 HearNoise+10 ClimbWalls+85

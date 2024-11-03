@@ -558,6 +558,7 @@ void pass_round() {
 	check_secrets();
 	check_noises_behind_door();
 	all_creatures(update_every_round);
+	all_party(check_levelup, true);
 	if((party.abilities[Minutes] % 6) == 0)
 		all_creatures(update_every_turn);
 	if((party.abilities[Minutes] % 60) == 0)

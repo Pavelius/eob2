@@ -42,6 +42,8 @@ TwoHandedSword: Two-handed sword
 Wand: Wand
 Warhammer: Warhammer
 
+Bite1d6: Bite
+Claws1d3: Claws
 Slam1d8: Slam
 
 Cursed: Cursed

@@ -57,6 +57,7 @@ OfAC: defence%+1i
 OfBurningHands: fire
 OfCharisma: human control
 OfClimbWalls: feather fall
+OfDetectMagic: detect magic
 OfHasted: speed
 OfHealEffect1: healing
 OfHealEffect2: extra-healing

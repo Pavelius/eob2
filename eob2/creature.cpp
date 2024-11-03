@@ -233,6 +233,9 @@ static void add_additional_spell(abilityn v) {
 }
 
 static void update_additional_spells() {
+	auto c = player->getcaster();
+	if(c != 0)
+		return;
 	auto k = player->get(Wisdow);
 	if(k >= 13)
 		add_additional_spell(Spell1);
@@ -246,6 +249,10 @@ static void update_additional_spells() {
 		add_additional_spell(Spell3);
 	if(k >= 18)
 		add_additional_spell(Spell4);
+	if(k >= 19) {
+		add_additional_spell(Spell1);
+		add_additional_spell(Spell3);
+	}
 }
 
 static void update_depended_abilities() {
@@ -852,4 +859,8 @@ void check_levelup() {
 	}
 	if(need_update)
 		update_player();
+}
+
+int	creaturei::getcaster() const {
+	return getclass().caster;
 }

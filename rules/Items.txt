@@ -11,6 +11,8 @@ Arachemida
 
 MeleePowers
  elements NoVariant Magical+1 Magical+2 Magical+3 Magical+4 Fire+2 Shock+2 VampiricAttack+1 VampiricAttack+2
+ArmorPowers
+ elements NoVariant AC+1 AC+2 AC+3 AC+4 AC+5
 
 SimplePotions
  elements HealEffect+1 HealEffect+2 Health+2 HearNoise ClimbWalls
@@ -83,22 +85,19 @@ Sling speed(6) damage(1 4) ammo(Stone) avatar(18) avatar_ground(4) wear(RightHan
 Robe avatar(32) avatar_ground(8) wear(Body)
 RedCloack avatar(17) avatar_ground(8) wear(Body) powers(CloackPowers)
 BlueCloack avatar(92) avatar_ground(8) wear(Body) powers(CloackPowers)
-LeatherArmor cost(10) avatar(31) avatar_ground(11) wear(Body)
+LeatherArmor cost(10) avatar(31) avatar_ground(11) wear(Body) powers(ArmorPowers)
  feats UseLeather
  wearing AC+2 CriticalDeflect+5
-StuddedLeatherArmor cost(20) avatar(31) avatar_ground(11) wear(Body)
- feats UseLeather
- wearing AC+3 CriticalDeflect+5
-ScaleMail cost(100) avatar(30) avatar_ground(9) wear(Body)
+ScaleMail cost(100) avatar(30) avatar_ground(9) wear(Body) powers(ArmorPowers)
  feats UseMetal
  wearing AC+4 CriticalDeflect+20
-ChainMail cost(100) avatar(29) avatar_ground(9) wear(Body)
+ChainMail cost(100) avatar(29) avatar_ground(9) wear(Body) powers(ArmorPowers)
  feats UseMetal
  wearing AC+5 CriticalDeflect+15
-BandedMail cost(300) avatar(28) avatar_ground(9) wear(Body)
+BandedMail cost(300) avatar(28) avatar_ground(9) wear(Body) powers(ArmorPowers)
  feats UseMetal
  wearing AC+6 CriticalDeflect+20
-PlateMail cost(1000) avatar(26) avatar_ground(9) wear(Body)
+PlateMail cost(1000) avatar(26) avatar_ground(9) wear(Body) powers(ArmorPowers)
  feats UseMetal
  wearing AC+8 CriticalDeflect+20
 
@@ -242,7 +241,7 @@ RandomWeapon
 RandomArmorMinor
  chance Shield+5 DwarvenShield Helm+5 Boots+3 DwarvenHelm
 RandomArmor
- chance LeatherArmor+4 StuddedLeatherArmor+3 ScaleMail+2 ChainMail+2 BandedMail PlateMail
+ chance LeatherArmor+6 Robe RedCloack BlueCloack ScaleMail+2 ChainMail+2 BandedMail PlateMail
 RandomPotions
  chance RedPotion GreenPotion+2 BluePotion+4
 RandomRings

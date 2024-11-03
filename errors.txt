@@ -1,2 +1,2 @@
-﻿Error in file `rules/Quests.txt`:
- Line 8: Can't find variant `PassHour`
+﻿Error in file `rules/Items.txt`:
+ Line 244: Can't find variant `StuddedLeatherArmor`

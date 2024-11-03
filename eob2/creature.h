@@ -26,6 +26,7 @@ struct creaturei : npc, statable, wearable, posable {
 	void			clear();
 	void			damage(damagen type, int hits, char magic_bonus = 0);
 	int				get(abilityn v) const { return abilities[v]; }
+	int				getcaster() const;
 	const char*		getbadstate() const;
 	int				getchance(abilityn v) const;
 	dice			getdamage(int& bonus, wearn id, bool large_enemy) const;
@@ -49,7 +50,6 @@ struct creaturei : npc, statable, wearable, posable {
 	bool			roll(abilityn v, int bonus = 0) const;
 	void			set(featn v) { featable::set(v); }
 	void			setframe(short* frames, short index) const;
-	bool			useammo();
 	void			understand(racen v) { languages.set(v); }
 };
 extern creaturei *player, *opponent, *caster;

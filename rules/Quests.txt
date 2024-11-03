@@ -5,4 +5,4 @@ FloodedSewers
 
 CursedDungeon
  goals TakeSpecialItem(1)
- sites type(blue) level(3) habbits(Skeleton Zombie) language(Human) key(IronKey) special(StoneAmulet) minions(Ghoul)
+ sites type(blue) level(1) habbits(Skeleton Zombie) language(Human) key(IronKey) special(StoneAmulet) boss(Wight) minions(Ghoul)

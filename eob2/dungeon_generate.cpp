@@ -254,6 +254,7 @@ static void monster(pointc v, directions d) {
 }
 
 static void monster_boss(pointc v, directions d) {
+	loc->set(v, CellPassable);
 	auto pi = bsdata<monsteri>::elements + (loc->boss ? loc->boss : loc->habbits[1]);
 	loc->addmonster(v, d, 0, pi);
 }
@@ -552,12 +553,6 @@ static bool random_corridor(pointc v) {
 	return false;
 }
 
-static void drop_special(pointc v, item& it) {
-	//location.dropitem(index, it, 0);
-	loc->state.special = v;
-	it.clear();
-}
-
 static void remove_dead_door() {
 	pointc v;
 	for(v.y = 0; v.y < mpy; v.y++) {
@@ -733,6 +728,7 @@ static void drop_special_item() {
 	if(v) {
 		loc->drop(v, it, xrand(0, 3));
 		loc->state.special = v;
+		loc->state.wallmessages[MessageSpecialItem]++;
 	}
 }
 

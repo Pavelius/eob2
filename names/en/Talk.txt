@@ -122,8 +122,8 @@ Beware cursed items
 
 #MessageSpecialItemMiss
 There is no something special on this level
-#MessageBossPresent
-Find special item on this level
+#MessageSpecialItemPresent
+Find %DungeonSpecial somewere in this place
 
 #MessageBossMiss
 Hey, lucky, no tought monsters live here

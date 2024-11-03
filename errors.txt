@@ -1,4 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Bite1d6`
- Define translation for `Claws1d3`
- Define translation for `Ghoul`
+﻿Error in file `rules/Core.txt`:
+ Line 28: Expected line feed

@@ -520,6 +520,12 @@ static void raise_monster_level() {
 static void apply_default_ability() {
 	for(auto i = Strenght; i <= Charisma; i = (abilityn)(i + 1))
 		player->basic.abilities[i] = 10;
+	player->basic.set(UseMartial);
+	player->basic.set(UseMetal);
+	player->basic.set(UseLeather);
+	player->basic.set(UseShield);
+	player->basic.set(UsePriest);
+	player->basic.set(UseMage);
 }
 
 void create_monster(const monsteri* pi) {
@@ -531,7 +537,9 @@ void create_monster(const monsteri* pi) {
 	player->basic.abilities[AC] = (10 - pi->ac);
 	player->alignment = pi->alignment;
 	set_basic_ability();
+	set_race_ability();
 	apply_default_ability();
+	update_basic();
 	apply_feats(pi->feats);
 	raise_monster_level();
 	update_player();

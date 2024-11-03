@@ -1448,6 +1448,11 @@ static void dungeon_origin(stringbuilder& sb) {
 	sb.addv(getnm(ids(getid<racei>(loc->language), "Of")), 0);
 }
 
+static void dungeon_special(stringbuilder& sb) {
+	if(loc->special)
+		sb.addv(bsdata<itemi>::elements[loc->special].getname(), 0);
+}
+
 static void dungeon_key(stringbuilder& sb) {
 	sb.addv(getnm(loc->getkey()->id), 0);
 }
@@ -1526,6 +1531,7 @@ BSDATAF(formulai)
 BSDATA(textscript) = {
 	{"DungeonKey", dungeon_key},
 	{"DungeonOrigin", dungeon_origin},
+	{"DungeonSpecial", dungeon_special},
 	{"Habbitant1", dungeon_habbitant1},
 	{"Habbitant2", dungeon_habbitant2},
 	{"ItemName", item_name},

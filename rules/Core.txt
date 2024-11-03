@@ -25,7 +25,7 @@ CreateTestParty
  elements HumanPaladin JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty HalflingTheif JoinParty
 
 StartGameAbilities
- elements FloodedSewers ActivateQuest CursedDungeon ActivateQuest GoldPiece+50 Reputation+20 
+ elements CursedDungeon ActivateQuest GoldPiece+50 Reputation+20 
 
 StartGame
  elements CreateTestParty StartGameAbilities HunterVillage EnterLocation

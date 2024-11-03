@@ -102,7 +102,7 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 	if(!defender)
 		return;
 	auto& weapon = player->wears[slot];
-	if(!weapon)
+	if(!weapon.isweapon())
 		return;
 	auto power = weapon.getpower();
 	auto chance_critical = 20;

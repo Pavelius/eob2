@@ -56,6 +56,8 @@ Monster+7 CombatSkills
  elements Attack+2
 Monster+9 CombatSkills
  elements Attack+2
+Monster+11 CombatSkills
+ elements Attack+2
 
 Fighter+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UseMartial BonusHP
@@ -121,10 +123,14 @@ Cleric+4 Spells
 Cleric+5 Spells
  elements LearnClericSpells+3 Spell2+1 Spell3+1
 
-Mage+1 Spells
- elements Armor ChillTouch MagicMissile Spell1+1
 Mage+1 AllowedEquipment
  elements UseMage
+Mage+1 Spells
+ elements Armor ChillTouch MagicMissile Spell1+1
+Mage+2 Spells
+ elements Spell1+1
+Mage+3 Spells
+ elements Spell2+1
 
 Theif+1 AllowedEquipment
  elements UseLeather UseRogish

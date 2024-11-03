@@ -458,6 +458,8 @@ static void trap_launch(pointc v, directions d, damagen type, dice damage) {
 }
 
 static void update_floor_state() {
+	if(!loc)
+		return;
 	unsigned char map[mpy][mpx] = {0};
 	loc->state.monsters_alive = 0;
 	loc->state.items_lying = 0;

@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `ChooseMageScrolls`
+﻿Error in file `rules/Quests.txt`:
+ Line 8: Can't find variant `PassHour`

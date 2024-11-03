@@ -42,7 +42,7 @@ Inn avatar(buildngs 7) parent(HunterVillage)
 Tavern avatar(buildngs 5) parent(HunterVillage)
  options EatAndDrink GambleVisitors PickPockets ReturnToStreet
 Temple avatar(buildngs 8) parent(HunterVillage)
- options ReturnToStreet
+ options Donate ReturnToStreet
 
 HunterVillage avatar(buildngs 26)
  options PartyAdventure Inn Tavern Temple

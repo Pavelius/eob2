@@ -1106,11 +1106,11 @@ void paint_small_menu() {
 		paint_picture();
 	paint_avatars_no_focus_hilite();
 	paint_console();
-	paint_small_menu({70, 124}, 108, 50);
-	caret = {73, 126};
-	width = 107;
+	paint_small_menu({68, 124}, 110, 50);
+	caret = {71, 126};
+	width = 109;
 	height = 6 + 1;
-	cancel_position = {73, 167};
+	cancel_position = {71, 168};
 }
 
 void paint_city() {

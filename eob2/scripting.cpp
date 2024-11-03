@@ -616,6 +616,7 @@ static spelli* choose_spell(int level, int type) {
 			continue;
 		an.add(&e, e.getname());
 	}
+	an.sort();
 	return (spelli*)choose_small_menu(getnm("WhatSpell"), "Cancel");
 }
 
@@ -1253,6 +1254,7 @@ static void party_adventure(int bonus) {
 	pn = getnme(ids(last_quest->id, "Entering"));
 	if(pn)
 		message(pn);
+	script_run(last_quest->travel);
 	picture = push_picture;
 	party.quest_id = getbsi(last_quest);
 	all_party(craft_mission_equipment, true);

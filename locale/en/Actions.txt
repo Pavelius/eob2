@@ -11,6 +11,7 @@ ConsumeRod: %Name use last charge
 CreateNewGame: Create new game
 DebugTest: Debug Test
 DebugTestVisit: Debug test string
+Donate: Donation
 DoorOpened: Locked door opened
 DrinkPotionAct: %Name drink %ItemName
 EatAndDrink: Eat and drink

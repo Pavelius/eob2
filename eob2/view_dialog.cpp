@@ -55,13 +55,13 @@ void* dialogv(const char* cancel, const char* format) {
 }
 
 void* dialogv(const char* cancel, const char* format, const char* format_param) {
-	pushanswer push;
 	char temp[4096]; stringbuilder sb(temp);
 	sb.addv(format, format_param);
 	return dialogv(cancel, temp);
 }
 
 void* dialog(const char* cancel, const char* format, ...) {
+	pushanswer push;
 	XVA_FORMAT(format);
 	return dialogv(cancel, format, format_param);
 }

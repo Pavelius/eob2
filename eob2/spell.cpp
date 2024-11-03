@@ -64,6 +64,7 @@ static spelli* choose_prepared_spell() {
 			player->speak("CastSpell", "NoSpells");
 		return 0;
 	}
+	an.sort();
 	return (spelli*)choose_small_menu(getnm("CastSpell"), getnm("Cancel"));
 }
 

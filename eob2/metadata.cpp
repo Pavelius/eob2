@@ -162,6 +162,7 @@ BSMETA(picturei) = {
 BSMETA(quest) = {
 	BSREQ(id),
 	BSREQ(sites),
+	BSREQ(travel),
 	BSDST(goals, goali),
 	{}};
 BSMETA(racei) = {

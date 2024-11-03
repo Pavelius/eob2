@@ -37,6 +37,8 @@ extern partyi party;
 extern partystatn last_variable;
 extern int enemy_distance;
 
+unsigned get_stamp(unsigned duration);
+
 void all_creatures(fnevent proc);
 void all_party(fnevent proc, bool skip_disabled);
 void add_party(partystatn id, int value);

@@ -1,4 +1,5 @@
 #include "adat.h"
+#include "boost.h"
 #include "console.h"
 #include "creature.h"
 #include "direction.h"
@@ -98,6 +99,8 @@ static creaturei* get_opponent(bool left, bool enemies) {
 }
 
 static void single_attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
+	if(!defender || !(*defender))
+		return;
 	auto& weapon = player->wears[slot];
 	if(!weapon)
 		return;
@@ -200,19 +203,18 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 			if(!defender->roll(SaveVsPoison))
 				defender->add(DiseaseLevel, 1);
 		}
+		// RULE: paralized attack of ghouls and others
+		if(player->is(weapon, ParalizeAttack) && !defender->roll(SaveVsParalization))
+			add_boost(get_stamp(xrand(3, 8)), defender, bsdata<feati>::elements + Paralized);
 		// RULE: Drain attacks
 		if(player->is(weapon, DrainStrenghtAttack) && !defender->roll(SaveVsMagic))
 			defender->add(DrainStrenght, 1);
 		//		// Poison attack
 		//		if(wi.is(OfPoison))
 		//			defender->add(Poison, Instant, SaveNegate);
-		//		// Paralize attack
-		//		if(wi.is(OfParalize))
-		//			defender->add(HoldPerson, xrand(1, 3), SaveNegate);
 		//		// Drain ability
 		//		if(wi.is(OfEnergyDrain))
 		//			attack_drain(defender, defender->drain_energy, hits);
-		//		defender->damage(damage_type, hits, magic_bonus);
 	}
 	// Weapon can be broken
 	if(rolls == 1) {
@@ -228,7 +230,9 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 }
 
 static void single_main_attack(wearn wear, creaturei* enemy, int bonus, int multiplier) {
-	auto number_attacks = 2;
+	auto number_attacks = player->wears[wear].geti().number_attacks;
+	if(!number_attacks)
+		number_attacks = 2;
 	if(player->is(WeaponSpecialist) && player->isspecialist(&player->wears[wear].geti())) {
 		bonus += 1;
 		number_attacks += 1;

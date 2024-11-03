@@ -254,7 +254,8 @@ static void monster(pointc v, directions d) {
 }
 
 static void monster_boss(pointc v, directions d) {
-	monster(v, d, bsdata<monsteri>::elements + (loc->boss ? loc->boss : loc->habbits[1]));
+	auto pi = bsdata<monsteri>::elements + (loc->boss ? loc->boss : loc->habbits[1]);
+	loc->addmonster(v, d, 0, pi);
 }
 
 static void monster_minion(pointc v, directions d) {

@@ -620,6 +620,10 @@ item* party_get_item(const itemi* pi) {
 	return 0;
 }
 
+unsigned get_stamp(unsigned duration) {
+	return party.abilities[Minutes] + duration;
+}
+
 static bool if_take_special_item() {
 	return loc->special && party_get_item(bsdata<itemi>::elements + loc->special);
 }

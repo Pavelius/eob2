@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `TakeSpecialItem`
+﻿Error in file `rules/Monsters.txt`:
+ Line 7: Can't find variant `ParalizeAttack`

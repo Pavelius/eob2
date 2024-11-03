@@ -98,8 +98,9 @@ const char*	item::getname() const {
 }
 
 void item::getname(stringbuilder& sb) const {
+	auto& ei = geti();
 	if(isdamaged())
-		sb.adds(getnm((geti().wear == Edible) ? "Rotten" : "Damaged"));
+		sb.adds(getnm((ei.wear == Edible) ? "Rotten" : "Damaged"));
 	if(identified) {
 		if(cursed)
 			sb.adds(getnm("Cursed"));
@@ -108,12 +109,21 @@ void item::getname(stringbuilder& sb) const {
 	if(identified) {
 		auto power = getpower();
 		if(power) {
+			auto show_power = false;
 			auto pn = getnme(str("Of%1%2i", power.getid(), iabs(power.counter)));
+			if(!pn) {
+				pn = getnme(ids(bsdata<weari>::elements[ei.wear].id, "OfPower"));
+				show_power = true;
+			}
 			if(!pn)
 				pn = getnme(ids("Of", power.getid()));
 			if(pn) {
-				sb.adds("of ");
-				sb.add(pn, power.counter);
+				if(show_power)
+					sb.adds(pn, power.getname());
+				else {
+					sb.adds("of ");
+					sb.add(pn, power.counter);
+				}
 			} else
 				sb.add("%+1i", power.counter);
 		}

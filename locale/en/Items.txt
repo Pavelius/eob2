@@ -51,7 +51,10 @@ Cursed: Cursed
 Damaged: Damaged
 Rotten: Rotten
 
+ReadableOfPower: %1
+
 OfAC: defence%+1i
+OfBurningHands: fire
 OfCharisma: human control
 OfClimbWalls: feather fall
 OfHasted: speed
@@ -64,6 +67,7 @@ OfProtection: protection%+1i
 OfResistFire: fire resistance
 OfResistCold: cold resistance
 OfResistCold: cold resistance
+OfShockingGrasp: shocking
 
 ExamineItem: A %1
 ExamineIdentifiedItem: The %1

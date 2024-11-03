@@ -70,6 +70,11 @@ static const int hd_experience[] = {
 	7, 15, 35, 65, 120, 175, 270, 420, 650, 975,
 	1400, 1700, 2000, 3000
 };
+static char chance_learn_spell[] = {
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 35,
+	40, 45, 50, 55, 60, 65, 70, 75, 85, 95,
+	96, 97, 98, 99, 100
+};
 //static char open_doors[] = {
 //	18, 20, 22, 26, 28, 30, 32, 34, 36, 38,
 //	40, 42, 44, 46, 48, 50, 54, 58, 62,
@@ -250,6 +255,7 @@ static void update_depended_abilities() {
 	player->abilities[DamageMelee] += maptbl(damage_adjustment, k);
 	player->abilities[AC] += maptbl(defence_adjustment, player->abilities[Dexterity]);
 	player->abilities[ReactionBonus] += maptbl(cha_reaction_adjustment, player->abilities[Charisma]);
+	player->abilities[LearnSpell] += maptbl(chance_learn_spell, player->abilities[Intellegence]);
 	if(player->wears[RightHand])
 		player->abilities[Speed] -= player->wears[RightHand].geti().speed;
 	else

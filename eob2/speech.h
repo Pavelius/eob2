@@ -28,6 +28,7 @@ const char* speech_getid(int index);
 const char* speech_get(const speech* p);
 const char* speech_get(const char* id);
 const char* speech_get(const char* id, const char* action);
+const char* speech_get_na(const char* id, const char* action);
 const char* speech_get(const speech* p, int n);
 
 size_t select_speech(unsigned short* result, size_t count, const char* parent);

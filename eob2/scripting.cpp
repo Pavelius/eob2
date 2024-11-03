@@ -120,10 +120,10 @@ static dungeoni* find_dungeon(int level) {
 }
 
 static const char* get_action() {
-	if(last_action)
-		return last_action->id;
-	else if(last_list)
+	if(last_list)
 		return last_list->id;
+	else if(last_action)
+		return last_action->id;
 	else
 		return "GlobalList";
 }
@@ -140,6 +140,10 @@ static void damage_modify(int bonus) {
 
 static void damage_item(int bonus) {
 	last_item->damage(bonus);
+}
+
+static void destroy_item(int bonus) {
+	last_item->clear();
 }
 
 static void saves_modify(int bonus) {
@@ -229,6 +233,20 @@ static void choose_options(const char* id, const variants& options) {
 	for(auto& v : options)
 		add_menu(v);
 	last_result = choose_large_menu(header, getnm("Cancel"));
+}
+
+static void choose_item(const char* id, const variants& filter) {
+	pushanswer push;
+	char header[64]; stringbuilder sb(header);
+	set_player_by_focus();
+	sb.add(get_header(id, "Options"), getnm(id));
+	for(auto& e : player->wears) {
+		last_item = &e;
+		if(!script_allow(filter))
+			continue;
+		an.add(&e, e.getname());
+	}
+	last_item = (item*)choose_large_menu(header, getnm("Cancel"));
 }
 
 static void choose_city_menu() {
@@ -731,6 +749,12 @@ static void choose_menu(int bonus) {
 	variants commands; commands.set(script_begin, script_end - script_begin);
 	choose_options(get_action(), commands);
 	apply_result();
+	script_stop();
+}
+
+static void choose_items(int bonus) {
+	variants commands; commands.set(script_begin, script_end - script_begin);
+	choose_item(get_action(), commands);
 	script_stop();
 }
 
@@ -1261,6 +1285,29 @@ static void create_power(int bonus) {
 	last_item->createpower(bonus, 100, 0);
 }
 
+static void item_power_spell(int bonus) {
+	auto power = last_item->getpower();
+	if(!power)
+		return;
+	if(power.iskind<spelli>())
+		last_spell = bsdata<spelli>::elements + power.value;
+}
+
+static void learn_last_spell(int bonus) {
+	if(!last_spell)
+		return;
+	auto ps = get_spells_known(player);
+	if(!ps)
+		return;
+	auto index = getbsi(last_spell);
+	if(index == 0xFFFF)
+		return;
+	if(bonus >= 0)
+		ps->set(index);
+	else
+		ps->remove(index);
+}
+
 static void learn_cleric_spells(int bonus) {
 	auto ps = get_spells_known(player);
 	if(!ps)
@@ -1295,21 +1342,25 @@ static void run_script(const char* id, const char* action) {
 		ftscript<listi>(p - bsdata<listi>::elements, 0);
 }
 
+static void dialog_message(const char* action) {
+	auto pn = speech_get_na(get_action(), action);
+	if(pn)
+		dialog(0, pn);
+}
+
+static void player_speak(const char* action) {
+	player->speakn(get_action(), action);
+}
+
 static void make_roll(int bonus) {
 	if(!player->roll(last_ability, bonus * 5)) {
 		script_stop();
+		dialog_message("Fail");
+		player_speak("FailSpeech");
 		run_script(get_action(), "FailedRoll");
-	}
-}
-
-static void dialog_message(const char* action) {
-	dialog(0, speech_get(get_action(), action));
-}
-
-static void dialog_message(int bonus) {
-	switch(bonus) {
-	case 1: dialog_message("Success"); break;
-	case -1: dialog_message("Fail"); break;
+	} else {
+		dialog_message("Success");
+		player_speak("SuccessSpeech");
 	}
 }
 
@@ -1437,6 +1488,13 @@ static void item_name(stringbuilder& sb) {
 	last_item->getname(sb);
 }
 
+static void spell_name(stringbuilder& sb) {
+	if(last_spell)
+		sb.add(last_spell->getname());
+	else
+		sb.add("unknown spell");
+}
+
 static void effect_number(stringbuilder& sb) {
 	sb.add("%1i", last_number);
 }
@@ -1523,6 +1581,29 @@ static bool if_item_edible() {
 	return last_item->geti().wear == Edible;
 }
 
+static bool if_item_identified() {
+	return last_item->isidentified();
+}
+
+static bool if_item_readable() {
+	return last_item->geti().wear == Readable;
+}
+
+static bool if_last_item() {
+	return last_item != 0;
+}
+
+static bool if_item_known_spell() {
+	auto power = last_item->getpower();
+	if(power.iskind<spelli>()) {
+		auto ps = get_spells_known(player);
+		if(!ps)
+			return false;
+		return ps->is(power.value);
+	}
+	return false;
+}
+
 static bool if_item_charged() {
 	return last_item->geti().wear == Rod;
 }
@@ -1546,14 +1627,19 @@ BSDATA(textscript) = {
 	{"Number", effect_number},
 	{"StairsDownSide", stairs_down_side},
 	{"StairsUpSide", stairs_up_side},
+	{"SpellName", spell_name},
 };
 BSDATAF(textscript)
 BSDATA(conditioni) = {
 	{"IfAlive", if_alive},
 	{"IfDiseased", if_diseased},
+	{"ifItemCharged", if_item_edible},
 	{"IfItemDamaged", if_item_damaged},
 	{"IfItemEdible", if_item_edible},
-	{"ifItemCharged", if_item_edible},
+	{"IfItemIdentified", if_item_identified},
+	{"IfItemReadable", if_item_readable},
+	{"IfItemKnownSpell", if_item_known_spell},
+	{"IfLastItem", if_last_item},
 	{"IfMonstersUndead", if_monsters_undead},
 	{"IfPoisoned", if_poisoned},
 	{"IfUndead", if_undead},
@@ -1569,14 +1655,16 @@ BSDATA(script) = {
 	{"ApplyRacialEnemy", apply_racial_enemy},
 	{"ConfirmAction", confirm_action},
 	{"Character", set_character},
-	{"ChooseSpells", choose_spells},
+	{"ChooseItems", choose_items},
 	{"ChooseMenu", choose_menu},
+	{"ChooseSpells", choose_spells},
 	{"CreateCharacter", create_character},
 	{"CreateNewGame", create_new_game},
 	{"CreatePower", create_power},
 	{"CurseItem", curse_item},
 	{"Damage", damage_modify},
 	{"DamageItem", damage_item},
+	{"DestroyItem", destroy_item},
 	{"DoneQuest", done_quest},
 	{"ExitGame", exit_game},
 	{"EatAndDrink", eat_and_drink},
@@ -1586,10 +1674,11 @@ BSDATA(script) = {
 	{"Heal", player_heal},
 	{"HealEffect", player_heal_effect},
 	{"IdentifyItem", identify_item},
+	{"ItemPowerSpell", item_power_spell},
 	{"LearnClericSpells", learn_cleric_spells},
+	{"LearnLastSpell", learn_last_spell},
 	{"LoadGame", load_game},
 	{"Magical", empthy_script},
-	{"Message", dialog_message},
 	{"MonstersFlee", monsters_flee},
 	{"NaturalHeal", natural_heal},
 	{"JoinParty", join_party},

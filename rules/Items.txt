@@ -213,7 +213,7 @@ ClericStartEquipment
 TheifStartEquipment
  elements Longsword LeatherArmor
 MageStartEquipment
- elements Robe Wand Staff
+ elements Robe Wand IdentifyItem Staff
 
 CommonMissionEquipment
  elements Ration

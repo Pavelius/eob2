@@ -1,0 +1,7 @@
+#ScribleScrollsSuccessSpeech
+I learn new spell %SpellName
+%SpellName has been learned
+
+#ScribleScrollsFailSpeech
+I did not manage to learn spell
+Damn, I do not understand this spell

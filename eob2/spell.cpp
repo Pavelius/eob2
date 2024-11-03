@@ -15,6 +15,7 @@
 #include "view.h"
 
 creaturei* caster;
+spelli* last_spell;
 
 static void apply_summon(creaturei* player, const itemi* pi) {
 	auto wear = pi->wear;

@@ -633,6 +633,14 @@ static bool if_kill_almost_all_monsters() {
 	return loc->state.monsters_killed >= (90 * loc->state.monsters / 100);
 }
 
+static bool if_kill_boss() {
+	return loc->boss && loc->getmonster(loc->boss) == 0;
+}
+
+static bool if_kill_boss_minions() {
+	return loc->minions && loc->getmonster(loc->minions) == 0;
+}
+
 static bool if_disable_all_traps() {
 	return loc->state.wallmessages[MessageTraps] && loc->state.traps_disabled >= loc->state.wallmessages[MessageTraps];
 }
@@ -646,7 +654,7 @@ static bool if_find_all_secrets() {
 }
 
 static bool if_explore_most_area() {
-	return loc->state.explored_passable >= (90 * loc->state.explored_passable / 100);
+	return loc->state.explored_passable >= (90 * loc->state.total_passable / 100);
 }
 
 BSDATA(goali) = {
@@ -655,6 +663,8 @@ BSDATA(goali) = {
 	{"TakeSpecialItem", if_take_special_item, 500},
 	{"OpenAllLockedDoors", if_open_all_locked_doors, 1000},
 	{"DisableAllTraps", if_disable_all_traps, 1000},
+	{"KillBoss", if_kill_boss, 800},
+	{"KillBossMinions", if_kill_boss_minions, 800},
 	{"KillAlmostAllMonsters", if_kill_almost_all_monsters, 800},
 };
 assert_enum(goali, KillAlmostAllMonsters)

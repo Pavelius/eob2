@@ -388,6 +388,16 @@ void dungeoni::getmonsters(creaturei** result, pointc index) {
 	getmonsters(result, index, Center);
 }
 
+creaturei* dungeoni::getmonster(short unsigned monster_id) {
+	if(!loc)
+		return 0;
+	for(auto& e : loc->monsters) {
+		if(e && e.monster_id == monster_id)
+			return &e;
+	}
+	return 0;
+}
+
 bool filter_corridor(pointc v) {
 	if(get_wall(loc->get(v)) == CellWall)
 		return false;

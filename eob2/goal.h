@@ -6,7 +6,7 @@
 enum goaln : unsigned char {
 	ExmploreMostArea,
 	FindAllSecrets, TakeSpecialItem, OpenAllLockedDoors, DisableAllTraps,
-	KillAlmostAllMonsters,
+	KillBoss, KillBossMinions, KillAlmostAllMonsters,
 };
 struct goali : nameable {
 	typedef bool(*fntest)();

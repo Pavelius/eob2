@@ -6,6 +6,7 @@ CellKeyHoleDisable: Lock is picked up
 CellPitDisable: Pit is removed
 CellTrapLauncherDisable: Trap is removed
 ChooseBet: Bed how match?
+ChooseMageScrolls: Choose scroll to scribe
 ConsumeRod: %Name use last charge
 CreateNewGame: Create new game
 DebugTest: Debug Test
@@ -26,7 +27,7 @@ GlobalOptions: What %Name want?
 GlobalVisit: Visit %1
 MakeCampConfirm: Do you want to make camp?
 MemorizeSpells: Memorize Spells
-MulGambleVisitors: Bet %1i gold pieces
+MulChooseBet: Bet %1i gold pieces
 PartyAdventure: Go to adventure
 PartysAdventureAsk: Which way to go?
 OpenLocksFail: Pick locks fail

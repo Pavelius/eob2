@@ -22,6 +22,7 @@ struct spelli : nameable, featable {
 	variants	wearing;
 	bool isthrown() const { return avatar_thrown!=0; }
 };
+extern spelli* last_spell;
 typedef char spella[128];
 typedef flagable<16> spellseta;
 

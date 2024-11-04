@@ -1467,6 +1467,14 @@ static void monsters_kill(int bonus) {
 	}
 }
 
+static void apply_switch(int bonus) {
+   auto pn = str("%1Case%2i", get_action(), last_number);
+   auto p1 = bsdata<listi>::find(pn);
+   if(!p1)
+      return;
+   script_run(p1->id, p1->elements);
+}
+
 static void turning_monsters(int bonus) {
 	// -2 value is automatic dispell and additional 2d4 turned (actually no work)
 	// -1 value is automatic dispell
@@ -1738,6 +1746,7 @@ BSDATA(script) = {
 	{"SaveHalf", save_half},
 	{"SaveNegate", save_negate},
 	{"SetVariable", set_variable},
+	{"Switch", apply_switch},
 	{"TurningMonsters", turning_monsters},
 	{"UseTheifTools", use_theif_tools},
 	{"Wizardy", wizardy_effect},

@@ -102,6 +102,8 @@
 		<Unit filename="eob2/io_stream.h" />
 		<Unit filename="eob2/item.cpp" />
 		<Unit filename="eob2/item.h" />
+		<Unit filename="eob2/keyvalue.cpp" />
+		<Unit filename="eob2/keyvalue.h" />
 		<Unit filename="eob2/levelable.cpp" />
 		<Unit filename="eob2/levelable.h" />
 		<Unit filename="eob2/list.cpp" />
@@ -169,6 +171,7 @@
 		<Unit filename="eob2/spell.cpp" />
 		<Unit filename="eob2/spell.h" />
 		<Unit filename="eob2/sprite_util.h" />
+		<Unit filename="eob2/statable.cpp" />
 		<Unit filename="eob2/statable.h" />
 		<Unit filename="eob2/stringbuilder.cpp" />
 		<Unit filename="eob2/stringbuilder.h" />

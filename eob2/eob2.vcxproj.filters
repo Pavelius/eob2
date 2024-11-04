@@ -180,9 +180,6 @@
     <ClCompile Include="action.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="formula.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="dungeon.cpp">
       <Filter>logic</Filter>
     </ClCompile>
@@ -250,6 +247,9 @@
       <Filter>logic</Filter>
     </ClCompile>
     <ClCompile Include="keyvalue.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="formula.cpp">
       <Filter>support</Filter>
     </ClCompile>
   </ItemGroup>
@@ -425,9 +425,6 @@
     <ClInclude Include="flagable.h">
       <Filter>support</Filter>
     </ClInclude>
-    <ClInclude Include="formula.h">
-      <Filter>logic</Filter>
-    </ClInclude>
     <ClInclude Include="dungeon.h">
       <Filter>logic</Filter>
     </ClInclude>
@@ -493,6 +490,9 @@
     </ClInclude>
     <ClInclude Include="goal.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="formula.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,4 +6,3 @@
 struct listi : nameable {
 	variants	elements;
 };
-extern listi* last_list;

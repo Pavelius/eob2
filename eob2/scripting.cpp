@@ -41,7 +41,9 @@ static void* last_result;
 static int get_bonus(int v) {
 	switch(v) {
 	case 101: return last_number;
+	case 102: return last_level;
 	case -101: return -last_number;
+	case -102: return -last_level;
 	default: return v;
 	}
 }
@@ -52,11 +54,6 @@ template<> void ftscript<racei>(int value, int bonus) {
 
 template<> void ftscript<classi>(int value, int bonus) {
 	last_class = (classn)value;
-}
-
-template<> void ftscript<formulai>(int value, int bonus) {
-	auto p = bsdata<formulai>::elements + value;
-	last_number = p->proc(last_number, bonus);
 }
 
 template<> void ftscript<genderi>(int value, int bonus) {
@@ -120,8 +117,8 @@ static dungeoni* find_dungeon(int level) {
 }
 
 static const char* get_action() {
-	if(last_list)
-		return last_list->id;
+	if(last_id)
+		return last_id;
 	else if(last_action)
 		return last_action->id;
 	else
@@ -1622,13 +1619,6 @@ static bool if_item_charged() {
 	return last_item->geti().wear == Rod;
 }
 
-BSDATA(formulai) = {
-	{"Add", add_formula},
-	{"Mul", mul_formula},
-	{"Set", set_formula},
-	{"Sub", sub_formula},
-};
-BSDATAF(formulai)
 BSDATA(textscript) = {
 	{"DungeonBoss", dungeon_boss},
 	{"DungeonKey", dungeon_key},

@@ -112,9 +112,6 @@ BSMETA(dungeon_site) = {
 	BSENM(special, itemi),
 	BSENM(language, racei),
 	{}};
-BSMETA(formulai) = {
-	BSREQ(id),
-	{}};
 BSMETA(feati) = {
 	BSREQ(id),
 	{}};

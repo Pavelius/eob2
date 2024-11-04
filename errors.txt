@@ -1,2 +1,2 @@
 ﻿Error in file `rules/Locations.txt`:
- Line 23: Not found requisit `chances`
+ Line 30: Can't find variant `Confirm`

@@ -16,6 +16,8 @@ Donate: Donation
 DoorOpened: Locked door opened
 DrinkPotionAct: %Name drink %ItemName
 EatAndDrink: Eat and drink
+EatAndDrinkConfirm: Do you really want pay %Number gold piece for food and drink?
+EatAndDrinkNotEnoughtGold: "Return when you will have %Number gold piece" sad bartender "Now, get lost"
 EatAndDrinkVisit: Eat and drink
 ExitConfirm: Do you really want to exit game?
 FeelDisease: %Name feels bad

@@ -720,19 +720,15 @@ static void return_to_street(int bonus) {
 }
 
 static void confirm_action(int bonus) {
-	const char* id = "AskConfirm";
-	if(last_action)
-		id = last_action->id;
-	if(!confirm(getnme(ids(id, "Confirm"))))
+	char temp[260]; stringbuilder sb(temp);
+	sb.add(getnme(ids(get_action(), "Confirm")));
+	if(!temp[0] || !confirm(temp))
 		script_stop();
 }
 
 static void exit_game(int bonus) {
 	if(confirm(getnme("ExitConfirm")))
 		exit(0);
-}
-
-static void eat_and_drink(int bonus) {
 }
 
 static void save_game(int bonus) {
@@ -1468,11 +1464,9 @@ static void monsters_kill(int bonus) {
 }
 
 static void apply_switch(int bonus) {
-   auto pn = str("%1Case%2i", get_action(), last_number);
-   auto p1 = bsdata<listi>::find(pn);
-   if(!p1)
-      return;
-   script_run(p1->id, p1->elements);
+   auto p1 = bsdata<listi>::find(str("%1Case%2i", get_action(), last_number));
+   if(p1)
+	   script_run(p1->id, p1->elements);
 }
 
 static void turning_monsters(int bonus) {
@@ -1714,7 +1708,6 @@ BSDATA(script) = {
 	{"DestroyItem", destroy_item},
 	{"DoneQuest", done_quest},
 	{"ExitGame", exit_game},
-	{"EatAndDrink", eat_and_drink},
 	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
 	{"ForEachItem", for_each_item},

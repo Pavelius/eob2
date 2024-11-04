@@ -26,6 +26,8 @@ PickPocketsActionFailedRoll
 
 Donate avatar(scenes 5)
  effect ChooseDonation PayGold+101
+EatAndDrink avatar(buildngs 6)
+ effect Set+10 ConfirmAction PayGold+101 ForEachParty HealEffect
 GambleVisitors avatar(buildngs 1)
  classes Fighter Theif
  effect ChooseBet PayGold+101 Charisma Roll-2 Mul+2 GoldPiece+101

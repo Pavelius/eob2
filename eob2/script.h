@@ -13,6 +13,9 @@ struct script {
 struct modifieri {
 	const char*	id;
 };
+struct scriptbody : variants {
+	scriptbody();
+};
 extern modifiern modifier;
 extern variant* script_begin;
 extern variant* script_end;

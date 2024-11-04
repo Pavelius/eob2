@@ -24,7 +24,7 @@ PickPocketsActionFailedRoll
 
 #Action
 
-Donate
+Donate avatar(scenes 5)
  effect ChooseDonation PayGold+101
 GambleVisitors avatar(buildngs 1)
  classes Fighter Theif

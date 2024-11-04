@@ -779,8 +779,25 @@ static void for_each_party(int bonus, const variants& commands, const slice<crea
 	player = push_player;
 }
 
+static void for_each_item(int bonus, const variants& commands) {
+	auto push_item = last_item;
+	for(auto& e : player->wears) {
+		if(!e)
+			continue;
+		last_item = &e;
+		script_run(commands);
+	}
+	last_item = push_item;
+}
+
+static void for_each_item(int bonus) {
+	scriptbody commands;
+	for_each_item(bonus, commands);
+	script_stop();
+}
+
 static void for_each_party(int bonus) {
-	variants commands; commands.set(script_begin, script_end - script_begin);
+	scriptbody commands;
 	for_each_party(bonus, commands, characters);
 	script_stop();
 }
@@ -1686,6 +1703,7 @@ BSDATA(script) = {
 	{"EatAndDrink", eat_and_drink},
 	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
+	{"ForEachItem", for_each_item},
 	{"ForEachParty", for_each_party},
 	{"Heal", player_heal},
 	{"HealEffect", player_heal_effect},

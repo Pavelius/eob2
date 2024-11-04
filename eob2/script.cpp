@@ -25,6 +25,9 @@ template<> void ftscript<script>(int value, int counter) {
 	bsdata<script>::elements[value].proc(counter);
 }
 
+scriptbody::scriptbody() : variants(bsdata<variant>::source.indexof(script_begin), script_end - script_begin) {
+}
+
 void script_stop() {
 	script_begin = script_end;
 }
@@ -81,7 +84,9 @@ void script_run(const variants& elements) {
 
 void script_run(const char* id, const variants& elements) {
 	auto push_id = last_id; last_id = id;
+	auto push_modifier = modifier;
 	script_run(elements);
+	modifier = push_modifier;
 	last_id = push_id;
 }
 

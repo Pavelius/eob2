@@ -9,7 +9,6 @@ struct script {
 	typedef bool(*fntest)(int bonus);
 	const char*	id;
 	fnrun		proc;
-	fntest		test;
 };
 struct modifieri {
 	const char*	id;
@@ -23,6 +22,7 @@ bool script_allow(variant v);
 bool script_allow(const variants& elements);
 void script_stop();
 bool script_stopped();
+void script_run();
 void script_run(variant v);
 void script_run(const variants& elements);
 void script_run(const char* id, const variants& elements);

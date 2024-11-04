@@ -1402,6 +1402,18 @@ static void set_character(int bonus) {
 	player = characters[bonus];
 }
 
+static void push_player(int bonus) {
+	auto push = player;
+	script_run();
+	player = push;
+}
+
+static void push_item(int bonus) {
+	auto push = last_item;
+	script_run();
+	last_item = push;
+}
+
 static void monsters_flee(int bonus) {
 	if(!loc)
 		return;
@@ -1691,6 +1703,8 @@ BSDATA(script) = {
 	{"PayGold", pay_gold},
 	{"PassHours", pass_hours},
 	{"Protection", protection_modify},
+	{"PushItem", push_item},
+	{"PushPlayer", push_player},
 	{"RestoreSpells", restore_spells},
 	{"ReturnToStreet", return_to_street},
 	{"Roll", make_roll},

@@ -1425,6 +1425,12 @@ static void push_player(int bonus) {
 	player = push;
 }
 
+static void push_modifier(int bonus) {
+	auto push = modifier;
+	script_run();
+	modifier = push;
+}
+
 static void push_item(int bonus) {
 	auto push = last_item;
 	script_run();
@@ -1722,6 +1728,7 @@ BSDATA(script) = {
 	{"PassHours", pass_hours},
 	{"Protection", protection_modify},
 	{"PushItem", push_item},
+	{"PushModifier", push_modifier},
 	{"PushPlayer", push_player},
 	{"RestoreSpells", restore_spells},
 	{"ReturnToStreet", return_to_street},

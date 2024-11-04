@@ -836,6 +836,8 @@ void creaturei::add(abilityn i, int v) {
 			if(is(ProtectedFromEvil))
 				return;
 			break;
+      default:
+         break;
 		}
 	}
 	statable::add(i, v);

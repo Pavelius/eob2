@@ -116,15 +116,6 @@ static dungeoni* find_dungeon(int level) {
 	return 0;
 }
 
-static const char* get_action() {
-	if(last_id)
-		return last_id;
-	else if(last_action)
-		return last_action->id;
-	else
-		return "GlobalList";
-}
-
 static void attack_modify(int bonus) {
 	ftscript<abilityi>(AttackMelee, bonus);
 	ftscript<abilityi>(AttackRange, bonus);
@@ -173,10 +164,23 @@ static void create_character(int bonus) {
 }
 
 static const char* get_header(const char* id, const char* action) {
-	auto pn = getnme(ids(id, action));
+	const char* pn = 0;
+	if(id)
+		pn = getnme(ids(id, action));
 	if(!pn && action)
 		pn = getnm(ids("Global", action));
 	return pn;
+}
+
+static const char* get_title(const char* id, const char* action) {
+	static char temp[128];
+	auto pn = get_header(id, action);
+	if(!pn)
+		return 0;
+	stringbuilder sb(temp);
+	sb.clear();
+	sb.add(pn);
+	return temp;
 }
 
 static void add_menu(variant& v) {
@@ -186,7 +190,7 @@ static void add_menu(variant& v) {
 			an.add(v.getpointer(), v.getname());
 	} else if(v.iskind<formulai>()) {
 		auto p = bsdata<formulai>::elements + v.value;
-		an.add(&v, getnm(ids(p->id, get_action())), p->proc(last_number, v.counter));
+		an.add(&v, getnm(ids(p->id, last_id)), p->proc(last_number, v.counter));
 	} else if(v.iskind<script>()) {
 		auto p = bsdata<script>::elements + v.value;
 		an.add(p, getnm(p->id));
@@ -202,7 +206,7 @@ static void enter_location(int bonus);
 static void apply_action(int bonus) {
 	if(last_action->avatar)
 		picture = last_action->avatar;
-	script_run(last_action->effect);
+	script_run(last_action->id, last_action->effect);
 }
 
 static void apply_result() {
@@ -226,7 +230,7 @@ static void choose_options(const char* id, const variants& options) {
 	pushanswer push;
 	char header[64]; stringbuilder sb(header);
 	set_player_by_focus();
-	sb.add(get_header(id, "Options"), getnm(id));
+	sb.add(get_header(id, "Options"));
 	for(auto& v : options)
 		add_menu(v);
 	last_result = choose_large_menu(header, getnm("Cancel"));
@@ -236,7 +240,7 @@ static void choose_item(const char* id, const variants& filter) {
 	pushanswer push;
 	char header[64]; stringbuilder sb(header);
 	set_player_by_focus();
-	sb.add(get_header(id, "Options"), getnm(id));
+	sb.add(get_header(id, "Options"));
 	for(auto& e : player->wears) {
 		last_item = &e;
 		if(!script_allow(filter))
@@ -721,7 +725,7 @@ static void return_to_street(int bonus) {
 
 static void confirm_action(int bonus) {
 	char temp[260]; stringbuilder sb(temp);
-	sb.add(getnme(ids(get_action(), "Confirm")));
+	sb.add(getnme(ids(last_id, "Confirm")));
 	if(!temp[0] || !confirm(temp))
 		script_stop();
 }
@@ -740,15 +744,15 @@ static void load_game(int bonus) {
 }
 
 static void choose_menu(int bonus) {
-	variants commands; commands.set(script_begin, script_end - script_begin);
-	choose_options(get_action(), commands);
+	scriptbody commands;
+	choose_options(last_id, commands);
 	apply_result();
 	script_stop();
 }
 
 static void choose_items(int bonus) {
-	variants commands; commands.set(script_begin, script_end - script_begin);
-	choose_item(get_action(), commands);
+	scriptbody commands;
+	choose_item(last_id, commands);
 	script_stop();
 }
 
@@ -821,7 +825,7 @@ static void done_quest(int bonus) {
 		party.done.remove(bsdata<quest>::source.indexof(last_quest));
 }
 
-static void choose_adventure() {
+static void choose_quest() {
 	auto push_answers = an;
 	an.clear();
 	for(auto& e : bsdata<quest>()) {
@@ -833,7 +837,7 @@ static void choose_adventure() {
 		an.add(&e, e.getname());
 	}
 	an.sort();
-	last_quest = (quest*)choose_large_menu(getnm("PartysAdventureAsk"), getnm("Cancel"));
+	last_quest = (quest*)choose_large_menu(get_title("PartyAdventure", "Options"), getnm("Cancel"));
 	an = push_answers;
 }
 
@@ -1247,7 +1251,7 @@ void move_party(pointc v) {
 }
 
 static void party_adventure(int bonus) {
-	choose_adventure();
+	choose_quest();
 	if(!last_quest)
 		return;
 	auto push_picture = picture;
@@ -1333,7 +1337,7 @@ static void learn_cleric_spells(int bonus) {
 static void pay_gold(int bonus) {
 	bonus = get_bonus(bonus);
 	if(getparty(GoldPiece) < bonus) {
-		dialog(0, speech_get(get_action(), "NotEnoughtGold"), bonus);
+		dialog(0, speech_get(last_id, "NotEnoughtGold"), bonus);
 		script_stop();
 	} else
 		add_party(GoldPiece, -bonus);
@@ -1363,13 +1367,13 @@ static void run_script(const char* id, const char* action) {
 }
 
 static void dialog_message(const char* action) {
-	auto pn = speech_get_na(get_action(), action);
+	auto pn = speech_get_na(last_id, action);
 	if(pn)
 		dialog(0, pn);
 }
 
 static void player_speak(const char* action) {
-	player->speakn(get_action(), action);
+	player->speakn(last_id, action);
 }
 
 static void make_roll(int bonus) {
@@ -1377,7 +1381,7 @@ static void make_roll(int bonus) {
 		script_stop();
 		dialog_message("Fail");
 		player_speak("FailSpeech");
-		run_script(get_action(), "FailedRoll");
+		run_script(last_id, "FailedRoll");
 	} else {
 		dialog_message("Success");
 		player_speak("SuccessSpeech");
@@ -1464,7 +1468,7 @@ static void monsters_kill(int bonus) {
 }
 
 static void apply_switch(int bonus) {
-   auto p1 = bsdata<listi>::find(str("%1Case%2i", get_action(), last_number));
+   auto p1 = bsdata<listi>::find(str("%1Case%2i", last_id, last_number));
    if(p1)
 	   script_run(p1->id, p1->elements);
 }

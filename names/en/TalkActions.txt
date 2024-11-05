@@ -9,5 +9,11 @@ I learn new spell %SpellName
 I did not manage to learn spell
 Damn, I do not understand this spell
 
-#PickPocketsActionMessage
+#PickPocketsCoinsAtBarMessage
 You pick pockets of long man who payed on bar and pick %Number gold pieces.
+
+#PickPocketsNothingMessage
+You want steal some money, but all you try is failed.
+
+#EatAndDrinkMessage
+You taste local food and drink. Not bad. Now you are in good shape.

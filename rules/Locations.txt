@@ -15,19 +15,24 @@ ScribleScrollsFail
 NaturallyPartyHeal
  elements ForEachParty NaturalHeal
 PickPocketsNothing
+ elements Roll1d8 GoldPiece+101 Message
 PickPocketsFight
+PickPocketsCoinsAtBar
+ elements Roll1d8 GoldPiece+101 Message
 
 #RandomList
 
 PickPocketsActionFailedRoll
  chance PickPocketsNothing+4 PickPocketsFight
+PickPocketsActionSuccess
+ chance PickPocketsCoinsAtBar
 
 #Action
 
 Donate avatar(scenes 5)
  effect ChooseDonation PayGold+101
 EatAndDrink avatar(buildngs 6)
- effect Set+10 ConfirmAction PayGold+101 ForEachParty HealEffect
+ effect Set+10 ConfirmAction PayGold+101 Message ForEachParty HealEffect
 GambleVisitors avatar(buildngs 1)
  classes Fighter Theif
  effect ChooseBet PayGold+101 Charisma Roll-2 Mul+2 GoldPiece+101
@@ -36,7 +41,7 @@ MemorizeSpells
  effect ChooseSpells+1
 PickPocketsAction avatar(buildngs 10)
  classes Theif
- effect PickPockets Roll Message
+ effect PassHours+1 PickPockets Roll PickPocketsActionSuccess
 PrayForSpells
  classes Cleric Paladin Ranger
  effect ChooseSpells+0

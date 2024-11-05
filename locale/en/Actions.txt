@@ -5,9 +5,9 @@ CastOnWho: Cast on who?
 CellKeyHoleDisable: Lock is picked up
 CellPitDisable: Pit is removed
 CellTrapLauncherDisable: Trap is removed
-ChooseBet: Bed how match?
-ChooseDonation: Donate match?
-ChooseMageScrolls: Choose scroll to scribe
+ChooseBetOptions: Bed how match?
+ChooseDonationOptions: Donate match?
+ChooseMageScrollsOptions: What scroll?
 ConsumeRod: %Name use last charge
 CreateNewGame: Create new game
 DebugTest: Debug Test
@@ -34,7 +34,7 @@ MemorizeSpells: Memorize Spells
 MulChooseBet: Bet %1i gold pieces
 MulChooseDonation: Donate %1i golds
 PartyAdventure: Go to adventure
-PartysAdventureAsk: Which way to go?
+PartyAdventureOptions: Which way to go?
 OpenLocksFail: Pick locks fail
 PartyFallPit: Party fall down...
 PickPockets: Pick pockets

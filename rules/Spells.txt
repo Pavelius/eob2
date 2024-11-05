@@ -3,6 +3,7 @@
 Roll1d3x2s0p1c10 base(1 3) raise(2) perlevel(0 1 10)
 Roll1d4p1x1d4p1s3p2c9 base(1 4 1) raise(1 4 1) perlevel(3 2 9)
 Roll1d8x1 base(1 8) raise(1) perlevel(1 1)
+Roll1d6 base(1 6)
 Roll1d8 base(1 8)
 Roll2x1 base(2) raise(1) perlevel(1 1)
 Minute3x1 base(3) raise(1) perlevel(1 1)

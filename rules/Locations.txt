@@ -15,8 +15,9 @@ ScribleScrollsFail
 NaturallyPartyHeal
  elements ForEachParty NaturalHeal
 PickPocketsNothing
- elements Roll1d8 GoldPiece+101 Message
+ elements Message
 PickPocketsFight
+ elements Reputation-1 Roll1d6 Damage+101 Message ReturnToStreet
 PickPocketsCoinsAtBar
  elements Roll1d8 GoldPiece+101 Message
 

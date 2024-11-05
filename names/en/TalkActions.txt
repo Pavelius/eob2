@@ -15,5 +15,8 @@ You pick pockets of long man who payed on bar and pick %Number gold pieces.
 #PickPocketsNothingMessage
 You want steal some money, but all you try is failed.
 
+#PickPocketsFightMessage
+"Theif! I catch theif" cry patrons. Other patrons fight you and you leave street.
+
 #EatAndDrinkMessage
 You taste local food and drink. Not bad. Now you are in good shape.

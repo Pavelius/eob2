@@ -222,6 +222,7 @@ static void apply_result() {
 		apply_action(0);
 	} else if(bsdata<variant>::have(last_result))
 		script_run(*((variant*)last_result));
+	fix_animate();
 }
 
 static void choose_options(const char* id, const variants& options) {

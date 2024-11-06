@@ -17,9 +17,9 @@ NaturallyPartyHeal
 PickPocketsNothing
  elements Message
 PickPocketsFight
- elements Reputation-1 Roll1d6 Damage+101 Message ReturnToStreet
+ elements Message Reputation-1 Roll1d6 Bludgeon+101 ReturnToStreet
 PickPocketsCoinsAtBar
- elements Roll1d8 GoldPiece+101 Message
+ elements Roll2d6 GoldPiece+101 Message
 
 #RandomList
 

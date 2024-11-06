@@ -38,10 +38,6 @@ static bool serial_game(const char* url, bool writemode) {
 	e.set(bsdata<boosti>::source);
 	e.set(bsdata<creaturei>::source);
 	e.set(bsdata<dungeoni>::source);
-	if(!writemode) {
-		if(loc)
-			last_quest = bsdata<quest>::elements + loc->quest_id;
-	}
 	return true;
 }
 

@@ -45,7 +45,7 @@ bool need_update_animation;
 unsigned long current_cpu_time;
 
 struct pushscene : pushfocus {
-	const sprite*	font;
+	const sprite* font;
 	pushscene() : pushfocus(), font(draw::font) {}
 	~pushscene() { draw::font = font; }
 };
@@ -674,11 +674,11 @@ static void textr(const char* format) {
 	caret = push_caret;
 }
 
-static void textn(const char* format, int value, const char* value_format = 0) {
+static void textn(const char* format, int value, const char* value_format = 0, int value2 = 0) {
 	char temp[260]; stringbuilder sb(temp);
 	if(!value_format)
 		value_format = "%1i";
-	sb.add(value_format, value);
+	sb.add(value_format, value, value2);
 	textr(temp);
 	text(format);
 	caret.y += texth() + 1;
@@ -1010,10 +1010,11 @@ static void paint_quest_goals() {
 	if(last_quest) {
 		header(getnm("QuestGoals"));
 		width -= 2;
+		auto quest_id = getbsi(last_quest);
 		for(auto i = (goaln)0; i <= KillAlmostAllMonsters; i = (goaln)(i + 1)) {
 			if(last_quest->goals[i] <= 0)
 				continue;
-			textn(bsdata<goali>::elements[i].getname(), last_quest->goals[i], "0/%1i");
+			textn(bsdata<goali>::elements[i].getname(), last_quest->goals[i], "%2i/%1i", party_goal(quest_id, i));
 		}
 	}
 	font = push_font;

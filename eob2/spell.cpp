@@ -85,9 +85,10 @@ static void filter_creatures(const variants& source) {
 
 static void add_targets(pointc v, bool enemy, bool ally, bool include_player) {
 	creaturei* targets[6] = {};
-	if(enemy)
-		loc->getmonsters(targets, v);
-	else
+	if(enemy) {
+		if(loc)
+			loc->getmonsters(targets, v);
+	} else
 		memcpy(targets, characters, sizeof(targets));
 	for(auto p : targets) {
 		if(!p)
@@ -166,6 +167,8 @@ static bool choose_single(const char* title) {
 }
 
 static bool look_group(pointc& v, directions d) {
+	if(!loc)
+		return false;
 	for(auto i = 0; i < 3; i++) {
 		v = to(v, d);
 		if(!v || !loc->ispassable(v))

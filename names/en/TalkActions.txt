@@ -20,3 +20,6 @@ You want steal some money, but all you try is failed.
 
 #EatAndDrinkMessage
 You taste local food and drink. Not bad. Now you are in good shape.
+
+#TakeSpecialItemReward
+We found item. Now we can leave this place.

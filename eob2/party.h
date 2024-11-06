@@ -15,6 +15,7 @@ struct locationi;
 struct quest;
 
 enum abilityn : unsigned char;
+enum goaln : unsigned char;
 
 enum partystatn : unsigned char {
 	GoldPiece, Reputation, Blessing,
@@ -63,6 +64,7 @@ void turnto(pointc v, directions d, bool test_surprise = false, int sneaky_bonus
 
 int getparty(partystatn id);
 int get_party_index(const creaturei* target);
+int party_goal(unsigned short quest_id, goaln v);
 int party_median(creaturei** creatures, abilityn v);
 
 char* get_spells_prepared(const creaturei* target);

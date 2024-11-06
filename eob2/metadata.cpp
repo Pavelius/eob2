@@ -160,6 +160,7 @@ BSMETA(quest) = {
 	BSREQ(id),
 	BSREQ(sites),
 	BSREQ(travel),
+	BSREQ(reward),
 	BSDST(goals, goali),
 	{}};
 BSMETA(racei) = {

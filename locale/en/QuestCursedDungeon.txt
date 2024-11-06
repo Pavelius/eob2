@@ -3,7 +3,7 @@ Cursed dungeon
 
 #CursedDungeonSummary
 /npc 51
-"Hello. Are you ... that ... adventures?" man smoking tabacco sitting in tavern ask to you "My name is Dunkan. And I have a job for you."
+"Hello. Are you ... that ... adventures?" man smoking tabacco sitting in tavern address to you "My name is Dunkan. And I have a job for you."
 "I need you service to take some item from ruin, hauted by evil undead long time ago. That item is my familiy relict. A stone medallion of Tempus."
 "If you can deliver the item to me I will pay you 500 gold pieces."
 
@@ -19,5 +19,5 @@ When you search ruins you found an entrance to ruins dungeon.
 
 #CursedDungeonFinish
 /npc 51
-"You are back? I don't expect this. So ... here you reward."
-"And found me later. You may give a service to goverment and army."
+"At least! I have this ... artefact. Very well! You reward ... just a gold. Take this."
+"You are good in bussiness. Maybe I found ypu later."

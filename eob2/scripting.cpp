@@ -37,6 +37,7 @@
 extern "C" void exit(int code);
 
 static void* last_result;
+static void* save_focus;
 
 static int get_bonus(int v) {
 	switch(v) {
@@ -669,7 +670,11 @@ static void city_adventure_input() {
 	city_input(keys);
 }
 
-static void* save_focus;
+static void message(const char* format, const char* format_param = 0) {
+	auto push = an; an.clear();
+	dialogv(0, format);
+	an = push;
+}
 
 static void play_location() {
 	show_scene(paint_city, city_adventure_input, save_focus);
@@ -704,9 +709,45 @@ static void clear_mission_equipment() {
 	}
 }
 
+static void clear_edible() {
+	for(auto& e : player->wears) {
+		if(e.is(Edible))
+			e.clear();
+	}
+}
+
+static bool last_quest_complite() {
+	if(!last_quest)
+		return false;
+	auto quest_id = getbsi(last_quest);
+	for(auto i = (goaln)0; i <= KillAlmostAllMonsters; i = (goaln)(i + 1)) {
+		if(!last_quest->goals[i])
+			continue;
+		auto value = party_goal(quest_id, i);
+		if(value < last_quest->goals[i])
+			return false;
+	}
+	return true;
+}
+
+static void check_quest_complited() {
+	if(!last_quest_complite())
+		return;
+	auto push_quest = last_quest;
+	auto pn = getnme(ids(last_quest->id, "Finish"));
+	if(pn)
+		message(pn);
+	script_run(last_quest->reward);
+	last_quest = push_quest;
+	party.done.set(getbsi(last_quest));
+}
+
 static void enter_location(int bonus) {
-	if(loc)
+	if(loc) {
 		all_party(clear_mission_equipment, false);
+		all_party(clear_edible, false);
+		check_quest_complited();
+	}
 	loc = 0;
 	last_quest = 0;
 	party.quest_id = 0xFFFF;
@@ -846,12 +887,6 @@ static bool choose_dialog(const char* format, const char* format_param, const ch
 	pushanswer push;
 	an.add((void*)1, yes);
 	return (bool)dialogv(no, format, format_param);
-}
-
-static void message(const char* format, const char* format_param = 0) {
-	auto push = an; an.clear();
-	dialogv(0, format);
-	an = push;
 }
 
 static bool is_passable(pointc v) {
@@ -1393,6 +1428,11 @@ static void set_variable(int bonus) {
 	party.abilities[last_variable] = get_bonus(bonus);
 }
 
+static void add_reward(int bonus) {
+	party.abilities[GoldPiece] += get_bonus(bonus) * 100;
+	party_addexp(bonus * 200);
+}
+
 static void add_variable(int bonus) {
 	party.abilities[last_variable] += get_bonus(bonus);
 }
@@ -1469,9 +1509,9 @@ static void monsters_kill(int bonus) {
 }
 
 static void apply_switch(int bonus) {
-   auto p1 = bsdata<listi>::find(str("%1Case%2i", last_id, last_number));
-   if(p1)
-	   script_run(p1->id, p1->elements);
+	auto p1 = bsdata<listi>::find(str("%1Case%2i", last_id, last_number));
+	if(p1)
+		script_run(p1->id, p1->elements);
 }
 
 static void turning_monsters(int bonus) {
@@ -1696,6 +1736,7 @@ BSDATA(script) = {
 	{"AllLanguages", all_languages},
 	{"Attack", attack_modify},
 	{"ActivateQuest", activate_quest},
+	{"AddReward", add_reward},
 	{"AddVariable", add_variable},
 	{"ApplyAction", apply_action},
 	{"ApplyRacialEnemy", apply_racial_enemy},

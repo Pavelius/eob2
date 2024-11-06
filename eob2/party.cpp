@@ -535,6 +535,15 @@ static void party_clear() {
 	party.clear();
 }
 
+int party_goal(unsigned short quest_id, goaln v) {
+	auto result = 0;
+	for(auto& e : bsdata<dungeoni>()) {
+		if(e.quest_id == quest_id && e.is(v))
+			result++;
+	}
+	return result;
+}
+
 static void check_goals() {
 	if(!loc || !player)
 		return;

@@ -28,6 +28,7 @@ BSDATA(feati) = {
 	{"ParalizeAttack"},
 	{"VampiricAttack"},
 	{"VorpalAttack"},
+	{"Holy"},
 	{"WeaponSpecialist"},
 	{"Small"},
 	{"Large"},

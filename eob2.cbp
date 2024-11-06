@@ -104,7 +104,6 @@
 		<Unit filename="eob2/item.h" />
 		<Unit filename="eob2/keyvalue.cpp" />
 		<Unit filename="eob2/keyvalue.h" />
-		<Unit filename="eob2/levelable.cpp" />
 		<Unit filename="eob2/levelable.h" />
 		<Unit filename="eob2/list.cpp" />
 		<Unit filename="eob2/list.h" />
@@ -194,6 +193,7 @@
 		<Unit filename="eob2/wearable.cpp" />
 		<Unit filename="eob2/wearable.h" />
 		<Unit filename="eob2/win.h" />
+		<Unit filename="errors.txt" />
 		<Unit filename="locale/en/Abilities.txt" />
 		<Unit filename="locale/en/Actions.txt" />
 		<Unit filename="locale/en/Campaign.txt" />

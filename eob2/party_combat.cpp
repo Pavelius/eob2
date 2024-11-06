@@ -159,6 +159,8 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		if(player->is(BonusDamageVsEnemy))
 			bonus += 4;
 	}
+	if(power.iskind<racei>() && defender->race==power.value)
+      bonus += 3;
 	if(defender->is(Undead)) {
 		//auto holyness = wi.weapon->getenchant(OfHolyness);
 		//bonus += holyness;
@@ -183,6 +185,8 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		}
 		attack_damage.m = multiplier;
 		hits = attack_damage.roll();
+		if(player->is(weapon, VorpalAttack) && is_critical_hit)
+         hits = 1000;
 		// Weapon of specific damage type
 		if(power.iskind<damagei>()) {
 			damage_type = (damagen)power.value;
@@ -192,6 +196,8 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 			default: hits += xrand(0, 2); break;
 			}
 		}
+      if(power.iskind<racei>() && defender->race==power.value)
+         hits *= 2;
 		if(defender->is(Displaced) && d100() < 50)
 			hits = -1; // Miss if displaced
 	}

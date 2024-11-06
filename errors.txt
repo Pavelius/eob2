@@ -1,2 +1,2 @@
-﻿Error in file `rules/Locations.txt`:
- Line 20: Can't find variant `Roll1d6`
+Error in file `rules/Items.txt`:
+ Line 14: Can't find variant `Vorpal`

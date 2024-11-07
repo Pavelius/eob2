@@ -1,2 +1,2 @@
-Error in file `rules/Items.txt`:
- Line 14: Can't find variant `Vorpal`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `RedCloack`

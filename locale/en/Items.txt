@@ -1,7 +1,6 @@
 ﻿Axe: Axe
 Amulet: Amulet
 Arrow: Arrow
-BastardSword: BasterdSword
 BattleAxe: Battle axe
 BluePotion: Potion
 Boots: Boots
@@ -26,6 +25,7 @@ MageScroll: Scroll
 MagicMap: Map
 PriestScroll: Scroll
 Ration: Ration
+RedCloack: Cloack
 RedPotion: Potion
 RedRing: Ring
 Robe: Robe

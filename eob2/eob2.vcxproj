@@ -185,6 +185,7 @@
     <ClInclude Include="race.h" />
     <ClInclude Include="randomeffect.h" />
     <ClInclude Include="randomizer.h" />
+    <ClInclude Include="reaction.h" />
     <ClInclude Include="rect.h" />
     <ClInclude Include="reference.h" />
     <ClInclude Include="resid.h" />

@@ -632,6 +632,42 @@ item* party_get_item(const itemi* pi) {
 	return 0;
 }
 
+static void set_reaction(creaturei** creatures, reactions v) {
+	for(auto i = 0; i < 6; i++) {
+		if(creatures[i])
+			creatures[i]->reaction = v;
+	}
+}
+
+reactions get_reaction(creaturei** creatures) {
+	for(auto i = 0; i < 6; i++) {
+		if(creatures[i] && creatures[i]->reaction != Indifferent)
+			return creatures[i]->reaction;
+	}
+	return Indifferent;
+}
+
+static reactions roll_reaction(int bonus) {
+	static reactions data[19] = {
+		Friendly, Friendly,
+		Careful, Careful, Careful, Careful, Careful, Careful,
+		Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile,
+	};
+	auto n = rand() % 19 - bonus;
+	return maptbl(data, n);
+}
+
+void check_reaction(creaturei** creatures) {
+	auto v = get_reaction(creatures);
+	if(v == Indifferent) {
+		auto c = party_median(characters, Charisma);
+		v = roll_reaction(c);
+		if(v == Indifferent)
+			v = Careful;
+		set_reaction(creatures, v);
+	}
+}
+
 unsigned get_stamp(unsigned duration) {
 	return party.abilities[Minutes] + duration;
 }

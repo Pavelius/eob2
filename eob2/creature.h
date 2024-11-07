@@ -5,6 +5,7 @@
 #include "statable.h"
 #include "posable.h"
 #include "race.h"
+#include "reaction.h"
 #include "spell.h"
 #include "npc.h"
 #include "wearable.h"
@@ -19,6 +20,7 @@ struct creaturei : npc, statable, wearable, posable {
 	spella			spells;
 	racef			hate;
 	flag32			languages;
+	reactions		reaction;
 	void			add(abilityn i, int v);
 	void			addexp(int value);
 	void			additem(item& it);

@@ -1267,7 +1267,19 @@ static bool party_move_interact(pointc v) {
 }
 
 void monster_interaction() {
-	make_attacks(true);
+	if(!loc)
+		return;
+	creaturei* creatures[6] = {};
+	loc->getmonsters(creatures, to(party, party.d));
+	check_reaction(creatures);
+	auto reaction = get_reaction(creatures);
+	switch(reaction) {
+	case Careful: case Friendly:
+		break;
+	default:
+		make_attacks(true);
+		break;
+	}
 }
 
 void move_party(pointc v) {

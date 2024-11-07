@@ -16,6 +16,7 @@ struct quest;
 
 enum abilityn : unsigned char;
 enum goaln : unsigned char;
+enum reactions : unsigned char;
 
 enum partystatn : unsigned char {
 	GoldPiece, Reputation, Blessing,
@@ -43,6 +44,7 @@ unsigned get_stamp(unsigned duration);
 void all_creatures(fnevent proc);
 void all_party(fnevent proc, bool skip_disabled);
 void add_party(partystatn id, int value);
+void check_reaction(creaturei** creatures);
 void continue_game();
 void delete_game(const char* id);
 bool is_dead_line();
@@ -59,6 +61,7 @@ bool read_game(const char* id);
 void save_game(const char* id);
 void set_party_position(pointc v);
 void set_party_position(pointc v, directions d);
+void set_reaction(creaturei** creatures, reactions v);
 void surprise_roll(creaturei** creatures, int bonus);
 void turnto(pointc v, directions d, bool test_surprise = false, int sneaky_bonus = 0);
 
@@ -70,3 +73,5 @@ int party_median(creaturei** creatures, abilityn v);
 char* get_spells_prepared(const creaturei* target);
 
 item* party_get_item(const itemi* pi);
+
+reactions get_reaction(creaturei** creatures);

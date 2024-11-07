@@ -494,6 +494,9 @@
     <ClInclude Include="formula.h">
       <Filter>support</Filter>
     </ClInclude>
+    <ClInclude Include="reaction.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">

@@ -252,6 +252,9 @@
     <ClCompile Include="formula.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="reaction.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">

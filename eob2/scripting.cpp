@@ -1266,18 +1266,31 @@ static bool party_move_interact(pointc v) {
 	return true;
 }
 
+static bool talk_monsters() {
+	return false;
+}
+
 void monster_interaction() {
 	if(!loc)
 		return;
 	creaturei* creatures[6] = {};
 	loc->getmonsters(creatures, to(party, party.d));
 	check_reaction(creatures);
-	auto reaction = get_reaction(creatures);
-	switch(reaction) {
-	case Careful: case Friendly:
-		break;
-	default:
-		make_attacks(true);
+	last_reaction = get_reaction(creatures);
+	while(true) {
+		switch(last_reaction) {
+		case Careful:
+			if(talk_monsters())
+				continue;
+			break;
+		case Friendly:
+			if(talk_monsters())
+				continue;
+			break;
+		default:
+			make_attacks(true);
+			break;
+		}
 		break;
 	}
 }

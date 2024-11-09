@@ -43,6 +43,7 @@ struct creaturei : npc, statable, wearable, posable {
 	bool			is(const item& weapon, featn v) const;
 	bool			isactable() const;
 	bool			isallow(const item& it) const;
+	bool			isanimal() const { return get(Intellegence) <= 4; }
 	bool			isdead() const { return hp <= -10; }
 	bool			isdisabled() const { return hp <= 0; }
 	bool			ismonster() const { return getmonster() != 0; }

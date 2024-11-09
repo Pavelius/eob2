@@ -152,6 +152,13 @@ void party_addexp(int value) {
 	}
 }
 
+void party_addexp(alignmentn v, int value) {
+	for(auto p : characters) {
+		if(p && !p->isdisabled() && p->is(v))
+			p->addexp(value);
+	}
+}
+
 void party_addexp_per_killed(int hd) {
 	for(auto p : characters) {
 		if(!p || p->isdisabled())
@@ -634,6 +641,22 @@ item* party_get_item(const itemi* pi) {
 
 unsigned get_stamp(unsigned duration) {
 	return party.abilities[Minutes] + duration;
+}
+
+bool party_is(alignmentn v) {
+	for(auto i = 0; i < 6; i++) {
+		if(characters[i] && !characters[i]->isdisabled() && characters[i]->is(v))
+			return true;
+	}
+	return false;
+}
+
+bool party_is(featn v) {
+	for(auto i = 0; i < 6; i++) {
+		if(characters[i] && !characters[i]->isdisabled() && characters[i]->is(v))
+			return true;
+	}
+	return false;
 }
 
 static bool if_take_special_item() {

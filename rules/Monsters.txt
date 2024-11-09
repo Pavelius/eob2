@@ -6,7 +6,7 @@ Kobold res(kobold) hd(0) ac(7) experience(7) alignment(LawfulEvil)
 Ghoul res(ghoul) hd(1) ac(6) experience(175) alignment(ChaoticEvil)
  feats Claws1d3 Bite1d6 Undead ImmuneCharm ImmuneCold ParalizeAttack
 Leech res(leech) hd(4) ac(9) experience(175) alignment(TrueNeutral)
- feats Large VampiricAttack DiseaseAttack Mandibules
+ feats Intellegence-6 Large VampiricAttack DiseaseAttack Mandibules
 Skeleton res(skeleton) hd(1) ac(7) experience(65) alignment(TrueNeutral)
  feats Dexterity+3 Axe Undead ResistPierce ResistSlashing ImmuneCharm ImmuneCold
 Wight res(wight) hd(4) ac(5) experience(1400) alignment(LawfulEvil)

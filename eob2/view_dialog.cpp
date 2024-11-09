@@ -45,7 +45,8 @@ void* dialogv(const char* cancel, const char* format) {
 		else {
 			auto cancel_key = KeyEscape;
 			if(!an) {
-				cancel = getnm("Continue");
+				if(!cancel)
+					cancel = getnm("Continue");
 				cancel_key = KeyEnter;
 			}
 			result = show_message(temp, true, cancel, cancel_key);

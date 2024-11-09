@@ -1266,8 +1266,52 @@ static bool party_move_interact(pointc v) {
 	return true;
 }
 
+static creaturei* get_leader(creaturei** creatures) {
+	for(auto i = 0; i < 6; i++) {
+		if(creatures[i])
+			return creatures[i];
+	}
+	return 0;
+}
+
+static void talk_monsters(const char* format) {
+	pushanswer push;
+	auto result = dialogv(getnm("Leave"), format, 0);
+}
+
 static bool talk_monsters() {
+	if(!opponent)
+		return false;
+	auto pm = opponent->getmonster();
+	if(!pm)
+		return false;
+	auto pq = party.getquest();
+	if(!pq)
+		return false;
+	auto pn = speech_get_na(pm->id, pq->id);
+	auto rm = bsdata<reactioni>::elements[last_reaction].id;
+	if(!pn)
+		pn = speech_get_na(pm->id, rm);
+	if(!pn) {
+		if(opponent->isanimal())
+			pn = speech_get_na("Animal", rm);
+		else
+			pn = speech_get_na("Intellegence", rm);
+	}
+	if(!pn)
+		return false;
+	picture.clear();
+	fix_animate();
+	animation_update();
+	talk_monsters(pn);
 	return false;
+}
+
+static void party_set(creaturei** creatures, featn v) {
+	for(auto i = 0; i < 6; i++) {
+		if(creatures[i])
+			creatures[i]->set(v);
+	}
 }
 
 void monster_interaction() {
@@ -1277,15 +1321,21 @@ void monster_interaction() {
 	loc->getmonsters(creatures, to(party, party.d));
 	check_reaction(creatures);
 	last_reaction = get_reaction(creatures);
+	auto push_opponent = opponent;
+	opponent = get_leader(creatures);
 	while(true) {
 		switch(last_reaction) {
 		case Careful:
 			if(talk_monsters())
 				continue;
+			party_set(creatures, Moved);
 			break;
 		case Friendly:
 			if(talk_monsters())
 				continue;
+			party_set(creatures, Moved);
+			break;
+		case Indifferent:
 			break;
 		default:
 			make_attacks(true);
@@ -1293,6 +1343,7 @@ void monster_interaction() {
 		}
 		break;
 	}
+	opponent = push_opponent;
 }
 
 void move_party(pointc v) {
@@ -1602,6 +1653,10 @@ static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
 
+static void opponent_name(stringbuilder& sb) {
+	sb.add(opponent->getname());
+}
+
 static void item_name(stringbuilder& sb) {
 	last_item->getname(sb);
 }
@@ -1735,6 +1790,7 @@ BSDATA(textscript) = {
 	{"Habbitant2", dungeon_habbitant2},
 	{"ItemName", item_name},
 	{"Name", player_name},
+	{"OpponentName", opponent_name},
 	{"Number", effect_number},
 	{"StairsDownSide", stairs_down_side},
 	{"StairsUpSide", stairs_up_side},

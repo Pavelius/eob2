@@ -1671,15 +1671,18 @@ void* show_message(const char* format, bool add_anaswers, const char* cancel, un
 	auto push_picture = picture;
 	while(ismodal()) {
 		paint_background(PLAYFLD, 0);
+		paint_compass(party.d);
 		paint_avatars_no_focus_hilite();
-		paint_console();
 		paint_menu({0, 122}, 319, 77);
 		caret = {6, 128};
 		width = 308;
 		height = 56;
 		// rectb();
 		texta(format, TextBold);
-		paint_picture();
+		if(picture)
+			paint_picture();
+		else if(loc)
+			paint_dungeon();
 		caret = {4, 184};
 		auto index = 0;
 		height = texth() + 3;

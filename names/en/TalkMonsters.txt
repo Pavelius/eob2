@@ -1,0 +1,10 @@
+#AnimalCareful
+%OpponentName stand still and glazing at you.
+
+#AnimalFriendly
+%OpponentName stand still and glazing at you.
+
+#KoboldFloodedSewers
+"How you get there?"
+"How you get this place?"
+"Who is you? How you dig so deep?"

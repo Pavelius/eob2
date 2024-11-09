@@ -15,6 +15,8 @@ struct locationi;
 struct quest;
 
 enum abilityn : unsigned char;
+enum alignmentn : unsigned char;
+enum featn : unsigned char;
 enum goaln : unsigned char;
 enum reactions : unsigned char;
 
@@ -55,6 +57,9 @@ void monster_interaction();
 void move_party(pointc v);
 void party_addexp(int value);
 void party_addexp_per_killed(int victim_hit_die);
+void party_addexp(alignmentn v, int value);
+bool party_is(alignmentn v);
+bool party_is(featn v);
 void pass_hours(int count);
 void pass_round();
 bool read_game(const char* id);

@@ -314,6 +314,7 @@
     <Text Include="..\names\en\Names.txt" />
     <Text Include="..\names\en\Talk.txt" />
     <Text Include="..\names\en\TalkActions.txt" />
+    <Text Include="..\names\en\TalkMonsters.txt" />
     <Text Include="..\rules\Advance.txt" />
     <Text Include="..\rules\Avatars.txt" />
     <Text Include="..\rules\Classes.txt" />

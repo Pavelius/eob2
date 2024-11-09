@@ -29,6 +29,7 @@ GameOptionsOptions: Game Options
 GlobalCampMenu: Camp menu
 GlobalOptions: What %Name want?
 GlobalVisit: Visit %1
+Leave: Leave
 MakeCampConfirm: Do you want to make camp?
 MemorizeSpells: Memorize Spells
 MulChooseBet: Bet %1i gold pieces
@@ -74,3 +75,4 @@ WhatCharacter: What character?
 WhatSpell: What spell?
 
 TakeSpecialItem: Find special items
+KillAlmostAllMonsters: Kill all of them

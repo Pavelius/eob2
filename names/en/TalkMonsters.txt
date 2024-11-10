@@ -13,7 +13,7 @@
 "We come from deep. Our master send us there to investigate coming adventurers such as you. We don't like this mission, we want to go away from here."
 
 #TalkCursed
-"I tell you something that you may not to known. Some of your items are cursed. Don't use it or it will be bad."
+"I tell you something that you may not to known. That item in your package is a %-ItemName. Don't use it or it will be bad."
 
 #TalkMagical
-"Some of your items are magical. Try to use identify."
+"That item in your package seems to be magical. It is a %-ItemName."

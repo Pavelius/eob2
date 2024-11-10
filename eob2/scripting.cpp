@@ -1897,22 +1897,28 @@ static bool talk_stage(bool run) {
 static bool talk_cursed(bool run) {
 	pushanswer push;
 	select_items(if_item_identified, false);
-	select_items(if_item_cursed, true);
+	filter_items(if_item_cursed, true);
 	if(!an)
 		return false;
-	if(run)
+	if(run) {
+		last_item = (item*)an.elements[rand() % an.getcount()].value;
+		last_item->identify(1);
 		talk_standart();
+	}
 	return true;
 }
 
 static bool talk_magical(bool run) {
 	pushanswer push;
 	select_items(if_item_identified, false);
-	select_items(if_item_magic, true);
+	filter_items(if_item_magic, true);
 	if(!an)
 		return false;
-	if(run)
+	if(run) {
+		last_item = (item*)an.elements[rand() % an.getcount()].value;
+		last_item->identify(1);
 		talk_standart();
+	}
 	return true;
 }
 

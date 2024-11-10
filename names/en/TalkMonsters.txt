@@ -17,3 +17,9 @@
 
 #TalkMagical
 "That item in your package seems to be magical. It is a %-ItemName."
+
+#TalkGift
+"As sign of my friendship take this %-ItemName. Use it as you desire and remember your kindly friends."
+
+#TalkKey
+"I give you a key. Use it to open closed doors in this area."

@@ -688,12 +688,18 @@ static void addv(stringbuilder& sb, const dice& value) {
 	sb.add("%1i-%2i", value.minimum(), value.maximum());
 }
 
+static int get_weapon_attack_bonus(wearn w) {
+	int bonus = 0;
+	player->getdamage(bonus, w, false);
+	return bonus;
+}
+
 static void textn(abilityn id) {
 	char temp[260]; stringbuilder sb(temp);
 	int bonus;
 	switch(id) {
 	case AttackMelee:
-		sb.add("%1i", 20 - player->get(id));
+		sb.add("%1i", 20 - player->get(id) - get_weapon_attack_bonus(RightHand));
 		break;
 	case DamageMelee:
 		bonus = 0;
@@ -988,7 +994,7 @@ static void paint_party_sheets() {
 
 static void get_closed_goals(goala goals) {
 	auto quest_id = getbsi(last_quest);
-	if(!quest_id)
+	if(quest_id==0xFFFF)
 		return;
 	for(auto& e : bsdata<dungeoni>()) {
 		if(e.quest_id != quest_id)
@@ -1012,9 +1018,9 @@ static void paint_quest_goals() {
 		width -= 2;
 		auto quest_id = getbsi(last_quest);
 		for(auto i = (goaln)0; i <= KillAlmostAllMonsters; i = (goaln)(i + 1)) {
-			if(last_quest->goals[i] <= 0)
+			if(last_quest->goals[i] <= 0 && goals[i] <= 0)
 				continue;
-			textn(bsdata<goali>::elements[i].getname(), last_quest->goals[i], "%2i/%1i", party_goal(quest_id, i));
+			textn(bsdata<goali>::elements[i].getname(), last_quest->goals[i], "%2i/%1i", goals[i]);
 		}
 	}
 	font = push_font;

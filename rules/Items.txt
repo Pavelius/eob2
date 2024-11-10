@@ -264,6 +264,9 @@ RandomItem
 RandomSmallItem
  chance RandomPotions+4 RandomRings RandomKeys RandomTools RandomWands RandomScrolls
 
+MonsterGiftItems
+ chance RandomSword RandomPotions+4 RandomAmulets+2 RandomAmulets
+
 #Race
 
 Human

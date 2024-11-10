@@ -614,6 +614,7 @@ void creaturei::additem(item& it) {
 
 dice creaturei::getdamage(int& bonus, wearn id, bool large_enemy) const {
 	auto& ei = wears[id].geti();
+	auto power = wears[id].getpower();
 	dice result = ei.damage;
 	if(large_enemy && ei.damage_large)
 		result = ei.damage_large;
@@ -628,6 +629,8 @@ dice creaturei::getdamage(int& bonus, wearn id, bool large_enemy) const {
 			result.b += 2;
 		}
 	}
+	result.b += power.counter;
+	bonus += power.counter;
 	return result;
 }
 

@@ -1498,7 +1498,7 @@ static void learn_cleric_spells(int bonus) {
 	if(!ps)
 		return;
 	pushanswer push;
-	add_spells(0, 1, 0);
+	add_spells(0, bonus, 0);
 	for(auto& e : an.elements)
 		ps->set(getbsi((spelli*)e.value));
 }
@@ -1889,6 +1889,7 @@ static bool talk_stage(bool run) {
 		return false;
 	if(run) {
 		dialog(0, pn);
+		party.stages[party.quest_id]++;
 		party_addexp(200);
 	}
 	return true;
@@ -1918,6 +1919,34 @@ static bool talk_magical(bool run) {
 		last_item = (item*)an.elements[rand() % an.getcount()].value;
 		last_item->identify(1);
 		talk_standart();
+	}
+	return true;
+}
+
+static bool talk_key(bool run) {
+	if(run) {
+		item it; it.create(loc->key);
+		it.identify(1);
+		player->additem(it);
+		talk_standart();
+	}
+	return true;
+}
+
+static bool talk_gift(bool run) {
+	auto pi = bsdata<randomizeri>::find("MonsterGiftItems");
+	if(!pi)
+		return false;
+	if(run) {
+		auto v = single(pi);
+		if(v.iskind<itemi>()) {
+			item it;
+			it.create(v.value);
+			it.createpower(2, 20, 30);
+			it.identify(-1);
+			player->additem(it);
+			talk_standart();
+		}
 	}
 	return true;
 }
@@ -1971,6 +2000,8 @@ BSDATA(talking) = {
 	{"TalkStage", talk_stage},
 	{"TalkCursed", talk_cursed},
 	{"TalkMagical", talk_magical},
+	{"TalkGift", talk_gift},
+	{"TalkKey", talk_key},
 };
 BSDATAF(talking)
 BSDATA(conditioni) = {

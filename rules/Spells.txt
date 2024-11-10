@@ -76,14 +76,17 @@ Aid levels(2) duration(Minute5x1)
 Augury levels(2)
 Barkskin levels(2) duration(Minute5x1)
  feats Ally
+ filter IfAlive
  wearing AC+4
-Chant levels(2)
+Chant levels(2) duration(Minute5x1)
+ filter IfAlive
  feats Ally Group
  wearing Attack+1 Damage+1 Saves+1
 FindTraps levels(2)
 FlameBlade levels(2)
  feats You
 Goodberry levels(2)
+ filter IfAlive
  feats You Ally Group
 HoldPerson levels(2)
 Messenger levels(2)

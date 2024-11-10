@@ -62,10 +62,11 @@ OfHealEffect1: healing
 OfHealEffect2: extra-healing
 OfHealth: health
 OfInvisibled: invisibility
+OfImmuneCold: cold immunity
+OfImmuneFire: fire immunity
 OfMoveSilently: chameleon power
 OfProtection: protection%+1i
 OfResistFire: fire resistance
-OfResistCold: cold resistance
 OfResistCold: cold resistance
 OfShockingGrasp: shocking
 

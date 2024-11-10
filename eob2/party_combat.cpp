@@ -142,8 +142,6 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		chance_critical++;
 	// Magical weapon stats
 	auto magic_bonus = power.counter;
-	bonus += magic_bonus;
-	attack_damage.b += magic_bonus;
 	// Other stats
 	auto ac = defender->get(AC);
 	if(!isrange) {

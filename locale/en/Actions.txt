@@ -37,9 +37,10 @@ MakeCampConfirm: Do you want to make camp?
 MemorizeSpells: Memorize Spells
 MulChooseBet: Bet %1i gold pieces
 MulChooseDonation: Donate %1i golds
+OpenLocksFail: Pick locks fail
 PartyAdventure: Go to adventure
 PartyAdventureOptions: Which way to go?
-OpenLocksFail: Pick locks fail
+PartyGoingDown: Party going down...
 PartyFallPit: Party fall down...
 PickPockets: Pick pockets
 PickPocketsAction: Pick pockets
@@ -78,5 +79,7 @@ Yes: Yes
 WhatCharacter: What character?
 WhatSpell: What spell?
 
-TakeSpecialItem: Find special items
+ExmploreMostArea: Explore area
 KillAlmostAllMonsters: Kill all of them
+TakeSpecialItem: Find special items
+OpenAllLockedDoors: Open all locks

@@ -194,6 +194,7 @@ BSMETA(spelli) = {
 	BSREQ(summon),
 	BSREQ(filter),
 	BSREQ(instant),
+	BSREQ(clearing),
 	BSREQ(wearing),
 	{}};
 BSMETA(weari) = {

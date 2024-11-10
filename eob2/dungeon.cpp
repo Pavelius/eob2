@@ -51,6 +51,15 @@ template<> referencei::referencei(creaturei* p) {
 	}
 }
 
+template<> referencei::operator creaturei*() const {
+	if(index == 0xFFFF)
+		return 0;
+	else if(parent == 0xFFFF)
+		return bsdata<creaturei>::elements + index;
+	else
+		return bsdata<dungeoni>::elements[parent].monsters + index;
+}
+
 void dungeoni::makewave(pointc start) {
 	if(!start)
 		return;

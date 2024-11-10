@@ -19,6 +19,7 @@ struct spelli : nameable, featable {
 	const itemi* summon; // Which item summoned in hand
 	variants	filter;
 	variants	instant;
+	variants	clearing;
 	variants	wearing;
 	bool isthrown() const { return avatar_thrown!=0; }
 };

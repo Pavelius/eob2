@@ -3,6 +3,7 @@
 struct referencei {
 	short unsigned parent, index;
 	constexpr explicit operator bool() const { return parent != 0xFFFF && index != 0xFFFF; }
+	template<typename T> operator T*() const; // Externally defined function
 	constexpr bool operator==(const referencei& v) const { return parent == v.parent && index == v.index; }
 	constexpr bool operator!=(const referencei& v) const { return parent != v.parent || index != v.index; }
 	constexpr referencei() : parent(0xFFFF), index(0xFFFF) {}

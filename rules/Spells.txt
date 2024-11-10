@@ -72,10 +72,11 @@ ShockingGrasp levels(0 1)
  feats Enemy
  instant Roll1d8x1 Shock+101
 
-Aid levels(2) duration(Minute5x1)
+Aid levels(2) duration(Minute5x1) lighting(221 210 0)
  feats Ally
  wearing Attack+1 Saves+1
  instant Roll1d8 AddAid+101
+ clearing AddAid-8
 Augury levels(2)
 FlameBlade levels(2)
  feats You

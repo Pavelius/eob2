@@ -11,6 +11,7 @@
 #include "math.h"
 #include "party.h"
 #include "rand.h"
+#include "script.h"
 #include "view.h"
 
 BSDATA(partystati) = {
@@ -567,8 +568,20 @@ static void check_goals() {
 	}
 }
 
+static void clear_boost_proc(referencei target, variant v) {
+	if(v.iskind<spelli>()) {
+		auto pi = bsdata<spelli>::elements + v.value;
+		if(pi->clearing) {
+			auto push = player;
+			player = target;
+			script_run(pi->clearing);
+			player = push;
+		}
+	}
+}
+
 void pass_round() {
-	clear_boost(party.abilities[Minutes]);
+	clear_boost(party.abilities[Minutes], clear_boost_proc);
 	monsters_movement();
 	add_party(Minutes, 1);
 	animation_update();
@@ -592,7 +605,7 @@ void pass_round() {
 
 void pass_hours(int value) {
 	add_party(Minutes, 60 * value);
-	clear_boost(party.abilities[Minutes]);
+	clear_boost(party.abilities[Minutes], clear_boost_proc);
 	all_creatures(update_every_round);
 	for(auto i = 0; i < 6 * value; i++)
 		all_creatures(update_every_turn);

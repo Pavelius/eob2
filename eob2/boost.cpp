@@ -1,10 +1,12 @@
 #include "boost.h"
 
-void clear_boost(unsigned stamp) {
+void clear_boost(unsigned stamp, fnclearboost proc) {
 	auto ps = bsdata<boosti>::begin();
 	for(auto& e : bsdata<boosti>()) {
-		if(e.stamp <= stamp)
+		if(e.stamp <= stamp) {
+			proc(e.target, e.effect);
 			continue;
+		}
 		*ps++ = e;
 	}
 	bsdata<boosti>::source.count = ps - bsdata<boosti>::elements;

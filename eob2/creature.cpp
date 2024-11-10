@@ -743,6 +743,15 @@ void creaturei::damage(damagen type, int value, char magic_bonus) {
 		fix_damage(this, value);
 		break;
 	}
+	if(hp_aid > 0) {
+		if(hp_aid >= value) {
+			hp_aid -= value;
+			value = 0;
+		} else {
+			value -= hp_aid;
+			hp_aid = 0;
+		}
+	}
 	hp -= value;
 	if(hp <= 0)
 		kill();

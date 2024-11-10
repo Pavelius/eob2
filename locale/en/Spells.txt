@@ -16,6 +16,17 @@ DetectMagic: Detect Magic
 ProtectionFromEvil: Prot. from Evil
 PurifyFood: Purify Food
 
+Aid: Aid
+Augury: Augury
+Barkskin: Barkskin
+FindTraps: Find Traps
+FlameBlade: Flame Blade
+Goodberry: Goodberry
+HoldPerson: Hold Person
+ResistColdSpell: Resist Cold
+ResistFireSpell: Resist Fire
+SlowPoison: Slow Poison
+
 CureDisease: Cure disease
 LayOnHand: Lay on hand
 TurnUndead: Turn undead

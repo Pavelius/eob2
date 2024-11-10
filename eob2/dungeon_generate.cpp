@@ -80,6 +80,15 @@ static directions optimal_direction(pointc v) {
 	return d;
 }
 
+static int random_count() {
+	auto rolled = d100();
+	if(rolled < 70)
+		return 0;
+	else if(rolled < 95)
+		return 1;
+	return 2;
+}
+
 static void put_corridor(pointc v, directions d, unsigned flags, bool test_valid) {
 	if(!v)
 		return;
@@ -191,16 +200,6 @@ static void items(pointc v, itemi* pi, int bonus_level = 0) {
 	loc->drop(v, it, xrand(0, 3));
 }
 
-static int random_count() {
-	auto r = d100();
-	if(r < 50)
-		return 0;
-	else if(r < 85)
-		return 1;
-	else
-		return 2;
-}
-
 static void items(pointc v, int bonus_level) {
 	items(v, single("RandomItem"), bonus_level);
 }
@@ -223,10 +222,7 @@ static void secret(pointc v, directions d) {
 	loc->set(v1, CellWall);
 	loc->add(v, d, CellSecrectButton);
 	loc->set(v2, CellPassable);
-	int count = 1;
-	if(d100() < 25)
-		count = 2;
-	for(int i = 0; i < count; i++)
+	for(auto i = random_count() + 1; i > 0; i--)
 		items(v2, 2);
 	loc->set(to(v2, to(d, Left)), CellWall);
 	loc->set(to(v2, to(d, Right)), CellWall);
@@ -426,15 +422,6 @@ static void resolve_traps() {
 	}
 }
 
-static int random_cellar_count() {
-	auto rolled = d100();
-	if(rolled < 60)
-		return 0;
-	else if(rolled < 90)
-		return 1;
-	return 2;
-}
-
 static void cellar(pointc v, directions d) {
 	static variant random_list("RandomSmallItem");
 	if(loc->type == FOREST)
@@ -444,15 +431,13 @@ static void cellar(pointc v, directions d) {
 		return;
 	loc->set(v1, CellWall);
 	auto po = loc->add(v, d, CellCellar);
-	auto count = random_cellar_count();
-	while(count > 0) {
+	for(auto i = random_count(); i > 0; i--) {
 		item it;
 		create_item(it, single(random_list), 0);
 		// Items in cellar can be identified
 		if(d100() < 60)
 			it.identify(1);
 		loc->add(po, it);
-		count--;
 	}
 }
 

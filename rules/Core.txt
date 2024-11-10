@@ -21,8 +21,11 @@ ElfMage
 HalflingTheif
  elements Halfling Female Theif CreateCharacter
 
+CreateTestItems
+ elements GreenPotion+4 IdentifyItem GreenPotion+4 IdentifyItem
+
 CreateTestParty
- elements HumanPaladin JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty HalflingTheif JoinParty
+ elements HumanPaladin JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty CreateTestItems HalflingTheif JoinParty
 
 StartGameAbilities
  elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 

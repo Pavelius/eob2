@@ -14,7 +14,7 @@ struct monsteri;
 
 struct creaturei : npc, statable, wearable, posable {
 	statable		basic;
-	short			hp, hpm, hpr;
+	short			hp, hpm, hpr, hp_aid;
 	short unsigned	monster_id;
 	char			initiative;
 	spella			spells;
@@ -34,6 +34,7 @@ struct creaturei : npc, statable, wearable, posable {
 	dice			getdamage(int& bonus, wearn id, bool large_enemy) const;
 	int				getexpaward() const;
 	int				gethitpenalty(int bonus) const;
+	int				gethp() const { return hp + hp_aid; }
 	const monsteri*	getmonster() const;
 	const char*		getname() const;
 	void			heal(int value);
@@ -44,8 +45,8 @@ struct creaturei : npc, statable, wearable, posable {
 	bool			isactable() const;
 	bool			isallow(const item& it) const;
 	bool			isanimal() const { return get(Intellegence) <= 4; }
-	bool			isdead() const { return hp <= -10; }
-	bool			isdisabled() const { return hp <= 0; }
+	bool			isdead() const { return gethp() <= -10; }
+	bool			isdisabled() const { return gethp() <= 0; }
 	bool			ismonster() const { return getmonster() != 0; }
 	bool			isunderstand(racen v) const { return languages.is(v); }
 	void			kill();

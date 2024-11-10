@@ -934,7 +934,7 @@ static void paint_character() {
 	paint_avatar();
 	caret.y = push.caret.y + 44;
 	width = 65;
-	texta(str("%1i of %2i", player->hp, player->hpm), AlignCenter);
+	texta(str("%1i of %2i", player->gethp(), player->hpm), AlignCenter);
 	fore = push_fore;
 	font = push_font;
 	caret = push_caret;

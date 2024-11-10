@@ -8,6 +8,8 @@ Displacement
  elements AC+2 SaveVsTraps+2 Displaced
 Arachemida
  elements AC+2 SaveVsPoison+4
+LifeWater
+ elements AddExpPersonal+20
 
 MeleePowers
  elements NoVariant Magical+1 Magical+2 Magical+3 Magical+4 Fire+2 Shock+2 VampiricAttack+1 VampiricAttack+2\
@@ -18,7 +20,7 @@ ArmorPowers
 SimplePotions
  elements HealEffect+1 HealEffect+2 Health+2 HearNoise ClimbWalls
 AdvancedPotions
- elements ResistFire+1 ResistCold+1 Strenght+1 Strenght+2 Strenght+3 Dexterity+1 Dexterity+2 Dexterity+3 Charisma+1 Invulnerability+2
+ elements ResistFire+1 ResistCold+1 Strenght+1 Strenght+2 Strenght+3 Dexterity+1 Dexterity+2 Dexterity+3 Charisma+1 Invulnerability+2 LifeWater+4
 WeirdPotions
  elements ResistFire+1 ResistCold+1 ImmuneFire+2 ImmuneCold+2 Strenght+3 Strenght+4 Dexterity+3 Dexterity+4 Charisma+1 Charisma+2
 

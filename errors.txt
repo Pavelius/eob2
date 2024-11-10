@@ -1,2 +1,4 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `PartyGoingDown`
+ Define translation for `ResistCold`
+ Define translation for `ResistFire`
+ Define translation for `SlowPoison`

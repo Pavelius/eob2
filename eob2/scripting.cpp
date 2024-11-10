@@ -109,7 +109,7 @@ template<> void ftscript<partystati>(int value, int bonus) {
 
 template<> void ftscript<itemi>(int value, int bonus) {
 	item v; v.create(value);
-	v.createpower(1, 0, 0);
+	v.createpower(bonus, bonus ? 100 : 0, 0);
 	player->additem(v);
 }
 
@@ -335,6 +335,12 @@ static void drop_city_item() {
 		return;
 	pi->clear();
 	add_party(GoldPiece, cost);
+}
+
+static void player_add_aid(int bonus) {
+	player->hp_aid += get_bonus(bonus);
+	if(player->hp_aid < 0)
+		player->hp_aid = 0;
 }
 
 static void player_heal(int bonus) {
@@ -1570,6 +1576,10 @@ static void add_exp_group(int bonus) {
 	party_addexp(bonus * 100);
 }
 
+static void add_exp_personal(int bonus) {
+	player->addexp(bonus * 100);
+}
+
 static void add_exp_evil(int bonus) {
 	party_addexp(LawfulEvil, bonus * 20);
 	party_addexp(NeutralEvil, bonus * 20);
@@ -1805,7 +1815,7 @@ static bool if_poisoned() {
 }
 
 static bool if_wounded() {
-	return player->hp < player->hpm;
+	return player->gethp() < player->hpm;
 }
 
 static bool if_undead() {
@@ -2027,7 +2037,9 @@ BSDATA(script) = {
 	{"AllLanguages", all_languages},
 	{"Attack", attack_modify},
 	{"ActivateQuest", activate_quest},
+	{"AddAid", player_add_aid},
 	{"AddExp", add_exp_group},
+	{"AddExpPersonal", add_exp_personal},
 	{"AddExpEvil", add_exp_evil},
 	{"AddExpGood", add_exp_good},
 	{"AddReward", add_reward},

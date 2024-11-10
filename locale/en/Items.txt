@@ -64,6 +64,7 @@ OfHealth: health
 OfInvisibled: invisibility
 OfImmuneCold: cold immunity
 OfImmuneFire: fire immunity
+OfLifeWater: experience
 OfMoveSilently: chameleon power
 OfProtection: protection%+1i
 OfResistFire: fire resistance

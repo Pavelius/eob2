@@ -1422,23 +1422,23 @@ static bool answer_input() {
 	case 'W':
 		if(!answer_origin)
 			return false;
-		answer_result = an.findvalue(current_focus);
+		answer_result = an.indexof(current_focus);
 		if(answer_result != answer_origin)
 			return false;
 		answer_origin--;
-		current_focus = (void*)an.elements[answer_origin].value;
+		current_focus = (void*)&an.elements.data[answer_origin];
 		break;
 	case KeyDown:
 	case 'Z':
 		if(answer_per_page == -1)
 			return false;
-		answer_result = an.findvalue(current_focus);
+		answer_result = an.indexof(current_focus);
 		if(answer_result != (answer_origin + answer_per_page - 1))
 			return false;
 		if(answer_result == (an.getcount() - 1))
 			return false;
 		answer_origin++;
-		current_focus = (void*)an.elements[answer_origin + answer_per_page - 1].value;
+		current_focus = (void*)&an.elements.data[answer_origin + answer_per_page - 1];
 		break;
 	default:
 		return false;

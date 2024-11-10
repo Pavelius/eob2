@@ -9,6 +9,7 @@ Roll1d8x1 base(1 8) raise(1) perlevel(1 1)
 Roll2x1 base(2) raise(1) perlevel(1 1)
 Roll2d6 base(2 6)
 Minute3x1 base(3) raise(1) perlevel(1 1)
+Minute4x1 base(4) raise(1) perlevel(1 1)
 Minute5x1 base(5) raise(1) perlevel(2 1)
 Minute5x5 base(5) raise(1) perlevel(2 5)
 Minute0x2 raise(2) perlevel(0 1)
@@ -78,7 +79,7 @@ Aid levels(2) duration(Minute5x1) lighting(221 210 0)
  instant Roll1d8 AddAid+101
  clearing AddAid-8
 Augury levels(2)
-FlameBlade levels(2)
+FlameBlade levels(2) duration(Minute4x1) summon(FlameBladeHand)
  feats You
 Goodberry levels(2)
  filter IfAlive

@@ -373,6 +373,12 @@ static void update_saves() {
 		player->abilities[i] += get_save_value(save_index[i - SaveVsParalization]);
 }
 
+static void update_bonus_experience() {
+	auto& ei = player->getclass();
+	if(player->get(ei.primary) >= 16)
+		player->add(BonusExperience, 1);
+}
+
 void update_player() {
 	update_basic();
 	update_languages();
@@ -384,6 +390,7 @@ void update_player() {
 	update_depended_abilities();
 	update_additional_spells();
 	update_bonus_saves();
+	update_bonus_experience();
 	player->hpm = get_maximum_hits();
 }
 
@@ -671,6 +678,8 @@ const char* creaturei::getbadstate() const {
 }
 
 void creaturei::addexp(int value) {
+	if(abilities[BonusExperience])
+		value += value * abilities[BonusExperience] / 10;
 	experience += value;
 }
 
@@ -731,7 +740,7 @@ void creaturei::damage(damagen type, int value, char magic_bonus) {
 	if(value <= 0)
 		return;
 	auto& ei = bsdata<damagei>::elements[type];
-	if(ei.immunity && is(ei.immunity) && (magic_bonus<=0))
+	if(ei.immunity && is(ei.immunity) && (magic_bonus <= 0))
 		value = 0;
 	else if(ei.resist && is(ei.resist))
 		value = value / 2;
@@ -860,8 +869,8 @@ void creaturei::add(abilityn i, int v) {
 			if(is(ProtectedFromEvil))
 				return;
 			break;
-      default:
-         break;
+		default:
+			break;
 		}
 	}
 	statable::add(i, v);
@@ -912,7 +921,7 @@ static reactions roll_reaction(int bonus) {
 		Careful, Careful, Careful, Careful, Careful, Careful,
 		Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile,
 	};
-	auto n = rand() % (sizeof(data)/ sizeof(data[0])) - bonus;
+	auto n = rand() % (sizeof(data) / sizeof(data[0])) - bonus;
 	return maptbl(data, n);
 }
 

@@ -197,6 +197,8 @@ Slam1d4 damage_type(Bludgeon) damage(1 4) wear(RightHand)
  feats You
 Slam1d8 damage_type(Bludgeon) damage(1 8) wear(RightHand)
  feats You
+FlameBladeHand avatar(82) damage_type(Fire) damage(1 4 6) wear(RightHand)
+ feats You 
 
 #List
 

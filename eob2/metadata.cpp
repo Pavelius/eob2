@@ -174,6 +174,9 @@ BSMETA(randomeffecti) = {
 	BSREQ(id),
 	BSREQ(base), BSREQ(raise), BSREQ(perlevel), BSREQ(multiplier),
 	{}};
+BSMETA(reactioni) = {
+	BSREQ(id),
+	{}};
 BSMETA(residi) = {
 	BSREQ(id),
 	{}};
@@ -221,6 +224,7 @@ BSDATA(varianti) = {
 	{"Race", VAR(racei, 1), 0, 0, ftscript<racei>},
 	{"RandomEffect", VAR(randomeffecti, 1), 0, 0, ftscript<randomeffecti>},
 	{"RandomList", VAR(randomizeri, 1), 0, 0, ftscript<randomizeri>},
+	{"Reaction", VAR(reactioni, 1), 0, 0, ftscript<reactioni>},
 	{"Script", VAR(script, 1), 0, 0, ftscript<script>},
 	{"Shape", VAR(shapei, 1), 0, 0, 0, 0, shape_read},
 	{"Spell", VAR(spelli, 1), 0, 0, ftscript<spelli>},

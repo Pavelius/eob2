@@ -1,4 +1,6 @@
 ﻿AmbushTest: You were ambushed by enemy!
+Attack: Attack
+Bribe: Bribe
 CampMenu: Camp Options:
 CastSpell: Cast what spell?
 CastOnWho: Cast on who?
@@ -30,6 +32,7 @@ GlobalCampMenu: Camp menu
 GlobalOptions: What %Name want?
 GlobalVisit: Visit %1
 Leave: Leave
+Lie: Lie
 MakeCampConfirm: Do you want to make camp?
 MemorizeSpells: Memorize Spells
 MulChooseBet: Bet %1i gold pieces

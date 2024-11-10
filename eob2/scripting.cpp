@@ -81,6 +81,10 @@ template<> void ftscript<damagei>(int value, int bonus) {
 	player->damage((damagen)value, get_bonus(bonus));
 }
 
+template<> void ftscript<reactioni>(int value, int bonus) {
+	last_reaction = (reactions)value;
+}
+
 template<> void ftscript<feati>(int value, int bonus) {
 	switch(modifier) {
 	case Permanent: player->basic.set((featn)value); break;
@@ -1275,8 +1279,23 @@ static creaturei* get_leader(creaturei** creatures) {
 }
 
 static void talk_monsters(const char* format) {
+	auto pm = opponent->getmonster();
+	if(!pm)
+		return;
+	auto pq = party.getquest();
+	if(!pq)
+		return;
+	auto rm = bsdata<reactioni>::elements[last_reaction].id;
 	pushanswer push;
-	auto result = dialogv(getnm("Leave"), format, 0);
+	auto pe = bsdata<listi>::find(ids(pq->id, rm));
+	if(!pe)
+		pe = bsdata<listi>::find(ids("Negotiation", rm));
+	if(!pe)
+		return;
+	for(auto v : pe->elements)
+		add_menu(v);
+	last_result = dialogv(0, format, 0);
+	apply_result();
 }
 
 static bool talk_monsters() {
@@ -1317,29 +1336,36 @@ static void party_set(creaturei** creatures, featn v) {
 void monster_interaction() {
 	if(!loc)
 		return;
-	creaturei* creatures[6] = {};
-	loc->getmonsters(creatures, to(party, party.d));
-	check_reaction(creatures);
-	last_reaction = get_reaction(creatures);
 	auto push_opponent = opponent;
-	opponent = get_leader(creatures);
+	creaturei* creatures[6] = {};
 	while(true) {
+		loc->getmonsters(creatures, to(party, party.d));
+		check_reaction(creatures);
+		opponent = get_leader(creatures);
+		if(!opponent)
+			break;
+		last_reaction = opponent->reaction;
+		auto prev_reaction = last_reaction;
+		party_set(creatures, Moved);
 		switch(last_reaction) {
 		case Careful:
-			if(talk_monsters())
-				continue;
-			party_set(creatures, Moved);
+			talk_monsters();
+			loc->getmonsters(creatures, to(party, party.d));
 			break;
 		case Friendly:
-			if(talk_monsters())
-				continue;
-			party_set(creatures, Moved);
+			talk_monsters();
+			loc->getmonsters(creatures, to(party, party.d));
 			break;
 		case Indifferent:
 			break;
 		default:
 			make_attacks(true);
+			loc->getmonsters(creatures, to(party, party.d));
 			break;
+		}
+		if(prev_reaction != last_reaction) {
+			set_reaction(creatures, last_reaction);
+			continue;
 		}
 		break;
 	}
@@ -1507,6 +1533,12 @@ static void set_variable(int bonus) {
 static void add_reward(int bonus) {
 	party.abilities[GoldPiece] += get_bonus(bonus) * 100;
 	party_addexp(bonus * 200);
+}
+
+static void add_reward_evil(int bonus) {
+	party_addexp(LawfulEvil, bonus * 20);
+	party_addexp(NeutralEvil, bonus * 20);
+	party_addexp(ChaoticEvil, bonus * 20);
 }
 
 static void add_variable(int bonus) {
@@ -1818,6 +1850,7 @@ BSDATA(script) = {
 	{"Attack", attack_modify},
 	{"ActivateQuest", activate_quest},
 	{"AddReward", add_reward},
+	{"AddRewardEvil", add_reward_evil},
 	{"AddVariable", add_variable},
 	{"ApplyAction", apply_action},
 	{"ApplyRacialEnemy", apply_racial_enemy},

@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Leave`
+﻿Error in file `rules/Locations.txt`:
+ Line 55: Can't find variant `Hostile`

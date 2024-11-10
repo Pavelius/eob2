@@ -51,6 +51,11 @@ RestParty
 ScribleScrolls
  classes Mage
  effect ChooseMageScrolls IfLastItem ItemPowerSpell LearnSpell Roll LearnLastSpell DestroyItem
+Attack
+ effect Hostile AddRewardEvil+1
+Talk
+Lie
+Bribe
 
 #Location
 
@@ -73,3 +78,8 @@ CampMenu
  elements MemorizeSpells PrayForSpells ScribleScrolls GameOptions
 MainMenu
  elements StartGame LoadGame ExitGame
+
+NegotiationCareful
+ elements Attack Lie Bribe
+NegotiationFriendly
+ elements Attack Talk

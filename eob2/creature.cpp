@@ -867,7 +867,7 @@ int	creaturei::getcaster() const {
 	return getclass().caster;
 }
 
-static void set_reaction(creaturei** creatures, reactions v) {
+void set_reaction(creaturei** creatures, reactions v) {
 	for(auto i = 0; i < 6; i++) {
 		if(creatures[i])
 			creatures[i]->reaction = v;

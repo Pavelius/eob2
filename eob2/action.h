@@ -10,7 +10,7 @@ struct creaturei;
 struct actioni : nameable {
 	picturei	avatar;
 	flag32		classes, races, alignment;
-	variants	effect;
+	variants	filter, effect;
 	bool isallow(const creaturei* player) const;
 };
 extern actioni* last_action;

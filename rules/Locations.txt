@@ -87,3 +87,7 @@ NegotiationCareful
  elements Attack Lie Bribe
 NegotiationFriendly
  elements Attack Talk
+AnimalCareful
+ elements Attack
+AnimalFriendly
+ elements Attack

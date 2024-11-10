@@ -1325,8 +1325,12 @@ static void talk_monsters(const char* format) {
 	auto rm = bsdata<reactioni>::elements[last_reaction].id;
 	pushanswer push;
 	auto pe = bsdata<listi>::find(ids(pq->id, rm));
-	if(!pe)
-		pe = bsdata<listi>::find(ids("Negotiation", rm));
+	if(!pe) {
+		if(opponent->isanimal())
+			pe = bsdata<listi>::find(ids("Animal", rm));
+		else
+			pe = bsdata<listi>::find(ids("Negotiation", rm));
+	}
 	if(!pe)
 		return;
 	for(auto v : pe->elements)

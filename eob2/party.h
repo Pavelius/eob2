@@ -30,9 +30,12 @@ struct partystati : nameable {
 struct partyi : posable {
 	short unsigned	location_id, quest_id;
 	questa			active, done, prepared;
+	unsigned char	stages[256];
 	int				abilities[EffectCount + 1];
 	void			clear();
 	locationi*		getlocation() const;
+	int				getstage(unsigned char v) const { return stages[quest_id]; }
+	int				getstage(const quest* v) const;
 	quest*			getquest() const;
 };
 extern creaturei* characters[6];

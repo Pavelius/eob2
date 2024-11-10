@@ -34,7 +34,7 @@ struct answers {
 };
 extern answers an;
 struct pushanswer {
-	answers			answer;
+	answers	answer;
 	pushanswer() : answer(an) { an.clear(); }
 	~pushanswer() { an = answer; }
 };

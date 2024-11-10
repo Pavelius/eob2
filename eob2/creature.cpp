@@ -778,11 +778,22 @@ int creaturei::getexpaward() const {
 	return exp;
 }
 
+void drop_unique_loot(creaturei* player) {
+	for(auto& it : player->wears) {
+		if(!it || it.isnatural())
+			continue;
+		if(it.is(Unique)) {
+			it.identify(0);
+			loc->drop(*player, it, get_side(player->side, party.d));
+		}
+	}
+}
+
 static void drop_loot(creaturei* player) {
 	for(auto& it : player->wears) {
 		if(!it || it.isnatural())
 			continue;
-		if(it.is(Unique) || (d100() < 15)) {
+		if(d100() < 15) {
 			it.identify(0);
 			loc->drop(*player, it, get_side(player->side, party.d));
 		}
@@ -795,6 +806,7 @@ void creaturei::kill() {
 	party_addexp(getexpaward());
 	party_addexp_per_killed(getlevel());
 	if(loc) {
+		drop_unique_loot(this);
 		drop_loot(this);
 		loc->state.monsters_killed++;
 	}

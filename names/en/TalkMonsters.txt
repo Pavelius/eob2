@@ -8,3 +8,12 @@
 "How you get there?"
 "How you get this place?"
 "Who is you? How you dig so deep?"
+
+#FloodedSewersStage1
+"We come from deep. Our master send us there to investigate coming adventurers such as you. We don't like this mission, we want to go away from here."
+
+#TalkCursed
+"I tell you something that you may not to known. Some of your items are cursed. Don't use it or it will be bad."
+
+#TalkMagical
+"Some of your items are magical. Try to use identify."

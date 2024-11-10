@@ -56,7 +56,8 @@ BSMETA(actioni) = {
 	BSREQ(avatar),
 	BSFLG(races, racei),
 	BSFLG(classes, classi),
-	BSREQ(effect),
+	BSFLG(alignment, alignmenti),
+	BSREQ(effect), BSREQ(filter),
 	{}};
 BSMETA(abilityi) = {
 	BSREQ(id),

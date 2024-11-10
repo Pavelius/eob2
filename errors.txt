@@ -1,2 +1,4 @@
 ﻿Error in file `rules/Locations.txt`:
- Line 55: Can't find variant `Hostile`
+ Line 55: Can't find variant `AddRewardEvil`
+ Line 58: Can't find variant `AddRewardGood`
+ Line 60: Can't find variant `AddRewardEvil`

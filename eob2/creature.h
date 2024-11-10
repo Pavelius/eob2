@@ -63,6 +63,7 @@ void add_spells(int type, int level, const spellseta* include);
 void check_levelup();
 void create_player();
 void create_monster(const monsteri* pi);
+void drop_unique_loot(creaturei* player);
 void set_reaction(creaturei** creatures, reactions v);
 void update_player();
 

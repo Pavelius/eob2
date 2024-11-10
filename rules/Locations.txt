@@ -52,10 +52,14 @@ ScribleScrolls
  classes Mage
  effect ChooseMageScrolls IfLastItem ItemPowerSpell LearnSpell Roll LearnLastSpell DestroyItem
 Attack
- effect Hostile AddRewardEvil+1
+ effect Hostile AddExpEvil+1
 Talk
+ filter IfTalk
+ effect TalkAbout AddExp+2 AddExpGood+1 MonstersLeave
 Lie
+ effect Friendly AddExpEvil+1
 Bribe
+ effect MonstersLeave
 
 #Location
 

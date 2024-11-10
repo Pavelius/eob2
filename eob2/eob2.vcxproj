@@ -196,6 +196,7 @@
     <ClInclude Include="speech.h" />
     <ClInclude Include="spell.h" />
     <ClInclude Include="sprite_util.h" />
+    <ClInclude Include="talking.h" />
     <ClInclude Include="textscript.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="io_stream.h" />
@@ -271,6 +272,7 @@
     <ClCompile Include="sprite_util.cpp" />
     <ClCompile Include="statable.cpp" />
     <ClCompile Include="surface_util.cpp" />
+    <ClCompile Include="talking.cpp" />
     <ClCompile Include="textscript.cpp" />
     <ClCompile Include="variant.cpp" />
     <ClCompile Include="view_automap.cpp" />

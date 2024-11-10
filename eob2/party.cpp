@@ -622,6 +622,13 @@ locationi* partyi::getlocation() const {
 	return getbs<locationi>(location_id);
 }
 
+int	partyi::getstage(const quest* v) const {
+	auto n = getbsi(v);
+	if(n == 0xFFFF)
+		return 0;
+	return stages[n];
+}
+
 void partyi::clear() {
 	memset(this, 0, sizeof(*this));
 	posable::clear();

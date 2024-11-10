@@ -29,6 +29,7 @@
 #include "script.h"
 #include "speech.h"
 #include "spell.h"
+#include "talking.h"
 #include "textscript.h"
 #include "view.h"
 #include "view_focus.h"
@@ -159,6 +160,37 @@ static void wizardy_effect(int bonus) {
 	case 3: ftscript<abilityi>(Spell3, player->basic.abilities[Spell3]); break;
 	default: break;
 	}
+}
+
+static void select_items(conditioni::fntest proc, bool keep) {
+	auto push_item = last_item;
+	for(auto p : characters) {
+		if(!p)
+			continue;
+		for(auto& it : p->wears) {
+			if(!it)
+				continue;
+			last_item = &it;
+			if(proc() != keep)
+				continue;
+			an.add(&it, it.getname());
+		}
+	}
+	last_item = push_item;
+}
+
+static void filter_items(conditioni::fntest proc, bool keep) {
+	auto ps = an.begin();
+	auto pe = an.end();
+	auto push_item = last_item;
+	for(auto pb = an.begin(); pb < pe; pb++) {
+		last_item = (item*)pb->value;
+		if(proc() != keep)
+			continue;
+		*ps++ = *pb;
+	}
+	an.elements.count = ps - an.begin();
+	last_item = push_item;
 }
 
 static void create_new_game(int bonus) {
@@ -675,9 +707,8 @@ static void city_adventure_input() {
 }
 
 static void message(const char* format, const char* format_param = 0) {
-	auto push = an; an.clear();
+	pushanswer push;
 	dialogv(0, format);
-	an = push;
 }
 
 static void play_location() {
@@ -1535,10 +1566,20 @@ static void add_reward(int bonus) {
 	party_addexp(bonus * 200);
 }
 
-static void add_reward_evil(int bonus) {
+static void add_exp_group(int bonus) {
+	party_addexp(bonus * 100);
+}
+
+static void add_exp_evil(int bonus) {
 	party_addexp(LawfulEvil, bonus * 20);
 	party_addexp(NeutralEvil, bonus * 20);
 	party_addexp(ChaoticEvil, bonus * 20);
+}
+
+static void add_exp_good(int bonus) {
+	party_addexp(LawfulGood, bonus * 30);
+	party_addexp(NeutralGood, bonus * 20);
+	party_addexp(ChaoticGood, bonus * 20);
 }
 
 static void add_variable(int bonus) {
@@ -1613,6 +1654,19 @@ static void monsters_kill(int bonus) {
 	for(auto p : creatures) {
 		if(p && *p)
 			p->kill();
+	}
+}
+
+static void monsters_leave(int bonus) {
+	if(!loc)
+		return;
+	creaturei* creatures[6]; loc->getmonsters(creatures, to(party, party.d));
+	for(auto p : creatures) {
+		if(p && *p) {
+			drop_unique_loot(p);
+			loc->state.monsters_killed++;
+			p->clear();
+		}
 	}
 }
 
@@ -1790,6 +1844,14 @@ static bool if_item_identified() {
 	return last_item->isidentified();
 }
 
+static bool if_item_cursed() {
+	return last_item->iscursed();
+}
+
+static bool if_item_magic() {
+	return last_item->getpower().counter != 0;
+}
+
 static bool if_item_readable() {
 	return last_item->geti().wear == Readable;
 }
@@ -1813,6 +1875,76 @@ static bool if_item_charged() {
 	return last_item->geti().wear == Rod;
 }
 
+static void talk_standart() {
+	dialog(0, speech_get(last_talk->id), 0);
+}
+
+static bool talk_stage(bool run) {
+	auto pq = party.getquest();
+	if(!pq)
+		return false;
+	auto new_stage = party.stages[party.quest_id] + 1;
+	auto pn = speech_get(str("%1Stage%2i", pq->id, new_stage));
+	if(!pn)
+		return false;
+	if(run) {
+		dialog(0, pn);
+		party_addexp(200);
+	}
+	return true;
+}
+
+static bool talk_cursed(bool run) {
+	pushanswer push;
+	select_items(if_item_identified, false);
+	select_items(if_item_cursed, true);
+	if(!an)
+		return false;
+	if(run)
+		talk_standart();
+	return true;
+}
+
+static bool talk_magical(bool run) {
+	pushanswer push;
+	select_items(if_item_identified, false);
+	select_items(if_item_magic, true);
+	if(!an)
+		return false;
+	if(run)
+		talk_standart();
+	return true;
+}
+
+static bool talk_about_proc(bool run) {
+	adat<talking*> source;
+	auto push = last_talk;
+	for(auto& e : bsdata<talking>()) {
+		last_talk = &e;
+		if(!e.proc(false))
+			continue;
+		source.add(&e);
+	}
+	last_talk = push;
+	if(!source)
+		return false;
+	if(run) {
+		// Take first with greater chance.
+		last_talk = (d100() < 40) ? source[0] : source.random();
+		last_talk->proc(true);
+	}
+	last_talk = push;
+	return true;
+}
+
+static bool if_talk() {
+	return talk_about_proc(false);
+}
+
+static void talk_about(int bonus) {
+	talk_about_proc(true);
+}
+
 BSDATA(textscript) = {
 	{"DungeonBoss", dungeon_boss},
 	{"DungeonKey", dungeon_key},
@@ -1829,18 +1961,27 @@ BSDATA(textscript) = {
 	{"SpellName", spell_name},
 };
 BSDATAF(textscript)
+BSDATA(talking) = {
+	{"TalkStage", talk_stage},
+	{"TalkCursed", talk_cursed},
+	{"TalkMagical", talk_magical},
+};
+BSDATAF(talking)
 BSDATA(conditioni) = {
 	{"IfAlive", if_alive},
 	{"IfDiseased", if_diseased},
 	{"ifItemCharged", if_item_edible},
+	{"ifItemCursed", if_item_cursed},
 	{"IfItemDamaged", if_item_damaged},
 	{"IfItemEdible", if_item_edible},
 	{"IfItemIdentified", if_item_identified},
+	{"IfItemMagic", if_item_magic},
 	{"IfItemReadable", if_item_readable},
 	{"IfItemKnownSpell", if_item_known_spell},
 	{"IfLastItem", if_last_item},
 	{"IfMonstersUndead", if_monsters_undead},
 	{"IfPoisoned", if_poisoned},
+	{"IfTalk", if_talk},
 	{"IfUndead", if_undead},
 	{"IfWounded", if_wounded},
 };
@@ -1849,8 +1990,10 @@ BSDATA(script) = {
 	{"AllLanguages", all_languages},
 	{"Attack", attack_modify},
 	{"ActivateQuest", activate_quest},
+	{"AddExp", add_exp_group},
+	{"AddExpEvil", add_exp_evil},
+	{"AddExpGood", add_exp_good},
 	{"AddReward", add_reward},
-	{"AddRewardEvil", add_reward_evil},
 	{"AddVariable", add_variable},
 	{"ApplyAction", apply_action},
 	{"ApplyRacialEnemy", apply_racial_enemy},
@@ -1882,6 +2025,8 @@ BSDATA(script) = {
 	{"Magical", empthy_script},
 	{"Message", script_message},
 	{"MonstersFlee", monsters_flee},
+	{"MonstersKill", monsters_kill},
+	{"MonstersLeave", monsters_leave},
 	{"NaturalHeal", natural_heal},
 	{"JoinParty", join_party},
 	{"PartyAdventure", party_adventure},
@@ -1900,6 +2045,7 @@ BSDATA(script) = {
 	{"SaveNegate", save_negate},
 	{"SetVariable", set_variable},
 	{"Switch", apply_switch},
+	{"TalkAbout", talk_about},
 	{"TurningMonsters", turning_monsters},
 	{"UseTheifTools", use_theif_tools},
 	{"Wizardy", wizardy_effect},

@@ -56,6 +56,7 @@ SellConfirm: Do you really want sell %-1 for %2i gold pieces?
 SneakAttackAct: %Name use sneack attack
 StartGame: Create new game
 SurpriseFailed: %1 is surprised
+Talk: Talk
 ToolBroken: %1 is broken
 
 Options: Options

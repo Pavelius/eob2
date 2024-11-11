@@ -220,10 +220,20 @@ static const char* get_title(const char* id, const char* action) {
 	return temp;
 }
 
+static bool party_have(flag32 classes) {
+	for(auto p : characters) {
+		if(!p || p->isdisabled())
+			continue;
+		if(have_class(classes, p->character_class))
+			return true;
+	}
+	return false;
+}
+
 static void add_menu(variant& v) {
 	if(v.iskind<actioni>()) {
 		auto p = bsdata<actioni>::elements + v.value;
-		if(p->isallow(player))
+		if(!party_have(p->restrict_classes) && p->isallow(player))
 			an.add(v.getpointer(), v.getname());
 	} else if(v.iskind<formulai>()) {
 		auto p = bsdata<formulai>::elements + v.value;

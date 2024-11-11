@@ -6,7 +6,7 @@
 
 actioni* last_action;
 
-static bool have_class(const flag32& classes, int type) {
+bool have_class(const flag32& classes, classn type) {
 	auto& ei = bsdata<classi>::elements[type];
 	for(auto i = 0; i < 3; i++) {
 		if(classes.is(ei.classes[i]))

@@ -7,6 +7,8 @@
 
 struct creaturei;
 
+enum classn : unsigned char;
+
 struct actioni : nameable {
 	picturei	avatar;
 	flag32		restrict_classes, classes, races, alignment;
@@ -14,3 +16,5 @@ struct actioni : nameable {
 	bool isallow(const creaturei* player) const;
 };
 extern actioni* last_action;
+
+bool have_class(const flag32& classes, classn type);

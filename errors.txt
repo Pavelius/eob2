@@ -1,4 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `ResistCold`
- Define translation for `ResistFire`
- Define translation for `SlowPoison`
+﻿Error in file `rules/Locations.txt`:
+ Line 63: Not found requisit `rectrict_classes`

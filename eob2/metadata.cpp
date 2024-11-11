@@ -56,6 +56,7 @@ BSMETA(actioni) = {
 	BSREQ(avatar),
 	BSFLG(races, racei),
 	BSFLG(classes, classi),
+	BSFLG(restrict_classes, classi),
 	BSFLG(alignment, alignmenti),
 	BSREQ(effect), BSREQ(filter),
 	{}};

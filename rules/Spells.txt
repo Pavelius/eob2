@@ -14,6 +14,8 @@ Minute5x1 base(5) raise(1) perlevel(2 1)
 Minute5x5 base(5) raise(1) perlevel(2 5)
 Minute0x2 raise(2) perlevel(0 1)
 Turn5x1 base(5) raise(1) perlevel(2 1) multiplier(10)
+Hour0x1 raise(1) perlevel(0 1) multiplier(60)
+Hour2 base(2) multiplier(60)
 Hour8 base(8) multiplier(60)
 
 #Spell
@@ -78,22 +80,27 @@ Aid levels(2) duration(Minute5x1) lighting(221 210 0)
  wearing Attack+1 Saves+1
  instant Roll1d8 AddAid+101
  clearing AddAid-8
-Augury levels(2)
+Augury levels(2) duration(Hour2)
+ feats You
+ wearing BonusExperience+3
 FlameBlade levels(2) duration(Minute4x1) summon(FlameBladeHand)
  feats You
 Goodberry levels(2)
  filter IfAlive
  feats You Ally Group
  instant Roll1d3 Heal+101
-HoldPerson levels(2)
+HoldPerson levels(2) duration(Minute0x2)
+ feats Enemy
+ wearing Paralized
 ResistFireSpell levels(2) duration(Turn5x1)
  feats You Ally
  wearing ResistFire
 ResistColdSpell levels(2) duration(Turn5x1)
  feats You Ally
  wearing ResistCold
-SlowPoison levels(2)
- feats Ally
+SlowPoison levels(2) duration(Hour0x1) lighting(148 199 72)
+ feats Ally You
+ wearing StoppedPoison
 
 CureDisease levels(3)
  feats Ally You

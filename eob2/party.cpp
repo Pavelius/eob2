@@ -296,6 +296,8 @@ static void update_every_round() {
 }
 
 static void check_poison() {
+	if(player->is(StoppedPoison))
+		return;
 	if(!player->is(PoisonLevel))
 		return;
 	auto penalty = player->get(PoisonLevel) / 5;
@@ -611,6 +613,22 @@ void pass_hours(int value) {
 		all_creatures(update_every_turn);
 	for(auto i = 0; i < value; i++)
 		all_creatures(update_every_hour);
+}
+
+int party_best(creaturei** creatures, abilityn v, bool set_player) {
+	auto bi = -1;
+	auto bv = -1;
+	for(int i = 0; i < 6; i++) {
+		if(!creatures[i] || creatures[i]->isdisabled())
+			continue;
+		if(bv > creatures[i]->get(v))
+			continue;
+		bv = creatures[i]->get(v);
+		bi = i;
+	}
+	if(bi != -1 && set_player)
+		player = characters[bi];
+	return bv;
 }
 
 int party_median(creaturei** creatures, abilityn v) {

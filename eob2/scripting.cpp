@@ -1749,6 +1749,11 @@ static void script_message(int bonus) {
 	dialog_message("Message");
 }
 
+static void best_player(int bonus) {
+	party_best(characters, last_ability, true);
+	set_focus_by_player();
+}
+
 static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
@@ -2050,6 +2055,7 @@ BSDATA(script) = {
 	{"AddVariable", add_variable},
 	{"ApplyAction", apply_action},
 	{"ApplyRacialEnemy", apply_racial_enemy},
+	{"BestPlayer", best_player},
 	{"ConfirmAction", confirm_action},
 	{"Character", set_character},
 	{"ChooseItems", choose_items},

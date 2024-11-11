@@ -12,6 +12,8 @@ RestorePartySpells
  elements ForEachParty RestoreSpells
 ScribleScrollsFail
  elements DestroyItem
+LieFailedRoll
+ elements Hostile
 NaturallyPartyHeal
  elements ForEachParty NaturalHeal
 PickPocketsNothing
@@ -57,7 +59,8 @@ Talk
  filter IfTalk
  effect TalkAbout AddExp+2 AddExpGood+1 MonstersLeave
 Lie
- effect Friendly AddExpEvil+1
+ effect Charisma BestPlayer Roll Friendly AddExpEvil+1
+ restrict_classes Paladin
 Bribe
  effect MonstersLeave
 

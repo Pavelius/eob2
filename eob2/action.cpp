@@ -20,6 +20,8 @@ bool actioni::isallow(const creaturei* player) const {
 		return false;
 	if(classes && !have_class(classes, player->character_class))
 		return false;
+	if(restrict_classes && have_class(classes, player->character_class))
+		return false;
 	if(alignment && !alignment.is(player->alignment))
 		return false;
 	if(filter && !script_allow(filter))

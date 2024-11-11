@@ -378,7 +378,7 @@ void set_player_by_focus() {
 		player = bsdata<creaturei>::elements + i;
 }
 
-static void set_focus_by_player() {
+void set_focus_by_player() {
 	if(player) {
 		if(current_focus == player->wears + RightHand)
 			return;

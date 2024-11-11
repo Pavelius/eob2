@@ -214,3 +214,9 @@ Oh, shit!
 #MakeCampRottenFood
 This food is rotten
 Food is spoiled. We need clean it
+
+#LieFail
+"You liers! You're not who you seem to be. I kill you!"
+
+#LieSuccess
+"Welcome friends! How can I help you?"

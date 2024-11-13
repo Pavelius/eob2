@@ -1,2 +1,3 @@
-﻿Error in file `rules/Locations.txt`:
- Line 63: Not found requisit `rectrict_classes`
+Error in file `rules/Spells.txt`:
+ Line 63: Can't find variant `ifItemCharged`
+ Line 122: Can't find variant `ifItemCursed`

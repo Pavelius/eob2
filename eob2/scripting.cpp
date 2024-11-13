@@ -1093,6 +1093,8 @@ static void use_theif_tools(int bonus) {
 			}
 			pass_round();
 			return;
+      default:
+         break;
 		}
 	}
 	switch(loc->get(to(party, party.d))) {
@@ -1103,6 +1105,8 @@ static void use_theif_tools(int bonus) {
 		}
 		pass_round();
 		return;
+   default:
+      break;
 	}
 	player->speak("TheifTool", "NoTargets");
 }
@@ -1833,6 +1837,10 @@ static bool if_poisoned() {
 	return player->is(PoisonLevel);
 }
 
+static bool if_paralized() {
+	return player->is(Paralized);
+}
+
 static bool if_wounded() {
 	return player->gethp() < player->hpm;
 }
@@ -2036,8 +2044,8 @@ BSDATAF(talking)
 BSDATA(conditioni) = {
 	{"IfAlive", if_alive},
 	{"IfDiseased", if_diseased},
-	{"ifItemCharged", if_item_edible},
-	{"ifItemCursed", if_item_cursed},
+	{"IfItemCharged", if_item_charged},
+	{"IfItemCursed", if_item_cursed},
 	{"IfItemDamaged", if_item_damaged},
 	{"IfItemEdible", if_item_edible},
 	{"IfItemIdentified", if_item_identified},
@@ -2046,6 +2054,7 @@ BSDATA(conditioni) = {
 	{"IfItemKnownSpell", if_item_known_spell},
 	{"IfLastItem", if_last_item},
 	{"IfMonstersUndead", if_monsters_undead},
+	{"IfParalized", if_paralized},
 	{"IfPoisoned", if_poisoned},
 	{"IfTalk", if_talk},
 	{"IfUndead", if_undead},

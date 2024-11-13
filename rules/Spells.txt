@@ -60,7 +60,7 @@ MagicMissile levels(0 1) avatar_thrown(5)
  instant Roll1d4p1x1d4p1s3p2c9 Magic+101
 Mending levels(0 1)
  feats Ally You WearItem
- filter IfItemEdible-1 ifItemCharged-1 IfItemDamaged
+ filter IfItemEdible-1 IfItemCharged-1 IfItemDamaged
  instant DamageItem-1
 ProtectionFromEvil levels(1 1) duration(Turn5x1) lighting(150 00 24)
  feats Ally
@@ -102,6 +102,9 @@ SlowPoison levels(2) duration(Hour0x1) lighting(148 199 72)
  feats Ally You
  wearing StoppedPoison
 
+CreateFood levels(3)
+ feats You
+ instant Ration
 CureDisease levels(3)
  feats Ally You
  filter IfAlive IfDiseased
@@ -110,6 +113,14 @@ CurePoison levels(3)
  feats Ally You
  filter IfAlive IfPoisoned
  instant PoisonLevel-100
+MagicalVestment
+Prayer duration(Minute5x1) lighting(255 239 0)
+ feats Ally You Group
+ wearing Attack+1 Damage+1 Saves+1
+RemoveCurse
+ feats Ally You WearItem
+ filter IfItemCursed IfItemIdentified
+ instant CurseItem-1
 
 #List
 

@@ -152,6 +152,8 @@
 		<Unit filename="eob2/randomeffect.h" />
 		<Unit filename="eob2/randomizer.cpp" />
 		<Unit filename="eob2/randomizer.h" />
+		<Unit filename="eob2/reaction.cpp" />
+		<Unit filename="eob2/reaction.h" />
 		<Unit filename="eob2/rect.h" />
 		<Unit filename="eob2/resid.cpp" />
 		<Unit filename="eob2/resid.h" />
@@ -175,6 +177,8 @@
 		<Unit filename="eob2/stringbuilder.cpp" />
 		<Unit filename="eob2/stringbuilder.h" />
 		<Unit filename="eob2/szdup.cpp" />
+		<Unit filename="eob2/talking.cpp" />
+		<Unit filename="eob2/talking.h" />
 		<Unit filename="eob2/textscript.cpp" />
 		<Unit filename="eob2/textscript.h" />
 		<Unit filename="eob2/timer.h" />

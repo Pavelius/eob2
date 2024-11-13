@@ -1,3 +1,2 @@
 Error in file `rules/Spells.txt`:
- Line 63: Can't find variant `ifItemCharged`
- Line 122: Can't find variant `ifItemCursed`
+ Line 136: Not found RandomEffect identifier `Turn0x1`

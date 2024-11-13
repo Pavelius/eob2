@@ -8,11 +8,15 @@ Roll1d8 base(1 8)
 Roll1d8x1 base(1 8) raise(1) perlevel(1 1)
 Roll2x1 base(2) raise(1) perlevel(1 1)
 Roll2d6 base(2 6)
+Roll3d8 base(3 8)
+Roll6d8 base(6 8)
 Minute3x1 base(3) raise(1) perlevel(1 1)
 Minute4x1 base(4) raise(1) perlevel(1 1)
 Minute5x1 base(5) raise(1) perlevel(2 1)
 Minute5x5 base(5) raise(1) perlevel(2 5)
 Minute0x2 raise(2) perlevel(0 1)
+Minute0x5 raise(5) perlevel(0 1)
+Turn0x1 raise(1) perlevel(0 1) multiplier(10)
 Turn5x1 base(5) raise(1) perlevel(2 1) multiplier(10)
 Hour0x1 raise(1) perlevel(0 1) multiplier(60)
 Hour2 base(2) multiplier(60)
@@ -113,14 +117,42 @@ CurePoison levels(3)
  feats Ally You
  filter IfAlive IfPoisoned
  instant PoisonLevel-100
-MagicalVestment
-Prayer duration(Minute5x1) lighting(255 239 0)
+MagicalVestment levels(3) duration(Minute0x5)
+ feats You
+ wearing AC+4
+Prayer levels(3) duration(Minute5x1) lighting(255 239 0)
  feats Ally You Group
  wearing Attack+1 Damage+1 Saves+1
-RemoveCurse
+RemoveCurse levels(3)
  feats Ally You WearItem
  filter IfItemCursed IfItemIdentified
  instant CurseItem-1
+RemoveParalize levels(3)
+ feats Ally You
+ filter IfParalized
+ instant Paralized-1
+
+Abjure levels(4)
+CureSeriousWounds levels(4)
+NeutralizePoison levels(4)
+ProtectionFromEvil levels(4) duration(Turn0x1)
+ feats Ally You Group
+ wearing ProtectedFromEvil
+
+CureCriticalWounds levels(5)
+ feats Ally You
+ filter IfAlive IfWounded
+ instant Roll3d8+3 Heal+101
+FlameStrike levels(5)
+ feats Enemy Group
+ instant Roll6d8 SaveHalf Fire+101
+RaiseDead levels(5)
+ feats Ally
+ filter IfAlive-1
+ instant Heal+10 PushModifier Permanent Constitution-1
+
+HealSpell levels(6)
+HeroesFeast levels(6)
 
 #List
 

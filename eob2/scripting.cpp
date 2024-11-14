@@ -1768,6 +1768,46 @@ static void best_player(int bonus) {
 	set_focus_by_player();
 }
 
+static void select_area(int bonus) {
+	points.clear();
+	if(!loc)
+		return;
+	pointc v, v1 = party + bonus, v2 = party - bonus;
+	for(v.y = v1.y; v.y <= v2.y; v.y++) {
+		for(v.x = v1.x; v.x <= v2.x; v.x++) {
+			switch(loc->get(v)) {
+			case CellPassable:
+			case CellWall:
+			case CellUnknown:
+				break;
+			default:
+				points.add(v);
+				break;
+			}
+		}
+	}
+}
+
+static bool filter_cell(variants commands, celln v) {
+
+}
+
+static void filter_cell(variants commands, bool keep) {
+	auto ps = points.begin();
+	auto pe = points.begin();
+	for(auto pb = points.begin(); pb < pe; pb++) {
+		if(filter_cell(commands, loc->get(*pb)) != keep)
+			continue;
+		*ps++ = *pb;
+	}
+	points.count = ps - points.begin();
+}
+
+static void filter_area(int bonus) {
+	scriptbody commands;
+	filter_cell(commands, bonus >= 0);
+}
+
 static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
@@ -2121,6 +2161,7 @@ BSDATA(script) = {
 	{"Saves", saves_modify},
 	{"SaveHalf", save_half},
 	{"SaveNegate", save_negate},
+	{"SelectArea", select_area},
 	{"SetVariable", set_variable},
 	{"Switch", apply_switch},
 	{"TalkAbout", talk_about},

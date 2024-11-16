@@ -267,6 +267,8 @@ static void update_depended_abilities() {
 		player->abilities[Speed] -= player->wears[RightHand].geti().speed;
 	else
 		player->abilities[Speed] -= player->wears[LeftHand].geti().speed;
+	if(player->is(FeelPain))
+		player->add(AttackMelee, -4);
 }
 
 static void update_bonus_saves() {

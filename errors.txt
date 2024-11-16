@@ -1,2 +1,2 @@
-﻿Error in file `rules/Spells.txt`:
- Line 177: Can't find variant `DrainLevels`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `Shadow`

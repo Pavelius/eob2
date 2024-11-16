@@ -1,2 +1,2 @@
-Error in file `rules/Spells.txt`:
- Line 136: Not found RandomEffect identifier `Turn0x1`
+﻿Error in file `rules/Spells.txt`:
+ Line 177: Can't find variant `DrainLevels`

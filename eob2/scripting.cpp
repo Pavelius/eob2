@@ -1807,6 +1807,10 @@ static bool filter_cell(variant v, celln t) {
 	return false;
 }
 
+static void clear_area(int bonus) {
+	points.clear();
+}
+
 static void filter_area(int bonus) {
 	auto filter = next_script();
 	auto ps = points.begin();
@@ -2139,6 +2143,7 @@ BSDATA(script) = {
 	{"ChooseItems", choose_items},
 	{"ChooseMenu", choose_menu},
 	{"ChooseSpells", choose_spells},
+	{"ClearArea", clear_area},
 	{"CreateCharacter", create_character},
 	{"CreateNewGame", create_new_game},
 	{"CreatePower", create_power},

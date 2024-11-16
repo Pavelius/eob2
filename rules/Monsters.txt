@@ -3,12 +3,14 @@
 Kobold res(kobold) hd(0) ac(7) experience(7) alignment(LawfulEvil)
  feats Dagger
 
+Bugbear res(bugbear) hd(3) ac(5) experience(120) alignment(ChaoticEvil)
+ feats Claws1d4 Constitution+6 Strenght+4 Large Sneaky+60
 Ghoul res(ghoul) hd(1) ac(6) experience(175) alignment(ChaoticEvil)
  feats Claws1d3 Bite1d6 Undead ImmuneCharm ImmuneCold ParalizeAttack
 Leech res(leech) hd(4) ac(9) experience(175) alignment(TrueNeutral)
  feats Intellegence-6 Large VampiricAttack DiseaseAttack Mandibules
 Shadow res(shadow) hd(3) ac(7) experience(420) alignment(ChaoticEvil)
- feats Strenght+6 Constitution+6 Slam1d4 DrainStrenghtAttack ImmuneNormalWeapon MoveSilently+80
+ feats Strenght+6 Constitution+6 Slam1d4 DrainStrenghtAttack ImmuneNormalWeapon Sneaky+80
 Skeleton res(skeleton) hd(1) ac(7) experience(65) alignment(TrueNeutral)
  feats Dexterity+3 Axe Undead ResistPierce ResistSlashing ImmuneCharm ImmuneCold
 Wight res(wight) hd(4) ac(5) experience(1400) alignment(LawfulEvil)

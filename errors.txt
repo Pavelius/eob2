@@ -1,2 +1,2 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `Shadow`
+ Define translation for `Claws1d4`

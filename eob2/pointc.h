@@ -21,3 +21,4 @@ struct pointc {
 		y = (char)y1;
 	}
 };
+extern pointc last_point;

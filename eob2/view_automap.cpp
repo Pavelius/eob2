@@ -18,7 +18,6 @@ static color cdoor(140, 88, 48);
 static const pointca* red_markers;
 static bool show_fog_of_war;
 static bool show_secrets;
-static bool show_any_markers;
 static bool show_party;
 
 const int mpg = 8;
@@ -230,8 +229,8 @@ static void paint_points(const pointca* source, fnevent proc) {
 	for(auto v : *source) {
 		if(!v)
 			continue;
-		if(show_fog_of_war && !loc->is(v, CellExplored))
-			continue;
+		//if(show_fog_of_war && !loc->is(v, CellExplored))
+		//	continue;
 		caret = gs(v.x, v.y);
 		proc();
 	}
@@ -381,8 +380,7 @@ static void paint_layers() {
 	paint_background();
 	paint_automap();
 	paint_overlays();
-	if(show_any_markers)
-		paint_points(red_markers, red_marker);
+	paint_points(red_markers, red_marker);
 	if(show_party)
 		paint_party_position();
 }
@@ -391,15 +389,14 @@ static void input_automap() {
 	switch(hot.key) {
 	case KeyEscape:
 	case KeySpace: breakmodal(0); break;
-	case 'R': show_any_markers = !show_any_markers; break;
 	}
 }
 
-void show_automap(bool show_fog_of_war, bool show_secrets, bool show_party, const pointca* red_markers) {
-	::show_fog_of_war = show_fog_of_war;
-	::show_secrets = show_secrets;
-	::show_party = show_party;
-	::red_markers = red_markers;
+void show_automap(bool mshow_fog_of_war, bool mshow_secrets, bool mshow_party, const pointca* vred_markers) {
+	show_fog_of_war = mshow_fog_of_war;
+	show_secrets = mshow_secrets;
+	show_party = mshow_party;
+	red_markers = vred_markers;
 	show_scene(paint_layers, input_automap, 0);
 }
 

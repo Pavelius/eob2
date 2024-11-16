@@ -22,6 +22,11 @@ Hour0x1 raise(1) perlevel(0 1) multiplier(60)
 Hour2 base(2) multiplier(60)
 Hour8 base(8) multiplier(60)
 
+#List
+
+TrapCells
+ elements CellPit CellButton
+
 #Spell
 
 LayOnHand
@@ -89,6 +94,9 @@ Augury levels(2) duration(Hour2)
  wearing BonusExperience+3
 FlameBlade levels(2) duration(Minute4x1) summon(FlameBladeHand)
  feats You
+FindTraps levels(2)
+ feats You
+ instant SelectArea FilterArea TrapCells ShowArea
 Goodberry levels(2)
  filter IfAlive
  feats You Ally Group

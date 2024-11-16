@@ -1093,8 +1093,8 @@ static void use_theif_tools(int bonus) {
 			}
 			pass_round();
 			return;
-      default:
-         break;
+		default:
+			break;
 		}
 	}
 	switch(loc->get(to(party, party.d))) {
@@ -1105,8 +1105,8 @@ static void use_theif_tools(int bonus) {
 		}
 		pass_round();
 		return;
-   default:
-      break;
+	default:
+		break;
 	}
 	player->speak("TheifTool", "NoTargets");
 }
@@ -1772,7 +1772,9 @@ static void select_area(int bonus) {
 	points.clear();
 	if(!loc)
 		return;
-	pointc v, v1 = party + bonus, v2 = party - bonus;
+	if(!bonus)
+		bonus = mpx;
+	pointc v, v2 = party + bonus, v1 = party - bonus;
 	for(v.y = v1.y; v.y <= v2.y; v.y++) {
 		for(v.x = v1.x; v.x <= v2.x; v.x++) {
 			switch(loc->get(v)) {
@@ -1788,24 +1790,41 @@ static void select_area(int bonus) {
 	}
 }
 
-static bool filter_cell(variants commands, celln v) {
-
-}
-
-static void filter_cell(variants commands, bool keep) {
-	auto ps = points.begin();
-	auto pe = points.begin();
-	for(auto pb = points.begin(); pb < pe; pb++) {
-		if(filter_cell(commands, loc->get(*pb)) != keep)
-			continue;
-		*ps++ = *pb;
+static bool filter_cell(variant v, celln t) {
+	if(v.iskind<celli>())
+		return v.value == t;
+	else if(v.iskind<listi>()) {
+		for(auto e : bsdata<listi>::elements[v.value].elements) {
+			if(filter_cell(e, t))
+				return true;
+		}
+	} else if(v.iskind<randomizeri>()) {
+		for(auto e : bsdata<randomizeri>::elements[v.value].chance) {
+			if(filter_cell(e, t))
+				return true;
+		}
 	}
-	points.count = ps - points.begin();
+	return false;
 }
 
 static void filter_area(int bonus) {
-	scriptbody commands;
-	filter_cell(commands, bonus >= 0);
+	auto filter = next_script();
+	auto ps = points.begin();
+	auto pe = points.end();
+	auto keep = bonus >= 0;
+	auto push_point = last_point;
+	for(auto pb = points.begin(); pb < pe; pb++) {
+		last_point = *pb;
+		if(filter_cell(filter, loc->get(last_point)) != keep)
+			continue;
+		*ps++ = *pb;
+	}
+	last_point = push_point;
+	points.count = ps - points.begin();
+}
+
+static void show_area(int bonus) {
+	show_automap(true, false, true, &points);
 }
 
 static void player_name(stringbuilder& sb) {
@@ -2131,6 +2150,7 @@ BSDATA(script) = {
 	{"ExitGame", exit_game},
 	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
+	{"FilterArea", filter_area},
 	{"ForEachItem", for_each_item},
 	{"ForEachParty", for_each_party},
 	{"Heal", player_heal},
@@ -2163,6 +2183,7 @@ BSDATA(script) = {
 	{"SaveNegate", save_negate},
 	{"SelectArea", select_area},
 	{"SetVariable", set_variable},
+	{"ShowArea", show_area},
 	{"Switch", apply_switch},
 	{"TalkAbout", talk_about},
 	{"TurningMonsters", turning_monsters},

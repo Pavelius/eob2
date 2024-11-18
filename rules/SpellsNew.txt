@@ -65,6 +65,49 @@ Blindness level(3) range(Enemy) version(ContinualLight) duration(Turn1) save_neg
 CureDisease level(3) range(Ally)
  filter IfDiseased
  instant DiseaseLevel-100
-CauseDisease level(3) range(Enemy)
+CureDiseaseKillSlime level(3) range(Enemy) alternate(CureDisease)
+ filter GreenSlime
+ instant InstantKill
+CauseDisease level(3) range(Enemy) reversed(CureDisease)
  filter Undead-1
- instant DiseaseLevel+10
+ instant DiseaseLevel+5
+GrowthAnimal level(3) range(Ally) duration(Turn12)
+ filter IfAnimal DoubleSized-1
+ instant DoubleSized
+LocateObjects level(3)
+RemoveCurse level(3) range(AllyItem)
+ filter IfCursed IfIdentified
+ instant Curse-1
+RemoveCurseCreature level(3) range(Ally)
+ filter Cursed
+ instant Cursed-1
+CauseCurse level(3) range(Enemy) reverse(RemoveCurse)
+ filter Cursed-1
+ instant PushModifier Permanent Cursed
+FlameBlade level(3) range(Ally) duration(Turn1)
+ filter IfYou
+ summon FlameSwordHand
+ 
+CureSeriousWound level(4) range(Ally)
+ filter Undead-1 IfWounded
+ instant Roll2d6+2 Heal+101
+CauseSeriousWound level(4) range(MeleeEnemy)
+ filter Undead-1
+ instant Roll2d6+2 NegativeEnergy+101
+NeutralizePoison level(4) range(Ally)
+ filter IfPoisoned
+ instant PoisonLevel-100
+ProtectionFromEvil level(4) range(Ally) duration(Turn12) random(100)
+ filter IfYou ProtectedFromEvil-1
+ wearing ProtectedFromEvil
+SpeakWithPlants level(4) duration(Turn3)
+StickToSnakes level(4) duration(Turn6)
+
+Commune level(5)
+CreateFood level(5)
+DispelEvil level(5)
+InsectPlague level(5)
+Quest level(5)
+RaiseDead level(5)
+FingerOfDeath level(5) range(Enemy) reversed(RaiseDead) save_nagetes(SaveVsMagic)
+ instant InstantKill

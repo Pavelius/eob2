@@ -1,0 +1,70 @@
+#Spells
+
+Darkness
+
+CureLightWound level(1) range(Ally)
+ filter Undead-1 IfWounded
+ instant Roll1d6+1 Heal+101 Paralized-1
+DetectEvil level(1) range(AllyItem) random(1)
+ filter IfIdentify-1 IfCursed
+ instant Identify+1 Speak
+DetectMagic level(1) range(AllyItem) random(1)
+ filter IfIdentify-1 IfMagical
+ instant Speak
+Light level(1) range(Enviroment) duration(Turn12)
+ filter Dark
+ wearing Dark-1
+ dispell Darkness
+Blindness level(1) range(Enemy) version(Light) duration(Turn1)
+ wearing Blind
+Darkness level(1) range(Enviroment) duration(Turn12) reversed(Light)
+ filter Dark-1
+ wearing Dark
+ dispell Light
+ProtectionFromEvil level(1) range(Ally) duration(Turn12) 
+ filter IfYou ProtectedFromEvil-1
+ wearing ProtectedFromEvil
+PurifyFoodAndDrink level(1) range(AllyItem) random(100)
+ filter IfEdible IfDamaged
+ instant ItemDamage-10 EffectCount+1
+RemoveFear level(1) range(Ally) duration(Turn2)
+ filter Scarry
+ wearing Scarry-1
+CauseFear level(1) range(Enemy) duration(Turn2) save_nagate(SaveVsSpell) reversed(RemoveFear)
+ filter Scarry
+ wearing Scarry-1
+ResistCold level(1) range(Ally) duration(Turn2)
+ filter ColdResist-1
+ wearing ColdResist
+ 
+Bless level(2) range(AllAlly) duration(Turn6)
+ wearing Attack+1 Damage+1
+FindTraps level(2) range(Scenery) random(100)
+ filter Trapped
+ instant Trapped-1
+HoldPerson level(2) range(Enemy) random(1 4) save_nagate(SaveVsMagic) duration(Turn9)
+ filter Undead-1 IfHD4Plus-1
+ instant Paralized
+KnownAlignment level(2) range(Enemy)
+ResistFire level(2) range(Ally) duration(Turn2)
+ filter FireResist-1
+ wearing FireResist
+Silence15Radius level(2) range(Enviroment) duration(Turn12)
+ filter AtEnviroment Silence-1
+ wearing Silence
+SnakeCharm Level(2)
+SpeakWithAnimals level(2)
+
+ContinualLight level(3) range(Enviroment)
+ filter Dark
+ instant Dark-1
+ dispell Darkness
+Blindness level(3) range(Enemy) version(ContinualLight) duration(Turn1) save_negate(SaveVsMagic)
+ filter Blind-1
+ instant PushModifier Permanent Blind
+CureDisease level(3) range(Ally)
+ filter IfDiseased
+ instant DiseaseLevel-100
+CauseDisease level(3) range(Enemy)
+ filter Undead-1
+ instant DiseaseLevel+10

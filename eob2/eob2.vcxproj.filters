@@ -13,11 +13,11 @@
     <Filter Include="rules">
       <UniqueIdentifier>{43afc25c-041d-4b25-bcb8-c2465084ca77}</UniqueIdentifier>
     </Filter>
-    <Filter Include="locale">
-      <UniqueIdentifier>{aaeec2c7-2126-4873-a9df-f65511a697fe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="util">
       <UniqueIdentifier>{92473ad3-c53f-43ec-95ce-ca21ab36e21f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="locale">
+      <UniqueIdentifier>{aaeec2c7-2126-4873-a9df-f65511a697fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

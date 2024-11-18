@@ -15,7 +15,9 @@ struct wearable {
 	item		wears[LastBelt+1];
 	void		additem(item& v);
 	slice<item> backpack() { return slice<item>(wears + Backpack, wears + LastBackpack); }
-	bool		consume(const item* pi);
+	slice<item> beltslots() { return slice<item>(wears + FirstBelt, wears + LastBelt); }
 	void		equip(item& v);
 	slice<item> equipment() { return slice<item>(wears + Head, wears + Legs); }
+	item*		freebelt();
+	item*		freebackpack();
 };

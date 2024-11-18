@@ -6,6 +6,7 @@ Roll1d4p1x1d4p1s3p2c9 base(1 4 1) raise(1 4 1) perlevel(3 2 9)
 Roll1d6 base(1 6)
 Roll1d8 base(1 8)
 Roll1d8x1 base(1 8) raise(1) perlevel(1 1)
+Roll2d8 base(2 8)
 Roll2x1 base(2) raise(1) perlevel(1 1)
 Roll2d6 base(2 6)
 Roll3d8 base(3 8)
@@ -18,9 +19,15 @@ Minute0x2 raise(2) perlevel(0 1)
 Minute0x5 raise(5) perlevel(0 1)
 Turn0x1 raise(1) perlevel(0 1) multiplier(10)
 Turn5x1 base(5) raise(1) perlevel(2 1) multiplier(10)
+Turn2d10 base(2 10) multiplier(10)
 Hour0x1 raise(1) perlevel(0 1) multiplier(60)
 Hour2 base(2) multiplier(60)
 Hour8 base(8) multiplier(60)
+
+#List
+
+TrapCells
+ elements CellPit CellButton
 
 #Spell
 
@@ -89,10 +96,9 @@ Augury levels(2) duration(Hour2)
  wearing BonusExperience+3
 FlameBlade levels(2) duration(Minute4x1) summon(FlameBladeHand)
  feats You
-Goodberry levels(2)
- filter IfAlive
- feats You Ally Group
- instant Roll1d3 Heal+101
+FindTraps levels(2)
+ feats You
+ instant SelectArea FilterArea TrapCells ShowArea
 HoldPerson levels(2) duration(Minute0x2)
  feats Enemy
  wearing Paralized
@@ -134,7 +140,13 @@ RemoveParalize levels(3)
 
 Abjure levels(4)
 CureSeriousWounds levels(4)
+ feats Ally You
+ filter IfAlive IfWounded
+ instant Roll2d8+1 Heal+101
 NeutralizePoison levels(4)
+ feats Ally You
+ filter IfAlive IfPoisoned
+ instant PoisonLevel-100
 ProtectionFromEvil levels(4) duration(Turn0x1)
  feats Ally You Group
  wearing ProtectedFromEvil
@@ -150,9 +162,22 @@ RaiseDead levels(5)
  feats Ally
  filter IfAlive-1
  instant Heal+10 PushModifier Permanent Constitution-1
+TrueSeeing
+ feats You Ally Group
+ instant SeeIllusionary
 
 HealSpell levels(6)
+ feats Ally
+ filter IfAlive IfWounded
+ instant Heal+100 PoisonLevel-100 DiseaseLevel-100
 HeroesFeast levels(6)
+
+Restoration levels(7)
+ feats Ally You
+ instant DrainStrenght-100 DrainLevel-100 DrainConstitution-100
+SymbolPain levels(7) duration(Turn2d10)
+ feats Enemy Group
+ wearing FeelPain
 
 #List
 
@@ -162,9 +187,9 @@ DefaultMageSpells
  elements Armor MagicMissile+2
 
 MageSpells
- elements Armor BurningHands ChillTouch ComprehendLanguages DetectEvil DetectMagic Friends MagicMissile Mending ShieldSpell ShockingGrasp
+ elements Armor+1 BurningHands+1 ChillTouch+1 ComprehendLanguages+1 DetectEvil+1 DetectMagic+1 Friends+1 MagicMissile+1 Mending+1 ShieldSpell+1 ShockingGrasp+1
 PriestSpells
- elements Bless CureLightWounds DetectEvil DetectMagic PurifyFood
+ elements PurifyFood+1 FindTraps+1 CureSeriousWounds+1 RemoveCurse+2 CurePoison+2 CureDisease+2 NeutralizePoison+3 RaiseDead+4 Restoration+5
 WandSpells
  elements BurningHands+1 DetectMagic+1 MagicMissile+1 ShockingGrasp+1
 

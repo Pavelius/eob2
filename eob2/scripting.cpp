@@ -1093,8 +1093,8 @@ static void use_theif_tools(int bonus) {
 			}
 			pass_round();
 			return;
-      default:
-         break;
+		default:
+			break;
 		}
 	}
 	switch(loc->get(to(party, party.d))) {
@@ -1105,8 +1105,8 @@ static void use_theif_tools(int bonus) {
 		}
 		pass_round();
 		return;
-   default:
-      break;
+	default:
+		break;
 	}
 	player->speak("TheifTool", "NoTargets");
 }
@@ -1768,6 +1768,69 @@ static void best_player(int bonus) {
 	set_focus_by_player();
 }
 
+static void select_area(int bonus) {
+	points.clear();
+	if(!loc)
+		return;
+	if(!bonus)
+		bonus = mpx;
+	pointc v, v2 = party + bonus, v1 = party - bonus;
+	for(v.y = v1.y; v.y <= v2.y; v.y++) {
+		for(v.x = v1.x; v.x <= v2.x; v.x++) {
+			switch(loc->get(v)) {
+			case CellPassable:
+			case CellWall:
+			case CellUnknown:
+				break;
+			default:
+				points.add(v);
+				break;
+			}
+		}
+	}
+}
+
+static bool filter_cell(variant v, celln t) {
+	if(v.iskind<celli>())
+		return v.value == t;
+	else if(v.iskind<listi>()) {
+		for(auto e : bsdata<listi>::elements[v.value].elements) {
+			if(filter_cell(e, t))
+				return true;
+		}
+	} else if(v.iskind<randomizeri>()) {
+		for(auto e : bsdata<randomizeri>::elements[v.value].chance) {
+			if(filter_cell(e, t))
+				return true;
+		}
+	}
+	return false;
+}
+
+static void clear_area(int bonus) {
+	points.clear();
+}
+
+static void filter_area(int bonus) {
+	auto filter = next_script();
+	auto ps = points.begin();
+	auto pe = points.end();
+	auto keep = bonus >= 0;
+	auto push_point = last_point;
+	for(auto pb = points.begin(); pb < pe; pb++) {
+		last_point = *pb;
+		if(filter_cell(filter, loc->get(last_point)) != keep)
+			continue;
+		*ps++ = *pb;
+	}
+	last_point = push_point;
+	points.count = ps - points.begin();
+}
+
+static void show_area(int bonus) {
+	show_automap(true, false, true, &points);
+}
+
 static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
@@ -2080,6 +2143,7 @@ BSDATA(script) = {
 	{"ChooseItems", choose_items},
 	{"ChooseMenu", choose_menu},
 	{"ChooseSpells", choose_spells},
+	{"ClearArea", clear_area},
 	{"CreateCharacter", create_character},
 	{"CreateNewGame", create_new_game},
 	{"CreatePower", create_power},
@@ -2091,6 +2155,7 @@ BSDATA(script) = {
 	{"ExitGame", exit_game},
 	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
+	{"FilterArea", filter_area},
 	{"ForEachItem", for_each_item},
 	{"ForEachParty", for_each_party},
 	{"Heal", player_heal},
@@ -2121,7 +2186,9 @@ BSDATA(script) = {
 	{"Saves", saves_modify},
 	{"SaveHalf", save_half},
 	{"SaveNegate", save_negate},
+	{"SelectArea", select_area},
 	{"SetVariable", set_variable},
+	{"ShowArea", show_area},
 	{"Switch", apply_switch},
 	{"TalkAbout", talk_about},
 	{"TurningMonsters", turning_monsters},

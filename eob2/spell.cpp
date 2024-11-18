@@ -83,6 +83,43 @@ static void filter_creatures(const variants& source) {
 	an.elements.count = ps - an.begin();
 }
 
+static void remove_summon_slot(wearn wear) {
+	for(auto& e : an.elements) {
+		auto player = (creaturei*)e.value;
+		if(!player->wears[wear])
+			continue;
+		if(!can_remove(&player->wears[wear], false))
+			continue;
+		item* ps = 0;
+		if(wear == RightHand || wear == LeftHand)
+			ps = player->freebelt();
+		else
+			ps = player->freebackpack();
+		if(!ps)
+			continue;
+		iswap(*ps, player->wears[wear]);
+	}
+}
+
+static void filter_summon_slot(wearn wear) {
+	auto ps = an.elements.begin();
+	auto push_player = player;
+	for(auto& e : an.elements) {
+		player = (creaturei*)e.value;
+		if(player->wears[wear]) {
+			if(!can_remove(&player->wears[wear], false))
+				continue;
+			if(wear == RightHand || wear == LeftHand) {
+				if(!player->freebelt())
+					continue;
+			}
+		}
+		*ps++ = e;
+	}
+	player = push_player;
+	an.elements.count = ps - an.begin();
+}
+
 static void add_targets(pointc v, bool enemy, bool ally, bool include_player) {
 	creaturei* targets[6] = {};
 	if(enemy) {
@@ -206,6 +243,8 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run) {
 		}
 		if(!ps->is(Ally) && !ps->is(Enemy) && ps->is(You))
 			an.add(player, player->getname());
+		if(ps->summon)
+			filter_summon_slot(ps->summon->wear);
 		if(!ps->is(WearItem))
 			filter_creatures(ps->filter);
 		if(!an) {
@@ -240,9 +279,11 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run) {
 	auto push_caster = caster; caster = player;
 	auto push_level = last_level; last_level = level;
 	party.abilities[EffectCount] = 0;
-	if(need_creatures)
+	if(need_creatures) {
 		apply_effect(ps->instant);
-	else
+		if(ps->summon)
+			remove_summon_slot(ps->summon->wear);
+	} else
 		script_run(ps->instant);
 	apply_enchant_effect(ps->duration, ps);
 	fix_animate();

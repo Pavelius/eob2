@@ -3,7 +3,6 @@
 #include "direction.h"
 #include "dungeon.h"
 #include "math.h"
-#include "pointca.h"
 #include "reference.h"
 
 const unsigned char	CellMask = 0x1F;

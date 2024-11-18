@@ -68,3 +68,19 @@ void wearable::additem(item& v) {
 		break;
 	}
 }
+
+item* wearable::freebelt() {
+	for(auto& e : beltslots()) {
+		if(!e)
+			return &e;
+	}
+	return 0;
+}
+
+item* wearable::freebackpack() {
+	for(auto& e : backpack()) {
+		if(!e)
+			return &e;
+	}
+	return 0;
+}

@@ -15,7 +15,7 @@
 #include "view.h"
 
 creaturei* caster;
-spelli* last_spell;
+const spelli* last_spell;
 
 static void apply_summon(creaturei* player, const itemi* pi) {
 	auto wear = pi->wear;
@@ -163,18 +163,25 @@ static void apply_effect(const variants& source) {
 	player = push_player;
 }
 
-static void apply_enchant_effect(const randomeffecti* duration, variant action) {
-	if(!action || !duration)
+void apply_enchant_spell(int bonus) {
+	last_number += bonus;
+	if(!last_spell || last_number <= 0 || !player)
 		return;
-	auto rounds = duration->roll(last_level);
-	auto push_player = player;
-	for(auto& e : an) {
-		auto p = e.value;
-		if(!item_owner(p))
-			add_boost(party.abilities[Minutes] + rounds, (creaturei*)p, action);
-	}
-	player = push_player;
+	add_boost(party.abilities[Minutes] + last_number, player, last_spell);
 }
+
+//static void apply_enchant_effect(const randomeffecti* duration, variant action) {
+//	if(!action || !duration)
+//		return;
+//	auto rounds = duration->roll(last_level);
+//	auto push_player = player;
+//	for(auto& e : an) {
+//		auto p = e.value;
+//		if(!item_owner(p))
+//			add_boost(party.abilities[Minutes] + rounds, (creaturei*)p, action);
+//	}
+//	player = push_player;
+//}
 
 static void select_items(const variants& filter) {
 	auto ans = an;
@@ -224,9 +231,19 @@ static int distance(pointc v1, pointc v2) {
 	return dx > dy ? dx : dy;
 }
 
+static void use_spell_slot(const spelli* ps) {
+	auto index = getbsi(ps);
+	if(index == -1)
+		return;
+	if(player->spells[index])
+		player->spells[index]--;
+}
+
 bool cast_spell(const spelli* ps, int level, int experience, bool run) {
+	auto push_spell = last_spell;
 	pushanswer push_answers;
 	pointc enemy_position = to(party, party.d);
+	last_spell = ps;
 	auto need_creatures = ps->is(Ally) || ps->is(Enemy) || ps->is(You);
 	if(need_creatures) {
 		if(ps->is(Ally))
@@ -285,12 +302,12 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run) {
 			remove_summon_slot(ps->summon->wear);
 	} else
 		script_run(ps->instant);
-	apply_enchant_effect(ps->duration, ps);
 	fix_animate();
 	if(party.abilities[EffectCount])
 		player->speakn(ps->id, "GainEffect", party.abilities[EffectCount]);
 	else
 		player->speakn(ps->id, "NoEffect", party.abilities[EffectCount]);
+	last_spell = push_spell;
 	last_level = push_level;
 	caster = push_caster;
 	return true;
@@ -303,11 +320,7 @@ void cast_spell() {
 	// RULE: add experience for each spell cast.
 	if(!cast_spell(ps, player->getlevel(), 35, true))
 		return;
-	auto index = getbsi(ps);
-	if(index == -1)
-		return;
-	if(player->spells[index])
-		player->spells[index]--;
+	use_spell_slot(ps);
 	pass_round();
 }
 

@@ -86,10 +86,10 @@ ShockingGrasp levels(0 1)
  feats Enemy
  instant Roll1d8x1 Shock+101
 
-Aid levels(2) duration(Minute5x1) lighting(221 210 0)
+Aid levels(2) lighting(221 210 0)
  feats Ally
  wearing Attack+1 Saves+1
- instant Roll1d8 AddAid+101
+ instant Roll1d8 AddAid+101 Minute5x1 ApplyEnchantSpell
  clearing AddAid-8
 Augury levels(2) duration(Hour2)
  feats You
@@ -99,8 +99,10 @@ FlameBlade levels(2) duration(Minute4x1) summon(FlameBladeHand)
 FindTraps levels(2)
  feats You
  instant SelectArea FilterArea TrapCells ShowArea
-HoldPerson levels(2) duration(Minute0x2)
+HoldPerson levels(2)
  feats Enemy
+ filter IfIntelligence IfParalized-1 IfUndead-1
+ instant SaveNegate Minute0x2 ApplyEnchantSpell
  wearing Paralized
 ResistFireSpell levels(2) duration(Turn5x1)
  feats You Ally

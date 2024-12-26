@@ -49,6 +49,7 @@ struct creaturei : npc, statable, wearable, posable {
 	bool			isdisabled() const { return gethp() <= 0; }
 	bool			ismonster() const { return getmonster() != 0; }
 	bool			isunderstand(racen v) const { return languages.is(v); }
+	bool			isready() const;
 	void			kill();
 	void			remove(featn v) { featable::remove(v); }
 	bool			roll(abilityn v, int bonus = 0) const;

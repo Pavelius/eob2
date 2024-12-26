@@ -1,11 +1,2 @@
-﻿Error in file `rules/Classes.txt`:
- Line 5: Not found requisit `experience`
- Line 5: Not found resuisit `experience`
- Line 6: Not found requisit `experience`
- Line 6: Not found resuisit `experience`
- Line 7: Not found requisit `experience`
- Line 7: Not found resuisit `experience`
- Line 10: Not found requisit `experience`
- Line 10: Not found resuisit `experience`
- Line 12: Not found requisit `experience`
- Line 12: Not found resuisit `experience`
+﻿Error in file `rules/Spells.txt`:
+ Line 104: Can't find variant `IfIntellegence`

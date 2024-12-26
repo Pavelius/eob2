@@ -40,6 +40,7 @@ static bool hilite_player;
 static int disp_damage[6];
 static int disp_weapon[6][2];
 static unsigned animate_counter;
+static int last_spell_level;
 static int answer_origin, answer_per_page;
 bool need_update_animation;
 unsigned long current_cpu_time;
@@ -731,6 +732,31 @@ void header_yellow(const char* format) {
 	text(format, -1);
 	caret.y += texth() + 1;
 	fore = push_fore;
+}
+static void header_yellow_spells_by_level(int level, int max_level) {
+	auto push_caret = caret;
+	auto push_with = width; width = 12;
+	auto push_heigh = height; height = 7;
+	auto push_fore = fore; fore = colors::yellow;
+	caret.x -= 2; caret.y -= 2;
+	for(auto i = 1; i <= max_level; i++) {
+		button_frame(1, false, (level == i));
+		caret.y += 2;
+		texta(str("%1i", i), AlignCenterCenter);
+		caret.y -= 2;
+		auto hot_key = '1' + i - 1;
+		caret.x += width;
+	}
+	height = push_heigh;
+	width = push_with;
+	caret = push_caret;
+	fore = push_fore;
+	caret.y += texth() + 1;
+}
+
+static void header_yellow_spells(const char* format) {
+	// header_yellow(format);
+	header_yellow_spells_by_level(last_spell_level, 9);
 }
 
 static void header(const char* format) {
@@ -1499,6 +1525,14 @@ void* choose_small_menu(const char* header, const char* cancel) {
 		maximum--;
 	return choose_answer(header, cancel, paint_small_menu, text_label_menu, 0, maximum, header_yellow);
 }
+
+//void* choose_small_menu_spells(const char* header, const char* cancel, int spell_level) {
+//	int maximum = 6;
+//	if(cancel)
+//		maximum--;
+//	last_spell_level = spell_level;
+//	return choose_answer(header, cancel, paint_small_menu, text_label_menu, 0, maximum, header_yellow_spells);
+//}
 
 void* choose_main_menu() {
 	return choose_answer(0, 0, paint_main_menu, text_label, 1, -1, 0);

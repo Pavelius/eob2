@@ -10,10 +10,10 @@ Ghoul res(ghoul) hd(1) ac(6) experience(175) alignment(ChaoticEvil)
 Leech res(leech) hd(4) ac(9) experience(175) alignment(TrueNeutral)
  feats Intellegence-6 Large VampiricAttack DiseaseAttack Mandibules
 Shadow res(shadow) hd(3) ac(7) experience(420) alignment(ChaoticEvil)
- feats Strenght+6 Constitution+6 Slam1d4 DrainStrenghtAttack ImmuneNormalWeapon Sneaky+80
+ feats Strenght+6 Constitution+6 Slam1d4 Undead DrainStrenghtAttack ImmuneNormalWeapon Sneaky+80
 Skeleton res(skeleton) hd(1) ac(7) experience(65) alignment(TrueNeutral)
  feats Dexterity+3 Axe Undead ResistPierce ResistSlashing ImmuneCharm ImmuneCold
 Wight res(wight) hd(4) ac(5) experience(1400) alignment(LawfulEvil)
- feats Constitution+5 Slam1d4 ImmuneCharm ImmuneCold ImmunePoison ImmuneNormalWeapon
+ feats Constitution+5 Slam1d4 Undead ImmuneCharm ImmuneCold ImmunePoison ImmuneNormalWeapon
 Zombie res(zombie) hd(2) ac(8) alignment(TrueNeutral)
  feats Dexterity-3 Slam1d8 Undead SlowMove ResistPierce ResistSlashing ImmuneCharm

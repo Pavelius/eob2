@@ -29,6 +29,7 @@ void* choose_dialog(const char* title, int dx);
 void* choose_large_menu(const char* header, const char* cancel);
 void* choose_main_menu();
 void* choose_small_menu(const char* header, const char* cancel);
+//void* choose_small_menu_spells(const char* header, const char* cancel, int spell_level);
 void* show_message(const char* format, bool add_anaswers, const char* cancel = 0, unsigned cancel_key = 27);
 void* dialogv(const char* cancel, const char* format);
 void* dialogv(const char* cancel, const char* format, const char* format_param);

@@ -738,6 +738,14 @@ bool creaturei::isactable() const {
 	return true;
 }
 
+bool creaturei::isready() const {
+	if(isdisabled())
+		return false;
+	if(is(Paralized))
+		return false;
+	return true;
+}
+
 void creaturei::damage(damagen type, int value, char magic_bonus) {
 	if(value <= 0)
 		return;

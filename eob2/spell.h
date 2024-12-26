@@ -23,10 +23,11 @@ struct spelli : nameable, featable {
 	variants	wearing;
 	bool isthrown() const { return avatar_thrown!=0; }
 };
-extern spelli* last_spell;
+extern const spelli* last_spell;
 typedef char spella[128];
 typedef flagable<16> spellseta;
 
+void apply_enchant_spell(int bonus);
 void cast_spell();
 bool cast_spell(const spelli* ps, int level, int experience, bool run);
 

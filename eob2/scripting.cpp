@@ -1895,6 +1895,10 @@ static bool if_diseased() {
 	return player->is(DiseaseLevel);
 }
 
+static bool if_intelligence() {
+	return player->get(Intellegence) >= 6;
+}
+
 static bool if_poisoned() {
 	return player->is(PoisonLevel);
 }
@@ -2106,6 +2110,7 @@ BSDATAF(talking)
 BSDATA(conditioni) = {
 	{"IfAlive", if_alive},
 	{"IfDiseased", if_diseased},
+	{"IfIntelligence", if_intelligence},
 	{"IfItemCharged", if_item_charged},
 	{"IfItemCursed", if_item_cursed},
 	{"IfItemDamaged", if_item_damaged},
@@ -2135,6 +2140,7 @@ BSDATA(script) = {
 	{"AddReward", add_reward},
 	{"AddVariable", add_variable},
 	{"ApplyAction", apply_action},
+	{"ApplyEnchantSpell", apply_enchant_spell},
 	{"ApplyRacialEnemy", apply_racial_enemy},
 	{"BestPlayer", best_player},
 	{"ConfirmAction", confirm_action},

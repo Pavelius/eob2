@@ -2179,6 +2179,7 @@ BSDATA(script) = {
 	{"PushModifier", push_modifier},
 	{"PushPlayer", push_player},
 	{"RestoreSpells", restore_spells},
+	{"RestParty", rest_party},
 	{"ReturnToStreet", return_to_street},
 	{"Roll", make_roll},
 	{"SaveGame", save_game},

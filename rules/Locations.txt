@@ -49,7 +49,7 @@ PrayForSpells
  classes Cleric Paladin Ranger
  effect ChooseSpells+0
 RestParty
- effect ConfirmAction RestorePartySpells NaturallyPartyHeal PassHours+8 ReturnToStreet
+ effect ConfirmAction RestParty+10 ReturnToStreet
 ScribleScrolls
  classes Mage
  effect ChooseMageScrolls IfLastItem ItemPowerSpell LearnSpell Roll LearnLastSpell DestroyItem

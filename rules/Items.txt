@@ -265,13 +265,13 @@ RandomKeys
  chance IronKey
 
 RandomItem
- chance RandomWeapon+4 RandomArmor RandomArmorMinor RandomRings RandomAmulets RandomScrolls RandomWands RandomPotions RandomKeys RandomTools
+ chance RandomWeapon+4 RandomArmor RandomArmorMinor RandomRings RandomAmulets RandomScrolls+2 RandomWands RandomPotions+2 RandomKeys RandomTools
 
 RandomSmallItem
- chance RandomPotions+4 RandomRings RandomKeys RandomTools RandomWands RandomScrolls
+ chance RandomPotions+4 RandomRings RandomKeys RandomTools RandomWands RandomScrolls+4
 
 MonsterGiftItems
- chance RandomSword RandomPotions+4 RandomAmulets+2 RandomAmulets
+ chance RandomSword RandomPotions+4 RandomAmulets+2 RandomAmulets RandomScrolls
 
 #Race
 

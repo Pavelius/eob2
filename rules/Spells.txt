@@ -21,6 +21,7 @@ Turn0x1 raise(1) perlevel(0 1) multiplier(10)
 Turn5x1 base(5) raise(1) perlevel(2 1) multiplier(10)
 Turn2d10 base(2 10) multiplier(10)
 Hour0x1 raise(1) perlevel(0 1) multiplier(60)
+Hour1 base(1) multiplier(60)
 Hour2 base(2) multiplier(60)
 Hour8 base(8) multiplier(60)
 
@@ -39,33 +40,41 @@ TurnUndead
  filter IfMonstersUndead
  instant TurningMonsters
 
-Armor levels(0 1) duration(Hour0x1) lighting(50 205 50)
+Armor levels(0 1) lighting(50 205 50)
  feats You
+ instant Hour0x1 ApplyEnchantSpell
  wearing AC+4
-Bless levels(1 0) duration(Minute5x1) lighting(255 239 0)
+Bless levels(1 0) lighting(255 239 0)
  feats Ally
+ instant Minute5x1 ApplyEnchantSpell
  wearing Attack+1 Damage+1 Saves+1
 BurningHands levels(0 1)
  feats Enemy Group
  instant Roll1d3x2s0p1c10 SaveHalf Fire+101
-ChillTouch levels(0 1) duration(Minute3x1) summon(ChillTouchHand)
+ChillTouch levels(0 1) summon(ChillTouchHand)
  feats You
-ComprehendLanguages levels(0 1) duration(Minute5x5)
+ instant Minute3x1 ApplyEnchantSpell
+ComprehendLanguages levels(0 1)
  feats Ally You
- instant AllLanguages
+ instant Minute5x5 ApplyEnchantSpell
+ wearing AllLanguages
 CureLightWounds levels(1 0)
  feats Ally You
  filter IfAlive IfWounded
  instant Roll1d8 Heal+101
-DetectEvil levels(1 1) duration(Minute0x2)
+DetectEvil levels(1 1)
  feats Ally Group
+ instant Minute0x2 ApplyEnchantSpell
  wearing SeeCursed
-DetectMagic levels(1 1) duration(Minute0x2)
+DetectMagic levels(1 1)
  feats You Ally Group
+ instant Minute0x2 ApplyEnchantSpell
  wearing SeeMagical
 Friends levels(0 1)
 Identify levels(0 1)
- feats Ally
+ feats Ally WearItem
+ filter IfItemIdentified-1
+ instant IdentifyItem
 MagicMissile levels(0 1) avatar_thrown(5)
  feats Enemy
  instant Roll1d4p1x1d4p1s3p2c9 Magic+101
@@ -73,14 +82,16 @@ Mending levels(0 1)
  feats Ally You WearItem
  filter IfItemEdible-1 IfItemCharged-1 IfItemDamaged
  instant DamageItem-1
-ProtectionFromEvil levels(1 1) duration(Turn5x1) lighting(150 00 24)
+ProtectionFromEvil levels(1 1) lighting(150 00 24)
  feats Ally
+ instant Turn5x1 ApplyEnchantSpell
  wearing ProtectedFromEvil
 PurifyFood levels(1 0)
  feats Ally Group WearItem
  filter IfItemEdible IfItemDamaged
  instant DamageItem-1 EffectCount+1
 ShieldSpell levels(0 1)
+ instant Minute0x5 ApplyEnchantSpell
  wearing AC+5
 ShockingGrasp levels(0 1)
  feats Enemy
@@ -91,11 +102,13 @@ Aid levels(2) lighting(221 210 0)
  wearing Attack+1 Saves+1
  instant Roll1d8 AddAid+101 Minute5x1 ApplyEnchantSpell
  clearing AddAid-8
-Augury levels(2) duration(Hour2)
+Augury levels(2)
  feats You
- wearing BonusExperience+3
-FlameBlade levels(2) duration(Minute4x1) summon(FlameBladeHand)
+ instant Hour1 ApplyEnchantSpell
+ wearing BonusExperience+1
+FlameBlade levels(2) summon(FlameBladeHand)
  feats You
+ instant Minute4x1 ApplyEnchantSpell
 FindTraps levels(2)
  feats You
  instant SelectArea FilterArea TrapCells ShowArea
@@ -104,14 +117,17 @@ HoldPerson levels(2)
  filter IfIntelligence IfParalized-1 IfUndead-1
  instant SaveNegate Minute0x2 ApplyEnchantSpell
  wearing Paralized
-ResistFireSpell levels(2) duration(Turn5x1)
+ResistFireSpell levels(2)
  feats You Ally
+ instant Turn5x1 ApplyEnchantSpell
  wearing ResistFire
-ResistColdSpell levels(2) duration(Turn5x1)
+ResistColdSpell levels(2)
  feats You Ally
+ instant Turn5x1 ApplyEnchantSpell
  wearing ResistCold
-SlowPoison levels(2) duration(Hour0x1) lighting(148 199 72)
+SlowPoison levels(2) lighting(148 199 72)
  feats Ally You
+ instant Hour0x1 ApplyEnchantSpell
  wearing StoppedPoison
 
 CreateFood levels(3)
@@ -125,11 +141,13 @@ CurePoison levels(3)
  feats Ally You
  filter IfAlive IfPoisoned
  instant PoisonLevel-100
-MagicalVestment levels(3) duration(Minute0x5)
+MagicalVestment levels(3)
  feats You
+ instant Hour0x1 ApplyEnchantSpell
  wearing AC+4
-Prayer levels(3) duration(Minute5x1) lighting(255 239 0)
+Prayer levels(3) lighting(255 239 0)
  feats Ally You Group
+ instant Minute5x1 ApplyEnchantSpell
  wearing Attack+1 Damage+1 Saves+1
 RemoveCurse levels(3)
  feats Ally You WearItem
@@ -149,8 +167,9 @@ NeutralizePoison levels(4)
  feats Ally You
  filter IfAlive IfPoisoned
  instant PoisonLevel-100
-ProtectionFromEvil levels(4) duration(Turn0x1)
+ProtectionFromEvil levels(4)
  feats Ally You Group
+ instant Turn0x1 ApplyEnchantSpell
  wearing ProtectedFromEvil
 
 CureCriticalWounds levels(5)
@@ -177,8 +196,9 @@ HeroesFeast levels(6)
 Restoration levels(7)
  feats Ally You
  instant DrainStrenght-100 DrainLevel-100 DrainConstitution-100
-SymbolPain levels(7) duration(Turn2d10)
+SymbolPain levels(7)
  feats Enemy Group
+ instant Turn2d10 ApplyEnchantSpell
  wearing FeelPain
 
 #List
@@ -189,7 +209,7 @@ DefaultMageSpells
  elements Armor MagicMissile+2
 
 MageSpells
- elements Armor+1 BurningHands+1 ChillTouch+1 ComprehendLanguages+1 DetectEvil+1 DetectMagic+1 Friends+1 MagicMissile+1 Mending+1 ShieldSpell+1 ShockingGrasp+1
+ elements Armor+1 BurningHands+1 ChillTouch+1 ComprehendLanguages+1 DetectEvil+1 DetectMagic+1 Identify+1 Friends+1 MagicMissile+1 Mending+1 ShieldSpell+1 ShockingGrasp+1
 PriestSpells
  elements PurifyFood+1 FindTraps+1 CureSeriousWounds+1 RemoveCurse+2 CurePoison+2 CureDisease+2 NeutralizePoison+3 RaiseDead+4 Restoration+5
 WandSpells

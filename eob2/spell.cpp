@@ -170,19 +170,6 @@ void apply_enchant_spell(int bonus) {
 	add_boost(party.abilities[Minutes] + last_number, player, last_spell);
 }
 
-//static void apply_enchant_effect(const randomeffecti* duration, variant action) {
-//	if(!action || !duration)
-//		return;
-//	auto rounds = duration->roll(last_level);
-//	auto push_player = player;
-//	for(auto& e : an) {
-//		auto p = e.value;
-//		if(!item_owner(p))
-//			add_boost(party.abilities[Minutes] + rounds, (creaturei*)p, action);
-//	}
-//	player = push_player;
-//}
-
 static void select_items(const variants& filter) {
 	auto ans = an;
 	an.clear();

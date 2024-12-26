@@ -1,2 +1,2 @@
 ﻿Error in file `rules/Spells.txt`:
- Line 104: Can't find variant `IfIntellegence`
+ Line 104: Can't find variant `Hour1`

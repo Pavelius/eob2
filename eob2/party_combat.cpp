@@ -274,10 +274,10 @@ static void make_full_attack(creaturei* enemy, int bonus, int multiplier) {
 		wp3.clear();
 	// RULE: sneak attack depend on move silently check and invisibility
 	if(enemy->is(Surprised) || player->is(Invisibled)) {
-		auto theif = player->getlevel(Theif);
-		if(theif > 0 && player->roll(MoveSilently)) {
+		auto theif_bakstab = player->get(Backstab);
+		if(theif_bakstab > 0 && player->roll(MoveSilently)) {
 			consolen(getnm("SneakAttackAct"));
-			multiplier += (theif + 7) / 4;
+			multiplier += theif_bakstab;
 		}
 	}
 	if(wp2) {

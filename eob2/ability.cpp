@@ -31,6 +31,8 @@ BSDATA(abilityi) = {
 	{"DamageMelee", 1},
 	{"DamageRange", 1},
 	{"Speed"},
+	{"TurnUndeadBonus", 1},
+	{"Backstab", 1},
 	{"Spell1", 1},
 	{"Spell2", 1},
 	{"Spell3", 1},

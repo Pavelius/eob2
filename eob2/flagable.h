@@ -6,8 +6,9 @@ class flagable {
 	static constexpr unsigned s = sizeof(T) * 8;
 	T data[N];
 public:
-	constexpr explicit operator bool() const { for(auto e : data) if(e) return true; return false; }
 	constexpr flagable() : data{0} {}
+	constexpr explicit operator bool() const { for(auto e : data) if(e) return true; return false; }
+	constexpr void add(const flagable<N, T>& v) { for(unsigned i = 0; i < N; i++) data[i] |= v.data[i]; }
 	constexpr bool is(short unsigned v) const { return (data[v / s] & (1 << (v % s))) != 0; }
 	constexpr void remove(short unsigned v) { data[v / s] &= ~(1 << (v % s)); }
 	constexpr void set(short unsigned v) { data[v / s] |= 1 << (v % s); }
@@ -18,9 +19,10 @@ class flagable<1, T> {
 	static constexpr unsigned s = sizeof(T) * 8;
 	T data;
 public:
-	constexpr explicit operator bool() const { return data != 0; }
 	constexpr flagable() : data(0) {}
 	constexpr flagable(T data) : data(data) {}
+	constexpr explicit operator bool() const { return data != 0; }
+	constexpr void add(const flagable<1, T>& v) { data |= v.data; }
 	constexpr bool is(short unsigned v) const { return (data & (1 << v)) != 0; }
 	constexpr void remove(short unsigned v) { data &= ~(1 << v); }
 	constexpr void set(short unsigned v) { data |= (1 << v); }

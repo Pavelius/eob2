@@ -147,12 +147,12 @@ static int experience_rogue[21] = {
 };
 
 static int* get_experience_table(classn character_class) {
-	switch(character_class) {
-	case Cleric: return experience_priest;
-	case Fighter: return experience_warrior;
-	case Paladin: case Ranger: return experience_paladin;
-	case Mage: return experience_wizard;
-	default: return experience_rogue;
+	switch(bsdata<classi>::elements[character_class].experience) {
+	case 1: return experience_priest; // Cleric
+	case 3: return experience_warrior; // Fighter
+	case 4: return experience_paladin; // Paladin, Ranger
+	case 2: return experience_wizard; // Mage
+	default: return experience_rogue; // Rogue
 	}
 }
 

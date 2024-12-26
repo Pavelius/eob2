@@ -86,10 +86,9 @@ Fighter+10 CombatSkills
 Paladin+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UseMartial BonusHP
 Paladin+1 BasicAbilities
- elements ProtectedFromEvil ImmuneDisease
+ elements ProtectedFromEvil ImmuneDisease TurnUndeadBonus-1
 Paladin+1 SaveThrow
  elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
-
 Paladin+2 CombatSkills
  elements Attack+1
 Paladin+3 CombatSkills
@@ -111,6 +110,8 @@ Paladin+10 CombatSkills
 
 Cleric+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UsePriest
+Cleric+1 BasicAbilities
+ elements TurnUndeadBonus+1
 
 Cleric+1 Spells
  elements LearnClericSpells+1 Spell1+1
@@ -136,3 +137,13 @@ Theif+1 AllowedEquipment
  elements UseLeather UseRogish
 Theif+1 TheifSkills
  elements PickPockets+30 OpenLocks+25 RemoveTraps+20 MoveSilently+15 HearNoise+10 ClimbWalls+85
+Theif+1 BasicAbilities
+ elements Backstab+1
+Theif+2 TheifSkills
+ elements PickPockets+5 OpenLocks+4 RemoveTraps+5 MoveSilently+6 HearNoise+0 ClimbWalls+1
+Theif+3 TheifSkills
+ elements PickPockets+5 OpenLocks+4 RemoveTraps+5 MoveSilently+6 HearNoise+5 ClimbWalls+1
+Theif+4 TheifSkills
+ elements PickPockets+5 OpenLocks+4 RemoveTraps+5 MoveSilently+6 HearNoise+0 ClimbWalls+1
+Theif+4 BasicAbilities
+ elements Backstab+1

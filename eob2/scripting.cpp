@@ -1725,20 +1725,18 @@ static void turning_monsters(int bonus) {
 	};
 	auto v = to(party, party.d);
 	creaturei* creatures[6]; loc->getmonsters(creatures, v);
+	auto turn_undead_bonus = player->get(TurnUndeadBonus);
+	if(!turn_undead_bonus)
+		return;
+	auto pl = player->getlevel() + turn_undead_bonus - 1 + bonus;
+	if(pl <= 0)
+		return;
+	if(pl > 14)
+		pl = 14;
 	for(auto p : creatures) {
 		if(!p || p->isdisabled())
 			continue;
 		auto hd = p->getlevel();
-		auto pl = player->getlevel(Cleric);
-		if(!pl)
-			pl = player->getlevel(Paladin) - 2;
-		if(pl <= 0)
-			return;
-		pl += bonus;
-		if(pl <= 0)
-			return;
-		if(pl > 14)
-			pl = 14;
 		if(hd > 11)
 			hd = 11;
 		auto chance = chances[hd][pl - 1] - 5;

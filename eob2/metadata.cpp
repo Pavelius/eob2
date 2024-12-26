@@ -83,6 +83,7 @@ BSMETA(cellfi) = {
 BSMETA(classi) = {
 	BSREQ(id),
 	BSREQ(minimal),
+	BSREQ(experience),
 	BSENM(primary, abilityi),
 	BSREQ(hd), BSREQ(exp_per_hd), BSREQ(caster),
 	BSENM(classes, classi), BSREQ(count),

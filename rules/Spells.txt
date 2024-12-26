@@ -39,7 +39,7 @@ TurnUndead
  filter IfMonstersUndead
  instant TurningMonsters
 
-Armor levels(0 1) duration(Minute5x1) lighting(50 205 50)
+Armor levels(0 1) duration(Hour0x1) lighting(50 205 50)
  feats You
  wearing AC+4
 Bless levels(1 0) duration(Minute5x1) lighting(255 239 0)

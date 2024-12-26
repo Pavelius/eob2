@@ -436,6 +436,7 @@ static void rest_party(int bonus) {
 		rest_character(bonus);
 	}
 	player = push_player;
+	pass_hours(8);
 }
 
 static dungeoni::overlayi* get_overlay() {

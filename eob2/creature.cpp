@@ -123,6 +123,29 @@ static char save_index[] = {
 };
 static_assert(sizeof(save_index) / sizeof(save_index[0]) == (SaveVsMagic - SaveVsParalization) + 1, "Invalid count of save index elements");
 
+static char theif_skill_adjustment[][5] = {
+	{-25, -20, -15, -30, -20}, // 0
+	{-25, -20, -15, -30, -20}, // 1
+	{-25, -20, -15, -30, -20}, // 2
+	{-25, -20, -15, -30, -20}, // 3
+	{-25, -20, -15, -30, -20}, // 4
+	{-25, -20, -15, -30, -20}, // 5
+	{-25, -20, -15, -30, -20}, // 6
+	{-25, -20, -15, -30, -20}, // 7
+	{-20, -15, -10, -25, -15}, // 8
+	{-15, -10, -10, -20, -10}, // 9
+	{-10, -5, -10, -15, -5}, // 10
+	{-5, 0, -5, -10, 0}, // 11
+	{0, 0, 0, -5, 0}, // 12
+	{0, 0, 0, 0, 0}, // 13
+	{0, 0, 0, 0, 0}, // 14
+	{0, 0, 0, 0, 0}, // 15
+	{0, 5, 0, 0, 0}, // 16
+	{5, 10, 0, 5, 5}, // 17
+	{10, 15, 5, 10, 10}, // 18
+	{15, 20, 10, 15, 15}, // 19
+};
+
 static int experience_paladin[21] = {
 	0, 0, 2250, 4500, 9000, 18000, 36000, 75000, 150000, 300000,
 	600000, 900000, 1200000, 1500000, 1800000, 2100000, 2400000, 2700000, 3000000, 3300000,
@@ -225,6 +248,15 @@ static void update_abilities() {
 	player->add(SaveVsPoison, s);
 	player->add(SaveVsTraps, s);
 	player->add(SaveVsMagic, s);
+}
+
+static void update_theif_skill_by_dexterity() {
+	auto a = player->get(Dexterity);
+	auto p = maptbl(theif_skill_adjustment, a);
+	player->add(PickPockets, p[0]);
+	player->add(OpenLocks, p[1]);
+	player->add(RemoveTraps, p[2]);
+	player->add(MoveSilently, p[3]);
 }
 
 static void add_additional_spell(abilityn v) {
@@ -391,6 +423,7 @@ void update_player() {
 	update_abilities();
 	update_depended_abilities();
 	update_additional_spells();
+	update_theif_skill_by_dexterity();
 	update_bonus_saves();
 	update_bonus_experience();
 	player->hpm = get_maximum_hits();

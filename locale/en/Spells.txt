@@ -23,6 +23,7 @@ FindTraps: Find Traps
 FlameBlade: Flame Blade
 Goodberry: Goodberry
 HoldPerson: Hold Person
+HoldPersonGainEffect: %1i creatures stand still!
 ResistColdSpell: Resist Cold
 ResistFireSpell: Resist Fire
 SlowPoison: Slow Poison

@@ -333,9 +333,9 @@ void make_attacks(bool melee_combat) {
 	auto d = to(party.d, Down);
 	for(auto p : combatants) {
 		player = p;
+		player->set(Moved);
 		if(!player->isready())
 			continue;
-		player->set(Moved);
 		// RULE: Surprised creatures do not move first round in combat
 		if(player->is(Surprised)) {
 			player->remove(Surprised);

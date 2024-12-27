@@ -115,7 +115,7 @@ FindTraps levels(2)
 HoldPerson levels(2)
  feats Enemy
  filter IfIntelligence IfParalized-1 IfUndead-1
- instant SaveNegate Minute0x2 ApplyEnchantSpell
+ instant SaveNegate Minute0x2 ApplyEnchantSpell EffectCount+1
  wearing Paralized
 ResistFireSpell levels(2)
  feats You Ally

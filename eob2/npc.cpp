@@ -71,6 +71,15 @@ void npc::speak(const char* id, const char* action, ...) const {
 
 bool npc::speakn(const char* id, const char* action, ...) const {
 	auto format = npc_speech(this, id, action);
+	if(!format) {
+		format = getnme(ids(id, action));
+		if(format) {
+			XVA_FORMAT(action);
+			consolenl();
+			consolev(format, format_param);
+			return true;
+		}
+	}
 	if(!format)
 		return false;
 	XVA_FORMAT(action);

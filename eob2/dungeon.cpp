@@ -3,6 +3,7 @@
 #include "direction.h"
 #include "dungeon.h"
 #include "math.h"
+#include "pointca.h"
 #include "reference.h"
 
 const unsigned char	CellMask = 0x1F;
@@ -108,10 +109,6 @@ void dungeoni::change(celln s, celln d) {
 				set(v, d);
 		}
 	}
-}
-
-void dungeoni::clearpathmap() {
-	memset(pathmap, 0xFF, sizeof(pathmap));
 }
 
 void dungeoni::block(bool treat_door_as_passable) const {
@@ -478,4 +475,15 @@ int	dungeoni::getpassables(bool explored) const {
 		}
 	}
 	return result;
+}
+
+void dungeoni::getoverlays(pointca& result, celln type, bool hidden) const {
+	for(auto& e : overlays) {
+		if(!e || e.type != type)
+			continue;
+		auto v = to(e, e.d);
+		if(hidden && is(v, CellExplored))
+			continue;
+		result.addu(v);
+	}
 }

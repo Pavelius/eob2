@@ -447,10 +447,16 @@ static dungeoni::overlayi* get_overlay() {
 }
 
 static void apply_script(const char* action, const char* id, int bonus) {
-	auto p = bsdata<script>::find(ids("Use", id));
-	if(!p)
+	auto p = bsdata<script>::find(ids(action, id));
+	if(p) {
+		p->proc(bonus);
 		return;
-	p->proc(bonus);
+	}
+	auto p1 = bsdata<listi>::find(ids(action, id));
+	if(p1) {
+		script_run(p1->elements);
+		return;
+	}
 }
 
 static int get_permanent_raise(creaturei* player, abilityn a, int magical_bonus) {
@@ -1066,9 +1072,7 @@ static bool use_tool_item(abilityn skill) {
 
 static void use_magic_map(int bonus) {
 	pointca points;
-	loc->clearpathmap();
-	loc->markoverlay(CellSecrectButton, 1);
-	points.select(1, 1);
+	loc->getoverlays(points, CellSecrectButton, true);
 	if(points) {
 		points.random(1);
 		show_automap(points, 1);
@@ -1843,8 +1847,32 @@ static void filter_area(int bonus) {
 	points.count = ps - points.begin();
 }
 
+static void filter_area(cellfn flag, bool keep) {
+	auto ps = points.begin();
+	auto pe = points.end();
+	auto push_point = last_point;
+	for(auto pb = points.begin(); pb < pe; pb++) {
+		last_point = *pb;
+		if(loc->is(last_point, flag) != keep)
+			continue;
+		*ps++ = *pb;
+	}
+	last_point = push_point;
+	points.count = ps - points.begin();
+}
+
+static void filter_area_explored(int bonus) {
+	filter_area(CellExplored, bonus >= 0);
+}
+
+static void random_area(int bonus) {
+	points.random(bonus);
+}
+
 static void show_area(int bonus) {
-	show_automap(true, false, true, &points);
+	if(!bonus)
+		bonus = 1;
+	show_automap(points, bonus);
 }
 
 static void player_name(stringbuilder& sb) {
@@ -2178,6 +2206,7 @@ BSDATA(script) = {
 	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
 	{"FilterArea", filter_area},
+	{"FilterAreaExplored", filter_area_explored},
 	{"ForEachItem", for_each_item},
 	{"ForEachParty", for_each_party},
 	{"Heal", player_heal},
@@ -2201,6 +2230,7 @@ BSDATA(script) = {
 	{"PushItem", push_item},
 	{"PushModifier", push_modifier},
 	{"PushPlayer", push_player},
+	{"RandomArea", random_area},
 	{"RestoreSpells", restore_spells},
 	{"RestParty", rest_party},
 	{"ReturnToStreet", return_to_street},

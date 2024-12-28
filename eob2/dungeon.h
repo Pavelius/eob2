@@ -44,7 +44,6 @@ struct dungeoni : dungeon_site {
 	int				around(pointc v, celln t1, celln t2) const;
 	void			block(bool treat_door_as_passable) const;
 	void			clear();
-	static void		clearpathmap();
 	void			change(celln s, celln n);
 	void			drop(pointc v, item& it, int side);
 	celln			get(pointc v) const;
@@ -57,6 +56,7 @@ struct dungeoni : dungeon_site {
 	void			getmonsters(creaturei** result, pointc index, directions dr);
 	void			getmonsters(creaturei** result, pointc index);
 	overlayi*		getoverlay(pointc v, celln type);
+	void			getoverlays(pointca& result, celln type, bool hidden) const;
 	int				getpassables(bool explored) const;
 	bool			have(const overlayi* p) const { return p >= overlays && p <= overlays + lenghtof(overlays); }
 	bool			have(const creaturei* p) const { return p >= monsters && p <= monsters + lenghtof(monsters); }

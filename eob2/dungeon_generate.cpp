@@ -16,7 +16,7 @@
 #include "wallmessage.h"
 
 #ifdef _DEBUG
-//#define DEBUG_DUNGEON
+#define DEBUG_DUNGEON
 //#define DEBUG_ROOM
 #endif
 
@@ -562,16 +562,20 @@ static int total_levels(slice<dungeon_site> source) {
 	return result;
 }
 
+static bool is_valid(pointc v) {
+	return pathmap[v.y][v.x] != 0 && pathmap[v.y][v.x] != 0xFFFF;
+}
+
 static bool is_valid_dungeon() {
-	if(!loc->state.down || !loc->state.up)
+	if(!loc->state.up)
 		return true;
 	loc->block(true);
 	loc->makewave(loc->state.up);
-	if(!pathmap[loc->state.down.y][loc->state.down.x])
+	if(loc->state.down && !is_valid(loc->state.down))
 		return false;
-	if(loc->state.lair && !pathmap[loc->state.lair.y][loc->state.lair.x])
+	if(loc->state.lair && !is_valid(loc->state.lair))
 		return false;
-	if(loc->state.feature && !pathmap[loc->state.feature.y][loc->state.feature.x])
+	if(loc->state.feature && !is_valid(loc->state.feature))
 		return false;
 	return true;
 }

@@ -393,23 +393,20 @@ static void input_automap() {
 	}
 }
 
-void show_automap(bool mshow_fog_of_war, bool mshow_secrets, bool mshow_party, const pointca* vred_markers, const screenshoot& before) {
-	show_fog_of_war = mshow_fog_of_war;
-	show_secrets = mshow_secrets;
-	show_party = mshow_party;
-	red_markers = vred_markers;
+void show_automap(const pointca& markers, int explore_radius) {
+	show_fog_of_war = true;
+	show_secrets = false;
+	show_party = true;
+	red_markers = 0;
+	paint_layers();
+	draw::screenshoot before;
+	for(auto v : markers)
+		loc->set(v, CellExplored, explore_radius);
+	red_markers = &markers;
 	paint_layers();
 	screenshoot after;
 	before.blend(after, 1000);
 	show_scene(paint_layers, input_automap, 0);
-}
-
-void show_automap_screenshoot(bool mshow_fog_of_war, bool mshow_secrets, bool mshow_party, const pointca* vred_markers) {
-	show_fog_of_war = mshow_fog_of_war;
-	show_secrets = mshow_secrets;
-	show_party = mshow_party;
-	red_markers = vred_markers;
-	paint_layers();
 }
 
 void show_automap(bool mshow_fog_of_war, bool mshow_secrets, bool mshow_party, const pointca* vred_markers) {

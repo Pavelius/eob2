@@ -1071,10 +1071,7 @@ static void use_magic_map(int bonus) {
 	points.select(1, 1);
 	if(points) {
 		points.random(1);
-		show_automap_screenshoot(true, false, true, 0);
-		draw::screenshoot before;
-		loc->set(points[0], CellExplored, 1);
-		show_automap(true, false, true, &points, before);
+		show_automap(points, 1);
 		player->speak("MagicMap", "Success");
 	} else
 		player->speak("MagicMap", "Fail");

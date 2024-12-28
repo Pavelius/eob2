@@ -12,10 +12,6 @@ enum cellfn : unsigned char;
 
 struct pointca;
 
-namespace draw {
-struct screenshoot;
-}
-
 struct dungeoni : dungeon_site {
 	struct ground : item, posable {
 		explicit operator bool() const { return item::operator bool(); }
@@ -51,7 +47,6 @@ struct dungeoni : dungeon_site {
 	static void		clearpathmap();
 	void			change(celln s, celln n);
 	void			drop(pointc v, item& it, int side);
-	void			explore(pointc v, int radius);
 	celln			get(pointc v) const;
 	overlayi*		get(pointc v, directions d);
 	overlayi*		getlinked(pointc v);
@@ -88,8 +83,7 @@ const char* get_part_placement(pointc v);
 void dungeon_create();
 bool filter_corridor(pointc v);
 void show_automap(bool show_fog_of_war, bool show_secrets, bool show_party, const pointca* red_markers);
-void show_automap(bool show_fog_of_war, bool show_secrets, bool show_party, const pointca* vred_markers, const draw::screenshoot& before);
-void show_automap_screenshoot(bool mshow_fog_of_war, bool mshow_secrets, bool mshow_party, const pointca* vred_markers);
+void show_automap(const pointca& markers, int explore_radius);
 void show_dungeon_automap();
 
 int get_side(int side, directions d);

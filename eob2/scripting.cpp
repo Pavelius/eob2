@@ -27,6 +27,7 @@
 #include "randomizer.h"
 #include "resid.h"
 #include "script.h"
+#include "screenshoot.h"
 #include "speech.h"
 #include "spell.h"
 #include "talking.h"
@@ -627,7 +628,7 @@ static void use_item() {
 	case Usable:
 		if(!allow_use(pn, last_item))
 			return;
-		apply_script("Use", last_item->geti().id, last_item->iscursed() ? -2 : 0);
+		apply_script("Use", last_item->geti().id, last_item->iscursed() ? -2 : last_item->getpower().counter);
 		break;
 	case Key:
 		if(!dungeon_use())
@@ -1061,6 +1062,25 @@ static bool use_tool_item(abilityn skill) {
 			consolen(getnm("ToolBroken"), getnm(tool_id));
 	}
 	return false;
+}
+
+static void use_magic_map(int bonus) {
+	pointca points;
+	loc->clearpathmap();
+	loc->markoverlay(CellSecrectButton, 1);
+	points.select(1, 1);
+	if(points) {
+		points.random(1);
+		show_automap_screenshoot(true, false, true, 0);
+		draw::screenshoot before;
+		loc->set(points[0], CellExplored, 1);
+		show_automap(true, false, true, &points, before);
+		player->speak("MagicMap", "Success");
+	} else
+		player->speak("MagicMap", "Fail");
+	last_item->clear();
+	party_addexp(200);
+	pass_round();
 }
 
 static void use_tool_success(celln n) {
@@ -2199,6 +2219,7 @@ BSDATA(script) = {
 	{"TalkAbout", talk_about},
 	{"TurningMonsters", turning_monsters},
 	{"UseTheifTools", use_theif_tools},
+	{"UseMagicMap", use_magic_map},
 	{"Wizardy", wizardy_effect},
 };
 BSDATAF(script)

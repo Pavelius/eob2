@@ -110,6 +110,10 @@ void dungeoni::change(celln s, celln d) {
 	}
 }
 
+void dungeoni::clearpathmap() {
+	memset(pathmap, 0xFF, sizeof(pathmap));
+}
+
 void dungeoni::block(bool treat_door_as_passable) const {
 	pointc v;
 	for(v.y = 0; v.y < mpy; v.y++) {
@@ -186,6 +190,22 @@ void dungeoni::addmonster(pointc v, directions d, int side, const monsteri* pi) 
 		state.monsters++;
 		break;
 	}
+}
+
+void dungeoni::markoverlay(celln type, short unsigned value) const {
+	for(auto& e : overlays) {
+		if(!e || e.type != type)
+			continue;
+		auto v = to(e, e.d);
+		pathmap[v.y][v.x] = value;
+	}
+}
+
+void dungeoni::set(pointc v, cellfn i, int radius) {
+	pointc s;
+	for(s.x = v.x - radius; s.x <= v.x + radius; s.x++)
+		for(s.y = v.y - radius; s.y <= v.y + radius; s.y++)
+			set(s, CellExplored);
 }
 
 dungeoni::overlayi* dungeoni::get(pointc v, directions d) {

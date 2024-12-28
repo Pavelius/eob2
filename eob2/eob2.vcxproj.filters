@@ -258,6 +258,9 @@
     <ClCompile Include="talking.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="screenshoot.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -505,6 +508,9 @@
     </ClInclude>
     <ClInclude Include="talking.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="screenshoot.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

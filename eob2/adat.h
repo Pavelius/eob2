@@ -31,7 +31,9 @@ struct adat {
 	bool have(const T t) const { for(auto& e : *this) if(e == t) return true; return false; }
 	bool have(const void* element) const { return element >= data && element < (data + count); }
 	T random() const { return count ? data[rand() % count] : T(); }
+	void random(size_t new_count) { shuffle(); new_count = (count < new_count) ? count : new_count; count = new_count; }
 	void remove(int index, int remove_count = 1) { if(index < 0) return; if(index<int(count - 1)) memcpy(data + index, data + index + 1, sizeof(data[0]) * (count - index - 1)); count--; }
 	void remove(const T t) { remove(find(t), 1); }
+	void shuffle() { zshuffle(data, count); }
 	void top(size_t v) { if(count > v) count = v; }
 };

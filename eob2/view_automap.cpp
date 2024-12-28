@@ -5,6 +5,7 @@
 #include "math.h"
 #include "party.h"
 #include "pointca.h"
+#include "screenshoot.h"
 #include "view.h"
 
 using namespace draw;
@@ -390,6 +391,25 @@ static void input_automap() {
 	case KeyEscape:
 	case KeySpace: breakmodal(0); break;
 	}
+}
+
+void show_automap(bool mshow_fog_of_war, bool mshow_secrets, bool mshow_party, const pointca* vred_markers, const screenshoot& before) {
+	show_fog_of_war = mshow_fog_of_war;
+	show_secrets = mshow_secrets;
+	show_party = mshow_party;
+	red_markers = vred_markers;
+	paint_layers();
+	screenshoot after;
+	before.blend(after, 1000);
+	show_scene(paint_layers, input_automap, 0);
+}
+
+void show_automap_screenshoot(bool mshow_fog_of_war, bool mshow_secrets, bool mshow_party, const pointca* vred_markers) {
+	show_fog_of_war = mshow_fog_of_war;
+	show_secrets = mshow_secrets;
+	show_party = mshow_party;
+	red_markers = vred_markers;
+	paint_layers();
 }
 
 void show_automap(bool mshow_fog_of_war, bool mshow_secrets, bool mshow_party, const pointca* vred_markers) {

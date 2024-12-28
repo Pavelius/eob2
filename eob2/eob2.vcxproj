@@ -189,6 +189,7 @@
     <ClInclude Include="rect.h" />
     <ClInclude Include="reference.h" />
     <ClInclude Include="resid.h" />
+    <ClInclude Include="screenshoot.h" />
     <ClInclude Include="script.h" />
     <ClInclude Include="seqlink.h" />
     <ClInclude Include="shape.h" />
@@ -263,6 +264,7 @@
     <ClCompile Include="randomeffect.cpp" />
     <ClCompile Include="randomizer.cpp" />
     <ClCompile Include="reaction.cpp" />
+    <ClCompile Include="screenshoot.cpp" />
     <ClCompile Include="script.cpp" />
     <ClCompile Include="scripting.cpp" />
     <ClCompile Include="serial.cpp" />

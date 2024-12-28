@@ -150,7 +150,7 @@ MageScroll cost(20) avatar(36) avatar_ground(12) wear(Readable) powers(MageSpell
  feats Small
 PriestScroll cost(20) avatar(85) avatar_ground(12) wear(Readable) powers(PriestSpells)
  feats Small
-MagicMap cost(10) avatar(86) avatar_ground(12) wear(Readable)
+MagicMap cost(10) avatar(86) avatar_ground(12) wear(Usable)
  feats Small
 
 Wand cost(100) avatar(52) avatar_ground(10) wear(Rod) powers(WandSpells)

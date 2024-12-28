@@ -220,3 +220,10 @@ Food is spoiled. We need clean it
 
 #LieSuccess
 "Welcome friends! How can I help you?"
+
+#MagicMapSuccess
+A secret door! I know it!
+Aha! Secret door.
+
+#MagicMapFail
+There is no secret doors nearbe.

@@ -174,6 +174,7 @@ struct rectpush {
 };
 int					aligned(int x, int width, unsigned state, int string_width);
 int					alignedh(const rect& rc, const char* string, unsigned state);
+void				blend(const surface& destination, unsigned milliseconds);
 void				blit(surface& dest, int x, int y, int width, int height, unsigned flags, const surface& source, int x_source, int y_source);
 void				blit(surface& dest, int x, int y, int width, int height, unsigned flags, const surface& source, int x_source, int y_source, int width_source, int height_source);
 void				circle(int size);

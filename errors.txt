@@ -1,2 +1,2 @@
 ﻿Error in file `rules/Items.txt`:
- Line 162: Not found Feat identifier `UseDivine`
+ Line 269: Can't find variant `FilterExplored`

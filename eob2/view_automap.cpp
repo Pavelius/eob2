@@ -346,7 +346,7 @@ static void paint_overlays() {
 		auto p2 = gs(e.x, e.y);
 		caret = p1;
 		switch(e.type) {
-		case CellSecrectButton:
+		case CellSecretButton:
 			if(show_fog_of_war && !loc->is(v, CellExplored))
 				continue;
 			if(show_secrets) {

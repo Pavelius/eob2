@@ -354,7 +354,7 @@ static bool check_secrets(directions d) {
 	if(!loc)
 		return false;
 	auto po = loc->get(party, to(party.d, d));
-	if(!po || po->type != CellSecrectButton)
+	if(!po || po->type != CellSecretButton)
 		return false;
 	for(auto p : random_party()) {
 		if(!p->roll(DetectSecrets, -10))

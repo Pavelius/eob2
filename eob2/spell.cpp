@@ -282,6 +282,7 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run) {
 	player->addexp(experience);
 	auto push_caster = caster; caster = player;
 	auto push_level = last_level; last_level = level;
+	auto push_id = last_id; last_id = last_spell->id;
 	party.abilities[EffectCount] = 0;
 	if(need_creatures) {
 		apply_effect(ps->instant);
@@ -294,6 +295,7 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run) {
 		player->speakn(ps->id, "GainEffect", party.abilities[EffectCount]);
 	else
 		player->speakn(ps->id, "NoEffect", party.abilities[EffectCount]);
+	last_id = push_id;
 	last_spell = push_spell;
 	last_level = push_level;
 	caster = push_caster;

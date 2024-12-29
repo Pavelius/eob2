@@ -18,7 +18,7 @@ enum celln : unsigned char {
 	CellGrave, CellGraveDesecrated,
 	CellPitUp, // On floor
 	// Decor
-	CellPuller, CellSecrectButton, CellCellar, CellMessage,
+	CellPuller, CellSecretButton, CellCellar, CellMessage,
 	CellKeyHole, CellTrapLauncher,
 	CellDecor1, CellDecor2, CellDecor3,
 	CellDoorButton

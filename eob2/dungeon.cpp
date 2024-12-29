@@ -28,7 +28,7 @@ static void snode(pointc v, short unsigned cost) {
 
 static celln get_wall(celln v) {
 	switch(v) {
-	case CellSecrectButton:
+	case CellSecretButton:
 	case CellPortal:
 	case CellStairsUp:
 	case CellStairsDown:
@@ -200,6 +200,8 @@ void dungeoni::markoverlay(celln type, short unsigned value) const {
 
 void dungeoni::set(pointc v, cellfn i, int radius) {
 	pointc s;
+	if(!radius)
+		return;
 	for(s.x = v.x - radius; s.x <= v.x + radius; s.x++)
 		for(s.y = v.y - radius; s.y <= v.y + radius; s.y++)
 			set(s, CellExplored);

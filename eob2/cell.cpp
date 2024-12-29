@@ -25,7 +25,7 @@ BSDATA(celli) = {
 	{"CellGraveDesecrated", DECORS, 9 * decor_frames, FG(LookObject) | FG(Passable)},
 	{"CellPitUp", NONE, decor_offset + 4 * decor_frames, FG(LookObject) | FG(Passable)},
 	{"CellPuller", NONE, decor_offset + 9 * decor_frames, FG(LookOverlay)},
-	{"CellSecrectButton", NONE, decor_offset + 7 * decor_frames, FG(LookOverlay), CellPassable},
+	{"CellSecretButton", NONE, decor_offset + 7 * decor_frames, FG(LookOverlay), CellPassable},
 	{"CellCellar", NONE, decor_offset + 11 * decor_frames, FG(LookOverlay)},
 	{"CellMessage", NONE, decor_offset + 12 * decor_frames, FG(LookOverlay)},
 	{"CellKeyHole", NONE, decor_offset + 13 * decor_frames, FG(LookOverlay)},

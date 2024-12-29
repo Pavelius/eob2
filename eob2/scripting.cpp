@@ -444,16 +444,19 @@ static dungeoni::overlayi* get_overlay() {
 }
 
 static void apply_script(const char* action, const char* id, int bonus) {
+	auto push_id = last_id;
 	auto p = bsdata<script>::find(ids(action, id));
 	if(p) {
+		last_id = p->id;
 		p->proc(bonus);
-		return;
+	} else {
+		auto p1 = bsdata<listi>::find(ids(action, id));
+		if(p1) {
+			last_id = p1->id;
+			script_run(p1->elements);
+		}
 	}
-	auto p1 = bsdata<listi>::find(ids(action, id));
-	if(p1) {
-		script_run(p1->elements);
-		return;
-	}
+	last_id = push_id;
 }
 
 static int get_permanent_raise(creaturei* player, abilityn a, int magical_bonus) {
@@ -569,7 +572,7 @@ static void use_item() {
 	case LeftHand:
 	case RightHand:
 		if(!dungeon_use())
-			return;
+			break;
 		if(w != LeftHand && w != RightHand)
 			pn->speak("MustBeUseInHand", 0);
 		else if(last_item->isweapon()) {
@@ -586,19 +589,19 @@ static void use_item() {
 		break;
 	case Drinkable:
 		if(!allow_use(pn, last_item))
-			return;
+			break;
 		drink_effect(pn, last_item->getpower(), xrand(5, 20) * 10, last_item->iscursed() ? -1 : 1);
 		consolen(getnm("DrinkPotionAct"));
 		last_item->clear();
 		break;
 	case Edible:
 		if(!allow_use(pn, last_item))
-			return;
+			break;
 		if(!dungeon_use())
-			return;
+			break;
 		if(last_item->isdamaged()) {
 			player->speak("MakeCamp", "RottenFood");
-			return;
+			break;
 		}
 		if(confirm(getnm("MakeCampConfirm"))) {
 			if(last_item->iscursed())
@@ -610,7 +613,7 @@ static void use_item() {
 		break;
 	case Readable:
 		if(!allow_use(pn, last_item))
-			return;
+			break;
 		if(!pn->canread())
 			pn->speak("CantRead", 0);
 		else {
@@ -620,30 +623,30 @@ static void use_item() {
 		break;
 	case Rod:
 		if(!allow_use(pn, last_item))
-			return;
+			break;
 		if(w != RightHand) {
 			pn->speak("MustBeWearing", "RightHand");
-			return;
+			break;
 		}
 		if(use_rod(pn, last_item, last_item->getpower()))
 			pass_round();
 		break;
 	case Usable:
 		if(!allow_use(pn, last_item))
-			return;
+			break;
 		apply_script("Use", last_item->geti().id, last_item->iscursed() ? -2 : last_item->getpower().counter);
 		break;
 	case Key:
 		if(!dungeon_use())
-			return;
+			break;
 		po = get_overlay();
 		if(!po || po->type != CellKeyHole) {
 			pn->speak("Key", "NoTargets");
-			return;
+			break;
 		}
 		if(!last_item->is(loc->getkey())) {
 			pn->speak("Key", "WrongKey");
-			return;
+			break;
 		}
 		if(po->link) {
 			consolen(getnm("DoorOpened"));
@@ -1067,20 +1070,6 @@ static bool use_tool_item(abilityn skill) {
 	return false;
 }
 
-static void use_magic_map(int bonus) {
-	pointca points;
-	loc->getoverlays(points, CellSecrectButton, true);
-	if(points) {
-		points.random(1);
-		show_automap(points, 1);
-		player->speak("MagicMap", "Success");
-	} else
-		player->speak("MagicMap", "Fail");
-	last_item->clear();
-	party_addexp(200);
-	pass_round();
-}
-
 static void use_tool_success(celln n) {
 	player->addexp(100);
 	consolen(getnm(ids(bsdata<celli>::elements[n].id, "Disable")));
@@ -1156,7 +1145,7 @@ static void manipulate() {
 	case CellDecor3:
 		player->speak(getid<celli>(p->type), getid<residi>(loc->type));
 		break;
-	case CellSecrectButton:
+	case CellSecretButton:
 		if(change_overlay(party, party.d)) {
 			party_addexp(400);
 			player->speak("CellSecrectButton", "Accept");
@@ -1791,9 +1780,9 @@ static void select_area(int bonus) {
 		return;
 	if(!bonus)
 		bonus = mpx;
-	pointc v, v2 = party + bonus, v1 = party - bonus;
-	for(v.y = v1.y; v.y <= v2.y; v.y++) {
-		for(v.x = v1.x; v.x <= v2.x; v.x++) {
+	pointc v;
+	for(v.y = 0; v.y < mpy; v.y++) {
+		for(v.x = 0; v.x < mpx; v.x++) {
 			switch(loc->get(v)) {
 			case CellPassable:
 			case CellWall:
@@ -1807,17 +1796,17 @@ static void select_area(int bonus) {
 	}
 }
 
-static bool filter_cell(variant v, celln t) {
-	if(v.iskind<celli>())
-		return v.value == t;
+static bool filter_variant(variant v, variant t) {
+	if(v.type == t.type)
+		return v.value == t.value;
 	else if(v.iskind<listi>()) {
 		for(auto e : bsdata<listi>::elements[v.value].elements) {
-			if(filter_cell(e, t))
+			if(filter_variant(e, t))
 				return true;
 		}
 	} else if(v.iskind<randomizeri>()) {
 		for(auto e : bsdata<randomizeri>::elements[v.value].chance) {
-			if(filter_cell(e, t))
+			if(filter_variant(e, t))
 				return true;
 		}
 	}
@@ -1828,6 +1817,20 @@ static void clear_area(int bonus) {
 	points.clear();
 }
 
+static void add_area_overlay(int bonus) {
+	auto filter = next_script();
+	auto keep = bonus >= 0;
+	for(auto& e : loc->overlays) {
+		if(!e.type)
+			continue;
+		variant t = bsdata<celli>::elements + e.type;
+		if(filter_variant(filter, t) != keep)
+			continue;
+		auto v = to(e, e.d);
+		points.addu(v);
+	}
+}
+
 static void filter_area(int bonus) {
 	auto filter = next_script();
 	auto ps = points.begin();
@@ -1836,7 +1839,8 @@ static void filter_area(int bonus) {
 	auto push_point = last_point;
 	for(auto pb = points.begin(); pb < pe; pb++) {
 		last_point = *pb;
-		if(filter_cell(filter, loc->get(last_point)) != keep)
+		variant v = bsdata<celli>::elements + loc->get(last_point);
+		if(filter_variant(filter, v) != keep)
 			continue;
 		*ps++ = *pb;
 	}
@@ -1863,13 +1867,23 @@ static void filter_area_explored(int bonus) {
 }
 
 static void random_area(int bonus) {
+	if(bonus <= 1)
+		bonus = 1;
 	points.random(bonus);
 }
 
 static void show_area(int bonus) {
 	if(!bonus)
 		bonus = 1;
-	show_automap(points, bonus);
+	if(points) {
+		show_automap(points, bonus);
+		player_speak("Success");
+	} else
+		player_speak("Fail");
+}
+
+static void pass_round(int bonus) {
+	pass_round();
 }
 
 static void player_name(stringbuilder& sb) {
@@ -2175,6 +2189,7 @@ BSDATA(script) = {
 	{"Attack", attack_modify},
 	{"ActivateQuest", activate_quest},
 	{"AddAid", player_add_aid},
+	{"AddAreaOverlay", add_area_overlay},
 	{"AddExp", add_exp_group},
 	{"AddExpPersonal", add_exp_personal},
 	{"AddExpEvil", add_exp_evil},
@@ -2222,6 +2237,7 @@ BSDATA(script) = {
 	{"PartyAdventure", party_adventure},
 	{"PayGold", pay_gold},
 	{"PassHours", pass_hours},
+	{"PassRound", pass_round},
 	{"Protection", protection_modify},
 	{"PushItem", push_item},
 	{"PushModifier", push_modifier},
@@ -2242,7 +2258,6 @@ BSDATA(script) = {
 	{"TalkAbout", talk_about},
 	{"TurningMonsters", turning_monsters},
 	{"UseTheifTools", use_theif_tools},
-	{"UseMagicMap", use_magic_map},
 	{"Wizardy", wizardy_effect},
 };
 BSDATAF(script)

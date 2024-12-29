@@ -220,7 +220,7 @@ static void secret(pointc v, directions d) {
 	if(loc->around(v2, CellWall, CellUnknown) != 4)
 		return;
 	loc->set(v1, CellWall);
-	loc->add(v, d, CellSecrectButton);
+	loc->add(v, d, CellSecretButton);
 	loc->set(v2, CellPassable);
 	for(auto i = random_count() + 1; i > 0; i--)
 		items(v2, 2);

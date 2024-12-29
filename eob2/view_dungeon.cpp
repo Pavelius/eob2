@@ -105,7 +105,7 @@ static directions get_view_direction(directions d, directions d1) {
 
 static celln get_wall_type(celln v) {
 	switch(v) {
-	case CellSecrectButton:
+	case CellSecretButton:
 	case CellPortal:
 	case CellStairsUp:
 	case CellStairsDown:
@@ -221,7 +221,7 @@ void set_dungeon_tiles(resid type) {
 	render_flipped_wall = 1 * walls_frames;
 	render_dungeon = type;
 	render_door_type = BRICK;
-	render_mirror1 = CellSecrectButton;
+	render_mirror1 = CellSecretButton;
 	render_mirror2 = CellPassable;
 	switch(type) {
 	case BLUE:

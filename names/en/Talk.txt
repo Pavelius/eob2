@@ -221,9 +221,14 @@ Food is spoiled. We need clean it
 #LieSuccess
 "Welcome friends! How can I help you?"
 
-#MagicMapSuccess
-A secret door! I know it!
-Aha! Secret door.
+#FindTrapsSuccess
+All trap is visible for me
+I see all traps in area
+Behold all traps
 
-#MagicMapFail
-There is no secret doors nearbe.
+#UseMagicMapSuccess
+A secret door! I know it!
+Aha! Secret door
+
+#UseMagicMapFail
+There is no secret doors nearbe

@@ -14,6 +14,7 @@ DwarvenShield: Dwarven shield
 Flail: Flail
 Halberd: Halberd
 Helm: Helm
+HolySymbolEvil: Holy symbol
 GreenPotion: Potion
 GreenRing: Ring
 IronKey: Iron key

@@ -193,7 +193,7 @@ static void update_languages() {
 	player->understand(player->race);
 	if(player->getrace().origin)
 		player->understand(player->getrace().origin);
-	if(player->basic.abilities[Intellegence] >= 11)
+	if(player->basic.abilities[Intellegence] >= 10)
 		player->understand((racen)0); // All creatures with 11+ untellegence known common language
 }
 

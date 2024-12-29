@@ -149,6 +149,19 @@ static void lair_door(pointc v, directions d) {
 }
 
 static int get_magic_bonus(int chance_upgrade, int chance_downgrade) {
+	//static int magic_chances[][5] = {
+	//	{10, 1},
+	//	{10, 3},
+	//	{ 8, 5, 1},
+	//	{ 8, 10, 3},
+	//	{ 8, 10, 5},
+	//	{ 5,  8, 10, 1},
+	//	{ 5,  8, 10, 3},
+	//	{ 3,  8, 10, 5},
+	//	{ 1,  5,  8, 10, 1},
+	//	{ 1,  5,  5, 10, 3},
+	//	{ 1,  3,  3, 10, 5},
+	//};
 	auto base = loc ? loc->level / 2 : 1;
 	if(base < 1)
 		base = 1;
@@ -488,12 +501,12 @@ static bool corridor(pointc v, directions d) {
 				random_content = false;
 		}
 		if(random_content) {
-			static fncorridor corridor_random[] = {empthy,
-				empthy, empthy, empthy, empthy, empthy, empthy,
-				empthy, empthy, empthy, empthy,
+			static fncorridor corridor_random[] = {
+				empthy, empthy, empthy, empthy, empthy,
+				empthy, empthy, empthy, empthy, empthy,
 				secret,
 				monster, monster, monster, monster,
-				rations,
+				rations, rations,
 				stones,
 				trap,
 				cellar,
@@ -605,6 +618,35 @@ static pointc pop(pointca& points) {
 	return n;
 }
 
+static bool test_shape(pointc v, directions d, const shapei* shape) {
+	if(!shape)
+		return true;
+	pointc c;
+	for(c.y = 0; c.y < shape->size.y; c.y++) {
+		for(c.x = 0; c.x < shape->size.x; c.x++) {
+			auto n = (*shape)[c];
+			if(n == ' ')
+				continue;
+			auto v1 = shape->translate(v, c, d);
+			if(!v1)
+				return false;
+			if(loc->get(v1) != CellUnknown)
+				return false;
+		}
+	}
+	return true;
+}
+
+static bool test_shape(pointc& v, directions d, const shapei* shape, int dx, int dy) {
+	if(shape) {
+		auto v1 = v.to(dx, dy);
+		if(!test_shape(v1, d, shape))
+			return false;
+		v = v1;
+	}
+	return true;
+}
+
 static void apply_shape(pointc v, directions d, const shapei* shape, char sym, celln t) {
 	pointc c;
 	if(!shape)
@@ -653,12 +695,39 @@ static void create_lair(pointc v, directions d, const shapei* ps) {
 	loc->state.lair.d = d;
 }
 
+static void validate_position(pointc& v, directions d, const shapei* shape) {
+	if(test_shape(v, d, shape))
+		return;
+	for(int r = 1; r < 5; r++) {
+		if(rand() % 2) {
+			if(test_shape(v, d, shape, r, 0))
+				return;
+			if(test_shape(v, d, shape, -r, 0))
+				return;
+			if(test_shape(v, d, shape, 0, r))
+				return;
+			if(test_shape(v, d, shape, 0, -r))
+				return;
+		} else {
+			if(test_shape(v, d, shape, 0, r))
+				return;
+			if(test_shape(v, d, shape, 0, -r))
+				return;
+			if(test_shape(v, d, shape, r, 0))
+				return;
+			if(test_shape(v, d, shape, -r, 0))
+				return;
+		}
+	}
+}
+
 static void create_room(pointc v, directions d, const char* id, fnroom proc) {
 	if(!v)
 		return;
 	auto ps = bsdata<shapei>::find(id);
 	if(!ps)
 		return;
+	validate_position(v, d, ps);
 	apply_shape(v, d, ps, 'X', CellWall);
 	apply_shape(v, d, ps, '.', CellPassable);
 	proc(v, d, ps);

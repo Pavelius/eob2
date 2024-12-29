@@ -1281,6 +1281,48 @@ static void show_sprites(resid id, point start, point size) {
 	fore = push_fore;
 }
 
+static void show_scene_images() {
+	static resid sprites[] = {ADVENTURE, BUILDNGS, DUNGEONS, NPC, SCENES};
+	static int sprites_count = lenghtof(sprites);
+	rectpush push;
+	auto push_fore = fore;
+	auto push_font = font;
+	set_small_font();
+	int focus = 0;
+	int sprite_number = 0;
+	while(ismodal()) {
+		if(sprite_number < 0)
+			sprite_number = 0;
+		else if(sprite_number > sprites_count - 1)
+			sprite_number = sprites_count - 1;
+		auto pi = bsdata<residi>::elements + sprites[sprite_number];
+		auto ps = pi->get();
+		auto maximum = ps->count;
+		if(focus < 0)
+			focus = 0;
+		else if(focus > maximum - 1)
+			focus = maximum - 1;
+		paint_background(PLAYFLD, 0);
+		paint_compass(party.d);
+		paint_avatars_no_focus_hilite();
+		image(0, 0, gres(BORDER), 0, 0);
+		image(8, 8, ps, focus, 0);
+		caret = {5, 180};
+		text(str("sprite %1 index %2i/%3i", pi->id, focus, maximum), -1, TextBold);
+		domodal();
+		switch(hot.key) {
+		case KeyRight: focus++; break;
+		case KeyLeft: focus--; break;
+		case KeyDown: sprite_number++; break;
+		case KeyUp: sprite_number--; break;
+		case KeyEscape: breakmodal(0); break;
+		}
+		focus_input();
+	}
+	font = push_font;
+	fore = push_fore;
+}
+
 static void debug_input() {
 #ifdef _DEBUG
 	switch(hot.key) {
@@ -1288,6 +1330,7 @@ static void debug_input() {
 	case Ctrl + 'A': show_sprites(PORTM, {0, 0}, {32, 32}); break;
 	case Ctrl + 'S': show_sprites(ITEMGS, {16, 16}, {32, 32}); break;
 	case Ctrl + 'L': show_sprites(ITEMGL, {32, 24}, {64, 32}); break;
+	case Ctrl + 'P': show_scene_images(); break;
 	}
 #endif
 }

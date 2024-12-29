@@ -819,7 +819,7 @@ static void loot_selling() {
 
 static void loot_identyfing() {
 	for(auto& e : player->wears) {
-		if(e.isidentified())
+		if(!e || e.isidentified())
 			continue;
 		e.identify(1);
 		if(e.ismagical())

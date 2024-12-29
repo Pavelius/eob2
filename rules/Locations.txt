@@ -32,6 +32,9 @@ PickPocketsActionSuccess
 
 #Action
 
+BuyHealing avatar(scenes 5)
+ filter IfWounded
+ effect PayGold+50 Heal+100
 Donate avatar(scenes 5)
  effect ChooseDonation PayGold+101
 EatAndDrink avatar(buildngs 6)
@@ -73,7 +76,7 @@ Inn avatar(buildngs 7) parent(HunterVillage)
 Tavern avatar(buildngs 5) parent(HunterVillage)
  options EatAndDrink GambleVisitors PickPocketsAction ReturnToStreet
 Temple avatar(buildngs 8) parent(HunterVillage)
- options Donate ReturnToStreet
+ options BuyHealing Donate ReturnToStreet
 
 HunterVillage avatar(buildngs 26)
  options PartyAdventure Inn Tavern Temple

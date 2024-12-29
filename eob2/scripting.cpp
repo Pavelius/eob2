@@ -255,7 +255,9 @@ static void apply_action(int bonus) {
 }
 
 static void apply_result() {
-	if(bsdata<locationi>::have(last_result)) {
+	if(!last_result) {
+		last_number = 0;
+	} else if(bsdata<locationi>::have(last_result)) {
 		last_location = (locationi*)last_result;
 		enter_location(0);
 	} else if(bsdata<script>::have(last_result))
@@ -510,7 +512,7 @@ static bool read_effect(creaturei* pn, variant v, int experience, unsigned durat
 	bool result = false;
 	if(v.iskind<spelli>()) {
 		auto push_player = player; player = pn;
-		result = cast_spell(bsdata<spelli>::elements + v.value, player->getlevel() + v.counter, experience, true);
+		result = cast_spell(bsdata<spelli>::elements + v.value, player->getlevel() + v.counter, experience, true, false);
 		player = push_player;
 	}
 	return result;
@@ -521,7 +523,7 @@ static bool use_rod(creaturei* pn, item* rod, variant v) {
 	if(v.iskind<spelli>()) {
 		auto push_player = player; player = pn;
 		auto ps = bsdata<spelli>::elements + v.value;
-		result = cast_spell(ps, 1 + v.counter * 2, 0, true);
+		result = cast_spell(ps, 1 + v.counter * 2, 0, true, false);
 		if(result) {
 			consolen("%Name cast %1", ps->getname());
 			rod->identify(1);
@@ -801,11 +803,45 @@ static void check_quest_complited() {
 	party.done.set(getbsi(last_quest));
 }
 
+static void loot_selling() {
+	for(auto& e : player->backpack()) {
+		if(!e || e.ismagical())
+			continue;
+		auto& ei = e.geti();
+		if(ei.wear == Key || ei.wear == Readable)
+			continue;
+		auto value = e.geti().cost; // Full price??
+		last_number += value;
+		party.abilities[GoldPiece] += value;
+		e.clear();
+	}
+}
+
+static void loot_identyfing() {
+	for(auto& e : player->wears) {
+		if(e.isidentified())
+			continue;
+		e.identify(1);
+		if(e.ismagical())
+			last_number++;
+	}
+}
+
+static void after_dungeon_action(const char* id, fnevent proc) {
+	last_number = 0;
+	all_party(proc, false);
+	if(last_number)
+		dialog(0, getnm(id));
+}
+
 static void enter_location(int bonus) {
 	if(loc) {
 		all_party(clear_mission_equipment, false);
 		all_party(clear_edible, false);
 		check_quest_complited();
+		after_dungeon_action("LootIdentyfing", loot_identyfing);
+		after_dungeon_action("LootSelling", loot_selling);
+		pass_hours(xrand(2, 4));
 	}
 	loc = 0;
 	last_quest = 0;
@@ -1886,6 +1922,49 @@ static void pass_round(int bonus) {
 	pass_round();
 }
 
+static bool use_bless_effect(const variants& source, int bonus) {
+	auto level = player->getlevel() + bonus;
+	for(auto v : source) {
+		if(v.iskind<spelli>()) {
+			auto p = bsdata<spelli>::elements + v.value;
+			if(!cast_spell(p, level, 0, false, false))
+				continue;
+			cast_spell(p, level, 0, true, true);
+			return true;
+		}
+	}
+	return false;
+}
+
+static void consume_tool(int chance, int count, const char* message_id = 0) {
+	if(d100() < chance) {
+		auto tool_id = last_item->geti().id;
+		last_item->damage(count);
+		if(!(*last_item)) {
+			if(!message_id)
+				message_id = "ToolBroken";
+			consolen(getnm(message_id), getnm(tool_id));
+		}
+	}
+}
+
+static void use_holy_symbol(int bonus) {
+	auto pi = bsdata<listi>::find("GoodDietyDomain");
+	if(!pi)
+		return;
+	if(!bonus)
+		bonus = 4;
+	if(use_bless_effect(pi->elements, bonus)) {
+		if(result_player)
+			consolen(getnm("UseHolySymbolSuccessOnPlayer"), "Helm", result_player->getname());
+		else
+			consolen(getnm("UseHolySymbolSuccess"), "Helm");
+	} else
+		consolen(getnm("UseHolySymbolFail"));
+	consume_tool(60, xrand(1, 3), "ToolCrumbleToDust");
+	pass_round();
+}
+
 static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
@@ -2257,6 +2336,7 @@ BSDATA(script) = {
 	{"Switch", apply_switch},
 	{"TalkAbout", talk_about},
 	{"TurningMonsters", turning_monsters},
+	{"UseHolySymbolEvil", use_holy_symbol},
 	{"UseTheifTools", use_theif_tools},
 	{"Wizardy", wizardy_effect},
 };

@@ -57,7 +57,7 @@ struct creaturei : npc, statable, wearable, posable {
 	void			setframe(short* frames, short index) const;
 	void			understand(racen v) { languages.set(v); }
 };
-extern creaturei *player, *opponent, *caster;
+extern creaturei *player, *opponent, *caster, *result_player;
 extern int last_roll, last_chance;
 extern bool is_critical_hit;
 

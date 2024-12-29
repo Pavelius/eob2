@@ -2,6 +2,7 @@
 Amulet: Amulet
 Arrow: Arrow
 BattleAxe: Battle axe
+BlueGem: Gem
 BluePotion: Potion
 Boots: Boots
 Bow: Bow
@@ -15,6 +16,7 @@ Flail: Flail
 Halberd: Halberd
 Helm: Helm
 HolySymbolEvil: Holy symbol
+GreenGem: Gem
 GreenPotion: Potion
 GreenRing: Ring
 IronKey: Iron key
@@ -24,6 +26,7 @@ Longsword: Longsword
 Mace: Mace
 MageScroll: Scroll
 MagicMap: Map
+MageBook: Tome
 PriestScroll: Scroll
 Ration: Ration
 RedCloack: Cloack

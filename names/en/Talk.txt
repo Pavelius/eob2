@@ -232,3 +232,12 @@ Aha! Secret door
 
 #UseMagicMapFail
 There is no secret doors nearbe
+
+#HolySymbolSuccess
+Oh! Thank you my god, for you assistance
+Helm, you power is blessing!
+Oh holy god!
+
+#HolySymbolFail
+Helm don't answer the call
+Our faith is weak, we must pray more

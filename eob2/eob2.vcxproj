@@ -312,6 +312,7 @@
     <Text Include="..\locale\en\Monsters.txt" />
     <Text Include="..\locale\en\QuestCursedDungeon.txt" />
     <Text Include="..\locale\en\QuestFloodedSewers.txt" />
+    <Text Include="..\locale\en\QuestGlobal.txt" />
     <Text Include="..\locale\en\Races.txt" />
     <Text Include="..\locale\en\Spells.txt" />
     <Text Include="..\locale\en\UnknownNames.txt" />

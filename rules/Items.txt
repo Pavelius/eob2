@@ -266,7 +266,7 @@ ClericMissionEquipment
  elements BluePotion HealEffect+1
 
 UseMagicMap
- elements ClearArea AddAreaOverlay CellSecretButton FilterAreaExplored-1 RandomArea AddExp+4 PassRound ShowArea
+ elements ClearArea AddAreaOverlay CellSecretButton FilterAreaExplored-1 RandomArea AddExp+4 PassRound ShowArea DestroyItem
 
 #RandomList
 

@@ -23,7 +23,7 @@
 #include "party.h"
 #include "view.h"
 
-creaturei *player, *opponent;
+creaturei *player, *opponent, *result_player;
 int last_roll, last_chance;
 classn last_class;
 racen last_race;

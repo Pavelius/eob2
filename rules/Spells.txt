@@ -218,6 +218,9 @@ WandSpells
 AmuletPowers
  elements NoVariant DetectMagic+1 AC+1 ImmuneFire+2 ImmuneCold+2 ImmuneDisease+3 ProtectedFromEvil+1
 
+GoodDietyDomain
+ elements CureLightWounds CureDisease CurePoison Aid
+
 #KeyValue
 
 Paladin+1 DetectEvil+1

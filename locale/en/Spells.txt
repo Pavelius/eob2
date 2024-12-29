@@ -1,35 +1,38 @@
-﻿Armor: Armor
+﻿Aid: Aid
+Augury: Augury
+Armor: Armor
+Barkskin: Barkskin
+Bless: Bless
 BurningHands: Burning Hands
 ChillTouch: Chill Touch
-ComprehendLanguages: Comprehend lang.
-Friends: Friends
-Identify: Identify
-MagicMissile: Magic missile
-Mending: Mending
-ShieldSpell: Shield
-ShockingGrasp: Shocking grasp
-
-Bless: Bless
+CureDisease: Cure Disease
 CureLightWounds: Cure Light Wounds
+CurePoison: Cure Poison
+CureSeriousWounds: Cure Serious Wounds
+ComprehendLanguages: Comprehend lang.
+CreateFood: Create Food
 DetectEvil: Detect Evil
 DetectMagic: Detect Magic
-ProtectionFromEvil: Prot. from Evil
-PurifyFood: Purify Food
-
-Aid: Aid
-Augury: Augury
-Barkskin: Barkskin
 FindTraps: Find Traps
 FlameBlade: Flame Blade
-Goodberry: Goodberry
+Friends: Friends
 HoldPerson: Hold Person
 HoldPersonGainEffect: %1i creatures stand still!
+Identify: Identify
+LayOnHand: Lay on Hand
+MagicalVestment: Magical Vestment
+MagicMissile: Magic Missile
+Mending: Mending
+Prayer: Prayer
+ProtectionFromEvil: Prot. from Evil
+PurifyFood: Purify Food
+RemoveCurse: Remove Curse
+RemoveParalize: Remove Paralize
 ResistColdSpell: Resist Cold
 ResistFireSpell: Resist Fire
+ShieldSpell: Shield
+ShockingGrasp: Shocking Grasp
 SlowPoison: Slow Poison
-
-CureDisease: Cure disease
-LayOnHand: Lay on hand
 TurnUndead: Turn undead
 
 SpellsAvailable: %1i of %2i remaining

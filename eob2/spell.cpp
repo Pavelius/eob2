@@ -189,7 +189,8 @@ static void select_items(const variants& filter) {
 }
 
 static bool choose_single(const char* title) {
-	auto target = (creaturei*)choose_small_menu(title, "Cancel");
+	creaturei* target = 0;
+	target = (creaturei*)choose_small_menu(title, "Cancel");
 	if(!target)
 		return false;
 	an.clear();
@@ -226,11 +227,12 @@ static void use_spell_slot(const spelli* ps) {
 		player->spells[index]--;
 }
 
-bool cast_spell(const spelli* ps, int level, int experience, bool run) {
+bool cast_spell(const spelli* ps, int level, int experience, bool run, bool random_target) {
 	auto push_spell = last_spell;
 	pushanswer push_answers;
 	pointc enemy_position = to(party, party.d);
 	last_spell = ps;
+	result_player = 0;
 	auto need_creatures = ps->is(Ally) || ps->is(Enemy) || ps->is(You);
 	if(need_creatures) {
 		if(ps->is(Ally))
@@ -259,7 +261,7 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run) {
 		if(!run)
 			return true;
 		if(!ps->is(Group)) {
-			if(ps->is(Ally) && !ps->is(Enemy)) {
+			if(ps->is(Ally) && !ps->is(Enemy) && !random_target) {
 				if(!choose_single(getnm("CastOnWho")))
 					return false;
 			} else {
@@ -267,6 +269,8 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run) {
 				an.elements.count = 1;
 			}
 		}
+		if(an)
+			result_player = (creaturei*)an.elements[0].value;
 		if(ps->is(WearItem))
 			select_items(ps->filter);
 	} else if(!ps->is(WearItem)) {
@@ -307,7 +311,7 @@ void cast_spell() {
 	if(!ps)
 		return;
 	// RULE: add experience for each spell cast.
-	if(!cast_spell(ps, player->getlevel(), 35, true))
+	if(!cast_spell(ps, player->getlevel(), 35, true, false))
 		return;
 	use_spell_slot(ps);
 	pass_round();

@@ -194,9 +194,6 @@ static void filter_items(conditioni::fntest proc, bool keep) {
 	last_item = push_item;
 }
 
-static void create_new_game(int bonus) {
-}
-
 static void create_character(int bonus) {
 	create_player();
 }
@@ -2195,7 +2192,6 @@ BSDATA(script) = {
 	{"ChooseSpells", choose_spells},
 	{"ClearArea", clear_area},
 	{"CreateCharacter", create_character},
-	{"CreateNewGame", create_new_game},
 	{"CreatePower", create_power},
 	{"CurseItem", curse_item},
 	{"Damage", damage_modify},

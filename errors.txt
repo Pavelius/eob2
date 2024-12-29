@@ -1,2 +1,2 @@
-﻿Error in file `rules/Locations.txt`:
- Line 79: Can't find variant `AskHealing`
+﻿Error in file `rules/Items.txt`:
+ Line 271: Can't find variant `DestoryItem`

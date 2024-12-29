@@ -1783,7 +1783,7 @@ static void turning_monsters(int bonus) {
 		auto hd = p->getlevel();
 		if(hd > 11)
 			hd = 11;
-		auto chance = chances[hd][pl - 1] - 5;
+		auto chance = chances[hd][pl - 1];
 		if(chance < 0) {
 			consolen("%1 turned %2 to dust", player->getname(), p->getname());
 			monsters_kill(0);
@@ -2214,6 +2214,13 @@ static bool if_talk() {
 	return talk_about_proc(false);
 }
 
+static void say_speech(int bonus) {
+	switch(bonus) {
+	case -1: player->speakn(last_id, "Fail"); break;
+	default: player->speakn(last_id, "Success"); break;
+	}
+}
+
 static void talk_about(int bonus) {
 	talk_about_proc(true);
 }
@@ -2326,6 +2333,7 @@ BSDATA(script) = {
 	{"RestParty", rest_party},
 	{"ReturnToStreet", return_to_street},
 	{"Roll", make_roll},
+	{"SaySpeech", say_speech},
 	{"SaveGame", save_game},
 	{"Saves", saves_modify},
 	{"SaveHalf", save_half},

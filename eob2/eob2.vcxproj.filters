@@ -512,6 +512,9 @@
     <ClInclude Include="screenshoot.h">
       <Filter>support</Filter>
     </ClInclude>
+    <ClInclude Include="sliceu.h">
+      <Filter>support</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">

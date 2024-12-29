@@ -168,7 +168,7 @@ Horn cost(30) avatar(59) avatar_ground(23) wear(Usable)
  feats Small
 
 Bones avatar(43) avatar_ground(7) wear(Usable)
- feats Small
+ feats Small UsePriest
 MantistHead cost(50) avatar(7) avatar_ground(7) wear(Usable)
  feats Small
 MonsterTeeth avatar(56) avatar_ground(7) wear(Usable)
@@ -267,6 +267,8 @@ ClericMissionEquipment
 
 UseMagicMap
  elements ClearArea AddAreaOverlay CellSecretButton FilterAreaExplored-1 RandomArea AddExp+4 PassRound ShowArea DestroyItem
+UseBones
+ elements Blessing+1 SaySpeech DestroyItem PassRound
 
 #RandomList
 

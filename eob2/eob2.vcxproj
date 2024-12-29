@@ -193,6 +193,7 @@
     <ClInclude Include="script.h" />
     <ClInclude Include="seqlink.h" />
     <ClInclude Include="shape.h" />
+    <ClInclude Include="sliceu.h" />
     <ClInclude Include="special.h" />
     <ClInclude Include="speech.h" />
     <ClInclude Include="spell.h" />

@@ -233,6 +233,9 @@ Aha! Secret door
 #UseMagicMapFail
 There is no secret doors nearbe
 
+#UseBonesSuccess
+Rest in peace my friend
+
 #HolySymbolSuccess
 Oh! Thank you my god, for you assistance
 Helm, you power is blessing!

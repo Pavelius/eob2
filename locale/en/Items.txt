@@ -4,6 +4,7 @@ Arrow: Arrow
 BattleAxe: Battle axe
 BlueGem: Gem
 BluePotion: Potion
+Bones: Bones
 Boots: Boots
 Bow: Bow
 ChainMail: Chain mail
@@ -27,6 +28,7 @@ Mace: Mace
 MageScroll: Scroll
 MagicMap: Map
 MageBook: Tome
+PlateMail: Plate mail
 PriestScroll: Scroll
 Ration: Ration
 RedCloack: Cloack

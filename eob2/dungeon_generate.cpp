@@ -16,8 +16,8 @@
 #include "wallmessage.h"
 
 #ifdef _DEBUG
-#define DEBUG_DUNGEON
-//#define DEBUG_ROOM
+// #define DEBUG_DUNGEON
+// #define DEBUG_ROOM
 #endif
 
 typedef void (*fncorridor)(pointc v, directions d);
@@ -149,19 +149,6 @@ static void lair_door(pointc v, directions d) {
 }
 
 static int get_magic_bonus(int chance_upgrade, int chance_downgrade) {
-	//static int magic_chances[][5] = {
-	//	{10, 1},
-	//	{10, 3},
-	//	{ 8, 5, 1},
-	//	{ 8, 10, 3},
-	//	{ 8, 10, 5},
-	//	{ 5,  8, 10, 1},
-	//	{ 5,  8, 10, 3},
-	//	{ 3,  8, 10, 5},
-	//	{ 1,  5,  8, 10, 1},
-	//	{ 1,  5,  5, 10, 3},
-	//	{ 1,  3,  3, 10, 5},
-	//};
 	auto base = loc ? loc->level / 2 : 1;
 	if(base < 1)
 		base = 1;
@@ -503,10 +490,10 @@ static bool corridor(pointc v, directions d) {
 		if(random_content) {
 			static fncorridor corridor_random[] = {
 				empthy, empthy, empthy, empthy, empthy,
-				empthy, empthy, empthy, empthy, empthy,
+				empthy, empthy, empthy, empthy,
 				secret,
 				monster, monster, monster, monster,
-				rations, rations,
+				rations,
 				stones,
 				trap,
 				cellar,

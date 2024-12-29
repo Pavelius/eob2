@@ -141,9 +141,9 @@ GreenPotion cost(120) avatar(41) avatar_ground(19) powers(AdvancedPotions) wear(
 BluePotion cost(150) avatar(40) avatar_ground(19) powers(SimplePotions) wear(Drinkable)
  feats Small
 
-LargeRation avatar(37) avatar_ground(14) damage(1 3) wear(Edible)
+LargeRation avatar(37) avatar_ground(14) damage(1 6) wear(Edible)
  feats Small
-Ration avatar(38) avatar_ground(14) wear(Edible)
+Ration avatar(38) avatar_ground(14) damage(1 2) wear(Edible)
  feats Small
 
 MageScroll cost(20) avatar(36) avatar_ground(12) wear(Readable) powers(MageSpells)
@@ -158,6 +158,39 @@ Wand cost(100) avatar(52) avatar_ground(10) wear(Rod) powers(WandSpells)
 
 TheifTools cost(10) avatar(54) avatar_ground(1) wear(Usable)
  feats Small UseRogish
+HolySymbol cost(20) avatar(53) avatar_ground(20) wear(Usable)
+ feats Small UsePriest
+HolySymbolEvil cost(20) avatar(27) avatar_ground(20) wear(Usable)
+ feats Small UsePriest
+MageBook cost(50) avatar(35) avatar_ground(11) wear(Usable)
+ feats Small UseMage
+Horn cost(30) avatar(59) avatar_ground(23) wear(Usable)
+ feats Small
+
+Bones avatar(43) avatar_ground(7) wear(Usable)
+ feats Small
+MantistHead cost(50) avatar(7) avatar_ground(7) wear(Usable)
+ feats Small
+MonsterTeeth avatar(56) avatar_ground(7) wear(Usable)
+ feats Small
+SkullHead avatar(89) avatar_ground(7) wear(Usable)
+ feats Small
+SkullBone avatar(90) avatar_ground(7) wear(Usable)
+ feats Small
+
+FlameSphere cost(500) avatar(91) avatar_ground(18) wear(Usable)
+ feats Small UseMage
+IceSphere cost(500) avatar(100) avatar_ground(18) wear(Usable)
+ feats Small UseMage
+
+BlueGem cost(150) avatar(94) avatar_ground(22)
+ feats Small
+GreenGem cost(300) avatar(95) avatar_ground(22)
+ feats Small
+RedGem cost(500) avatar(93) avatar_ground(22)
+ feats Small
+PurpleGem cost(1000) avatar(96) avatar_ground(22)
+ feats Small
 
 IronKey avatar(47) avatar_ground(8) wear(Key)
  feats Small
@@ -180,9 +213,11 @@ JewelKey avatar(102) avatar_ground(8) wear(Key)
 
 StoneDagger speed(2) damage_type(Piercing) damage(1 4) avatar(60) avatar_ground(3) wear(RightHand) powers(MeleePowers)
  feats Small
-StoneGem avatar(57) avatar_ground(3) wear(Backpack)
+StoneGem cost(400) avatar(57) avatar_ground(3) wear(Backpack)
  feats Small
 StoneAmulet avatar(64) avatar_ground(13) wear(Neck) powers(AmuletPowers)
+ feats Small
+RedCircle cost(100) avatar(105) avatar_ground(21)
  feats Small
 
 Mandibules damage_type(Slashing) damage(1 4)
@@ -252,7 +287,7 @@ RandomArmor
 RandomPotions
  chance RedPotion GreenPotion+2 BluePotion+4
 RandomRings
- chance RedRing GreenRing BluePotion
+ chance RedRing GreenRing BlueRing
 RandomAmulets
  chance Amulet
 RandomScrolls
@@ -260,18 +295,24 @@ RandomScrolls
 RandomWands
  chance Wand
 RandomTools
- chance TheifTools
+ chance TheifTools+2 HolySymbol HolySymbolEvil MageBook
+RandomExotic
+ chance Bones
 RandomKeys
  chance IronKey
+RandomGem
+ chance BlueGem+4 GreenGem+3 RedGem PurpleGem
 
 RandomItem
- chance RandomWeapon+4 RandomArmor RandomArmorMinor RandomRings RandomAmulets RandomScrolls+2 RandomWands RandomPotions+2 RandomKeys RandomTools
+ chance RandomWeapon+4 RandomArmor RandomArmorMinor\
+	RandomRings RandomAmulets RandomScrolls+2 RandomWands RandomPotions+2\
+	RandomKeys RandomTools+2 RandomExotic RandomGem
 
 RandomSmallItem
- chance RandomPotions+4 RandomRings RandomKeys RandomTools RandomWands RandomScrolls+4
+ chance RandomPotions+4 RandomRings RandomKeys RandomTools RandomWands RandomScrolls+4 RandomGem
 
 MonsterGiftItems
- chance RandomSword RandomPotions+4 RandomAmulets+2 RandomAmulets RandomScrolls
+ chance RandomSword RandomPotions+4 RandomAmulets+2 RandomScrolls
 
 #Race
 

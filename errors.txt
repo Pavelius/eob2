@@ -1,2 +1,2 @@
-﻿Error in file `rules/Spells.txt`:
- Line 104: Can't find variant `Hour1`
+﻿Error in file `rules/Items.txt`:
+ Line 162: Not found Feat identifier `UseDivine`

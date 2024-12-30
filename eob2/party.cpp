@@ -289,12 +289,6 @@ static void check_regeneration() {
 		player->heal(1);
 }
 
-static void update_every_round() {
-	player->remove(Moved);
-	update_player();
-	check_regeneration();
-}
-
 static void check_poison() {
 	if(player->is(StoppedPoison))
 		return;
@@ -419,6 +413,13 @@ static void check_noises_behind_door() {
 		return;
 	if(check_noises_behind_door(Up))
 		return;
+}
+
+static void update_every_round() {
+	player->remove(Moved);
+	update_player();
+	check_regeneration();
+	check_acid();
 }
 
 static void update_every_turn() {
@@ -596,6 +597,13 @@ static void clear_boost_proc(referencei target, variant v) {
 	}
 }
 
+static void check_food() {
+	if(player->food > 0)
+		player->food--;
+	else if(d100() < 3)
+		player->speakn("Need", "Rest");
+}
+
 void pass_round() {
 	clear_boost(party.abilities[Minutes], clear_boost_proc);
 	monsters_movement();
@@ -606,6 +614,7 @@ void pass_round() {
 	check_noises_behind_door();
 	all_creatures(update_every_round);
 	all_party(check_levelup, true);
+	all_party(check_food, true);
 	if((party.abilities[Minutes] % 6) == 0)
 		all_creatures(update_every_turn);
 	if((party.abilities[Minutes] % 60) == 0)

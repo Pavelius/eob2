@@ -431,8 +431,18 @@ void restore_spells(int bonus) {
 	update_class_spells();
 }
 
+static void satisfy(int bonus) {
+	if(!bonus) {
+		auto maximum = player->getfood();
+		if(player->food < maximum)
+			player->food = maximum;
+	} else
+		player->food += bonus * 10;
+}
+
 static void rest_character(int bonus) {
 	natural_heal(bonus);
+	satisfy(0);
 	restore_spells(0);
 }
 
@@ -519,11 +529,15 @@ static void drink_effect(variant v, unsigned duration, int multiplier) {
 
 static bool read_effect(creaturei* pn, variant v, int experience, unsigned duration) {
 	bool result = false;
-	if(v.iskind<spelli>()) {
-		auto push_player = player; player = pn;
+	last_number = duration;
+	auto push_player = player; player = pn;
+	if(v.iskind<spelli>())
 		result = cast_spell(bsdata<spelli>::elements + v.value, player->getlevel() + v.counter, experience, true, false);
-		player = push_player;
+	else if(v.iskind<listi>() || v.iskind<randomizeri>() || v.iskind<script>()) {
+		script_run(v);
+		last_item->damage(1);
 	}
+	player = push_player;
 	return result;
 }
 
@@ -539,11 +553,8 @@ static bool use_rod(creaturei* pn, item* rod, variant v) {
 		}
 		player = push_player;
 	}
-	if(result) {
-		rod->usecharge();
-		if(!rod->operator bool())
-			consolen(getnm("ConsumeRod"));
-	}
+	if(result)
+		rod->usecharge("ConsumeRod");
 	return result;
 }
 
@@ -1114,13 +1125,7 @@ static bool use_tool_item(abilityn skill) {
 	if(player->roll(skill))
 		return true;
 	consolen(getnm(ids(bsdata<abilityi>::elements[skill].id, "Fail")));
-	auto chance = 60;
-	if(d100() < chance) {
-		auto tool_id = last_item->geti().id;
-		last_item->damage(1);
-		if(!(*last_item))
-			consolen(getnm("ToolBroken"), getnm(tool_id));
-	}
+	last_item->usecharge("ToolBroken");
 	return false;
 }
 
@@ -1652,7 +1657,7 @@ static void make_roll(int bonus) {
 		script_stop();
 		dialog_message("Fail");
 		player_speak("FailSpeech");
-		run_script(last_id, "FailedRoll");
+		run_script(last_id, "Fail");
 	} else {
 		dialog_message("Success");
 		player_speak("SuccessSpeech");
@@ -2427,6 +2432,7 @@ BSDATA(script) = {
 	{"RestParty", rest_party},
 	{"ReturnToStreet", return_to_street},
 	{"Roll", make_roll},
+	{"Satisfy", satisfy},
 	{"SaySpeech", say_speech},
 	{"SaveGame", save_game},
 	{"Saves", saves_modify},

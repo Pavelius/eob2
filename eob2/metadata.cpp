@@ -118,6 +118,9 @@ BSMETA(dungeon_site) = {
 BSMETA(feati) = {
 	BSREQ(id),
 	{}};
+BSMETA(genderi) = {
+	BSREQ(id),
+	{}};
 BSMETA(goali) = {
 	BSREQ(id),
 	{}};
@@ -129,13 +132,11 @@ BSMETA(itemi) = {
 	BSREQ(damage), BSREQ(damage_large),
 	BSFLG(feats, feati),
 	BSREQ(avatar), BSREQ(avatar_ground), BSREQ(avatar_thrown),
+	BSREQ(chance_identify),
 	BSREQ(ammo),
 	BSREQ(wearing),
 	BSREQ(cost),
 	BSREQ(powers),
-	{}};
-BSMETA(genderi) = {
-	BSREQ(id),
 	{}};
 BSMETA(locationi) = {
 	BSREQ(id),

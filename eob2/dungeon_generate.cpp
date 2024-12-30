@@ -161,7 +161,7 @@ static int get_magic_bonus(int chance_upgrade, int chance_downgrade) {
 	return base;
 }
 
-static void create_item(item& it, itemi* pi, int bonus_level = 0) {
+static void create_item(item& it, itemi* pi, int bonus_level = 0, int chance_identify = 0) {
 	// Any generated key match to dungeon key
 	if(pi->wear == Key)
 		pi = loc->getkey();
@@ -169,11 +169,14 @@ static void create_item(item& it, itemi* pi, int bonus_level = 0) {
 	auto chance_magic = (iabs(loc->level) + bonus_level) * 4 + loc->magical;
 	auto chance_cursed = 5 + loc->cursed;
 	auto magic_bonus = get_magic_bonus(20, 30);
+	chance_identify += pi->chance_identify;
 	it.createpower(magic_bonus, chance_magic, chance_cursed);
 	if(it.isartifact())
 		loc->state.wallmessages[MessageAtifacts]++;
 	if(it.iscursed())
 		loc->state.wallmessages[MessageCursedItems]++;
+	if(chance_identify && d100() < chance_identify)
+		it.identify(1);
 	switch(pi->wear) {
 	case Edible:
 		// Food can be rotten
@@ -433,10 +436,7 @@ static void cellar(pointc v, directions d) {
 	auto po = loc->add(v, d, CellCellar);
 	for(auto i = random_count(); i > 0; i--) {
 		item it;
-		create_item(it, single(random_list), 0);
-		// Items in cellar can be identified
-		if(d100() < 60)
-			it.identify(1);
+		create_item(it, single(random_list), 0, 40);
 		loc->add(po, it);
 	}
 }

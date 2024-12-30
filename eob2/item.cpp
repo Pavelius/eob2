@@ -1,5 +1,6 @@
 #include "adat.h"
 #include "bsdata.h"
+#include "console.h"
 #include "item.h"
 #include "list.h"
 #include "math.h"
@@ -135,6 +136,8 @@ bool item::isweapon() const {
 }
 
 void item::damage(int bonus) {
+	if(!type)
+		return; // Already empthy
 	if(bonus >= 0) {
 		bonus += count;
 		if(bonus >= 10) {
@@ -203,10 +206,13 @@ void item::createpower(char magic_bonus, int chance_magical, int chance_cursed) 
 	}
 }
 
-void item::usecharge() {
-	if(d100() < 36)
+void item::usecharge(const char* interactive, int chance) {
+	if(d100() < chance)
 		return;
 	count++;
-	if(count > 10)
+	if(count > 10) {
+		if(interactive)
+			consolen(getnm(interactive), getnm(geti().id));
 		clear();
+	}
 }

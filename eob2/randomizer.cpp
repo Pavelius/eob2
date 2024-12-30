@@ -51,8 +51,6 @@ variant single(variant v) {
 	while(true) {
 		if(v.iskind<randomizeri>())
 			v = random_variant(bsdata<randomizeri>::elements[v.value].chance);
-		//else if(v.iskind<listi>())
-		//	v = random_equal(bsdata<listi>::elements[v.value].elements);
 		else
 			break;
 	}

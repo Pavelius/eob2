@@ -14,7 +14,7 @@ struct monsteri;
 
 struct creaturei : npc, statable, wearable, posable {
 	statable		basic;
-	short			hp, hpm, hpr, hp_aid;
+	short			hp, hpm, hpr, hp_aid, food;
 	short unsigned	monster_id;
 	char			initiative;
 	spella			spells;
@@ -33,6 +33,7 @@ struct creaturei : npc, statable, wearable, posable {
 	int				getchance(abilityn v) const;
 	dice			getdamage(int& bonus, wearn id, bool large_enemy) const;
 	int				getexpaward() const;
+	int				getfood() const;
 	int				gethitpenalty(int bonus) const;
 	int				gethp() const { return hp + hp_aid; }
 	const monsteri*	getmonster() const;

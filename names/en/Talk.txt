@@ -252,3 +252,8 @@ Oh holy god!
 #HolySymbolFail
 Helm don't answer the call
 Our faith is weak, we must pray more
+
+#RestNeed
+I need rest
+When we make camp?
+I tired

@@ -18,7 +18,7 @@ struct itemi : nameable, featable {
 	variants	wearing;
 	variant		cursed;
 	wearn		wear;
-	char		avatar, avatar_ground, avatar_thrown;
+	char		avatar, avatar_ground, avatar_thrown, chance_identify;
 	int			cost;
 	listi*		powers;
 };
@@ -71,6 +71,6 @@ public:
 	void		setpower(variant v);
 	void		summon(int v) { summoned = (v >= 0) ? 1 : 0; }
 	void		consume() { setcount(getcount() - 1); }
-	void		usecharge();
+	void		usecharge(const char* interactive, int chance = 35);
 };
 extern item* last_item;

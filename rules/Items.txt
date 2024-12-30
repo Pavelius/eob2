@@ -134,11 +134,11 @@ Amulet cost(50) avatar(33) avatar_ground(13) wear(Neck) powers(AmuletPowers)
 Medalion cost(80) avatar(34) avatar_ground(13) wear(Neck) powers(AmuletPowers)
  feats Small
 
-RedPotion cost(100) avatar(39) avatar_ground(19) powers(WeirdPotions) wear(Drinkable)
+BluePotion cost(150) avatar(40) avatar_ground(19) powers(SimplePotions) wear(Drinkable) chance_identify(70)
  feats Small
 GreenPotion cost(120) avatar(41) avatar_ground(19) powers(AdvancedPotions) wear(Drinkable)
  feats Small
-BluePotion cost(150) avatar(40) avatar_ground(19) powers(SimplePotions) wear(Drinkable)
+RedPotion cost(100) avatar(39) avatar_ground(19) powers(WeirdPotions) wear(Drinkable)
  feats Small
 
 LargeRation avatar(37) avatar_ground(14) damage(1 6) wear(Edible)
@@ -146,9 +146,9 @@ LargeRation avatar(37) avatar_ground(14) damage(1 6) wear(Edible)
 Ration avatar(38) avatar_ground(14) wear(Edible)
  feats Small
 
-MageScroll cost(20) avatar(36) avatar_ground(12) wear(Readable) powers(MageSpells)
+MageScroll cost(20) avatar(36) avatar_ground(12) wear(Readable) powers(MageSpells) chance_identify(40)
  feats Small
-PriestScroll cost(20) avatar(85) avatar_ground(12) wear(Readable) powers(PriestSpells)
+PriestScroll cost(20) avatar(85) avatar_ground(12) wear(Readable) powers(PriestSpells) chance_identify(100)
  feats Small
 MagicMap cost(10) avatar(86) avatar_ground(12) wear(Usable)
  feats Small

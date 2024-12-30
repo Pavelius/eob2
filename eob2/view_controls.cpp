@@ -639,7 +639,7 @@ static void paint_sheet_head() {
 	height = 5;
 	greenbar(player->hp, player->hpm);
 	caret.y = origin.y + 25;
-	greenbar(25, 100);
+	greenbar(player->food, player->getfood());
 	caret.x = origin.x + 2;
 	caret.y = origin.y + 36;
 	width = 140; height = 131;

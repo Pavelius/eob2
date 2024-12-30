@@ -1,2 +1,2 @@
-﻿Error in file `rules/Spells.txt`:
- Line 238: Can't find variant `MostersFlee`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `BlueRing`

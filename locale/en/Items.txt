@@ -4,6 +4,7 @@ Arrow: Arrow
 BattleAxe: Battle axe
 BlueGem: Gem
 BluePotion: Potion
+BlueRing: Ring
 Bones: Bones
 Boots: Boots
 Bow: Bow

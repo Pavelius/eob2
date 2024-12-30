@@ -188,6 +188,10 @@ void creaturei::clear() {
 	y = -1;
 }
 
+int	creaturei::getfood() const {
+	return get(Constitution) * 100;
+}
+
 static void update_languages() {
 	player->languages = player->getrace().languages;
 	player->understand(player->race);
@@ -552,6 +556,11 @@ static void set_basic_ability() {
 	player->basic.abilities[Alertness] += 70;
 }
 
+static void finish_character() {
+	player->hp = player->hpm;
+	player->food = player->getfood();
+}
+
 void create_player() {
 	player = bsdata<creaturei>::add();
 	player->clear();
@@ -561,9 +570,10 @@ void create_player() {
 	set_race_ability();
 	set_class_ability();
 	update_player();
+	finish_character();
 	set_starting_equipment();
 	update_player();
-	player->hp = player->hpm;
+	finish_character();
 }
 
 static void apply_feats(const variants& elements) {

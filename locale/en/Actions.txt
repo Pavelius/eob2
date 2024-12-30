@@ -11,7 +11,7 @@ CellTrapLauncherDisable: Trap is removed
 ChooseBetOptions: Bed how match?
 ChooseDonationOptions: Donate match?
 ChooseMageScrollsOptions: What scroll?
-ConsumeRod: %Name use last charge
+ConsumeRod: %1 used last charge
 CreateNewGame: Create new game
 DebugTest: Debug Test
 DebugTestVisit: Debug test string

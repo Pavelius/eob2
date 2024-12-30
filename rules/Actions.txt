@@ -12,7 +12,7 @@ RestorePartySpells
  elements ForEachParty RestoreSpells
 ScribleScrollsFail
  elements DestroyItem
-LieFailedRoll
+LieFail
  elements Hostile
 NaturallyPartyHeal
  elements ForEachParty NaturalHeal
@@ -25,7 +25,7 @@ PickPocketsCoinsAtBar
 
 #RandomList
 
-PickPocketsActionFailedRoll
+PickPocketsActionFail
  chance PickPocketsNothing+4 PickPocketsFight
 PickPocketsActionSuccess
  chance PickPocketsCoinsAtBar

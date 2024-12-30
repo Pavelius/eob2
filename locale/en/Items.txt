@@ -80,6 +80,8 @@ OfResistFire: fire resistance
 OfResistCold: cold resistance
 OfShockingGrasp: shocking
 
+OfCommonTales: tales
+
 ExamineItem: A %1
 ExamineIdentifiedItem: The %1
 WrongItem: I don't see any item

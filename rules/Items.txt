@@ -59,13 +59,13 @@ LearnIntellegence
 
 #RandomList
 
-TomeOfCommonPower
+OfCommonTales
  chance LearnNeutral+8 LearnNeutralDouble+2 LearnEvil+1 LearnPain+1
 
 #List
 
 TomePowers
- elements TomeOfCommonPower+1
+ elements OfCommonTales+1
 
 #Item
 

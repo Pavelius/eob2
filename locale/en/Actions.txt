@@ -26,6 +26,7 @@ ExitConfirm: Do you really want to exit game?
 FeelDisease: %Name feels bad
 FeelPoison: %Name suffer from poison
 FeelWorse: %Name feels bad
+FindAllSecrets: Find all secrets
 GambleVisitors: Gamble with someone
 GameOptions: Game Options
 GameOptionsOptions: Game Options

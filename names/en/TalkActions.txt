@@ -16,10 +16,14 @@ You pick pockets of long man who payed on bar and pick %Number gold pieces.
 You want steal some money, but all you try is failed.
 
 #PickPocketsFightMessage
-"Theif! I catch theif" cry patrons. Other patrons fight you and you leave street.
+"Theif! I catch theif" cry patrons. Other patrons beet you and take off to street.
 
 #EatAndDrinkMessage
 You taste local food and drink. Not bad. Now you are in good shape.
 
 #TakeSpecialItemReward
 We found item. Now we can leave this place.
+
+#FindAllSecretsReward
+This secret seems to be last on this level.
+We found all secrets. Not bad.

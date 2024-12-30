@@ -414,10 +414,16 @@ static void update_camp_spells() {
 	}
 }
 
-void restore_spells(int bonus) {
+static void update_memorized_spells() {
 	auto spell_book = get_spells_prepared(player);
 	if(spell_book)
 		memcpy(player->spells, spell_book, sizeof(player->spells));
+	else
+		memset(player->spells, 0, sizeof(player->spells));
+}
+
+void restore_spells(int bonus) {
+	update_memorized_spells();
 	update_camp_spells();
 	update_class_spells();
 }
@@ -1613,6 +1619,13 @@ static void player_speak(const char* action) {
 	player->speakn(last_id, action);
 }
 
+static void say_speech(int bonus) {
+	switch(bonus) {
+	case -1: player_speak("Fail"); break;
+	default: player_speak("Success"); break;
+	}
+}
+
 static void make_roll(int bonus) {
 	if(!player->roll(last_ability, bonus * 5)) {
 		script_stop();
@@ -1913,9 +1926,9 @@ static void show_area(int bonus) {
 		bonus = 1;
 	if(points) {
 		show_automap(points, bonus);
-		player_speak("Success");
+		say_speech(0);
 	} else
-		player_speak("Fail");
+		say_speech(-1);
 }
 
 static void pass_round(int bonus) {
@@ -2212,13 +2225,6 @@ static bool talk_about_proc(bool run) {
 
 static bool if_talk() {
 	return talk_about_proc(false);
-}
-
-static void say_speech(int bonus) {
-	switch(bonus) {
-	case -1: player->speakn(last_id, "Fail"); break;
-	default: player->speakn(last_id, "Success"); break;
-	}
 }
 
 static void talk_about(int bonus) {

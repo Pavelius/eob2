@@ -44,6 +44,29 @@ CloackPowers
 HelmPowers
  elements NoVariant AllLanguages+1 AC+2
 
+LearnNeutral
+ elements AddExpPersonal+1 SaySpeech
+LearnNeutralDouble
+ elements AddExpPersonal+2 SaySpeech
+LearnGood
+ elements AddExpGood+10 SaySpeech
+LearnEvil
+ elements AddExpEvil+10 SaySpeech
+LearnPain
+ elements Bludgeon+1 SaySpeech
+LearnIntellegence
+ elements PushModifier Permanent Intellegence+1 DestroyItem SaySpeech
+
+#RandomList
+
+TomeOfCommonPower
+ chance LearnNeutral+8 LearnNeutralDouble+2 LearnEvil+1 LearnPain+1
+
+#List
+
+TomePowers
+ elements TomeOfCommonPower+1
+
 #Item
 
 NoItem damage(1 2) avatar(84)
@@ -162,7 +185,7 @@ HolySymbol cost(20) avatar(53) avatar_ground(20) wear(Usable)
  feats Small UsePriest
 HolySymbolEvil cost(20) avatar(27) avatar_ground(20) wear(Usable)
  feats Small UsePriest
-MageBook cost(50) avatar(35) avatar_ground(11) wear(Usable)
+MageBook cost(50) avatar(35) avatar_ground(11) wear(Readable) powers(TomePowers)
  feats Small UseMage
 Horn cost(30) avatar(59) avatar_ground(23) wear(Usable)
  feats Small

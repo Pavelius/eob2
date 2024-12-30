@@ -535,7 +535,8 @@ static bool read_effect(creaturei* pn, variant v, int experience, unsigned durat
 		result = cast_spell(bsdata<spelli>::elements + v.value, player->getlevel() + v.counter, experience, true, false);
 	else if(v.iskind<listi>() || v.iskind<randomizeri>() || v.iskind<script>()) {
 		script_run(v);
-		last_item->damage(1);
+		last_item->usecharge("ConsumeTome", 40, 5);
+		pass_hours(1);
 	}
 	player = push_player;
 	return result;

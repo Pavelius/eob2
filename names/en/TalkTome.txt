@@ -1,0 +1,53 @@
+#GroupAdjustment
+ancient
+forgotten
+religious
+
+#GroupName
+cult
+kindom
+tribe
+nation
+
+#MonsterName
+giant
+dragon
+manticore
+troll
+purple worm
+
+#StoryType
+interesting
+mundane
+funny
+sad
+
+#LearnNeutralSuccess
+%+StoryType story about %MonsterName
+%+GroupAdjustment %GroupName adventures
+
+#LearnNeutralDoubleSuccess
+Excited information about people of %GroupAdjustment %GroupName
+Bard tales
+
+#LearnEvilSuccess
+Explain evil deeds
+Bad tale about %GroupAdjustment %GroupName
+Terrifying tale about %GroupAdjustment deeds
+
+#LearnGoodSuccess
+Explain good deeds
+Tale about bravest heroes of %GroupAdjustment %GroupName
+Brilliant tale about %GroupAdjustment deeds
+
+#LearnGoodSuccess
+Explain good deeds
+Tale about bravest heroes of %GroupAdjustment %GroupName
+Brilliant tale about %GroupAdjustment deeds
+
+#LearnPainSuccess
+Long and exhaused tale
+A tale with bad end
+
+#LearnIntellegenceSuccess
+Endless mathematic and phisic science

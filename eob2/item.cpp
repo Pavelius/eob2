@@ -206,11 +206,11 @@ void item::createpower(char magic_bonus, int chance_magical, int chance_cursed) 
 	}
 }
 
-void item::usecharge(const char* interactive, int chance) {
+void item::usecharge(const char* interactive, int chance, int maximum) {
 	if(d100() < chance)
 		return;
 	count++;
-	if(count > 10) {
+	if(count > maximum) {
 		if(interactive)
 			consolen(getnm(interactive), getnm(geti().id));
 		clear();

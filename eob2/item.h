@@ -71,6 +71,6 @@ public:
 	void		setpower(variant v);
 	void		summon(int v) { summoned = (v >= 0) ? 1 : 0; }
 	void		consume() { setcount(getcount() - 1); }
-	void		usecharge(const char* interactive, int chance = 35);
+	void		usecharge(const char* interactive, int chance = 35, int maximum = 10);
 };
 extern item* last_item;

@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `BlueRing`
+﻿Error in file `rules/Items.txt`:
+ Line 61: Not found requisit `chances`

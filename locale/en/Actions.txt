@@ -12,6 +12,7 @@ ChooseBetOptions: Bed how match?
 ChooseDonationOptions: Donate match?
 ChooseMageScrollsOptions: What scroll?
 ConsumeRod: %1 used last charge
+ConsumeTome: %+1 is read to the end
 CreateNewGame: Create new game
 DebugTest: Debug Test
 DebugTestVisit: Debug test string

@@ -48,6 +48,14 @@ template<> void ftscript<spelli>(int value, int bonus) {
 	}
 }
 
+static bool is_enchant(referencei target, variant v) {
+	for(auto& e : bsdata<boosti>()) {
+		if(e.target == target && e.effect.type == v.type && e.effect.value == v.value)
+			return true;
+	}
+	return false;
+}
+
 static spelli* choose_prepared_spell() {
 	pushanswer push_answer;
 	for(auto& e : bsdata<spelli>()) {
@@ -131,6 +139,8 @@ static void add_targets(pointc v, bool enemy, bool ally, bool include_player) {
 		if(!p)
 			continue;
 		if(p == player && !include_player)
+			continue;
+		if(is_enchant(p, last_spell))
 			continue;
 		an.add(p, p->getname());
 	}

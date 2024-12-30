@@ -973,10 +973,10 @@ static reactions roll_reaction(int bonus) {
 	return maptbl(data, n);
 }
 
-void check_reaction(creaturei** creatures) {
+void check_reaction(creaturei** creatures, int bonus) {
 	auto v = get_reaction(creatures);
 	if(v == Indifferent) {
-		auto charisma = party_median(characters, Charisma);
+		auto charisma = party_median(characters, Charisma) + bonus;
 		v = roll_reaction(maptbl(cha_reaction_adjustment, charisma));
 		if(v == Indifferent)
 			v = Careful;

@@ -6,9 +6,10 @@ Roll1d4p1x1d4p1s3p2c9 base(1 4 1) raise(1 4 1) perlevel(3 2 9)
 Roll1d6 base(1 6)
 Roll1d8 base(1 8)
 Roll1d8x1 base(1 8) raise(1) perlevel(1 1)
-Roll2d8 base(2 8)
 Roll2x1 base(2) raise(1) perlevel(1 1)
+Roll2d4 base(2 4)
 Roll2d6 base(2 6)
+Roll2d8 base(2 8)
 Roll3d8 base(3 8)
 Roll6d8 base(6 8)
 Minute3x1 base(3) raise(1) perlevel(1 1)
@@ -37,6 +38,7 @@ LayOnHand
  filter IfAlive IfWounded
  instant Roll2x1 Heal+101
 TurnUndead
+ feats Enemy Group SummaryEffect
  filter IfMonstersUndead
  instant TurningMonsters
 
@@ -71,6 +73,9 @@ DetectMagic levels(1 1)
  instant Minute0x2 ApplyEnchantSpell
  wearing SeeMagical
 Friends levels(0 1)
+ feats Enemy Group SummaryEffect
+ filter IfIntelligence
+ instant Indifferent MonstersReaction Roll2d4 ReactionCheck+101
 Identify levels(0 1)
  feats Ally WearItem
  filter IfItemIdentified-1
@@ -91,6 +96,7 @@ PurifyFood levels(1 0)
  filter IfItemEdible IfItemDamaged
  instant DamageItem-1 EffectCount+1
 ShieldSpell levels(0 1)
+ feats You
  instant Minute0x5 ApplyEnchantSpell
  wearing AC+5
 ShockingGrasp levels(0 1)

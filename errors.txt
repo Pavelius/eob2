@@ -1,2 +1,2 @@
-﻿Error in file `rules/Items.txt`:
- Line 259: Can't find variant `Shortsword`
+﻿Error in file `rules/Spells.txt`:
+ Line 77: Can't find variant `ReactionCheck`

@@ -42,6 +42,7 @@ template<> void ftscript<spelli>(int value, int bonus) {
 	switch(modifier) {
 	case Standart:
 		last_spell = bsdata<spelli>::elements + value;
+		player->spells[value] += bonus;
 		break;
 	case Wearing:
 		if(bsdata<spelli>::elements[value].summon)
@@ -252,52 +253,46 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 	pointc enemy_position = to(party, party.d);
 	last_spell = ps;
 	result_player = 0;
-	auto need_creatures = ps->is(Ally) || ps->is(Enemy) || ps->is(You);
-	if(need_creatures) {
-		if(ps->is(Ally))
-			add_targets(party, false, true, ps->is(You));
-		if(ps->is(Enemy)) {
-			if(ps->isthrown()) {
-				enemy_position = party;
-				if(look_group(enemy_position, party.d))
-					add_targets(enemy_position, true, false, false);
-			} else {
-				enemy_position = to(party, party.d);
-				add_targets(enemy_position, true, false, ps->is(You));
-			}
+	if(ps->is(Ally))
+		add_targets(party, false, true, ps->is(You));
+	if(ps->is(Enemy)) {
+		if(ps->isthrown()) {
+			enemy_position = party;
+			if(look_group(enemy_position, party.d))
+				add_targets(enemy_position, true, false, false);
+		} else {
+			enemy_position = to(party, party.d);
+			add_targets(enemy_position, true, false, ps->is(You));
 		}
-		if(!ps->is(Ally) && !ps->is(Enemy) && ps->is(You))
-			an.add(player, player->getname());
-		if(ps->summon)
-			filter_summon_slot(ps->summon->wear);
-		if(!ps->is(WearItem))
-			filter_creatures(ps->filter);
-		if(!an) {
-			if(run)
-				player->speak("CastSpell", "NoTargets");
-			return false;
-		}
-		if(!run)
-			return true;
-		if(!ps->is(Group)) {
-			if(ps->is(Ally) && !ps->is(Enemy) && !random_target) {
-				if(!choose_single(getnm("CastOnWho")))
-					return false;
-			} else {
-				zshuffle(an.elements.data, an.elements.count);
-				an.elements.count = 1;
-			}
-		}
-		if(an)
-			result_player = (creaturei*)an.elements[0].value;
-		if(ps->is(WearItem))
-			select_items(ps->filter);
-	} else if(!ps->is(WearItem)) {
-		if(!script_allow(ps->filter))
-			return false;
-		if(!run)
-			return true;
 	}
+	if(ps->is(You)) {
+		if(!an.findvalue(player))
+			an.add(player, player->getname());
+	}
+	if(ps->summon)
+		filter_summon_slot(ps->summon->wear);
+	if(!ps->is(WearItem))
+		filter_creatures(ps->filter);
+	if(!an) {
+		if(run)
+			player->speak("CastSpell", "NoTargets");
+		return false;
+	}
+	if(!run)
+		return true;
+	if(!ps->is(Group)) {
+		if(ps->is(Ally) && !ps->is(Enemy) && !random_target) {
+			if(!choose_single(getnm("CastOnWho")))
+				return false;
+		} else {
+			zshuffle(an.elements.data, an.elements.count);
+			an.elements.count = 1;
+		}
+	}
+	if(an)
+		result_player = (creaturei*)an.elements[0].value;
+	if(ps->is(WearItem))
+		select_items(ps->filter);
 	if(ps->isthrown()) {
 		auto n = distance(party, enemy_position);
 		thrown_item(party, Up, ps->avatar_thrown, player->side % 2, n);
@@ -307,12 +302,13 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 	auto push_level = last_level; last_level = level;
 	auto push_id = last_id; last_id = last_spell->id;
 	party.abilities[EffectCount] = 0;
-	if(need_creatures) {
+	if(ps->is(SummaryEffect))
+		script_run(ps->instant);
+	else {
 		apply_effect(ps->instant);
 		if(ps->summon)
 			remove_summon_slot(ps->summon->wear);
-	} else
-		script_run(ps->instant);
+	}
 	fix_animate();
 	if(party.abilities[EffectCount])
 		player->speakn(ps->id, "GainEffect", party.abilities[EffectCount]);

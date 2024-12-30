@@ -1440,20 +1440,29 @@ static void party_set(creaturei** creatures, featn v) {
 	}
 }
 
-void monster_interaction() {
+static void party_set(creaturei** creatures, directions v) {
+	for(auto i = 0; i < 6; i++) {
+		if(creatures[i])
+			creatures[i]->d = v;
+	}
+}
+
+void reaction_check(int bonus) {
 	if(!loc)
 		return;
+	bonus = get_bonus(bonus);
 	auto push_opponent = opponent;
 	creaturei* creatures[6] = {};
 	while(true) {
 		loc->getmonsters(creatures, to(party, party.d));
-		check_reaction(creatures);
+		check_reaction(creatures, bonus);
 		opponent = get_leader(creatures);
 		if(!opponent)
 			break;
 		last_reaction = opponent->reaction;
 		auto prev_reaction = last_reaction;
 		party_set(creatures, Moved);
+		party_set(creatures, to(party.d, Down));
 		switch(last_reaction) {
 		case Careful:
 			talk_monsters();
@@ -1484,7 +1493,7 @@ void move_party(pointc v) {
 		return;
 	if(loc->ismonster(v)) {
 		turnto(v, to(party.d, Down), true, -party_median(characters, Sneaky));
-		monster_interaction();
+		reaction_check(0);
 		pass_round();
 		return;
 	}
@@ -1712,6 +1721,16 @@ static void push_item(int bonus) {
 	auto push = last_item;
 	script_run();
 	last_item = push;
+}
+
+static void monsters_reaction(int bonus) {
+	if(!loc)
+		return;
+	creaturei* creatures[6]; loc->getmonsters(creatures, to(party, party.d));
+	for(auto p : creatures) {
+		if(p)
+			p->reaction = last_reaction;
+	}
 }
 
 static void monsters_flee(int bonus) {
@@ -2348,6 +2367,7 @@ BSDATA(script) = {
 	{"MonstersFlee", monsters_flee},
 	{"MonstersKill", monsters_kill},
 	{"MonstersLeave", monsters_leave},
+	{"MonstersReaction", monsters_reaction},
 	{"NaturalHeal", natural_heal},
 	{"JoinParty", join_party},
 	{"PartyAdventure", party_adventure},
@@ -2359,6 +2379,7 @@ BSDATA(script) = {
 	{"PushModifier", push_modifier},
 	{"PushPlayer", push_player},
 	{"RandomArea", random_area},
+	{"ReactionCheck", reaction_check},
 	{"RestoreSpells", restore_spells},
 	{"RestParty", rest_party},
 	{"ReturnToStreet", return_to_street},

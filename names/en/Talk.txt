@@ -200,6 +200,10 @@ I don't see any target
 No suitable spell target near
 Cast this on who???
 
+#CastSpellWrongUse
+This spell use in particular situation
+Use only in special situations
+
 #PurifyFoodGainEffect
 The %1i pieces of food were purified
 

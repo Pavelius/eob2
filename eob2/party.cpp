@@ -239,7 +239,7 @@ static void monster_move(pointc v, directions d) {
 		set_monster_moved(v);
 		// CHEAT: Monster have best sneak. Party only median.
 		turnto(party, to(d, Down), true, get_monster_best(v, Sneaky));
-		monster_interaction();
+		reaction_check(0);
 		return;
 	}
 	if(!n || loc->ismonster(n) || !loc->ispassable(n))

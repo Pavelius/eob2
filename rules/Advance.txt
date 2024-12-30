@@ -86,7 +86,7 @@ Fighter+10 CombatSkills
 Paladin+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UseMartial BonusHP
 Paladin+1 BasicAbilities
- elements ProtectedFromEvil ImmuneDisease TurnUndeadBonus-1
+ elements ProtectedFromEvil ImmuneDisease TurnUndeadBonus-2
 Paladin+1 SaveThrow
  elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
 Paladin+2 CombatSkills
@@ -110,8 +110,6 @@ Paladin+10 CombatSkills
 
 Cleric+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UsePriest
-Cleric+1 BasicAbilities
- elements TurnUndeadBonus+1
 
 Cleric+1 Spells
  elements LearnClericSpells+1 Spell1+1

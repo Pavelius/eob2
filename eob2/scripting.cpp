@@ -1803,10 +1803,7 @@ static void turning_monsters(int bonus) {
 	};
 	auto v = to(party, party.d);
 	creaturei* creatures[6]; loc->getmonsters(creatures, v);
-	auto turn_undead_bonus = player->get(TurnUndeadBonus);
-	if(!turn_undead_bonus)
-		return;
-	auto pl = player->getlevel() + turn_undead_bonus - 1 + bonus;
+	auto pl = player->getlevel() + player->get(TurnUndeadBonus) + bonus;
 	if(pl <= 0)
 		return;
 	if(pl > 14)

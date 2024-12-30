@@ -27,3 +27,7 @@ We found item. Now we can leave this place.
 #FindAllSecretsReward
 This secret seems to be last on this level.
 We found all secrets. Not bad.
+
+#KillAlmostAllMonstersReward
+We kill almost all of them
+Good, population of these creatures has been lowered

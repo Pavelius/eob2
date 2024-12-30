@@ -117,6 +117,18 @@ static void drain_attack(creaturei* defender, const item& weapon, featn type, ab
 	}
 }
 
+static void hit_equipment(creaturei* player) {
+	static wearn equipment[] = {Body, LeftHand, Head, Elbow, Legs, Neck};
+	for(auto w : equipment) {
+		if(!player->wears[w])
+			continue;
+		if(player->roll(SaveVsParalization))
+			continue;
+		player->wears[w].damage(1);
+		break;
+	}
+}
+
 static void single_attack(creaturei* defender, wearn slot, int bonus, int multiplier) {
 	if(!defender)
 		return;
@@ -245,7 +257,8 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		} else
 			player->damage(Bludgeon, 1, 5);
 		return;
-	}
+	} else if(is_critical_hit)
+		hit_equipment(defender);
 }
 
 static void single_main_attack(wearn wear, creaturei* enemy, int bonus, int multiplier) {

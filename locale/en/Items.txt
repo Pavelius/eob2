@@ -1,6 +1,7 @@
 ﻿Axe: Axe
 Amulet: Amulet
 Arrow: Arrow
+BandedMail: Banded mail
 BattleAxe: Battle axe
 BlueGem: Gem
 BluePotion: Potion

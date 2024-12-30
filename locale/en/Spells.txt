@@ -16,6 +16,7 @@ DetectMagic: Detect Magic
 FindTraps: Find Traps
 FlameBlade: Flame Blade
 Friends: Friends
+HypnoticPattern: Hypnotic Pattern
 HoldPerson: Hold Person
 HoldPersonGainEffect: %1i creatures stand still!
 Identify: Identify

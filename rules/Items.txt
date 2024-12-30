@@ -143,7 +143,7 @@ BluePotion cost(150) avatar(40) avatar_ground(19) powers(SimplePotions) wear(Dri
 
 LargeRation avatar(37) avatar_ground(14) damage(1 6) wear(Edible)
  feats Small
-Ration avatar(38) avatar_ground(14) damage(1 2) wear(Edible)
+Ration avatar(38) avatar_ground(14) wear(Edible)
  feats Small
 
 MageScroll cost(20) avatar(36) avatar_ground(12) wear(Readable) powers(MageSpells)
@@ -255,6 +255,8 @@ TheifStartEquipment
  elements Longsword LeatherArmor
 MageStartEquipment
  elements Robe Wand IdentifyItem Staff
+MageTheifStartEquipment
+ elements Wand IdentifyItem Robe ShortSword
 
 CommonMissionEquipment
  elements Ration

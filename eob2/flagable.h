@@ -12,6 +12,7 @@ public:
 	constexpr bool is(short unsigned v) const { return (data[v / s] & (1 << (v % s))) != 0; }
 	constexpr void remove(short unsigned v) { data[v / s] &= ~(1 << (v % s)); }
 	constexpr void set(short unsigned v) { data[v / s] |= 1 << (v % s); }
+	constexpr void set(short unsigned v, bool apply) { if(apply) set(v); else remove(v); }
 };
 // Abstract flag set partial
 template<typename T>
@@ -26,6 +27,7 @@ public:
 	constexpr bool is(short unsigned v) const { return (data & (1 << v)) != 0; }
 	constexpr void remove(short unsigned v) { data &= ~(1 << v); }
 	constexpr void set(short unsigned v) { data |= (1 << v); }
+	constexpr void set(short unsigned v, bool apply) { if(apply) set(v); else remove(v); }
 };
 typedef flagable<1, unsigned long long> flag64;
 typedef flagable<1, unsigned> flag32;

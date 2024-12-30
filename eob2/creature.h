@@ -54,6 +54,7 @@ struct creaturei : npc, statable, wearable, posable {
 	void			remove(featn v) { featable::remove(v); }
 	bool			roll(abilityn v, int bonus = 0) const;
 	void			set(featn v) { featable::set(v); }
+	void			set(featn v, bool apply) { featable::set(v, apply); }
 	void			setframe(short* frames, short index) const;
 	void			understand(racen v) { languages.set(v); }
 };

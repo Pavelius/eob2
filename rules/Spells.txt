@@ -62,7 +62,7 @@ CureLightWounds levels(1 0)
  feats Ally You
  filter IfAlive IfWounded
  instant Roll1d8 Heal+101
-DetectEvil levels(1 1)
+DetectEvil levels(1 2)
  feats Ally Group
  instant Minute0x2 ApplyEnchantSpell
  wearing SeeCursed
@@ -200,6 +200,24 @@ SymbolPain levels(7)
  feats Enemy Group
  instant Turn2d10 ApplyEnchantSpell
  wearing FeelPain
+
+Blinded levels(0 2)
+ feats Enemy
+ filter Blinded-1
+ instant SaveNegate PushModifier Permanent Blinded
+Blur levels(0 2) lighting(159 143 239)
+ feats Ally
+ instant Minute3x1 ApplyEnchantSpell
+ wearing Blurred
+HypnoticPattern levels(0 2)
+ feats Enemy Group
+ filter IfLowLevel
+ instant SaveNegate Minute3x1 ApplyEnchantSpell EffectCount+1
+ wearing Paralized
+
+DispellMagic levels(0 3)
+ feats Ally
+ instant PushModifier Permanent Blinded-1
 
 #List
 

@@ -12,11 +12,11 @@ Ranger minimal(13 13 14 0 14 0) primary(Strenght) hd(10) classes(Ranger) count(1
 Paladin minimal(12 0 9 0 13 17) primary(Strenght) hd(10) classes(Paladin) count(1) caster(2) exp_per_hd(1000) experience(4)
  alignment LawfulGood
 
-FighterCleric classes(Fighter Cleric) count(2) exp_per_hd(1000)
-FighterTheif classes(Fighter Theif) count(2) exp_per_hd(1000)
+FighterCleric classes(Fighter Cleric) count(2) exp_per_hd(1000) caster(0)
+FighterTheif classes(Fighter Theif) count(2) exp_per_hd(1000) caster(-1)
  alignment NeutralGood ChaoticGood LawfulNeutral TrueNeutral ChaoticNeutral LawfulEvil NeutralEvil ChaoticEvil
-FighterMage classes(Fighter Mage) count(2) exp_per_hd(1000)
-MageTheif classes(Mage Theif) count(2)
+FighterMage classes(Fighter Mage) count(2) exp_per_hd(1000) caster(1)
+MageTheif minimal(0 9 0 9 0 0) primary(Intellegence) classes(Mage Theif) count(2) caster(1)
  alignment NeutralGood ChaoticGood TrueNeutral ChaoticNeutral NeutralEvil ChaoticEvil
-FighterMageTheif classes(Fighter Mage Theif) count(3) exp_per_hd(700)
+FighterMageTheif classes(Fighter Mage Theif) count(3) exp_per_hd(700) caster(1)
  alignment NeutralGood ChaoticGood LawfulNeutral TrueNeutral ChaoticNeutral LawfulEvil NeutralEvil ChaoticEvil

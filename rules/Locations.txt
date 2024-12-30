@@ -66,6 +66,9 @@ Lie
  restrict_classes Paladin
 Bribe
  effect MonstersLeave
+FriendsSpellAction
+ filter Friends
+ effect Friends-1 Friendly
 
 #Location
 

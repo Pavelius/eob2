@@ -1,0 +1,6 @@
+﻿Fighter: Fighter
+Cleric: Cleric
+Mage: Mage
+MageTheif: Mage/Theif
+Theif: Theif
+Paladin: Paladin

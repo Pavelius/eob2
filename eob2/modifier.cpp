@@ -4,6 +4,7 @@
 
 BSDATA(modifieri) = {
 	{"Standart"},
+	{"Wearing"},
 	{"Permanent"},
 };
 assert_enum(modifieri, Permanent)

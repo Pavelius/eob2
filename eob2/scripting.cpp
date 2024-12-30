@@ -89,8 +89,8 @@ template<> void ftscript<reactioni>(int value, int bonus) {
 
 template<> void ftscript<feati>(int value, int bonus) {
 	switch(modifier) {
-	case Permanent: player->basic.set((featn)value); break;
-	default: player->set((featn)value); break;
+	case Permanent: player->basic.set((featn)value, bonus >= 0); break;
+	default: player->set((featn)value, bonus >= 0); break;
 	}
 }
 
@@ -765,7 +765,9 @@ static bool mission_equipment(const char* id) {
 
 static void craft_mission_equipment() {
 	mission_equipment("Common");
-	mission_equipment(player->getclassmain().id);
+	auto& ei = player->getclass();
+	for(auto i = 0; i < ei.count; i++)
+		mission_equipment(bsdata<classi>::elements[ei.classes[i]].id);
 	mission_equipment(player->getrace().id);
 }
 
@@ -1880,6 +1882,14 @@ static void add_area_overlay(int bonus) {
 	}
 }
 
+static void add_area_monsters(int bonus) {
+	for(auto& e : loc->monsters) {
+		if(!e || e.isdisabled())
+			continue;
+		points.addu(e);
+	}
+}
+
 static void filter_area(int bonus) {
 	auto filter = next_script();
 	auto ps = points.begin();
@@ -2063,6 +2073,13 @@ static bool if_undead() {
 	return player->is(Undead);
 }
 
+static bool if_prepared() {
+	auto v = next_script();
+	if(v.iskind<spelli>())
+		return player->spells[v.value] > 0;
+	return false;
+}
+
 static bool if_monsters(conditioni::fntest test) {
 	creaturei* creatures[6]; loc->getmonsters(creatures, to(party, party.d));
 	auto push_player = player;
@@ -2109,6 +2126,10 @@ static bool if_item_readable() {
 
 static bool if_last_item() {
 	return last_item != 0;
+}
+
+static bool if_low_level() {
+	return player->getlevel() <= 4;
 }
 
 static bool if_item_known_spell() {
@@ -2268,9 +2289,11 @@ BSDATA(conditioni) = {
 	{"IfItemReadable", if_item_readable},
 	{"IfItemKnownSpell", if_item_known_spell},
 	{"IfLastItem", if_last_item},
+	{"IfLowLevel", if_low_level},
 	{"IfMonstersUndead", if_monsters_undead},
 	{"IfParalized", if_paralized},
 	{"IfPoisoned", if_poisoned},
+	{"IfPrepared", if_prepared},
 	{"IfTalk", if_talk},
 	{"IfUndead", if_undead},
 	{"IfWounded", if_wounded},
@@ -2281,6 +2304,7 @@ BSDATA(script) = {
 	{"Attack", attack_modify},
 	{"ActivateQuest", activate_quest},
 	{"AddAid", player_add_aid},
+	{"AddAreaMonsters", add_area_monsters},
 	{"AddAreaOverlay", add_area_overlay},
 	{"AddExp", add_exp_group},
 	{"AddExpPersonal", add_exp_personal},

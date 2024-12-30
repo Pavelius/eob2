@@ -26,22 +26,32 @@ static void apply_summon(creaturei* player, const itemi* pi) {
 	player->wears[wear].summon(1);
 }
 
+template<> bool fttest<spelli>(int value, int bonus) {
+	spellseta* ps;
+	switch(modifier) {
+	case Permanent:
+		ps = get_spells_known(player);
+		return ps ? ps->is(value) : false;
+	default:
+		return player->spells[value] > 0;
+	}
+}
+
 template<> void ftscript<spelli>(int value, int bonus) {
 	spellseta* ps;
 	switch(modifier) {
 	case Standart:
+		last_spell = bsdata<spelli>::elements + value;
+		break;
+	case Wearing:
 		if(bsdata<spelli>::elements[value].summon)
 			apply_summon(player, bsdata<spelli>::elements[value].summon);
 		script_run(bsdata<spelli>::elements[value].wearing);
 		break;
 	case Permanent:
 		ps = get_spells_known(player);
-		if(ps) {
-			if(bonus >= 0)
-				ps->set(value);
-			else
-				ps->remove(value);
-		}
+		if(ps)
+			ps->set(value, bonus >= 0);
 		break;
 	default:
 		break;
@@ -175,9 +185,8 @@ static void apply_effect(const variants& source) {
 
 void apply_enchant_spell(int bonus) {
 	last_number += bonus;
-	if(!last_spell || last_number <= 0 || !player)
-		return;
-	add_boost(party.abilities[Minutes] + last_number, player, last_spell);
+	if(last_spell && last_number > 0 && player)
+		add_boost(party.abilities[Minutes] + last_number, player, last_spell);
 }
 
 static void select_items(const variants& filter) {

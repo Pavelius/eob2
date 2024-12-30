@@ -301,6 +301,10 @@ static void update_depended_abilities() {
 		player->abilities[Speed] -= player->wears[LeftHand].geti().speed;
 	if(player->is(FeelPain))
 		player->add(AttackMelee, -4);
+	if(player->is(Blinded)) {
+		player->add(AttackMelee, -4);
+		player->add(AttackRange, -4);
+	}
 }
 
 static void update_bonus_saves() {
@@ -356,7 +360,7 @@ static void update_wear() {
 }
 
 static void update_duration() {
-	auto push_modifier = modifier; modifier = Standart;
+	auto push_modifier = modifier; modifier = Wearing;
 	referencei target = player;
 	for(auto& e : bsdata<boosti>()) {
 		if(e.target == target)
@@ -505,9 +509,10 @@ static void set_class_ability() {
 		auto pd = bsdata<classi>::elements + pc.classes[i];
 		player->levels[i]++;
 		if(pd->hd) {
-			player->hpr = 1 + rand() % pd->hd;
-			if(player->hpr < pd->hd / 2)
-				player->hpr = pd->hd / 2;
+			auto value = 1 + rand() % pd->hd;
+			if(value < pd->hd / 2)
+				value = pd->hd / 2;
+			player->hpr += value;
 		}
 		advance_level(pd, player->levels[i]);
 	}

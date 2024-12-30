@@ -10,6 +10,9 @@
 
 #List
 
+MageTestSpells
+ elements PushModifier Permanent Friends
+
 HumanFighter
  elements Human Male Fighter CreateCharacter AddExpPersonal+50 
 HumanPaladin
@@ -17,12 +20,12 @@ HumanPaladin
 DwarfCleric
  elements Dwarf Male Cleric CreateCharacter AddExpPersonal+50 
 ElfMage
- elements Elf Female Mage CreateCharacter AddExpPersonal+50 
+ elements Elf Female MageTheif CreateCharacter AddExpPersonal+50 MageTestSpells
 HalflingTheif
  elements Halfling Female Theif CreateCharacter AddExpPersonal+50 
 
 CreateTestParty
- elements HumanPaladin JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty AddExpPersonal+50 HalflingTheif JoinParty
+ elements HumanPaladin JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty
 
 StartGameAbilities
  elements FloodedSewers ActivateQuest CursedDungeon ActivateQuest GoldPiece+50 Reputation+20 

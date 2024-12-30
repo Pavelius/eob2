@@ -1,5 +1,5 @@
 #pragma once
 
 enum modifiern : unsigned char {
-	Standart, Permanent,
+	Standart, Wearing, Permanent,
 };

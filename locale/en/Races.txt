@@ -1,10 +1,4 @@
-﻿Fighter: Fighter
-Cleric: Cleric
-Mage: Mage
-Theif: Theif
-Paladin: Paladin
-
-Human: Human
+﻿Human: Human
 Dwarf: Dwarf
 Elf: Elf
 Halfling: Halfling

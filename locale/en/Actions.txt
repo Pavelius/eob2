@@ -27,6 +27,7 @@ FeelDisease: %Name feels bad
 FeelPoison: %Name suffer from poison
 FeelWorse: %Name feels bad
 FindAllSecrets: Find all secrets
+FriendsSpellAction: Friends
 GambleVisitors: Gamble with someone
 GameOptions: Game Options
 GameOptionsOptions: Game Options

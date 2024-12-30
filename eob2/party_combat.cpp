@@ -151,16 +151,18 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		if(player->is(Large) && defender->is(BonusACVsLargeEnemy))
 			ac += 4;
 	}
+	// RULE: Magically blurred wizard
+	if(defender->is(Blurred) && !player->is(SeeIllusionary))
+		bonus -= 4;
+	// RULE: One race hate another
 	if(player->hate.is(defender->race)) {
 		if(player->is(BonusAttackVsHated))
 			bonus += 1;
 		if(player->is(BonusDamageVsEnemy))
 			bonus += 4;
 	}
-	if(power.iskind<racei>() && defender->race == power.value) {
-		bonus += 3;
-		multiplier += 1;
-	} else if(player->is(weapon, Holy) && defender->is(Undead)) {
+	if((power.iskind<racei>() && defender->race == power.value)
+		|| (player->is(weapon, Holy) && defender->is(Undead))) {
 		bonus += 3;
 		multiplier += 1;
 	}

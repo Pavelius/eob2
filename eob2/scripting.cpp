@@ -950,6 +950,13 @@ static void for_each_party(int bonus) {
 	script_stop();
 }
 
+static void activate_linked_overlay(int bonus) {
+	auto po = loc->get(*player, player->d);
+	if(!po || !po->link)
+		return;
+	loc->set(po->link, CellActive);
+}
+
 static void activate_quest(int bonus) {
 	if(!last_quest)
 		return;
@@ -1652,6 +1659,10 @@ static void make_roll(int bonus) {
 	}
 }
 
+static void set_level(int bonus) {
+	last_number = last_level + get_bonus(bonus);
+}
+
 static void set_variable(int bonus) {
 	party.abilities[last_variable] = get_bonus(bonus);
 }
@@ -1901,6 +1912,29 @@ static void add_area_overlay(int bonus) {
 	}
 }
 
+static void add_area_items(int bonus) {
+	auto filter = next_script();
+	auto keep = bonus >= 0;
+	// Ground items
+	for(auto& e : loc->items) {
+		if(!e)
+			continue;
+		if(filter_variant(filter, &e.geti()) != keep)
+			continue;
+		auto v = to(e, e.d);
+		points.addu(v);
+	}
+	// Wall cellar items
+	for(auto& e : loc->overlayitems) {
+		if(!e)
+			continue;
+		if(filter_variant(filter, &e.geti()) != keep)
+			continue;
+		auto v = loc->overlays[e.storage_index];
+		points.addu(v);
+	}
+}
+
 static void add_area_monsters(int bonus) {
 	for(auto& e : loc->monsters) {
 		if(!e || e.isdisabled())
@@ -2066,6 +2100,13 @@ static void stairs_up_side(stringbuilder& sb) {
 
 static bool if_alive() {
 	return !player->isdead();
+}
+
+static bool if_area_locked() {
+	auto po = loc->get(*player, player->d);
+	if(!po || po->type != CellKeyHole || !po->link)
+		return false;
+	return !loc->is(po->link, CellActive);
 }
 
 static bool if_diseased() {
@@ -2297,6 +2338,7 @@ BSDATA(talking) = {
 BSDATAF(talking)
 BSDATA(conditioni) = {
 	{"IfAlive", if_alive},
+	{"IfAreaLocked", if_area_locked},
 	{"IfDiseased", if_diseased},
 	{"IfIntelligence", if_intelligence},
 	{"IfItemCharged", if_item_charged},
@@ -2321,7 +2363,9 @@ BSDATA(script) = {
 	{"AllLanguages", all_languages},
 	{"Attack", attack_modify},
 	{"ActivateQuest", activate_quest},
+	{"ActivateLinkedOverlay", activate_linked_overlay},
 	{"AddAid", player_add_aid},
+	{"AddAreaItems", add_area_items},
 	{"AddAreaMonsters", add_area_monsters},
 	{"AddAreaOverlay", add_area_overlay},
 	{"AddExp", add_exp_group},
@@ -2389,6 +2433,7 @@ BSDATA(script) = {
 	{"SaveHalf", save_half},
 	{"SaveNegate", save_negate},
 	{"SelectArea", select_area},
+	{"SetLevel", set_level},
 	{"SetVariable", set_variable},
 	{"ShowArea", show_area},
 	{"Switch", apply_switch},

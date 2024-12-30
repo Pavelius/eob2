@@ -9,6 +9,10 @@ static int add_formula(int p1, int p2) {
 	return p1 + p2;
 }
 
+static int div_formula(int p1, int p2) {
+	return p1 / p2;
+}
+
 static int sub_formula(int p1, int p2) {
 	return p1 - p2;
 }
@@ -30,6 +34,7 @@ BSMETA(formulai) = {
 	{}};
 BSDATA(formulai) = {
 	{"Add", add_formula},
+	{"Div", div_formula},
 	{"Mul", mul_formula},
 	{"Set", set_formula},
 	{"Sub", sub_formula},

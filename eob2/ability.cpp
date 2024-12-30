@@ -46,6 +46,8 @@ BSDATA(abilityi) = {
 	{"BonusExperience"},
 	{"ReactionBonus"},
 	{"ExeptionalStrenght"},
+	{"AcidD1Level"},
+	{"AcidD2Level"},
 	{"PoisonLevel"},
 	{"DiseaseLevel"},
 	{"DrainStrenght"},

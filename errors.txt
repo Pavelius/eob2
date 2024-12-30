@@ -1,2 +1,2 @@
-﻿Error in file `rules/Actions.txt`:
- Line 10: Can't find variant `IfItemIdentify`
+﻿Error in file `rules/Spells.txt`:
+ Line 238: Can't find variant `MostersFlee`

@@ -230,6 +230,10 @@ All trap is visible for me
 I see all traps in area
 Behold all traps
 
+#KnockSuccess
+Knock-knock, door is open
+And now - some magical lock trick
+
 #UseMagicMapSuccess
 A secret door! I know it!
 Aha! Secret door

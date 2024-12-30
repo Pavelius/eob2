@@ -306,6 +306,20 @@ static void check_poison() {
 	player->add(PoisonLevel, -1);
 }
 
+static void check_acid() {
+	auto damage = 0;
+	if(player->is(AcidD1Level)) {
+		damage += xrand(1, 4);
+		player->add(AcidD1Level, -1);
+	}
+	if(player->is(AcidD2Level)) {
+		damage += xrand(1, 4);
+		player->add(AcidD2Level, -1);
+	}
+	if(damage)
+		player->damage(Acid, damage);
+}
+
 static void check_disease() {
 	if(!player->is(DiseaseLevel))
 		return;

@@ -220,6 +220,22 @@ HypnoticPattern levels(0 2)
  filter IfLowLevel IfIntelligence Paralized-1 ImmuneCharm-1
  instant SaveNegate Minute3x1 ApplyEnchantSpell EffectCount+1
  wearing Paralized
+Knock levels(0 2)
+ feats You SummaryEffect
+ filter IfAreaLocked
+ instant ActivateLinkedOverlay
+LocateGems levels(0 2)
+ feats You
+ instant ClearArea FilterArea RandomGem ShowArea
+MelfAcidArrow levels(0 2)
+ feats Enemy
+ instant SaveNegate Roll2d4 Acid SetLevel Div+3 AcidD1Level+101 AcidD2Level+101
+MirrorImage
+ feats You
+Scare
+ feats Enemy Group
+ filter IfLowLevel IfIntelligence ImmuneCharm-1
+ instant MonstersFlee
 
 DispellMagic levels(0 3)
  feats Ally
@@ -233,7 +249,9 @@ DefaultMageSpells
  elements Armor MagicMissile+2
 
 MageSpells
- elements Armor+1 BurningHands+1 ChillTouch+1 ComprehendLanguages+1 DetectEvil+1 DetectMagic+1 Identify+1 Friends+1 MagicMissile+1 Mending+1 ShieldSpell+1 ShockingGrasp+1
+ elements Armor+1 BurningHands+1 ChillTouch+1 ComprehendLanguages+1 DetectEvil+1 DetectMagic+1 Identify+1 Friends+1\
+ MagicMissile+1 Mending+1 ShieldSpell+1 ShockingGrasp+1\
+ Knock+1 Blinding+1 HypnoticPattern+1 Blur+1 LocateGems+1
 PriestSpells
  elements PurifyFood+1 FindTraps+1 CureSeriousWounds+1 RemoveCurse+2 CurePoison+2 CureDisease+2 NeutralizePoison+3 RaiseDead+4 Restoration+5
 WandSpells

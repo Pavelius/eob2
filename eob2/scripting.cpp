@@ -87,6 +87,9 @@ template<> void ftscript<reactioni>(int value, int bonus) {
 	last_reaction = (reactions)value;
 }
 
+template<> bool fttest<feati>(int value, int bonus) {
+	return player->is((featn)value) == (bonus >= 0);
+}
 template<> void ftscript<feati>(int value, int bonus) {
 	switch(modifier) {
 	case Permanent: player->basic.set((featn)value, bonus >= 0); break;
@@ -2085,10 +2088,6 @@ static bool if_wounded() {
 	return player->gethp() < player->hpm;
 }
 
-static bool if_undead() {
-	return player->is(Undead);
-}
-
 static bool if_prepared() {
 	auto v = next_script();
 	if(v.iskind<spelli>())
@@ -2110,6 +2109,10 @@ static bool if_monsters(conditioni::fntest test) {
 	}
 	player = push_player;
 	return false;
+}
+
+static bool if_undead() {
+	return player->is(Undead);
 }
 
 static bool if_monsters_undead() {
@@ -2311,7 +2314,6 @@ BSDATA(conditioni) = {
 	{"IfPoisoned", if_poisoned},
 	{"IfPrepared", if_prepared},
 	{"IfTalk", if_talk},
-	{"IfUndead", if_undead},
 	{"IfWounded", if_wounded},
 };
 BSDATAF(conditioni)

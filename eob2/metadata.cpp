@@ -213,7 +213,7 @@ BSDATA(varianti) = {
 	{"Creature", VAR(creaturei, 0)},
 	{"Damage", VAR(damagei, 1), 0, 0, ftscript<damagei>},
 	{"Dungeon", VAR(dungeoni, 0)},
-	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>},
+	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>, fttest<feati>},
 	{"Formula", VAR(formulai, 1), 0, 0, ftscript<formulai>},
 	{"Gender", VAR(genderi, 1), 0, 0, ftscript<genderi>},
 	{"Item", VAR(itemi, 1), 0, 0, ftscript<itemi>},

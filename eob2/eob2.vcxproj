@@ -327,7 +327,7 @@
     <Text Include="..\rules\Classes.txt" />
     <Text Include="..\rules\Core.txt" />
     <Text Include="..\rules\Items.txt" />
-    <Text Include="..\rules\Locations.txt" />
+    <Text Include="..\rules\Actions.txt" />
     <Text Include="..\rules\Monsters.txt" />
     <Text Include="..\rules\Quests.txt" />
     <Text Include="..\rules\Races.txt" />

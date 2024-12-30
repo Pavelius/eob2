@@ -86,7 +86,7 @@ MagicMissile levels(0 1) avatar_thrown(5)
 Mending levels(0 1)
  feats Ally You WearItem
  filter IfItemEdible-1 IfItemCharged-1 IfItemDamaged
- instant DamageItem-1
+ instant DamageItem-1 EffectCount+1
 ProtectionFromEvil levels(1 1) lighting(150 00 24)
  feats Ally
  instant Turn5x1 ApplyEnchantSpell
@@ -120,7 +120,7 @@ FindTraps levels(2)
  instant SelectArea FilterArea TrapCells ShowArea
 HoldPerson levels(2)
  feats Enemy
- filter IfIntelligence IfParalized-1 IfUndead-1
+ filter IfIntelligence IfParalized-1 ImmuneCharm-1
  instant SaveNegate Minute0x2 ApplyEnchantSpell EffectCount+1
  wearing Paralized
 ResistFireSpell levels(2)
@@ -158,7 +158,7 @@ Prayer levels(3) lighting(255 239 0)
 RemoveCurse levels(3)
  feats Ally You WearItem
  filter IfItemCursed IfItemIdentified
- instant CurseItem-1
+ instant CurseItem-1 EffectCount+1
 RemoveParalize levels(3)
  feats Ally You
  filter IfParalized
@@ -173,7 +173,7 @@ NeutralizePoison levels(4)
  feats Ally You
  filter IfAlive IfPoisoned
  instant PoisonLevel-100
-ProtectionFromEvil levels(4)
+ProtectionFromEvil10ft levels(4)
  feats Ally You Group
  instant Turn0x1 ApplyEnchantSpell
  wearing ProtectedFromEvil
@@ -207,7 +207,7 @@ SymbolPain levels(7)
  instant Turn2d10 ApplyEnchantSpell
  wearing FeelPain
 
-Blinded levels(0 2)
+Blinding levels(0 2)
  feats Enemy
  filter Blinded-1
  instant SaveNegate PushModifier Permanent Blinded
@@ -217,7 +217,7 @@ Blur levels(0 2) lighting(159 143 239)
  wearing Blurred
 HypnoticPattern levels(0 2)
  feats Enemy Group
- filter IfLowLevel
+ filter IfLowLevel IfIntelligence Paralized-1 ImmuneCharm-1
  instant SaveNegate Minute3x1 ApplyEnchantSpell EffectCount+1
  wearing Paralized
 

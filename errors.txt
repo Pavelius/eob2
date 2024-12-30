@@ -1,2 +1,2 @@
-﻿Error in file `rules/Spells.txt`:
- Line 77: Can't find variant `ReactionCheck`
+﻿Error in file `rules/Actions.txt`:
+ Line 10: Can't find variant `IfItemIdentify`

@@ -556,7 +556,7 @@
     <Text Include="..\locale\en\Items.txt">
       <Filter>locale</Filter>
     </Text>
-    <Text Include="..\rules\Locations.txt">
+    <Text Include="..\rules\Actions.txt">
       <Filter>rules</Filter>
     </Text>
     <Text Include="..\locale\en\Campaign.txt">

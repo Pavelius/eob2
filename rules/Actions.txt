@@ -7,7 +7,7 @@ ChooseDonation
 GameOptions
  elements ChooseMenu LoadGame SaveGame ExitGame
 ChooseMageScrolls
- elements ChooseItems IfItemReadable IfItemKnownSpell-1
+ elements ChooseItems IfItemReadable IfItemIdentified IfItemKnownSpell-1
 RestorePartySpells
  elements ForEachParty RestoreSpells
 ScribleScrollsFail
@@ -56,6 +56,7 @@ RestParty
 ScribleScrolls
  classes Mage
  effect ChooseMageScrolls IfLastItem ItemPowerSpell LearnSpell Roll LearnLastSpell DestroyItem
+
 Attack
  effect Hostile AddExpEvil+1
 Talk

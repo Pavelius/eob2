@@ -266,7 +266,7 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 		}
 	}
 	if(ps->is(You)) {
-		if(!an.findvalue(player))
+		if(an.findvalue(player)==-1)
 			an.add(player, player->getname());
 	}
 	if(ps->summon)

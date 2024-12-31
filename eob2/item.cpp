@@ -209,7 +209,7 @@ void item::usecharge(const char* interactive, int chance, int maximum) {
 	if(d100() < chance)
 		return;
 	count++;
-	if(count > maximum) {
+	if(count >= maximum) {
 		if(interactive)
 			consolen(getnm(interactive), getnm(geti().id));
 		clear();

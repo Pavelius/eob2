@@ -1,3 +1,4 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `KillBoss`
- Define translation for `KillBossMinions`
+﻿Error in file `rules/Quests.txt`:
+ Line 15: Not found Monster identifier `Wolf`
+ Line 15: Not found Monster identifier `Golbin`
+ Line 15: Not found Race identifier `Orc`

@@ -198,8 +198,7 @@ void item::createpower(char magic_bonus, int chance_magical, int chance_cursed) 
 				source.add(v);
 		}
 		if(source) {
-			zshuffle(source.data, source.count);
-			setpower(source.data[0]);
+			setpower(source.random());
 			return;
 		}
 		magic_bonus--;

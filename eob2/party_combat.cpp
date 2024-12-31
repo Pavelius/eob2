@@ -120,7 +120,7 @@ static void drain_attack(creaturei* defender, const item& weapon, featn type, ab
 static void hit_equipment(creaturei* player) {
 	static wearn equipment[] = {Body, LeftHand, Head, Elbow, Legs, Neck};
 	for(auto w : equipment) {
-		if(!player->wears[w])
+		if(!player->wears[w] || player->wears[w].is(You))
 			continue;
 		if(player->roll(SaveVsParalization))
 			continue;
@@ -219,12 +219,14 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		if(is_critical_hit) {
 			// RULE: Weapon with spell cast it when critical hit occurs
 			if(power.iskind<spelli>()) {
-				//	auto spell = (spell_s)power.value;
-				//	if(bsdata<spelli>::elements[spell].effect.type.type == Damage)
-				//		cast(spell, Mage, wi.weapon->getmagic(), defender);
-				//	else
-				//		cast(spell, Mage, wi.weapon->getmagic(), this);
+				auto ps = bsdata<spelli>::elements + power.value;
+				if(ps->is(Enemy)) {
+					// cast_spell(ps, player->getlevel(), 0, true, false, defender);
+				} else {
+					// cast_spell(ps, player->getlevel(), 0, true, false, player);
+				}
 			}
+			hit_equipment(defender);
 		}
 		// RULE: vampiric ability allow user to drain blood and regain own HP
 		if(player->is(weapon, VampiricAttack)) {
@@ -257,8 +259,7 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		} else
 			player->damage(Bludgeon, 1, 5);
 		return;
-	} else if(is_critical_hit)
-		hit_equipment(defender);
+	}
 }
 
 static void single_main_attack(wearn wear, creaturei* enemy, int bonus, int multiplier) {

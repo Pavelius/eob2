@@ -944,7 +944,8 @@ void paint_dungeon() {
 }
 
 void animation_update() {
-	prepare_draw(party, party.d);
+	if(loc)
+		prepare_draw(party, party.d);
 }
 
 renderi* get_last_disp() {

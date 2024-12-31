@@ -59,6 +59,7 @@ BSMETA(actioni) = {
 	BSFLG(restrict_classes, classi),
 	BSFLG(alignment, alignmenti),
 	BSREQ(effect), BSREQ(filter),
+	BSDST(required, partystati),
 	{}};
 BSMETA(abilityi) = {
 	BSREQ(id),
@@ -143,6 +144,7 @@ BSMETA(locationi) = {
 	BSREQ(parent),
 	BSREQ(avatar),
 	BSREQ(options),
+	BSDST(required, partystati),
 	{}};
 BSMETA(monsteri) = {
 	BSREQ(id),

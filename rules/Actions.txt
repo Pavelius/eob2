@@ -51,6 +51,7 @@ PickPocketsAction avatar(buildngs 10)
 PrayForSpells
  classes Cleric Paladin Ranger
  effect ChooseSpells+0
+RepairWeapons
 RestParty
  effect ConfirmAction RestParty+10 ReturnToStreet
 ScribleScrolls
@@ -81,9 +82,12 @@ Tavern avatar(buildngs 5) parent(HunterVillage)
  options EatAndDrink GambleVisitors PickPocketsAction ReturnToStreet
 Temple avatar(buildngs 8) parent(HunterVillage)
  options BuyHealing Donate ReturnToStreet
+Blacksmith avatar(buildngs 0) parent(HunterVillage)
+ options RepairWeapons
+ required Reputation(20)
 
 HunterVillage avatar(buildngs 26)
- options PartyAdventure Inn Tavern Temple
+ options PartyAdventure Inn Tavern Temple Blacksmith
 
 #List
 

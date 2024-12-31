@@ -1,5 +1,6 @@
 ﻿AmbushTest: You were ambushed by enemy!
 Attack: Attack
+Blacksmith: Blacksmith
 Bribe: Bribe
 BuyHealing: Buy Healing
 CampMenu: Camp Options:
@@ -53,6 +54,7 @@ PickPocketsVisit: Pick some pockets
 PrayForSpells: Pray for Spells
 QuestGoals: Quest Goals
 RemoveTrapsFail: Fail remove trap
+RepairWeapons: Repair weapons
 RestParty: Rest party
 RestPartyConfirm: Rest all party for 8 hours?
 ReturnToStreet: Leave to the street

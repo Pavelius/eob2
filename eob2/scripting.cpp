@@ -231,10 +231,18 @@ static bool party_have(flag32 classes) {
 	return false;
 }
 
+static bool ismatch(char* abilitites) {
+	for(auto i = 0; i <= Blessing; i++) {
+		if(abilitites[i] && party.abilities[i] < abilitites[i])
+			return false;
+	}
+	return true;
+}
+
 static void add_menu(variant& v) {
 	if(v.iskind<actioni>()) {
 		auto p = bsdata<actioni>::elements + v.value;
-		if(!party_have(p->restrict_classes) && p->isallow(player))
+		if(!party_have(p->restrict_classes) && p->isallow(player) && ismatch(p->required))
 			an.add(v.getpointer(), v.getname());
 	} else if(v.iskind<formulai>()) {
 		auto p = bsdata<formulai>::elements + v.value;
@@ -244,7 +252,8 @@ static void add_menu(variant& v) {
 		an.add(p, getnm(p->id));
 	} else if(v.iskind<locationi>()) {
 		auto format = get_header(v.getid(), "Visit");
-		an.add(v.getpointer(), format, v.getname());
+		if(ismatch(bsdata<locationi>::elements[v.value].required))
+			an.add(v.getpointer(), format, v.getname());
 	} else
 		an.add(v.getpointer(), v.getname());
 }

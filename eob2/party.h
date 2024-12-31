@@ -25,13 +25,15 @@ enum partystatn : unsigned char {
 	StartYear, StartDeadLine, StopDeadLine, Minutes,
 	EffectCount,
 };
+struct partystata {
+	int				abilities[EffectCount + 1];
+};
 struct partystati : nameable {
 };
-struct partyi : posable {
+struct partyi : posable, partystata {
 	short unsigned	location_id, quest_id;
 	questa			active, done, prepared;
 	unsigned char	stages[256];
-	int				abilities[EffectCount + 1];
 	void			clear();
 	locationi*		getlocation() const;
 	int				getstage(unsigned char v) const { return stages[quest_id]; }

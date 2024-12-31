@@ -755,7 +755,6 @@ static void header_yellow_spells_by_level(int level, int max_level) {
 }
 
 static void header_yellow_spells(const char* format) {
-	// header_yellow(format);
 	header_yellow_spells_by_level(last_spell_level, 9);
 }
 
@@ -1569,13 +1568,14 @@ void* choose_small_menu(const char* header, const char* cancel) {
 	return choose_answer(header, cancel, paint_small_menu, text_label_menu, 0, maximum, header_yellow);
 }
 
-//void* choose_small_menu_spells(const char* header, const char* cancel, int spell_level) {
-//	int maximum = 6;
-//	if(cancel)
-//		maximum--;
-//	last_spell_level = spell_level;
-//	return choose_answer(header, cancel, paint_small_menu, text_label_menu, 0, maximum, header_yellow_spells);
-//}
+void* choose_small_menu_spells(const char* header, const char* cancel) {
+	int maximum = 6;
+	if(cancel)
+		maximum--;
+	last_spell_level = 1;
+	// last_spell_level = 1;
+	return choose_answer(header, cancel, paint_small_menu, text_label_menu, 0, maximum, header_yellow_spells);
+}
 
 void* choose_main_menu() {
 	return choose_answer(0, 0, paint_main_menu, text_label, 1, -1, 0);

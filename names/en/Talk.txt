@@ -15,6 +15,13 @@ This key hole open nearest door
 Already opened
 Stop! The door is already open
 
+#CellDecor1Dung
+What kind of monster it is?
+Something big leave this
+
+#CellDecor1DungFighter
+Looks like %Habbitant2 leave this
+
 #CellDecor1Blue
 Some kind of runes
 I don't known what is it

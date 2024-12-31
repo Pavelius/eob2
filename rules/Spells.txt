@@ -74,7 +74,7 @@ DetectMagic levels(1 1)
  wearing SeeMagical
 Friends levels(0 1)
  feats Enemy Group SummaryEffect
- filter IfIntelligence
+ filter IfIntelligence ImmuneCharm-1
  instant Indifferent MonstersReaction Roll2d4 ReactionCheck+101
 Identify levels(0 1)
  feats Ally WearItem
@@ -114,7 +114,7 @@ Augury levels(2)
  wearing BonusExperience+1
 FlameBlade levels(2) summon(FlameBladeHand)
  feats You
- instant Minute4x1 ApplyEnchantSpell
+ instant Turn5x1 ApplyEnchantSpell // This is not original duration, but playtest say that it will be
 FindTraps levels(2)
  feats You
  instant SelectArea FilterArea TrapCells ShowArea

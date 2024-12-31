@@ -1,2 +1,3 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `Habit1`
+ Define translation for `KillBoss`
+ Define translation for `KillBossMinions`

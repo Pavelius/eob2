@@ -629,6 +629,7 @@ void pass_round() {
 }
 
 void pass_hours(int value) {
+	animation_update();
 	add_party(Minutes, 60 * value);
 	clear_boost(party.abilities[Minutes], clear_boost_proc);
 	all_creatures(update_every_round);
@@ -636,13 +637,14 @@ void pass_hours(int value) {
 		all_creatures(update_every_turn);
 	for(auto i = 0; i < value; i++)
 		all_creatures(update_every_hour);
+	fix_animate();
 }
 
 int party_best(creaturei** creatures, abilityn v, bool set_player) {
 	auto bi = -1;
 	auto bv = -1;
 	for(int i = 0; i < 6; i++) {
-		if(!creatures[i] || creatures[i]->isdisabled())
+		if(!creatures[i] || !creatures[i]->isready())
 			continue;
 		if(bv > creatures[i]->get(v))
 			continue;
@@ -658,7 +660,7 @@ int party_median(creaturei** creatures, abilityn v) {
 	auto count = 0;
 	auto value = 0;
 	for(int i = 0; i < 6; i++) {
-		if(!creatures[i])
+		if(!creatures[i] || !creatures[i]->isready())
 			continue;
 		value += creatures[i]->abilities[v];
 		count++;

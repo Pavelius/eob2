@@ -97,11 +97,11 @@ Spear speed(6) damage_type(Piercing) damage(1 6) avatar(6) avatar_ground(3) wear
  feats UseMartial
 Staff speed(4) damage(1 6) avatar(8) avatar_ground(3) wear(RightHand) powers(MeleePowers)
  feats TwoHanded
-Longsword cost(15) speed(5) damage(1 8) avatar(1) avatar_ground(0) wear(RightHand) powers(MeleePowers)
+Longsword cost(15) speed(5) damage_type(Slashing) damage(1 8) avatar(1) avatar_ground(0) wear(RightHand) powers(MeleePowers)
  feats UseElvish UseMartial Precise
-ShortSword cost(10) speed(4) damage(1 6) avatar(2) avatar_ground(0) wear(RightHand) powers(MeleePowers)
+ShortSword cost(10) speed(4) damage_type(Slashing) damage(1 6) avatar(2) avatar_ground(0) wear(RightHand) powers(MeleePowers)
  feats UseRogish UseElvish UseMartial Precise
-TwoHandedSword cost(50) speed(10) damage(1 10) damage_large(3 18) avatar(42) avatar_ground(0) wear(RightHand) powers(MeleePowers)
+TwoHandedSword cost(50) speed(10) damage_type(Slashing) damage(1 10) damage_large(3 18) avatar(42) avatar_ground(0) wear(RightHand) powers(MeleePowers)
  feats UseMartial TwoHanded Precise
 Bow cost(60) speed(8) damage_type(Piercing) damage(1 6) ammo(Arrow) avatar(10) avatar_ground(6) wear(RightHand) avatar_thrown(13)
  feats UseMartial UseRogish TwoHanded

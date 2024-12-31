@@ -91,5 +91,7 @@ WhatSpell: What spell?
 DisableAllTraps: Disable all traps
 ExmploreMostArea: Explore area
 KillAlmostAllMonsters: Kill all of them
+KillBoss: Kill boss
+KillBossMinions: Kill boss minions
 TakeSpecialItem: Find special items
 OpenAllLockedDoors: Open all locks

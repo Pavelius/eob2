@@ -31,3 +31,11 @@ We found all secrets. Not bad.
 #KillAlmostAllMonstersReward
 We kill almost all of them
 Good, population of these creatures has been lowered
+
+#KillBossReward
+We do this! Kill this ugly monster
+We kill this tought guy
+
+#KillBossMinionsReward
+We kills all minions
+That be last one minion

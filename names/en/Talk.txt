@@ -39,6 +39,11 @@ Find ladder in %StairsDownSide part of dungeon
 #CellDecor2Brick
 A drainage gate. I think
 
+#CellDecor2Dung
+I see something behind bars
+Old drainage gate
+That eyes look on me
+
 #CellDecor3Brick
 What a stench!
 

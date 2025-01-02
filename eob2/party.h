@@ -31,6 +31,7 @@ struct partystata {
 struct partystati : nameable {
 };
 struct partyi : posable, partystata {
+	int				unlock[Blessing + 1];
 	short unsigned	location_id, quest_id;
 	questa			active, done, prepared;
 	unsigned char	stages[256];
@@ -55,6 +56,7 @@ void check_reaction(creaturei** creatures, int bonus);
 void continue_game();
 void delete_game(const char* id);
 bool is_dead_line();
+bool ismatch(char* abilitites);
 void join_party(int bonus);
 void main_menu();
 void make_attacks(bool melee_combat);
@@ -64,6 +66,7 @@ void party_addexp_per_killed(int victim_hit_die);
 void party_addexp(alignmentn v, int value);
 bool party_is(alignmentn v);
 bool party_is(featn v);
+void party_unlock();
 void pass_hours(int count);
 void pass_round();
 void reaction_check(int bonus);

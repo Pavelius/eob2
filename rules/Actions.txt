@@ -97,13 +97,13 @@ Temple avatar(buildngs 8) parent(HunterVillage)
  options BuyHealing Donate ReturnToStreet
 Blacksmith avatar(buildngs 0) parent(HunterVillage)
  options RepairItems BuyWeapon ReturnToStreet
- required Reputation(25)
+ required Reputation(20)
 WizardTower avatar(buildngs 3) parent(HunterVillage)
  options BuySpell ReturnToStreet
- required Reputation(30)
+ required Reputation(20)
 
 HunterVillage avatar(buildngs 26)
- options PartyAdventure Inn Tavern Temple Blacksmith
+ options PartyAdventure Inn Tavern Temple Blacksmith WizardTower
 
 #List
 

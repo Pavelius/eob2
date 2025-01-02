@@ -230,12 +230,16 @@ static const char* get_title(const char* id, const char* action) {
 	return temp;
 }
 
-static bool ismatch(char* abilitites) {
+static bool ismatch(char* abilitites, int* resources) {
 	for(auto i = 0; i <= Blessing; i++) {
-		if(abilitites[i] && party.abilities[i] < abilitites[i])
+		if(abilitites[i] && resources[i] < abilitites[i])
 			return false;
 	}
 	return true;
+}
+
+bool ismatch(char* abilitites) {
+	return ismatch(abilitites, party.abilities);
 }
 
 static void add_menu(variant& v, bool whole_party = false) {
@@ -906,6 +910,40 @@ static void after_dungeon_action(const char* id, fnevent proc) {
 		dialog(0, getnm(id));
 }
 
+static void copy_ability(int* dest, int* source) {
+	for(auto i = 0; i <= Blessing; i++) {
+		if(dest[i] < source[i])
+			dest[i] = source[i];
+	}
+}
+
+static void party_unlock() {
+	// Unlock locations
+	for(auto& e : bsdata<locationi>()) {
+		if(!ismatch(e.required))
+			continue;
+		if(ismatch(e.required, party.unlock))
+			continue;
+		auto pn = getnme(ids(e.id, "Unlock"));
+		if(!pn)
+			continue;
+		dialog(0, pn);
+	}
+	// Unlock actions
+	for(auto& e : bsdata<actioni>()) {
+		if(!ismatch(e.required))
+			continue;
+		if(ismatch(e.required, party.unlock))
+			continue;
+		auto pn = getnme(ids(e.id, "Unlock"));
+		if(!pn)
+			continue;
+		dialog(0, pn);
+	}
+	// Copy unlock ability
+	copy_ability(party.unlock, party.abilities);
+}
+
 static void enter_location(int bonus) {
 	if(loc) {
 		all_party(clear_mission_equipment, false);
@@ -915,6 +953,7 @@ static void enter_location(int bonus) {
 		after_dungeon_action("LootSelling", loot_selling);
 		pass_hours(xrand(2, 4));
 	}
+	party_unlock();
 	loc = 0;
 	last_quest = 0;
 	party.quest_id = 0xFFFF;

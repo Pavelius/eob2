@@ -62,7 +62,8 @@ PrayForSpells
  classes Cleric Paladin Ranger
  effect ChooseSpells+0
 RepairItems
- filter_item IfItemDamaged
+ filter_item IfItemEdible-1 IfItemRod-1 IfItemReadable-1 IfItemDamaged
+ effect ActionPlayerItems ForEachItem DamageItem-1
 RestParty
  effect ConfirmAction SleepParty+6 ReturnToStreet
 ScribleScrolls

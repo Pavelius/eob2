@@ -193,6 +193,7 @@
     <ClInclude Include="script.h" />
     <ClInclude Include="seqlink.h" />
     <ClInclude Include="shape.h" />
+    <ClInclude Include="shop.h" />
     <ClInclude Include="sliceu.h" />
     <ClInclude Include="special.h" />
     <ClInclude Include="speech.h" />
@@ -270,6 +271,7 @@
     <ClCompile Include="scripting.cpp" />
     <ClCompile Include="serial.cpp" />
     <ClCompile Include="shape.cpp" />
+    <ClCompile Include="shop.cpp" />
     <ClCompile Include="speech.cpp" />
     <ClCompile Include="spell.cpp" />
     <ClCompile Include="sprite_util.cpp" />

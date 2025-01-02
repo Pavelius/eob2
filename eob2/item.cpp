@@ -100,7 +100,7 @@ const char*	item::getname() const {
 
 void item::getname(stringbuilder& sb) const {
 	auto& ei = geti();
-	if(isdamaged())
+	if(isdamaged() && ei.wear != Readable && ei.wear != Rod)
 		sb.adds(getnm((ei.wear == Edible) ? "Rotten" : "Damaged"));
 	if(identified) {
 		if(cursed)

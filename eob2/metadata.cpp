@@ -26,6 +26,7 @@
 #include "resid.h"
 #include "race.h"
 #include "randomeffect.h"
+#include "shop.h"
 #include "spell.h"
 #include "variant.h"
 #include "wearable.h"
@@ -48,6 +49,7 @@ BSDATAC(monsteri, 256)
 BSDATAC(quest, 128)
 BSDATAC(racei, 16)
 BSDATAC(randomeffecti, 128)
+BSDATAC(shopi, 32)
 BSDATAC(spelli, 256)
 BSDATAC(spellseta, 64)
 
@@ -190,6 +192,10 @@ BSMETA(residi) = {
 	{}};
 BSMETA(shapei) = {
 	BSREQ(id),
+	{}};
+BSMETA(shopi) = {
+	BSREQ(id),
+	BSREQ(effect),
 	{}};
 BSMETA(spelli) = {
 	BSREQ(id),

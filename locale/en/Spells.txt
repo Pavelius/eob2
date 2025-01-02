@@ -24,6 +24,7 @@ LayOnHand: Lay on Hand
 MagicalVestment: Magical Vestment
 MagicMissile: Magic Missile
 Mending: Mending
+NeutralizePoison: Neutralize Poison
 Prayer: Prayer
 ProtectionFromEvil: Prot. from Evil
 PurifyFood: Purify Food

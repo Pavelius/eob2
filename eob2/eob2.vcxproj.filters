@@ -261,6 +261,9 @@
     <ClCompile Include="screenshoot.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="shop.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -514,6 +517,9 @@
     </ClInclude>
     <ClInclude Include="sliceu.h">
       <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="shop.h">
+      <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

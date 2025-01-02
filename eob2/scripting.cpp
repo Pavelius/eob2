@@ -1063,6 +1063,25 @@ static void action_items(int bonus) {
 	last_item = push;
 }
 
+static void action_player_items(int bonus) {
+	an.clear();
+	if(!last_action || !last_action->filter_item)
+		return;
+	auto push = last_item;
+	for(auto& e : player->wears) {
+		if(!e)
+			continue;
+		last_item = &e;
+		if(!script_allow(last_action->filter_item))
+			continue;
+		an.add(&e, e.getname());
+	}
+	qsort(an.elements.data, an.elements.count, sizeof(an.elements.data[0]), compare_item_cost);
+	if(bonus > 0 && an.elements.count > (size_t)bonus)
+		an.elements.count = bonus;
+	last_item = push;
+}
+
 static void activate_quest(int bonus) {
 	if(!last_quest)
 		return;
@@ -2339,6 +2358,10 @@ static bool if_item_readable() {
 	return last_item->geti().wear == Readable;
 }
 
+static bool if_item_rod() {
+	return last_item->geti().wear == Rod;
+}
+
 static bool if_last_item() {
 	return last_item != 0;
 }
@@ -2504,6 +2527,7 @@ BSDATA(conditioni) = {
 	{"IfItemIdentified", if_item_identified},
 	{"IfItemMagic", if_item_magic},
 	{"IfItemReadable", if_item_readable},
+	{"IfItemRod", if_item_rod},
 	{"IfItemKnownSpell", if_item_known_spell},
 	{"IfLastItem", if_last_item},
 	{"IfLowLevel", if_low_level},
@@ -2519,6 +2543,7 @@ BSDATA(script) = {
 	{"AllLanguages", all_languages},
 	{"Attack", attack_modify},
 	{"ActionItems", action_items},
+	{"ActionPlayerItems", action_player_items},
 	{"ActivateQuest", activate_quest},
 	{"ActivateLinkedOverlay", activate_linked_overlay},
 	{"AddAid", player_add_aid},

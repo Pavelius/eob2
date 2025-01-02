@@ -250,7 +250,7 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		//if(wi.is(OfPoison))
 		// defender->add(Poison, Instant, SaveNegate);
 		// 15% of all attack can damage equipment (if e hit and can harm)
-		if(rolls >= 18)
+		if(d100() < 15)
 			hit_equipment(defender);
 	}
 	// Weapon can be broken

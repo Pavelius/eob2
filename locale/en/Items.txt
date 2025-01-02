@@ -73,6 +73,7 @@ OfHealEffect1: healing
 OfHealEffect2: extra-healing
 OfHealth: health
 OfInvisibled: invisibility
+OfInvulnerability: invulnerability
 OfImmuneCold: cold immunity
 OfImmuneFire: fire immunity
 OfLifeWater: experience

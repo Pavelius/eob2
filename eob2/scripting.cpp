@@ -513,23 +513,31 @@ static void apply_script(const char* action, const char* id, int bonus) {
 static int get_permanent_raise(creaturei* player, abilityn a, int magical_bonus) {
 	if(a >= Strenght && a <= Charisma)
 		return 4;
-	return 2;
+	return 10;
 }
 
 static int get_ability_number(creaturei* player, abilityn a, int magical_bonus) {
-	if(a >= Strenght && a <= Charisma) {
+	switch(a) {
+	case Strenght: case Dexterity: case Constitution:
+	case Intellegence: case Wisdow: case Charisma:
 		if(magical_bonus < 0)
 			return 3;
 		return 17 + magical_bonus - player->basic.abilities[a];
-	}
-	switch(magical_bonus) {
-	case -1: return -20;
-	case -2: return -40;
-	case -3: return -60;
-	case -4: return -80;
-	case -5: return -100;
-	case 0: return 40;
-	default: return 100;
+	case AC: case AttackMelee: case AttackRange: case DamageMelee: case DamageRange:
+	case Speed: case Backstab: case TurnUndeadBonus:
+		return magical_bonus;
+	case SaveVsMagic: case SaveVsParalization: case SaveVsTraps: case SaveVsPoison:
+		return magical_bonus * 5;
+	default:
+		switch(magical_bonus) {
+		case -1: return -20;
+		case -2: return -40;
+		case -3: return -60;
+		case -4: return -80;
+		case -5: return -100;
+		case 0: return 40;
+		default: return 100;
+		}
 	}
 }
 
@@ -551,7 +559,6 @@ static void drink_effect(variant v, unsigned duration, int multiplier) {
 			if(v.counter)
 				add_boost(party.abilities[Minutes] + duration, player, v);
 		}
-		update_player();
 	} else if(v.iskind<feati>()) {
 		v.counter = multiplier;
 		add_boost(party.abilities[Minutes] + duration, player, v);

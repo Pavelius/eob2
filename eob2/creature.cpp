@@ -798,7 +798,7 @@ void creaturei::damage(damagen type, int value, char magic_bonus) {
 	if(value <= 0)
 		return;
 	auto& ei = bsdata<damagei>::elements[type];
-	if(ei.immunity && is(ei.immunity) && (magic_bonus <= 0))
+	if(ei.immunity && is(ei.immunity) && (magic_bonus <= 1))
 		value = 0;
 	else if(ei.resist && is(ei.resist))
 		value = value / 2;

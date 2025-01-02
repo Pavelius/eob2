@@ -12,8 +12,9 @@ LifeWater
  elements AddExpPersonal+20
 
 MeleePowers
- elements NoVariant Magical+1 Magical+2 Magical+3 Magical+4 Fire+2 Shock+2 VampiricAttack+1 VampiricAttack+2\
-   Goblinoid+2 Drakonoid+2 VorpalAttack+3
+ elements NoVariant\
+  Magical+1 Magical+2 Magical+3 Magical+4 Magical+5 Fire+2 Shock+2 VampiricAttack+2\
+  Goblinoid+2 Drakonoid+2 VorpalAttack+3
 ArmorPowers
  elements NoVariant AC+1 AC+2 AC+3 AC+4 AC+5
 

@@ -136,8 +136,8 @@ bool item::isweapon() const {
 }
 
 void item::damage(int bonus) {
-	if(!type)
-		return; // Already empthy
+	if(!type) // Already empthy. If comment this can be bugged.
+		return;
 	if(bonus >= 0) {
 		bonus += count;
 		if(bonus >= 10) {
@@ -206,6 +206,7 @@ void item::createpower(char magic_bonus, int chance_magical, int chance_cursed) 
 }
 
 void item::usecharge(const char* interactive, int chance, int maximum) {
+	maximum += getpower().counter;
 	if(d100() < chance)
 		return;
 	count++;

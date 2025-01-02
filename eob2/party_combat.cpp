@@ -246,10 +246,11 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 			add_boost(get_stamp(xrand(3, 8)), defender, bsdata<feati>::elements + Paralized);
 		drain_attack(defender, weapon, DrainStrenghtAttack, DrainStrenght, 0);
 		drain_attack(defender, weapon, DrainEneryAttack, DrainLevel, -100);
-		//		// Poison attack
-		//		if(wi.is(OfPoison))
-		//			defender->add(Poison, Instant, SaveNegate);
-		if(d100()<10)
+		// Poison attack
+		//if(wi.is(OfPoison))
+		// defender->add(Poison, Instant, SaveNegate);
+		// 15% of all attack can damage equipment (if e hit and can harm)
+		if(rolls >= 18)
 			hit_equipment(defender);
 	}
 	// Weapon can be broken

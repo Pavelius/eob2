@@ -119,6 +119,8 @@ static void drain_attack(creaturei* defender, const item& weapon, featn type, ab
 
 static void hit_equipment(creaturei* player) {
 	static wearn equipment[] = {Body, LeftHand, Head, Elbow, Legs, Neck};
+	if(player->isdisabled())
+		return;
 	for(auto w : equipment) {
 		if(!player->wears[w] || player->wears[w].is(You))
 			continue;
@@ -226,7 +228,6 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 					// cast_spell(ps, player->getlevel(), 0, true, false, player);
 				}
 			}
-			hit_equipment(defender);
 		}
 		// RULE: vampiric ability allow user to drain blood and regain own HP
 		if(player->is(weapon, VampiricAttack)) {
@@ -248,6 +249,8 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		//		// Poison attack
 		//		if(wi.is(OfPoison))
 		//			defender->add(Poison, Instant, SaveNegate);
+		if(d100()<10)
+			hit_equipment(defender);
 	}
 	// Weapon can be broken
 	if(rolls == 1) {

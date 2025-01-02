@@ -4,6 +4,7 @@ Blacksmith: Blacksmith
 Bribe: Bribe
 BuyHealing: Buy Healing
 BuySpell: Buy Spell
+BuySpellConfirm: Do you really want pay 50 gold piece to buy spell scroll?
 BuyWeapon: Buy Weapon
 BuyWeaponsConfirm: Do you really want pay %2i gold piece to buy %-1?
 CampMenu: Camp Options:

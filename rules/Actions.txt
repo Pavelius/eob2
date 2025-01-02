@@ -41,7 +41,7 @@ BuyHealing avatar(scenes 5)
  effect PayGold+50 Heal+100
 BuySpell
  filter MagicSpellsShop
- effect MagicSpellsShop ChooseShopItem+1 AddItem
+ effect MagicSpellsShop ChooseShopItem+1 ConfirmAction PayGold+50 AddItem
 BuyWeapon
  effect BuyWeapons
  required Reputation(30)
@@ -96,8 +96,8 @@ Tavern avatar(buildngs 5) parent(HunterVillage)
 Temple avatar(buildngs 8) parent(HunterVillage)
  options BuyHealing Donate ReturnToStreet
 Blacksmith avatar(buildngs 0) parent(HunterVillage)
- options RepairItems BuyWeapon BuySpell ReturnToStreet
- required Reputation(20)
+ options RepairItems BuyWeapon ReturnToStreet
+ required Reputation(25)
 WizardTower avatar(buildngs 3) parent(HunterVillage)
  options BuySpell ReturnToStreet
  required Reputation(30)

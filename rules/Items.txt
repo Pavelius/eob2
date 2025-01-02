@@ -357,3 +357,8 @@ Elf
  specialization Longsword Bow
 Halfling
  specialization ShortSword
+
+#Shop
+
+MagicSpellsShop count(1 4 2) days(7)
+ effect MageScroll

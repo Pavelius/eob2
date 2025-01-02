@@ -31,4 +31,4 @@ StartGameAbilities
  elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 
 
 StartGame
- elements CreateTestParty StartGameAbilities HunterVillage EnterLocation
+ elements CreateTestParty StartGameAbilities PassHours+1 HunterVillage EnterLocation

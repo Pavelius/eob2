@@ -39,6 +39,9 @@ PickPocketsActionSuccess
 BuyHealing avatar(scenes 5)
  filter IfWounded
  effect PayGold+50 Heal+100
+BuySpell
+ filter MagicSpellsShop
+ effect MagicSpellsShop ChooseShopItem+1 AddItem
 BuyWeapon
  effect BuyWeapons
  required Reputation(30)
@@ -93,8 +96,11 @@ Tavern avatar(buildngs 5) parent(HunterVillage)
 Temple avatar(buildngs 8) parent(HunterVillage)
  options BuyHealing Donate ReturnToStreet
 Blacksmith avatar(buildngs 0) parent(HunterVillage)
- options RepairItems BuyWeapon ReturnToStreet
+ options RepairItems BuyWeapon BuySpell ReturnToStreet
  required Reputation(20)
+WizardTower avatar(buildngs 3) parent(HunterVillage)
+ options BuySpell ReturnToStreet
+ required Reputation(30)
 
 HunterVillage avatar(buildngs 26)
  options PartyAdventure Inn Tavern Temple Blacksmith

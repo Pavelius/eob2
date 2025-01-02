@@ -29,6 +29,7 @@
 #include "resid.h"
 #include "script.h"
 #include "screenshoot.h"
+#include "shop.h"
 #include "speech.h"
 #include "spell.h"
 #include "talking.h"
@@ -96,6 +97,13 @@ template<> void ftscript<feati>(int value, int bonus) {
 	case Permanent: player->basic.set((featn)value, bonus >= 0); break;
 	default: player->set((featn)value, bonus >= 0); break;
 	}
+}
+
+template<> bool fttest<shopi>(int value, int bonus) {
+	return bsdata<shopi>::elements[value].getsize() != 0;
+}
+template<> void ftscript<shopi>(int value, int bonus) {
+	last_shop = bsdata<shopi>::elements + value;
 }
 
 template<> void ftscript<abilityi>(int value, int bonus) {
@@ -1781,6 +1789,11 @@ static void set_variable(int bonus) {
 	party.abilities[last_variable] = get_bonus(bonus);
 }
 
+static void add_item(int bonus) {
+	if(last_item)
+		player->additem(*last_item);
+}
+
 static void add_reward(int bonus) {
 	party.abilities[GoldPiece] += get_bonus(bonus) * 100;
 	party_addexp(bonus * 200);
@@ -2110,6 +2123,24 @@ static void show_area(int bonus) {
 
 static void pass_round(int bonus) {
 	pass_round();
+}
+
+static void choose_shop_item(int bonus) {
+	// Function use huge amount of memory for existing copy of answers and return result to upper level.
+	// So this memory used only for selection, not for each level of hierarhi.
+	pushanswer push;
+	char header[64]; stringbuilder sb(header);
+	set_player_by_focus();
+	sb.add(get_header(last_shop->id, "Options"));
+	for(auto& v : last_shop->items) {
+		if(!v)
+			continue;
+		switch(bonus) {
+		case 1: an.add(&v, v.getpower().getname()); break;
+		default: an.add(&v, v.getname()); break;
+		}
+	}
+	last_item = (item*)choose_large_menu(header, getnm("Cancel"));
 }
 
 static bool use_bless_effect(const variants& source, int bonus) {
@@ -2554,6 +2585,7 @@ BSDATA(script) = {
 	{"AddExpPersonal", add_exp_personal},
 	{"AddExpEvil", add_exp_evil},
 	{"AddExpGood", add_exp_good},
+	{"AddItem", add_item},
 	{"AddReward", add_reward},
 	{"AddVariable", add_variable},
 	{"ApplyAction", apply_action},
@@ -2565,6 +2597,7 @@ BSDATA(script) = {
 	{"Character", set_character},
 	{"ChooseItems", choose_items},
 	{"ChooseMenu", choose_menu},
+	{"ChooseShopItem", choose_shop_item},
 	{"ChooseSpells", choose_spells},
 	{"ClearArea", clear_area},
 	{"CreateCharacter", create_character},

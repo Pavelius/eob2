@@ -3,6 +3,8 @@ Augury: Augury
 Armor: Armor
 Barkskin: Barkskin
 Bless: Bless
+Blinding: Blinding
+Blur: Blur
 BurningHands: Burning Hands
 ChillTouch: Chill Touch
 CureDisease: Cure Disease
@@ -20,6 +22,7 @@ HypnoticPattern: Hypnotic Pattern
 HoldPerson: Hold Person
 HoldPersonGainEffect: %1i creatures stand still!
 Identify: Identify
+Knock: Knock
 LayOnHand: Lay on Hand
 MagicalVestment: Magical Vestment
 MagicMissile: Magic Missile

@@ -196,6 +196,8 @@ BSMETA(shapei) = {
 BSMETA(shopi) = {
 	BSREQ(id),
 	BSREQ(effect),
+	BSREQ(days),
+	BSREQ(count),
 	{}};
 BSMETA(spelli) = {
 	BSREQ(id),
@@ -241,6 +243,7 @@ BSDATA(varianti) = {
 	{"Reaction", VAR(reactioni, 1), 0, 0, ftscript<reactioni>},
 	{"Script", VAR(script, 1), 0, 0, ftscript<script>},
 	{"Shape", VAR(shapei, 1), 0, 0, 0, 0, shape_read},
+	{"Shop", VAR(shopi, 1), 0, 0, ftscript<shopi>, fttest<shopi>},
 	{"Spell", VAR(spelli, 1), 0, 0, ftscript<spelli>, fttest<spelli>},
 	{"Race", VAR(racei, 1)},
 };

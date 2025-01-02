@@ -12,6 +12,7 @@
 #include "party.h"
 #include "rand.h"
 #include "script.h"
+#include "shop.h"
 #include "view.h"
 
 BSDATA(partystati) = {
@@ -415,6 +416,11 @@ static void check_noises_behind_door() {
 		return;
 }
 
+static void check_shops() {
+	for(auto& e : bsdata<shopi>())
+		e.update(party.abilities[Minutes]);
+}
+
 static void update_every_round() {
 	player->remove(Moved);
 	update_player();
@@ -428,6 +434,7 @@ static void update_every_turn() {
 
 static void update_every_hour() {
 	check_disease();
+	check_shops();
 }
 
 static bool all_party_disabled() {

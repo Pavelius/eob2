@@ -3,6 +3,8 @@ Attack: Attack
 Blacksmith: Blacksmith
 Bribe: Bribe
 BuyHealing: Buy Healing
+BuyWeapon: Buy Weapon
+BuyWeaponsConfirm: Do you really want pay %2i gold piece to buy %-1?
 CampMenu: Camp Options:
 CastSpell: Cast what spell?
 CastOnWho: Cast on who?
@@ -54,7 +56,7 @@ PickPocketsVisit: Pick some pockets
 PrayForSpells: Pray for Spells
 QuestGoals: Quest Goals
 RemoveTrapsFail: Fail remove trap
-RepairWeapons: Repair weapons
+RepairItems: Repair Items
 RestParty: Rest party
 RestPartyConfirm: Rest all party for 8 hours?
 ReturnToStreet: Leave to the street

@@ -21,6 +21,7 @@
 #include "monster.h"
 #include "party.h"
 #include "pointca.h"
+#include "pushvalue.h"
 #include "quest.h"
 #include "race.h"
 #include "rand.h"
@@ -221,16 +222,6 @@ static const char* get_title(const char* id, const char* action) {
 	return temp;
 }
 
-static bool party_have(flag32 classes) {
-	for(auto p : characters) {
-		if(!p || p->isdisabled())
-			continue;
-		if(have_class(classes, p->character_class))
-			return true;
-	}
-	return false;
-}
-
 static bool ismatch(char* abilitites) {
 	for(auto i = 0; i <= Blessing; i++) {
 		if(abilitites[i] && party.abilities[i] < abilitites[i])
@@ -239,11 +230,31 @@ static bool ismatch(char* abilitites) {
 	return true;
 }
 
-static void add_menu(variant& v) {
+static void add_menu(variant& v, bool whole_party = false) {
 	if(v.iskind<actioni>()) {
 		auto p = bsdata<actioni>::elements + v.value;
-		if(!party_have(p->restrict_classes) && p->isallow(player) && ismatch(p->required))
-			an.add(v.getpointer(), v.getname());
+		if(p->restrict_classes && party_have(p->restrict_classes))
+			return;
+		if(!ismatch(p->required))
+			return;
+		if(whole_party) {
+			if(p->classes && !party_have(p->classes))
+				return;
+			if(!allow_item(p->filter_item))
+				return;
+		} else {
+			if(p->races && !p->races.is(player->race))
+				return;
+			if(p->classes && !have_class(p->classes, player->character_class))
+				return;
+			if(p->alignment && !p->alignment.is(player->alignment))
+				return;
+			if(p->filter && !script_allow(p->filter))
+				return;
+			if(p->filter_item && !allow_item(player, p->filter_item))
+				return;
+		}
+		an.add(v.getpointer(), v.getname());
 	} else if(v.iskind<formulai>()) {
 		auto p = bsdata<formulai>::elements + v.value;
 		an.add(&v, getnm(ids(p->id, last_id)), p->proc(last_number, v.counter));
@@ -252,8 +263,9 @@ static void add_menu(variant& v) {
 		an.add(p, getnm(p->id));
 	} else if(v.iskind<locationi>()) {
 		auto format = get_header(v.getid(), "Visit");
-		if(ismatch(bsdata<locationi>::elements[v.value].required))
-			an.add(v.getpointer(), format, v.getname());
+		if(!ismatch(bsdata<locationi>::elements[v.value].required))
+			return;
+		an.add(v.getpointer(), format, v.getname());
 	} else
 		an.add(v.getpointer(), v.getname());
 }
@@ -449,19 +461,19 @@ static void satisfy(int bonus) {
 		player->food += bonus * 10;
 }
 
-static void rest_character(int bonus) {
+static void sleep_character(int bonus) {
 	natural_heal(bonus);
 	satisfy(0);
 	restore_spells(0);
 }
 
-static void rest_party(int bonus) {
+static void sleep_party(int bonus) {
 	auto push_player = player;
 	for(auto p : characters) {
 		if(!p)
 			continue;
 		player = p;
-		rest_character(bonus);
+		sleep_character(bonus);
 	}
 	player = push_player;
 	pass_hours(8);
@@ -474,19 +486,28 @@ static dungeoni::overlayi* get_overlay() {
 }
 
 static void apply_script(const char* action, const char* id, int bonus) {
-	auto push_id = last_id;
-	auto p = bsdata<script>::find(ids(action, id));
-	if(p) {
-		last_id = p->id;
-		p->proc(bonus);
-	} else {
-		auto p1 = bsdata<listi>::find(ids(action, id));
-		if(p1) {
-			last_id = p1->id;
-			script_run(p1->elements);
-		}
+	pushvalue push(last_id);
+	auto sid = ids(action, id);
+	auto p1 = bsdata<script>::find(sid);
+	if(p1) {
+		last_id = p1->id;
+		p1->proc(bonus);
+		return;
 	}
-	last_id = push_id;
+	auto p2 = bsdata<listi>::find(sid);
+	if(p2) {
+		last_id = p2->id;
+		script_run(p2->elements);
+		return;
+	}
+	auto p3 = bsdata<randomizeri>::find(sid);
+	if(p3) {
+		last_id = p3->id;
+		auto v = single(p3->random());
+		v.counter = bonus;
+		script_run(v);
+		return;
+	}
 }
 
 static int get_permanent_raise(creaturei* player, abilityn a, int magical_bonus) {
@@ -530,6 +551,7 @@ static void drink_effect(variant v, unsigned duration, int multiplier) {
 			if(v.counter)
 				add_boost(party.abilities[Minutes] + duration, player, v);
 		}
+		update_player();
 	} else if(v.iskind<feati>()) {
 		v.counter = multiplier;
 		add_boost(party.abilities[Minutes] + duration, player, v);
@@ -573,6 +595,7 @@ static bool use_rod(creaturei* pn, item* rod, variant v) {
 static void drink_effect(creaturei* pn, variant v, unsigned duration, int multiplier) {
 	auto push_player = player; player = pn;
 	drink_effect(v, duration, multiplier);
+	update_player();
 	player = push_player;
 }
 
@@ -639,9 +662,9 @@ static void use_item() {
 		}
 		if(confirm(getnm("MakeCampConfirm"))) {
 			if(last_item->iscursed())
-				rest_party(-2);
+				sleep_party(-2);
 			else
-				rest_party(last_item->geti().damage.roll());
+				sleep_party(last_item->geti().damage.roll());
 			last_item->clear();
 		}
 		break;
@@ -921,6 +944,36 @@ static void choose_menu(int bonus) {
 	script_stop();
 }
 
+static bool confirm_payment(const char* name, int gold_coins) {
+	if(getparty(GoldPiece) < gold_coins) {
+		dialog(0, speech_get(last_id, "NotEnoughtGold"), gold_coins);
+		return false;
+	} else {
+		char temp[260]; stringbuilder sb(temp);
+		sb.add(getnm(ids(last_id, "Confirm")), name, gold_coins);
+		if(!confirm(temp))
+			return false;
+		add_party(GoldPiece, -gold_coins);
+	}
+	return true;
+}
+
+static void buy_menu(int bonus) {
+	scriptbody commands;
+	choose_options(last_id, commands);
+	script_stop();
+	if(!last_result)
+		return;
+	if(bsdata<itemi>::source.have(last_result)) {
+		auto p = (itemi*)last_result;
+		if(!confirm_payment(getnm(p->id), p->cost))
+			return;
+		item it; it.create(p);
+		it.identify(1);
+		player->wearable::additem(it);
+	}
+}
+
 static void choose_items(int bonus) {
 	scriptbody commands;
 	choose_item(last_id, commands);
@@ -950,20 +1003,14 @@ static void for_each_party(int bonus, const variants& commands, const slice<crea
 	player = push_player;
 }
 
-static void for_each_item(int bonus, const variants& commands) {
+static void for_each_item(int bonus) {
+	scriptbody commands;
 	auto push_item = last_item;
-	for(auto& e : player->wears) {
-		if(!e)
-			continue;
-		last_item = &e;
+	for(auto& e : an) {
+		last_item = (item*)e.value;
 		script_run(commands);
 	}
 	last_item = push_item;
-}
-
-static void for_each_item(int bonus) {
-	scriptbody commands;
-	for_each_item(bonus, commands);
 	script_stop();
 }
 
@@ -978,6 +1025,35 @@ static void activate_linked_overlay(int bonus) {
 	if(!po || !po->link)
 		return;
 	loc->set(po->link, CellActive);
+}
+
+static int compare_item_cost(const void* v1, const void* v2) {
+	auto p1 = *((item**)v1);
+	auto p2 = *((item**)v2);
+	return p1->geti().cost - p2->geti().cost;
+}
+
+static void action_items(int bonus) {
+	an.clear();
+	if(!last_action || !last_action->filter_item)
+		return;
+	auto push = last_item;
+	for(auto p : characters) {
+		if(!p || !p->isready())
+			continue;
+		for(auto& e : p->wears) {
+			if(!e)
+				continue;
+			last_item = &e;
+			if(!script_allow(last_action->filter_item))
+				continue;
+			an.add(&e, e.getname());
+		}
+	}
+	qsort(an.elements.data, an.elements.count, sizeof(an.elements.data[0]), compare_item_cost);
+	if(bonus > 0 && an.elements.count > (size_t)bonus)
+		an.elements.count = bonus;
+	last_item = push;
 }
 
 static void activate_quest(int bonus) {
@@ -1366,6 +1442,17 @@ static void enter_dungeon(int bonus) {
 	enter_active_dungeon();
 }
 
+static void enter_dungeon_from_up(int bonus) {
+	loc = find_dungeon(bonus);
+	if(!loc && bonus == 0)
+		bonus = 1;
+	loc = find_dungeon(bonus);
+	if(!loc)
+		return;
+	set_party_position(to(loc->state.down, loc->state.down.d), loc->state.down.d);
+	enter_active_dungeon();
+}
+
 static void pit_fall_down() {
 	if(!player->roll(ClimbWalls))
 		player->damage(Bludgeon, xrand(3, 18));
@@ -1375,7 +1462,7 @@ static bool party_move_interact(pointc v) {
 	switch(loc->get(v)) {
 	case CellStairsUp:
 		if(find_dungeon(loc->level - 1)) {
-			enter_dungeon(loc->level - 1);
+			enter_dungeon_from_up(loc->level - 1);
 			consolen(getnm("PartyGoingUp"));
 		} else if(confirm(getnm("ReturnToTownConfirm")))
 			enter_location(0);
@@ -1418,16 +1505,14 @@ static void talk_monsters(const char* format) {
 	auto rm = bsdata<reactioni>::elements[last_reaction].id;
 	pushanswer push;
 	auto pe = bsdata<listi>::find(ids(pq->id, rm));
-	if(!pe) {
-		if(opponent->isanimal())
-			pe = bsdata<listi>::find(ids("Animal", rm));
-		else
-			pe = bsdata<listi>::find(ids("Negotiation", rm));
-	}
+	if(!pe && opponent->isanimal())
+		pe = bsdata<listi>::find(ids("Animal", rm));
+	if(!pe)
+		pe = bsdata<listi>::find(ids("Negotiation", rm));
 	if(!pe)
 		return;
 	for(auto v : pe->elements)
-		add_menu(v);
+		add_menu(v, true);
 	last_result = dialogv(0, format, 0);
 	apply_result();
 }
@@ -1633,20 +1718,6 @@ static void apply_racial_enemy(int bonus) {
 		player->hate.remove(last_race);
 }
 
-static void run_script(const char* id, const char* action) {
-	auto aid = ids(id, action);
-	auto p = bsdata<listi>::find(aid);
-	if(p) {
-		ftscript<listi>(p - bsdata<listi>::elements, 0);
-		return;
-	}
-	auto p1 = bsdata<randomizeri>::find(aid);
-	if(p1) {
-		script_run(p1->random());
-		return;
-	}
-}
-
 static void dialog_message(const char* action) {
 	auto pn = speech_get_na(last_id, action);
 	if(pn)
@@ -1669,7 +1740,7 @@ static void make_roll(int bonus) {
 		script_stop();
 		dialog_message("Fail");
 		player_speak("FailSpeech");
-		run_script(last_id, "Fail");
+		apply_script(last_id, "Fail", 0);
 	} else {
 		dialog_message("Success");
 		player_speak("SuccessSpeech");
@@ -2142,6 +2213,53 @@ static bool if_paralized() {
 	return player->is(Paralized);
 }
 
+static bool if_party(conditioni::fntest proc) {
+	auto push = player;
+	for(auto p : characters) {
+		if(!p || !p->isready())
+			continue;
+		player = p;
+		if(proc()) {
+			player = push;
+			return true;
+		}
+	}
+	player = push;
+	return false;
+}
+
+static bool if_party_item(conditioni::fntest proc) {
+	auto push = last_item;
+	for(auto& e : player->wears) {
+		if(!e)
+			continue;
+		last_item = &e;
+		if(proc()) {
+			last_item = push;
+			return true;
+		}
+	}
+	last_item = push;
+	return false;
+}
+
+static bool if_party_item(conditioni::fntest player_test, conditioni::fntest proc) {
+	auto push_player = player;
+	for(auto p : characters) {
+		if(!p || !p->isready())
+			continue;
+		player = p;
+		if(player_test && !player_test())
+			continue;
+		if(if_party_item(proc)) {
+			player = push_player;
+			return true;
+		}
+	}
+	player = push_player;
+	return false;
+}
+
 static bool if_wounded() {
 	return player->gethp() < player->hpm;
 }
@@ -2177,8 +2295,21 @@ static bool if_monsters_undead() {
 	return if_monsters(if_undead);
 }
 
+static bool if_monsters_intellegence() {
+	return if_monsters(if_intelligence);
+}
+
 static bool if_item_damaged() {
 	return last_item->isdamaged();
+}
+
+static bool if_item_bribe() {
+	if(last_item->isidentified() && last_item->ismagical())
+		return false;
+	auto& ei = last_item->geti();
+	if(ei.wear == LeftRing || ei.wear == RightRing || ei.wear == Neck)
+		return true;
+	return ei.wear == Backpack && ei.cost >= 150;
 }
 
 static bool if_item_edible() {
@@ -2358,6 +2489,7 @@ BSDATA(conditioni) = {
 	{"IfAreaLocked", if_area_locked},
 	{"IfDiseased", if_diseased},
 	{"IfIntelligence", if_intelligence},
+	{"IfItemBribe", if_item_bribe},
 	{"IfItemCharged", if_item_charged},
 	{"IfItemCursed", if_item_cursed},
 	{"IfItemDamaged", if_item_damaged},
@@ -2379,6 +2511,7 @@ BSDATAF(conditioni)
 BSDATA(script) = {
 	{"AllLanguages", all_languages},
 	{"Attack", attack_modify},
+	{"ActionItems", action_items},
 	{"ActivateQuest", activate_quest},
 	{"ActivateLinkedOverlay", activate_linked_overlay},
 	{"AddAid", player_add_aid},
@@ -2395,6 +2528,7 @@ BSDATA(script) = {
 	{"ApplyEnchantSpell", apply_enchant_spell},
 	{"ApplyRacialEnemy", apply_racial_enemy},
 	{"BestPlayer", best_player},
+	{"BuyMenu", buy_menu},
 	{"ConfirmAction", confirm_action},
 	{"Character", set_character},
 	{"ChooseItems", choose_items},
@@ -2441,7 +2575,6 @@ BSDATA(script) = {
 	{"RandomArea", random_area},
 	{"ReactionCheck", reaction_check},
 	{"RestoreSpells", restore_spells},
-	{"RestParty", rest_party},
 	{"ReturnToStreet", return_to_street},
 	{"Roll", make_roll},
 	{"Satisfy", satisfy},
@@ -2453,6 +2586,7 @@ BSDATA(script) = {
 	{"SelectArea", select_area},
 	{"SetLevel", set_level},
 	{"SetVariable", set_variable},
+	{"SleepParty", sleep_party},
 	{"ShowArea", show_area},
 	{"Switch", apply_switch},
 	{"TalkAbout", talk_about},

@@ -113,38 +113,38 @@ RedCloack avatar(17) avatar_ground(8) wear(Body) powers(CloackPowers)
 BlueCloack avatar(92) avatar_ground(8) wear(Body) powers(CloackPowers)
 LeatherArmor cost(10) avatar(31) avatar_ground(11) wear(Body) powers(ArmorPowers)
  feats UseLeather
- wearing AC+2 CriticalDeflect+5
+ wearing AC+2
 ScaleMail cost(100) avatar(30) avatar_ground(9) wear(Body) powers(ArmorPowers)
  feats UseMetal
- wearing AC+4 CriticalDeflect+20
+ wearing AC+4 CriticalDeflect+15
 ChainMail cost(100) avatar(29) avatar_ground(9) wear(Body) powers(ArmorPowers)
  feats UseMetal
- wearing AC+5 CriticalDeflect+15
+ wearing AC+5 CriticalDeflect+10
 BandedMail cost(300) avatar(28) avatar_ground(9) wear(Body) powers(ArmorPowers)
  feats UseMetal
- wearing AC+6 CriticalDeflect+20
+ wearing AC+6 CriticalDeflect+15
 PlateMail cost(1000) avatar(26) avatar_ground(9) wear(Body) powers(ArmorPowers)
  feats UseMetal
- wearing AC+8 CriticalDeflect+20
+ wearing AC+8 CriticalDeflect+15
 
 Helm cost(10) avatar(20) avatar_ground(6) wear(Head) powers(HelmPowers)
  feats UseShield Small
- wearing CriticalDeflect+20
+ wearing CriticalDeflect+5
 DwarvenHelm cost(30) avatar(73) avatar_ground(6) wear(Head) powers(HelmPowers)
  feats UseShield Small
- wearing CriticalDeflect+20 SaveVsMagic+5
+ wearing CriticalDeflect+5 SaveVsMagic+5
 Shield cost(10) avatar(23) avatar_ground(7) wear(LeftHand)
  feats UseShield
  wearing AC+1 CriticalDeflect+10
 DwarvenShield cost(30) avatar(23) avatar_ground(7) wear(LeftHand)
  feats UseShield
- wearing AC+1 CriticalDeflect+20
+ wearing AC+1 CriticalDeflect+10
 Boots avatar(21) avatar_ground(9) wear(Legs) powers(BootsPowers)
  feats Small
- wearing CriticalDeflect+10
+ wearing CriticalDeflect+5
 Bracers avatar(25) avatar_ground(16) wear(Elbow) powers(BracerPowers)
  feats Small
- wearing CriticalDeflect+10
+ wearing CriticalDeflect+5
 
 RedRing cost(30) avatar(55) avatar_ground(15) wear(RightRing) powers(RingPowers)
  feats Small

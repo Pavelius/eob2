@@ -8,6 +8,10 @@ GameOptions
  elements ChooseMenu LoadGame SaveGame ExitGame
 ChooseMageScrolls
  elements ChooseItems IfItemReadable IfItemIdentified IfItemKnownSpell-1
+BuyArmors
+ elements BuyMenu LeatherArmor ScaleMail BandedMail
+BuyWeapons
+ elements BuyMenu ShortSword Longsword Dagger BattleAxe Mace
 RestorePartySpells
  elements ForEachParty RestoreSpells
 ScribleScrollsFail
@@ -35,6 +39,12 @@ PickPocketsActionSuccess
 BuyHealing avatar(scenes 5)
  filter IfWounded
  effect PayGold+50 Heal+100
+BuyWeapon
+ effect BuyWeapons
+ required Reputation(30)
+BuyArmor
+ effect BuyArmors
+ required Reputation(40)
 Donate avatar(scenes 5)
  effect ChooseDonation PayGold+101
 EatAndDrink avatar(buildngs 6)
@@ -51,9 +61,10 @@ PickPocketsAction avatar(buildngs 10)
 PrayForSpells
  classes Cleric Paladin Ranger
  effect ChooseSpells+0
-RepairWeapons
+RepairItems
+ filter_item IfItemDamaged
 RestParty
- effect ConfirmAction RestParty+10 ReturnToStreet
+ effect ConfirmAction SleepParty+6 ReturnToStreet
 ScribleScrolls
  classes Mage
  effect ChooseMageScrolls IfLastItem ItemPowerSpell LearnSpell Roll LearnLastSpell DestroyItem
@@ -67,10 +78,8 @@ Lie
  effect Charisma BestPlayer Roll Friendly AddExpEvil+1
  restrict_classes Paladin
 Bribe
- effect MonstersLeave
-FriendsSpellAction
- filter Friends
- effect Friends-1 Friendly
+ effect MonstersLeave ActionItems+1 ForEachItem DestroyItem
+ filter_item IfItemBribe
 
 #Location
 
@@ -83,7 +92,7 @@ Tavern avatar(buildngs 5) parent(HunterVillage)
 Temple avatar(buildngs 8) parent(HunterVillage)
  options BuyHealing Donate ReturnToStreet
 Blacksmith avatar(buildngs 0) parent(HunterVillage)
- options RepairWeapons
+ options RepairItems BuyWeapon ReturnToStreet
  required Reputation(20)
 
 HunterVillage avatar(buildngs 26)

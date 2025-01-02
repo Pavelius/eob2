@@ -2,29 +2,48 @@
 #include "creature.h"
 #include "class.h"
 #include "race.h"
+#include "pushvalue.h"
 #include "script.h"
 
 actioni* last_action;
 
 bool have_class(const flag32& classes, classn type) {
 	auto& ei = bsdata<classi>::elements[type];
-	for(auto i = 0; i < 3; i++) {
+	for(auto i = 0; i < ei.count; i++) {
 		if(classes.is(ei.classes[i]))
 			return true;
 	}
 	return false;
 }
 
-bool actioni::isallow(const creaturei* player) const {
-	if(races && !races.is(player->race))
-		return false;
-	if(classes && !have_class(classes, player->character_class))
-		return false;
-	if(restrict_classes && have_class(classes, player->character_class))
-		return false;
-	if(alignment && !alignment.is(player->alignment))
-		return false;
-	if(filter && !script_allow(filter))
-		return false;
-	return true;
+bool party_have(flag32 classes) {
+	for(auto p : characters) {
+		if(!p || p->isdisabled())
+			continue;
+		if(have_class(classes, p->character_class))
+			return true;
+	}
+	return false;
+}
+
+bool allow_item(creaturei* player, const variants& filter) {
+	pushvalue push(last_item);
+	for(auto& e : player->wears) {
+		if(!e)
+			continue;
+		last_item = &e;
+		if(script_allow(filter))
+			return true;
+	}
+	return false;
+}
+
+bool allow_item(const variants& filter) {
+	for(auto p : characters) {
+		if(!p || !p->isready())
+			continue;
+		if(allow_item(p, filter))
+			return true;
+	}
+	return false;
 }

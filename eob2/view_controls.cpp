@@ -458,6 +458,10 @@ static void paint_avatar_stats() {
 	avatar_colors.clear();
 	if(player->is(PoisonLevel) || player->is(DiseaseLevel))
 		avatar_colors.add(colors::green);
+	if(player->is(ImmuneFire) || player->is(ResistFire))
+		avatar_colors.add(colors::red);
+	if(player->is(ImmuneCold) || player->is(ResistCold))
+		avatar_colors.add(colors::blue);
 	blend_avatar(avatar_colors, 32);
 }
 

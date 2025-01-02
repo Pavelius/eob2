@@ -58,7 +58,9 @@ BSMETA(actioni) = {
 	BSFLG(classes, classi),
 	BSFLG(restrict_classes, classi),
 	BSFLG(alignment, alignmenti),
-	BSREQ(effect), BSREQ(filter),
+	BSREQ(filter),
+	BSREQ(filter_item),
+	BSREQ(effect),
 	BSDST(required, partystati),
 	{}};
 BSMETA(abilityi) = {

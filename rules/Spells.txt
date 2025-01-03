@@ -77,23 +77,23 @@ Friends levels(0 1)
  filter IfIntelligence ImmuneCharm-1
  instant Indifferent MonstersReaction Roll2d4 ReactionCheck+101
 Identify levels(0 1)
- feats Ally WearItem
- filter IfItemIdentified-1
+ feats Ally You
+ filter_item IfItemIdentified-1
  instant IdentifyItem
 MagicMissile levels(0 1) avatar_thrown(5)
  feats Enemy
  instant Roll1d4p1x1d4p1s3p2c9 Magic+101
 Mending levels(0 1)
- feats Ally You WearItem
- filter IfItemEdible-1 IfItemCharged-1 IfItemDamaged
+ feats Ally You
+ filter_item IfItemEdible-1 IfItemCharged-1 IfItemDamaged
  instant DamageItem-1 EffectCount+1
 ProtectionFromEvil levels(1 1) lighting(150 00 24)
  feats Ally
  instant Turn5x1 ApplyEnchantSpell
  wearing ProtectedFromEvil
 PurifyFood levels(1 0)
- feats Ally Group WearItem
- filter IfItemEdible IfItemDamaged
+ feats Ally Group
+ filter_item IfItemEdible IfItemDamaged
  instant DamageItem-1 EffectCount+1
 ShieldSpell levels(0 1)
  feats You
@@ -156,8 +156,8 @@ Prayer levels(3) lighting(255 239 0)
  instant Minute5x1 ApplyEnchantSpell
  wearing Attack+1 Damage+1 Saves+1
 RemoveCurse levels(3)
- feats Ally You WearItem
- filter IfItemCursed IfItemIdentified
+ feats Ally You
+ filter_item IfItemCursed IfItemIdentified
  instant CurseItem-1 EffectCount+1
 RemoveParalize levels(3)
  feats Ally You

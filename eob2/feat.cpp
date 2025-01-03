@@ -64,7 +64,6 @@ BSDATA(feati) = {
 	{"Ally"},
 	{"Group"},
 	{"You"},
-	{"WearItem"},
 	{"SummaryEffect"},
 	{"SeeMagical"},
 	{"SeeCursed"},

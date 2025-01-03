@@ -208,6 +208,7 @@ BSMETA(spelli) = {
 	BSFLG(feats, feati),
 	BSREQ(summon),
 	BSREQ(filter),
+	BSREQ(filter_item),
 	BSREQ(instant),
 	BSREQ(clearing),
 	BSREQ(wearing),

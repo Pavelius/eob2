@@ -104,22 +104,44 @@ static void filter_creatures(const variants& source) {
 	an.elements.count = ps - an.begin();
 }
 
-static void remove_summon_slot(wearn wear) {
-	for(auto& e : an.elements) {
-		auto player = (creaturei*)e.value;
-		if(!player->wears[wear])
+static bool have_items(creaturei* player, const variants& source) {
+	pushvalue push(last_item);
+	for(auto& e : player->wears) {
+		if(!e)
 			continue;
-		if(!can_remove(&player->wears[wear], false))
-			continue;
-		item* ps = 0;
-		if(wear == RightHand || wear == LeftHand)
-			ps = player->freebelt();
-		else
-			ps = player->freebackpack();
-		if(!ps)
-			continue;
-		iswap(*ps, player->wears[wear]);
+		last_item = &e;
+		if(script_allow(source))
+			return true;
 	}
+	return false;
+}
+
+static void filter_creature_items(const variants& source) {
+	if(!source)
+		return;
+	pushvalue push(player);
+	auto ps = an.elements.begin();
+	for(auto& e : an.elements) {
+		if(!have_items((creaturei*)e.value, source))
+			continue;
+		*ps++ = e;
+	}
+	an.elements.count = ps - an.begin();
+}
+
+static void remove_summon_slot(wearn wear) {
+	if(!player->wears[wear])
+		return;
+	if(!can_remove(&player->wears[wear], false))
+		return;
+	item* ps = 0;
+	if(wear == RightHand || wear == LeftHand)
+		ps = player->freebelt();
+	else
+		ps = player->freebackpack();
+	if(!ps)
+		return;
+	iswap(*ps, player->wears[wear]);
 }
 
 static void filter_summon_slot(wearn wear) {
@@ -166,7 +188,7 @@ static bool strict_value(const array& source, const void* p) {
 	return source.ptr(i) == p;
 }
 
-static void apply_effect(const variants& source) {
+static void apply_effect(const variants& source, const itemi* summon) {
 	if(!source)
 		return;
 	auto push_player = player;
@@ -180,6 +202,8 @@ static void apply_effect(const variants& source) {
 		} else {
 			player = (creaturei*)p;
 			script_run(source);
+			if(summon)
+				remove_summon_slot(summon->wear);
 		}
 	}
 	last_item = push_item;
@@ -249,6 +273,15 @@ static void use_spell_slot(const spelli* ps) {
 		player->spells[index]--;
 }
 
+bool can_cast_spell(const spelli* ps, creaturei* target) {
+	if(ps->filter) {
+		pushvalue push(player, target);
+		if(!script_allow(player))
+			return false;
+	}
+	return true;
+}
+
 bool cast_spell(const spelli* ps, int level, int experience, bool run, bool random_target) {
 	auto push_spell = last_spell;
 	pushanswer push_answers;
@@ -268,13 +301,14 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 		}
 	}
 	if(ps->is(You)) {
-		if(an.findvalue(player)==-1)
+		if(an.findvalue(player) == -1)
 			an.add(player, player->getname());
 	}
 	if(ps->summon)
 		filter_summon_slot(ps->summon->wear);
-	if(!ps->is(WearItem))
-		filter_creatures(ps->filter);
+	filter_creatures(ps->filter);
+	if(ps->filter_item)
+		filter_creature_items(ps->filter_item);
 	if(!an) {
 		if(run)
 			player->speak("CastSpell", "NoTargets");
@@ -293,8 +327,6 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 	}
 	if(an)
 		result_player = (creaturei*)an.elements[0].value;
-	if(ps->is(WearItem))
-		select_items(ps->filter);
 	if(ps->isthrown()) {
 		auto n = distance(party, enemy_position);
 		thrown_item(party, Up, ps->avatar_thrown, player->side % 2, n);
@@ -307,9 +339,9 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 	if(ps->is(SummaryEffect))
 		script_run(ps->instant);
 	else {
-		apply_effect(ps->instant);
-		if(ps->summon)
-			remove_summon_slot(ps->summon->wear);
+		if(ps->filter_item)
+			select_items(ps->filter_item);
+		apply_effect(ps->instant, ps->summon);
 	}
 	fix_animate();
 	if(party.abilities[EffectCount])
@@ -334,7 +366,7 @@ void cast_spell() {
 	pass_round();
 }
 
-void add_spells(int type, int level, const spellseta* include) {
+void add_spells(int type, int level, const spellseta * include) {
 	an.clear();
 	for(auto& e : bsdata<spelli>()) {
 		if(e.levels[type] != level)

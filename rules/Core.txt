@@ -11,16 +11,16 @@
 #List
 
 MageTestSpells
- elements PushModifier Permanent Friends
+ elements ShortSword DamageItem+6 PushModifier Permanent Mending
 
 HumanFighter
  elements Human Male Fighter CreateCharacter
 HumanPaladin
  elements Human Male Paladin CreateCharacter
 DwarfCleric
- elements Dwarf Male Cleric CreateCharacter
+ elements Dwarf Male Cleric CreateCharacter AddExpPersonal+80
 ElfMage
- elements Elf Female MageTheif CreateCharacter
+ elements Elf Female MageTheif CreateCharacter MageTestSpells
 HalflingTheif
  elements Halfling Female Theif CreateCharacter
 
@@ -28,7 +28,7 @@ CreateTestParty
  elements HumanPaladin JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty
 
 StartGameAbilities
- elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 
+ elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+10
 
 StartGame
- elements CreateTestParty StartGameAbilities PassHours+1 HunterVillage EnterLocation
+ elements CreateTestParty StartGameAbilities PassHours+7 HunterVillage EnterLocation

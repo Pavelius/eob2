@@ -943,18 +943,23 @@ void check_levelup() {
 	auto& ei = player->getclass();
 	auto experience = player->experience / ei.count;
 	auto need_update = false;
-	for(auto i = 0; i < ei.count; i++) {
-		auto pi = bsdata<classi>::elements + ei.classes[i];
-		auto tbl = get_experience_table(ei.classes[i]);
-		auto lev = player->levels[i];
-		if(experience >= tbl[lev + 1]) {
-			player->levels[i]++;
-			player->hpr += 1 + (rand() % pi->hd);
-			advance_level(pi, player->levels[i]);
-			consolen("%Name become %1i level %2", player->levels[i], pi->getname());
-			need_update = true;
+	auto levelup_occurs = false;
+	do {
+		levelup_occurs = false;
+		for(auto i = 0; i < ei.count; i++) {
+			auto pi = bsdata<classi>::elements + ei.classes[i];
+			auto tbl = get_experience_table(ei.classes[i]);
+			auto lev = player->levels[i];
+			if(experience >= tbl[lev + 1]) {
+				player->levels[i]++;
+				player->hpr += 1 + (rand() % pi->hd);
+				advance_level(pi, player->levels[i]);
+				consolen("%Name become %1i level %2", player->levels[i], pi->getname());
+				need_update = true;
+				levelup_occurs = true;
+			}
 		}
-	}
+	} while(levelup_occurs);
 	if(need_update)
 		update_player();
 }

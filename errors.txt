@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `PurpleGem`
+﻿Error in file `rules/Spells.txt`:
+ Line 81: Not found requisit `filter_item`

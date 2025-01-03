@@ -12,18 +12,19 @@ struct itemi;
 struct creaturei;
 
 struct spelli : nameable, featable {
-	char		levels[4];
-	char		avatar_thrown;
-	color		lighting;
+	char	levels[4];
+	char	avatar_thrown;
+	color	lighting;
 	const randomeffecti* duration; // Enchantment spell
 	const itemi* summon; // Which item summoned in hand
-	variants	filter;
-	variants	instant;
-	variants	clearing;
-	variants	wearing;
+	variants filter, filter_item;
+	variants instant;
+	variants clearing;
+	variants wearing;
 	bool isthrown() const { return avatar_thrown!=0; }
 };
 extern const spelli* last_spell;
+
 typedef char spella[128];
 typedef flagable<16> spellseta;
 

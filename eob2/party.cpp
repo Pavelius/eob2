@@ -644,6 +644,7 @@ void pass_hours(int value) {
 		all_creatures(update_every_turn);
 	for(auto i = 0; i < value; i++)
 		all_creatures(update_every_hour);
+	all_party(check_levelup, true);
 	fix_animate();
 }
 
@@ -716,6 +717,14 @@ unsigned get_stamp(unsigned duration) {
 bool party_is(alignmentn v) {
 	for(auto i = 0; i < 6; i++) {
 		if(characters[i] && !characters[i]->isdisabled() && characters[i]->is(v))
+			return true;
+	}
+	return false;
+}
+
+bool party_is(creaturei* player) {
+	for(auto p : characters) {
+		if(p == player)
 			return true;
 	}
 	return false;

@@ -619,6 +619,7 @@ void create_monster(const monsteri* pi) {
 	update_basic();
 	apply_feats(pi->feats);
 	raise_monster_level();
+	create_monster_pallette();
 	update_player();
 	player->hp = player->hpm;
 }

@@ -16,7 +16,7 @@ struct creaturei : npc, statable, wearable, posable {
 	statable		basic;
 	short			hp, hpm, hpr, hp_aid, food;
 	short unsigned	monster_id;
-	char			initiative;
+	char			initiative, pallette;
 	spella			spells;
 	racef			hate;
 	flag32			languages;
@@ -67,6 +67,7 @@ void add_spells(int type, int level, const spellseta* include);
 void check_levelup();
 void create_player();
 void create_monster(const monsteri* pi);
+void create_monster_pallette();
 void drop_unique_loot(creaturei* player);
 void set_reaction(creaturei** creatures, reactions v);
 void update_player();

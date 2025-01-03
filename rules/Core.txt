@@ -14,9 +14,9 @@ MageTestSpells
  elements ShortSword DamageItem+6 PushModifier Permanent Mending
 
 HumanFighter
- elements Human Male Fighter CreateCharacter
+ elements Human Male Fighter CreateCharacter AddExpPersonal+80
 HumanPaladin
- elements Human Male Paladin CreateCharacter
+ elements Human Male Paladin CreateCharacter AddExpPersonal+80
 DwarfCleric
  elements Dwarf Male Cleric CreateCharacter AddExpPersonal+80
 ElfMage

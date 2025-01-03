@@ -734,7 +734,7 @@ static void create_room(pointc v, const char* id, fnroom proc) {
 
 static void create_rooms(pointc start, bool last_level) {
 	pointca points;
-	create_points(points, 3, 2, 3);
+	create_points(points, 3, 3, 3);
 	if(start)
 		create_room(start, "ShapeExit", stairs_up);
 	else

@@ -5,6 +5,7 @@
 #include "cell.h"
 #include "monster.h"
 #include "party.h"
+#include "rand.h"
 #include "resid.h"
 #include "timer.h"
 #include "view.h"
@@ -624,6 +625,19 @@ static renderi* create_items(renderi* p, int i, pointc v, directions dr) {
 	return p;
 }
 
+void create_monster_pallette() {
+	auto pm = player->getmonster();
+	if(!pm)
+		return;
+	auto pr = gres(pm->res);
+	if(!pr)
+		return;
+	auto ph = pr->getheader("COL");
+	if(!ph)
+		return;
+	player->pallette = xrand(0, 2);
+}
+
 static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, bool flip) {
 	creaturei* result[6]; loc->getmonsters(result, index, dr);
 	for(int n = 0; n < 4; n++) {
@@ -652,7 +666,7 @@ static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, 
 		if(!p->rdata)
 			continue;
 		p->target = pc;
-		//	p->pallette = pc->getpallette();
+		p->pallette = pc->pallette;
 		unsigned flags = 0;
 		// Animate active monsters
 		if(((p->x + current_cpu_time / 100) / 16) % 2) {

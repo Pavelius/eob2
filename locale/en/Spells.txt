@@ -24,6 +24,7 @@ HoldPersonGainEffect: %1i creatures stand still!
 Identify: Identify
 Knock: Knock
 LayOnHand: Lay on Hand
+LocateGems: Locate gems
 MagicalVestment: Magical Vestment
 MagicMissile: Magic Missile
 Mending: Mending

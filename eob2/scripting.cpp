@@ -2180,6 +2180,8 @@ static void choose_shop_item(int bonus) {
 		}
 	}
 	last_item = (item*)choose_large_menu(header, getnm("Cancel"));
+	if(!last_item)
+		script_stop();
 }
 
 static bool use_bless_effect(const variants& source, int bonus) {

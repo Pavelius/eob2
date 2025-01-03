@@ -74,6 +74,7 @@ ToolCrumbleToDust: %1 crumble to dust
 UseHolySymbolFail: You praying is without answers
 UseHolySymbolSuccessOnPlayer: %1 answer the praying on %2
 UseHolySymbolSuccess: %1 answer the praying
+WizardTower: Wizard Tower
 
 Options: Options
 ReturnBack: Back

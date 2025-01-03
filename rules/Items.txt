@@ -109,13 +109,13 @@ Bow cost(60) speed(8) damage_type(Piercing) damage(1 6) ammo(Arrow) avatar(10) a
 Sling speed(6) damage(1 4) ammo(Stone) avatar(18) avatar_ground(4) wear(RightHand)
  feats Small
 
-Robe avatar(32) avatar_ground(8) wear(Body)
-RedCloack avatar(17) avatar_ground(8) wear(Body) powers(CloackPowers)
-BlueCloack avatar(92) avatar_ground(8) wear(Body) powers(CloackPowers)
+Robe cost(4) avatar(32) avatar_ground(8) wear(Body)
+RedCloack cost(4) avatar(17) avatar_ground(8) wear(Body) powers(CloackPowers)
+BlueCloack cost(4) avatar(92) avatar_ground(8) wear(Body) powers(CloackPowers)
 LeatherArmor cost(10) avatar(31) avatar_ground(11) wear(Body) powers(ArmorPowers)
  feats UseLeather
  wearing AC+2
-ScaleMail cost(100) avatar(30) avatar_ground(9) wear(Body) powers(ArmorPowers)
+ScaleMail cost(80) avatar(30) avatar_ground(9) wear(Body) powers(ArmorPowers)
  feats UseMetal
  wearing AC+4 CriticalDeflect+15
 ChainMail cost(100) avatar(29) avatar_ground(9) wear(Body) powers(ArmorPowers)
@@ -147,22 +147,22 @@ Bracers avatar(25) avatar_ground(16) wear(Elbow) powers(BracerPowers)
  feats Small
  wearing CriticalDeflect+5
 
-RedRing cost(30) avatar(55) avatar_ground(15) wear(RightRing) powers(RingPowers)
+BlueRing cost(80) avatar(78) avatar_ground(15) wear(RightRing) powers(RingPowers)
  feats Small
 GreenRing cost(50) avatar(79) avatar_ground(15) wear(RightRing) powers(RingPowers)
  feats Small
-BlueRing cost(80) avatar(78) avatar_ground(15) wear(RightRing) powers(RingPowers)
+RedRing cost(30) avatar(55) avatar_ground(15) wear(RightRing) powers(RingPowers)
  feats Small
 Amulet cost(50) avatar(33) avatar_ground(13) wear(Neck) powers(AmuletPowers)
  feats Small
 Medalion cost(80) avatar(34) avatar_ground(13) wear(Neck) powers(AmuletPowers)
  feats Small
 
-BluePotion cost(150) avatar(40) avatar_ground(19) powers(SimplePotions) wear(Drinkable) chance_identify(70)
+BluePotion cost(80) avatar(40) avatar_ground(19) powers(SimplePotions) wear(Drinkable) chance_identify(70)
  feats Small
-GreenPotion cost(120) avatar(41) avatar_ground(19) powers(AdvancedPotions) wear(Drinkable)
+GreenPotion cost(100) avatar(41) avatar_ground(19) powers(AdvancedPotions) wear(Drinkable)
  feats Small
-RedPotion cost(100) avatar(39) avatar_ground(19) powers(WeirdPotions) wear(Drinkable)
+RedPotion cost(150) avatar(39) avatar_ground(19) powers(WeirdPotions) wear(Drinkable)
  feats Small
 
 LargeRation avatar(37) avatar_ground(14) damage(1 6) wear(Edible)

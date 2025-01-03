@@ -387,7 +387,7 @@ static bool have_boost_summon(const item& it) {
 
 static void update_summon() {
 	for(auto& it : player->wears) {
-		if(it.issummoned() && !have_boost_summon(it))
+		if(it.is(SummonedItem) && !have_boost_summon(it))
 			it.clear();
 	}
 }

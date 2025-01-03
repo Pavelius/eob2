@@ -753,6 +753,7 @@ static void drop_special_item() {
 	if(loc->state.special)
 		return;
 	item it; it.create(loc->special);
+	it.set(QuestItem);
 	if(d100() < 60)
 		it.createpower(xrand(2, 5), 100, 5);
 	pointc v;

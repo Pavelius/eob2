@@ -8,7 +8,7 @@ Before visit any shop you try identify any items that you grab in dungeon. Speak
 
 #BlacksmithUnlock
 /buildngs 0
-A village blacksmith invite you to visit blacksmith, located on outskirts of village. There you can repair you items and buy basic weapon.
+A village blacksmith invite you to visit blacksmith, located on outskirts of village. There you can repair you items.
 
 #WizardTowerUnlock
 /npc 59

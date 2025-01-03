@@ -23,7 +23,7 @@ static void apply_summon(creaturei* player, const itemi* pi) {
 		return;
 	player->wears[wear].create(pi);
 	player->wears[wear].identify(1);
-	player->wears[wear].summon(1);
+	player->wears[wear].set(SummonedItem);
 }
 
 template<> bool fttest<spelli>(int value, int bonus) {

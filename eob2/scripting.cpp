@@ -375,6 +375,8 @@ static void drop_city_item() {
 		return;
 	if(!can_remove(pi))
 		return;
+	if(pi->is(QuestItem))
+		return;
 	char temp[128]; stringbuilder sb(temp);
 	sb.add(getnm("SellConfirm"), pi->getname(), cost);
 	if(!confirm(temp))
@@ -822,7 +824,7 @@ static bool mission_equipment(const char* id) {
 	for(auto v : pi->elements) {
 		if(v.iskind<itemi>()) {
 			ftscript<itemi>(v.value, v.counter);
-			last_item->tool(1);
+			last_item->set(ToolItem);
 			last_item->identify(1);
 			last_item->curse(-1);
 		} else
@@ -841,7 +843,7 @@ static void craft_mission_equipment() {
 
 static void clear_mission_equipment() {
 	for(auto& e : player->wears) {
-		if(e.istool())
+		if(e.is(ToolItem))
 			e.clear();
 	}
 }
@@ -882,6 +884,8 @@ static void check_quest_complited() {
 static void loot_selling() {
 	for(auto& e : player->backpack()) {
 		if(!e || e.ismagical())
+			continue;
+		if(e.is(QuestItem))
 			continue;
 		auto& ei = e.geti();
 		if(ei.wear == Key || ei.wear == Readable)

@@ -9,6 +9,9 @@ struct listi;
 
 enum wearn : unsigned char;
 enum damagen : unsigned char;
+enum purposen : unsigned char {
+	CommonItem, SummonedItem, ToolItem, QuestItem,
+};
 
 struct itemi : nameable, featable {
 	char		attack, number_attacks, speed;
@@ -28,8 +31,7 @@ class item {
 		struct {
 			unsigned char cursed : 1;
 			unsigned char identified : 1;
-			unsigned char summoned : 1;
-			unsigned char tooled : 1;
+			purposen purpose : 3;
 		};
 		unsigned char flags;
 	};
@@ -38,7 +40,6 @@ class item {
 public:
 	explicit operator bool() const { return type != 0; }
 	void		clear();
-	void		tool(int v) { tooled = (v >= 0) ? 1 : 0; }
 	void		create(int value);
 	void		create(const itemi* pi);
 	void		createpower(char magic_bonus, int chance_magical, int chance_cursed);
@@ -49,6 +50,7 @@ public:
 	bool		is(featn v) const { return geti().is(v); }
 	bool		is(const itemi* pi) const { return pi == &geti(); }
 	bool		is(wearn v) const { return geti().wear == v; }
+	bool		is(purposen v) const { return purpose == v; }
 	bool		isallow(wearn v) const;
 	bool		isartifact() const { return getpower().counter >= 4; }
 	bool		iscountable() const;
@@ -58,8 +60,6 @@ public:
 	bool		isnatural() const { return is(You); }
 	bool		ismagical() const { return iscursed() || getpower().counter != 0; }
 	bool		isranged() const { return geti().avatar_thrown || geti().ammo != 0; }
-	bool		issummoned() const { return summoned != 0; }
-	bool		istool() const { return tooled != 0; }
 	bool		isweapon() const;
 	bool		join(item& it);
 	int			getcost() const;
@@ -67,9 +67,9 @@ public:
 	const char*	getname() const;
 	void		getname(stringbuilder& sb) const;
 	variant		getpower() const;
+	void		set(purposen v) { purpose = v; }
 	void		setcount(int v);
 	void		setpower(variant v);
-	void		summon(int v) { summoned = (v >= 0) ? 1 : 0; }
 	void		consume() { setcount(getcount() - 1); }
 	void		usecharge(const char* interactive, int chance = 35, int maximum = 10);
 };

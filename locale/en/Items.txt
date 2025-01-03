@@ -3,6 +3,7 @@ Amulet: Amulet
 Arrow: Arrow
 BandedMail: Banded mail
 BattleAxe: Battle axe
+BlueCloack: Cloack
 BlueGem: Gem
 BluePotion: Potion
 BlueRing: Ring

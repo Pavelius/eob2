@@ -16,8 +16,8 @@
 #include "wallmessage.h"
 
 #ifdef _DEBUG
-// #define DEBUG_DUNGEON
-// #define DEBUG_ROOM
+//#define DEBUG_DUNGEON
+//#define DEBUG_ROOM
 #endif
 
 typedef void (*fncorridor)(pointc v, directions d);
@@ -122,13 +122,15 @@ static bool is(pointc v, directions d, celln t1) {
 }
 
 static bool door(pointc v, directions d, bool has_button, bool has_button_on_other_side) {
-	if(loc->type == FOREST)
-		return true;
 	switch(loc->get(v)) {
 	case CellWall:
 	case CellPortal:
 		return false;
 	default: break;
+	}
+	if(loc->type == FOREST) {
+		loc->set(v, CellPassable);
+		return true;
 	}
 	// If nearbe at least one door present, don't create new one.
 	if(loc->around(v, CellDoor, CellDoor))

@@ -1,0 +1,22 @@
+#ExploreNorthWood
+Explore North Woods
+
+#ExploreNorthWoodSummary
+/npc 52
+Man in tavern sit to you table. "Hello. My name is Alf Bowmen and I local ranger."
+"As you know, this village is lay on outskirs of civilization. Wast and unexplored forest lay to the north in a week of foot travel. A dangerous and ancient forest."
+He gulp a beer and continue "And what lay in this forest? Forgotten treasures of ancient civilization? Maybe. And I give you chance to explore this for my money."
+"Explore this forest, investigate its forgotten corners and I pay you 300 gold piece for information. I use it to hunt prey and, maybe to settle in those lands."
+
+#ExploreNorthWoodAgree
+"Great! Wait for your reports, when you explore most part of forest entrance to the north."
+
+#ExploreNorthWoodEntering
+/adventure 2
+You move to north several day by foot. Green valley lay around you, but to nothern side you see moutains.
+/adventure 9
+On eight day of travel you enter into deep forest.
+
+#ExploreNorthWoodFinish
+/npc 52
+"At least you back. You see goblins and wolf? What you say they use it as domestic animals? Interesting. Here your 300 gold. Good work."

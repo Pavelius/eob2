@@ -1,2 +1,2 @@
-﻿Error in file `rules/Spells.txt`:
- Line 81: Not found requisit `filter_item`
+﻿Error in file `rules/Monsters.txt`:
+ Line 23: Can't find variant `Bite2d4`

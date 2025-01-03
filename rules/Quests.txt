@@ -1,5 +1,6 @@
 #Quest
 
+ExploreNorthWood
 FloodedSewers
 CursedDungeon
 
@@ -8,11 +9,12 @@ FloodedSewers
  travel PassHours+1
  reward AddReward+3 Reputation+5 CursedDungeon ActivateQuest
  sites type(brick) level(3) habbits(Kobold Leech) language(Human) key(IronKey)
-//ExploreNorthWood
-// goals ExmploreMostArea(1)
-// travel PassHours+8
-// reward AddReward+1 Reputation+2 CursedDungeon ActivateQuest
-// sites type(forest) level(1) habbits(Wolf Golbin) language(Orc) key(IronKey)
+
+ExploreNorthWood
+ goals ExmploreMostArea(1)
+ travel PassHours+8
+ reward AddReward+1 Reputation+2 CursedDungeon ActivateQuest
+ sites type(forest) level(1) habbits(Wolf Goblin) language(Goblinoid) key(IronKey)
 
 CursedDungeon
  goals TakeSpecialItem(1)

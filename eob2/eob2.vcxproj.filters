@@ -625,6 +625,9 @@
     <Text Include="..\names\en\TalkTome.txt">
       <Filter>locale</Filter>
     </Text>
+    <Text Include="..\locale\en\QuestExploreNorthWood.txt">
+      <Filter>locale</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">

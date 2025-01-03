@@ -7,6 +7,8 @@ Bugbear res(bugbear) hd(3) ac(5) experience(120) alignment(ChaoticEvil)
  feats Claws1d4 Constitution+6 Strenght+4 Large Sneaky+60
 Ghoul res(ghoul) hd(1) ac(6) experience(175) alignment(ChaoticEvil) reaction(Hostile)
  feats Claws1d3 Bite1d6 Undead ImmuneCharm ImmuneCold ParalizeAttack
+Goblin res(goblin) hd(1) ac(8) experience(15) alignment(LawfulEvil)
+ feats Constitution-4 Dexterity+5 Axe Shield
 Leech res(leech) hd(4) ac(9) experience(175) alignment(TrueNeutral)
  feats Intellegence-6 Large VampiricAttack DiseaseAttack Mandibules
 Shadow res(shadow) hd(3) ac(7) experience(420) alignment(ChaoticEvil) reaction(Hostile)
@@ -15,5 +17,9 @@ Skeleton res(skeleton) hd(1) ac(7) experience(65) alignment(TrueNeutral) reactio
  feats Dexterity+3 Axe Undead ResistPierce ResistSlashing ImmuneCharm ImmuneCold
 Wight res(wight) hd(4) ac(5) experience(1400) alignment(LawfulEvil)
  feats Constitution+5 Slam1d4 Undead ImmuneCharm ImmuneCold ImmunePoison ImmuneNormalWeapon
+Wolf res(wolf) hd(3) ac(7) experience(65) alignment(TrueNeutral)
+ feats Intellegence-6 Large Strenght+6 Slam1d4
+Worg res(wolf) hd(3) ac(6) experience(120) alignment(TrueNeutral)
+ feats Intellegence-6 Constitution+5 Large Hag2d4
 Zombie res(zombie) hd(2) ac(8) alignment(TrueNeutral) reaction(Hostile)
  feats Dexterity-3 Slam1d8 Undead SlowMove ResistPierce ResistSlashing ImmuneCharm

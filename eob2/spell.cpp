@@ -283,7 +283,7 @@ bool can_cast_spell(const spelli* ps, creaturei* target) {
 }
 
 bool cast_spell(const spelli* ps, int level, int experience, bool run, bool random_target) {
-	auto push_spell = last_spell;
+	pushvalue push_spell(last_spell);
 	pushanswer push_answers;
 	pointc enemy_position = to(party, party.d);
 	last_spell = ps;
@@ -332,9 +332,9 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 		thrown_item(party, Up, ps->avatar_thrown, player->side % 2, n);
 	}
 	player->addexp(experience);
-	auto push_caster = caster; caster = player;
-	auto push_level = last_level; last_level = level;
-	auto push_id = last_id; last_id = last_spell->id;
+	pushvalue push_caster(caster, player);
+	pushvalue push_level(last_level, level);
+	pushvalue push_id(last_id, last_spell->id);
 	party.abilities[EffectCount] = 0;
 	if(ps->is(SummaryEffect))
 		script_run(ps->instant);
@@ -348,10 +348,6 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 		player->speakn(ps->id, "GainEffect", party.abilities[EffectCount]);
 	else
 		player->speakn(ps->id, "NoEffect", party.abilities[EffectCount]);
-	last_id = push_id;
-	last_spell = push_spell;
-	last_level = push_level;
-	caster = push_caster;
 	return true;
 }
 
@@ -366,7 +362,7 @@ void cast_spell() {
 	pass_round();
 }
 
-void add_spells(int type, int level, const spellseta * include) {
+void add_spells(int type, int level, const spellseta* include) {
 	an.clear();
 	for(auto& e : bsdata<spelli>()) {
 		if(e.levels[type] != level)

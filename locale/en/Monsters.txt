@@ -1,6 +1,9 @@
 ﻿Bugbear: Bugbear
 Ghoul: Ghoul
+Goblin: Goblin
 Shadow: Shadow
 Skeleton: Skeleton
 Zombie: Zombie
 Wight: Wight
+Wolf: Wolf
+Worg: Worg

@@ -155,6 +155,7 @@ BSMETA(monsteri) = {
 	BSREQ(experience),
 	BSENM(res, residi),
 	BSENM(alignment, alignmenti),
+	BSENM(reaction, reactioni),
 	BSREQ(frames), BSREQ(overlays),
 	BSREQ(hd), BSREQ(ac),
 	BSREQ(feats),

@@ -44,6 +44,10 @@ I see something behind bars
 Old drainage gate
 That eyes look on me
 
+#CellDecor3Dung
+Looks like on key or bone
+Interesting
+
 #CellDecor3Brick
 What a stench!
 
@@ -151,7 +155,7 @@ Some kind of %DungeonOrigin shit!
 
 #WhatDoYouSay
 What?
-I have no speech!
+I don't know what is it
 
 #MustBeUseInHand
 Must be used in hands
@@ -236,6 +240,14 @@ Food is spoiled. We need clean it
 
 #LieSuccess
 "Welcome friends! How can I help you?"
+
+#LocateGemsSuccess
+I sense all gems position
+Revieal all gems nearbe!
+
+#LocateGemsFail
+There is no gems around
+I don't sense any gems on this level
 
 #FindTrapsSuccess
 All trap is visible for me

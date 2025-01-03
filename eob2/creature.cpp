@@ -612,6 +612,7 @@ void create_monster(const monsteri* pi) {
 	player->levels[0] = pi->hd;
 	player->basic.abilities[AC] = (10 - pi->ac);
 	player->alignment = pi->alignment;
+	player->reaction = pi->reaction;
 	set_basic_ability();
 	set_race_ability();
 	apply_default_ability();
@@ -749,6 +750,8 @@ const monsteri*	creaturei::getmonster() const {
 }
 
 bool can_remove(item* pi, bool speech) {
+	if(pi->is(SummonedItem))
+		return false;
 	auto player = item_owner(pi);
 	if(!player)
 		return true;

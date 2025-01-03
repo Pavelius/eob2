@@ -69,6 +69,8 @@ static bool is_enchant(referencei target, variant v) {
 
 static spelli* choose_prepared_spell() {
 	pushanswer push_answer;
+	if(!player->isactable())
+		return 0;
 	for(auto& e : bsdata<spelli>()) {
 		auto index = &e - bsdata<spelli>::elements;
 		auto count = player->spells[index];

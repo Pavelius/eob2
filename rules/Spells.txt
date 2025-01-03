@@ -226,7 +226,7 @@ Knock levels(0 2)
  instant ActivateLinkedOverlay
 LocateGems levels(0 2)
  feats You
- instant ClearArea FilterArea RandomGem ShowArea
+ instant ClearArea AddAreaItems RandomGem ShowArea
 MelfAcidArrow levels(0 2)
  feats Enemy
  instant SaveNegate Roll2d4 Acid SetLevel Div+3 AcidD1Level+101 AcidD2Level+101

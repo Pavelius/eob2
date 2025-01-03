@@ -34,6 +34,7 @@ MagicMap: Map
 MageBook: Tome
 PlateMail: Plate mail
 PriestScroll: Scroll
+PurpleGem: Gem
 Ration: Ration
 RedCloack: Cloack
 RedPotion: Potion
@@ -83,6 +84,9 @@ OfProtection: protection%+1i
 OfResistFire: fire resistance
 OfResistCold: cold resistance
 OfShockingGrasp: shocking
+OfStrenght1: bull strenght
+OfStrenght2: giant strenght
+OfStrenght3: titan strenght
 
 OfCommonTales: tales
 

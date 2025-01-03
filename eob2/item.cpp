@@ -88,6 +88,8 @@ void item::create(int value) {
 	count = 0;
 	if(iscountable())
 		count += xrand(0, 4);
+	if(geti().is(You))
+		purpose = NaturalItem;
 }
 
 const char*	item::getname() const {

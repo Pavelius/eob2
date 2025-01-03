@@ -41,6 +41,10 @@ BracerPowers
  elements NoVariant AC+1 AC+2 AC+3 AC+4 AC+5 Dexterity+1 Strenght+1
 CloackPowers
  elements NoVariant Protection+1 Protection+2 Protection+3 Protection+4 Protection+5 Displacement+3 Arachemida+2
+ShieldPowers
+ elements NoVariant AC+1 AC+2
+RobePowers
+ elements NoVariant Protection+1 Protection+2 Protection+3 Protection+4 Protection+5
 
 HelmPowers
  elements NoVariant AllLanguages+1 AC+2
@@ -109,7 +113,7 @@ Bow cost(60) speed(8) damage_type(Piercing) damage(1 6) ammo(Arrow) avatar(10) a
 Sling speed(6) damage(1 4) ammo(Stone) avatar(18) avatar_ground(4) wear(RightHand)
  feats Small
 
-Robe cost(4) avatar(32) avatar_ground(8) wear(Body)
+Robe cost(4) avatar(32) avatar_ground(8) wear(Body) powers(RobePowers)
 RedCloack cost(4) avatar(17) avatar_ground(8) wear(Body) powers(CloackPowers)
 BlueCloack cost(4) avatar(92) avatar_ground(8) wear(Body) powers(CloackPowers)
 LeatherArmor cost(10) avatar(31) avatar_ground(11) wear(Body) powers(ArmorPowers)
@@ -134,10 +138,10 @@ Helm cost(10) avatar(20) avatar_ground(6) wear(Head) powers(HelmPowers)
 DwarvenHelm cost(30) avatar(73) avatar_ground(6) wear(Head) powers(HelmPowers)
  feats UseShield Small
  wearing CriticalDeflect+5 SaveVsMagic+5
-Shield cost(10) avatar(23) avatar_ground(7) wear(LeftHand)
+Shield cost(10) avatar(23) avatar_ground(7) wear(LeftHand) powers(ShieldPowers)
  feats UseShield
  wearing AC+1 CriticalDeflect+10
-DwarvenShield cost(30) avatar(23) avatar_ground(7) wear(LeftHand)
+DwarvenShield cost(30) avatar(23) avatar_ground(7) wear(LeftHand) powers(ShieldPowers)
  feats UseShield
  wearing AC+1 CriticalDeflect+10
 Boots avatar(21) avatar_ground(9) wear(Legs) powers(BootsPowers)

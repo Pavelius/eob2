@@ -264,6 +264,9 @@
     <ClCompile Include="shop.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="purpose.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -519,6 +522,9 @@
       <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="shop.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="purpose.h">
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>

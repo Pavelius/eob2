@@ -3,16 +3,13 @@
 #include "dice.h"
 #include "feat.h"
 #include "nameable.h"
+#include "purpose.h"
 #include "variant.h"
 
 struct listi;
 
 enum wearn : unsigned char;
 enum damagen : unsigned char;
-enum purposen : unsigned char {
-	CommonItem, SummonedItem, ToolItem, QuestItem,
-};
-
 struct itemi : nameable, featable {
 	char		attack, number_attacks, speed;
 	damagen		damage_type;
@@ -57,7 +54,6 @@ public:
 	bool		iscursed() const { return cursed != 0; }
 	bool		isdamaged() const { return !iscountable() && count >= 5; }
 	bool		isidentified() const { return identified != 0; }
-	bool		isnatural() const { return is(You); }
 	bool		ismagical() const { return iscursed() || getpower().counter != 0; }
 	bool		isranged() const { return geti().avatar_thrown || geti().ammo != 0; }
 	bool		isweapon() const;

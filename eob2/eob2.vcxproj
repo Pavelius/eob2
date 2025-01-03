@@ -181,6 +181,7 @@
     <ClInclude Include="pointc.h" />
     <ClInclude Include="pointca.h" />
     <ClInclude Include="posable.h" />
+    <ClInclude Include="purpose.h" />
     <ClInclude Include="quest.h" />
     <ClInclude Include="race.h" />
     <ClInclude Include="randomeffect.h" />
@@ -262,6 +263,7 @@
     <ClCompile Include="pointc.cpp" />
     <ClCompile Include="pointca.cpp" />
     <ClCompile Include="posable.cpp" />
+    <ClCompile Include="purpose.cpp" />
     <ClCompile Include="quest.cpp" />
     <ClCompile Include="randomeffect.cpp" />
     <ClCompile Include="randomizer.cpp" />

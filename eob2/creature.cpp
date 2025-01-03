@@ -752,6 +752,8 @@ const monsteri*	creaturei::getmonster() const {
 bool can_remove(item* pi, bool speech) {
 	if(pi->is(SummonedItem))
 		return false;
+	if(pi->is(NaturalItem))
+		return false;
 	auto player = item_owner(pi);
 	if(!player)
 		return true;
@@ -862,7 +864,7 @@ int creaturei::getexpaward() const {
 
 void drop_unique_loot(creaturei* player) {
 	for(auto& it : player->wears) {
-		if(!it || it.isnatural())
+		if(!it || it.is(NaturalItem) || it.is(SummonedItem))
 			continue;
 		if(it.is(Unique)) {
 			it.identify(0);
@@ -873,7 +875,7 @@ void drop_unique_loot(creaturei* player) {
 
 static void drop_loot(creaturei* player) {
 	for(auto& it : player->wears) {
-		if(!it || it.isnatural())
+		if(!it || it.is(NaturalItem) || it.is(SummonedItem))
 			continue;
 		if(d100() < 15) {
 			it.identify(0);

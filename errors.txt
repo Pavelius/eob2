@@ -1,3 +1,2 @@
-﻿Error in file `rules/Core.txt`:
- Line 15: Can't find variant `AddPersonalExp`
- Line 15: Can't find variant `AddPersonalExp`
+﻿Error in file `rules/Spells.txt`:
+ Line 275: Can't find variant `IfUndead`

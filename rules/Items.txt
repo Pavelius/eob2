@@ -27,7 +27,10 @@ WeirdPotions
 
 AmuletPowers
 
-MageSpells
+MageAbjurationSpells
+MageDivinationSpells
+MageEvocationSpells
+MageIllusionSpells
 PriestSpells
 WandSpells
 
@@ -174,7 +177,13 @@ LargeRation avatar(37) avatar_ground(14) damage(1 6) wear(Edible)
 Ration avatar(38) avatar_ground(14) wear(Edible)
  feats Small
 
-MageScroll cost(20) avatar(36) avatar_ground(12) wear(Readable) powers(MageSpells) chance_identify(40)
+MageAbjurationScroll cost(20) avatar(36) avatar_ground(12) wear(Readable) powers(MageAbjurationSpells) chance_identify(30)
+ feats Small
+MageDivinationScroll cost(20) avatar(36) avatar_ground(12) wear(Readable) powers(MageDivinationSpells) chance_identify(30)
+ feats Small
+MageEvocationScroll cost(20) avatar(36) avatar_ground(12) wear(Readable) powers(MageEvocationSpells) chance_identify(20)
+ feats Small
+MageIllusionScroll cost(20) avatar(36) avatar_ground(12) wear(Readable) powers(MageIllusionSpells) chance_identify(30)
  feats Small
 PriestScroll cost(20) avatar(85) avatar_ground(12) wear(Readable) powers(PriestSpells) chance_identify(100)
  feats Small
@@ -328,7 +337,7 @@ RandomRings
 RandomAmulets
  chance Amulet
 RandomScrolls
- chance MageScroll+3 PriestScroll+2 MagicMap
+ chance MageAbjurationScroll+2 MageDivinationScroll+2 MageEvocationScroll+2 MageIllusionScroll+2 PriestScroll+3 MagicMap+3
 RandomWands
  chance Wand
 RandomTools
@@ -367,4 +376,4 @@ Halfling
 #Shop
 
 MagicSpellsShop count(1 4 2) days(7)
- effect MageScroll
+ effect MageEvocationScroll+2 MageIllusionScroll+3 MageDivinationScroll+1

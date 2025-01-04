@@ -29,7 +29,10 @@ LargeRation: Large ration
 LeatherArmor: Leather armor
 Longsword: Longsword
 Mace: Mace
-MageScroll: Scroll
+MageAbjurationScroll: Scroll
+MageDivinationScroll: Scroll
+MageEvocationScroll: Scroll
+MageIllusionScroll: Scroll
 MagicMap: Map
 MageBook: Tome
 PlateMail: Plate mail

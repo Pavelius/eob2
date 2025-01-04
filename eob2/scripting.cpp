@@ -320,7 +320,7 @@ static void choose_options(const char* id, const variants& options) {
 	last_result = choose_large_menu(header, getnm("Cancel"));
 }
 
-static void choose_item(const char* id, const variants& filter) {
+static void choose_item(const char* id, const variants& filter, int bonus) {
 	pushanswer push;
 	char header[64]; stringbuilder sb(header);
 	set_player_by_focus();
@@ -329,7 +329,10 @@ static void choose_item(const char* id, const variants& filter) {
 		last_item = &e;
 		if(!script_allow(filter))
 			continue;
-		an.add(&e, e.getname());
+		switch(bonus) {
+		case 1: an.add(&e, e.getpower().getname()); break;
+		default: an.add(&e, e.getname()); break;
+		}
 	}
 	last_item = (item*)choose_large_menu(header, getnm("Cancel"));
 }
@@ -1048,7 +1051,7 @@ static void buy_menu(int bonus) {
 
 static void choose_items(int bonus) {
 	scriptbody commands;
-	choose_item(last_id, commands);
+	choose_item(last_id, commands, bonus);
 	script_stop();
 }
 
@@ -1899,6 +1902,10 @@ static void save_half(int bonus) {
 		last_number = last_number / 2;
 }
 
+static void set_caster(int bonus) {
+	player = caster;
+}
+
 static void set_character(int bonus) {
 	player = characters[bonus];
 }
@@ -2652,6 +2659,7 @@ BSDATA(script) = {
 	{"ApplyRacialEnemy", apply_racial_enemy},
 	{"BestPlayer", best_player},
 	{"BuyMenu", buy_menu},
+	{"Caster", set_caster},
 	{"ConfirmAction", confirm_action},
 	{"Character", set_character},
 	{"ChooseItems", choose_items},

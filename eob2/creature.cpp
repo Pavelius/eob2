@@ -241,6 +241,18 @@ static int get_modified_strenght() {
 	return a;
 }
 
+static void update_ability(abilityn v, int level, int per_level, int minimal) {
+	if(level <= 0 || !per_level)
+		return;
+	auto value = player->abilities[v];
+	if(value <= minimal)
+		return;
+	value -= level / per_level;
+	if(value < minimal)
+		value = minimal;
+	player->abilities[v] = value;
+}
+
 static void update_abilities() {
 	auto n = -(player->abilities[DrainStrenght] + player->abilities[DrainLevel]);
 	auto s = -player->abilities[DrainLevel] * 5;
@@ -252,6 +264,10 @@ static void update_abilities() {
 	player->add(SaveVsPoison, s);
 	player->add(SaveVsTraps, s);
 	player->add(SaveVsMagic, s);
+	auto disease_level = player->abilities[DiseaseLevel];
+	update_ability(Charisma, disease_level, 2, 6);
+	update_ability(Dexterity, disease_level, 3, 6);
+	update_ability(Strenght, disease_level, 5, 3);
 }
 
 static void update_theif_skill_by_dexterity() {

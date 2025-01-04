@@ -254,6 +254,13 @@ All trap is visible for me
 I see all traps in area
 Behold all traps
 
+#ClairaudienceSuccess
+I hear monsters
+I hear movement of monsters
+
+#ClairaudienceFail
+I can't hear any monsters movement
+
 #KnockSuccess
 Knock-knock, door is open
 And now - some magical lock trick

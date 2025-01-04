@@ -331,7 +331,7 @@ static void check_disease() {
 	// Reduce hp (can die if disease level high)
 	if(player->is(DiseaseLevel)) {
 		auto m = player->hpm / 3;
-		if(player->get(DiseaseLevel) > 20)
+		if(player->get(DiseaseLevel) > 10)
 			m = 0;
 		if(player->hp > m)
 			player->hp--;

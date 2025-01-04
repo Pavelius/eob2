@@ -4,7 +4,9 @@ Roll1d3 base(1 3)
 Roll1d3x2s0p1c10 base(1 3) raise(2) perlevel(0 1 10)
 Roll1d4p1x1d4p1s3p2c9 base(1 4 1) raise(1 4 1) perlevel(3 2 9)
 Roll1d4xp1p3c8 base(1 4) raise(1) perlevel(0 3 8)
+Roll1d4x1 base(1 4) raise(1) perlevel(0 1)
 Roll1d6 base(1 6)
+Roll1d6x1d6p2c12 base(1 6) raise(1 6) perlevel(0 2 12)
 Roll1d8 base(1 8)
 Roll1d8x1 base(1 8) raise(1) perlevel(1 1)
 Roll2x1 base(2) raise(1) perlevel(1 1)
@@ -12,6 +14,7 @@ Roll2d4 base(2 4)
 Roll2d6 base(2 6)
 Roll2d8 base(2 8)
 Roll3d8 base(3 8)
+Roll1d6x1d6p1 base(1 6) raise(1 6) perlevel(0 1 10)
 Roll6d8 base(6 8)
 Minute3x1 base(3) raise(1) perlevel(1 1)
 Minute3x3 base(3) raise(1) perlevel(1 3)
@@ -85,7 +88,7 @@ FlameBlade levels(2) summon(FlameBladeHand) duration(Turn5x1)
 FindTraps levels(2)
  feats You
  instant SelectArea FilterArea TrapCells ShowArea
-HoldPerson levels(2) duration(Minute0x2)
+HoldPerson levels(2 3) duration(Minute0x2)
  feats Enemy
  filter IfIntelligence IfParalized-1 ImmuneCharm-1
  instant SaveNegate ApplyEnchantSpell EffectCount+1
@@ -122,7 +125,7 @@ Prayer levels(3) lighting(255 239 0) duration(Minute5x1)
  feats Ally You Group
  instant ApplyEnchantSpell
  wearing Attack+1 Damage+1 Saves+1
-RemoveCurse levels(3)
+RemoveCurse levels(3 4)
  feats Ally You
  filter_item IfItemCursed IfItemIdentified
  instant CurseItem-1 EffectCount+1
@@ -140,7 +143,7 @@ NeutralizePoison levels(4)
  feats Ally You
  filter IfAlive IfPoisoned
  instant PoisonLevel-100
-ProtectionFromEvil10ft levels(4) duration(Turn0x1)
+ProtectionFromEvil10ft levels(4 3) duration(Turn0x1)
  feats Ally You Group
  instant ApplyEnchantSpell
  wearing ProtectedFromEvil
@@ -235,12 +238,13 @@ Invisibility levels(0 2) duration(Hour1)
 LocateGems levels(0 2)
  feats You
  instant ClearArea AddAreaItems RandomGem ShowArea
-MelfAcidArrow levels(0 2)
+MelfAcidArrow levels(0 2) avatar_thrown(14)
  feats Enemy
- instant SaveNegate Roll2d4 Acid SetLevel Div+3 AcidD1Level+101 AcidD2Level+101
+ instant SaveNegate Roll2d4 Acid+101 SetLevel Div+3 AcidD1Level+101 AcidD2Level+101
 MirrorImage levels(0 2) duration(Minute3x3)
  feats You
  instant ApplyEnchantSpell Roll1d4xp1p3c8 DuplicateIllusion+101
+ clearing DuplicateIllusion-100
 Scare levels(0 2)
  feats Enemy Group
  filter IfLowLevel IfIntelligence ImmuneCharm-1
@@ -250,21 +254,60 @@ StrenghtSpell levels(0 2) duration(Hour1x1) lighting(185 122 87)
  instant ApplyEnchantSpell
  wearing StrenghtAdd+6
 
+Blink levels(0 3) lighting(0 128 192)
+ feats You
+ instant ApplyEnchantSpell
+ wearing Blinked
+Clairaudience
+ feats You
+ instant SelectArea AddAreaMonsters ShowArea
 DispellMagic levels(0 3)
  feats Ally
  instant PushModifier Permanent Blinded-1
+Fireball levels(0 3) avatar_thrown(2)
+ feats Enemy Group
+ instant Roll1d6x1d6p1 SaveHalf Fire+101
+Haste levels(0 3) lighting(0 0 128)
+ feats Ally You Group
+ instant ApplyEnchantSpell
+ wearing Hasted
+HoldUndead levels(0 3) duration(Roll1d4x1)
+ feats Enemy
+ filter Undead IfParalized-1
+ instant SaveNegate ApplyEnchantSpell EffectCount+1
+ wearing Paralized
+Suggestion levels(0 3)
+ feats Enemy
+ filter IfIntelligence ImmuneCharm-1
+ instant Friendly MonstersReaction
+VampiricTouch levels(0 3)
+ feats Enemy
+ filter Undead-1
+ instant Roll1d6x1d6p2c12 Magic+101 PushPlayer Caster Heal+101
+
+ImprovedInvisibility levels(0 4) duration(Hour1)
+ feats Ally You
+ wearing Invisibility
 
 #List
 
 DefaultClericSpells
  elements CureLightWounds+4 Bless
 DefaultMageSpells
- elements Armor MagicMissile+2
+ elements MagicMissile+2 Armor
 
-MageSpells
- elements Armor+1 BurningHands+1 ChillTouch+1 ComprehendLanguages+1 DetectEvil+1 DetectMagic+1 Identify+1 Friends+1\
- MagicMissile+1 Mending+1 ShieldSpell+1 ShockingGrasp+1\
- Knock+1 Blinding+1 HypnoticPattern+1 Blur+1 LocateGems+1
+MageAbjurationSpells
+ elements Armor+1 ShieldSpell+1 StrenghtSpell+1\
+ Haste+2 HoldUndead+2 VampiricTouch+2 RemoveCurse+2
+MageDivinationSpells
+ elements ComprehendLanguages+1 DetectEvil+1 DetectMagic+1 LocateGems+1\
+ Identify+2 Clairaudience+2 DispellMagic+2
+MageEvocationSpells
+ elements BurningHands+1 ChillTouch+1 MagicMissile+1 ShockingGrasp+1 Blinding+1 MelfAcidArrow+1 Scare+1\
+ Fireball+2
+MageIllusionSpells
+ elements Friends+1 Mending+1 Knock+2 HypnoticPattern+1 Blur+1 Invisibility+1 MirrorImage+1\
+ Blink+2 HoldPerson+2 Suggestion+2 ImprovedInvisibility+2
 PriestSpells
  elements PurifyFood+1 FindTraps+1 CureSeriousWounds+1 RemoveCurse+2 CurePoison+2 CureDisease+2 NeutralizePoison+3 RaiseDead+4 Restoration+5
 WandSpells

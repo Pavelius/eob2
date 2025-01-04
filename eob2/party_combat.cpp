@@ -214,6 +214,8 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		}
 		if(defender->is(Displaced) && d100() < 50)
 			hits = -1; // Miss if displaced
+		if(defender->is(Blinked) && defender->initiative > player->initiative)
+			hits = -1; // Miss if blinked away
 	}
 	// Show result
 	if(!player->is(ImmuneIllusion) && defender->get(DuplicateIllusion)) {

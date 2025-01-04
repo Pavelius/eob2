@@ -223,7 +223,9 @@ static void textc(color tc, const char* format, ...) {
 
 static void paint_player_hit(int hits, unsigned counter) {
 	image(caret.x, caret.y - 1, gres(THROWN), 1, (counter % 2) ? ImageMirrorH : 0);
-	if(hits == -1)
+	if(hits == -2)
+		textc(colors::white, "hack", hits);
+	else if(hits == -1)
 		textc(colors::white, "miss", hits);
 	else
 		textc(colors::white, "%1i", hits);

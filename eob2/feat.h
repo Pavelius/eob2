@@ -15,7 +15,7 @@ enum featn : unsigned char {
 	ResistBludgeon, ResistSlashing, ResistPierce, ResistFire, ResistCold, ResistCharm, ResistSpells,
 	ImmuneNormalWeapon, ImmuneFire, ImmuneCold, ImmuneCharm, ImmunePoison, ImmuneSpells, ImmuneDisease,
 	Enemy, Ally, Group, You, SummaryEffect,
-	SeeMagical, SeeCursed, SeeIllusionary,
+	SeeMagical, SeeCursed, ImmuneIllusion,
 };
 struct feati : nameable {
 };

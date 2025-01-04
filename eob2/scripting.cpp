@@ -481,6 +481,20 @@ static void sleep_character(int bonus) {
 	restore_spells(0);
 }
 
+static void strenght_add(int bonus) {
+	if(bonus > 0) {
+		bonus += player->abilities[Strenght];
+		if(bonus > 18) {
+			player->abilities[Strenght] = 18;
+			bonus = player->abilities[ExeptionalStrenght] + (bonus - 18) * 10;
+			if(bonus > 100)
+				bonus = 100;
+			player->abilities[ExeptionalStrenght] = bonus;
+		} else
+			player->abilities[Strenght] = bonus;
+	}
+}
+
 static void sleep_party(int bonus) {
 	auto push_player = player;
 	for(auto p : characters) {
@@ -2696,8 +2710,9 @@ BSDATA(script) = {
 	{"SelectArea", select_area},
 	{"SetLevel", set_level},
 	{"SetVariable", set_variable},
-	{"SleepParty", sleep_party},
 	{"ShowArea", show_area},
+	{"SleepParty", sleep_party},
+	{"StrenghtAdd", strenght_add},
 	{"Switch", apply_switch},
 	{"TalkAbout", talk_about},
 	{"TurningMonsters", turning_monsters},

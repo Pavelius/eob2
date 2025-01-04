@@ -11,7 +11,7 @@ extern spella spells_prepared[6];
 static bool check_game(archive& e) {
 	unsigned long checksum_total = 0;
 	int checksum_index = 1;
-	checksum_total += SeeIllusionary * (checksum_index++);
+	checksum_total += ImmuneIllusion * (checksum_index++);
 	checksum_total += sizeof(partyi) * (checksum_index++);
 	checksum_total += sizeof(spells_prepared) * (checksum_index++);
 	checksum_total += sizeof(dungeoni) * (checksum_index++);

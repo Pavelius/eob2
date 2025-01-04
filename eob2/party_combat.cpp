@@ -166,8 +166,10 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 			ac += 4;
 	}
 	// RULE: Magically blurred wizard
-	if(defender->is(Blurred) && !player->is(SeeIllusionary))
+	if((defender->is(Blurred) || defender->is(Invisibled)) && !player->is(ImmuneIllusion))
 		bonus -= 4;
+	if(player->is(Invisibled) && !defender->is(ImmuneIllusion))
+		bonus += 4;
 	// RULE: One race hate another
 	if(player->hate.is(defender->race)) {
 		if(player->is(BonusAttackVsHated))
@@ -214,9 +216,13 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 			hits = -1; // Miss if displaced
 	}
 	// Show result
-	defender->damage(damage_type, hits, magic_bonus);
+	if(!player->is(ImmuneIllusion) && defender->get(DuplicateIllusion)) {
+		hits = -2; // RULE: Mirror image effect
+		defender->add(DuplicateIllusion, -1);
+	} else
+		defender->damage(damage_type, hits, magic_bonus);
 	fix_attack(player, slot, hits);
-	if(hits != -1) {
+	if(hits > 0) {
 		// After all effects, if hit, do additional effects
 		if(is_critical_hit) {
 			// RULE: Weapon with spell cast it when critical hit occurs

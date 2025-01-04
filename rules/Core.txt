@@ -12,7 +12,7 @@
 
 DebugCharacter
 DebugMageSpells
- elements PushModifier Permanent Invisibility
+ elements AddExpPersonal+100 AddExpPersonal+100 PushModifier Permanent Invisibility StrenghtSpell
 DebugPartyAbilities
  elements AddReward+5
 

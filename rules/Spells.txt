@@ -3,6 +3,7 @@
 Roll1d3 base(1 3)
 Roll1d3x2s0p1c10 base(1 3) raise(2) perlevel(0 1 10)
 Roll1d4p1x1d4p1s3p2c9 base(1 4 1) raise(1 4 1) perlevel(3 2 9)
+Roll1d4xp1p3c8 base(1 4) raise(1) perlevel(0 3 8)
 Roll1d6 base(1 6)
 Roll1d8 base(1 8)
 Roll1d8x1 base(1 8) raise(1) perlevel(1 1)
@@ -13,6 +14,7 @@ Roll2d8 base(2 8)
 Roll3d8 base(3 8)
 Roll6d8 base(6 8)
 Minute3x1 base(3) raise(1) perlevel(1 1)
+Minute3x3 base(3) raise(1) perlevel(1 3)
 Minute4x1 base(4) raise(1) perlevel(1 1)
 Minute5x1 base(5) raise(1) perlevel(2 1)
 Minute5x5 base(5) raise(1) perlevel(2 5)
@@ -23,6 +25,7 @@ Turn5x1 base(5) raise(1) perlevel(2 1) multiplier(10)
 Turn2d10 base(2 10) multiplier(10)
 Hour0x1 raise(1) perlevel(0 1) multiplier(60)
 Hour1 base(1) multiplier(60)
+Hour1x1 base(1) raise(1) perlevel(0 1) multiplier(60)
 Hour2 base(2) multiplier(60)
 Hour8 base(8) multiplier(60)
 
@@ -42,24 +45,10 @@ TurnUndead
  filter IfMonstersUndead
  instant TurningMonsters
 
-Armor levels(0 1) lighting(50 205 50) duration(Hour8)
- feats You
- instant ApplyEnchantSpell
- wearing AC+4
 Bless levels(1 0) lighting(255 239 0) duration(Minute5x1)
  feats Ally
  instant ApplyEnchantSpell
  wearing Attack+1 Damage+1 Saves+1
-BurningHands levels(0 1)
- feats Enemy Group
- instant Roll1d3x2s0p1c10 SaveHalf Fire+101
-ChillTouch levels(0 1) summon(ChillTouchHand) duration(Minute3x1)
- feats You
- instant ApplyEnchantSpell
-ComprehendLanguages levels(0 1) duration(Minute5x5)
- feats Ally You
- instant ApplyEnchantSpell
- wearing AllLanguages
 CureLightWounds levels(1 0)
  feats Ally You
  filter IfAlive IfWounded
@@ -72,21 +61,6 @@ DetectMagic levels(1 1) duration(Minute0x2)
  feats You Ally Group
  instant ApplyEnchantSpell
  wearing SeeMagical
-Friends levels(0 1)
- feats Enemy Group SummaryEffect
- filter IfIntelligence ImmuneCharm-1
- instant Indifferent MonstersReaction Roll2d4 ReactionCheck+101
-Identify levels(0 1)
- feats Ally You
- filter_item IfItemIdentified-1
- instant IdentifyItem
-MagicMissile levels(0 1) avatar_thrown(5)
- feats Enemy
- instant Roll1d4p1x1d4p1s3p2c9 Magic+101
-Mending levels(0 1)
- feats Ally You
- filter_item IfItemEdible-1 IfItemCharged-1 IfItemDamaged
- instant DamageItem-1 EffectCount+1
 ProtectionFromEvil levels(1 1) lighting(150 00 24) duration(Turn5x1)
  feats Ally
  instant ApplyEnchantSpell
@@ -95,13 +69,6 @@ PurifyFood levels(1 0)
  feats Ally Group
  filter_item IfItemEdible IfItemDamaged
  instant DamageItem-1 EffectCount+1
-ShieldSpell levels(0 1) duration(Minute0x5)
- feats You
- instant ApplyEnchantSpell
- wearing AC+5
-ShockingGrasp levels(0 1)
- feats Enemy
- instant Roll1d8x1 Shock+101
 
 Aid levels(2) lighting(221 210 0) duration(Minute5x1)
  feats Ally
@@ -191,7 +158,7 @@ RaiseDead levels(5)
  instant Heal+10 PushModifier Permanent Constitution-1
 TrueSeeing
  feats You Ally Group
- instant SeeIllusionary
+ instant ImmuneIllusion
 
 HealSpell levels(6)
  feats Ally
@@ -206,6 +173,43 @@ SymbolPain levels(7) duration(Turn2d10)
  feats Enemy Group
  instant ApplyEnchantSpell
  wearing FeelPain
+
+Armor levels(0 1) lighting(50 205 50) duration(Hour8)
+ feats You
+ instant ApplyEnchantSpell
+ wearing AC+4
+BurningHands levels(0 1)
+ feats Enemy Group
+ instant Roll1d3x2s0p1c10 SaveHalf Fire+101
+ChillTouch levels(0 1) summon(ChillTouchHand) duration(Minute3x1)
+ feats You
+ instant ApplyEnchantSpell
+ComprehendLanguages levels(0 1) duration(Minute5x5)
+ feats Ally You
+ instant ApplyEnchantSpell
+ wearing AllLanguages
+Friends levels(0 1)
+ feats Enemy Group SummaryEffect
+ filter IfIntelligence ImmuneCharm-1
+ instant Indifferent MonstersReaction Roll2d4 ReactionCheck+101
+Identify levels(0 1)
+ feats Ally You
+ filter_item IfItemIdentified-1
+ instant IdentifyItem
+MagicMissile levels(0 1) avatar_thrown(5)
+ feats Enemy
+ instant Roll1d4p1x1d4p1s3p2c9 Magic+101
+Mending levels(0 1)
+ feats Ally You
+ filter_item IfItemEdible-1 IfItemCharged-1 IfItemDamaged
+ instant DamageItem-1 EffectCount+1
+ShieldSpell levels(0 1) duration(Minute0x5)
+ feats You
+ instant ApplyEnchantSpell
+ wearing AC+5
+ShockingGrasp levels(0 1)
+ feats Enemy
+ instant Roll1d8x1 Shock+101
 
 Blinding levels(0 2)
  feats Enemy
@@ -234,12 +238,17 @@ LocateGems levels(0 2)
 MelfAcidArrow levels(0 2)
  feats Enemy
  instant SaveNegate Roll2d4 Acid SetLevel Div+3 AcidD1Level+101 AcidD2Level+101
-MirrorImage
+MirrorImage levels(0 2) duration(Minute3x3)
  feats You
-Scare
+ instant ApplyEnchantSpell Roll1d4xp1p3c8 DuplicateIllusion+101
+Scare levels(0 2)
  feats Enemy Group
  filter IfLowLevel IfIntelligence ImmuneCharm-1
  instant MonstersFlee
+StrenghtSpell levels(0 2) duration(Hour1x1) lighting(185 122 87)
+ feats Ally You
+ instant ApplyEnchantSpell
+ wearing StrenghtAdd+6
 
 DispellMagic levels(0 3)
  feats Ally

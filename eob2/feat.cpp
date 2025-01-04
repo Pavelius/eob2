@@ -67,6 +67,6 @@ BSDATA(feati) = {
 	{"SummaryEffect"},
 	{"SeeMagical"},
 	{"SeeCursed"},
-	{"SeeIllusionary"},
+	{"ImmuneIllusion"},
 };
-assert_enum(feati, SeeIllusionary)
+assert_enum(feati, ImmuneIllusion)

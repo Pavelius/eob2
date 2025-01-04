@@ -16,7 +16,7 @@ enum abilityn : unsigned char {
 	Spell1, Spell2, Spell3, Spell4, Spell5, Spell6, Spell7, Spell8, Spell9, Spells,
 	BonusExperience, ReactionBonus,
 	ExeptionalStrenght,
-	AcidD1Level, AcidD2Level, PoisonLevel, DiseaseLevel,
+	AcidD1Level, AcidD2Level, PoisonLevel, DiseaseLevel, DuplicateIllusion,
 	DrainStrenght, DrainConstitution, DrainLevel,
 	Hits
 };

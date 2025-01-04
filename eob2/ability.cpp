@@ -50,6 +50,7 @@ BSDATA(abilityi) = {
 	{"AcidD2Level"},
 	{"PoisonLevel"},
 	{"DiseaseLevel"},
+	{"DuplicateIllusion"},
 	{"DrainStrenght"},
 	{"DrainConstitution"},
 	{"DrainLevel"},

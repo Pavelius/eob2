@@ -40,6 +40,7 @@ ResistFireSpell: Resist Fire
 ShieldSpell: Shield
 ShockingGrasp: Shocking Grasp
 SlowPoison: Slow Poison
+StrenghtSpell: Strenght
 TurnUndead: Turn undead
 
 SpellsAvailable: %1i of %2i remaining

@@ -2190,44 +2190,34 @@ static void choose_shop_item(int bonus) {
 
 static bool use_bless_effect(const variants& source, int bonus) {
 	auto level = player->getlevel() + bonus;
+	auto duration = (4 + bonus) * 60; // 4-9 hour standart duration for blessing
 	for(auto v : source) {
 		if(v.iskind<spelli>()) {
 			auto p = bsdata<spelli>::elements + v.value;
-			if(!cast_spell(p, level, 0, false, false, 0))
+			if(!cast_spell(p, level, 0, false, false, duration))
 				continue;
-			cast_spell(p, level, 0, true, true, 0);
+			cast_spell(p, level, 0, true, true, duration);
 			return true;
 		}
 	}
 	return false;
 }
 
-static void consume_tool(int chance, int count, const char* message_id = 0) {
-	if(d100() < chance) {
-		auto tool_id = last_item->geti().id;
-		last_item->damage(count);
-		if(!(*last_item)) {
-			if(!message_id)
-				message_id = "ToolBroken";
-			consolen(getnm(message_id), getnm(tool_id));
-		}
-	}
-}
-
 static void use_holy_symbol(int bonus) {
 	auto pi = bsdata<listi>::find("GoodDietyDomain");
 	if(!pi)
 		return;
-	if(!bonus)
-		bonus = 4;
-	if(use_bless_effect(pi->elements, bonus)) {
-		if(result_player)
-			consolen(getnm("UseHolySymbolSuccessOnPlayer"), "Helm", result_player->getname());
-		else
-			consolen(getnm("UseHolySymbolSuccess"), "Helm");
+	if(d100() < party.abilities[Blessing]) {
+		if(use_bless_effect(pi->elements, last_item->getpower().counter)) {
+			if(result_player)
+				consolen(getnm("UseHolySymbolSuccessOnPlayer"), "Helm", result_player->getname());
+			else
+				consolen(getnm("UseHolySymbolSuccess"), "Helm");
+		} else
+			consolen(getnm("UseHolySymbolFail"));
 	} else
 		consolen(getnm("UseHolySymbolFail"));
-	consume_tool(60, xrand(1, 3), "ToolCrumbleToDust");
+	last_item->usecharge("ToolCrumbleToDust", 35, 5);
 	pass_round();
 }
 
@@ -2701,6 +2691,7 @@ BSDATA(script) = {
 	{"Switch", apply_switch},
 	{"TalkAbout", talk_about},
 	{"TurningMonsters", turning_monsters},
+	{"UseHolySymbol", use_holy_symbol},
 	{"UseHolySymbolEvil", use_holy_symbol},
 	{"UseTheifTools", use_theif_tools},
 	{"Wizardy", wizardy_effect},

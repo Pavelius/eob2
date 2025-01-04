@@ -190,21 +190,16 @@ void item::createpower(char magic_bonus, int chance_magical, int chance_cursed) 
 		if(d100() >= chance_magical)
 			return;
 	}
+	// Set random power equal or less that magic level
 	adat<variant, 32> source;
-	while(magic_bonus >= 0) {
-		source.clear();
-		for(auto v : ei.powers->elements) {
-			if(!v)
-				continue;
-			if(v.counter == magic_bonus)
-				source.add(v);
-		}
-		if(source) {
-			setpower(source.random());
-			return;
-		}
-		magic_bonus--;
+	for(auto v : ei.powers->elements) {
+		if(!v)
+			continue;
+		if(v.counter <= magic_bonus)
+			source.add(v);
 	}
+	if(source)
+		setpower(source.random());
 }
 
 void item::usecharge(const char* interactive, int chance, int maximum) {

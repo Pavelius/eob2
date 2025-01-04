@@ -273,15 +273,6 @@ static void use_spell_slot(const spelli* ps) {
 		player->spells[index]--;
 }
 
-bool can_cast_spell(const spelli* ps, creaturei* target) {
-	if(ps->filter) {
-		pushvalue push(player, target);
-		if(!script_allow(player))
-			return false;
-	}
-	return true;
-}
-
 bool cast_spell(const spelli* ps, int level, int experience, bool run, bool random_target, unsigned durations) {
 	pushvalue push_spell(last_spell);
 	pushanswer push_answers;

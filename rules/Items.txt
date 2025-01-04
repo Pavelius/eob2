@@ -272,7 +272,7 @@ FlameBladeHand avatar(82) damage_type(Fire) damage(1 4 6) wear(RightHand)
 DwarfFighterStartEquipment
  elements BattleAxe LeatherArmor Shield Helm
 DwarfClericStartEquipment
- elements Mace LeatherArmor Shield DwarvenHelm
+ elements Mace LeatherArmor DwarvenHelm HolySymbol
 HalflingTheifStartEquipment
  elements ShortSword RedRing CreatePower+1 IdentifyItem
 FighterStartEquipment
@@ -280,7 +280,7 @@ FighterStartEquipment
 PaladinStartEquipment
  elements Longsword LeatherArmor Helm
 ClericStartEquipment
- elements Mace LeatherArmor Shield Helm
+ elements Mace LeatherArmor HolySymbol
 TheifStartEquipment
  elements Longsword LeatherArmor
 MageStartEquipment

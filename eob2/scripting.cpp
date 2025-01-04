@@ -2219,7 +2219,7 @@ static void use_holy_symbol(int bonus) {
 				consolen(getnm("UseHolySymbolSuccess"), "Helm");
 		} else
 			consolen(getnm("UseHolySymbolFail"));
-		party.abilities[Blessing]--;
+		add_party(Blessing, -1);
 	} else
 		consolen(getnm("UseHolySymbolFail"));
 	last_item->usecharge("ToolCrumbleToDust", 35, 5);

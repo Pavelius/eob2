@@ -10,25 +10,28 @@
 
 #List
 
-MageTestSpells
- elements ShortSword DamageItem+6 PushModifier Permanent Invisibility
+DebugCharacter
+DebugMageSpells
+ elements PushModifier Permanent Invisibility
+DebugPartyAbilities
+ elements AddReward+5
 
 HumanFighter
- elements Human Male Fighter CreateCharacter AddExpPersonal+80
+ elements Human Male Fighter CreateCharacter DebugCharacter
 HumanPaladin
- elements Human Male Paladin CreateCharacter AddExpPersonal+80
+ elements Human Male Paladin CreateCharacter DebugCharacter
 DwarfCleric
- elements Dwarf Male Cleric CreateCharacter AddExpPersonal+80
+ elements Dwarf Male Cleric CreateCharacter DebugCharacter
 ElfMage
- elements Elf Female MageTheif CreateCharacter MageTestSpells AddExpPersonal+80 AddExpPersonal+80
+ elements Elf Female MageTheif CreateCharacter DebugCharacter DebugMageSpells
 HalflingTheif
  elements Halfling Female Theif CreateCharacter
 
-CreateTestParty
+DebugParty
  elements HumanPaladin JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty
 
 StartGameAbilities
- elements ExploreNorthWood ActivateQuest FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+10 AddReward+5
+ elements ExploreNorthWood ActivateQuest FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+10 DebugPartyAbilities
 
 StartGame
- elements CreateTestParty StartGameAbilities PassHours+7 HunterVillage EnterLocation
+ elements DebugParty StartGameAbilities PassHours+7 HunterVillage EnterLocation

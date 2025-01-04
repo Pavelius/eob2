@@ -1,2 +1,3 @@
-﻿Error in file `rules/Monsters.txt`:
- Line 23: Can't find variant `Bite2d4`
+﻿Error in file `rules/Spells.txt`:
+ Line 45: Not found requisit `duration`
+ Line 45: Not found resuisit `duration`

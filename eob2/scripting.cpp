@@ -584,7 +584,7 @@ static bool read_effect(creaturei* pn, variant v, int experience, unsigned durat
 	last_number = duration;
 	auto push_player = player; player = pn;
 	if(v.iskind<spelli>()) {
-		result = cast_spell(bsdata<spelli>::elements + v.value, player->getlevel() + v.counter, experience, true, false);
+		result = cast_spell(bsdata<spelli>::elements + v.value, player->getlevel() + v.counter, experience, true, false, 0);
 		if(result)
 			pass_round();
 	} else if(v.iskind<listi>() || v.iskind<randomizeri>() || v.iskind<script>()) {
@@ -601,7 +601,7 @@ static bool use_rod(creaturei* pn, item* rod, variant v) {
 	if(v.iskind<spelli>()) {
 		auto push_player = player; player = pn;
 		auto ps = bsdata<spelli>::elements + v.value;
-		result = cast_spell(ps, 1 + v.counter * 2, 0, true, false);
+		result = cast_spell(ps, 1 + v.counter * 2, 0, true, false, 0);
 		if(result) {
 			consolen("%Name cast %1", ps->getname());
 			rod->identify(1);
@@ -2193,9 +2193,9 @@ static bool use_bless_effect(const variants& source, int bonus) {
 	for(auto v : source) {
 		if(v.iskind<spelli>()) {
 			auto p = bsdata<spelli>::elements + v.value;
-			if(!cast_spell(p, level, 0, false, false))
+			if(!cast_spell(p, level, 0, false, false, 0))
 				continue;
-			cast_spell(p, level, 0, true, true);
+			cast_spell(p, level, 0, true, true, 0);
 			return true;
 		}
 	}

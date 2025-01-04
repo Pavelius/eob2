@@ -496,10 +496,14 @@ static void paint_avatar() {
 	if(player->avatar == 0xFF)
 		return;
 	rectpush push; width = 31; height = 31;
+	auto push_alpha = alpha;
+	if(player->is(Invisibled))
+		alpha = 128;
 	if(player->isdead())
 		image(gres(PORTM), 0, 0);
 	else
 		image(gres(PORTM), player->avatar, 0);
+	alpha = push_alpha;
 	paint_avatar_stats();
 	auto pind = get_party_index(player);
 	if(pind != -1) {

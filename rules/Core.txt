@@ -11,7 +11,7 @@
 #List
 
 MageTestSpells
- elements ShortSword DamageItem+6 PushModifier Permanent Mending
+ elements ShortSword DamageItem+6 PushModifier Permanent Invisibility
 
 HumanFighter
  elements Human Male Fighter CreateCharacter AddExpPersonal+80
@@ -20,7 +20,7 @@ HumanPaladin
 DwarfCleric
  elements Dwarf Male Cleric CreateCharacter AddExpPersonal+80
 ElfMage
- elements Elf Female MageTheif CreateCharacter MageTestSpells
+ elements Elf Female MageTheif CreateCharacter MageTestSpells AddExpPersonal+80 AddExpPersonal+80
 HalflingTheif
  elements Halfling Female Theif CreateCharacter
 

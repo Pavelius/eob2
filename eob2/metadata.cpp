@@ -212,6 +212,7 @@ BSMETA(spelli) = {
 	BSREQ(instant),
 	BSREQ(clearing),
 	BSREQ(wearing),
+	BSREQ(duration),
 	{}};
 BSMETA(weari) = {
 	BSREQ(id),

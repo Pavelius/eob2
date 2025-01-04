@@ -42,35 +42,35 @@ TurnUndead
  filter IfMonstersUndead
  instant TurningMonsters
 
-Armor levels(0 1) lighting(50 205 50)
+Armor levels(0 1) lighting(50 205 50) duration(Hour8)
  feats You
- instant Hour0x1 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing AC+4
-Bless levels(1 0) lighting(255 239 0)
+Bless levels(1 0) lighting(255 239 0) duration(Minute5x1)
  feats Ally
- instant Minute5x1 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing Attack+1 Damage+1 Saves+1
 BurningHands levels(0 1)
  feats Enemy Group
  instant Roll1d3x2s0p1c10 SaveHalf Fire+101
-ChillTouch levels(0 1) summon(ChillTouchHand)
+ChillTouch levels(0 1) summon(ChillTouchHand) duration(Minute3x1)
  feats You
- instant Minute3x1 ApplyEnchantSpell
-ComprehendLanguages levels(0 1)
+ instant ApplyEnchantSpell
+ComprehendLanguages levels(0 1) duration(Minute5x5)
  feats Ally You
- instant Minute5x5 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing AllLanguages
 CureLightWounds levels(1 0)
  feats Ally You
  filter IfAlive IfWounded
  instant Roll1d8 Heal+101
-DetectEvil levels(1 2)
+DetectEvil levels(1 2) duration(Minute0x2)
  feats Ally Group
- instant Minute0x2 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing SeeCursed
-DetectMagic levels(1 1)
+DetectMagic levels(1 1) duration(Minute0x2)
  feats You Ally Group
- instant Minute0x2 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing SeeMagical
 Friends levels(0 1)
  feats Enemy Group SummaryEffect
@@ -87,53 +87,53 @@ Mending levels(0 1)
  feats Ally You
  filter_item IfItemEdible-1 IfItemCharged-1 IfItemDamaged
  instant DamageItem-1 EffectCount+1
-ProtectionFromEvil levels(1 1) lighting(150 00 24)
+ProtectionFromEvil levels(1 1) lighting(150 00 24) duration(Turn5x1)
  feats Ally
- instant Turn5x1 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing ProtectedFromEvil
 PurifyFood levels(1 0)
  feats Ally Group
  filter_item IfItemEdible IfItemDamaged
  instant DamageItem-1 EffectCount+1
-ShieldSpell levels(0 1)
+ShieldSpell levels(0 1) duration(Minute0x5)
  feats You
- instant Minute0x5 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing AC+5
 ShockingGrasp levels(0 1)
  feats Enemy
  instant Roll1d8x1 Shock+101
 
-Aid levels(2) lighting(221 210 0)
+Aid levels(2) lighting(221 210 0) duration(Minute5x1)
  feats Ally
  wearing Attack+1 Saves+1
- instant Roll1d8 AddAid+101 Minute5x1 ApplyEnchantSpell
+ instant ApplyEnchantSpell Roll1d8 AddAid+101
  clearing AddAid-8
-Augury levels(2)
+Augury levels(2) duration(Hour1)
  feats You
- instant Hour1 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing BonusExperience+1
-FlameBlade levels(2) summon(FlameBladeHand)
+FlameBlade levels(2) summon(FlameBladeHand) duration(Turn5x1)
  feats You
- instant Turn5x1 ApplyEnchantSpell // This is not original duration, but playtest say that it will be
+ instant ApplyEnchantSpell // This is not original duration, but playtest say that it will be
 FindTraps levels(2)
  feats You
  instant SelectArea FilterArea TrapCells ShowArea
-HoldPerson levels(2)
+HoldPerson levels(2) duration(Minute0x2)
  feats Enemy
  filter IfIntelligence IfParalized-1 ImmuneCharm-1
- instant SaveNegate Minute0x2 ApplyEnchantSpell EffectCount+1
+ instant SaveNegate ApplyEnchantSpell EffectCount+1
  wearing Paralized
-ResistFireSpell levels(2)
+ResistFireSpell levels(2) lighting(200 0 0) duration(Turn5x1)
  feats You Ally
- instant Turn5x1 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing ResistFire
-ResistColdSpell levels(2)
+ResistColdSpell levels(2) lighting(0 162 232) duration(Turn5x1)
  feats You Ally
- instant Turn5x1 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing ResistCold
-SlowPoison levels(2) lighting(148 199 72)
+SlowPoison levels(2) lighting(148 199 72) duration(Hour0x1)
  feats Ally You
- instant Hour0x1 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing StoppedPoison
 
 CreateFood levels(3)
@@ -147,13 +147,13 @@ CurePoison levels(3)
  feats Ally You
  filter IfAlive IfPoisoned
  instant PoisonLevel-100
-MagicalVestment levels(3)
+MagicalVestment levels(3) duration(Hour0x1)
  feats You
- instant Hour0x1 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing AC+4
-Prayer levels(3) lighting(255 239 0)
+Prayer levels(3) lighting(255 239 0) duration(Minute5x1)
  feats Ally You Group
- instant Minute5x1 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing Attack+1 Damage+1 Saves+1
 RemoveCurse levels(3)
  feats Ally You
@@ -173,9 +173,9 @@ NeutralizePoison levels(4)
  feats Ally You
  filter IfAlive IfPoisoned
  instant PoisonLevel-100
-ProtectionFromEvil10ft levels(4)
+ProtectionFromEvil10ft levels(4) duration(Turn0x1)
  feats Ally You Group
- instant Turn0x1 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing ProtectedFromEvil
 
 CureCriticalWounds levels(5)
@@ -202,28 +202,32 @@ HeroesFeast levels(6)
 Restoration levels(7)
  feats Ally You
  instant DrainStrenght-100 DrainLevel-100 DrainConstitution-100
-SymbolPain levels(7)
+SymbolPain levels(7) duration(Turn2d10)
  feats Enemy Group
- instant Turn2d10 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing FeelPain
 
 Blinding levels(0 2)
  feats Enemy
  filter Blinded-1
  instant SaveNegate PushModifier Permanent Blinded
-Blur levels(0 2) lighting(159 143 239)
+Blur levels(0 2) lighting(159 143 239) duration(Minute3x1)
  feats Ally
- instant Minute3x1 ApplyEnchantSpell
+ instant ApplyEnchantSpell
  wearing Blurred
-HypnoticPattern levels(0 2)
+HypnoticPattern levels(0 2) duration(Minute3x1)
  feats Enemy Group
  filter IfLowLevel IfIntelligence Paralized-1 ImmuneCharm-1
- instant SaveNegate Minute3x1 ApplyEnchantSpell EffectCount+1
+ instant SaveNegate ApplyEnchantSpell EffectCount+1
  wearing Paralized
 Knock levels(0 2)
  feats You SummaryEffect
  filter IfAreaLocked
  instant ActivateLinkedOverlay
+Invisibility levels(0 2) duration(Hour1)
+ feats You Ally
+ instant ApplyEnchantSpell
+ wearing Invisibled
 LocateGems levels(0 2)
  feats You
  instant ClearArea AddAreaItems RandomGem ShowArea

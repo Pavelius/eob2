@@ -282,7 +282,7 @@ bool can_cast_spell(const spelli* ps, creaturei* target) {
 	return true;
 }
 
-bool cast_spell(const spelli* ps, int level, int experience, bool run, bool random_target) {
+bool cast_spell(const spelli* ps, int level, int experience, bool run, bool random_target, unsigned durations) {
 	pushvalue push_spell(last_spell);
 	pushanswer push_answers;
 	pointc enemy_position = to(party, party.d);
@@ -336,6 +336,9 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 	pushvalue push_level(last_level, level);
 	pushvalue push_id(last_id, last_spell->id);
 	party.abilities[EffectCount] = 0;
+	if(!durations && ps->duration)
+		durations = ps->duration->roll(last_level);
+	last_number = durations;
 	if(ps->is(SummaryEffect))
 		script_run(ps->instant);
 	else {
@@ -356,7 +359,7 @@ void cast_spell() {
 	if(!ps)
 		return;
 	// RULE: add experience for each spell cast.
-	if(!cast_spell(ps, player->getlevel(), 35, true, false))
+	if(!cast_spell(ps, player->getlevel(), 35, true, false, 0))
 		return;
 	use_spell_slot(ps);
 	pass_round();

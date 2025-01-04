@@ -36,7 +36,7 @@ RingPowers
 	ResistFire+1 ResistCold+1 Charisma+2 Invisibled+3 Hasted+4 Regenerated+4 Wizardy+1 Wizardy+2 Wizardy+3
 
 BootsPowers
- elements NoVariant MoveSilently+1 AC+2
+ elements NoVariant MoveSilently+1 AC+1
 BracerPowers
  elements NoVariant AC+1 AC+2 AC+3 AC+4 AC+5 Dexterity+1 Strenght+1
 CloackPowers
@@ -47,20 +47,20 @@ RobePowers
  elements NoVariant Protection+1 Protection+2 Protection+3 Protection+4 Protection+5
 
 HelmPowers
- elements NoVariant AllLanguages+1 AC+2
+ elements NoVariant AllLanguages+1 AC+1 AC+2
 
 LearnNeutral
  elements AddExpPersonal+1 SaySpeech
 LearnNeutralDouble
  elements AddExpPersonal+2 SaySpeech
 LearnGood
- elements AddExpGood+10 SaySpeech
+ elements AddExpGood+20 SaySpeech
 LearnEvil
- elements AddExpEvil+10 SaySpeech
+ elements AddExpEvil+20 SaySpeech
 LearnPain
  elements Bludgeon+1 SaySpeech
 LearnIntellegence
- elements PushModifier Permanent Intellegence+1 DestroyItem SaySpeech
+ elements DestroyItem SaySpeech PushModifier Permanent Intellegence+1
 
 #RandomList
 

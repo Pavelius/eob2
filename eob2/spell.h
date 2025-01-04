@@ -30,6 +30,6 @@ typedef flagable<16> spellseta;
 
 void apply_enchant_spell(int bonus);
 void cast_spell();
-bool cast_spell(const spelli* ps, int level, int experience, bool run, bool random_target);
+bool cast_spell(const spelli* ps, int level, int experience, bool run, bool random_target, unsigned durations);
 
 spellseta* get_spells_known(const creaturei* target);

@@ -22,6 +22,7 @@ HypnoticPattern: Hypnotic Pattern
 HoldPerson: Hold Person
 HoldPersonGainEffect: %1i creatures stand still!
 Identify: Identify
+Invisibility: Invisibility
 Knock: Knock
 LayOnHand: Lay on Hand
 LocateGems: Locate gems

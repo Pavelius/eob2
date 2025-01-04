@@ -1,6 +1,6 @@
-#include "pointc.h"
-
 #pragma once
+
+#include "pointc.h"
 
 enum directions : unsigned char;
 

@@ -7,6 +7,4 @@ void dungeon_state::clear() {
 	down.clear();
 	portal.clear();
 	special.clear();
-	lair.clear();
-	feature.clear();
 }

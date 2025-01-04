@@ -527,6 +527,12 @@
     <ClInclude Include="purpose.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="room.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="corridor.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">

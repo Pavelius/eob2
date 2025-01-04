@@ -1,5 +1,6 @@
 #pragma once
 
+#include "adat.h"
 #include "flagable.h"
 #include "posable.h"
 #include "wallmessage.h"
@@ -8,8 +9,7 @@ struct dungeon_state {
 	posable			up, down; // where is stairs located
 	posable			portal; // where is portal
 	posable			special; // where is special item dropped
-	posable			lair; // where is lair located
-	posable			feature; // where is dungeon feature locatied (if any)
+	adat<posable, 8> features; // where is dungeon features locatied (if any)
 	short unsigned	messages; // count of messages
 	short unsigned	secrets_found; // count of secret rooms found (used secret button)
 	short unsigned	elements; // count of corridors

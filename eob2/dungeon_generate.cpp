@@ -2,7 +2,6 @@
 #include "answers.h"
 #include "cell.h"
 #include "dungeon.h"
-#include "direction.h"
 #include "list.h"
 #include "math.h"
 #include "monster.h"
@@ -12,16 +11,14 @@
 #include "randomizer.h"
 #include "rect.h"
 #include "resid.h"
+#include "room.h"
 #include "shape.h"
 #include "wallmessage.h"
 
 #ifdef _DEBUG
-//#define DEBUG_DUNGEON
+#define DEBUG_DUNGEON
 //#define DEBUG_ROOM
 #endif
-
-typedef void (*fncorridor)(pointc v, directions d);
-typedef void (*fnroom)(pointc v, directions d, const shapei* p);
 
 const int EmpthyStartIndex = 1;
 
@@ -577,10 +574,10 @@ static bool is_valid_dungeon() {
 	loc->makewave(loc->state.up);
 	if(loc->state.down && !is_valid(loc->state.down))
 		return false;
-	if(loc->state.lair && !is_valid(loc->state.lair))
-		return false;
-	if(loc->state.feature && !is_valid(loc->state.feature))
-		return false;
+	for(auto v : loc->state.features) {
+		if(!is_valid(v))
+			return false;
+	}
 	return true;
 }
 
@@ -679,11 +676,10 @@ static void stairs_down(pointc v, directions d, const shapei* ps) {
 }
 
 static void create_lair(pointc v, directions d, const shapei* ps) {
-	apply_shape(v, d, ps, '1', lair_door);
 	apply_shape(v, d, ps, '0', monster_boss);
+	apply_shape(v, d, ps, '1', lair_door);
 	apply_shape(v, d, ps, '2', monster_minion);
 	apply_shape(v, d, ps, '.', monster);
-	loc->state.lair.d = d;
 }
 
 static void validate_position(pointc& v, directions d, const shapei* shape) {
@@ -742,11 +738,13 @@ static void create_rooms(pointc start, bool last_level) {
 	if(!last_level)
 		create_room(pop(points), "ShapeExit", stairs_down);
 	// Every dungeon have one lair where monsters spawn
-	loc->state.lair = pop(points);
-	create_room(loc->state.lair, "ShapeRoom", create_lair);
+	auto p1 = pop(points);
+	create_room(p1, "ShapeRoom", create_lair);
+	loc->state.features.add(p1);
 	// And every level have feature
-	loc->state.feature = pop(points);
-	create_room(loc->state.feature, "ShapeLargeRoom", create_lair);
+	auto p2 = pop(points);
+	create_room(p2, "ShapeLargeRoom", create_lair);
+	loc->state.features.add(p2);
 }
 
 static void drop_special_item() {
@@ -900,3 +898,19 @@ void dungeon_create() {
 	dungeon_create(getbsi(last_quest), last_quest->sites);
 	loc = push_loc;
 }
+
+BSDATA(corridori) = {
+	{"CorridorEmpthy", empthy},
+	{"CorridorCellar", cellar},
+	{"CorridorDecoration", decoration},
+	{"CorridorMessage", message},
+	{"CorridorMonster", monster},
+	{"CorridorPortal", portal},
+	{"CorridorPrison", prison},
+	{"CorridorRation", rations},
+	{"CorridorSecret", secret},
+	{"CorridorStones", stones},
+	{"CorridorTrap", trap},
+	{"CorridorTreasure", treasure},
+};
+BSDATAF(corridori)

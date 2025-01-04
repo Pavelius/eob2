@@ -8,3 +8,4 @@ RoomLair shape(ShapeLargeRoom) floor(CorridorMonster)
  features CorridorBoss CorridorDoor
 RoomSmallLair shape(ShapeRoom) floor(CorridorMonster)
  features CorridorBoss CorridorDoor CorridorMinion
+RoomCorner shape(ShapeDeadEnd)

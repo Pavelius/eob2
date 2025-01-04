@@ -9,22 +9,27 @@
 #include "rules/Rooms.txt"
 #include "rules/Quests.txt"
 
+#RandomList
+
+RandomGender
+ chance Male Female
+
 #List
 
 DebugCharacter
 DebugMageSpells
- elements AddExpPersonal+100 AddExpPersonal+100 PushModifier Permanent Invisibility StrenghtSpell
+// elements AddExpPersonal+100 AddExpPersonal+100 PushModifier Permanent Invisibility StrenghtSpell
 DebugPartyAbilities
- elements AddReward+5
+// elements AddReward+5
 
 HumanFighter
  elements Human Male Fighter CreateCharacter DebugCharacter
 HumanPaladin
  elements Human Male Paladin CreateCharacter DebugCharacter
 DwarfCleric
- elements Dwarf Male Cleric CreateCharacter DebugCharacter
+ elements Dwarf RandomGender Cleric CreateCharacter DebugCharacter
 ElfMage
- elements Elf Female MageTheif CreateCharacter DebugCharacter DebugMageSpells
+ elements Elf RandomGender MageTheif CreateCharacter DebugCharacter DebugMageSpells
 HalflingTheif
  elements Halfling Female Theif CreateCharacter
 
@@ -32,7 +37,7 @@ DebugParty
  elements HumanPaladin JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty
 
 StartGameAbilities
- elements ExploreNorthWood ActivateQuest FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+10 DebugPartyAbilities
+ elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+10 DebugPartyAbilities
 
 StartGame
  elements DebugParty StartGameAbilities PassHours+7 HunterVillage EnterLocation

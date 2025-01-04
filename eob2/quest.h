@@ -7,8 +7,11 @@
 struct dungeoni;
 
 struct quest : nameable {
-	goala			goals;
-	variants		travel, reward;
-	dungeon_site	sites[8];
+	struct leveli : dungeon_site {
+		variants	features;
+	};
+	goala		goals;
+	variants	travel, reward;
+	leveli		sites[8];
 };
 extern quest* last_quest;

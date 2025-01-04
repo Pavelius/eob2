@@ -37,6 +37,7 @@ NOBSDATA(dice)
 NOBSDATA(dungeon_site)
 NOBSDATA(point)
 NOBSDATA(picturei)
+NOBSDATA(quest::leveli)
 
 BSDATAC(actioni, 256)
 BSDATAC(advancement, 256)
@@ -178,6 +179,17 @@ BSMETA(quest) = {
 	BSREQ(travel),
 	BSREQ(reward),
 	BSDST(goals, goali),
+	{}};
+BSMETA(quest::leveli) = {
+	BSENM(type, residi),
+	BSENM(habbits, monsteri),
+	BSENM(boss, monsteri),
+	BSENM(minions, monsteri),
+	BSREQ(level),
+	BSENM(key, itemi),
+	BSENM(special, itemi),
+	BSENM(language, racei),
+	BSREQ(features),
 	{}};
 BSMETA(racei) = {
 	BSREQ(id),

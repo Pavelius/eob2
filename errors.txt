@@ -1,2 +1,2 @@
-﻿Error in file `rules/Rooms.txt`:
- Line 8: Not found identifier `LairDoor`
+﻿Error in file `rules/Quests.txt`:
+ Line 11: Expected token `#`

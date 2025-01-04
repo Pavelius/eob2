@@ -16,7 +16,7 @@
 #include "wallmessage.h"
 
 #ifdef _DEBUG
-#define DEBUG_DUNGEON
+//#define DEBUG_DUNGEON
 //#define DEBUG_ROOM
 #endif
 
@@ -257,6 +257,13 @@ static void monster_boss(pointc v, directions d) {
 	loc->set(v, CellPassable);
 	auto pi = bsdata<monsteri>::elements + (loc->boss ? loc->boss : loc->habbits[1]);
 	loc->addmonster(v, d, 0, pi);
+	if(!pi->is(Large)) {
+		if(loc->minions) {
+			auto pi = bsdata<monsteri>::elements + loc->minions;
+			for(auto i = xrand(2, 3); i > 0; i--)
+				loc->addmonster(v, d, 0, pi);
+		}
+	}
 }
 
 static void monster_minion(pointc v, directions d) {
@@ -572,7 +579,7 @@ static void remove_dead_door() {
 	}
 }
 
-static int total_levels(slice<dungeon_site> source) {
+static int total_levels(slice<quest::leveli> source) {
 	auto result = 0;
 	for(auto& e : source)
 		result += e.level;
@@ -744,9 +751,36 @@ static void create_room(pointc v, const char* id, fnroom proc) {
 	create_room(v, optimal_direction(v), id, proc);
 }
 
-static void create_rooms(pointc start, bool last_level) {
+static void create_room_features(pointc v, directions d, roomi& ei) {
+	for(auto i = 0; i < lenghtof(ei.features); i++) {
+		auto p = ei.features[i];
+		if(p)
+			apply_shape(v, d, ei.shape, '0' + i, p->proc);
+		else
+			apply_shape(v, d, ei.shape, '0' + i, CellPassable);
+	}
+}
+
+static void create_room(pointc v, directions d, roomi& ei) {
+	validate_position(v, d, ei.shape);
+	apply_shape(v, d, ei.shape, 'X', CellWall);
+	apply_shape(v, d, ei.shape, '.', CellPassable);
+	create_room_features(v, d, ei);
+	put_corridor(ei.shape->translate(v, ei.shape->points[1], d), d, EmpthyStartIndex, false);
+	auto pv = loc->state.features.add();
+	if(pv) {
+		pv->x = v.x;
+		pv->y = v.y;
+		pv->d = d;
+	}
+#ifdef DEBUG_ROOM
+	show_map_interactive();
+#endif
+}
+
+static void create_rooms(pointc start, bool last_level, variants features) {
 	pointca points;
-	create_points(points, 3, 3, 3);
+	create_points(points, 3, 3, 2);
 	if(start)
 		create_room(start, "ShapeExit", stairs_up);
 	else
@@ -754,13 +788,11 @@ static void create_rooms(pointc start, bool last_level) {
 	if(!last_level)
 		create_room(pop(points), "ShapeExit", stairs_down);
 	// Every dungeon have one lair where monsters spawn
-	auto p1 = pop(points);
-	create_room(p1, "ShapeRoom", create_lair);
-	loc->state.features.add(p1);
-	// And every level have feature
-	auto p2 = pop(points);
-	create_room(p2, "ShapeLargeRoom", create_lair);
-	loc->state.features.add(p2);
+	for(auto v : features) {
+		auto pt = pop(points);
+		if(v.iskind<roomi>())
+			create_room(pt, optimal_direction(pt), bsdata<roomi>::elements[v.value]);
+	}
 }
 
 static void drop_special_item() {
@@ -844,7 +876,7 @@ static void link_dungeon(dungeoni& current, dungeoni& below) {
 		current.set(points[i], CellPit);
 }
 
-static void dungeon_create(unsigned short quest_id, slice<dungeon_site> source) {
+static void dungeon_create(unsigned short quest_id, slice<quest::leveli> source) {
 	auto base = 1;
 	auto total_level_count = total_levels(source);
 	dungeoni* previous = 0;
@@ -870,7 +902,7 @@ static void dungeon_create(unsigned short quest_id, slice<dungeon_site> source) 
 				loc->quest_id = quest_id;
 				loc->level = level;
 				loc->cursed = 5;
-				create_rooms(start, last_level);
+				create_rooms(start, last_level, ei.features);
 				while(stack_get != stack_put) {
 					auto& ev = rooms[stack_get++];
 					auto result = corridor(ev, ev.d);

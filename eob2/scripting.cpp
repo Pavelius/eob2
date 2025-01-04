@@ -1839,7 +1839,7 @@ static void add_item(int bonus) {
 
 static void add_reward(int bonus) {
 	party.abilities[GoldPiece] += get_bonus(bonus) * 100;
-	party_addexp(bonus * 200);
+	party_addexp(bonus * 400);
 }
 
 static void add_exp_group(int bonus) {
@@ -2207,6 +2207,10 @@ static void use_holy_symbol(int bonus) {
 	auto pi = bsdata<listi>::find("GoodDietyDomain");
 	if(!pi)
 		return;
+	if(party.abilities[Blessing] <= 0) {
+		consolen(getnm("YourFaithIsWeak"));
+		return;
+	}
 	if(d100() < party.abilities[Blessing]) {
 		if(use_bless_effect(pi->elements, last_item->getpower().counter)) {
 			if(result_player)
@@ -2215,6 +2219,7 @@ static void use_holy_symbol(int bonus) {
 				consolen(getnm("UseHolySymbolSuccess"), "Helm");
 		} else
 			consolen(getnm("UseHolySymbolFail"));
+		party.abilities[Blessing]--;
 	} else
 		consolen(getnm("UseHolySymbolFail"));
 	last_item->usecharge("ToolCrumbleToDust", 35, 5);
@@ -2291,6 +2296,10 @@ static bool if_area_locked() {
 
 static bool if_diseased() {
 	return player->is(DiseaseLevel);
+}
+
+static bool if_zero() {
+	return last_number == 0;
 }
 
 static bool if_intelligence() {
@@ -2603,6 +2612,7 @@ BSDATA(conditioni) = {
 	{"IfPrepared", if_prepared},
 	{"IfTalk", if_talk},
 	{"IfWounded", if_wounded},
+	{"IfZero", if_zero},
 };
 BSDATAF(conditioni)
 BSDATA(script) = {

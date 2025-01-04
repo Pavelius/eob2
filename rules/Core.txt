@@ -28,7 +28,7 @@ CreateTestParty
  elements HumanPaladin JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty
 
 StartGameAbilities
- elements ExploreNorthWood ActivateQuest FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+10
+ elements ExploreNorthWood ActivateQuest FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+10 AddReward+5
 
 StartGame
  elements CreateTestParty StartGameAbilities PassHours+7 HunterVillage EnterLocation

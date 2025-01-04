@@ -75,6 +75,7 @@ UseHolySymbolFail: You praying is without answers
 UseHolySymbolSuccessOnPlayer: %1 answer the praying on %2
 UseHolySymbolSuccess: %1 answer the praying
 WizardTower: Wizard Tower
+YourFaithIsWeak: Faith is weak, need more donation
 
 Options: Options
 ReturnBack: Back

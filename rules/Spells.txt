@@ -311,7 +311,7 @@ MageIllusionSpells
 PriestSpells
  elements PurifyFood+1 FindTraps+1 CureSeriousWounds+1 RemoveCurse+2 CurePoison+2 CureDisease+2 NeutralizePoison+3 RaiseDead+4 Restoration+5
 WandSpells
- elements BurningHands+1 DetectMagic+1 MagicMissile+1 ShockingGrasp+1
+ elements BurningHands+1 DetectMagic+1 MagicMissile+1 ShockingGrasp+1 MelfAcidArrow+2 Fireball+3
 
 AmuletPowers
  elements NoVariant DetectMagic+1 AC+1 ImmuneFire+2 ImmuneCold+2 ImmuneDisease+3 ProtectedFromEvil+1

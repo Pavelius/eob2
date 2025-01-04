@@ -26,6 +26,7 @@
 #include "resid.h"
 #include "race.h"
 #include "randomeffect.h"
+#include "room.h"
 #include "shop.h"
 #include "spell.h"
 #include "variant.h"
@@ -49,6 +50,7 @@ BSDATAC(monsteri, 256)
 BSDATAC(quest, 128)
 BSDATAC(racei, 16)
 BSDATAC(randomeffecti, 128)
+BSDATAC(roomi, 128)
 BSDATAC(shopi, 32)
 BSDATAC(spelli, 256)
 BSDATAC(spellseta, 64)
@@ -96,6 +98,9 @@ BSMETA(classi) = {
 	{}};
 BSMETA(color) = {
 	BSREQ(r), BSREQ(g), BSREQ(b),
+	{}};
+BSMETA(corridori) = {
+	BSREQ(id),
 	{}};
 BSMETA(creaturei) = {
 	BSDST(abilities, abilityi),
@@ -191,6 +196,12 @@ BSMETA(reactioni) = {
 BSMETA(residi) = {
 	BSREQ(id),
 	{}};
+BSMETA(roomi) = {
+	BSREQ(id),
+	BSREQ(floor),
+	BSREQ(shape),
+	BSREQ(features),
+	{}};
 BSMETA(shapei) = {
 	BSREQ(id),
 	{}};
@@ -244,6 +255,7 @@ BSDATA(varianti) = {
 	{"RandomEffect", VAR(randomeffecti, 1), 0, 0, ftscript<randomeffecti>},
 	{"RandomList", VAR(randomizeri, 1), 0, 0, ftscript<randomizeri>},
 	{"Reaction", VAR(reactioni, 1), 0, 0, ftscript<reactioni>},
+	{"Room", VAR(roomi, 1)},
 	{"Script", VAR(script, 1), 0, 0, ftscript<script>},
 	{"Shape", VAR(shapei, 1), 0, 0, 0, 0, shape_read},
 	{"Shop", VAR(shopi, 1), 0, 0, ftscript<shopi>, fttest<shopi>},

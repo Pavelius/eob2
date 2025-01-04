@@ -339,6 +339,7 @@
     <Text Include="..\rules\Monsters.txt" />
     <Text Include="..\rules\Quests.txt" />
     <Text Include="..\rules\Races.txt" />
+    <Text Include="..\rules\Rooms.txt" />
     <Text Include="..\rules\Shapes.txt" />
     <Text Include="..\rules\Spells.txt" />
   </ItemGroup>

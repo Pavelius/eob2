@@ -1,2 +1,2 @@
-﻿Error in file `rules/Spells.txt`:
- Line 275: Can't find variant `IfUndead`
+﻿Error in file `rules/Rooms.txt`:
+ Line 8: Not found identifier `LairDoor`

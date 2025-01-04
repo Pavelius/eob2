@@ -330,6 +330,22 @@ static void decoration(pointc v, directions d) {
 	loc->add(v, d, maprnd(random));
 }
 
+static void corridor_passable(pointc v, directions d) {
+	loc->set(v, CellPassable);
+}
+
+static void corridor_stairs_down(pointc v, directions d) {
+	loc->set(v, CellStairsDown);
+	loc->state.down = v;
+	loc->state.down.d = d;
+}
+
+static void corridor_stairs_up(pointc v, directions d) {
+	loc->set(v, CellStairsUp);
+	loc->state.up = v;
+	loc->state.up.d = d;
+}
+
 static void portal(pointc v, directions d) {
 	if(loc->type == FOREST)
 		return;
@@ -901,14 +917,20 @@ void dungeon_create() {
 
 BSDATA(corridori) = {
 	{"CorridorEmpthy", empthy},
+	{"CorridorBoss", monster_boss},
 	{"CorridorCellar", cellar},
 	{"CorridorDecoration", decoration},
+	{"CorridorDoor", lair_door},
 	{"CorridorMessage", message},
 	{"CorridorMonster", monster},
+	{"CorridorMinion", monster_minion},
+	{"CorridorPassable", corridor_passable},
 	{"CorridorPortal", portal},
 	{"CorridorPrison", prison},
 	{"CorridorRation", rations},
 	{"CorridorSecret", secret},
+	{"CorridorStairsDown", corridor_stairs_down},
+	{"CorridorStairsUp", corridor_stairs_up},
 	{"CorridorStones", stones},
 	{"CorridorTrap", trap},
 	{"CorridorTreasure", treasure},

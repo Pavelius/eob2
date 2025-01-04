@@ -1,0 +1,10 @@
+#Room
+
+RoomStairsUp shape(ShapeExit)
+ features CorridorStairsUp
+RoomStairsDown shape(ShapeExit)
+ features CorridorStairsDown
+RoomLair shape(ShapeLargeRoom) floor(CorridorMonster)
+ features CorridorBoss CorridorDoor
+RoomSmallLair shape(ShapeRoom) floor(CorridorMonster)
+ features CorridorBoss CorridorDoor CorridorMinion

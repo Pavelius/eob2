@@ -6,6 +6,7 @@
 #include "rules/Actions.txt"
 #include "rules/Monsters.txt"
 #include "rules/Shapes.txt" Shape
+#include "rules/Rooms.txt"
 #include "rules/Quests.txt"
 
 #List

@@ -686,6 +686,13 @@ static void apply_shape(pointc v, directions d, const shapei* shape, char sym, f
 	}
 }
 
+static void apply_shape(pointc v, directions d, const shapei* shape, char sym, corridori* pi, celln cell) {
+	if(pi)
+		apply_shape(v, d, shape, sym, pi->proc);
+	else
+		apply_shape(v, d, shape, sym, cell);
+}
+
 static void stairs_up(pointc v, directions d, const shapei* ps) {
 	apply_shape(v, d, ps, '0', CellStairsUp);
 	apply_shape(v, d, ps, '1', CellPassable);
@@ -752,22 +759,14 @@ static void create_room(pointc v, const char* id, fnroom proc) {
 }
 
 static void create_room_features(pointc v, directions d, roomi& ei) {
-	for(auto i = 0; i < lenghtof(ei.features); i++) {
-		auto p = ei.features[i];
-		if(p)
-			apply_shape(v, d, ei.shape, '0' + i, p->proc);
-		else
-			apply_shape(v, d, ei.shape, '0' + i, CellPassable);
-	}
+	for(auto i = 0; i < lenghtof(ei.features); i++)
+		apply_shape(v, d, ei.shape, '0' + i, ei.features[i], CellPassable);
 }
 
 static void create_room(pointc v, directions d, roomi& ei) {
 	validate_position(v, d, ei.shape);
 	apply_shape(v, d, ei.shape, 'X', CellWall);
-	if(ei.floor)
-		apply_shape(v, d, ei.shape, '.', ei.floor->proc);
-	else
-		apply_shape(v, d, ei.shape, '.', CellPassable);
+	apply_shape(v, d, ei.shape, '.', ei.floor, CellPassable);
 	create_room_features(v, d, ei);
 	put_corridor(ei.shape->translate(v, ei.shape->points[1], d), d, EmpthyStartIndex, false);
 	auto pv = loc->state.features.add();

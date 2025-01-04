@@ -764,7 +764,10 @@ static void create_room_features(pointc v, directions d, roomi& ei) {
 static void create_room(pointc v, directions d, roomi& ei) {
 	validate_position(v, d, ei.shape);
 	apply_shape(v, d, ei.shape, 'X', CellWall);
-	apply_shape(v, d, ei.shape, '.', CellPassable);
+	if(ei.floor)
+		apply_shape(v, d, ei.shape, '.', ei.floor->proc);
+	else
+		apply_shape(v, d, ei.shape, '.', CellPassable);
 	create_room_features(v, d, ei);
 	put_corridor(ei.shape->translate(v, ei.shape->points[1], d), d, EmpthyStartIndex, false);
 	auto pv = loc->state.features.add();

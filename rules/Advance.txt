@@ -153,7 +153,7 @@ Theif+4 BasicAbilities
 Ranger+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UseMartial BonusHP
 Paladin+1 BasicAbilities
- elements Precise
+ elements Precise Goblinoid ApplyRacialEnemy
 Ranger+1 TheifSkills
  elements MoveSilently+15
 Theif+2 TheifSkills

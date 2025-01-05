@@ -168,7 +168,7 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 	// RULE: Magically blurred wizard
 	if((defender->is(Blurred) || defender->is(Invisibled)) && !player->is(ImmuneIllusion))
 		bonus -= 4;
-	if(player->is(Invisibled) && !defender->is(ImmuneIllusion))
+	if((player->is(Invisibled) && !defender->is(ImmuneIllusion)) || defender->is(Surprised))
 		bonus += 4;
 	// RULE: One race hate another
 	if(player->hate.is(defender->race)) {
@@ -177,8 +177,7 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		if(player->is(BonusDamageVsEnemy))
 			bonus += 4;
 	}
-	if((power.iskind<racei>() && defender->race == power.value)
-		|| (player->is(weapon, Holy) && defender->is(Undead))) {
+	if((power.iskind<racei>() && defender->race == power.value) || (player->is(weapon, Holy) && defender->is(Undead))) {
 		bonus += 3;
 		multiplier += 1;
 	}
@@ -228,13 +227,12 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		// After all effects, if hit, do additional effects
 		if(is_critical_hit) {
 			// RULE: Weapon with spell cast it when critical hit occurs
-			if(power.iskind<spelli>()) {
+			if(slot == RightHand && power.iskind<spelli>()) {
 				auto ps = bsdata<spelli>::elements + power.value;
-				if(ps->is(Enemy)) {
-					// cast_spell(ps, player->getlevel(), 0, true, false, defender);
-				} else {
-					// cast_spell(ps, player->getlevel(), 0, true, false, player);
-				}
+				if(ps->is(Enemy))
+					cast_spell(ps, player->getlevel(), 0, true, false, 0, defender);
+				else
+					cast_spell(ps, player->getlevel(), 0, true, false, 0, player);
 			}
 		}
 		// RULE: vampiric ability allow user to drain blood and regain own HP

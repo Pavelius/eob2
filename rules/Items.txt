@@ -360,7 +360,7 @@ RandomSmallItem
  chance RandomPotions+4 RandomRings RandomKeys RandomTools RandomWands RandomScrolls+4 RandomGem
 
 MonsterGiftItems
- chance RandomSword RandomPotions+4 RandomAmulets+2 RandomScrolls
+ chance RandomPotions+3 RandomRation RandomAmulets RandomScrolls
 
 #Race
 

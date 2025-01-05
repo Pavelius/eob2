@@ -8,23 +8,6 @@
 
 extern spella spells_prepared[6];
 
-static unsigned long strhash(const char* id) {
-	if(!id)
-		return 0;
-	unsigned long total = 0;
-	for(auto i = 0; id[i]; i++)
-		total += ((unsigned char)id[i]) * (i + 1);
-	return total;
-}
-
-static unsigned long check_metadata() {
-	unsigned long total = 0;
-	int index = 1;
-	for(auto& e : bsdata<varianti>())
-		total += strhash(e.id) * (index++);
-	return total;
-}
-
 static bool check_game(archive& e) {
 	unsigned long total = 0;
 	int index = 1;
@@ -35,7 +18,8 @@ static bool check_game(archive& e) {
 	total += sizeof(boosti) * (index++);
 	total += sizeof(spellseta) * (index++);
 	total += bsdata<varianti>::source.getcount() * (index++);
-	total += check_metadata() * (index++);
+	total += hashdata(bsdata<varianti>::source) * (index++);
+	total += hashdata(bsdata<listi>::source) * (index++);
 	return e.checksum(total);
 }
 

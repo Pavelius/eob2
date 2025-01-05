@@ -274,7 +274,7 @@ static void use_spell_slot(const spelli* ps) {
 		player->spells[index]--;
 }
 
-bool cast_spell(const spelli* ps, int level, int experience, bool run, bool random_target, unsigned durations) {
+bool cast_spell(const spelli* ps, int level, int experience, bool run, bool random_target, unsigned durations, creaturei* explicit_target) {
 	pushvalue push_spell(last_spell);
 	pushanswer push_answers;
 	pointc enemy_position = to(party, party.d);
@@ -295,6 +295,10 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 	if(ps->is(You)) {
 		if(an.findvalue(player) == -1)
 			an.add(player, player->getname());
+	}
+	if(explicit_target && !ps->is(Group)) {
+		an.clear();
+		an.add(explicit_target, explicit_target->getname());
 	}
 	if(ps->summon)
 		filter_summon_slot(ps->summon->wear);
@@ -351,7 +355,7 @@ void cast_spell() {
 	if(!ps)
 		return;
 	// RULE: add experience for each spell cast.
-	if(!cast_spell(ps, player->getlevel(), 35, true, false, 0))
+	if(!cast_spell(ps, player->getlevel(), 35, true, false, 0, 0))
 		return;
 	use_spell_slot(ps);
 	pass_round();

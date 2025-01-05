@@ -31,6 +31,7 @@ SaveVsMagic: Save vs Magic
 SaveVsParalization: Save vs Paralize
 SaveVsPoison: Save vs Poison
 SaveVsTraps: Save vs Traps
+Sneaky: Sneaky
 
 Dead: Dead
 Disabled: Disabled

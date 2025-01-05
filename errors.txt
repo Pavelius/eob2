@@ -1,2 +1,2 @@
-﻿Error in file `rules/Spells.txt`:
- Line 121: Can't find variant `Ration`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `Sneaky`

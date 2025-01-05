@@ -17,9 +17,6 @@ static bool check_game(archive& e) {
 	total += sizeof(dungeoni) * (index++);
 	total += sizeof(boosti) * (index++);
 	total += sizeof(spellseta) * (index++);
-	total += bsdata<varianti>::source.getcount() * (index++);
-	total += hashdata(bsdata<varianti>::source) * (index++);
-	total += hashdata(bsdata<listi>::source) * (index++);
 	return e.checksum(total);
 }
 

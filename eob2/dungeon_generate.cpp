@@ -16,8 +16,8 @@
 #include "wallmessage.h"
 
 #ifdef _DEBUG
-//#define DEBUG_DUNGEON
-//#define DEBUG_ROOM
+#define DEBUG_DUNGEON
+// #define DEBUG_ROOM
 #endif
 
 const int EmpthyStartIndex = 1;
@@ -50,6 +50,15 @@ static void select_pathable(pointca& result) {
 }
 
 #ifdef DEBUG_DUNGEON
+static void show_map_features() {
+	pointca points;
+	points.add(loc->state.up);
+	if(loc->state.down)
+		points.add(loc->state.down);
+	for(auto v : loc->state.features)
+		points.add(v);
+	show_automap(false, true, false, &points);
+}
 static void show_map_pathfind() {
 	pointca points;
 	loc->block(true);
@@ -763,20 +772,24 @@ static void create_room_features(pointc v, directions d, roomi& ei) {
 		apply_shape(v, d, ei.shape, '0' + i, ei.features[i], CellPassable);
 }
 
-static void create_room(pointc v, directions d, roomi& ei) {
-	validate_position(v, d, ei.shape);
-	apply_shape(v, d, ei.shape, 'X', CellWall);
-	apply_shape(v, d, ei.shape, '.', ei.floor, CellPassable);
-	create_room_features(v, d, ei);
-	put_corridor(ei.shape->translate(v, ei.shape->points[1], d), d, EmpthyStartIndex, false);
+static void add_features(pointc v, directions d) {
 	auto pv = loc->state.features.add();
 	if(pv) {
 		pv->x = v.x;
 		pv->y = v.y;
 		pv->d = d;
 	}
+}
+
+static void create_room(pointc v, directions d, roomi& ei) {
+	validate_position(v, d, ei.shape);
+	apply_shape(v, d, ei.shape, 'X', CellWall);
+	apply_shape(v, d, ei.shape, '.', ei.floor, CellPassable);
+	create_room_features(v, d, ei);
+	put_corridor(ei.shape->translate(v, ei.shape->points[1], d), d, EmpthyStartIndex, false);
+	add_features(ei.shape->translate(v, ei.shape->points[0], d), d);
 #ifdef DEBUG_ROOM
-	show_map_interactive();
+	show_map_features();
 #endif
 }
 
@@ -929,8 +942,6 @@ static void dungeon_create(unsigned short quest_id, slice<quest::leveli> source)
 			show_map_pathfind();
 #endif
 			loc->state.total_passable = loc->getpassables(false);
-			//add_spawn_points(e);
-			//add_corners(e, p->crypt.corner, p->crypt.corner_count);
 			previous = loc;
 		}
 		base += ei.level;

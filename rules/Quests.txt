@@ -12,17 +12,17 @@ CursedDungeon
 FloodedSewers
  goals KillAlmostAllMonsters(3)
  travel PassHours+1
- reward AddReward+3 Reputation+5 CursedDungeon ActivateQuest
+ reward AddReward+5 Reputation+5 CursedDungeon ActivateQuest
  sites type(brick) level(3) habbits(Kobold Leech) language(Human) key(IronKey) features(RoomLair RoomFeature)
 
 ExploreNorthWood
  goals ExmploreMostArea(1)
- travel PassHours+8
+ travel PassDays+8
  reward AddReward+1 Reputation+2 CursedDungeon ActivateQuest
  sites type(forest) level(1) habbits(Wolf Goblin) language(Goblinoid) key(IronKey) features(RoomCorner RoomCorner RoomCorner+50 RoomCorner+30)
 
 CursedDungeon
  goals TakeSpecialItem(1)
  travel PassHours+6
- reward AddReward+5
+ reward AddReward+10
  sites type(dung) level(1) habbits(Skeleton Zombie) language(Human) key(IronKey) special(StoneAmulet) boss(Wight) minions(Ghoul) features(RoomLair RoomFeature RoomFeature)

@@ -10,6 +10,7 @@
 #include "list.h"
 #include "math.h"
 #include "party.h"
+#include "quest.h"
 #include "rand.h"
 #include "script.h"
 #include "shop.h"
@@ -579,6 +580,7 @@ int party_goal(unsigned short quest_id, goaln v) {
 static void check_goals() {
 	if(!loc || !player)
 		return;
+	bool check_main_quest = false;
 	for(auto i = (goaln)0; i <= KillAlmostAllMonsters; i = (goaln)(i + 1)) {
 		if(loc->rewards.is(i))
 			continue;
@@ -588,7 +590,12 @@ static void check_goals() {
 			if(!player->isdisabled())
 				player->speak(ei.id, "Reward");
 			party_addexp(ei.experience);
+			check_main_quest = true;
 		}
+	}
+	if(!player->isdisabled()) {
+		if(last_quest_complite())
+			player->speak("ReturnToBase", 0);
 	}
 }
 
@@ -643,6 +650,19 @@ void pass_hours(int value) {
 	for(auto i = 0; i < 6 * value; i++)
 		all_creatures(update_every_turn);
 	for(auto i = 0; i < value; i++)
+		all_creatures(update_every_hour);
+	all_party(check_levelup, true);
+	fix_animate();
+}
+
+void pass_days(int value) {
+	animation_update();
+	add_party(Minutes, 24 * 60 * value);
+	clear_boost(party.abilities[Minutes], clear_boost_proc);
+	all_creatures(update_every_round);
+	for(auto i = 0; i < 24 * 6 * value; i++)
+		all_creatures(update_every_turn);
+	for(auto i = 0; i < 24 * value; i++)
 		all_creatures(update_every_hour);
 	all_party(check_levelup, true);
 	fix_animate();

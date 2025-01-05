@@ -972,20 +972,6 @@ static void clear_edible() {
 	}
 }
 
-static bool last_quest_complite() {
-	if(!last_quest)
-		return false;
-	auto quest_id = getbsi(last_quest);
-	for(auto i = (goaln)0; i <= KillAlmostAllMonsters; i = (goaln)(i + 1)) {
-		if(!last_quest->goals[i])
-			continue;
-		auto value = party_goal(quest_id, i);
-		if(value < last_quest->goals[i])
-			return false;
-	}
-	return true;
-}
-
 static void check_quest_complited() {
 	if(!last_quest_complite())
 		return;
@@ -2793,6 +2779,7 @@ BSDATA(script) = {
 	{"PartyAdventure", party_adventure},
 	{"PayGold", pay_gold},
 	{"PayGoldConfirm", pay_gold_confirm},
+	{"PassDays", pass_hours},
 	{"PassHours", pass_hours},
 	{"PassRound", pass_round},
 	{"Protection", protection_modify},

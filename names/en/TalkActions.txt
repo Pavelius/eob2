@@ -39,3 +39,8 @@ We kill this tought guy
 #KillBossMinionsReward
 We kills all minions
 That be last one minion
+
+#ReturnToBase
+This quest is done
+It's time return to base
+Reward is waiting for us

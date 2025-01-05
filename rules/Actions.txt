@@ -4,10 +4,12 @@ BuyArmors
  elements BuyMenu LeatherArmor ScaleMail BandedMail
 BuyWeapons
  elements BuyMenu ShortSword Longsword Dagger BattleAxe Mace
+EnemyNoSurprise
+ elements ForEachOpponents Surprised-1
 PartySurprise
  elements ForEachParty Surprised
 PartyAmbush
- elements Hostile PartySurprise
+ elements Hostile PartySurprise EnemyNoSurprise
 
 CalmDownFail
  elements PartyAmbush

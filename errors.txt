@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Sneaky`
+﻿Error in file `rules/Quests.txt`:
+ Line 20: Can't find variant `PassDays`

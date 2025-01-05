@@ -45,8 +45,10 @@ static void* save_focus;
 
 static int get_bonus(int v) {
 	switch(v) {
+	case 100: return player->get(last_ability);
 	case 101: return last_number;
 	case 102: return last_level;
+	case -100: return -player->get(last_ability);
 	case -101: return -last_number;
 	case -102: return -last_level;
 	default: return v;
@@ -245,12 +247,16 @@ bool ismatch(char* abilitites) {
 static void add_menu(variant& v, bool whole_party = false) {
 	if(v.iskind<actioni>()) {
 		auto p = bsdata<actioni>::elements + v.value;
-		if(p->restrict_classes && party_have(p->restrict_classes))
+		if(p->restrict_classes && party_have_class(p->restrict_classes))
 			return;
 		if(!ismatch(p->required))
 			return;
 		if(whole_party) {
-			if(p->classes && !party_have(p->classes))
+			if(p->classes && !party_have_class(p->classes))
+				return;
+			if(p->races && !party_have_race(p->classes))
+				return;
+			if(p->alignment && !party_have_alignment(p->alignment))
 				return;
 			if(!allow_item(p->filter_item))
 				return;
@@ -719,8 +725,8 @@ static void use_item() {
 	case Rod:
 		if(!allow_use(pn, last_item))
 			break;
-		if(w != RightHand) {
-			pn->speak("MustBeWearing", "RightHand");
+		if(w != LeftHand) {
+			pn->speak("MustBeWearing", "LeftHand");
 			break;
 		}
 		if(use_rod(pn, last_item, last_item->getpower()))
@@ -1822,6 +1828,16 @@ static void player_speak(const char* action) {
 	player->speakn(last_id, action);
 }
 
+static void read_story(int bonus) {
+	auto postfix = "Success";
+	auto format = npc_speech(player, last_id, postfix);
+	if(!format)
+		return;
+	consolen(getnm("PlayerRead"));
+	console(" ");
+	console(format);
+}
+
 static void say_speech(int bonus) {
 	switch(bonus) {
 	case -1: player_speak("Fail"); break;
@@ -1894,7 +1910,8 @@ static void save_negate(int bonus) {
 	if(player->roll(SaveVsMagic, bonus * 5)) {
 		last_number = 0;
 		script_stop();
-	}
+	} else
+		apply_script(last_id, "Fail", 0);
 }
 
 static void save_half(int bonus) {
@@ -1936,6 +1953,13 @@ static void monsters_reaction(int bonus) {
 		if(p)
 			p->reaction = last_reaction;
 	}
+}
+
+static void monster_leader(int bonus) {
+	creaturei* creatures[6]; loc->getmonsters(creatures, to(party, party.d));
+	player = get_leader(creatures);
+	if(!player)
+		script_stop();
 }
 
 static void monsters_flee(int bonus) {
@@ -2685,6 +2709,7 @@ BSDATA(script) = {
 	{"HealEffect", player_heal_effect},
 	{"IdentifyItem", identify_item},
 	{"ItemPowerSpell", item_power_spell},
+	{"Leader", monster_leader},
 	{"LearnClericSpells", learn_cleric_spells},
 	{"LearnLastSpell", learn_last_spell},
 	{"LoadGame", load_game},
@@ -2706,6 +2731,7 @@ BSDATA(script) = {
 	{"PushPlayer", push_player},
 	{"RandomArea", random_area},
 	{"ReactionCheck", reaction_check},
+	{"ReadStory", read_story},
 	{"RestoreSpells", restore_spells},
 	{"ReturnToStreet", return_to_street},
 	{"Roll", make_roll},

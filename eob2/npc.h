@@ -35,3 +35,4 @@ struct npc {
 };
 
 void create_npc(npc* p, fnallowuc avatar_test, fnallowus name_test);
+const char* npc_speech(const npc* player, const char* id, const char* action);

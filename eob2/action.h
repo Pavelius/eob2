@@ -22,4 +22,6 @@ extern actioni* last_action;
 bool allow_item(const variants& filter);
 bool allow_item(creaturei* player, const variants& filter);
 bool have_class(const flag32& classes, classn type);
-bool party_have(flag32 classes);
+bool party_have_alignment(flag32 source);
+bool party_have_class(flag32 source);
+bool party_have_race(flag32 source);

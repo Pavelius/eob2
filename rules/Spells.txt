@@ -166,7 +166,7 @@ TrueSeeing
 HealSpell levels(6)
  feats Ally
  filter IfAlive IfWounded
- instant Heal+100 PoisonLevel-100 DiseaseLevel-100
+ instant Heal+120 PoisonLevel-100 DiseaseLevel-100
 HeroesFeast levels(6)
 
 Restoration levels(7)

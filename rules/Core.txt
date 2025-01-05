@@ -26,6 +26,8 @@ HumanFighter
  elements Human Male Fighter CreateCharacter DebugCharacter
 HumanPaladin
  elements Human Male Paladin CreateCharacter DebugCharacter
+HumanRanger
+ elements Human Male Ranger CreateCharacter DebugCharacter
 DwarfCleric
  elements Dwarf RandomGender Cleric CreateCharacter DebugCharacter
 ElfMage
@@ -34,7 +36,7 @@ HalflingTheif
  elements Halfling Female Theif CreateCharacter
 
 DebugParty
- elements HumanPaladin JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty
+ elements HumanRanger JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty
 
 StartGameAbilities
  elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+10 DebugPartyAbilities

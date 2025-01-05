@@ -52,21 +52,14 @@ bool item::isallow(wearn v) const {
 	case RightRing:
 		return n == LeftRing
 			|| n == RightRing;
-	case RightHand:
-		return n == LeftHand
-			|| n == RightHand
+	case LeftHand:
+		return (n == RightHand && is(UseRogish))
+			|| n == LeftHand
 			|| n == Rod
 			|| n == Readable
 			|| n == Drinkable;
 	case FirstBelt: case SecondBelt: case LastBelt:
-		switch(n) {
-		case LeftHand:
-		case RightHand:
-		case Drinkable:
-			return true;
-		default:
-			return false;
-		}
+		return n == RightHand;
 	default:
 		if(v >= Backpack && v <= LastBackpack)
 			return true;
@@ -154,6 +147,11 @@ void item::damage(int bonus) {
 }
 
 bool item::join(item& it) {
+	if(!type) {
+		*this = it;
+		it.clear();
+		return true;
+	}
 	if(type != it.type || flags != it.flags || power != it.power)
 		return false;
 	if(!iscountable())

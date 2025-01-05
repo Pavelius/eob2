@@ -4,3 +4,4 @@ Mage: Mage
 MageTheif: Mage/Theif
 Theif: Theif
 Paladin: Paladin
+Ranger: Ranger

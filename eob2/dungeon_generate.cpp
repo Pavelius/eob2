@@ -16,8 +16,8 @@
 #include "wallmessage.h"
 
 #ifdef _DEBUG
-#define DEBUG_DUNGEON
-#define DEBUG_ROOM
+// #define DEBUG_DUNGEON
+// #define DEBUG_ROOM
 #endif
 
 const int EmpthyStartIndex = 1;
@@ -639,6 +639,8 @@ static void create_points(pointca& points, int mx, int my, int offset) {
 }
 
 static pointc pop(pointca& points) {
+	if(!points)
+		return pointc();
 	auto n = points[0];
 	points.remove(0);
 	return n;
@@ -811,6 +813,8 @@ static void create_rooms(pointc start, bool last_level, variants features) {
 	// Every dungeon have one lair where monsters spawn
 	for(auto v : features) {
 		auto pt = pop(points);
+		if(!pt)
+			continue;
 		if(v.iskind<roomi>())
 			create_room(pt, optimal_direction(pt), bsdata<roomi>::elements[v.value]);
 	}

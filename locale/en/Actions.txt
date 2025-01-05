@@ -7,6 +7,7 @@ BuySpell: Buy Spell
 BuySpellConfirm: Do you really want pay 50 gold piece to buy spell scroll?
 BuyWeapon: Buy Weapon
 BuyWeaponsConfirm: Do you really want pay %2i gold piece to buy %-1?
+CalmDown: Calm
 CampMenu: Camp Options:
 CastSpell: Cast what spell?
 CastOnWho: Cast on who?
@@ -40,6 +41,7 @@ GameOptionsOptions: Game Options
 GlobalCampMenu: Camp menu
 GlobalOptions: What %Name want?
 GlobalVisit: Visit %1
+Hunt: Hunt
 Leave: Leave
 Lie: Lie
 MakeCampConfirm: Do you want to make camp?
@@ -56,6 +58,7 @@ PickPockets: Pick pockets
 PickPocketsAction: Pick pockets
 PickPocketsVisit: Pick some pockets
 PrayForSpells: Pray for Spells
+PlayerRead: %Name read
 QuestGoals: Quest Goals
 RemoveTrapsFail: Fail remove trap
 RepairItems: Repair Items

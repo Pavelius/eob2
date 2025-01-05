@@ -22,32 +22,37 @@ mundane
 funny
 sad
 
+#StoryKind
+tale
+poem
+story
+
 #LearnNeutralSuccess
-%+StoryType story about %MonsterName
-%+GroupAdjustment %GroupName adventures
+%StoryType %StoryKind about %MonsterName
+%GroupAdjustment %GroupName adventures
 
 #LearnNeutralDoubleSuccess
-Excited information about people of %GroupAdjustment %GroupName
-Bard tales
+excited %StoryKind about people of %GroupAdjustment %GroupName
+bard %StoryKind
 
 #LearnEvilSuccess
-Explain evil deeds
-Bad tale about %GroupAdjustment %GroupName
-Terrifying tale about %GroupAdjustment deeds
+%StoryKind explain evil deeds
+bad %StoryKind about %GroupAdjustment %GroupName
+terrifying %StoryKind about %GroupAdjustment deeds
 
 #LearnGoodSuccess
-Explain good deeds
-Tale about bravest heroes of %GroupAdjustment %GroupName
-Brilliant tale about %GroupAdjustment deeds
+%StoryKind explain good deeds
+%StoryKind about bravest heroes of %GroupAdjustment %GroupName
+brilliant %StoryKind about %GroupAdjustment deeds
 
 #LearnGoodSuccess
-Explain good deeds
-Tale about bravest heroes of %GroupAdjustment %GroupName
-Brilliant tale about %GroupAdjustment deeds
+%StoryKind explain good deeds
+%StoryKind about bravest heroes of %GroupAdjustment %GroupName
+brilliant tale about %GroupAdjustment deeds
 
 #LearnPainSuccess
-Long and exhaused tale
-A tale with bad end
+long and exhaused tale
+a tale with bad end
 
 #LearnIntellegenceSuccess
-Endless mathematic and phisic science
+science work about mathematic and phisic

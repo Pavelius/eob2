@@ -53,17 +53,17 @@ HelmPowers
  elements NoVariant AllLanguages+1 AC+1 AC+2
 
 LearnNeutral
- elements AddExpPersonal+1 SaySpeech
+ elements ReadStory AddExpPersonal+1
 LearnNeutralDouble
- elements AddExpPersonal+2 SaySpeech
+ elements ReadStory AddExpPersonal+2
 LearnGood
- elements AddExpGood+20 SaySpeech
+ elements ReadStory AddExpGood+20
 LearnEvil
- elements AddExpEvil+20 SaySpeech
+ elements ReadStory AddExpEvil+20
 LearnPain
- elements Bludgeon+1 SaySpeech
+ elements ReadStory Bludgeon+1
 LearnIntellegence
- elements DestroyItem SaySpeech PushModifier Permanent Intellegence+1
+ elements ReadStory DestroyItem PushModifier Permanent Intellegence+1
 
 #RandomList
 
@@ -288,6 +288,8 @@ FighterStartEquipment
  elements Longsword LeatherArmor Shield Helm
 PaladinStartEquipment
  elements Longsword LeatherArmor Helm
+RangerStartEquipment
+ elements Longsword ShortSword LeatherArmor Bow Arrow Arrow Arrow Arrow Arrow
 ClericStartEquipment
  elements Mace LeatherArmor HolySymbol
 TheifStartEquipment

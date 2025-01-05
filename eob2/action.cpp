@@ -16,11 +16,31 @@ bool have_class(const flag32& classes, classn type) {
 	return false;
 }
 
-bool party_have(flag32 classes) {
+bool party_have_class(flag32 source) {
 	for(auto p : characters) {
 		if(!p || p->isdisabled())
 			continue;
-		if(have_class(classes, p->character_class))
+		if(have_class(source, p->character_class))
+			return true;
+	}
+	return false;
+}
+
+bool party_have_race(flag32 source) {
+	for(auto p : characters) {
+		if(!p || p->isdisabled())
+			continue;
+		if(source.is(p->race))
+			return true;
+	}
+	return false;
+}
+
+bool party_have_alignment(flag32 source) {
+	for(auto p : characters) {
+		if(!p || p->isdisabled())
+			continue;
+		if(source.is(p->alignment))
 			return true;
 	}
 	return false;

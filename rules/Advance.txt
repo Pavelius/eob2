@@ -145,3 +145,16 @@ Theif+4 TheifSkills
  elements PickPockets+5 OpenLocks+4 RemoveTraps+5 MoveSilently+6 HearNoise+0 ClimbWalls+1
 Theif+4 BasicAbilities
  elements Backstab+1
+
+Ranger+1 AllowedEquipment
+ elements UseMetal UseLeather UseShield UseMartial BonusHP
+Paladin+1 BasicAbilities
+ elements Precise
+Ranger+1 TheifSkills
+ elements MoveSilently+15
+Theif+2 TheifSkills
+ elements MoveSilently+6
+Theif+3 TheifSkills
+ elements MoveSilently+6
+Theif+4 TheifSkills
+ elements MoveSilently+6

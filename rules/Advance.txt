@@ -125,11 +125,15 @@ Cleric+5 Spells
 Mage+1 AllowedEquipment
  elements UseMage
 Mage+1 Spells
- elements Armor ChillTouch MagicMissile Spell1+1
+ elements Spell1+1 Set+5 LearnMageSpells+1 DetectMagic
 Mage+2 Spells
  elements Spell1+1
 Mage+3 Spells
  elements Spell2+1
+Mage+4 Spells
+ elements Spell1+1 Spell2+1
+Mage+5 Spells
+ elements Spell1+1 Spell3+1
 
 Theif+1 AllowedEquipment
  elements UseLeather UseRogish

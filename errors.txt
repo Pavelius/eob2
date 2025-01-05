@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `RedGem`
+﻿Error in file `rules/Advance.txt`:
+ Line 128: Can't find variant `LearnSpells`

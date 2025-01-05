@@ -1857,6 +1857,21 @@ static void learn_last_spell(int bonus) {
 		ps->remove(index);
 }
 
+static void learn_mage_spells(int bonus) {
+	auto ps = get_spells_known(player);
+	if(!ps)
+		return;
+	update_player();
+	pushanswer push;
+	add_spells(1, bonus, 0);
+	an.elements.shuffle();
+	an.elements.top(last_number);
+	for(auto& e : an.elements) {
+		if(player->roll(LearnSpell))
+			ps->set(getbsi((spelli*)e.value));
+	}
+}
+
 static void learn_cleric_spells(int bonus) {
 	auto ps = get_spells_known(player);
 	if(!ps)
@@ -2746,6 +2761,7 @@ BSDATA(script) = {
 	{"Leader", monster_leader},
 	{"LearnClericSpells", learn_cleric_spells},
 	{"LearnLastSpell", learn_last_spell},
+	{"LearnMageSpells", learn_mage_spells},
 	{"LoadGame", load_game},
 	{"Magical", empthy_script},
 	{"Message", script_message},

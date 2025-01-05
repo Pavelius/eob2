@@ -474,7 +474,10 @@ static void cellar(pointc v, directions d) {
 		return;
 	loc->set(v1, CellWall);
 	auto po = loc->add(v, d, CellCellar);
-	for(auto i = random_count(); i > 0; i--) {
+	auto count = random_count();
+	if(rand() >= 40)
+		count += 1;
+	while(count-- > 0) {
 		item it;
 		create_item(it, single(random_list), 0, 40);
 		loc->add(po, it);

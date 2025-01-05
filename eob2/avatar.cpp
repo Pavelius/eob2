@@ -12,8 +12,7 @@ using namespace log;
 
 static struct avatari {
 	gendern gender;
-	flagable<1, unsigned> races;
-	flagable<1, unsigned> classes;
+	flag32 races, classes;
 } portrait_data[256];
 
 static size_t filter(unsigned char* result, size_t result_size, fnallowuc filter_proc) {
@@ -29,6 +28,15 @@ static size_t filter(unsigned char* result, size_t result_size, fnallowuc filter
 	return ps - result;
 }
 
+static bool is_class(flag32 source, classn type) {
+	auto& ei = bsdata<classi>::elements[type];
+	for(auto i = 0; i < ei.count; i++) {
+		if(source.is(ei.classes[i]))
+			return true;
+	}
+	return false;
+}
+
 static size_t get_avatars_ex(unsigned char* result, racen race, gendern gender, classn cls) {
 	auto p = result;
 	for(auto& e : portrait_data) {
@@ -36,7 +44,7 @@ static size_t get_avatars_ex(unsigned char* result, racen race, gendern gender, 
 			continue;
 		if(!e.races.is(race))
 			continue;
-		if(!e.classes.is(cls))
+		if(!is_class(e.classes, cls))
 			continue;
 		*p++ = &e - portrait_data;
 	}

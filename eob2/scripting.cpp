@@ -290,7 +290,33 @@ static void add_menu(variant& v, bool whole_party = false) {
 
 static void enter_location(int bonus);
 
+static bool confirm_payment(const char* name, int gold_coins) {
+	if(getparty(GoldPiece) < gold_coins) {
+		dialog(0, speech_get(last_id, "NotEnoughtGold"), gold_coins);
+		return false;
+	} else {
+		char temp[260]; stringbuilder sb(temp);
+		auto format = getnme(ids(last_id, "Confirm"));
+		if(!format)
+			format = getnm("PayGoldConfirm");
+		sb.add(format, name, gold_coins, party.abilities[GoldPiece]);
+		if(!confirm(temp))
+			return false;
+		add_party(GoldPiece, -gold_coins);
+	}
+	return true;
+}
+
+static bool apply_cost(const char* id, int cost) {
+	if(!cost)
+		return true;
+	pushvalue push(last_id, id);
+	return confirm_payment(getnm(id), cost);
+}
+
 static void apply_action(int bonus) {
+	if(!apply_cost(last_action->id, last_action->cost))
+		return;
 	if(last_action->avatar)
 		picture = last_action->avatar;
 	script_run(last_action->id, last_action->effect);
@@ -300,6 +326,9 @@ static void apply_result() {
 	if(!last_result) {
 		last_number = 0;
 	} else if(bsdata<locationi>::have(last_result)) {
+		auto p = (locationi*)last_result;
+		if(!apply_cost(p->id, p->cost))
+			return;
 		last_location = (locationi*)last_result;
 		enter_location(0);
 	} else if(bsdata<script>::have(last_result))
@@ -659,6 +688,43 @@ static bool dungeon_use() {
 	return true;
 }
 
+static bool use_bless_effect(const variants& source, int bonus) {
+	auto level = player->getlevel() + bonus;
+	auto duration = (4 + bonus) * 60; // 4-9 hour standart duration for blessing
+	for(auto v : source) {
+		if(v.iskind<spelli>()) {
+			auto p = bsdata<spelli>::elements + v.value;
+			if(!cast_spell(p, level, 0, false, false, duration))
+				continue;
+			cast_spell(p, level, 0, true, true, duration);
+			return true;
+		}
+	}
+	return false;
+}
+
+static bool faith_effect(int bonus) {
+	auto pi = bsdata<listi>::find("GoodDietyDomain");
+	if(!pi)
+		return false;
+	if(party.abilities[Blessing] <= 0) {
+		consolen(getnm("YourFaithIsWeak"));
+		return false;
+	}
+	if(d100() < party.abilities[Blessing]) {
+		if(use_bless_effect(pi->elements, bonus)) {
+			if(result_player)
+				consolen(getnm("UseHolySymbolSuccessOnPlayer"), "Helm", result_player->getname());
+			else
+				consolen(getnm("UseHolySymbolSuccess"), "Helm");
+		} else
+			consolen(getnm("UseHolySymbolFail"));
+		add_party(Blessing, -1);
+	} else
+		consolen(getnm("UseHolySymbolFail"));
+	return true;
+}
+
 static void use_item() {
 	last_item = (item*)current_focus;
 	auto pn = item_owner(last_item);
@@ -731,6 +797,18 @@ static void use_item() {
 		}
 		if(use_rod(pn, last_item, last_item->getpower()))
 			pass_round();
+		break;
+	case Faithable:
+		if(!allow_use(pn, last_item))
+			break;
+		if(w != LeftHand) {
+			pn->speak("MustBeWearing", "LeftHand");
+			break;
+		}
+		if(faith_effect(last_item->iscursed() ? -2 : last_item->getpower().counter)) {
+			last_item->usecharge("ToolCrumbleToDust", 35, 5);
+			pass_round();
+		}
 		break;
 	case Usable:
 		if(!allow_use(pn, last_item))
@@ -1023,20 +1101,6 @@ static void choose_menu(int bonus) {
 	choose_options(last_id, commands);
 	apply_result();
 	script_stop();
-}
-
-static bool confirm_payment(const char* name, int gold_coins) {
-	if(getparty(GoldPiece) < gold_coins) {
-		dialog(0, speech_get(last_id, "NotEnoughtGold"), gold_coins);
-		return false;
-	} else {
-		char temp[260]; stringbuilder sb(temp);
-		sb.add(getnm(ids(last_id, "Confirm")), name, gold_coins);
-		if(!confirm(temp))
-			return false;
-		add_party(GoldPiece, -gold_coins);
-	}
-	return true;
 }
 
 static void buy_menu(int bonus) {
@@ -1809,6 +1873,11 @@ static void pay_gold(int bonus) {
 		add_party(GoldPiece, -bonus);
 }
 
+static void pay_gold_confirm(int bonus) {
+	if(!confirm_payment("Pay", get_bonus(bonus)))
+		script_stop();
+}
+
 static void apply_racial_enemy(int bonus) {
 	if(!last_race)
 		return;
@@ -2231,44 +2300,6 @@ static void choose_shop_item(int bonus) {
 	last_item = (item*)choose_large_menu(header, getnm("Cancel"));
 	if(!last_item)
 		script_stop();
-}
-
-static bool use_bless_effect(const variants& source, int bonus) {
-	auto level = player->getlevel() + bonus;
-	auto duration = (4 + bonus) * 60; // 4-9 hour standart duration for blessing
-	for(auto v : source) {
-		if(v.iskind<spelli>()) {
-			auto p = bsdata<spelli>::elements + v.value;
-			if(!cast_spell(p, level, 0, false, false, duration))
-				continue;
-			cast_spell(p, level, 0, true, true, duration);
-			return true;
-		}
-	}
-	return false;
-}
-
-static void use_holy_symbol(int bonus) {
-	auto pi = bsdata<listi>::find("GoodDietyDomain");
-	if(!pi)
-		return;
-	if(party.abilities[Blessing] <= 0) {
-		consolen(getnm("YourFaithIsWeak"));
-		return;
-	}
-	if(d100() < party.abilities[Blessing]) {
-		if(use_bless_effect(pi->elements, last_item->getpower().counter)) {
-			if(result_player)
-				consolen(getnm("UseHolySymbolSuccessOnPlayer"), "Helm", result_player->getname());
-			else
-				consolen(getnm("UseHolySymbolSuccess"), "Helm");
-		} else
-			consolen(getnm("UseHolySymbolFail"));
-		add_party(Blessing, -1);
-	} else
-		consolen(getnm("UseHolySymbolFail"));
-	last_item->usecharge("ToolCrumbleToDust", 35, 5);
-	pass_round();
 }
 
 static void player_name(stringbuilder& sb) {
@@ -2723,6 +2754,7 @@ BSDATA(script) = {
 	{"JoinParty", join_party},
 	{"PartyAdventure", party_adventure},
 	{"PayGold", pay_gold},
+	{"PayGoldConfirm", pay_gold_confirm},
 	{"PassHours", pass_hours},
 	{"PassRound", pass_round},
 	{"Protection", protection_modify},
@@ -2750,8 +2782,6 @@ BSDATA(script) = {
 	{"Switch", apply_switch},
 	{"TalkAbout", talk_about},
 	{"TurningMonsters", turning_monsters},
-	{"UseHolySymbol", use_holy_symbol},
-	{"UseHolySymbolEvil", use_holy_symbol},
 	{"UseTheifTools", use_theif_tools},
 	{"Wizardy", wizardy_effect},
 };

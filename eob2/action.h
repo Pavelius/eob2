@@ -12,6 +12,7 @@ enum classn : unsigned char;
 
 struct actioni : nameable {
 	picturei	avatar;
+	int			cost; // In gold pieces
 	flag32		restrict_classes, classes, races, alignment;
 	variants	filter, filter_item, effect;
 	char		required[Blessing + 1];

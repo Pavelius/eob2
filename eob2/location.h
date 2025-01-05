@@ -9,6 +9,7 @@ struct locationi : nameable {
 	locationi*	parent;
 	picturei	avatar;
 	variants	options;
+	int			cost;
 	char		required[Blessing + 1];
 	const char*	getheader(const char* action) const;
 };

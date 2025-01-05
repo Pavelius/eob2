@@ -1346,7 +1346,7 @@ static void debug_input() {
 }
 
 static bool can_place(const creaturei* player, wearn id, item* pi) {
-	if(id >= Head && id <= Quiver) {
+	if(id >= Head && id <= LastBelt) {
 		if(*pi && !pi->isallow(id))
 			return false;
 		if(player->wears[id] && !can_remove((item*)player->wears + id))

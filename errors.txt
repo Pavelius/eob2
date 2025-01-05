@@ -1,2 +1,3 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `name`
+﻿Error in file `rules/Actions.txt`:
+ Line 41: Not found requisit `cost`
+ Line 41: Not found resuisit `cost`

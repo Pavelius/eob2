@@ -166,6 +166,11 @@ This item used when weared in right hand
 I need take this in right hand
 This must be taken in right hand
 
+#MustBeWearingLeftHand
+This item used when weared in left hand
+I need take this in left hand
+This must be taken in left hand
+
 #MustBeWearing
 This item used when weared
 Item used automatically

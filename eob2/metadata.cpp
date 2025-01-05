@@ -59,6 +59,7 @@ BSDATAC(spellseta, 64)
 BSMETA(actioni) = {
 	BSREQ(id),
 	BSREQ(avatar),
+	BSREQ(cost),
 	BSFLG(races, racei),
 	BSFLG(classes, classi),
 	BSFLG(restrict_classes, classi),
@@ -154,6 +155,7 @@ BSMETA(locationi) = {
 	BSREQ(parent),
 	BSREQ(avatar),
 	BSREQ(options),
+	BSREQ(cost),
 	BSDST(required, partystati),
 	{}};
 BSMETA(monsteri) = {

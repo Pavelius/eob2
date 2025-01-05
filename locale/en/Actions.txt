@@ -3,6 +3,7 @@ Attack: Attack
 Blacksmith: Blacksmith
 Bribe: Bribe
 BuyHealing: Buy Healing
+BuyHealingConfirm: Do you really want to restore all hit points and get rid of poison and disease for %2i gold pieces?
 BuySpell: Buy Spell
 BuySpellConfirm: Do you really want pay 50 gold piece to buy spell scroll?
 BuyWeapon: Buy Weapon
@@ -26,8 +27,8 @@ Donate: Donation
 DoorOpened: Locked door opened
 DrinkPotionAct: %Name drink %ItemName
 EatAndDrink: Eat and drink
-EatAndDrinkConfirm: Do you really want pay %Number gold piece for food and drink?
-EatAndDrinkNotEnoughtGold: "Return when you will have %Number gold piece" sad bartender "Now, get lost"
+EatAndDrinkConfirm: Do you really want pay %2i gold piece for food and drink?
+EatAndDrinkNotEnoughtGold: "Return when you will have %2i gold piece" sad bartender "Now, get lost"
 EatAndDrinkVisit: Eat and drink
 ExitConfirm: Do you really want to exit game?
 FeelDisease: %Name feels bad
@@ -54,6 +55,7 @@ PartyAdventureOptions: Which way to go?
 PartyGoingDown: Party going down...
 PartyGoingUp: Party going up...
 PartyFallPit: Party fall down...
+PayGoldConfirm: Do you really want to pay %2i golds for this?
 PickPockets: Pick pockets
 PickPocketsAction: Pick pockets
 PickPocketsVisit: Pick some pockets

@@ -195,9 +195,9 @@ Wand cost(100) avatar(52) avatar_ground(10) wear(Rod) powers(WandSpells)
 
 TheifTools cost(10) avatar(54) avatar_ground(1) wear(Usable)
  feats Small UseRogish
-HolySymbol cost(20) avatar(53) avatar_ground(20) wear(Usable)
+HolySymbol cost(20) avatar(53) avatar_ground(20) wear(Faithable)
  feats Small UsePriest
-HolySymbolEvil cost(20) avatar(27) avatar_ground(20) wear(Usable)
+HolySymbolEvil cost(20) avatar(27) avatar_ground(20) wear(Faithable)
  feats Small UsePriest
 MageBook cost(50) avatar(35) avatar_ground(11) wear(Readable) powers(TomePowers)
  feats Small UseMage

@@ -3,7 +3,7 @@ Attack: Attack
 Blacksmith: Blacksmith
 Bribe: Bribe
 BuyHealing: Buy Healing
-BuyHealingConfirm: Do you really want to restore all hit points and get rid of poison and disease for %2i gold pieces?
+BuyHealingConfirm: Healing is not for free. Priestess want some compensation for herbs and pouches and for wasting time for you. Do you agree to restore all hit points and get rid of poison and disease for %2i gold pieces?
 BuySpell: Buy Spell
 BuySpellConfirm: Do you really want pay 50 gold piece to buy spell scroll?
 BuyWeapon: Buy Weapon

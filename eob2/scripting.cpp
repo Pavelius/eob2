@@ -290,6 +290,12 @@ static void add_menu(variant& v, bool whole_party = false) {
 
 static void enter_location(int bonus);
 
+static bool choose_dialog(const char* format, const char* format_param, const char* yes, const char* no) {
+	pushanswer push;
+	an.add((void*)1, yes);
+	return (bool)dialogv(no, format, format_param);
+}
+
 static bool confirm_payment(const char* name, int gold_coins) {
 	if(getparty(GoldPiece) < gold_coins) {
 		dialog(0, speech_get(last_id, "NotEnoughtGold"), gold_coins);
@@ -300,22 +306,25 @@ static bool confirm_payment(const char* name, int gold_coins) {
 		if(!format)
 			format = getnm("PayGoldConfirm");
 		sb.add(format, name, gold_coins, party.abilities[GoldPiece]);
-		if(!confirm(temp))
+		if(!choose_dialog(temp, 0, getnm("Accept"), getnm("Decline")))
 			return false;
 		add_party(GoldPiece, -gold_coins);
 	}
 	return true;
 }
 
-static bool apply_cost(const char* id, int cost) {
+static bool apply_cost(const char* id, int cost, const picturei& avatar) {
 	if(!cost)
 		return true;
-	pushvalue push(last_id, id);
+	pushvalue push_id(last_id, id);
+	pushvalue push_picture(picture);
+	if(avatar)
+		picture = avatar;
 	return confirm_payment(getnm(id), cost);
 }
 
 static void apply_action(int bonus) {
-	if(!apply_cost(last_action->id, last_action->cost))
+	if(!apply_cost(last_action->id, last_action->cost, last_action->avatar))
 		return;
 	if(last_action->avatar)
 		picture = last_action->avatar;
@@ -327,7 +336,7 @@ static void apply_result() {
 		last_number = 0;
 	} else if(bsdata<locationi>::have(last_result)) {
 		auto p = (locationi*)last_result;
-		if(!apply_cost(p->id, p->cost))
+		if(!apply_cost(p->id, p->cost, p->avatar))
 			return;
 		last_location = (locationi*)last_result;
 		enter_location(0);
@@ -1257,12 +1266,6 @@ static void choose_quest() {
 	an.sort();
 	last_quest = (quest*)choose_large_menu(get_title("PartyAdventure", "Options"), getnm("Cancel"));
 	an = push_answers;
-}
-
-static bool choose_dialog(const char* format, const char* format_param, const char* yes, const char* no) {
-	pushanswer push;
-	an.add((void*)1, yes);
-	return (bool)dialogv(no, format, format_param);
 }
 
 static bool is_passable(pointc v) {

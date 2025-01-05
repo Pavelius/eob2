@@ -1,7 +1,16 @@
 #List
 
+BuyArmors
+ elements BuyMenu LeatherArmor ScaleMail BandedMail
+BuyWeapons
+ elements BuyMenu ShortSword Longsword Dagger BattleAxe Mace
+PartySurprise
+ elements ForEachParty Surprised
+PartyAmbush
+ elements Hostile PartySurprise
+
 CalmDownFail
- elements Hostile MonstersReaction
+ elements PartyAmbush
 ChooseBet
  elements Set+10 ChooseMenu Mul+1 Mul+2 Mul+4 Mul+6
 ChooseDonation
@@ -10,16 +19,12 @@ GameOptions
  elements ChooseMenu LoadGame SaveGame ExitGame
 ChooseMageScrolls
  elements ChooseItems+1 IfItemReadable IfItemIdentified IfItemKnownSpell-1
-BuyArmors
- elements BuyMenu LeatherArmor ScaleMail BandedMail
-BuyWeapons
- elements BuyMenu ShortSword Longsword Dagger BattleAxe Mace
 RestorePartySpells
  elements ForEachParty RestoreSpells
 ScribleScrollsFail
  elements DestroyItem
 LieFail
- elements Hostile
+ elements PartyAmbush
 NaturallyPartyHeal
  elements ForEachParty NaturalHeal
 PickPocketsNothing
@@ -87,7 +92,7 @@ Talk
  filter IfTalk
  effect TalkAbout AddExp+2 AddExpGood+1 MonstersLeave
 Lie
- effect Charisma BestPlayer Roll Friendly AddExpEvil+1
+ effect Charisma RollAverage Friendly AddExpEvil+1
  restrict_classes Paladin
 Bribe
  effect MonstersLeave ActionItems+1 ForEachItem DestroyItem

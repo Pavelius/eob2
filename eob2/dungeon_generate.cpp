@@ -95,6 +95,17 @@ static int random_count() {
 	return 2;
 }
 
+static int cellar_count() {
+	auto rolled = d100();
+	if(rolled < 30)
+		return 0;
+	else if(rolled < 70)
+		return 1;
+	else if(rolled < 95)
+		return 2;
+	return 3;
+}
+
 static void put_corridor(pointc v, directions d, unsigned flags, bool test_valid) {
 	if(!v)
 		return;
@@ -474,9 +485,7 @@ static void cellar(pointc v, directions d) {
 		return;
 	loc->set(v1, CellWall);
 	auto po = loc->add(v, d, CellCellar);
-	auto count = random_count();
-	if(rand() >= 40)
-		count += 1;
+	auto count = cellar_count();
 	while(count-- > 0) {
 		item it;
 		create_item(it, single(random_list), 0, 40);
@@ -793,7 +802,10 @@ static void add_features(pointc v, directions d) {
 	}
 }
 
-static void create_room(pointc v, directions d, roomi& ei) {
+static void create_room(pointc v, roomi& ei) {
+	if(!v)
+		return;
+	directions d = optimal_direction(v);
 	validate_position(v, d, ei.shape);
 	apply_shape(v, d, ei.shape, 'X', CellWall);
 	apply_shape(v, d, ei.shape, '.', ei.floor, CellPassable);
@@ -805,6 +817,21 @@ static void create_room(pointc v, directions d, roomi& ei) {
 #endif
 }
 
+static void create_rooms(pointca& points, const variants& features) {
+	for(auto v : features) {
+		if(v.counter > 0) {
+			// Percent chance of room appear
+			if(d100() >= v.counter)
+				return;
+		}
+		v = single(v);
+		if(v.iskind<roomi>())
+			create_room(pop(points), bsdata<roomi>::elements[v.value]);
+		else if(v.iskind<listi>())
+			create_rooms(points, bsdata<listi>::elements[v.value].elements);
+	}
+}
+
 static void create_rooms(pointc start, bool last_level, variants features) {
 	pointca points;
 	create_points(points, 3, 3, 2);
@@ -814,14 +841,7 @@ static void create_rooms(pointc start, bool last_level, variants features) {
 		create_room(pop(points), "ShapeExit", stairs_up);
 	if(!last_level)
 		create_room(pop(points), "ShapeExit", stairs_down);
-	// Every dungeon have one lair where monsters spawn
-	for(auto v : features) {
-		auto pt = pop(points);
-		if(!pt)
-			continue;
-		if(v.iskind<roomi>())
-			create_room(pt, optimal_direction(pt), bsdata<roomi>::elements[v.value]);
-	}
+	create_rooms(points, features);
 }
 
 static void drop_special_item() {

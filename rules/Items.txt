@@ -57,9 +57,9 @@ LearnNeutral
 LearnNeutralDouble
  elements ReadStory AddExpPersonal+2
 LearnGood
- elements ReadStory AddExpGood+20
+ elements ReadStory AddExpGood+2
 LearnEvil
- elements ReadStory AddExpEvil+20
+ elements ReadStory AddExpEvil+2
 LearnPain
  elements ReadStory Bludgeon+1
 LearnIntellegence

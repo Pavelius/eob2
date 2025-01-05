@@ -60,7 +60,6 @@ struct creaturei : npc, statable, wearable, posable {
 	void			understand(racen v) { languages.set(v); }
 };
 extern creaturei *player, *opponent, *caster, *result_player;
-extern int last_roll, last_chance;
 extern bool is_critical_hit;
 
 void add_spells(int type, int level, const spellseta* include);
@@ -69,6 +68,7 @@ void create_player();
 void create_monster(const monsteri* pi);
 void create_monster_pallette();
 void drop_unique_loot(creaturei* player);
+bool roll_ability(int chance);
 void set_reaction(creaturei** creatures, reactions v);
 void update_player();
 

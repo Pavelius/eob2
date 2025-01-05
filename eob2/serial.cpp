@@ -8,17 +8,35 @@
 
 extern spella spells_prepared[6];
 
+static unsigned long strhash(const char* id) {
+	if(!id)
+		return 0;
+	unsigned long total = 0;
+	for(auto i = 0; id[i]; i++)
+		total += ((unsigned char)id[i]) * (i + 1);
+	return total;
+}
+
+static unsigned long check_metadata() {
+	unsigned long total = 0;
+	int index = 1;
+	for(auto& e : bsdata<varianti>())
+		total += strhash(e.id) * (index++);
+	return total;
+}
+
 static bool check_game(archive& e) {
-	unsigned long checksum_total = 0;
-	int checksum_index = 1;
-	checksum_total += ImmuneIllusion * (checksum_index++);
-	checksum_total += sizeof(partyi) * (checksum_index++);
-	checksum_total += sizeof(spells_prepared) * (checksum_index++);
-	checksum_total += sizeof(dungeoni) * (checksum_index++);
-	checksum_total += sizeof(boosti) * (checksum_index++);
-	checksum_total += sizeof(spellseta) * (checksum_index++);
-	checksum_total += bsdata<varianti>::source.getcount() * (checksum_index++);
-	return e.checksum(checksum_total);
+	unsigned long total = 0;
+	int index = 1;
+	total += ImmuneIllusion * (index++);
+	total += sizeof(partyi) * (index++);
+	total += sizeof(spells_prepared) * (index++);
+	total += sizeof(dungeoni) * (index++);
+	total += sizeof(boosti) * (index++);
+	total += sizeof(spellseta) * (index++);
+	total += bsdata<varianti>::source.getcount() * (index++);
+	total += check_metadata() * (index++);
+	return e.checksum(total);
 }
 
 static bool serial_game(const char* url, bool writemode) {

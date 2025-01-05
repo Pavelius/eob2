@@ -246,6 +246,9 @@ Food is spoiled. We need clean it
 #LieSuccess
 "Welcome friends! How can I help you?"
 
+#CalmDownSuccess
+%Name is calm down and leave away.
+
 #LocateGemsSuccess
 I sense all gems position
 Revieal all gems nearbe!

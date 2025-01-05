@@ -1139,18 +1139,10 @@ static void for_each_party(int bonus, const variants& commands, const slice<crea
 	for(auto p : characters) {
 		if(!p)
 			continue;
-		switch(bonus) {
-		case 0:
-			if(p->isdisabled())
-				continue;
-			break;
-		case -1:
-			if(p->isdead())
-				continue;
-			break;
-		default:
-			break;
-		}
+		if(bonus == 0 && !p->isready())
+			continue;
+		if(bonus == -1 && p->isdead())
+			continue;
 		player = p;
 		script_run(commands);
 	}
@@ -1171,6 +1163,13 @@ static void for_each_item(int bonus) {
 static void for_each_party(int bonus) {
 	scriptbody commands;
 	for_each_party(bonus, commands, characters);
+	script_stop();
+}
+
+static void for_each_opponents(int bonus) {
+	scriptbody commands;
+	creaturei* opponents[6]; loc->getmonsters(opponents, party, party.d);
+	for_each_party(bonus, commands, opponents);
 	script_stop();
 }
 
@@ -1944,6 +1943,22 @@ static void make_roll(int bonus) {
 	}
 }
 
+static void make_roll_average(int bonus) {
+	bonus = get_bonus(bonus);
+	auto chance = party_median(characters, last_ability);
+	if(last_ability >= Strenght && last_ability <= Charisma)
+		chance *= 5;
+	if(chance > 0 && roll_ability(chance + bonus * 5)) {
+		dialog_message("Success");
+		player_speak("SuccessSpeech");
+	} else {
+		script_stop();
+		dialog_message("Fail");
+		player_speak("FailSpeech");
+		apply_script(last_id, "Fail", 0);
+	}
+}
+
 static void set_level(int bonus) {
 	last_number = last_level + get_bonus(bonus);
 }
@@ -1971,15 +1986,15 @@ static void add_exp_personal(int bonus) {
 }
 
 static void add_exp_evil(int bonus) {
-	party_addexp(LawfulEvil, bonus * 20);
-	party_addexp(NeutralEvil, bonus * 20);
-	party_addexp(ChaoticEvil, bonus * 20);
+	party_addexp(LawfulEvil, bonus * 40);
+	party_addexp(NeutralEvil, bonus * 40);
+	party_addexp(ChaoticEvil, bonus * 40);
 }
 
 static void add_exp_good(int bonus) {
-	party_addexp(LawfulGood, bonus * 30);
-	party_addexp(NeutralGood, bonus * 20);
-	party_addexp(ChaoticGood, bonus * 20);
+	party_addexp(LawfulGood, bonus * 50);
+	party_addexp(NeutralGood, bonus * 40);
+	party_addexp(ChaoticGood, bonus * 40);
 }
 
 static void add_variable(int bonus) {
@@ -2753,6 +2768,7 @@ BSDATA(script) = {
 	{"FilterArea", filter_area},
 	{"FilterAreaExplored", filter_area_explored},
 	{"ForEachItem", for_each_item},
+	{"ForEachOpponents", for_each_opponents},
 	{"ForEachParty", for_each_party},
 	{"Heal", player_heal},
 	{"HealEffect", player_heal_effect},
@@ -2786,6 +2802,7 @@ BSDATA(script) = {
 	{"RestoreSpells", restore_spells},
 	{"ReturnToStreet", return_to_street},
 	{"Roll", make_roll},
+	{"RollAverage", make_roll_average},
 	{"Satisfy", satisfy},
 	{"SaySpeech", say_speech},
 	{"SaveGame", save_game},

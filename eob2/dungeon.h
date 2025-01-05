@@ -33,8 +33,8 @@ struct dungeoni : dungeon_site {
 	unsigned short	quest_id;
 	dungeon_state	state;
 	ground			items[512];
-	creaturei		monsters[200];
-	overlayi		overlays[255];
+	creaturei		monsters[256];
+	overlayi		overlays[256];
 	overlayitem		overlayitems[256];
 	unsigned char	data[mpy][mpx];
 	goalf			rewards;

@@ -25,8 +25,8 @@ struct spelli : nameable, featable {
 };
 extern const spelli* last_spell;
 
-typedef char spella[128];
-typedef flagable<16> spellseta;
+typedef char spella[256];
+typedef flagable<8, unsigned> spellseta;
 
 void apply_enchant_spell(int bonus);
 void cast_spell();

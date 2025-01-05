@@ -24,7 +24,6 @@
 #include "view.h"
 
 creaturei *player, *opponent, *result_player;
-int last_roll, last_chance;
 classn last_class;
 racen last_race;
 bool is_critical_hit;
@@ -717,18 +716,16 @@ int	creaturei::getchance(abilityn v) const {
 	return 0;
 }
 
-static bool make_roll(int chance) {
-	last_chance = chance;
-	if(last_chance <= 0)
+bool roll_ability(int chance) {
+	if(chance <= 0)
 		return false;
-	if(last_chance >= 100)
-		last_chance = 95;
-	last_roll = d100();
-	return last_roll < last_chance;
+	if(chance > 95)
+		chance = 95;
+	return d100() < chance;
 }
 
 bool creaturei::roll(abilityn v, int bonus) const {
-	return make_roll(getchance(v) + bonus);
+	return roll_ability(getchance(v) + bonus);
 }
 
 const char* creaturei::getbadstate() const {

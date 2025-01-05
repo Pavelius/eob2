@@ -1,3 +1,14 @@
+#Item
+
+NoItem
+FlameBladeHand
+ChillTouchHand
+Ration
+
+#RandomList
+
+RandomGem
+
 #RandomEffect
 
 Roll1d3 base(1 3)
@@ -294,36 +305,16 @@ ImprovedInvisibility levels(0 4) duration(Hour1)
 DefaultClericSpells
  elements CureLightWounds+4 Bless
 DefaultMageSpells
- elements MagicMissile+2 Armor
-
-MageAbjurationSpells
- elements Armor+1 ShieldSpell+1 StrenghtSpell+1\
- Haste+2 HoldUndead+2 VampiricTouch+2 RemoveCurse+2
-MageDivinationSpells
- elements ComprehendLanguages+1 DetectEvil+1 DetectMagic+1 LocateGems+1\
- Identify+2 Clairaudience+2 DispellMagic+2
-MageEvocationSpells
- elements BurningHands+1 ChillTouch+1 MagicMissile+1 ShockingGrasp+1 Blinding+1 MelfAcidArrow+1 Scare+1\
- Fireball+2
-MageIllusionSpells
- elements Friends+1 Mending+1 Knock+2 HypnoticPattern+1 Blur+1 Invisibility+1 MirrorImage+1\
- Blink+2 HoldPerson+2 Suggestion+2 ImprovedInvisibility+2
-PriestSpells
- elements PurifyFood+1 FindTraps+1 CureSeriousWounds+1 RemoveCurse+2 CurePoison+2 CureDisease+2 NeutralizePoison+3 RaiseDead+4 Restoration+5
-WandSpells
- elements BurningHands+1 DetectMagic+1 MagicMissile+1 ShockingGrasp+1 MelfAcidArrow+2 Fireball+3
-
-AmuletPowers
- elements NoVariant DetectMagic+1 AC+1 ImmuneFire+2 ImmuneCold+2 ImmuneDisease+3 ProtectedFromEvil+1
+ elements DetectMagic MagicMissile+2 Armor
 
 GoodDietyDomain
- elements CureLightWounds CureDisease CurePoison Aid
+ elements CureLightWounds RemoveCurse CureDisease CurePoison Aid
 
 #KeyValue
 
 Paladin+1 DetectEvil+1
 Paladin+1 LayOnHand+1
 Paladin+1 CureDisease+1
+Paladin+3 TurnUndead+2
 
 Cleric+1 TurnUndead+2
-Paladin+3 TurnUndead+2

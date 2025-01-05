@@ -703,6 +703,8 @@ dice creaturei::getdamage(int& bonus, wearn id, bool large_enemy) const {
 			result.b += 2;
 		}
 	}
+	if(is(BonusVsElfWeapon) && wears[id].is(UseElvish))
+		bonus += 1;
 	result.b += power.counter;
 	bonus += power.counter;
 	return result;

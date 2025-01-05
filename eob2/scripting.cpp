@@ -484,18 +484,25 @@ static void update_class_spells() {
 	}
 }
 
+static void update_camp_spells(variant v) {
+	if(!v)
+		return;
+	if(v.iskind<spelli>())
+		player->spells[v.value] += v.counter;
+	else if(v.iskind<listi>()) {
+		for(auto e : bsdata<listi>::elements[v.value].elements)
+			update_camp_spells(e);
+	}
+}
+
 static void update_camp_spells() {
 	for(auto& e : player->equipment()) {
 		if(!e)
 			continue;
 		auto w = e.geti().wear;
-		if(w == RightHand || w == LeftHand || w == Rod)
+		if(w == RightHand || (w >= Backpack && w <= LastBackpack))
 			continue;
-		auto power = e.getpower();
-		if(!power)
-			continue;
-		if(power.iskind<spelli>())
-			player->spells[power.value] += power.counter;
+		update_camp_spells(e.getpower());
 	}
 }
 

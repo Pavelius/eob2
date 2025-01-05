@@ -1,2 +1,2 @@
-﻿Error in file `rules/Quests.txt`:
- Line 4: Not found requisit `chances`
+﻿Error in file `rules/Spells.txt`:
+ Line 121: Can't find variant `Ration`

@@ -678,6 +678,17 @@ int party_median(creaturei** creatures, abilityn v) {
 	return value / count;
 }
 
+
+bool party_roll(abilityn v, int bonus) {
+	auto chance = party_median(characters, v);
+	if(v >= Strenght && v <= Charisma)
+		chance *= 5;
+	if(chance <= 0)
+		return false;
+	chance += bonus * 5;
+	return roll_ability(chance);
+}
+
 quest* partyi::getquest() const {
 	return getbs<quest>(quest_id);
 }

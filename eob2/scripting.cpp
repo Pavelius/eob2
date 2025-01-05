@@ -1932,23 +1932,19 @@ static void say_speech(int bonus) {
 }
 
 static void make_roll(int bonus) {
-	if(!player->roll(last_ability, bonus * 5)) {
+	if(player->roll(last_ability, get_bonus(bonus) * 5)) {
+		dialog_message("Success");
+		player_speak("SuccessSpeech");
+	} else {
 		script_stop();
 		dialog_message("Fail");
 		player_speak("FailSpeech");
 		apply_script(last_id, "Fail", 0);
-	} else {
-		dialog_message("Success");
-		player_speak("SuccessSpeech");
 	}
 }
 
 static void make_roll_average(int bonus) {
-	bonus = get_bonus(bonus);
-	auto chance = party_median(characters, last_ability);
-	if(last_ability >= Strenght && last_ability <= Charisma)
-		chance *= 5;
-	if(chance > 0 && roll_ability(chance + bonus * 5)) {
+	if(party_roll(last_ability, get_bonus(bonus))) {
 		dialog_message("Success");
 		player_speak("SuccessSpeech");
 	} else {

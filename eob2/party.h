@@ -67,6 +67,7 @@ void party_addexp(alignmentn v, int value);
 bool party_is(alignmentn v);
 bool party_is(featn v);
 bool party_is(creaturei* player);
+bool party_roll(abilityn v, int bonus);
 void party_unlock();
 void pass_hours(int count);
 void pass_round();

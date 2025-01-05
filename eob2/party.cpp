@@ -51,6 +51,11 @@ static void update_party_side() {
 
 void restore_spells(int bonus);
 
+void party_say(const char* id, const char* action) {
+	if(player && !player->isdisabled())
+		player->speak(id, action);
+}
+
 static void update_default_spells() {
 	auto& ei = player->getclass();
 	auto spell_known = get_spells_known(player);
@@ -429,6 +434,13 @@ static void update_every_round() {
 	check_acid();
 }
 
+static void check_return_to_base() {
+	if(d100() >= 30)
+		return;
+	if(last_quest_complite())
+		party_say("ReturnToBase", 0);
+}
+
 static void update_every_turn() {
 	check_poison();
 }
@@ -436,6 +448,7 @@ static void update_every_turn() {
 static void update_every_hour() {
 	check_disease();
 	check_shops();
+	check_return_to_base();
 }
 
 static bool all_party_disabled() {
@@ -593,10 +606,8 @@ static void check_goals() {
 			check_main_quest = true;
 		}
 	}
-	if(!player->isdisabled()) {
-		if(last_quest_complite())
-			player->speak("ReturnToBase", 0);
-	}
+	if(last_quest_complite())
+		party_say("ReturnToBase", 0);
 }
 
 static void clear_boost_proc(referencei target, variant v) {

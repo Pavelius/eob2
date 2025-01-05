@@ -17,7 +17,7 @@
 
 #ifdef _DEBUG
 #define DEBUG_DUNGEON
-// #define DEBUG_ROOM
+#define DEBUG_ROOM
 #endif
 
 const int EmpthyStartIndex = 1;
@@ -176,7 +176,7 @@ static void create_item(item& it, itemi* pi, int bonus_level = 0, int chance_ide
 	if(pi->wear == Key)
 		pi = loc->getkey();
 	it.create(pi - bsdata<itemi>::elements);
-	auto chance_magic = (iabs(loc->level) + bonus_level) * 4 + loc->magical;
+	auto chance_magic = (iabs(loc->level) + bonus_level) * 5 + loc->magical;
 	auto chance_cursed = 5 + loc->cursed;
 	auto magic_bonus = get_magic_bonus(20, 30);
 	chance_identify += pi->chance_identify;
@@ -303,6 +303,12 @@ static void prison(pointc v, directions d) {
 	loc->set(to(v2, to(d, Left)), CellWall);
 	loc->set(to(v2, to(d, Right)), CellWall);
 	loc->set(to(v2, to(d, Up)), CellWall);
+}
+
+static void floor_treasure(pointc v, directions d) {
+	loc->set(v, CellPassable);
+	for(auto i = 3 + random_count(); i > 0; i--)
+		items(v, 2);
 }
 
 static void treasure(pointc v, directions d) {
@@ -961,23 +967,24 @@ void dungeon_create() {
 }
 
 BSDATA(corridori) = {
-	{"CorridorEmpthy", empthy},
-	{"CorridorBoss", monster_boss},
-	{"CorridorCellar", cellar},
-	{"CorridorDecoration", decoration},
-	{"CorridorDoor", lair_door},
-	{"CorridorMessage", message},
-	{"CorridorMonster", monster},
-	{"CorridorMinion", monster_minion},
-	{"CorridorPassable", corridor_passable},
-	{"CorridorPortal", portal},
-	{"CorridorPrison", prison},
-	{"CorridorRation", rations},
-	{"CorridorSecret", secret},
-	{"CorridorStairsDown", corridor_stairs_down},
-	{"CorridorStairsUp", corridor_stairs_up},
-	{"CorridorStones", stones},
-	{"CorridorTrap", trap},
-	{"CorridorTreasure", treasure},
+	{"Empthy", empthy},
+	{"Boss", monster_boss},
+	{"Cellar", cellar},
+	{"Decoration", decoration},
+	{"Door", lair_door},
+	{"FloorRation", rations},
+	{"FloorStones", stones},
+	{"FloorTrap", trap},
+	{"FloorTreasure", floor_treasure},
+	{"Message", message},
+	{"Minion", monster_minion},
+	{"Passable", corridor_passable},
+	{"Portal", portal},
+	{"Prison", prison},
+	{"Secret", secret},
+	{"StairsDown", corridor_stairs_down},
+	{"StairsUp", corridor_stairs_up},
+	{"Treasure", treasure},
+	{"WanderingMonster", monster},
 };
 BSDATAF(corridori)

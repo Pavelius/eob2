@@ -36,6 +36,15 @@ X1X
 X.0X
 XXX 
 
+#ShapePassage
+
+X1X
+X.X
+X.X
+X.X
+X0X
+XXX
+
 #ShapeExit
 
  1 

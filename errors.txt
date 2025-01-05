@@ -1,2 +1,6 @@
-﻿Error in file `rules/Quests.txt`:
- Line 11: Expected token `#`
+﻿Error in file `rules/Shapes.txt`:
+ Line 42: Shape row 'X.X' must be 4 characters
+ Line 43: Shape row 'X.X' must be 4 characters
+ Line 44: Shape row 'X.X' must be 4 characters
+ Line 45: Shape row 'X0X' must be 4 characters
+ Line 46: Shape row 'XXX' must be 4 characters

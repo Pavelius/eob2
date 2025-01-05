@@ -1,11 +1,13 @@
 #Room
 
 RoomStairsUp shape(ShapeExit)
- features CorridorStairsUp
+ features StairsUp
 RoomStairsDown shape(ShapeExit)
- features CorridorStairsDown
-RoomLair shape(ShapeLargeRoom) floor(CorridorMonster)
- features CorridorBoss CorridorDoor
-RoomSmallLair shape(ShapeRoom) floor(CorridorMonster)
- features CorridorBoss CorridorDoor CorridorMinion
+ features StairsDown
+RoomLair shape(ShapeLargeRoom) floor(WanderingMonster)
+ features Boss Door
+RoomSmallLair shape(ShapeRoom) floor(WanderingMonster)
+ features Boss Door Minion
+RoomTrap shape(ShapePassage) floor(FloorTrap)
+ features FloorTreasure Door
 RoomCorner shape(ShapeDeadEnd)

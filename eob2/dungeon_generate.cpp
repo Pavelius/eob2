@@ -349,7 +349,8 @@ static void decoration(pointc v, directions d) {
 		return;
 	static celln random[] = {CellDecor1, CellDecor2, CellDecor3};
 	loc->set(v1, CellWall);
-	loc->add(v, d, maprnd(random));
+	if(!loc->get(v, d))
+		loc->add(v, d, maprnd(random));
 }
 
 static void corridor_passable(pointc v, directions d) {

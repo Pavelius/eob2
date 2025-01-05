@@ -1982,8 +1982,8 @@ static void save_negate(int bonus) {
 	if(player->roll(SaveVsMagic, bonus * 5)) {
 		last_number = 0;
 		script_stop();
-	} else
 		apply_script(last_id, "Fail", 0);
+	}
 }
 
 static void save_half(int bonus) {

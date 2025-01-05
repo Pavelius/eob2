@@ -205,6 +205,7 @@ static void apply_effect(const variants& source, const itemi* summon) {
 			if(summon)
 				remove_summon_slot(summon->wear);
 		}
+		update_player();
 	}
 	last_item = push_item;
 	player = push_player;

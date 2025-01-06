@@ -567,20 +567,20 @@ static dungeoni::overlayi* get_overlay() {
 	return loc->get(party, party.d);
 }
 
-static void apply_script(const char* action, const char* id, int bonus) {
+static bool apply_script(const char* action, const char* id, const char* postfix, int bonus) {
 	pushvalue push(last_id);
-	auto sid = ids(action, id);
+	auto sid = ids(action, id, postfix);
 	auto p1 = bsdata<script>::find(sid);
 	if(p1) {
 		last_id = p1->id;
 		p1->proc(bonus);
-		return;
+		return true;
 	}
 	auto p2 = bsdata<listi>::find(sid);
 	if(p2) {
 		last_id = p2->id;
 		script_run(p2->elements);
-		return;
+		return true;
 	}
 	auto p3 = bsdata<randomizeri>::find(sid);
 	if(p3) {
@@ -588,8 +588,9 @@ static void apply_script(const char* action, const char* id, int bonus) {
 		auto v = single(p3->random());
 		v.counter = bonus;
 		script_run(v);
-		return;
+		return true;
 	}
+	return false;
 }
 
 static int get_permanent_raise(creaturei* player, abilityn a, int magical_bonus) {
@@ -830,7 +831,7 @@ static void use_item() {
 	case Usable:
 		if(!allow_use(pn, last_item))
 			break;
-		apply_script("Use", last_item->geti().id, last_item->iscursed() ? -2 : last_item->getpower().counter);
+		apply_script("Use", last_item->geti().id, 0, last_item->iscursed() ? -2 : last_item->getpower().counter);
 		break;
 	case Key:
 		if(!dungeon_use())
@@ -1719,6 +1720,16 @@ static void party_set(creaturei** creatures, directions v) {
 	}
 }
 
+void broke_cell(pointc v) {
+	auto t = loc->get(v);
+	auto broken_cell = bsdata<celli>::elements[t].activate;
+	if(!broken_cell)
+		broken_cell = CellPassable;
+	loc->set(v, broken_cell);
+	pushvalue push(last_point, v);
+	apply_script("Use", bsdata<celli>::elements[t].id, 0, 0);
+}
+
 void reaction_check(int bonus) {
 	if(!loc)
 		return;
@@ -1933,7 +1944,7 @@ static void make_roll(int bonus) {
 		script_stop();
 		dialog_message("Fail");
 		player_speak("FailSpeech");
-		apply_script(last_id, "Fail", 0);
+		apply_script(last_id, "Fail", 0, 0);
 	}
 }
 
@@ -1945,7 +1956,7 @@ static void make_roll_average(int bonus) {
 		script_stop();
 		dialog_message("Fail");
 		player_speak("FailSpeech");
-		apply_script(last_id, "Fail", 0);
+		apply_script(last_id, "Fail", 0, 0);
 	}
 }
 
@@ -2002,7 +2013,7 @@ static void save_negate(int bonus) {
 	if(player->roll(SaveVsMagic, bonus * 5)) {
 		last_number = 0;
 		script_stop();
-		apply_script(last_id, "Fail", 0);
+		apply_script(last_id, "Fail", 0, 0);
 	}
 }
 

@@ -2,6 +2,8 @@
 
 RoomFeature
  chance RoomTrap RoomSmallLair
+UseCellGrave
+ chance RandomSmallItem
 
 #Quest
 

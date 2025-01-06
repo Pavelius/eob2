@@ -15,6 +15,7 @@ CastOnWho: Cast on who?
 CellKeyHoleDisable: Lock is picked up
 CellPitDisable: Pit is removed
 CellTrapLauncherDisable: Trap is removed
+CellGraveUse: %Name dig the grave
 ChooseBetOptions: Bed how match?
 ChooseDonationOptions: Donate match?
 ChooseMageScrollsOptions: What scroll?

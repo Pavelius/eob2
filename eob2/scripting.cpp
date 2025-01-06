@@ -125,7 +125,15 @@ template<> void ftscript<partystati>(int value, int bonus) {
 template<> void ftscript<itemi>(int value, int bonus) {
 	item v; v.create(value);
 	v.createpower(bonus, bonus ? 100 : 0, 0);
-	player->additem(v);
+	switch(modifier) {
+	case Grounding:
+		if(loc && last_point)
+			loc->drop(last_point, v, xrand(0, 3));
+		break;
+	default:
+		player->additem(v);
+		break;
+	}
 }
 
 static dungeoni* find_dungeon(int level) {
@@ -175,6 +183,112 @@ static void wizardy_effect(int bonus) {
 	case 3: ftscript<abilityi>(Spell3, player->basic.abilities[Spell3]); break;
 	default: break;
 	}
+}
+
+static bool apply_script(const char* action, const char* id, const char* postfix, int bonus) {
+	pushvalue push(last_id);
+	auto sid = ids(action, id, postfix);
+	auto p1 = bsdata<script>::find(sid);
+	if(p1) {
+		last_id = p1->id;
+		p1->proc(bonus);
+		return true;
+	}
+	auto p2 = bsdata<listi>::find(sid);
+	if(p2) {
+		last_id = p2->id;
+		script_run(p2->elements);
+		return true;
+	}
+	auto p3 = bsdata<randomizeri>::find(sid);
+	if(p3) {
+		last_id = p3->id;
+		auto v = single(p3->random());
+		v.counter = bonus;
+		script_run(v);
+		return true;
+	}
+	return false;
+}
+
+static bool apply_script(const char* action, const char* id, int bonus) {
+	auto quest = party.getquest();
+	if(quest) {
+		if(apply_script(action, id, quest->id, bonus))
+			return true;
+	}
+	return apply_script(action, id, 0, bonus);
+}
+
+static const char* find_speak(const char* action, const char* id) {
+	if(!player)
+		return 0;
+	auto quest = party.getquest();
+	if(quest) {
+		auto p = speech_get(ids(action, id, quest->id));
+		if(p)
+			return p;
+	}
+	auto& ei = player->getclass();
+	for(auto i = 0; i < ei.count; i++) {
+		auto p = speech_get(ids(action, id, getid<classi>(ei.classes[i])));
+		if(p)
+			return p;
+	}
+	auto p = speech_get(ids(action, id, player->getrace().id));
+	if(p)
+		return p;
+	return speech_get(ids(action, id, 0));
+}
+
+static const char* find_text(const char* action, const char* id) {
+	if(!player)
+		return 0;
+	auto quest = party.getquest();
+	if(quest) {
+		auto p = getnme(ids(action, id, quest->id));
+		if(p)
+			return p;
+	}
+	auto& ei = player->getclass();
+	for(auto i = 0; i < ei.count; i++) {
+		auto p = getnme(ids(action, id, getid<classi>(ei.classes[i])));
+		if(p)
+			return p;
+	}
+	auto p = getnme(ids(action, id, player->getrace().id));
+	if(p)
+		return p;
+	return getnme(ids(action, id, 0));
+}
+
+static bool apply_message(const char* action, const char* id) {
+	if(!player)
+		return false;
+	auto format = find_speak(action, id);
+	if(format) {
+		player->sayv(format, 0);
+		return true;
+	}
+	format = find_text(action, id);
+	if(format) {
+		consolenl();
+		consolev(format, 0);
+		return true;
+	}
+	return false;
+}
+
+void broke_cell(pointc v) {
+	auto t = loc->get(v);
+	auto broken_cell = bsdata<celli>::elements[t].activate;
+	if(!broken_cell)
+		broken_cell = CellPassable;
+	loc->set(v, broken_cell);
+	pushvalue push_point(last_point, v);
+	pushvalue push_modifier(modifier, Grounding);
+	if(apply_script("Use", bsdata<celli>::elements[t].id, 0))
+		apply_message(bsdata<celli>::elements[t].id, "Use");
 }
 
 static void select_items(conditioni::fntest proc, bool keep) {
@@ -567,32 +681,6 @@ static dungeoni::overlayi* get_overlay() {
 	return loc->get(party, party.d);
 }
 
-static bool apply_script(const char* action, const char* id, const char* postfix, int bonus) {
-	pushvalue push(last_id);
-	auto sid = ids(action, id, postfix);
-	auto p1 = bsdata<script>::find(sid);
-	if(p1) {
-		last_id = p1->id;
-		p1->proc(bonus);
-		return true;
-	}
-	auto p2 = bsdata<listi>::find(sid);
-	if(p2) {
-		last_id = p2->id;
-		script_run(p2->elements);
-		return true;
-	}
-	auto p3 = bsdata<randomizeri>::find(sid);
-	if(p3) {
-		last_id = p3->id;
-		auto v = single(p3->random());
-		v.counter = bonus;
-		script_run(v);
-		return true;
-	}
-	return false;
-}
-
 static int get_permanent_raise(creaturei* player, abilityn a, int magical_bonus) {
 	if(a >= Strenght && a <= Charisma)
 		return 4;
@@ -831,7 +919,7 @@ static void use_item() {
 	case Usable:
 		if(!allow_use(pn, last_item))
 			break;
-		apply_script("Use", last_item->geti().id, 0, last_item->iscursed() ? -2 : last_item->getpower().counter);
+		apply_script("Use", last_item->geti().id, last_item->iscursed() ? -2 : last_item->getpower().counter);
 		break;
 	case Key:
 		if(!dungeon_use())
@@ -1427,23 +1515,12 @@ static void use_theif_tools(int bonus) {
 	player->speak("TheifTool", "NoTargets");
 }
 
-static void manipulate() {
-	auto v = to(party, party.d);
-	auto player = item_owner(current_focus);
-	if(!player)
-		return;
-	if(!player->isactable())
-		return;
-	item* pi = (item*)current_focus;
-	auto t = loc->get(v);
-	if(t == CellPortal) {
-		player->speak(getid<celli>(t), "About");
-		make_action();
-		return;
-	}
+static bool manipulate_overlay() {
 	auto p = loc->get(party, party.d);
 	if(!p)
-		return;
+		return false;
+	auto v = to(party, party.d);
+	auto pi = (item*)current_focus;
 	switch(p->type) {
 	case CellDoorButton:
 		toggle(v);
@@ -1484,7 +1561,37 @@ static void manipulate() {
 		player->speak(getid<celli>(p->type), "About");
 		break;
 	}
-	make_action();
+	return true;
+}
+
+static bool manipulate_cell() {
+	auto v = to(party, party.d);
+	auto t = loc->get(v);
+	switch(t) {
+	case CellPortal:
+	case CellBarel:
+	case CellWeb:
+	case CellCocon:
+		player->speak(getid<celli>(t), "About");
+		break;
+	case CellGrave:
+		broke_cell(v);
+		break;
+	default:
+		return false;
+	}
+	return true;
+}
+
+static void manipulate() {
+	auto v = to(party, party.d);
+	auto player = item_owner(current_focus);
+	if(!player)
+		return;
+	if(!player->isactable())
+		return;
+	if(manipulate_overlay() || manipulate_cell())
+		make_action();
 }
 
 static int get_side(const creaturei* p) {
@@ -1720,16 +1827,6 @@ static void party_set(creaturei** creatures, directions v) {
 	}
 }
 
-void broke_cell(pointc v) {
-	auto t = loc->get(v);
-	auto broken_cell = bsdata<celli>::elements[t].activate;
-	if(!broken_cell)
-		broken_cell = CellPassable;
-	loc->set(v, broken_cell);
-	pushvalue push(last_point, v);
-	apply_script("Use", bsdata<celli>::elements[t].id, 0, 0);
-}
-
 void reaction_check(int bonus) {
 	if(!loc)
 		return;
@@ -1944,7 +2041,7 @@ static void make_roll(int bonus) {
 		script_stop();
 		dialog_message("Fail");
 		player_speak("FailSpeech");
-		apply_script(last_id, "Fail", 0, 0);
+		apply_script(last_id, "Fail", 0);
 	}
 }
 
@@ -1956,7 +2053,7 @@ static void make_roll_average(int bonus) {
 		script_stop();
 		dialog_message("Fail");
 		player_speak("FailSpeech");
-		apply_script(last_id, "Fail", 0, 0);
+		apply_script(last_id, "Fail", 0);
 	}
 }
 
@@ -2013,7 +2110,7 @@ static void save_negate(int bonus) {
 	if(player->roll(SaveVsMagic, bonus * 5)) {
 		last_number = 0;
 		script_stop();
-		apply_script(last_id, "Fail", 0, 0);
+		apply_script(last_id, "Fail", 0);
 	}
 }
 

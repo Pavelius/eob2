@@ -23,10 +23,10 @@ ExploreNorthWood
  goals ExmploreMostArea(1)
  travel PassDays+8
  reward AddReward+1 Reputation+2 CursedDungeon ActivateQuest
- sites type(forest) level(1) habbits(Wolf Goblin) language(Goblinoid) key(IronKey) features(RoomCorner RoomCorner RoomCorner+50 RoomCorner+30)
+ sites type(forest) level(1) habbits(Wolf Goblin) language(Goblinoid) key(IronKey) features(RoomFeature) graves(3)
 
 CursedDungeon
  goals TakeSpecialItem(1)
  travel PassHours+6
  reward AddReward+10
- sites type(dung) level(1) habbits(Skeleton Zombie) language(Human) key(IronKey) special(StoneAmulet) boss(Wight) minions(Ghoul) features(RoomLair RoomFeature RoomFeature)
+ sites type(dung) level(1) habbits(Skeleton Zombie) language(Human) key(IronKey) special(StoneAmulet) boss(Wight) minions(Ghoul) features(RoomLair RoomFeature RoomFeature) trap(FireTrap)

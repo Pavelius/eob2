@@ -978,7 +978,7 @@ static int get_index_pos(pointc index) {
 	return -1;
 }
 
-static int thrown_side(int avatar_thrown, int side) {
+int thrown_side(int avatar_thrown, int side) {
 	if(avatar_thrown >= 2 && avatar_thrown < 7)
 		return -1;
 	return side;

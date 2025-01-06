@@ -1,0 +1,5 @@
+#Trap
+
+ArrowTrap type(Piercing) damage(1 4) save(SaveNegate) targets(1) avatar(13) projectile(Arrow)
+SpearTrap type(Piercing) damage(1 8) save(SaveNegate) targets(1) avatar(7) projectile(Spear)
+FireTrap type(Fire) damage(1 6) save(SaveHalf) targets(6) avatar(2)

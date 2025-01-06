@@ -29,6 +29,7 @@
 #include "room.h"
 #include "shop.h"
 #include "spell.h"
+#include "trap.h"
 #include "variant.h"
 #include "wearable.h"
 
@@ -55,6 +56,7 @@ BSDATAC(roomi, 128)
 BSDATAC(shopi, 32)
 BSDATAC(spelli, 256)
 BSDATAC(spellseta, 64)
+BSDATAC(trapi, 64)
 
 BSMETA(actioni) = {
 	BSREQ(id),
@@ -190,6 +192,7 @@ BSMETA(quest::leveli) = {
 	BSREQ(level),
 	BSREQ(webs), BSREQ(barrels), BSREQ(eggs), BSREQ(graves),
 	BSENM(key, itemi),
+	BSENM(trap, trapi),
 	BSENM(special, itemi),
 	BSENM(language, racei),
 	BSREQ(features),
@@ -217,6 +220,9 @@ BSMETA(roomi) = {
 	BSREQ(shape),
 	BSREQ(features),
 	{}};
+BSMETA(savei) = {
+	BSREQ(id),
+	{}};
 BSMETA(shapei) = {
 	BSREQ(id),
 	{}};
@@ -240,6 +246,15 @@ BSMETA(spelli) = {
 	BSREQ(clearing),
 	BSREQ(wearing),
 	BSREQ(duration),
+	{}};
+BSMETA(trapi) = {
+	BSREQ(id),
+	BSENM(type, damagei),
+	BSREQ(damage),
+	BSREQ(projectile),
+	BSENM(save, savei),
+	BSREQ(avatar),
+	BSREQ(targets),
 	{}};
 BSMETA(weari) = {
 	BSREQ(id),
@@ -276,6 +291,7 @@ BSDATA(varianti) = {
 	{"Shape", VAR(shapei, 1), 0, 0, 0, 0, shape_read},
 	{"Shop", VAR(shopi, 1), 0, 0, ftscript<shopi>, fttest<shopi>},
 	{"Spell", VAR(spelli, 1), 0, 0, ftscript<spelli>, fttest<spelli>},
+	{"Trap", VAR(trapi, 1)},
 	{"Race", VAR(racei, 1)},
 };
 BSDATAF(varianti);

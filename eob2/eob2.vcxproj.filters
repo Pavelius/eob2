@@ -649,6 +649,9 @@
     <Text Include="..\rules\Rooms.txt">
       <Filter>rules</Filter>
     </Text>
+    <Text Include="..\rules\Traps.txt">
+      <Filter>rules</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">

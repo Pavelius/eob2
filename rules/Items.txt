@@ -319,9 +319,9 @@ FighterMissionEquipment
 ClericMissionEquipment
  elements BluePotion HealEffect+1
 
-UseMagicMap
+MagicMapUse
  elements ClearArea AddAreaOverlay CellSecretButton FilterAreaExplored-1 RandomArea AddExp+4 PassRound ShowArea DestroyItem
-UseBones
+BonesUse
  elements Blessing+1 SaySpeech DestroyItem PassRound
 
 #RandomList

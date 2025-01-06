@@ -15,6 +15,7 @@
 #include "save.h"
 #include "script.h"
 #include "shop.h"
+#include "trap.h"
 #include "view.h"
 
 BSDATA(partystati) = {
@@ -483,6 +484,10 @@ static bool player_damage(creaturei* player, damagen type, dice damage, saven sa
 		if(player->roll(SaveVsTraps))
 			hits = hits / 2;
 		break;
+	case SaveAttack:
+		if(d100() < 30 + player->get(AC) * 5)
+			return true; // Player count hitted
+		break;
 	default:
 		break;
 	}
@@ -492,28 +497,35 @@ static bool player_damage(creaturei* player, damagen type, dice damage, saven sa
 	return true;
 }
 
-static void group_damage(creaturei** creatures, directions d, damagen type, dice damage, saven save, int targets) {
+static void group_damage(creaturei** creatures, pointc v, directions d, damagen type, dice damage, saven save, int targets, itemi* projectile) {
+	auto test_projectile = false;
 	for(auto i = 0; i < 6 && targets > 0; i++) {
 		auto n = get_side_ex(i, d);
 		auto p = creatures[n];
-		if(!p)
+		if(!p || p->isdead())
 			continue;
-		if(player_damage(p, type, damage, save))
+		if(player_damage(p, type, damage, save)) {
+			test_projectile = true;
 			targets--;
+		}
+	}
+	if(projectile && test_projectile && d100() < 30) {
+		item it; it.create(projectile);
+		loc->drop(v, it, xrand(0, 3));
 	}
 }
 
-static void trap_launch(pointc v, directions d, damagen type, dice damage, char avatar_thrown, saven save, int targets) {
+static void trap_launch(pointc v, directions d, damagen type, dice damage, char avatar_thrown, saven save, int targets, itemi* projectile) {
 	auto start = v;
 	while(v) {
 		if(party == v) {
 			if(to(party.d, Down) == d && party.x == v.x || party.y == v.y)
-				thrown_item(start, Down, avatar_thrown, -1, start.distance(party) + 1);
-			group_damage(characters, to(party.d, d), type, damage, save, targets);
+				thrown_item(start, Down, avatar_thrown, thrown_side(avatar_thrown, 1), start.distance(party) + 1);
+			group_damage(characters, v, to(party.d, d), type, damage, save, targets, projectile);
 			break;
 		} else if(loc->ismonster(v)) {
 			creaturei* creatures[6]; loc->getmonsters(creatures, v);
-			group_damage(creatures, d, type, damage, save, targets);
+			group_damage(creatures, v, d, type, damage, save, targets, projectile);
 			break;
 		} else {
 			auto t = loc->get(v);
@@ -524,6 +536,11 @@ static void trap_launch(pointc v, directions d, damagen type, dice damage, char 
 		}
 		v = to(v, d);
 	}
+}
+
+static void trap_launch(pointc v, directions d) {
+	auto pi = bsdata<trapi>::elements + loc->trap;
+	trap_launch(v, d, pi->type, pi->damage, pi->avatar, pi->save, pi->targets, pi->projectile);
 }
 
 static void update_floor_state() {
@@ -564,7 +581,7 @@ static void update_floor_state() {
 						switch(po->type) {
 						case CellTrapLauncher:
 							if(!po->is(CellActive))
-								trap_launch(*po, to(po->d, Down), Fire, {1, 6}, 2, SaveHalf, 3);
+								trap_launch(*po, to(po->d, Down));
 							break;
 						}
 					}

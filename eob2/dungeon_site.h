@@ -12,6 +12,7 @@ struct dungeon_site {
 	unsigned char key; // Key open all doors
 	unsigned char special; // Special item find somewhere
 	unsigned char webs, barrels, eggs, graves; // Count of special corridor features in dungeon
+	unsigned char trap; // Type of all dungeon traps
 	char cursed; // Chance to all items found be cursed
 	char magical; // Chance to all items found be magical
 	constexpr explicit operator bool() const { return type != (resid)0; }

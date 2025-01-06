@@ -73,3 +73,5 @@ void set_player_by_focus();
 void set_small_font();
 void text_label(int index, const void* data, const char* format, unsigned key, fnevent proc);
 void text_label_menu(int index, const void* data, const char* format, unsigned key, fnevent proc);
+
+int thrown_side(int avatar_thrown, int side);

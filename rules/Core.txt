@@ -2,6 +2,7 @@
 #include "rules/Classes.txt"
 #include "rules/Spells.txt"
 #include "rules/Items.txt"
+#include "rules/Traps.txt"
 #include "rules/Advance.txt"
 #include "rules/Actions.txt"
 #include "rules/Monsters.txt"

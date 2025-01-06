@@ -346,6 +346,7 @@
     <Text Include="..\rules\Rooms.txt" />
     <Text Include="..\rules\Shapes.txt" />
     <Text Include="..\rules\Spells.txt" />
+    <Text Include="..\rules\Traps.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

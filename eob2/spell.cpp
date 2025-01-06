@@ -331,9 +331,7 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 	if(!run)
 		return true;
 	player->addexp(experience);
-	if(use_spell_on_object(enemy_position, true))
-		return true;
-	if(!ps->is(Group)) {
+	if(an && !ps->is(Group)) {
 		if(ps->is(Ally) && !ps->is(Enemy) && !random_target) {
 			if(!choose_single(getnm("CastOnWho")))
 				return false;
@@ -348,6 +346,8 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 		auto n = distance(party, enemy_position);
 		thrown_item(party, Up, ps->avatar_thrown, player->side % 2, n);
 	}
+	if(use_spell_on_object(enemy_position, true))
+		return true;
 	pushvalue push_caster(caster, player);
 	pushvalue push_level(last_level, level);
 	pushvalue push_id(last_id, last_spell->id);

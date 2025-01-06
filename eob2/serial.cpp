@@ -4,6 +4,7 @@
 #include "dungeon.h"
 #include "party.h"
 #include "quest.h"
+#include "shop.h"
 #include "variant.h"
 
 extern spella spells_prepared[6];
@@ -17,6 +18,7 @@ static bool check_game(archive& e) {
 	total += sizeof(dungeoni) * (index++);
 	total += sizeof(boosti) * (index++);
 	total += sizeof(spellseta) * (index++);
+	total += bsdata<shopi>::source.getcount() * (index++);
 	return e.checksum(total);
 }
 
@@ -38,6 +40,8 @@ static bool serial_game(const char* url, bool writemode) {
 	e.set(bsdata<boosti>::source);
 	e.set(bsdata<creaturei>::source);
 	e.set(bsdata<dungeoni>::source);
+	for(auto& v : bsdata<shopi>())
+		e.set(v.items);
 	return true;
 }
 

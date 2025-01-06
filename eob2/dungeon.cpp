@@ -303,8 +303,24 @@ void dungeoni::set(pointc v, celln type, directions d) {
 	}
 }
 
+bool dungeoni::isitem(pointc v) const {
+	for(auto& e : items) {
+		if(e && e == v)
+			return true;
+	}
+	return false;
+}
+
 bool dungeoni::ismonster(pointc v) const {
 	for(auto& e : monsters) {
+		if(e && e == v)
+			return true;
+	}
+	return false;
+}
+
+bool dungeoni::isoverlay(pointc v) const {
+	for(auto& e : overlays) {
 		if(e && e == v)
 			return true;
 	}

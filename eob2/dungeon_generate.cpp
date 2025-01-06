@@ -16,11 +16,9 @@
 #include "wallmessage.h"
 
 #ifdef _DEBUG
-// #define DEBUG_DUNGEON
+#define DEBUG_DUNGEON
 // #define DEBUG_ROOM
 #endif
-
-const int EmpthyStartIndex = 1;
 
 static directions all_directions[] = {Up, Down, Left, Right};
 static posable rooms[256]; // Generation ring buffer
@@ -33,6 +31,7 @@ static void show_map_interactive() {
 }
 #endif
 
+#ifdef DEBUG_DUNGEON
 static void select_pathable(pointca& result) {
 	result.clear();
 	auto ps = result.begin();
@@ -48,8 +47,6 @@ static void select_pathable(pointca& result) {
 	}
 	result.count = ps - result.data;
 }
-
-#ifdef DEBUG_DUNGEON
 static void show_map_features() {
 	pointca points;
 	points.add(loc->state.up);
@@ -106,7 +103,7 @@ static int cellar_count() {
 	return 3;
 }
 
-static void put_corridor(pointc v, directions d, unsigned flags, bool test_valid) {
+static void put_corridor(pointc v, directions d, bool test_valid) {
 	if(!v)
 		return;
 	if(test_valid && !loc->is(to(v, d), CellUnknown, CellUnknown))
@@ -254,13 +251,12 @@ static void secret(pointc v, directions d) {
 	loc->state.wallmessages[MessageSecrets]++;
 }
 
-static void monster(pointc v, directions d, const monsteri* pi) {
+static void monster(pointc v, directions d, const monsteri* pi, int count) {
 	loc->set(v, CellPassable);
 	if(pi->is(Large))
 		loc->addmonster(v, d, 0, pi);
 	else {
 		int sides[4] = {0, 1, 2, 3};
-		int count = xrand(1, 4);
 		zshuffle(sides, 4);
 		for(auto i = 0; i < count; i++)
 			loc->addmonster(v, d, sides[i], pi);
@@ -269,25 +265,18 @@ static void monster(pointc v, directions d, const monsteri* pi) {
 
 static void monster(pointc v, directions d) {
 	auto n = (d100() < 30) ? 1 : 0;
-	auto pi = bsdata<monsteri>::elements + loc->habbits[n];
-	monster(v, d, pi);
+	monster(v, d, bsdata<monsteri>::elements + loc->habbits[n], xrand(1, 4));
 }
 
 static void monster_boss(pointc v, directions d) {
 	loc->set(v, CellPassable);
 	auto pi = bsdata<monsteri>::elements + (loc->boss ? loc->boss : loc->habbits[1]);
 	loc->addmonster(v, d, 0, pi);
-	if(!pi->is(Large)) {
-		if(loc->minions) {
-			auto pi = bsdata<monsteri>::elements + loc->minions;
-			for(auto i = xrand(2, 3); i > 0; i--)
-				loc->addmonster(v, d, 0, pi);
-		}
-	}
 }
 
 static void monster_minion(pointc v, directions d) {
-	monster(v, d, bsdata<monsteri>::elements + (loc->minions ? loc->minions : loc->habbits[1]));
+	auto pi = bsdata<monsteri>::elements + (loc->minions ? loc->minions : loc->habbits[1]);
+	monster(v, d, pi, xrand(1, 4));
 }
 
 static void prison(pointc v, directions d) {
@@ -567,15 +556,15 @@ static bool corridor(pointc v, directions d) {
 	auto passes = 0;
 	if(ispassable(v, to(d, rnd[0]))) {
 		passes++;
-		put_corridor(v, to(d, rnd[0]), 0, false);
+		put_corridor(v, to(d, rnd[0]), false);
 	}
 	if(ispassable(v, to(d, rnd[1]))) {
 		passes++;
-		put_corridor(v, to(d, rnd[1]), 0, false);
+		put_corridor(v, to(d, rnd[1]), false);
 	}
 	if(ispassable(v, d)) {
 		if(passes < 1)
-			put_corridor(v, d, 0, false);
+			put_corridor(v, d, false);
 	}
 	return true;
 }
@@ -778,7 +767,7 @@ static void create_room(pointc v, directions d, const char* id, fnroom proc) {
 	apply_shape(v, d, ps, 'X', CellWall);
 	apply_shape(v, d, ps, '.', CellPassable);
 	proc(v, d, ps);
-	put_corridor(ps->translate(v, ps->points[1], d), d, EmpthyStartIndex, false);
+	put_corridor(ps->translate(v, ps->points[1], d), d, false);
 #ifdef DEBUG_ROOM
 	show_map_interactive();
 #endif
@@ -810,7 +799,7 @@ static void create_room(pointc v, roomi& ei) {
 	apply_shape(v, d, ei.shape, 'X', CellWall);
 	apply_shape(v, d, ei.shape, '.', ei.floor, CellPassable);
 	create_room_features(v, d, ei);
-	put_corridor(ei.shape->translate(v, ei.shape->points[1], d), d, EmpthyStartIndex, false);
+	put_corridor(ei.shape->translate(v, ei.shape->points[1], d), d, false);
 	add_features(ei.shape->translate(v, ei.shape->points[0], d), d);
 #ifdef DEBUG_ROOM
 	show_map_features();
@@ -925,6 +914,82 @@ static void link_dungeon(dungeoni& current, dungeoni& below) {
 		current.set(points[i], CellPit);
 }
 
+static void select_points(pointca& result, bool(*fnfilter)(pointc)) {
+	pointc m;
+	for(m.x = 0; m.x < mpx; m.x++) {
+		for(m.y = 0; m.y < mpy; m.y++) {
+			if(fnfilter(m))
+				result.add(m);
+		}
+	}
+}
+
+static void add_special(pointca& points, celln t, int minimum, int maximum) {
+	if(!maximum)
+		maximum = minimum;
+	if(!minimum)
+		return;
+	for(auto count = xrand(minimum, maximum); count > 0; count--) {
+		auto v = pop(points);
+		if(!v)
+			break;
+		loc->set(v, t);
+	}
+}
+
+static bool is_corridor(pointc v) {
+	if(!v)
+		return false;
+	return (isboth(v, Up, Down, CellPassable, CellPassable) && isboth(v, Left, Right, CellWall, CellWall))
+		|| (isboth(v, Left, Right, CellPassable, CellPassable) && isboth(v, Up, Down, CellWall, CellWall));
+}
+
+static bool is_empthy_corridor(pointc v) {
+	if(loc->get(v) != CellPassable)
+		return false;
+	if(!is_corridor(v))
+		return false;
+	if(loc->ismonster(v))
+		return false;
+	if(loc->isitem(v))
+		return false;
+	if(loc->isoverlay(v))
+		return false;
+	return true;
+}
+
+static bool is_empthy_corner(pointc v) {
+	if(loc->get(v) != CellPassable)
+		return false;
+	if(loc->around(v, CellWall, CellWall) != 3)
+		return false;
+	if(loc->around(v, CellPassable, CellPassable) != 1)
+		return false;
+	if(loc->ismonster(v))
+		return false;
+	if(loc->isitem(v))
+		return false;
+	if(loc->isoverlay(v))
+		return false;
+	return true;
+}
+
+static void dungeon_after_create() {
+	pointca points;
+	select_points(points, is_empthy_corridor);
+	points.shuffle();
+	if(loc->webs)
+		add_special(points, CellWeb, loc->webs, loc->webs * 2);
+	if(loc->barrels)
+		add_special(points, CellBarel, loc->barrels / 2, loc->barrels);
+	points.clear();
+	select_points(points, is_empthy_corner);
+	if(loc->graves)
+		add_special(points, CellGrave, loc->graves, loc->graves);
+	if(loc->eggs)
+		add_special(points, CellCocon, loc->eggs, loc->eggs);
+}
+
 static void dungeon_create(unsigned short quest_id, slice<quest::leveli> source) {
 	auto base = 1;
 	auto total_level_count = total_levels(source);
@@ -972,6 +1037,7 @@ static void dungeon_create(unsigned short quest_id, slice<quest::leveli> source)
 				drop_special_item();
 			else
 				loc->special = 0;
+			dungeon_after_create();
 #ifdef DEBUG_DUNGEON
 			show_map_pathfind();
 #endif

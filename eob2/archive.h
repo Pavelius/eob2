@@ -37,5 +37,3 @@ struct archive {
 	}
 	template<class T> void set(T*& value) { setpointer((void**)&value); }
 };
-unsigned long hashdata(const char* format);
-unsigned long hashdata(array& source);

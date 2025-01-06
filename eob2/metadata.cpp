@@ -188,6 +188,7 @@ BSMETA(quest::leveli) = {
 	BSENM(boss, monsteri),
 	BSENM(minions, monsteri),
 	BSREQ(level),
+	BSREQ(webs), BSREQ(barrels), BSREQ(eggs), BSREQ(graves),
 	BSENM(key, itemi),
 	BSENM(special, itemi),
 	BSENM(language, racei),

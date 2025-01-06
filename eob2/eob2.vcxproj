@@ -166,6 +166,7 @@
     <ClInclude Include="formula.h" />
     <ClInclude Include="gender.h" />
     <ClInclude Include="goal.h" />
+    <ClInclude Include="hashsum.h" />
     <ClInclude Include="hotkey.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="keyvalue.h" />
@@ -249,6 +250,7 @@
     <ClCompile Include="feat.cpp" />
     <ClCompile Include="formula.cpp" />
     <ClCompile Include="gender.cpp" />
+    <ClCompile Include="hashsum.cpp" />
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="keyvalue.cpp" />

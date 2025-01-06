@@ -12,10 +12,12 @@ using namespace draw;
 
 static color cpass(196, 132, 72);
 static color cwall(156, 104, 54);
+static color cbarrel(147, 73, 0);
+static color cdoor(140, 88, 48);
+static color cweb(162, 171, 183);
 static color bwall(100, 64, 24);
 static color bpass(176, 120, 64);
 static color bpits = bpass.darken();
-static color cdoor(140, 88, 48);
 static const pointca* red_markers;
 static bool show_fog_of_war;
 static bool show_secrets;
@@ -278,6 +280,10 @@ static void paint_automap() {
 				fore = bpass; rectf();
 				fore = bpits; rectb();
 				break;
+			case CellBarel:
+				setoffset(2, 2);
+				fore = cbarrel; rectf();
+				break;
 			case CellDoor:
 				fore = cdoor;
 				if(nb[0] == CellWall && nb[2] == CellWall) {
@@ -290,6 +296,18 @@ static void paint_automap() {
 					auto xc = pos.x + mpg / 2 - 1;
 					caret.x = xc; caret.y = pos.y;
 					line(xc, pos.y + mpg); xc++;
+					caret.x = xc; caret.y = pos.y;
+					line(xc, pos.y + mpg); xc++;
+				}
+				break;
+			case CellWeb:
+				fore = cweb;
+				if(nb[0] == CellWall && nb[2] == CellWall) {
+					auto yc = pos.y + mpg / 2 - 1;
+					caret.x = pos.x; caret.y = yc;
+					line(caret.x + mpg, yc); yc++;
+				} else {
+					auto xc = pos.x + mpg / 2 - 1;
 					caret.x = xc; caret.y = pos.y;
 					line(xc, pos.y + mpg); xc++;
 				}

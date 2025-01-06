@@ -63,8 +63,10 @@ struct dungeoni : dungeon_site {
 	bool			is(pointc v, cellfn i) const;
 	bool			is(pointc v, celln t1, celln t2) const;
 	bool			is(goaln v) const { return rewards.is(v); }
+	bool			isitem(pointc v) const;
 	bool			ismonster(pointc v) const;
 	bool			ismonster(pointc v, featn f) const;
+	bool			isoverlay(pointc v) const;
 	bool			ispassable(pointc v) const;
 	static void		makewave(pointc start);
 	void			markoverlay(celln type, short unsigned value) const;

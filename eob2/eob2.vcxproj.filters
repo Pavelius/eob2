@@ -267,6 +267,9 @@
     <ClCompile Include="purpose.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="hashsum.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -532,6 +535,9 @@
     </ClInclude>
     <ClInclude Include="corridor.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="hashsum.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

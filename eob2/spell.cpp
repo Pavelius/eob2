@@ -284,10 +284,7 @@ static bool use_spell_on_object(pointc v, bool run) {
 	if(!last_spell->filter_cell.is(t))
 		return false;
 	if(run) {
-		auto broken_cell = bsdata<celli>::elements[t].activate;
-		if(!broken_cell)
-			broken_cell = CellPassable;
-		loc->set(v, broken_cell);
+		loc->broke(v);
 		animation_update();
 	}
 	return true;

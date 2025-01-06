@@ -342,6 +342,9 @@ bool dungeoni::ispassable(pointc v) const {
 	case CellPassable:
 	case CellButton:
 	case CellWebTorned:
+	case CellBarelDestroyed:
+	case CellCoconOpened:
+	case CellGraveDesecrated:
 		return true;
 	case CellDoor:
 		return is(v, CellActive);
@@ -504,4 +507,12 @@ void dungeoni::getoverlays(pointca& result, celln type, bool hidden) const {
 			continue;
 		result.addu(v);
 	}
+}
+
+void dungeoni::broke(pointc v) {
+	auto t = get(v);
+	auto broken_cell = bsdata<celli>::elements[t].activate;
+	if(!broken_cell)
+		broken_cell = CellPassable;
+	set(v, broken_cell);
 }

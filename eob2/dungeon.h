@@ -43,6 +43,7 @@ struct dungeoni : dungeon_site {
 	void			addmonster(pointc v, directions d, int side, const monsteri* pi);
 	int				around(pointc v, celln t1, celln t2) const;
 	void			block(bool treat_door_as_passable) const;
+	void			broke(pointc v);
 	void			clear();
 	void			change(celln s, celln n);
 	void			drop(pointc v, item& it, int side);

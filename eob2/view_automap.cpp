@@ -41,6 +41,16 @@ static void red_marker() {
 	fore = push_fore;
 }
 
+void paint_cross(int offset) {
+	rectpush push;
+	caret.x = push.caret.x + width / 2;
+	caret.y = push.caret.y + offset;
+	line(caret.x, push.caret.y + height - offset);
+	caret.x = push.caret.x + offset;
+	caret.y = push.caret.y + height / 2;
+	line(caret.x + width - offset - 2, caret.y);
+}
+
 void paint_arrow(point camera, directions direct, int mpg) {
 	auto x1 = camera.x;
 	auto y1 = camera.y;
@@ -261,7 +271,8 @@ static void paint_automap() {
 			auto pos = gs(v.x, v.y);
 			caret = pos;
 			width = mpg; height = mpg;
-			switch(loc->get(v)) {
+			auto t = loc->get(v);
+			switch(t) {
 			case CellUnknown:
 				fore = cwall; rectf();
 				break;
@@ -281,8 +292,19 @@ static void paint_automap() {
 				fore = bpits; rectb();
 				break;
 			case CellBarel:
+			case CellBarelDestroyed:
 				setoffset(2, 2);
-				fore = cbarrel; rectf();
+				fore = cbarrel;
+				if(t == CellBarelDestroyed)
+					fore = fore.mix(cpass);
+				rectf();
+				break;
+			case CellGrave:
+			case CellGraveDesecrated:
+				fore = cbarrel;
+				if(t == CellGraveDesecrated)
+					fore = fore.mix(cpass);
+				paint_cross(2);
 				break;
 			case CellDoor:
 				fore = cdoor;

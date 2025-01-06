@@ -361,9 +361,6 @@ bool make_object_attack(pointc v) {
 	auto toughness = get_hit_points(object);
 	if(!toughness)
 		return false;
-	auto& weapon = player->wears[slot];
-	if(!weapon.isweapon())
-		return false;
 	auto bonus = 0;
 	auto damage = player->getdamage(bonus, slot, false);
 	auto tohit = 20 - bonus - 10;
@@ -377,10 +374,7 @@ bool make_object_attack(pointc v) {
 	}
 	fix_attack(player, slot, hits);
 	if(hits > 0) {
-		auto broken_object = bsdata<celli>::elements[object].activate;
-		if(!broken_object)
-			broken_object = CellPassable;
-		loc->set(v, broken_object);
+		loc->broke(v);
 		animation_update();
 	}
 	return true;

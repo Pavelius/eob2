@@ -16,7 +16,7 @@
 #include "wallmessage.h"
 
 #ifdef _DEBUG
-// #define DEBUG_DUNGEON
+#define DEBUG_DUNGEON
 // #define DEBUG_ROOM
 #endif
 
@@ -61,7 +61,7 @@ static void show_map_pathfind() {
 	loc->block(true);
 	loc->makewave(loc->state.up);
 	select_pathable(points);
-	show_automap(false, true, false, &points);
+	show_automap(false, true, false, 0);// &points);
 }
 #endif
 

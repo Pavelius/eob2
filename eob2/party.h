@@ -52,6 +52,7 @@ unsigned get_stamp(unsigned duration);
 void all_creatures(fnevent proc);
 void all_party(fnevent proc, bool skip_disabled);
 void add_party(partystatn id, int value);
+void broke_cell(pointc v);
 void check_reaction(creaturei** creatures, int bonus);
 void continue_game();
 void delete_game(const char* id);

@@ -285,6 +285,7 @@ void broke_cell(pointc v) {
 	if(!broken_cell)
 		broken_cell = CellPassable;
 	loc->set(v, broken_cell);
+	animation_update();
 	pushvalue push_point(last_point, v);
 	pushvalue push_modifier(modifier, Grounding);
 	if(apply_script("Use", bsdata<celli>::elements[t].id, 0))

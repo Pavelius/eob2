@@ -345,9 +345,9 @@ void turnto(pointc v, directions d, bool test_surprise, int sneaky_bonus) {
 
 static int get_hit_points(celln t) {
 	switch(t) {
-	case CellWeb: return 4;
+	case CellWeb: return 4; // Easy to hit. Affected by fire spells.
 	case CellCocon: return 5;
-	case CellBarel: return 5;
+	case CellBarel: return 7; // Tought to hit. Crushed by acid spells.
 	case CellEyeColumn: return 10;
 	default: return 0;
 	}
@@ -373,10 +373,8 @@ bool make_object_attack(pointc v) {
 			hits = -1;
 	}
 	fix_attack(player, slot, hits);
-	if(hits > 0) {
-		loc->broke(v);
-		animation_update();
-	}
+	if(hits > 0)
+		broke_cell(v);
 	return true;
 }
 

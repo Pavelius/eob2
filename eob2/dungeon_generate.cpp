@@ -16,7 +16,7 @@
 #include "wallmessage.h"
 
 #ifdef _DEBUG
-#define DEBUG_DUNGEON
+// #define DEBUG_DUNGEON
 // #define DEBUG_ROOM
 #endif
 
@@ -974,7 +974,7 @@ static bool is_empthy_corner(pointc v) {
 	return true;
 }
 
-static void dungeon_after_create() {
+static void create_dungeon_objects() {
 	pointca points;
 	select_points(points, is_empthy_corridor);
 	points.shuffle();
@@ -1037,7 +1037,7 @@ static void dungeon_create(unsigned short quest_id, slice<quest::leveli> source)
 				drop_special_item();
 			else
 				loc->special = 0;
-			dungeon_after_create();
+			create_dungeon_objects();
 #ifdef DEBUG_DUNGEON
 			show_map_pathfind();
 #endif

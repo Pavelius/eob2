@@ -312,6 +312,18 @@ static void paint_automap() {
 					line(xc, pos.y + mpg); xc++;
 				}
 				break;
+			case CellWebTorned:
+				fore = cweb;
+				if(nb[0] == CellWall && nb[2] == CellWall) {
+					auto yc = pos.y + mpg / 2 - 1;
+					pixel(pos.x, yc);
+					pixel(pos.x + mpg - 1, yc);
+				} else {
+					auto xc = pos.x + mpg / 2 - 1;
+					pixel(xc, pos.y);
+					pixel(xc, pos.y + mpg - 1);
+				}
+				break;
 			case CellPortal:
 				fore = cwall; rectf();
 				fill_border(1, cdoor, nb, CellWall);
@@ -339,8 +351,8 @@ static void paint_automap() {
 					line(xc, pos.y + mpg); xc += 2;
 				}
 				break;
-         default:
-            break;
+			default:
+				break;
 			}
 		}
 	}
@@ -388,7 +400,7 @@ static void paint_overlays() {
 			fill_line(e.d, 3, 4, cdoor);
 			break;
 		default:
-         break;
+			break;
 		}
 	}
 	font = push_font;

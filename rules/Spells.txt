@@ -194,6 +194,7 @@ Armor levels(0 1) lighting(50 205 50) duration(Hour8)
  wearing AC+4
 BurningHands levels(0 1)
  feats Enemy Group
+ filter_cell CellWeb
  instant Roll1d3x2s0p1c10 SaveHalf Fire+101
 ChillTouch levels(0 1) summon(ChillTouchHand) duration(Minute3x1)
  feats You
@@ -251,6 +252,7 @@ LocateGems levels(0 2)
  instant ClearArea AddAreaItems RandomGem ShowArea
 MelfAcidArrow levels(0 2) avatar_thrown(14)
  feats Enemy
+ filter_cell CellBarel
  instant SaveNegate Roll2d4 Acid+101 SetLevel Div+3 AcidD1Level+101 AcidD2Level+101
 MirrorImage levels(0 2) duration(Minute3x3)
  feats You
@@ -277,6 +279,7 @@ DispellMagic levels(0 3)
  instant PushModifier Permanent Blinded-1
 Fireball levels(0 3) avatar_thrown(2)
  feats Enemy Group
+ filter_cell CellBarel CellWeb
  instant Roll1d6x1d6p1 SaveHalf Fire+101
 Haste levels(0 3) lighting(0 0 128)
  feats Ally You Group

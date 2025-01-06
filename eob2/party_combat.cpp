@@ -1,5 +1,6 @@
 #include "adat.h"
 #include "boost.h"
+#include "cell.h"
 #include "console.h"
 #include "creature.h"
 #include "direction.h"
@@ -340,6 +341,49 @@ void turnto(pointc v, directions d, bool test_surprise, int sneaky_bonus) {
 			pc->d = d;
 		}
 	}
+}
+
+static int get_hit_points(celln t) {
+	switch(t) {
+	case CellWeb: return 4;
+	case CellCocon: return 5;
+	case CellBarel: return 5;
+	case CellEyeColumn: return 10;
+	default: return 0;
+	}
+}
+
+bool make_object_attack(pointc v) {
+	if(!player || !player->isready())
+		return false;
+	auto slot = RightHand;
+	auto object = loc->get(v);
+	auto toughness = get_hit_points(object);
+	if(!toughness)
+		return false;
+	auto& weapon = player->wears[slot];
+	if(!weapon.isweapon())
+		return false;
+	auto bonus = 0;
+	auto damage = player->getdamage(bonus, slot, false);
+	auto tohit = 20 - bonus - 10;
+	auto rolls = xrand(1, 20);
+	auto hits = -1;
+	tohit = imax(2, imin(20, tohit));
+	if(rolls >= tohit) {
+		hits = damage.roll();
+		if(hits < toughness)
+			hits = -1;
+	}
+	fix_attack(player, slot, hits);
+	if(hits > 0) {
+		auto broken_object = bsdata<celli>::elements[object].activate;
+		if(!broken_object)
+			broken_object = CellPassable;
+		loc->set(v, broken_object);
+		animation_update();
+	}
+	return true;
 }
 
 void make_attacks(bool melee_combat) {

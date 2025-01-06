@@ -1,6 +1,7 @@
 #include "answers.h"
 #include "boost.h"
 #include "bsdata.h"
+#include "cell.h"
 #include "creature.h"
 #include "direction.h"
 #include "dungeon.h"
@@ -274,11 +275,28 @@ static void use_spell_slot(const spelli* ps) {
 		player->spells[index]--;
 }
 
+static bool use_spell_on_object(pointc v, bool run) {
+	if(!v)
+		return false;
+	if(!last_spell->filter_cell)
+		return false;
+	auto t = loc->get(v);
+	if(!last_spell->filter_cell.is(t))
+		return false;
+	if(run) {
+		auto broken_cell = bsdata<celli>::elements[t].activate;
+		if(!broken_cell)
+			broken_cell = CellPassable;
+		loc->set(v, broken_cell);
+		animation_update();
+	}
+	return true;
+}
+
 bool cast_spell(const spelli* ps, int level, int experience, bool run, bool random_target, unsigned durations, creaturei* explicit_target) {
-	pushvalue push_spell(last_spell);
+	pushvalue push_spell(last_spell, ps);
 	pushanswer push_answers;
 	pointc enemy_position = to(party, party.d);
-	last_spell = ps;
 	result_player = 0;
 	if(ps->is(Ally))
 		add_targets(party, false, true, ps->is(You));
@@ -305,12 +323,15 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 	filter_creatures(ps->filter);
 	if(ps->filter_item)
 		filter_creature_items(ps->filter_item);
-	if(!an) {
+	if(!an && !use_spell_on_object(enemy_position, false)) {
 		if(run)
 			player->speak("CastSpell", "NoTargets");
 		return false;
 	}
 	if(!run)
+		return true;
+	player->addexp(experience);
+	if(use_spell_on_object(enemy_position, true))
 		return true;
 	if(!ps->is(Group)) {
 		if(ps->is(Ally) && !ps->is(Enemy) && !random_target) {
@@ -327,7 +348,6 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 		auto n = distance(party, enemy_position);
 		thrown_item(party, Up, ps->avatar_thrown, player->side % 2, n);
 	}
-	player->addexp(experience);
 	pushvalue push_caster(caster, player);
 	pushvalue push_level(last_level, level);
 	pushvalue push_id(last_id, last_spell->id);

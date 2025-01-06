@@ -235,6 +235,7 @@ BSMETA(spelli) = {
 	BSREQ(summon),
 	BSREQ(filter),
 	BSREQ(filter_item),
+	BSFLG(filter_cell, celli),
 	BSREQ(instant),
 	BSREQ(clearing),
 	BSREQ(wearing),

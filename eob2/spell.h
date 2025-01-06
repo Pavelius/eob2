@@ -21,6 +21,7 @@ struct spelli : nameable, featable {
 	variants instant;
 	variants clearing;
 	variants wearing;
+	flag32 filter_cell;
 	bool isthrown() const { return avatar_thrown!=0; }
 };
 extern const spelli* last_spell;

@@ -759,7 +759,8 @@ static void use_item() {
 		if(w != LeftHand && w != RightHand)
 			pn->speak("MustBeUseInHand", 0);
 		else if(last_item->isweapon()) {
-			make_attacks(false);
+			if(!make_object_attack(to(party, party.d)))
+				make_attacks(false);
 			pass_round();
 		}
 		break;

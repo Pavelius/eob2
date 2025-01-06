@@ -1,3 +1,2 @@
-﻿Error in file `rules/Quests.txt`:
- Line 16: Not found requisit `webs`
- Line 16: Not found resuisit `webs`
+﻿Error in file `rules/Spells.txt`:
+ Line 282: Not found Cell identifier `CellBarels`

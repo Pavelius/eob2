@@ -474,6 +474,18 @@ int get_side(int side, directions d) {
 	return place_sides[d - Left][side];
 }
 
+int get_side_ex(int side, directions d) {
+	static const char place_sides[4][6] = {
+		{1, 3, 5, 0, 2, 4},
+		{0, 1, 2, 3, 4, 5},
+		{2, 0, 5, 3, 1, 4},
+		{5, 4, 3, 2, 1, 0},
+	};
+	if(d == Center)
+		return side;
+	return place_sides[d - Left][side];
+}
+
 itemi* dungeoni::getkey() const {
 	return bsdata<itemi>::elements + key;
 }

@@ -12,6 +12,7 @@
 #include "party.h"
 #include "quest.h"
 #include "rand.h"
+#include "save.h"
 #include "script.h"
 #include "shop.h"
 #include "view.h"
@@ -471,32 +472,54 @@ void all_party(fnevent proc, bool skip_disabled) {
 	player = push_player;
 }
 
-static void group_damage(creaturei** creatures, damagen type, dice damage) {
-	for(auto i = 0; i < 6; i++) {
-		auto p = creatures[i];
+static bool player_damage(creaturei* player, damagen type, dice damage, saven save) {
+	auto hits = damage.roll();
+	switch(save) {
+	case SaveNegate:
+		if(player->roll(SaveVsTraps))
+			return false;
+		break;
+	case SaveHalf:
+		if(player->roll(SaveVsTraps))
+			hits = hits / 2;
+		break;
+	default:
+		break;
+	}
+	if(!hits)
+		return false;
+	player->damage(type, hits);
+	return true;
+}
+
+static void group_damage(creaturei** creatures, directions d, damagen type, dice damage, saven save, int targets) {
+	for(auto i = 0; i < 6 && targets > 0; i++) {
+		auto n = get_side_ex(i, d);
+		auto p = creatures[n];
 		if(!p)
 			continue;
-		p->damage(type, damage.roll());
+		if(player_damage(p, type, damage, save))
+			targets--;
 	}
 }
 
-static void trap_launch(pointc v, directions d, damagen type, dice damage) {
+static void trap_launch(pointc v, directions d, damagen type, dice damage, char avatar_thrown, saven save, int targets) {
 	auto start = v;
 	while(v) {
 		if(party == v) {
 			if(to(party.d, Down) == d && party.x == v.x || party.y == v.y)
-				thrown_item(start, Down, 2, -1, start.distance(party) + 1);
-			group_damage(characters, type, damage);
+				thrown_item(start, Down, avatar_thrown, -1, start.distance(party) + 1);
+			group_damage(characters, to(party.d, d), type, damage, save, targets);
 			break;
 		} else if(loc->ismonster(v)) {
 			creaturei* creatures[6]; loc->getmonsters(creatures, v);
-			group_damage(creatures, type, damage);
+			group_damage(creatures, d, type, damage, save, targets);
 			break;
 		} else {
 			auto t = loc->get(v);
 			if(t == CellDoor && loc->is(v, CellActive))
 				break;
-			else if(t == CellWall || t == CellStairsUp || t == CellStairsDown)
+			else if(t == CellWall || t == CellStairsUp || t == CellStairsDown || t == CellWeb)
 				break;
 		}
 		v = to(v, d);
@@ -541,7 +564,7 @@ static void update_floor_state() {
 						switch(po->type) {
 						case CellTrapLauncher:
 							if(!po->is(CellActive))
-								trap_launch(*po, to(po->d, Down), Fire, {1, 6});
+								trap_launch(*po, to(po->d, Down), Fire, {1, 6}, 2, SaveHalf, 3);
 							break;
 						}
 					}

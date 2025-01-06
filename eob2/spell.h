@@ -11,10 +11,10 @@
 struct itemi;
 struct creaturei;
 
-struct spelli : nameable, featable {
+struct spelli : nameable, featable  {
 	char	levels[4];
-	char	avatar_thrown;
 	color	lighting;
+	char	avatar_thrown;
 	const randomeffecti* duration; // Enchantment spell
 	const itemi* summon; // Which item summoned in hand
 	variants filter, filter_item;
@@ -22,7 +22,7 @@ struct spelli : nameable, featable {
 	variants clearing;
 	variants wearing;
 	flag32 filter_cell;
-	bool isthrown() const { return avatar_thrown!=0; }
+	bool isthrown() const { return avatar_thrown != 0; }
 };
 extern const spelli* last_spell;
 

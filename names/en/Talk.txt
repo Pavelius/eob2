@@ -296,3 +296,50 @@ Our faith is weak, we must pray more
 I need rest
 When we make camp?
 I tired
+
+#TakeSpecialItemReward
+We found item. Now we can leave this place.
+
+#FindAllSecretsReward
+This secret seems to be last on this level.
+We found all secrets. Not bad.
+
+#KillAlmostAllMonstersReward
+We kill almost all of them
+Good, population of these creatures has been lowered
+
+#KillBossReward
+We do this! Kill this ugly monster
+We kill this tought guy
+
+#KillBossMinionsReward
+We kills all minions
+That be last one minion
+
+#ReturnToBase
+This quest is done
+It's time return to base
+Reward is waiting for us
+
+#DonateNotEnoughtGold
+"Come, when you got enought gold" say one priest "and god be with you"
+
+#ScribleScrollsSuccessSpeech
+I learn new spell %SpellName
+%SpellName has been learned
+
+#ScribleScrollsFailSpeech
+I did not manage to learn spell
+Damn, I do not understand this spell
+
+#PickPocketsCoinsAtBarMessage
+You pick pockets of long man who payed on bar and pick %Number gold pieces.
+
+#PickPocketsNothingMessage
+You want steal some money, but all you try is failed.
+
+#PickPocketsFightMessage
+"Theif! I catch theif" cry patrons. Other patrons beet you and take off to street.
+
+#EatAndDrinkMessage
+You taste local food and drink. Not bad. Now you are in good shape.

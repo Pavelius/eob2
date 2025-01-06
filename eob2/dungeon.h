@@ -90,5 +90,6 @@ void show_automap(const pointca& markers, int explore_radius);
 void show_dungeon_automap();
 
 int get_side(int side, directions d);
+int get_side_ex(int side, directions d);
 
 void thrown_item(pointc v, directions d, int avatar_thrown, int side, int distance);

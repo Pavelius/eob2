@@ -185,9 +185,9 @@ static void wizardy_effect(int bonus) {
 	}
 }
 
-static bool apply_script(const char* action, const char* id, const char* postfix, int bonus) {
+static bool apply_script(const char* id, const char* action, const char* postfix, int bonus) {
 	pushvalue push(last_id);
-	auto sid = ids(action, id, postfix);
+	auto sid = ids(id, action, postfix);
 	auto p1 = bsdata<script>::find(sid);
 	if(p1) {
 		last_id = p1->id;
@@ -211,66 +211,66 @@ static bool apply_script(const char* action, const char* id, const char* postfix
 	return false;
 }
 
-static bool apply_script(const char* action, const char* id, int bonus) {
+static bool apply_script(const char* id, const char* action, int bonus) {
 	auto quest = party.getquest();
 	if(quest) {
-		if(apply_script(action, id, quest->id, bonus))
+		if(apply_script(id, action, quest->id, bonus))
 			return true;
 	}
-	return apply_script(action, id, 0, bonus);
+	return apply_script(id, action, 0, bonus);
 }
 
-static const char* find_speak(const char* action, const char* id) {
+static const char* find_speak(const char* id, const char* action) {
 	if(!player)
 		return 0;
 	auto quest = party.getquest();
 	if(quest) {
-		auto p = speech_get(ids(action, id, quest->id));
+		auto p = speech_get(ids(id, action, quest->id));
 		if(p)
 			return p;
 	}
 	auto& ei = player->getclass();
 	for(auto i = 0; i < ei.count; i++) {
-		auto p = speech_get(ids(action, id, getid<classi>(ei.classes[i])));
+		auto p = speech_get(ids(id, action, getid<classi>(ei.classes[i])));
 		if(p)
 			return p;
 	}
-	auto p = speech_get(ids(action, id, player->getrace().id));
+	auto p = speech_get(ids(id, action, player->getrace().id));
 	if(p)
 		return p;
-	return speech_get(ids(action, id, 0));
+	return speech_get(ids(id, action, 0));
 }
 
-static const char* find_text(const char* action, const char* id) {
+static const char* find_text(const char* id, const char* action) {
 	if(!player)
 		return 0;
 	auto quest = party.getquest();
 	if(quest) {
-		auto p = getnme(ids(action, id, quest->id));
+		auto p = getnme(ids(id, action, quest->id));
 		if(p)
 			return p;
 	}
 	auto& ei = player->getclass();
 	for(auto i = 0; i < ei.count; i++) {
-		auto p = getnme(ids(action, id, getid<classi>(ei.classes[i])));
+		auto p = getnme(ids(id, action, getid<classi>(ei.classes[i])));
 		if(p)
 			return p;
 	}
-	auto p = getnme(ids(action, id, player->getrace().id));
+	auto p = getnme(ids(id, action, player->getrace().id));
 	if(p)
 		return p;
-	return getnme(ids(action, id, 0));
+	return getnme(ids(id, action, 0));
 }
 
-static bool apply_message(const char* action, const char* id) {
+static bool apply_message(const char* id, const char* action) {
 	if(!player)
 		return false;
-	auto format = find_speak(action, id);
+	auto format = find_speak(id, action);
 	if(format) {
 		player->sayv(format, 0);
 		return true;
 	}
-	format = find_text(action, id);
+	format = find_text(id, action);
 	if(format) {
 		consolenl();
 		consolev(format, 0);
@@ -288,7 +288,7 @@ void broke_cell(pointc v) {
 	animation_update();
 	pushvalue push_point(last_point, v);
 	pushvalue push_modifier(modifier, Grounding);
-	if(apply_script("Use", bsdata<celli>::elements[t].id, 0))
+	if(apply_script(bsdata<celli>::elements[t].id, "Use", 0))
 		apply_message(bsdata<celli>::elements[t].id, "Use");
 }
 
@@ -920,7 +920,7 @@ static void use_item() {
 	case Usable:
 		if(!allow_use(pn, last_item))
 			break;
-		apply_script("Use", last_item->geti().id, last_item->iscursed() ? -2 : last_item->getpower().counter);
+		apply_script(last_item->geti().id, "Use", last_item->iscursed() ? -2 : last_item->getpower().counter);
 		break;
 	case Key:
 		if(!dungeon_use())
@@ -2917,8 +2917,8 @@ BSDATA(script) = {
 	{"StrenghtAdd", strenght_add},
 	{"Switch", apply_switch},
 	{"TalkAbout", talk_about},
+	{"TheifToolsUse", use_theif_tools},
 	{"TurningMonsters", turning_monsters},
-	{"UseTheifTools", use_theif_tools},
 	{"Wizardy", wizardy_effect},
 };
 BSDATAF(script)

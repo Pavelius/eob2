@@ -270,6 +270,9 @@
     <ClCompile Include="hashsum.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="save.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -539,6 +542,12 @@
     <ClInclude Include="hashsum.h">
       <Filter>support</Filter>
     </ClInclude>
+    <ClInclude Include="trap.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="save.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -620,9 +629,6 @@
       <Filter>locale</Filter>
     </Text>
     <Text Include="..\locale\en\Monsters.txt">
-      <Filter>locale</Filter>
-    </Text>
-    <Text Include="..\names\en\TalkActions.txt">
       <Filter>locale</Filter>
     </Text>
     <Text Include="..\names\en\TalkMonsters.txt">

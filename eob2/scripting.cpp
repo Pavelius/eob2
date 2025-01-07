@@ -979,6 +979,10 @@ static void test_dungeon() {
 	thrown_item(v, Down, 6, get_party_index(player) % 2, 4);
 }
 
+static void test_generate(int bonus) {
+	choose_generate_box("Test string", characters);
+}
+
 static void change_quick_item() {
 	auto pi = (item*)current_focus;
 	auto pn = item_owner(pi);
@@ -2935,6 +2939,7 @@ BSDATA(script) = {
 	{"StrenghtAdd", strenght_add},
 	{"Switch", apply_switch},
 	{"TalkAbout", talk_about},
+	{"TestGenerate", test_generate},
 	{"TheifToolsUse", use_theif_tools},
 	{"TurningMonsters", turning_monsters},
 	{"Wizardy", wizardy_effect},

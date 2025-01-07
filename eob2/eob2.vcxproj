@@ -158,6 +158,7 @@
     <ClInclude Include="dice.h" />
     <ClInclude Include="direction.h" />
     <ClInclude Include="draw.h" />
+    <ClInclude Include="draw_control.h" />
     <ClInclude Include="dungeon.h" />
     <ClInclude Include="dungeon_site.h" />
     <ClInclude Include="dungeon_state.h" />
@@ -245,6 +246,7 @@
     <ClCompile Include="dice.cpp" />
     <ClCompile Include="direction.cpp" />
     <ClCompile Include="draw.cpp" />
+    <ClCompile Include="draw_control.cpp" />
     <ClCompile Include="draw_text.cpp" />
     <ClCompile Include="dungeon.cpp" />
     <ClCompile Include="dungeon_generate.cpp" />

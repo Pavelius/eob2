@@ -422,6 +422,10 @@ static void paint_compass(directions d) {
 	image(150, 158, gres(COMPASS), 8 + i, 0);
 }
 
+static void paint_generaion() {
+	image(0, 0, gres(CHARGEN), 0, 0);
+}
+
 static void paint_menu(point position, int object_width, int object_height) {
 	rectpush push;
 	caret = position;
@@ -498,7 +502,7 @@ static void paint_avatar_border() {
 static void paint_avatar() {
 	if(player->avatar == 0xFF)
 		return;
-	rectpush push; width = 31; height = 31;
+	rectpush push; width = 31; height = 32;
 	auto push_alpha = alpha;
 	if(player->is(Invisibled))
 		alpha = 128;
@@ -638,7 +642,7 @@ static void paint_sheet_head() {
 	set_small_font();
 	image(gres(INVENT), 0, 0);
 	caret.x = origin.x + 4;
-	caret.y = origin.y + 4;
+	caret.y = origin.y + 3;
 	paint_avatar();
 	caret.x = origin.x + 38;
 	caret.y = origin.y + 6;
@@ -1031,7 +1035,7 @@ static void paint_party_sheets() {
 
 static void get_closed_goals(goala goals) {
 	auto quest_id = getbsi(last_quest);
-	if(quest_id==0xFFFF)
+	if(quest_id == 0xFFFF)
 		return;
 	for(auto& e : bsdata<dungeoni>()) {
 		if(e.quest_id != quest_id)
@@ -1372,7 +1376,7 @@ static void make_screenshoot() {
 
 static void common_input() {
 	switch(hot.key) {
-	case Ctrl + F5: make_screenshoot(); break;
+	case F8: make_screenshoot(); break;
 	}
 #ifdef _DEBUG
 	switch(hot.key) {
@@ -1792,6 +1796,41 @@ void* choose_dialog(const char* title, int padding) {
 			caret.x += width;
 			caret.x += 2;
 		}
+		domodal();
+		focus_input();
+	}
+	fore = push_fore;
+	return (void*)getresult();
+}
+
+static void paint_generate_avatars(creaturei** characters, creaturei* hilite) {
+	rectpush push;
+	width = 33;
+	height = 34;
+	auto push_player = player;
+	for(auto i = 0; i < 4; i++) {
+		caret.x = 17 + push.caret.x + (i % 2) * 64;
+		caret.y = 64 + push.caret.y + (i / 2) * 64;
+		focusing(characters + i);
+		player = characters[i];
+		if(player)
+			paint_avatar();
+		if(current_focus == (characters + i)) {
+			caret.x--;
+			caret.y--;
+			paint_hilite_rect();
+		}
+	}
+	player = push_player;
+}
+
+void* choose_generate_box(const char* header, creaturei** characters) {
+	rectpush push;
+	pushscene push_scene;
+	auto push_fore = fore;
+	while(ismodal()) {
+		paint_generaion();
+		paint_generate_avatars(characters, player);
 		domodal();
 		focus_input();
 	}

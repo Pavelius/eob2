@@ -273,6 +273,9 @@
     <ClCompile Include="save.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="draw_control.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -547,6 +550,9 @@
     </ClInclude>
     <ClInclude Include="save.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="draw_control.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

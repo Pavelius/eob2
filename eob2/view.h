@@ -26,6 +26,7 @@ extern unsigned long current_cpu_time;
 extern bool need_update_animation;
 
 void* choose_dialog(const char* title, int dx);
+void* choose_generate_box(const char* header, creaturei** characters);
 void* choose_large_menu(const char* header, const char* cancel);
 void* choose_main_menu();
 void* choose_small_menu(const char* header, const char* cancel);

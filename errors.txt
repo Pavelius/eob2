@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Clairaudience`
+﻿Error in file `rules/Items.txt`:
+ Line 379: Not found Item identifier `TwohandedSword`

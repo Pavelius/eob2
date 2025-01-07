@@ -277,6 +277,7 @@ static void single_main_attack(wearn wear, creaturei* enemy, int bonus, int mult
 	auto number_attacks = player->wears[wear].geti().number_attacks;
 	if(!number_attacks)
 		number_attacks = 2;
+	number_attacks += player->get(AdditionalAttacks);
 	if(player->is(WeaponSpecialist) && player->isspecialist(&player->wears[wear].geti())) {
 		bonus += 1;
 		number_attacks += 1;

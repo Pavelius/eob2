@@ -48,6 +48,9 @@ Halfling RacialFeatures
 Halfling TheifSkills
  elements PickPockets+5 OpenLocks+5 RemoveTraps+5 MoveSilently+10 HearNoise+5 ClimbWalls-15 ReadLanguages-5
 
+/////////////////////////////////////////////////
+// All monsters
+
 Monster+1 CombatSkills
  elements Attack+1
 Monster+3 CombatSkills
@@ -61,10 +64,13 @@ Monster+9 CombatSkills
 Monster+11 CombatSkills
  elements Attack+2
 
+/////////////////////////////////////////////////
+// Fighter
+
 Fighter+1 AllowedEquipment
- elements UseMetal UseLeather UseShield UseMartial BonusHP
+ elements UseMetal UseLeather UseShield UseMartial
 Fighter+1 BasicAbilities
- elements WeaponSpecialist
+ elements BonusHP WeaponSpecialist
 
 Fighter+2 CombatSkills
  elements Attack+1
@@ -77,20 +83,44 @@ Fighter+5 CombatSkills
 Fighter+6 CombatSkills
  elements Attack+1
 Fighter+7 CombatSkills
- elements Attack+1
+ elements Attack+1 AdditionalAttacks+1
 Fighter+8 CombatSkills
  elements Attack+1
 Fighter+9 CombatSkills
  elements Attack+1
 Fighter+10 CombatSkills
  elements Attack+1
+Fighter+11 CombatSkills
+ elements Attack+1
+Fighter+12 CombatSkills
+ elements Attack+1
+Fighter+13 CombatSkills
+ elements Attack+1 AdditionalAttacks+1
+Fighter+14 CombatSkills
+ elements Attack+1
+Fighter+15 CombatSkills
+ elements Attack+1
+Fighter+16 CombatSkills
+ elements Attack+1
+Fighter+17 CombatSkills
+ elements Attack+1
+Fighter+18 CombatSkills
+ elements Attack+1
+Fighter+19 CombatSkills
+ elements Attack+1
+Fighter+20 CombatSkills
+ elements Attack+1
+
+/////////////////////////////////////////////////
+// Paladin
 
 Paladin+1 AllowedEquipment
- elements UseMetal UseLeather UseShield UseMartial BonusHP
+ elements UseMetal UseLeather UseShield UseMartial
 Paladin+1 BasicAbilities
- elements ProtectedFromEvil ImmuneDisease TurnUndeadBonus-2
+ elements BonusHP ProtectedFromEvil ImmuneDisease TurnUndeadBonus-2
 Paladin+1 SaveThrow
  elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
+
 Paladin+2 CombatSkills
  elements Attack+1
 Paladin+3 CombatSkills
@@ -102,13 +132,111 @@ Paladin+5 CombatSkills
 Paladin+6 CombatSkills
  elements Attack+1
 Paladin+7 CombatSkills
- elements Attack+1
+ elements Attack+1 AdditionalAttacks+1
 Paladin+8 CombatSkills
  elements Attack+1
 Paladin+9 CombatSkills
  elements Attack+1
 Paladin+10 CombatSkills
  elements Attack+1
+Paladin+11 CombatSkills
+ elements Attack+1
+Paladin+12 CombatSkills
+ elements Attack+1
+Paladin+13 CombatSkills
+ elements Attack+1 AdditionalAttacks+1
+Paladin+14 CombatSkills
+ elements Attack+1
+Paladin+15 CombatSkills
+ elements Attack+1
+Paladin+16 CombatSkills
+ elements Attack+1
+Paladin+17 CombatSkills
+ elements Attack+1
+Paladin+18 CombatSkills
+ elements Attack+1
+Paladin+19 CombatSkills
+ elements Attack+1
+Paladin+20 CombatSkills
+ elements Attack+1
+
+/////////////////////////////////////////////////
+// Ranger
+
+Ranger+1 AllowedEquipment
+ elements UseMetal UseLeather UseShield UseMartial
+Ranger+1 BasicAbilities
+ elements BonusHP Precise Goblinoid ApplyRacialEnemy
+Ranger+1 TheifSkills
+ elements MoveSilently+15
+
+Ranger+2 TheifSkills
+ elements MoveSilently+6
+Ranger+3 TheifSkills
+ elements MoveSilently+6
+Ranger+4 TheifSkills
+ elements MoveSilently+6
+
+Ranger+2 CombatSkills
+ elements Attack+1
+Ranger+3 CombatSkills
+ elements Attack+1
+Ranger+4 CombatSkills
+ elements Attack+1
+Ranger+5 CombatSkills
+ elements Attack+1
+Ranger+6 CombatSkills
+ elements Attack+1
+Ranger+7 CombatSkills
+ elements Attack+1 AdditionalAttacks+1
+Ranger+8 CombatSkills
+ elements Attack+1
+Ranger+9 CombatSkills
+ elements Attack+1
+Ranger+10 CombatSkills
+ elements Attack+1
+Ranger+11 CombatSkills
+ elements Attack+1
+Ranger+12 CombatSkills
+ elements Attack+1
+Ranger+13 CombatSkills
+ elements Attack+1 AdditionalAttacks+1
+Ranger+14 CombatSkills
+ elements Attack+1
+Ranger+15 CombatSkills
+ elements Attack+1
+Ranger+16 CombatSkills
+ elements Attack+1
+Ranger+17 CombatSkills
+ elements Attack+1
+Ranger+18 CombatSkills
+ elements Attack+1
+Ranger+19 CombatSkills
+ elements Attack+1
+Ranger+20 CombatSkills
+ elements Attack+1
+
+Ranger+8 Spells
+ elements LearnClericSpells+1 Spell1+1
+Ranger+9 Spells
+ elements Spell1+1
+Ranger+10 Spells
+ elements LearnClericSpells+2 Spell2+1
+Ranger+11 Spells
+ elements Spell2+1
+Ranger+12 Spells
+ elements LearnClericSpells+3 Spell3+1
+Ranger+13 Spells
+ elements Spell1+1
+Ranger+14 Spells
+ elements Spell3+1
+Ranger+15 Spells
+ elements Spell2+1
+Ranger+16 Spells
+ elements Spell3+1
+
+/////////////////////////////////////////////////
+// Cleric
 
 Cleric+1 AllowedEquipment
  elements UseMetal UseLeather UseShield UsePriest
@@ -124,10 +252,26 @@ Cleric+4 Spells
 Cleric+5 Spells
  elements LearnClericSpells+3 Spell2+1 Spell3+1
 
+Cleric+4 CombatSkills
+ elements Attack+2
+Cleric+7 CombatSkills
+ elements Attack+2
+Cleric+10 CombatSkills
+ elements Attack+2
+Cleric+13 CombatSkills
+ elements Attack+2
+Cleric+16 CombatSkills
+ elements Attack+2
+Cleric+19 CombatSkills
+ elements Attack+2
+
+/////////////////////////////////////////////////
+// Mage
+
 Mage+1 AllowedEquipment
  elements UseMage
 Mage+1 Spells
- elements Spell1+1 Set+5 LearnMageSpells+1 DetectMagic
+ elements Set+5 LearnMageSpells+1 DetectMagic Spell1+1
 Mage+2 Spells
  elements Spell1+1
 Mage+3 Spells
@@ -136,6 +280,22 @@ Mage+4 Spells
  elements Spell1+1 Spell2+1
 Mage+5 Spells
  elements Spell1+1 Spell3+1
+
+Mage+4 CombatSkills
+ elements Attack+1
+Mage+7 CombatSkills
+ elements Attack+1
+Mage+10 CombatSkills
+ elements Attack+1
+Mage+13 CombatSkills
+ elements Attack+1
+Mage+16 CombatSkills
+ elements Attack+1
+Mage+19 CombatSkills
+ elements Attack+1
+
+/////////////////////////////////////////////////
+// Theif
 
 Theif+1 AllowedEquipment
  elements UseLeather UseRogish
@@ -149,18 +309,29 @@ Theif+3 TheifSkills
  elements PickPockets+5 OpenLocks+4 RemoveTraps+5 MoveSilently+6 HearNoise+5 ClimbWalls+1
 Theif+4 TheifSkills
  elements PickPockets+5 OpenLocks+4 RemoveTraps+5 MoveSilently+6 HearNoise+0 ClimbWalls+1
-Theif+4 BasicAbilities
+
+Theif+5 BasicAbilities
+ elements Backstab+1
+Theif+9 BasicAbilities
+ elements Backstab+1
+Theif+13 BasicAbilities
  elements Backstab+1
 
-Ranger+1 AllowedEquipment
- elements UseMetal UseLeather UseShield UseMartial BonusHP
-Paladin+1 BasicAbilities
- elements Precise Goblinoid ApplyRacialEnemy
-Ranger+1 TheifSkills
- elements MoveSilently+15
-Theif+2 TheifSkills
- elements MoveSilently+6
-Theif+3 TheifSkills
- elements MoveSilently+6
-Theif+4 TheifSkills
- elements MoveSilently+6
+Theif+3 CombatSkills
+ elements Attack+1
+Theif+5 CombatSkills
+ elements Attack+1
+Theif+7 CombatSkills
+ elements Attack+1
+Theif+9 CombatSkills
+ elements Attack+1
+Theif+11 CombatSkills
+ elements Attack+1
+Theif+13 CombatSkills
+ elements Attack+1
+Theif+15 CombatSkills
+ elements Attack+1
+Theif+17 CombatSkills
+ elements Attack+1
+Theif+19 CombatSkills
+ elements Attack+1

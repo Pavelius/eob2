@@ -376,13 +376,13 @@ MonsterGiftItems
 #Race
 
 Human
- specialization Longsword
+ specialization Longsword TwoHandedSword
 Dwarf
- specialization Axe BattleAxe
+ specialization Axe BattleAxe Mace
 HalfElf
- specialization Longsword
+ specialization Longsword ShortSword
 Elf
- specialization Longsword Bow
+ specialization Longsword ShortSword Bow
 Halfling
  specialization ShortSword
 

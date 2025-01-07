@@ -10,6 +10,9 @@ Animal
 Goblinoid
 Drakonoid
 
+///////////////////////////////////////
+// Known languages
+
 Dwarf
  languages Goblinoid
 Elf

@@ -262,7 +262,7 @@ static const char* find_text(const char* id, const char* action) {
 	return getnme(ids(id, action, 0));
 }
 
-static bool apply_message(const char* id, const char* action) {
+bool apply_message(const char* id, const char* action) {
 	if(!player)
 		return false;
 	auto format = find_speak(id, action);
@@ -708,7 +708,8 @@ static int get_ability_number(creaturei* player, abilityn a, int magical_bonus) 
 		case -4: return -80;
 		case -5: return -100;
 		case 0: return 40;
-		default: return 100;
+		case 1: case 2: case 3: case 4: case 5: return 100;
+		default: return magical_bonus;
 		}
 	}
 }
@@ -724,7 +725,9 @@ static void drink_effect(variant v, unsigned duration, int multiplier) {
 			bsdata<script>::elements[v.value].proc(v.counter);
 	} else if(v.iskind<abilityi>()) {
 		auto permanent = get_permanent_raise(player, (abilityn)v.value, v.counter);
-		if(v.counter >= permanent)
+		if(v.value >= AcidD1Level)
+			player->add((abilityn)v.value, v.counter * multiplier);
+		else if(v.counter >= permanent)
 			player->basic.add((abilityn)v.value, (v.counter - permanent + 1) * multiplier);
 		else {
 			v.counter = get_ability_number(player, (abilityn)v.value, v.counter * multiplier);
@@ -2128,6 +2131,11 @@ static void save_half(int bonus) {
 		last_number = last_number / 2;
 }
 
+static void apply_chance(int bonus) {
+	if(d100() >= get_bonus(bonus))
+		script_stop();
+}
+
 static void set_caster(int bonus) {
 	player = caster;
 }
@@ -2856,6 +2864,7 @@ BSDATA(script) = {
 	{"BuyMenu", buy_menu},
 	{"Caster", set_caster},
 	{"ConfirmAction", confirm_action},
+	{"Chance", apply_chance},
 	{"Character", set_character},
 	{"ChooseItems", choose_items},
 	{"ChooseMenu", choose_menu},

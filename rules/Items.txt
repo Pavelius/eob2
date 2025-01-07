@@ -19,7 +19,7 @@ ArmorPowers
  elements NoVariant AC+1 AC+2 AC+3 AC+4 AC+5
 
 SimplePotions
- elements HealEffect+1 HealEffect+2 Health+2 HearNoise ClimbWalls
+ elements HealEffect+1 HealEffect+2 Health+2 HearNoise+1 ClimbWalls+1
 AdvancedPotions
  elements ResistFire+1 ResistCold+1 Strenght+1 Strenght+2 Strenght+3 Dexterity+1 Dexterity+2 Dexterity+3 Charisma+1 Invulnerability+2 LifeWater+4
 WeirdPotions
@@ -240,23 +240,23 @@ RedGem cost(500) avatar(93) avatar_ground(22)
 PurpleGem cost(1000) avatar(96) avatar_ground(22)
  feats Small
 
-IronKey avatar(47) avatar_ground(8) wear(Key)
+IronKey avatar(47) cost(5) avatar_ground(8) wear(Key)
  feats Small
-BronzeKey avatar(46) avatar_ground(8) wear(Key)
+BronzeKey avatar(46) cost(5) avatar_ground(8) wear(Key)
  feats Small
-CooperKey avatar(48) avatar_ground(8) wear(Key)
+CooperKey avatar(48) cost(5) avatar_ground(8) wear(Key)
  feats Small
-BoneKey avatar(49) avatar_ground(8) wear(Key)
+BoneKey avatar(49) cost(5) avatar_ground(8) wear(Key)
  feats Small
-ManistKey avatar(50) avatar_ground(8) wear(Key)
+ManistKey avatar(50) cost(10) avatar_ground(8) wear(Key)
  feats Small
-SteelKey avatar(58) avatar_ground(8) wear(Key)
+SteelKey avatar(58) cost(5) avatar_ground(8) wear(Key)
  feats Small
-SkullKey avatar(87) avatar_ground(8) wear(Key)
+SkullKey avatar(87) cost(5) avatar_ground(8) wear(Key)
  feats Small
-MoonKey avatar(88) avatar_ground(8) wear(Key)
+MoonKey avatar(88) cost(10) avatar_ground(8) wear(Key)
  feats Small
-JewelKey avatar(102) avatar_ground(8) wear(Key)
+JewelKey avatar(102) cost(20) avatar_ground(8) wear(Key)
  feats Small
 
 StoneDagger speed(2) damage_type(Piercing) damage(1 4) avatar(60) avatar_ground(3) wear(RightHand) powers(MeleePowers)

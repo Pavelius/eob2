@@ -451,7 +451,6 @@ static void update_every_turn() {
 static void update_every_hour() {
 	check_disease();
 	check_shops();
-	check_return_to_base();
 }
 
 static bool all_party_disabled() {
@@ -508,6 +507,7 @@ static void group_damage(creaturei** creatures, pointc v, directions d, const tr
 		auto p = creatures[n];
 		if(!p || p->isdead())
 			continue;
+		player = p;
 		if(player_damage(ei.type, ei.damage, ei.save, ei.effect)) {
 			test_projectile = true;
 			targets--;
@@ -649,8 +649,6 @@ static void check_goals() {
 			check_main_quest = true;
 		}
 	}
-	if(last_quest_complite())
-		party_say("ReturnToBase", 0);
 }
 
 static void clear_boost_proc(referencei target, variant v) {
@@ -685,8 +683,10 @@ void pass_round() {
 	all_party(check_food, true);
 	if((party.abilities[Minutes] % 6) == 0)
 		all_creatures(update_every_turn);
-	if((party.abilities[Minutes] % 60) == 0)
+	if((party.abilities[Minutes] % 60) == 0) {
+		check_return_to_base();
 		all_creatures(update_every_hour);
+	}
 	check_goals();
 	fix_animate();
 	if(all_party_disabled()) {
@@ -700,6 +700,7 @@ void pass_hours(int value) {
 	animation_update();
 	add_party(Minutes, 60 * value);
 	clear_boost(party.abilities[Minutes], clear_boost_proc);
+	check_return_to_base();
 	all_creatures(update_every_round);
 	for(auto i = 0; i < 6 * value; i++)
 		all_creatures(update_every_turn);
@@ -713,6 +714,7 @@ void pass_days(int value) {
 	animation_update();
 	add_party(Minutes, 24 * 60 * value);
 	clear_boost(party.abilities[Minutes], clear_boost_proc);
+	check_return_to_base();
 	all_creatures(update_every_round);
 	for(auto i = 0; i < 24 * 6 * value; i++)
 		all_creatures(update_every_turn);

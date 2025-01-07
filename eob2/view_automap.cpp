@@ -11,6 +11,7 @@
 using namespace draw;
 
 static color cpass(196, 132, 72);
+static color cegg(119, 141, 97);
 static color cwall(156, 104, 54);
 static color cbarrel(147, 73, 0);
 static color cdoor(140, 88, 48);
@@ -295,6 +296,14 @@ static void paint_automap() {
 			case CellBarelDestroyed:
 				setoffset(2, 2);
 				fore = cbarrel;
+				if(t == CellBarelDestroyed)
+					fore = fore.mix(cpass);
+				rectf();
+				break;
+			case CellCocon:
+			case CellCoconOpened:
+				setoffset(2, 2);
+				fore = cegg;
 				if(t == CellBarelDestroyed)
 					fore = fore.mix(cpass);
 				rectf();

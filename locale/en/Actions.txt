@@ -65,6 +65,7 @@ PlayerRead: %Name read
 QuestGoals: Quest Goals
 RemoveTrapsFail: Fail remove trap
 RepairItems: Repair Items
+RepairItemsConfirm: "I can repair all your weapons and tools. They be as new. And it will be cost for you just 5 gold pieces. Better offer, I think."
 RestParty: Rest party
 RestPartyConfirm: Rest all party for 8 hours?
 ReturnToStreet: Leave to the street

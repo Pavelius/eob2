@@ -7,6 +7,7 @@ Blinding: Blinding
 Blur: Blur
 BurningHands: Burning Hands
 ChillTouch: Chill Touch
+Clairaudience: Clairaudience
 CureDisease: Cure Disease
 CureLightWounds: Cure Light Wounds
 CurePoison: Cure Poison
@@ -38,6 +39,7 @@ RemoveCurse: Remove Curse
 RemoveParalize: Remove Paralize
 ResistColdSpell: Resist Cold
 ResistFireSpell: Resist Fire
+Scare: Scare
 ShieldSpell: Shield
 ShockingGrasp: Shocking Grasp
 SlowPoison: Slow Poison

@@ -10,6 +10,7 @@ struct quest : nameable {
 	struct leveli : dungeon_site {
 		variants features;
 	};
+	char		treasure;
 	goala		goals;
 	variants	travel, reward;
 	leveli		sites[8];

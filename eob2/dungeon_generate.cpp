@@ -94,7 +94,7 @@ static int random_count() {
 
 static int cellar_count() {
 	auto rolled = d100();
-	if(rolled < 30)
+	if(rolled < 40)
 		return 0;
 	else if(rolled < 70)
 		return 1;
@@ -166,6 +166,8 @@ static void lair_door(pointc v, directions d) {
 
 static int get_magic_bonus(int chance_upgrade, int chance_downgrade) {
 	auto base = loc->level;
+	if(last_quest)
+		base += last_quest->treasure;
 	if(base < 1)
 		base = 1;
 	while(base < 5 && d100() < chance_upgrade) {

@@ -182,6 +182,7 @@ BSMETA(quest) = {
 	BSREQ(sites),
 	BSREQ(travel),
 	BSREQ(reward),
+	BSREQ(treasure),
 	BSDST(goals, goali),
 	{}};
 BSMETA(quest::leveli) = {

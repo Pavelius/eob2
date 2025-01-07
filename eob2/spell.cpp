@@ -361,9 +361,9 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 	}
 	fix_animate();
 	if(party.abilities[EffectCount])
-		player->speakn(ps->id, "GainEffect", party.abilities[EffectCount]);
+		apply_message(ps->id, "GainEffect");
 	else
-		player->speakn(ps->id, "NoEffect", party.abilities[EffectCount]);
+		apply_message(ps->id, "NoEffect");
 	return true;
 }
 

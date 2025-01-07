@@ -17,7 +17,7 @@ FloodedSewers
  goals KillAlmostAllMonsters(3)
  travel PassHours+1
  reward AddReward+5 Reputation+5 CursedDungeon ActivateQuest
- sites type(brick) level(3) habbits(Kobold Leech) language(Human) key(IronKey) features(RoomLair RoomFeature) graves(5)
+ sites type(brick) level(3) habbits(Kobold Leech) language(Human) key(IronKey) features(RoomLair RoomFeature)
 
 ExploreNorthWood
  goals ExmploreMostArea(1)

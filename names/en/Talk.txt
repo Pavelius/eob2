@@ -226,10 +226,15 @@ This spell use in particular situation
 Use only in special situations
 
 #PurifyFoodGainEffect
-The %1i pieces of food were purified
-
+The %EffectCount pieces of food were purified
 #PurifyFoodNoEffect
 I don't see any rotten food
+
+#MendingGainEffect
+The %EffectCount items are as new
+I repair %EffectCount items
+#MendingNoEffect
+I don't see any damaged items
 
 #SurpriseApply
 Who is here?
@@ -304,9 +309,13 @@ We found item. Now we can leave this place.
 This secret seems to be last on this level.
 We found all secrets. Not bad.
 
-#KillAlmostAllMonstersReward
-We kill almost all of them
-Good, population of these creatures has been lowered
+#FindAllSecretsReward
+This secret seems to be last on this level.
+We found all secrets. Not bad.
+
+#ExmploreMostAreaReward
+Looks like we explore most part of this place
+Almost all area has been explored
 
 #KillBossReward
 We do this! Kill this ugly monster

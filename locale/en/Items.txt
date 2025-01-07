@@ -74,10 +74,12 @@ RodOfPower: %1
 OfAC: defence%+1i
 OfCharisma: human control
 OfClimbWalls: feather fall
+OfDexterity: fox cunning
 OfHasted: speed
 OfHealEffect1: healing
 OfHealEffect2: extra-healing
 OfHealth: health
+OfHearNoise: clairaudience
 OfInvisibled: invisibility
 OfInvulnerability: invulnerability
 OfImmuneCold: cold immunity

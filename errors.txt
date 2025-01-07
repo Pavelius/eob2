@@ -1,3 +1,2 @@
-﻿Error in file `rules/Quests.txt`:
- Line 20: Not found requisit `trap`
- Line 20: Not found resuisit `trap`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `Clairaudience`

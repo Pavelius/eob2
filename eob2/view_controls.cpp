@@ -8,6 +8,7 @@
 #include "dungeon.h"
 #include "hotkey.h"
 #include "gender.h"
+#include "io_stream.h"
 #include "location.h"
 #include "math.h"
 #include "picture.h"
@@ -1333,7 +1334,46 @@ static void show_scene_images() {
 	fore = push_fore;
 }
 
-static void debug_input() {
+static int get_file_number(const char* url, const char* mask) {
+	char result[260]; stringbuilder sb(result); sb.clear();
+	for(io::file::find file(url); file; file.next()) {
+		auto pn = file.name();
+		if(pn[0] == '.')
+			continue;
+		if(!szpmatch(pn, mask))
+			continue;
+		if(!result[0] || szcmp(pn, result) > 0) {
+			sb.clear();
+			sb.add(pn);
+		}
+	}
+	auto index = 1;
+	if(result[0]) {
+		char temp[260]; szfnamewe(temp, result);
+		auto p = temp + zlen(temp);
+		while(p > temp) {
+			if(!isnum(p[-1]))
+				break;
+			p--;
+		}
+		psnum(p, index);
+		index++;
+	}
+	return index;
+}
+
+static void make_screenshoot() {
+	auto index = get_file_number("screenshoots", "scr*.bmp");
+	char temp[260]; stringbuilder sb(temp);
+	sb.add("screenshoots/scr%1.5i.bmp", index);
+	write(temp,
+		draw::canvas->ptr(0, 0), canvas->width, canvas->height, canvas->bpp, canvas->scanline, 0);
+}
+
+static void common_input() {
+	switch(hot.key) {
+	case Ctrl + F5: make_screenshoot(); break;
+	}
 #ifdef _DEBUG
 	switch(hot.key) {
 	case Ctrl + 'I': show_sprites(ITEMS, {8, 8}, {16, 16}); break;
@@ -1562,7 +1602,7 @@ static void* choose_answer(const char* title, const char* cancel, fnevent before
 			focus_input();
 			alternate_focus_input();
 		}
-		debug_input();
+		common_input();
 	}
 	answer_origin = push_origin;
 	return answer_get_result(cancel);
@@ -1689,7 +1729,7 @@ void choose_spells(const char* title, const char* cancel, int spell_type) {
 				apply_focus(hot.key);
 			break;
 		}
-		debug_input();
+		common_input();
 	}
 }
 
@@ -1702,7 +1742,7 @@ void show_scene(fnevent before_paint, fnevent input, void* focus) {
 		domodal();
 		if(input)
 			input();
-		debug_input();
+		common_input();
 	}
 }
 
@@ -1795,7 +1835,7 @@ void* show_message(const char* format, bool add_anaswers, const char* cancel, un
 		domodal();
 		focus_input();
 		alternate_focus_input();
-		debug_input();
+		common_input();
 	}
 	picture = push_picture;
 	return (void*)getresult();

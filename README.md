@@ -1,5 +1,7 @@
 # Purpose
-Creating new unique engine to play in AD&D on PC.
+Creating new unique engine to play in AD&D on PC. This engine will be based on game of Eye of beholder, using original graphic, but changing original gameplay.
+
+![Main screen](https://github.com/Pavelius/eob2/blob/master/screenshoots/scr00001.bmp)
 
 # How to play
 We try to follow original rules of advanced dungeon and dragons second edition.

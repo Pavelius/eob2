@@ -2115,6 +2115,14 @@ static void save_negate(int bonus) {
 	}
 }
 
+static void save_vs_poison_negate(int bonus) {
+	if(player->roll(SaveVsPoison, bonus * 5)) {
+		last_number = 0;
+		script_stop();
+		apply_script(last_id, "Fail", 0);
+	}
+}
+
 static void save_half(int bonus) {
 	if(player->roll(SaveVsMagic, bonus * 5))
 		last_number = last_number / 2;
@@ -2909,6 +2917,7 @@ BSDATA(script) = {
 	{"Saves", saves_modify},
 	{"SaveHalf", save_half},
 	{"SaveNegate", save_negate},
+	{"SaveVsPoisonNegate", save_vs_poison_negate},
 	{"SelectArea", select_area},
 	{"SetLevel", set_level},
 	{"SetVariable", set_variable},

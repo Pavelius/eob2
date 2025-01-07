@@ -10,6 +10,7 @@
 #include "list.h"
 #include "math.h"
 #include "party.h"
+#include "pushvalue.h"
 #include "quest.h"
 #include "rand.h"
 #include "save.h"
@@ -473,7 +474,7 @@ void all_party(fnevent proc, bool skip_disabled) {
 	player = push_player;
 }
 
-static bool player_damage(creaturei* player, damagen type, dice damage, saven save) {
+static bool player_damage(damagen type, dice damage, saven save, const variants& effect) {
 	auto hits = damage.roll();
 	switch(save) {
 	case SaveNegate:
@@ -494,38 +495,41 @@ static bool player_damage(creaturei* player, damagen type, dice damage, saven sa
 	if(!hits)
 		return false;
 	player->damage(type, hits);
+	script_run(effect);
 	return true;
 }
 
-static void group_damage(creaturei** creatures, pointc v, directions d, damagen type, dice damage, saven save, int targets, itemi* projectile) {
+static void group_damage(creaturei** creatures, pointc v, directions d, const trapi& ei) {
+	pushvalue push(player);
 	auto test_projectile = false;
+	auto targets = ei.targets;
 	for(auto i = 0; i < 6 && targets > 0; i++) {
 		auto n = get_side_ex(i, d);
 		auto p = creatures[n];
 		if(!p || p->isdead())
 			continue;
-		if(player_damage(p, type, damage, save)) {
+		if(player_damage(ei.type, ei.damage, ei.save, ei.effect)) {
 			test_projectile = true;
 			targets--;
 		}
 	}
-	if(projectile && test_projectile && d100() < 30) {
-		item it; it.create(projectile);
+	if(ei.projectile && test_projectile && d100() < 30) {
+		item it; it.create(ei.projectile);
 		loc->drop(v, it, xrand(0, 3));
 	}
 }
 
-static void trap_launch(pointc v, directions d, damagen type, dice damage, char avatar_thrown, saven save, int targets, itemi* projectile) {
+static void trap_launch(pointc v, directions d, trapi& ei) {
 	auto start = v;
 	while(v) {
 		if(party == v) {
 			if(to(party.d, Down) == d && party.x == v.x || party.y == v.y)
-				thrown_item(start, Down, avatar_thrown, thrown_side(avatar_thrown, 1), start.distance(party) + 1);
-			group_damage(characters, v, to(party.d, d), type, damage, save, targets, projectile);
+				thrown_item(start, Down, ei.avatar, thrown_side(ei.avatar, 1), start.distance(party) + 1);
+			group_damage(characters, v, to(party.d, d), ei);
 			break;
 		} else if(loc->ismonster(v)) {
 			creaturei* creatures[6]; loc->getmonsters(creatures, v);
-			group_damage(creatures, v, d, type, damage, save, targets, projectile);
+			group_damage(creatures, v, d, ei);
 			break;
 		} else {
 			auto t = loc->get(v);
@@ -539,8 +543,7 @@ static void trap_launch(pointc v, directions d, damagen type, dice damage, char 
 }
 
 static void trap_launch(pointc v, directions d) {
-	auto pi = bsdata<trapi>::elements + loc->trap;
-	trap_launch(v, d, pi->type, pi->damage, pi->avatar, pi->save, pi->targets, pi->projectile);
+	trap_launch(v, d, bsdata<trapi>::elements[loc->trap]);
 }
 
 static void update_floor_state() {

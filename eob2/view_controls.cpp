@@ -1376,7 +1376,7 @@ static void make_screenshoot() {
 
 static void common_input() {
 	switch(hot.key) {
-	case F8: make_screenshoot(); break;
+	case Ctrl+F5: make_screenshoot(); break;
 	}
 #ifdef _DEBUG
 	switch(hot.key) {

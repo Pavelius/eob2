@@ -1,22 +1,30 @@
 #Class
 
-Monster hd(8) classes(Monster) count(1)
+Monster hd(8) classes(Monster) count(1) non_player(1)
 
 Fighter minimal(9 0 0 0 0 0) primary(Strenght) hd(10) classes(Fighter) count(1) caster(-1) exp_per_hd(1000) experience(3)
 Cleric minimal(0 0 0 0 9 0) primary(Wisdow) hd(8) classes(Cleric) count(1) caster(0) experience(1)
 Mage minimal(0 0 0 9 0 0) primary(Intellegence) hd(4) classes(Mage) count(1) caster(1) experience(2)
+ races Human Elf HalfElf
 Theif minimal(0 9 0 0 0 0) primary(Dexterity) hd(6) classes(Theif) count(1) caster(-1)
  alignment NeutralGood ChaoticGood TrueNeutral ChaoticNeutral NeutralEvil ChaoticEvil
 Ranger minimal(13 13 14 0 14 0) primary(Strenght) hd(10) classes(Ranger) count(1) caster(3) exp_per_hd(1000) experience(4)
  alignment LawfulGood NeutralGood ChaoticGood
+ races Human Elf HalfElf
 Paladin minimal(12 0 9 0 13 17) primary(Strenght) hd(10) classes(Paladin) count(1) caster(2) exp_per_hd(1000) experience(4)
  alignment LawfulGood
+ races Human
 
 FighterCleric classes(Fighter Cleric) count(2) exp_per_hd(1000) caster(0)
+ races Dwarf Elf HalfElf Halfling
 FighterTheif classes(Fighter Theif) count(2) exp_per_hd(1000) caster(-1)
+ races Dwarf Elf HalfElf Halfling
  alignment NeutralGood ChaoticGood LawfulNeutral TrueNeutral ChaoticNeutral LawfulEvil NeutralEvil ChaoticEvil
 FighterMage classes(Fighter Mage) count(2) exp_per_hd(1000) caster(1)
+ races Elf HalfElf
 MageTheif minimal(0 9 0 9 0 0) primary(Intellegence) classes(Mage Theif) count(2) caster(1)
+ races Elf HalfElf
  alignment NeutralGood ChaoticGood TrueNeutral ChaoticNeutral NeutralEvil ChaoticEvil
 FighterMageTheif classes(Fighter Mage Theif) count(3) exp_per_hd(700) caster(1)
+ races HalfElf
  alignment NeutralGood ChaoticGood LawfulNeutral TrueNeutral ChaoticNeutral LawfulEvil NeutralEvil ChaoticEvil

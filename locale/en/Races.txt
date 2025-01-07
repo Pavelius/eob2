@@ -2,6 +2,7 @@
 Dwarf: Dwarf
 Elf: Elf
 Halfling: Halfling
+HalfElf: Half-Elf
 
 Male: Male
 Female: Female

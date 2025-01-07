@@ -422,10 +422,6 @@ static void paint_compass(directions d) {
 	image(150, 158, gres(COMPASS), 8 + i, 0);
 }
 
-static void paint_generaion() {
-	image(0, 0, gres(CHARGEN), 0, 0);
-}
-
 static void paint_menu(point position, int object_width, int object_height) {
 	rectpush push;
 	caret = position;
@@ -1376,7 +1372,7 @@ static void make_screenshoot() {
 
 static void common_input() {
 	switch(hot.key) {
-	case Ctrl+F5: make_screenshoot(); break;
+	case Ctrl + F5: make_screenshoot(); break;
 	}
 #ifdef _DEBUG
 	switch(hot.key) {
@@ -1803,7 +1799,18 @@ void* choose_dialog(const char* title, int padding) {
 	return (void*)getresult();
 }
 
-static void paint_generate_avatars(creaturei** characters, creaturei* hilite) {
+static void paint_header(int x, int y, int w, const char* header, bool hilite = false) {
+	auto push_fore = fore;
+	if(hilite)
+		fore = colors::title;
+	caret.x = x; caret.y = y; width = w;
+	auto h = texth(header, width);
+	texta(header, TextBold);
+	caret.y += h;
+	fore = push_fore;
+}
+
+static void paint_generate_avatars(creaturei* hilite, creaturei** player_position) {
 	rectpush push;
 	width = 33;
 	height = 34;
@@ -1811,31 +1818,54 @@ static void paint_generate_avatars(creaturei** characters, creaturei* hilite) {
 	for(auto i = 0; i < 4; i++) {
 		caret.x = 17 + push.caret.x + (i % 2) * 64;
 		caret.y = 64 + push.caret.y + (i / 2) * 64;
-		focusing(characters + i);
+		auto button_data = characters + i;
+		if(!player_position)
+			focusing(button_data);
 		player = characters[i];
 		if(player)
 			paint_avatar();
-		if(current_focus == (characters + i)) {
-			caret.x--;
-			caret.y--;
+		caret.x--; caret.y--;
+		if(player_position == button_data)
+			image(caret.x, caret.y, gres(XSPL), (getcputime()/100) % 10, 0);
+		if(current_focus == button_data) {
 			paint_hilite_rect();
+			auto run = button_input(button_data, KeyEnter);
+			if(run)
+				execute(buttonparam, (long)button_data);
 		}
 	}
 	player = push_player;
 }
 
-void* choose_generate_box(const char* header, creaturei** characters) {
+void* choose_generate_box(const char* header) {
 	rectpush push;
 	pushscene push_scene;
 	auto push_fore = fore;
 	while(ismodal()) {
-		paint_generaion();
-		paint_generate_avatars(characters, player);
+		paint_background(CHARGEN, 0);
+		paint_generate_avatars(player, 0);
+		paint_header(150, 80, 148, header);
 		domodal();
 		focus_input();
+		common_input();
 	}
 	fore = push_fore;
 	return (void*)getresult();
+}
+
+static void paint_generate_header(const char* header) {
+	paint_header(146, 70, 156, header, true);
+	caret.x += 8; caret.y += 4; height = texth(); width -= 8;
+}
+
+static void paint_generate() {
+	paint_background(CHARGEN, 0);
+	paint_generate_avatars(player, player_position);
+}
+
+void* choose_generate_dialog(const char* header) {
+	an.sort();
+	return choose_answer(header, 0, paint_generate, text_label_left, 2, 10, paint_generate_header);
 }
 
 void* show_message(const char* format, bool add_anaswers, const char* cancel, unsigned cancel_key) {

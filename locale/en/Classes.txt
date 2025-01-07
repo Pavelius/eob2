@@ -1,7 +1,11 @@
 ﻿Fighter: Fighter
+FighterCleric: Fighter/Cleric
+FighterMage: Fighter/Mage
+FighterMageTheif: Fighter/Mage/Theif
+FighterTheif: Fighter/Theif
 Cleric: Cleric
 Mage: Mage
 MageTheif: Mage/Theif
-Theif: Theif
 Paladin: Paladin
 Ranger: Ranger
+Theif: Theif

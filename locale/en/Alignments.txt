@@ -1,1 +1,9 @@
-﻿LawfulGood: Lawful good
+﻿ChaoticEvil: Chaotic evil
+ChaoticGood: Chaotic good
+ChaoticNeutral: Chaotic neutral
+LawfulEvil: Lawful evil
+LawfulGood: Lawful good
+LawfulNeutral: Lawful neutral
+NeutralEvil: Neutral evil
+NeutralGood: Neutral good
+TrueNeutral: True neutral

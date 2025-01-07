@@ -40,7 +40,7 @@ DebugParty
  elements HumanRanger JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty
 
 StartGameAbilities
- elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+20 DebugPartyAbilities //TestGenerate
+ elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+20 DebugPartyAbilities
 
 StartGame
- elements DebugParty StartGameAbilities PassHours+7 HunterVillage EnterLocation
+ elements TestGenerate DebugParty StartGameAbilities PassHours+7 HunterVillage EnterLocation

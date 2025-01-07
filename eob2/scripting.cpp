@@ -979,8 +979,64 @@ static void test_dungeon() {
 	thrown_item(v, Down, 6, get_party_index(player) % 2, 4);
 }
 
+static void choose_race() {
+	pushanswer push;
+	for(auto& e : bsdata<racei>()) {
+		if(!e.maximal[0])
+			continue;
+		an.add(&e, e.getname());
+	}
+	auto p = (racei*)choose_generate_dialog(getnm("ChooseRace"));
+	if(!p)
+		return;
+	last_race = (racen)(p - bsdata<racei>::elements);
+}
+
+static void choose_class() {
+	pushanswer push;
+	for(auto& e : bsdata<classi>()) {
+		if(e.non_player)
+			continue;
+		if(e.races && !e.races.is(last_race))
+			continue;
+		an.add(&e, e.getname());
+	}
+	auto p = (classi*)choose_generate_dialog(getnm("ChooseClass"));
+	if(!p)
+		return;
+	last_class = (classn)(p - bsdata<classi>::elements);
+}
+
+static void choose_alignment() {
+	pushanswer push;
+	auto& ei = bsdata<classi>::elements[last_class];
+	for(auto& e : bsdata<alignmenti>()) {
+		if(ei.alignment && !ei.alignment.is(bsdata<alignmenti>::source.indexof(&e)))
+			continue;
+		an.add(&e, e.getname());
+	}
+	auto p = (alignmenti*)choose_generate_dialog(getnm("ChooseAlignment"));
+	if(!p)
+		return;
+	last_alignment = (alignmentn)(p - bsdata<alignmenti>::elements);
+}
+
+static void choose_gender() {
+	pushanswer push;
+	an.add(bsdata<genderi>::elements + Male, getnm("Male"));
+	an.add(bsdata<genderi>::elements + Female, getnm("Female"));
+	auto p = (genderi*)choose_generate_dialog(getnm("ChooseGender"));
+	if(!p)
+		return;
+	last_gender = (gendern)(p - bsdata<genderi>::elements);
+}
+
 static void test_generate(int bonus) {
-	choose_generate_box("Test string", characters);
+	player_position = (creaturei**)choose_generate_box(getnm("ChooseGenerateOptions"));
+	choose_race();
+	choose_gender();
+	choose_class();
+	choose_alignment();
 }
 
 static void change_quick_item() {

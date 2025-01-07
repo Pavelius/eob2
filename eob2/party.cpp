@@ -36,6 +36,7 @@ creaturei* monsters[6];
 spella spells_prepared[6];
 partyi party;
 partystatn last_variable;
+creaturei** player_position;
 
 int get_party_index(const creaturei* target) {
 	for(auto i = 0; i < 6; i++) {

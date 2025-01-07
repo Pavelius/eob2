@@ -43,6 +43,7 @@ struct partyi : posable, partystata {
 };
 extern creaturei* characters[6];
 extern creaturei* monsters[6];
+extern creaturei** player_position;
 extern partyi party;
 extern partystatn last_variable;
 extern int enemy_distance;

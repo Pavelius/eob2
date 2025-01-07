@@ -1,2 +1,7 @@
-﻿Error in file `rules/Items.txt`:
- Line 379: Not found Item identifier `TwohandedSword`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `ChaoticEvil`
+ Define translation for `ChaoticNeutral`
+ Define translation for `LawfulEvil`
+ Define translation for `LawfulNeutral`
+ Define translation for `NeutralEvil`
+ Define translation for `TrueNeutral`

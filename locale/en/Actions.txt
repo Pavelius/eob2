@@ -16,9 +16,14 @@ CellKeyHoleDisable: Lock is picked up
 CellPitDisable: Pit is removed
 CellTrapLauncherDisable: Trap is removed
 CellGraveUse: %Name dig the grave
+ChooseAlignment: Select Alignment
 ChooseBetOptions: Bed how match?
+ChooseClass: Select Class
 ChooseDonationOptions: Donate match?
+ChooseGender: Select Gender
+ChooseGenerateOptions: Select the box of the character you wish to create or view.
 ChooseMageScrollsOptions: What scroll?
+ChooseRace: Select Race
 ConsumeRod: %1 used last charge
 ConsumeTome: %+1 is read to the end
 CreateNewGame: Create new game

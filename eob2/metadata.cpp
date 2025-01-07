@@ -95,10 +95,12 @@ BSMETA(classi) = {
 	BSREQ(id),
 	BSREQ(minimal),
 	BSREQ(experience),
+	BSREQ(non_player),
 	BSENM(primary, abilityi),
 	BSREQ(hd), BSREQ(exp_per_hd), BSREQ(caster),
 	BSENM(classes, classi), BSREQ(count),
 	BSFLG(alignment, alignmenti),
+	BSFLG(races, racei),
 	{}};
 BSMETA(color) = {
 	BSREQ(r), BSREQ(g), BSREQ(b),

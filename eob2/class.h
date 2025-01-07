@@ -7,12 +7,6 @@
 
 enum abilityn : unsigned char;
 enum classn : unsigned char;
-//enum classn : unsigned char {
-//	Monster,
-//	Fighter, Cleric, Mage, Theif, Ranger, Paladin,
-//	FighterCleric, FighterTheif, FighterMage, MageTheif,
-//	FighterMageTheif
-//};
 
 typedef char abilitya[6];
 
@@ -24,5 +18,7 @@ struct classi : nameable {
 	abilitya	minimal;
 	abilityn	primary;
 	alignmenta	alignment; // Allowed alignments or zero if allowed all.
+	flag32		races; // Allowed races or zero if allowed all.
+	char		non_player;
 };
 extern classn last_class;

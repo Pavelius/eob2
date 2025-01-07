@@ -177,4 +177,5 @@ bool focus_input() {
 
 void clear_focus_data() {
 	render_current = 0;
+	render_objects[0].av = 0;
 }

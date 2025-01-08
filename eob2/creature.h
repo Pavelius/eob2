@@ -21,6 +21,7 @@ struct creaturei : npc, statable, wearable, posable {
 	racef			hate;
 	flag32			languages;
 	reactions		reaction;
+	explicit operator bool() const { return abilities[Strenght] != 0; }
 	void			add(abilityn i, int v);
 	void			addexp(int value);
 	void			additem(item& it);

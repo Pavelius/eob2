@@ -22,6 +22,7 @@ ChooseClass: Select Class
 ChooseDonationOptions: Donate match?
 ChooseGender: Select Gender
 ChooseGenerateOptions: Select the box of the character you wish to create or view.
+ChooseGeneratePlay: Your party is complete. Press 'P' to start the game.
 ChooseMageScrollsOptions: What scroll?
 ChooseRace: Select Race
 ConsumeRod: %1 used last charge

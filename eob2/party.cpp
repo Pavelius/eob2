@@ -126,6 +126,14 @@ bool is_dead_line() {
 		&& party.abilities[StopDeadLine] > party.abilities[Minutes];
 }
 
+bool is_party_full() {
+	for(auto i = 0; i < 4; i++) {
+		if(!characters[i])
+			return false;
+	}
+	return true;
+}
+
 bool parse_abilities(stringbuilder& sb, const char* id) {
 	auto p = bsdata<partystati>::find(id);
 	if(!p)

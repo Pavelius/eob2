@@ -1889,11 +1889,10 @@ void* choose_dialog(const char* title, int padding) {
 	return (void*)getresult();
 }
 
-static void paint_header(int x, int y, int w, const char* header, bool hilite = false) {
+static void paint_header(const char* header, bool hilite = false) {
 	auto push_fore = fore;
 	if(hilite)
 		fore = colors::title;
-	caret.x = x; caret.y = y; width = w;
 	auto h = texth(header, width);
 	texta(header, TextBold);
 	caret.y += h;
@@ -1927,7 +1926,7 @@ static void paint_generate_avatars(creaturei* hilite, creaturei** player_positio
 	player = push_player;
 }
 
-void* choose_generate_box(const char* header) {
+void* choose_generate_box(const char* header, const char* footer) {
 	rectpush push;
 	pushscene push_scene;
 	current_focus = player_position;
@@ -1935,7 +1934,14 @@ void* choose_generate_box(const char* header) {
 	while(ismodal()) {
 		paint_background(CHARGEN, 0);
 		paint_generate_avatars(player, 0);
-		paint_header(150, 80, 148, header);
+		caret = {150, 80}; width = 148;
+		paint_header(header);
+		if(footer) {
+			caret.y += 8;
+			paint_header(footer);
+			caret.x = 25; caret.y = 181;
+			button(CHARGENB, 4, 5, -1, 'P', buttoncancel);
+		}
 		domodal();
 		if(!focus_input())
 			common_input();
@@ -2109,7 +2115,8 @@ void paint_character_edit() {
 }
 
 static void paint_generate_header(const char* header) {
-	paint_header(146, 70, 156, header, true);
+	caret = {146, 70}; width = 156;
+	paint_header(header, true);
 	caret.x += 8; caret.y += 4; height = texth(); width -= 8;
 }
 

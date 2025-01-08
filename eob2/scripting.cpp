@@ -1032,9 +1032,16 @@ static void choose_gender() {
 	last_gender = (gendern)(p - bsdata<genderi>::elements);
 }
 
-static void test_generate(int bonus) {
+static creaturei** choose_player_position() {
+	if(is_party_full())
+		return (creaturei**)choose_generate_box(getnm("ChooseGenerateOptions"), getnm("ChooseGeneratePlay"));
+	else
+		return (creaturei**)choose_generate_box(getnm("ChooseGenerateOptions"), 0);
+}
+
+static void generate_party(int bonus) {
 	while(true) {
-		player_position = (creaturei**)choose_generate_box(getnm("ChooseGenerateOptions"));
+		player_position = choose_player_position();
 		if(!player_position)
 			break;
 		if(*player_position)
@@ -1044,7 +1051,7 @@ static void test_generate(int bonus) {
 			choose_gender();
 			choose_class();
 			choose_alignment();
-			player = bsdata<creaturei>::add();
+			player = bsdata<creaturei>::addz();
 			player->clear();
 			create_npc(player, 0, is_party_name);
 			generate_abilities();
@@ -2985,6 +2992,7 @@ BSDATA(script) = {
 	{"ForEachItem", for_each_item},
 	{"ForEachOpponents", for_each_opponents},
 	{"ForEachParty", for_each_party},
+	{"GenerateParty", generate_party},
 	{"Heal", player_heal},
 	{"HealEffect", player_heal_effect},
 	{"IdentifyItem", identify_item},
@@ -3034,7 +3042,6 @@ BSDATA(script) = {
 	{"StrenghtAdd", strenght_add},
 	{"Switch", apply_switch},
 	{"TalkAbout", talk_about},
-	{"TestGenerate", test_generate},
 	{"TheifToolsUse", use_theif_tools},
 	{"TurningMonsters", turning_monsters},
 	{"Wizardy", wizardy_effect},

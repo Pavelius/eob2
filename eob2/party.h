@@ -60,6 +60,7 @@ void check_reaction(creaturei** creatures, int bonus);
 void continue_game();
 void delete_game(const char* id);
 bool is_dead_line();
+bool is_party_full();
 bool ismatch(char* abilitites);
 void join_party(int bonus);
 void main_menu();

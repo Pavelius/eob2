@@ -2102,10 +2102,10 @@ void paint_character_edit() {
 	paint_character_info();
 	caret.x = 224; caret.y = 172;
 	button(CHARGENB, 6, 7, -1, KeyDelete, delete_player_posititon); caret.x += 41;
-	button(CHARGENB, 0, 1, getnm("OK"), KeyEnter, buttonok);
+	button(CHARGENB, 0, 1, 13, KeyEnter, buttonok);
 	caret.x = 224; caret.y = 156;
-	button(CHARGENB, 0, 1, getnm("Reroll"), 'R', reroll_player); caret.x += 41;
-	button(CHARGENB, 0, 1, getnm("Faces"), 'F', edit_face);
+	button(CHARGENB, 0, 1, 10, 'R', reroll_player); caret.x += 41;
+	button(CHARGENB, 0, 1, 12, 'F', edit_face);
 }
 
 static void paint_generate_header(const char* header) {

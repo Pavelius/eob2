@@ -36,11 +36,11 @@ ElfMage
 HalflingTheif
  elements Halfling Female Theif CreateCharacter
 
-DebugParty
+GeneratePartyDebug
  elements HumanRanger JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty
 
 StartGameAbilities
  elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+20 DebugPartyAbilities
 
 StartGame
- elements GenerateParty StartGameAbilities PassHours+7 HunterVillage EnterLocation
+ elements GenerateParty StartGameAbilities PassHours+7 Message HunterVillage EnterLocation

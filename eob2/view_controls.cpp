@@ -812,7 +812,7 @@ static void add_value(stringbuilder& sb, abilityn id) {
 			if(exeptional == 100)
 				sb.add("18/00");
 			else
-				sb.add(str("18/%01i", exeptional));
+				sb.add(str("18/%1.2i", exeptional));
 		} else
 			sb.add("%1i", player->get(id));
 		break;
@@ -824,7 +824,7 @@ static void add_value(stringbuilder& sb, abilityn id) {
 
 static void textn(abilityn id) {
 	char temp[260]; stringbuilder sb(temp);
-	textr(temp); add_value(sb, id);
+	add_value(sb, id); textr(temp);
 	textn(namesh(bsdata<abilityi>::elements[id].id));
 }
 

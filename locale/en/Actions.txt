@@ -93,9 +93,16 @@ UseHolySymbolSuccess: %1 answer the praying
 WizardTower: Wizard Tower
 YourFaithIsWeak: Faith is weak, need more donation
 
+Inn: Inn
+InnConfirm: Staying a day in inn cost for you %2i gold pieces. Do you really want pay?
+Tavern: Tavern
+Temple: Temple
+Stables: Stables
+
 Options: Options
 ReturnBack: Back
 Visit: Visit
+VisitPrompt: Visit %1
 Village: Village
 
 Accept: Accept

@@ -1,6 +1,8 @@
 ﻿Bugbear: Bugbear
 Ghoul: Ghoul
 Goblin: Goblin
+Kobold: Kobold
+Leech: Leech
 Shadow: Shadow
 Skeleton: Skeleton
 Zombie: Zombie

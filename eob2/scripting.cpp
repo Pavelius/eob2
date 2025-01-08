@@ -2103,6 +2103,8 @@ static void apply_racial_enemy(int bonus) {
 
 static void dialog_message(const char* action) {
 	auto pn = speech_get_na(last_id, action);
+	if(!pn)
+		pn = find_text(last_id, action);
 	if(pn)
 		dialog(0, pn);
 }

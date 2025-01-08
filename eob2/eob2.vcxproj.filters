@@ -598,9 +598,6 @@
     <Text Include="..\rules\Actions.txt">
       <Filter>rules</Filter>
     </Text>
-    <Text Include="..\locale\en\Campaign.txt">
-      <Filter>locale</Filter>
-    </Text>
     <Text Include="..\locale\en\Actions.txt">
       <Filter>locale</Filter>
     </Text>
@@ -619,9 +616,6 @@
     <Text Include="..\rules\Quests.txt">
       <Filter>rules</Filter>
     </Text>
-    <Text Include="..\locale\en\QuestFloodedSewers.txt">
-      <Filter>locale</Filter>
-    </Text>
     <Text Include="..\locale\en\Directions.txt">
       <Filter>locale</Filter>
     </Text>
@@ -631,7 +625,7 @@
     <Text Include="..\locale\en\Alignments.txt">
       <Filter>locale</Filter>
     </Text>
-    <Text Include="..\locale\en\QuestCursedDungeon.txt">
+    <Text Include="..\locale\en\Campaign.txt">
       <Filter>locale</Filter>
     </Text>
     <Text Include="..\locale\en\Monsters.txt">
@@ -640,16 +634,10 @@
     <Text Include="..\names\en\TalkMonsters.txt">
       <Filter>locale</Filter>
     </Text>
-    <Text Include="..\locale\en\QuestGlobal.txt">
-      <Filter>locale</Filter>
-    </Text>
     <Text Include="..\locale\en\Classes.txt">
       <Filter>locale</Filter>
     </Text>
     <Text Include="..\names\en\TalkTome.txt">
-      <Filter>locale</Filter>
-    </Text>
-    <Text Include="..\locale\en\QuestExploreNorthWood.txt">
       <Filter>locale</Filter>
     </Text>
     <Text Include="..\rules\Rooms.txt">

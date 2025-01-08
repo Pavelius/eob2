@@ -320,15 +320,11 @@
     <Text Include="..\locale\en\Abilities.txt" />
     <Text Include="..\locale\en\Actions.txt" />
     <Text Include="..\locale\en\Alignments.txt" />
-    <Text Include="..\locale\en\Campaign.txt" />
     <Text Include="..\locale\en\Classes.txt" />
     <Text Include="..\locale\en\Directions.txt" />
     <Text Include="..\locale\en\Items.txt" />
     <Text Include="..\locale\en\Monsters.txt" />
-    <Text Include="..\locale\en\QuestCursedDungeon.txt" />
-    <Text Include="..\locale\en\QuestExploreNorthWood.txt" />
-    <Text Include="..\locale\en\QuestFloodedSewers.txt" />
-    <Text Include="..\locale\en\QuestGlobal.txt" />
+    <Text Include="..\locale\en\Campaign.txt" />
     <Text Include="..\locale\en\Races.txt" />
     <Text Include="..\locale\en\Spells.txt" />
     <Text Include="..\locale\en\UnknownNames.txt" />

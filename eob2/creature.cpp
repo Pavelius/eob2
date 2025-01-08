@@ -487,7 +487,7 @@ static void apply_maximal(char* abilities, const char* maximal) {
 	}
 }
 
-static void generate_abilities() {
+void generate_abilities() {
 	auto& pc = player->getclass();
 	auto& pr = player->getrace();
 	char result[12] = {};
@@ -520,24 +520,29 @@ static void advance_level(variant id, int level) {
 	modifier = push_modifier;
 }
 
+void roll_player_hits() {
+	auto& ei = player->getclass();
+	for(char i = 0; i < ei.count; i++) {
+		auto pc = bsdata<classi>::elements + ei.classes[i];
+		if(!pc->hd)
+			continue;
+		auto value = 1 + rand() % pc->hd;
+		if(value < pc->hd / 2)
+			value = pc->hd / 2;
+		player->hpr += value;
+	}
+}
+
 static void set_class_ability() {
-	auto& pc = player->getclass();
-	advance_level(&pc, 0);
-	// Roll for hits first time
-	for(char i = 0; i < pc.count; i++) {
-		auto pd = bsdata<classi>::elements + pc.classes[i];
+	auto& ei = player->getclass();
+	for(char i = 0; i < ei.count; i++) {
+		auto pd = bsdata<classi>::elements + ei.classes[i];
 		player->levels[i]++;
-		if(pd->hd) {
-			auto value = 1 + rand() % pd->hd;
-			if(value < pd->hd / 2)
-				value = pd->hd / 2;
-			player->hpr += value;
-		}
 		advance_level(pd, player->levels[i]);
 	}
 }
 
-static void set_race_ability() {
+void set_race_ability() {
 	advance_level(bsdata<racei>::elements + player->race, 0);
 }
 
@@ -559,7 +564,7 @@ bool no_party_avatars(unsigned char value) {
 	return true;
 }
 
-static bool is_party_name(unsigned short value) {
+bool is_party_name(unsigned short value) {
 	for(auto i = 0; i < 6; i++) {
 		if(characters[i] && characters[i]->name == value)
 			return true;
@@ -571,9 +576,19 @@ static void set_basic_ability() {
 	player->basic.abilities[Alertness] += 70;
 }
 
-static void finish_character() {
+void update_player_hits() {
 	player->hp = player->hpm;
 	player->food = player->getfood();
+}
+
+void create_player_finish() {
+	set_basic_ability();
+	set_class_ability();
+	update_player();
+	update_player_hits();
+	set_starting_equipment();
+	update_player();
+	update_player_hits();
 }
 
 void create_player() {
@@ -581,14 +596,9 @@ void create_player() {
 	player->clear();
 	create_npc(player, no_party_avatars, is_party_name);
 	generate_abilities();
-	set_basic_ability();
 	set_race_ability();
-	set_class_ability();
-	update_player();
-	finish_character();
-	set_starting_equipment();
-	update_player();
-	finish_character();
+	roll_player_hits();
+	create_player_finish();
 }
 
 static void apply_feats(const variants& elements) {

@@ -1,4 +1,5 @@
 #include "answers.h"
+#include "avatar.h"
 #include "boost.h"
 #include "creature.h"
 #include "class.h"
@@ -208,6 +209,25 @@ static bool button_input(const void* button_data, unsigned key, unsigned key_hot
 	return false;
 }
 
+static bool button(resid id, int normal, int pressed, const char* format, unsigned key) {
+	auto button_data = (void*)(*((int*)&caret));
+	auto run = button_input(button_data, key);
+	auto ps = gres(id);
+	auto push_caret = caret;
+	auto frame = (pressed_focus == button_data) ? pressed : normal;
+	image(ps, frame, 0);
+	if(format) {
+		auto& f1 = ps->get(frame);
+		auto w = textw(format);
+		auto h = texth();
+		caret.x += (f1.sx - w + 1) / 2;
+		caret.y += (f1.sy - h + 1) / 2;
+		text(format);
+	}
+	caret = push_caret;
+	return run;
+}
+
 static bool button(resid id, int normal, int pressed, int overlay, unsigned key) {
 	auto button_data = (void*)(*((int*)&caret));
 	auto run = button_input(button_data, key);
@@ -231,6 +251,14 @@ static bool button(resid id, int normal, int pressed, int overlay, unsigned key)
 static void button(resid id, int normal, int pressed, int overlay, unsigned key, fnevent proc, long param = 0, void* param_object = 0) {
 	if(button(id, normal, pressed, overlay, key))
 		execute(proc, param, 0, param_object);
+}
+
+static void button(resid id, int normal, int pressed, const char* format, unsigned key, fnevent proc, long param = 0, void* param_object = 0) {
+	auto push_font = font;
+	font = gres(FONT6);
+	if(button(id, normal, pressed, format, key))
+		execute(proc, param, 0, param_object);
+	font = push_font;
 }
 
 static void correct_answers(int maximum) {
@@ -756,8 +784,7 @@ static int get_weapon_attack_bonus(wearn w) {
 	return bonus;
 }
 
-static void textn(abilityn id) {
-	char temp[260]; stringbuilder sb(temp);
+static void add_value(stringbuilder& sb, abilityn id) {
 	int bonus;
 	switch(id) {
 	case AttackMelee:
@@ -779,11 +806,25 @@ static void textn(abilityn id) {
 	case ReactionBonus:
 		sb.add("%+1i", player->get(id));
 		break;
+	case Strenght:
+		if(player->get(id) == 18) {
+			auto exeptional = player->get(ExeptionalStrenght);
+			if(exeptional == 100)
+				sb.add("18/00");
+			else
+				sb.add(str("18/%01i", exeptional));
+		} else
+			sb.add("%1i", player->get(id));
+		break;
 	default:
 		sb.add("%1i", player->get(id));
 		break;
 	}
-	textr(temp);
+}
+
+static void textn(abilityn id) {
+	char temp[260]; stringbuilder sb(temp);
+	textr(temp); add_value(sb, id);
 	textn(namesh(bsdata<abilityi>::elements[id].id));
 }
 
@@ -1889,6 +1930,7 @@ static void paint_generate_avatars(creaturei* hilite, creaturei** player_positio
 void* choose_generate_box(const char* header) {
 	rectpush push;
 	pushscene push_scene;
+	current_focus = player_position;
 	auto push_fore = fore;
 	while(ismodal()) {
 		paint_background(CHARGEN, 0);
@@ -1940,11 +1982,130 @@ static void paint_avatar_list() {
 	}
 }
 
+static void paint_ability(abilityn i, int header_width) {
+	auto caret_x = caret.x;
+	auto value = player->get(i);
+	auto name = getnm(ids(bsdata<abilityi>::elements[i].id, "Short"));
+	text(name, -1, TextBold);
+	caret.x += header_width;
+	char temp[32]; stringbuilder sb(temp);
+	add_value(sb, i);
+	text(temp, -1, TextBold);
+	caret.y += texth();
+	caret.x = caret_x;
+}
+
+static void paint_character_info_left() {
+	auto push = caret;
+	for(auto i = Strenght; i <= Charisma; i = (abilityn)(i + 1)) {
+		caret.x = push.x;
+		paint_ability(i, 32);
+	}
+	caret = push;
+}
+
+static void paint_character_info_right() {
+	auto push = caret;
+	const auto w = 28;
+	paint_ability(AttackMelee, w);
+	paint_ability(AC, w);
+	paint_ability(Hits, w);
+	caret = push;
+}
+
+static void paint_character_info() {
+	char temp[260]; stringbuilder sb(temp);
+	sb.clear(); sb.add("%Name");
+	texta(temp, AlignCenter | TextBold); caret.y += texth();
+	sb.clear(); sb.add("%Race %Gender");
+	texta(temp, AlignCenter | TextBold); caret.y += texth();
+	sb.clear(); sb.add("%Class");
+	texta(temp, AlignCenter | TextBold); caret.y += texth() + 4;
+	caret.x += 4;
+	paint_character_info_left();
+	caret.x += 80;
+	paint_character_info_right();
+}
+
 void paint_choose_avatars() {
 	button(CHARGENB, 2, 3, 8, KeyLeft, cbsetint, answer_index - 1, &answer_index); caret.y += 16;
 	button(CHARGENB, 2, 3, 9, KeyRight, cbsetint, answer_index + 1, &answer_index); caret.y += 16;
 	caret.x += 33; caret.y -= 32;
 	paint_avatar_list();
+	caret.x -= 33; caret.y += 36;
+	paint_character_info();
+	switch(hot.key) {
+	case KeyEscape:
+		clear_input();
+		execute(buttonparam, 0xFF);
+		break;
+	case KeyEnter:
+		clear_input();
+		execute(buttonparam, character_avatars[answer_index]);
+		break;
+	}
+}
+
+static void delete_player_posititon() {
+	if(!player_position)
+		return;
+	auto p = *player_position;
+	if(!p)
+		return;
+	p->clear();
+	*player_position = 0;
+	buttoncancel();
+}
+
+static void reroll_player() {
+	if(!player_position)
+		return;
+	auto p = *player_position;
+	if(!p)
+		return;
+	last_gender = player->gender;
+	last_race = player->race;
+	last_class = player->character_class;
+	last_alignment = player->alignment;
+	auto avatar = player->avatar;
+	player->clear();
+	create_npc(player, 0, is_party_name);
+	player->avatar = avatar;
+	generate_abilities();
+	set_race_ability();
+	roll_player_hits();
+	update_player();
+	update_player_hits();
+	create_player_finish();
+}
+
+bool choose_avatar() {
+	unsigned char avatars[256];
+	auto count = get_avatars(avatars, last_race, last_gender, last_class, no_party_avatars);
+	character_avatars = slice<unsigned char>(avatars, count);
+	auto result = (unsigned char)(int)choose_generate_box(paint_choose_avatars);
+	if(result == 0xFF)
+		return false;
+	player->avatar = result;
+	return true;
+}
+
+static void edit_face() {
+	choose_avatar();
+}
+
+void paint_character_edit() {
+	auto push = caret;
+	caret.x += 32 * 2 + 1;
+	paint_avatar();
+	caret.x = push.x; caret.y += 36;
+	paint_character_info();
+	caret.x = 224; caret.y = 172;
+	button(CHARGENB, 6, 7, -1, KeyDelete, delete_player_posititon); caret.x += 41;
+	button(CHARGENB, 0, 1, getnm("OK"), KeyEnter, buttonok);
+	caret.x = 224; caret.y = 156;
+	button(CHARGENB, 0, 1, getnm("Reroll"), 'R', reroll_player); caret.x += 41;
+	button(CHARGENB, 0, 1, getnm("Faces"), 'F', edit_face);
 }
 
 static void paint_generate_header(const char* header) {

@@ -1,7 +1,3 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `ChaoticEvil`
- Define translation for `ChaoticNeutral`
- Define translation for `LawfulEvil`
- Define translation for `LawfulNeutral`
- Define translation for `NeutralEvil`
- Define translation for `TrueNeutral`
+ Define translation for `Faces`
+ Define translation for `Reroll`

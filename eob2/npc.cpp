@@ -27,7 +27,10 @@ void create_npc(npc* p, fnallowuc avatar_test, fnallowus name_filter) {
 	p->gender = last_gender;
 	p->character_class = last_class;
 	p->name = generate_name(p->race, p->gender, name_filter);
-	p->avatar = generate_avatar(p->race, p->gender, p->character_class, avatar_test);
+	if(avatar_test)
+		p->avatar = generate_avatar(p->race, p->gender, p->character_class, avatar_test);
+	else
+		p->avatar = 0xFF;
 }
 
 const char*	npc::getname() const {

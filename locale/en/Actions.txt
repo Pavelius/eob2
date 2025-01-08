@@ -29,6 +29,7 @@ ConsumeTome: %+1 is read to the end
 CreateNewGame: Create new game
 DebugTest: Debug Test
 DebugTestVisit: Debug test string
+Delete: Delete
 Donate: Donation
 DoorOpened: Locked door opened
 DrinkPotionAct: %Name drink %ItemName
@@ -37,6 +38,7 @@ EatAndDrinkConfirm: Do you really want pay %2i gold piece for food and drink?
 EatAndDrinkNotEnoughtGold: "Return when you will have %2i gold piece" sad bartender "Now, get lost"
 EatAndDrinkVisit: Eat and drink
 ExitConfirm: Do you really want to exit game?
+Faces: Faces
 FeelDisease: %Name feels bad
 FeelPoison: %Name suffer from poison
 FeelWorse: %Name feels bad
@@ -71,6 +73,7 @@ QuestGoals: Quest Goals
 RemoveTrapsFail: Fail remove trap
 RepairItems: Repair Items
 RepairItemsConfirm: "I can repair all your weapons and tools. They be as new. And it will be cost for you just 5 gold pieces. Better offer, I think."
+Reroll: Reroll
 RestParty: Rest party
 RestPartyConfirm: Rest all party for 8 hours?
 ReturnToStreet: Leave to the street

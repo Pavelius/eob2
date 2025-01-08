@@ -63,16 +63,22 @@ extern creaturei *player, *opponent, *caster, *result_player;
 extern bool is_critical_hit;
 
 void add_spells(int type, int level, const spellseta* include);
+bool can_remove(item* pi, bool speech = true);
 void check_levelup();
 void create_player();
+void create_player_finish();
 void create_monster(const monsteri* pi);
 void create_monster_pallette();
 void drop_unique_loot(creaturei* player);
+void generate_abilities();
+bool is_party_name(unsigned short value);
+bool no_party_avatars(unsigned char value);
 bool roll_ability(int chance);
+void roll_player_hits();
+void set_race_ability();
 void set_reaction(creaturei** creatures, reactions v);
 void update_player();
+void update_player_hits();
 
 creaturei* item_owner(const void* p);
 wearn item_wear(const void* p);
-bool can_remove(item* pi, bool speech = true);
-bool no_party_avatars(unsigned char value);

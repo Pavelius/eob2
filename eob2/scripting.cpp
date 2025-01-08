@@ -1032,20 +1032,35 @@ static void choose_gender() {
 	last_gender = (gendern)(p - bsdata<genderi>::elements);
 }
 
-static void choose_avatar() {
-	unsigned char avatars[256];
-	auto count = get_avatars(avatars, last_race, last_gender, last_class, no_party_avatars);
-	character_avatars = slice<unsigned char>(avatars, count);
-	choose_generate_box(paint_choose_avatars);
-}
-
 static void test_generate(int bonus) {
-	player_position = (creaturei**)choose_generate_box(getnm("ChooseGenerateOptions"));
-	choose_race();
-	choose_gender();
-	choose_class();
-	choose_alignment();
-	choose_avatar();
+	while(true) {
+		player_position = (creaturei**)choose_generate_box(getnm("ChooseGenerateOptions"));
+		if(!player_position)
+			break;
+		if(*player_position)
+			choose_generate_box(paint_character_edit);
+		else {
+			choose_race();
+			choose_gender();
+			choose_class();
+			choose_alignment();
+			player = bsdata<creaturei>::add();
+			player->clear();
+			create_npc(player, 0, is_party_name);
+			generate_abilities();
+			set_race_ability();
+			roll_player_hits();
+			update_player();
+			update_player_hits();
+			if(!choose_avatar()) {
+				player->clear();
+				continue;
+			}
+			create_player_finish();
+			*player_position = player;
+			choose_generate_box(paint_character_edit);
+		}
+	}
 }
 
 static void change_quick_item() {
@@ -2527,6 +2542,10 @@ static void player_gender(stringbuilder& sb) {
 	sb.add(getnm(getid<genderi>(player->gender)));
 }
 
+static void player_class(stringbuilder& sb) {
+	sb.add(getnm(getid<classi>(player->character_class)));
+}
+
 static void player_race(stringbuilder& sb) {
 	sb.add(getnm(getid<racei>(player->race)));
 }
@@ -2867,6 +2886,7 @@ static void talk_about(int bonus) {
 }
 
 BSDATA(textscript) = {
+	{"Class", player_class},
 	{"DungeonBoss", dungeon_boss},
 	{"DungeonKey", dungeon_key},
 	{"DungeonOrigin", dungeon_origin},

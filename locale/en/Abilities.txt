@@ -5,6 +5,13 @@ Intellegence: Intellegence
 Strenght: Strenght
 Wisdow: Wisdow
 
+CharismaShort: Cha
+ConstitutionShort: Con
+DexterityShort: Dex
+IntellegenceShort: Int
+StrenghtShort: Str
+WisdowShort: Wis
+
 ACShort: AC
 AttackMeleeShort: Att
 DamageMeleeShort: Dm

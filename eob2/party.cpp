@@ -47,7 +47,7 @@ int get_party_index(const creaturei* target) {
 	return -1;
 }
 
-static void update_party_side() {
+void update_party_side() {
 	for(auto i = 0; i < lenghtof(characters); i++) {
 		if(characters[i])
 			characters[i]->side = i;
@@ -61,7 +61,7 @@ void party_say(const char* id, const char* action) {
 		player->speak(id, action);
 }
 
-static void update_default_spells() {
+void update_default_spells() {
 	auto& ei = player->getclass();
 	auto spell_known = get_spells_known(player);
 	if(!spell_known)

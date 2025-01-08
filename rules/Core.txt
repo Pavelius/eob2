@@ -17,22 +17,19 @@ RandomGender
 
 #List
 
-DebugCharacter
 DebugMageSpells
 // elements AddExpPersonal+100 AddExpPersonal+100 PushModifier Permanent Invisibility StrenghtSpell
-DebugPartyAbilities
-// elements AddReward+5
 
 HumanFighter
- elements Human Male Fighter CreateCharacter DebugCharacter
+ elements Human Male Fighter CreateCharacter
 HumanPaladin
- elements Human Male Paladin CreateCharacter DebugCharacter
+ elements Human Male Paladin CreateCharacter
 HumanRanger
- elements Human Male Ranger CreateCharacter DebugCharacter
+ elements Human Male Ranger CreateCharacter
 DwarfCleric
- elements Dwarf RandomGender Cleric CreateCharacter DebugCharacter
+ elements Dwarf RandomGender Cleric CreateCharacter
 ElfMage
- elements Elf RandomGender MageTheif CreateCharacter DebugCharacter DebugMageSpells
+ elements Elf RandomGender MageTheif CreateCharacter DebugMageSpells
 HalflingTheif
  elements Halfling Female Theif CreateCharacter
 
@@ -40,7 +37,6 @@ GeneratePartyDebug
  elements HumanRanger JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty
 
 StartGameAbilities
- elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+20 DebugPartyAbilities
-
+ elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+20
 StartGame
  elements GenerateParty StartGameAbilities PassHours+7 Message HunterVillage EnterLocation

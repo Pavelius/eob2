@@ -1,3 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Faces`
- Define translation for `Reroll`
+﻿Error in file `rules/Core.txt`:
+ Line 40: Can't find variant `DebugPartyAbilities`

@@ -1068,6 +1068,15 @@ static void generate_party(int bonus) {
 			choose_generate_box(paint_character_edit);
 		}
 	}
+	// Join party
+	for(auto p : characters) {
+		if(!p)
+			continue;
+		player = p;
+		update_party_side();
+		update_default_spells();
+		restore_spells(0);
+	}
 }
 
 static void change_quick_item() {
@@ -2061,7 +2070,7 @@ static void learn_mage_spells(int bonus) {
 	pushanswer push;
 	add_spells(1, bonus, 0);
 	an.elements.shuffle();
-	an.elements.top(last_number);
+	an.elements.top(5);
 	for(auto& e : an.elements) {
 		if(player->roll(LearnSpell))
 			ps->set(getbsi((spelli*)e.value));

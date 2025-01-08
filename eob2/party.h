@@ -86,6 +86,8 @@ void set_party_position(pointc v, directions d);
 void set_reaction(creaturei** creatures, reactions v);
 void surprise_roll(creaturei** creatures, int bonus);
 void turnto(pointc v, directions d, bool test_surprise = false, int sneaky_bonus = 0);
+void update_default_spells();
+void update_party_side();
 
 int getparty(partystatn id);
 int get_party_index(const creaturei* target);

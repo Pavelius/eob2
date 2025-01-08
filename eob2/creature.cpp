@@ -592,7 +592,7 @@ void create_player_finish() {
 }
 
 void create_player() {
-	player = bsdata<creaturei>::add();
+	player = bsdata<creaturei>::addz();
 	player->clear();
 	create_npc(player, no_party_avatars, is_party_name);
 	generate_abilities();
@@ -705,7 +705,8 @@ dice creaturei::getdamage(int& bonus, wearn id, bool large_enemy) const {
 	auto isranged = wears[id].isranged();
 	bonus += player->get(isranged ? AttackRange : AttackMelee);
 	result.b += player->get(isranged ? DamageRange : DamageMelee);
-	if(is(WeaponSpecialist) && isspecialist(&ei)) {
+	// Only single player fighter have bonus speñialization (bonus attack keep)
+	if(is(WeaponSpecialist) && isspecialist(&ei) && getclass().count==1) {
 		if(wears[id].isranged())
 			bonus += 2;
 		else {

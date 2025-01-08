@@ -551,7 +551,7 @@ static void set_starting_equipment() {
 		script_run(p->elements);
 }
 
-static bool no_party_avatars(unsigned char value) {
+bool no_party_avatars(unsigned char value) {
 	for(auto i = 0; i < 6; i++) {
 		if(characters[i] && characters[i]->avatar == value)
 			return false;

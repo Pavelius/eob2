@@ -42,7 +42,7 @@ static int disp_damage[6];
 static int disp_weapon[6][2];
 static unsigned animate_counter;
 static int last_spell_level;
-static int answer_origin, answer_per_page;
+static int answer_origin, answer_per_page, answer_index;
 bool need_update_animation;
 unsigned long current_cpu_time;
 
@@ -208,6 +208,50 @@ static bool button_input(const void* button_data, unsigned key, unsigned key_hot
 	return false;
 }
 
+static bool button(resid id, int normal, int pressed, int overlay, unsigned key) {
+	auto button_data = (void*)(*((int*)&caret));
+	auto run = button_input(button_data, key);
+	auto ps = gres(id);
+	auto push_caret = caret;
+	auto frame = (pressed_focus == button_data) ? pressed : normal;
+	image(ps, frame, 0);
+	if(overlay != -1) {
+		auto& f1 = ps->get(frame);
+		auto& f2 = ps->get(overlay);
+		if(f1.sx > f2.sx)
+			caret.x += (f1.sx - f2.sx + 1) / 2;
+		if(f1.sy > f2.sy)
+			caret.y += (f1.sy - f2.sy + 1) / 2;
+		image(ps, overlay, 0);
+	}
+	caret = push_caret;
+	return run;
+}
+
+static void button(resid id, int normal, int pressed, int overlay, unsigned key, fnevent proc, long param = 0, void* param_object = 0) {
+	if(button(id, normal, pressed, overlay, key))
+		execute(proc, param, 0, param_object);
+}
+
+static void correct_answers(int maximum) {
+	if(answer_index >= maximum)
+		answer_index = maximum - 1;
+	if(answer_index < 0)
+		answer_index = 0;
+	if(answer_index < answer_origin)
+		answer_origin = answer_index;
+	if(answer_index >= answer_origin + answer_per_page)
+		answer_origin = answer_index - answer_per_page + 1;
+	if(answer_origin + answer_per_page >= maximum)
+		answer_origin = maximum - answer_per_page;
+	if(answer_origin < 0)
+		answer_origin = 0;
+	if(answer_index < answer_origin)
+		answer_index = answer_origin;
+	if(answer_index > answer_origin + answer_per_page)
+		answer_index = answer_origin + answer_per_page - 1;
+}
+
 static void textc(color tc, const char* format, ...) {
 	char temp[32]; stringbuilder sb(temp);
 	XVA_FORMAT(format);
@@ -290,7 +334,6 @@ static void paint_answers(fnanswer paintcell, fnevent pushbutton, int height_gri
 		if(index >= index_stop)
 			break;
 		auto& e = an.elements[index];
-		// paintcell(index, e.value, e.text, e.key, pushbutton);
 		paintcell(index, &e, e.text, e.key, pushbutton);
 		caret.y += height_grid;
 		index++;
@@ -1832,7 +1875,7 @@ static void paint_generate_avatars(creaturei* hilite, creaturei** player_positio
 			paint_avatar();
 		caret.x--; caret.y--;
 		if(player_position == button_data)
-			image(caret.x, caret.y, gres(XSPL), (getcputime()/100) % 10, 0);
+			image(caret.x, caret.y, gres(XSPL), (getcputime() / 100) % 10, 0);
 		if(current_focus == button_data) {
 			paint_hilite_rect();
 			auto run = button_input(button_data, KeyEnter);
@@ -1863,17 +1906,45 @@ void* choose_generate_box(fnevent proc) {
 	rectpush push;
 	pushscene push_scene;
 	auto push_fore = fore;
+	auto push_origin = answer_origin;
+	answer_per_page = 4;
+	answer_index = 0;
 	while(ismodal()) {
 		paint_background(CHARGEN, 0);
-		paint_generate_avatars(player, 0);
-		caret.x = 150; caret.y = 80; width = 148;
+		paint_generate_avatars(player, player_position);
+		caret.x = 144; caret.y = 66; width = 160;
 		proc();
 		domodal();
 		if(!focus_input())
 			common_input();
 	}
+	answer_origin = push_origin;
 	fore = push_fore;
 	return (void*)getresult();
+}
+
+static void paint_avatar_list() {
+	int maximum = character_avatars.size();
+	correct_answers(maximum);
+	rectpush push;
+	width = 32; height = 32;
+	for(auto i = 0; i < answer_per_page; i++) {
+		auto index = answer_origin + i;
+		if(index >= maximum)
+			break;
+		auto n = character_avatars[index];
+		image(gres(PORTM), n, 0);
+		if(index == answer_index)
+			paint_hilite_rect();
+		caret.x += 32;
+	}
+}
+
+void paint_choose_avatars() {
+	button(CHARGENB, 2, 3, 8, KeyLeft, cbsetint, answer_index - 1, &answer_index); caret.y += 16;
+	button(CHARGENB, 2, 3, 9, KeyRight, cbsetint, answer_index + 1, &answer_index); caret.y += 16;
+	caret.x += 33; caret.y -= 32;
+	paint_avatar_list();
 }
 
 static void paint_generate_header(const char* header) {

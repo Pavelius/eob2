@@ -75,3 +75,4 @@ void update_player();
 creaturei* item_owner(const void* p);
 wearn item_wear(const void* p);
 bool can_remove(item* pi, bool speech = true);
+bool no_party_avatars(unsigned char value);

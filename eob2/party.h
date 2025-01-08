@@ -47,6 +47,7 @@ extern creaturei** player_position;
 extern partyi party;
 extern partystatn last_variable;
 extern int enemy_distance;
+extern slice<unsigned char> character_avatars;
 
 unsigned get_stamp(unsigned duration);
 

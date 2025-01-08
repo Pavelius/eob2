@@ -63,7 +63,7 @@ static size_t get_avatars_ex(unsigned char* result, racen race, gendern gender) 
 	return p - result;
 }
 
-static size_t get_avatars(unsigned char* result, racen race, gendern gender, classn type, fnallowuc filter_proc) {
+size_t get_avatars(unsigned char* result, racen race, gendern gender, classn type, fnallowuc filter_proc) {
 	auto c = get_avatars_ex(result, race, gender, type);
 	c = filter(result, c, filter_proc);
 	if(c < 4) {

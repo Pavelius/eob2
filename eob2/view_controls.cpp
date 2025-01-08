@@ -548,8 +548,14 @@ static void paint_focus_rect() {
 }
 
 static void paint_hilite_rect() {
+	static point cash_caret;
+	static unsigned long cash_time;
+	if(cash_caret != caret || !cash_time) {
+		cash_caret = caret;
+		cash_time = get_frame_tick();
+	}
 	auto push_fore = fore;
-	fore = colors::white.mix(colors::black, get_alpha(255, 160));
+	fore = colors::black.mix(colors::white, get_alpha(255, 160, get_frame_tick() - cash_time));
 	rectb();
 	fore = push_fore;
 }
@@ -1846,8 +1852,25 @@ void* choose_generate_box(const char* header) {
 		paint_generate_avatars(player, 0);
 		paint_header(150, 80, 148, header);
 		domodal();
-		focus_input();
-		common_input();
+		if(!focus_input())
+			common_input();
+	}
+	fore = push_fore;
+	return (void*)getresult();
+}
+
+void* choose_generate_box(fnevent proc) {
+	rectpush push;
+	pushscene push_scene;
+	auto push_fore = fore;
+	while(ismodal()) {
+		paint_background(CHARGEN, 0);
+		paint_generate_avatars(player, 0);
+		caret.x = 150; caret.y = 80; width = 148;
+		proc();
+		domodal();
+		if(!focus_input())
+			common_input();
 	}
 	fore = push_fore;
 	return (void*)getresult();

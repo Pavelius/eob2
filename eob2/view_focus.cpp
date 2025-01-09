@@ -19,6 +19,16 @@ static renderi*	render_current;
 void *current_focus, *pressed_focus;
 bool disable_input;
 
+void mouse_input(const void* av) {
+	if(!av || disable_input)
+		return;
+	auto ishilited = hot.mouse.in({caret.x, caret.y, caret.x + width, caret.y + height});
+	if(ishilited && hot.key == MouseLeft && hot.pressed) {
+		if(current_focus!=av)
+			execute(cbsetptr, (long)av, 0, &current_focus);
+	}
+}
+
 void focusing(const void* av) {
 	if(!av || disable_input)
 		return;

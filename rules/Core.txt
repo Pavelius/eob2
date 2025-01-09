@@ -39,4 +39,4 @@ GeneratePartyDebug
 StartGameAbilities
  elements FloodedSewers ActivateQuest GoldPiece+50 Reputation+20 Blessing+20
 StartGame
- elements GenerateParty StartGameAbilities PassHours+7 Message HunterVillage EnterLocation
+ elements GeneratePartyDebug StartGameAbilities PassHours+7 Message HunterVillage EnterLocation

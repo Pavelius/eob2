@@ -280,6 +280,18 @@ bool apply_message(const char* id, const char* action) {
 	return false;
 }
 
+bool apply_action_dialog(const char* id, const char* action) {
+	if(!player)
+		return false;
+	auto format = find_speak(id, action);
+	if(!format)
+		format = find_text(id, action);
+	if(!format)
+		return false;
+	dialog(0, format);
+	return false;
+}
+
 void broke_cell(pointc v) {
 	auto t = loc->get(v);
 	auto broken_cell = bsdata<celli>::elements[t].activate;
@@ -974,7 +986,14 @@ static spelli* choose_spell(int level, int type) {
 }
 
 static void test_dungeon() {
-	pointc v = party;
+	pointc v;
+	for(v.x = 0; v.x < mpx; v.x++) {
+		for(v.y = 0; v.y < mpy; v.y++) {
+			if(v)
+				loc->set(v, CellExplored);
+		}
+	}
+	v = party;
 	for(int i = 0; i < 3; i++)
 		v = to(v, party.d);
 	thrown_item(v, Down, 6, get_party_index(player) % 2, 4);
@@ -1797,6 +1816,9 @@ static void play_dungeon() {
 }
 
 static void enter_active_dungeon() {
+	locup = 0;
+	if(loc->level > 1)
+		locup = loc - 1;
 	set_dungeon_tiles(loc->type);
 	make_action();
 	save_focus = current_focus;
@@ -1847,10 +1869,13 @@ static bool party_move_interact(pointc v) {
 			enter_location(0);
 		break;
 	case CellPit:
+		set_party_position(v);
 		loc = find_dungeon(loc->level + 1);
 		animation_update();
 		all_party(pit_fall_down, true);
 		consolen(getnm("PartyFallPit"));
+		enter_active_dungeon();
+		animation_update();
 		pass_round();
 		break;
 	default:
@@ -1895,11 +1920,11 @@ static bool talk_monsters() {
 	auto pm = opponent->getmonster();
 	if(!pm)
 		return false;
+	auto rm = bsdata<reactioni>::elements[last_reaction].id;
 	auto pq = party.getquest();
 	if(!pq)
 		return false;
 	auto pn = speech_get_na(pm->id, pq->id);
-	auto rm = bsdata<reactioni>::elements[last_reaction].id;
 	if(!pn)
 		pn = speech_get_na(pm->id, rm);
 	if(!pn) {
@@ -2111,11 +2136,11 @@ static void apply_racial_enemy(int bonus) {
 }
 
 static void dialog_message(const char* action) {
-	auto pn = speech_get_na(last_id, action);
-	if(!pn)
-		pn = find_text(last_id, action);
-	if(pn)
-		dialog(0, pn);
+	auto format = find_speak(last_id, action);
+	if(!format)
+		format = find_text(last_id, action);
+	if(format)
+		dialog(0, format);
 }
 
 static void player_speak(const char* action) {

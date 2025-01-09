@@ -868,34 +868,36 @@ static void drop_special_item() {
 	}
 }
 
-static void link_dungeon(dungeoni& current, dungeoni& below) {
+static void link_dungeon(dungeoni& upper, dungeoni& current) {
 	pointc v;
 	unsigned short pm1[mpy][mpx];
 	unsigned short pm2[mpy][mpx];
 	// 1) Get idicies of two linked dungeons
 	current.block(true);
-	current.makewave(to(current.state.down, current.state.down.d));
+	current.makewave(to(current.state.up, current.state.up.d));
 	memcpy(pm1, pathmap, sizeof(pathmap));
-	below.block(true);
-	below.makewave(to(below.state.up, below.state.up.d));
+	upper.block(true);
+	upper.makewave(to(upper.state.down, upper.state.down.d));
 	memcpy(pm2, pathmap, sizeof(pathmap));
 	// 2) Get valid indicies
 	for(v.y = 0; v.y < mpy; v.y++) {
 		for(v.x = 0; v.x < mpx; v.x++) {
-			// Dungeon must be passable
-			if(!pm2[v.y][v.x] || pm2[v.y][v.x] >= 0xFF00)
-				pm1[v.y][v.x] = 0xFFFF;
 			// Dungeon must do not have monster in cell
-			if(below.ismonster(v))
-				pm1[v.y][v.x] = 0xFFFF;
+			if(current.ismonster(v) || upper.ismonster(v))
+				pm2[v.y][v.x] = 0xFFFF;
 			// Dungeon must not have door in this cell (door cell is passable)
-			if(below.get(v) == CellDoor || current.get(v) == CellDoor)
-				pm1[v.y][v.x] = 0xFFFF;
+			if(current.get(v) == CellDoor || upper.get(v) == CellDoor)
+				pm2[v.y][v.x] = 0xFFFF;
+			if(current.get(v) == CellPit || upper.get(v) == CellPit)
+				pm2[v.y][v.x] = 0xFFFF;
 			// There is no location right before stairs
-			if(v == to(below.state.down, below.state.down.d)
-				|| v == to(below.state.up, below.state.up.d)
+			if(v == to(upper.state.down, upper.state.down.d)
+				|| v == to(upper.state.up, upper.state.up.d)
 				|| v == to(current.state.up, current.state.up.d)
 				|| v == to(current.state.down, current.state.down.d))
+				pm2[v.y][v.x] = 0xFFFF;
+			// Dungeon must be passable
+			if(!pm1[v.y][v.x] || !pm2[v.y][v.x] || pm2[v.y][v.x] >= 0xFF00)
 				pm1[v.y][v.x] = 0xFFFF;
 		}
 	}
@@ -907,13 +909,11 @@ static void link_dungeon(dungeoni& current, dungeoni& below) {
 				points.add(v);
 		}
 	}
-	// 4) Place random count of pits
-	size_t pits_count = xrand(1, 4);
+	// 4) Place random count of pits (usually for 1 to 4)
 	zshuffle(points.data, points.count);
-	if(pits_count > points.count)
-		pits_count = points.count;
-	for(size_t i = 0; i < pits_count; i++)
-		current.set(points[i], CellPit);
+	points.top(xrand(1, 4));
+	for(auto v : points)
+		upper.set(v, CellPit);
 }
 
 static void select_points(pointca& result, bool(*fnfilter)(pointc)) {

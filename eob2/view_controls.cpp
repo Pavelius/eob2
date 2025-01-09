@@ -199,40 +199,22 @@ static void button_frame(int count, bool focused, bool pressed) {
 static bool button_input(const void* button_data, unsigned key, unsigned key_hot = 0xFFFF0000) {
 	if(!button_data)
 		return false;
+	auto ishilited = hot.mouse.in({caret.x, caret.y, caret.x + width, caret.y + height});
 	auto isfocused = (current_focus == button_data);
-	if((isfocused && (hot.key == KeyEnter || hot.key == key_hot)) || (key && hot.key == key))
+	if((isfocused && (hot.key == KeyEnter || hot.key == key_hot)) || (key && hot.key == key) || (ishilited && hot.pressed))
 		pressed_focus = (void*)button_data;
-	else if(hot.key == InputKeyUp && pressed_focus == button_data) {
+	else if((hot.key == InputKeyUp && pressed_focus == button_data) || (ishilited && hot.key == MouseLeft && !hot.pressed)) {
 		pressed_focus = 0;
 		return true;
 	}
 	return false;
 }
 
-static bool button(resid id, int normal, int pressed, const char* format, unsigned key) {
-	auto button_data = (void*)(*((int*)&caret));
-	auto run = button_input(button_data, key);
-	auto ps = gres(id);
-	auto push_caret = caret;
-	auto frame = (pressed_focus == button_data) ? pressed : normal;
-	image(ps, frame, 0);
-	if(format) {
-		auto& f1 = ps->get(frame);
-		auto w = textw(format);
-		auto h = texth();
-		caret.x += (f1.sx - w + 1) / 2;
-		caret.y += (f1.sy - h + 1) / 2;
-		text(format);
-	}
-	caret = push_caret;
-	return run;
-}
-
 static bool button(resid id, int normal, int pressed, int overlay, unsigned key) {
+	auto ps = gres(id);
+	rectpush push; width = ps->get(normal).sx; height = ps->get(normal).sy;
 	auto button_data = (void*)(*((int*)&caret));
 	auto run = button_input(button_data, key);
-	auto ps = gres(id);
-	auto push_caret = caret;
 	auto frame = (pressed_focus == button_data) ? pressed : normal;
 	image(ps, frame, 0);
 	if(overlay != -1) {
@@ -244,21 +226,12 @@ static bool button(resid id, int normal, int pressed, int overlay, unsigned key)
 			caret.y += (f1.sy - f2.sy + 1) / 2;
 		image(ps, overlay, 0);
 	}
-	caret = push_caret;
 	return run;
 }
 
 static void button(resid id, int normal, int pressed, int overlay, unsigned key, fnevent proc, long param = 0, void* param_object = 0) {
 	if(button(id, normal, pressed, overlay, key))
 		execute(proc, param, 0, param_object);
-}
-
-static void button(resid id, int normal, int pressed, const char* format, unsigned key, fnevent proc, long param = 0, void* param_object = 0) {
-	auto push_font = font;
-	font = gres(FONT6);
-	if(button(id, normal, pressed, format, key))
-		execute(proc, param, 0, param_object);
-	font = push_font;
 }
 
 static void correct_answers(int maximum) {
@@ -660,6 +633,7 @@ static void paint_item(item& it, wearn id, int emphty_avatar = -1, int pallette_
 	}
 	if(!disable_input) {
 		focusing(&it);
+		mouse_input(&it);
 		if(current_select == &it)
 			paint_select_rect();
 		else if(current_focus == &it)
@@ -1589,8 +1563,8 @@ bool character_input() {
 	case 'G': switch_page(paint_quest_goals); break;
 	case 'X': switch_page(paint_skills); break;
 #ifdef _DEBUG
-	// Feats do not shown. Player must do not know what feat it is.
-	// So only in debug mode.
+		// Feats do not shown. Player must do not know what feat it is.
+		// So only in debug mode.
 	case 'F': switch_page(paint_feats); break;
 #endif
 	case 'P': pick_up_item(); break;

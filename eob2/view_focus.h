@@ -13,5 +13,6 @@ void apply_focus(int key);
 void clear_focus_data();
 void focusing(const void* focus_data);
 bool focus_input();
+void mouse_input(const void* focus_data);
 
 void* focus_next(void* focus, int key);

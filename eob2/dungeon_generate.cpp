@@ -167,7 +167,7 @@ static void lair_door(pointc v, directions d) {
 static int get_magic_bonus(int chance_upgrade, int chance_downgrade) {
 	auto base = loc->level;
 	if(last_quest)
-		base += last_quest->treasure;
+		base += last_quest->difficult;
 	if(base < 1)
 		base = 1;
 	while(base < 5 && d100() < chance_upgrade) {

@@ -26,7 +26,7 @@ ExploreNorthWood
  reward AddReward+1 Reputation+2 CursedDungeon ActivateQuest
  sites type(forest) level(1) habbits(Wolf Goblin) language(Goblinoid) key(IronKey) features(RoomFeature) graves(3)
 
-CursedDungeon
+CursedDungeon difficult(1)
  goals TakeSpecialItem(1)
  travel PassHours+6
  reward AddReward+10

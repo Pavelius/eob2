@@ -1900,12 +1900,12 @@ static void paint_header(const char* header, bool hilite = false) {
 
 static void paint_generate_avatars(creaturei* hilite, creaturei** player_position) {
 	rectpush push;
-	width = 33;
-	height = 34;
 	auto push_player = player;
 	for(auto i = 0; i < 4; i++) {
 		caret.x = 17 + push.caret.x + (i % 2) * 64;
 		caret.y = 64 + push.caret.y + (i / 2) * 64;
+		width = 33;
+		height = 34;
 		auto button_data = characters + i;
 		if(!player_position)
 			focusing(button_data);
@@ -1920,6 +1920,15 @@ static void paint_generate_avatars(creaturei* hilite, creaturei** player_positio
 			auto run = button_input(button_data, KeyEnter);
 			if(run)
 				execute(buttonparam, (long)button_data);
+		}
+		caret.x -= 14; caret.y += 43;
+		width = 60; height = 8;
+		if(player) {
+			auto push_font = font; set_small_font();
+			auto push_fore = fore; fore = colors::title;
+			texta(player->getname(), AlignCenterCenter);
+			fore = push_fore;
+			font = push_font;
 		}
 	}
 	player = push_player;

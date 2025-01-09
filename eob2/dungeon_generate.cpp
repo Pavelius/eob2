@@ -850,7 +850,7 @@ static void drop_special_item() {
 		for(auto& e : loc->items) {
 			if(!e || e.is(Quiver) || e.is(Edible))
 				continue;
-			points.add(e);
+			points.addu(e);
 		}
 		if(points)
 			v = points.random();

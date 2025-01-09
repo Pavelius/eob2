@@ -73,6 +73,7 @@ void paint_dungeon();
 void paint_main_menu();
 void paint_party_status();
 void paint_small_menu();
+void pick_up_item();
 void set_dungeon_tiles(resid type);
 void set_focus_by_player();
 void set_player_by_focus();

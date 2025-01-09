@@ -1211,6 +1211,26 @@ static void clear_edible() {
 	}
 }
 
+static bool is_special_item(const item& it) {
+	auto item_type = getbsi(&it.geti());
+	if(!item_type)
+		return false;
+	for(auto& e : last_quest->sites) {
+		if(!e || !e.special)
+			break;
+		if(e.special == item_type)
+			return true;
+	}
+	return false;
+}
+
+static void clear_quest_items() {
+	for(auto& e : player->wears) {
+		if(e && is_special_item(e))
+			e.clear();
+	}
+}
+
 static void check_quest_complited() {
 	if(!last_quest_complite())
 		return;
@@ -1218,6 +1238,7 @@ static void check_quest_complited() {
 	auto pn = getnme(ids(last_quest->id, "Finish"));
 	if(pn)
 		message(pn);
+	all_party(clear_quest_items, false); // Remove quest item only if done quest
 	script_run(last_quest->reward);
 	last_quest = push_quest;
 	party.done.set(getbsi(last_quest));

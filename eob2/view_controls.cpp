@@ -206,7 +206,8 @@ static bool button_input(const void* button_data, unsigned key, unsigned key_hot
 	else if((hot.key == InputKeyUp && pressed_focus == button_data) || (ishilited && hot.key == MouseLeft && !hot.pressed)) {
 		pressed_focus = 0;
 		return true;
-	}
+	} else if(hot.key == MouseLeft && !hot.pressed)
+		pressed_focus = 0;
 	return false;
 }
 
@@ -634,6 +635,8 @@ static void paint_item(item& it, wearn id, int emphty_avatar = -1, int pallette_
 	if(!disable_input) {
 		focusing(&it);
 		mouse_input(&it);
+		if(!disable_input && hot.key == MouseLeft && hot.pressed && (&it == current_focus) && ishilite())
+			execute(pick_up_item);
 		if(current_select == &it)
 			paint_select_rect();
 		else if(current_focus == &it)
@@ -1489,7 +1492,7 @@ static void update_player(creaturei* p1) {
 
 void pick_up_dungeon_item();
 
-static void pick_up_item() {
+void pick_up_item() {
 	if(!current_select) {
 		if(!current_focus)
 			return;

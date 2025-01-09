@@ -24,7 +24,7 @@ void mouse_input(const void* av) {
 		return;
 	auto ishilited = hot.mouse.in({caret.x, caret.y, caret.x + width, caret.y + height});
 	if(ishilited && hot.key == MouseLeft && hot.pressed) {
-		if(current_focus!=av)
+		if(current_focus != av)
 			execute(cbsetptr, (long)av, 0, &current_focus);
 	}
 }

@@ -2,8 +2,8 @@
 
 XXXX1XXXX
 X.......X
-X.X...X.X
-X...0...X
+X.X.2.X.X
+X..202..X
 X.X...X.X
 X.......X
 XXXXXXXXX

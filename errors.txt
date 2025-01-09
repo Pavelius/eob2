@@ -1,3 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `ImprovedInvisibility`
- Define translation for `VampiricTouch`
+﻿Error in file `rules/Rooms.txt`:
+ Line 10: Not found identifier `Minion`

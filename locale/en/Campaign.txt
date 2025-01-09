@@ -61,11 +61,11 @@ Cursed dungeon
 /npc 51
 "Hello. Are you ... that ... adventures?" man smoking tabacco sitting in tavern address to you "My name is Dunkan. And I have a job for you."
 "I need you service to take some item from ruin, hauted by evil undead long time ago. That item is my familiy relict. A stone medallion of Tempus."
-"If you can deliver the item to me I will pay you 500 gold pieces."
+"If you can deliver the item to me I will pay you 1000 gold pieces."
 
 #CursedDungeonAgree
 /npc 51
-"You are good bussiness men! Meet there when you will get this item."
+"You are good for doing bussiness, men! Meet there when you will get this item."
 
 #CursedDungeonEntering
 /adventure 2
@@ -75,8 +75,8 @@ When you search ruins you found an entrance to ruins dungeon.
 
 #CursedDungeonFinish
 /npc 51
-"At least! I have this ... artefact. Very well! You reward ... just a gold. Take this."
-"You are good in bussiness. Maybe I found ypu later."
+"At least! I have this ... artefact. Very well! You reward just a gold. Take this."
+"You are good in bussiness. Maybe I found you later."
 
 /////////////////////////////
 // ExploreNorthWood

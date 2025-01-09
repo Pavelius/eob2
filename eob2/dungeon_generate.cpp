@@ -1073,7 +1073,7 @@ BSDATA(corridori) = {
 	{"FloorTrap", trap},
 	{"FloorTreasure", floor_treasure},
 	{"Message", message},
-	{"Minion", monster_minion},
+	{"Minions", monster_minion},
 	{"Passable", corridor_passable},
 	{"Portal", portal},
 	{"Prison", prison},

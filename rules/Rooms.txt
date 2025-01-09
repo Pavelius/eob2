@@ -5,9 +5,9 @@ RoomStairsUp shape(ShapeExit)
 RoomStairsDown shape(ShapeExit)
  features StairsDown
 RoomLair shape(ShapeLargeRoom) floor(WanderingMonster)
- features Boss Door
+ features Boss Door Minions
 RoomSmallLair shape(ShapeRoom) floor(WanderingMonster)
- features Boss Door Minion
+ features Boss Door Minions
 RoomTrap shape(ShapePassage) floor(FloorTrap)
  features FloorTreasure Door
 RoomCorner shape(ShapeDeadEnd)

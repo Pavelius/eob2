@@ -440,19 +440,20 @@ static bool choose_dialog(const char* format, const char* format_param, const ch
 }
 
 static bool confirm_payment(const char* name, int gold_coins) {
-	if(getparty(GoldPiece) < gold_coins) {
-		dialog(0, speech_get(last_id, "NotEnoughtGold"), gold_coins);
-		return false;
-	} else {
-		char temp[260]; stringbuilder sb(temp);
-		auto format = getnme(ids(last_id, "Confirm"));
-		if(!format)
-			format = getnm("PayGoldConfirm");
-		sb.add(format, name, gold_coins, party.abilities[GoldPiece]);
+	char temp[260]; stringbuilder sb(temp);
+	auto format = getnme(ids(last_id, "Confirm"));
+	if(!format)
+		format = getnm("PayGoldConfirm");
+	sb.add(format, name, gold_coins, party.abilities[GoldPiece]);
+	if(getparty(GoldPiece) >= gold_coins) {
 		if(!choose_dialog(temp, 0, getnm("Accept"), getnm("Decline")))
 			return false;
-		add_party(GoldPiece, -gold_coins);
+	} else {
+		pushanswer an;
+		dialogv(getnm("Decline"), temp, 0);
+		return false;
 	}
+	add_party(GoldPiece, -gold_coins);
 	return true;
 }
 

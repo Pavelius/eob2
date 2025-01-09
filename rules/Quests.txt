@@ -1,7 +1,7 @@
 #RandomList
 
 RoomFeature
- chance RoomTrap RoomSmallLair
+ chance RoomTrap+2 RoomSmallLair
 CellBarelUse
  chance RandomRation
 CellGraveUse
@@ -17,7 +17,8 @@ FloodedSewers
  goals KillAlmostAllMonsters(3)
  travel PassHours+1
  reward AddReward+5 Reputation+5 CursedDungeon ActivateQuest
- sites type(brick) level(3) habbits(Kobold Leech) language(Human) key(IronKey) features(RoomLair RoomFeature)
+ sites type(brick) level(3) habbits(Kobold Leech) language(Human) key(IronKey)\
+  features(RoomLair RoomFeature)
 
 ExploreNorthWood
  goals ExmploreMostArea(1)
@@ -29,4 +30,6 @@ CursedDungeon
  goals TakeSpecialItem(1)
  travel PassHours+6
  reward AddReward+10
- sites type(dung) level(1) habbits(Skeleton Zombie) language(Human) key(IronKey) special(StoneAmulet) boss(Wight) minions(Ghoul) features(RoomLair RoomFeature RoomFeature) trap(FireTrap)
+ sites type(dung) level(1) habbits(Skeleton Zombie) language(Human) key(IronKey)\
+  special(StoneAmulet) boss(Wight) minions(Ghoul)\
+  features(RoomLair RoomFeature RoomFeature) trap(FireTrap)

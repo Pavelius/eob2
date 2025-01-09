@@ -195,6 +195,12 @@ char* get_spells_prepared(const creaturei* target) {
 	return spells_prepared[i];
 }
 
+void clear_spellbook() {
+	auto ps = get_spells_known(player);
+	if(ps)
+		ps->clear();
+}
+
 spellseta* get_spells_known(const creaturei* target) {
 	auto i = getbsi(target);
 	if(i == -1)

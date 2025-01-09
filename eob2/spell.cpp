@@ -18,6 +18,10 @@
 creaturei* caster;
 const spelli* last_spell;
 
+int	spelli::getindex() const {
+	return getbsi(this);
+}
+
 static void apply_summon(creaturei* player, const itemi* pi) {
 	auto wear = pi->wear;
 	if(player->wears[wear])
@@ -388,4 +392,50 @@ void add_spells(int type, int level, const spellseta* include) {
 			continue;
 		an.add(&e, e.getname());
 	}
+}
+
+static int get_spells_count(spellseta* spells, int type, int level) {
+	auto result = 0;
+	for(auto& e : bsdata<spelli>()) {
+		if(e.levels[type] != level)
+			continue;
+		if(spells->is(e.getindex()))
+			result++;
+	}
+	return result;
+}
+
+bool can_cast_spell(int type, int level) {
+	static char maximum_spell_level[] = {
+		0, 1, 1, 1, 1, 2, 2, 2, 3, 4,
+		5, 5, 6, 6, 7, 7, 8, 8, 9
+	};
+	int ability;
+	switch(type) {
+	case 1:
+		ability = player->get(Intellegence);
+		return maptbl(maximum_spell_level, ability) >= level;
+	default:
+		return true;
+	}
+}
+
+bool can_learn_spell(int type, int level) {
+	static char maximum_number_of_spells[] = {
+		1, 1, 1, 1, 2, 3, 4, 5, 6, 6,
+		7, 7, 8, 8, 9, 9, 10, 11, 12
+	};
+	auto ps = get_spells_known(player);
+	if(!ps)
+		return false;
+	if(!can_cast_spell(type, level))
+		return false;
+	if(type == 1) {
+		auto intellegence = player->basic.abilities[Intellegence];
+		auto exist_count = get_spells_count(ps, type, level);
+		auto maximum_count = maptbl(maximum_number_of_spells, intellegence);
+		if(exist_count >= maximum_count)
+			return false;
+	}
+	return true;
 }

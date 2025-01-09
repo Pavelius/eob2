@@ -93,6 +93,9 @@ OfShockingGrasp: shocking
 OfStrenght1: bull strenght
 OfStrenght2: giant strenght
 OfStrenght3: titan strenght
+OfWizardy1: wizardy I
+OfWizardy2: wizardy II
+OfWizardy3: wizardy III
 
 OfCommonTales: tales
 

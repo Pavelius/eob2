@@ -1,2 +1,3 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `Spell3`
+ Define translation for `ImprovedInvisibility`
+ Define translation for `VampiricTouch`

@@ -1016,7 +1016,8 @@ static reactions roll_reaction(int bonus) {
 		Careful, Careful, Careful, Careful, Careful, Careful,
 		Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile,
 	};
-	auto n = rand() % (sizeof(data) / sizeof(data[0])) - bonus;
+	int n = rand() % (sizeof(data) / sizeof(data[0]));
+	n -= bonus;
 	return maptbl(data, n);
 }
 

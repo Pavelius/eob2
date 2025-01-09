@@ -2083,6 +2083,7 @@ static void reroll_player() {
 	last_alignment = player->alignment;
 	auto avatar = player->avatar;
 	player->clear();
+	clear_spellbook();
 	create_npc(player, 0, is_party_name);
 	player->avatar = avatar;
 	generate_abilities();

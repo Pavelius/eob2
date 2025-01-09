@@ -25,6 +25,7 @@ struct creaturei : npc, statable, wearable, posable {
 	void			add(abilityn i, int v);
 	void			addexp(int value);
 	void			additem(item& it);
+	bool			canlearnspell(int type, int level) const;
 	bool			canread() const { return get(Intellegence) >= 9; }
 	void			clear();
 	void			damage(damagen type, int hits, char magic_bonus = 0);

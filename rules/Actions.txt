@@ -20,7 +20,7 @@ ChooseDonation
 GameOptions
  elements ChooseMenu LoadGame SaveGame ExitGame
 ChooseMageScrolls
- elements ChooseItems+1 IfItemReadable IfItemIdentified IfItemKnownSpell-1
+ elements ChooseItems+1 IfItemReadable IfItemIdentified IfItemKnownSpell-1 IfItemCanLearnSpell
 RestorePartySpells
  elements ForEachParty RestoreSpells
 ScribleScrollsFail

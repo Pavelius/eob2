@@ -721,8 +721,10 @@ static int get_ability_number(creaturei* player, abilityn a, int magical_bonus) 
 	case Strenght: case Dexterity: case Constitution:
 	case Intellegence: case Wisdow: case Charisma:
 		if(magical_bonus < 0)
-			return 3;
+			return 4 - player->basic.abilities[a];
 		return 17 + magical_bonus - player->basic.abilities[a];
+	case ExeptionalStrenght:
+		return magical_bonus * 10;
 	case AC: case AttackMelee: case AttackRange: case DamageMelee: case DamageRange:
 	case Speed: case Backstab: case TurnUndeadBonus:
 		return magical_bonus;
@@ -742,6 +744,10 @@ static int get_ability_number(creaturei* player, abilityn a, int magical_bonus) 
 	}
 }
 
+static void enchance_ability(abilityn a, unsigned duration, int value) {
+
+}
+
 static void drink_effect(variant v, unsigned duration, int multiplier) {
 	if(v.iskind<listi>()) {
 		for(auto e : bsdata<listi>::elements[v.value].elements)
@@ -758,6 +764,8 @@ static void drink_effect(variant v, unsigned duration, int multiplier) {
 		else if(v.counter >= permanent)
 			player->basic.add((abilityn)v.value, (v.counter - permanent + 1) * multiplier);
 		else {
+			if(v.value == Strenght && player->get(Strenght) == 18)
+				v.value = ExeptionalStrenght;
 			v.counter = get_ability_number(player, (abilityn)v.value, v.counter * multiplier);
 			if(v.counter)
 				add_boost(party.abilities[Minutes] + duration, player, v);
@@ -1089,6 +1097,7 @@ static void generate_party(int bonus) {
 			choose_alignment();
 			player = bsdata<creaturei>::addz();
 			player->clear();
+			clear_spellbook();
 			create_npc(player, 0, is_party_name);
 			generate_abilities();
 			set_race_ability();
@@ -2109,6 +2118,8 @@ static void learn_mage_spells(int bonus) {
 	if(!ps)
 		return;
 	update_player();
+	if(!can_cast_spell(1, bonus))
+		return;
 	pushanswer push;
 	add_spells(1, bonus, 0);
 	an.elements.shuffle();
@@ -2825,6 +2836,13 @@ static bool if_low_level() {
 	return player->getlevel() <= 4;
 }
 
+static bool if_item_can_learn_spell() {
+	auto power = last_item->getpower();
+	if(power.iskind<spelli>())
+		return can_learn_spell(1, bsdata<spelli>::elements[power.value].levels[1]);
+	return false;
+}
+
 static bool if_item_known_spell() {
 	auto power = last_item->getpower();
 	if(power.iskind<spelli>()) {
@@ -2978,6 +2996,7 @@ BSDATA(conditioni) = {
 	{"IfDiseased", if_diseased},
 	{"IfIntelligence", if_intelligence},
 	{"IfItemBribe", if_item_bribe},
+	{"IfItemCanLearnSpell", if_item_can_learn_spell},
 	{"IfItemCharged", if_item_charged},
 	{"IfItemCursed", if_item_cursed},
 	{"IfItemDamaged", if_item_damaged},

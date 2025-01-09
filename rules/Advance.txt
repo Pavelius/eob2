@@ -176,6 +176,28 @@ Ranger+3 TheifSkills
  elements MoveSilently+6
 Ranger+4 TheifSkills
  elements MoveSilently+6
+Ranger+5 TheifSkills
+ elements MoveSilently+6
+Ranger+6 TheifSkills
+ elements MoveSilently+6
+Ranger+7 TheifSkills
+ elements MoveSilently+6
+Ranger+8 TheifSkills
+ elements MoveSilently+6
+Ranger+9 TheifSkills
+ elements MoveSilently+7
+Ranger+10 TheifSkills
+ elements MoveSilently+7
+Ranger+11 TheifSkills
+ elements MoveSilently+7
+Ranger+12 TheifSkills
+ elements MoveSilently+7
+Ranger+13 TheifSkills
+ elements MoveSilently+8
+Ranger+14 TheifSkills
+ elements MoveSilently+8
+Ranger+15 TheifSkills
+ elements MoveSilently+6
 
 Ranger+2 CombatSkills
  elements Attack+1
@@ -309,6 +331,10 @@ Theif+3 TheifSkills
  elements PickPockets+5 OpenLocks+4 RemoveTraps+5 MoveSilently+6 HearNoise+5 ClimbWalls+1
 Theif+4 TheifSkills
  elements PickPockets+5 OpenLocks+4 RemoveTraps+5 MoveSilently+6 HearNoise+0 ClimbWalls+1
+Theif+5 TheifSkills
+ elements PickPockets+5 OpenLocks+5 RemoveTraps+5 MoveSilently+7 HearNoise+5 ClimbWalls+2
+Theif+6 TheifSkills
+ elements PickPockets+5 OpenLocks+5 RemoveTraps+5 MoveSilently+7 HearNoise+0 ClimbWalls+2
 
 Theif+5 BasicAbilities
  elements Backstab+1

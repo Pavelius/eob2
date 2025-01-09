@@ -23,6 +23,7 @@ HypnoticPattern: Hypnotic Pattern
 HoldPerson: Hold Person
 HoldPersonGainEffect: %1i creatures stand still!
 Identify: Identify
+ImprovedInvisibility: Improved Invisibility
 Invisibility: Invisibility
 Knock: Knock
 LayOnHand: Lay on Hand
@@ -31,6 +32,7 @@ MagicalVestment: Magical Vestment
 MagicMissile: Magic Missile
 MelfAcidArrow: Melf's Acid Arrow
 Mending: Mending
+MirrorImage: Mirror Image
 NeutralizePoison: Neutralize Poison
 Prayer: Prayer
 ProtectionFromEvil: Prot. from Evil
@@ -45,6 +47,7 @@ ShockingGrasp: Shocking Grasp
 SlowPoison: Slow Poison
 StrenghtSpell: Strenght
 TurnUndead: Turn undead
+VampiricTouch: Vampiric Touch
 
 SpellsAvailable: %1i of %2i remaining
 NoSpellsAvailable: Not available any spells on this level

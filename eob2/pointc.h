@@ -22,3 +22,5 @@ struct pointc {
 	}
 };
 extern pointc last_point;
+
+typedef bool (*fnpointc)(pointc v);

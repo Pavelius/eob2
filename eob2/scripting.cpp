@@ -305,6 +305,21 @@ void broke_cell(pointc v) {
 		apply_message(bsdata<celli>::elements[t].id, "Use");
 }
 
+static bool if_monster_nearbe(pointc v) {
+	if(!pathmap[v.y][v.x] || pathmap[v.y][v.x] > 5)
+		return false;
+	return loc->ismonster(v);
+}
+
+static bool monsters_nearbe() {
+	loc->block(false);
+	loc->makewave(party);
+	auto result = loc->is(if_monster_nearbe);
+	if(result)
+		apply_message("MonstersNearbe", "Fail");
+	return result;
+}
+
 static void select_items(conditioni::fntest proc, bool keep) {
 	auto push_item = last_item;
 	for(auto p : characters) {
@@ -893,6 +908,8 @@ static void use_item() {
 			player->speak("MakeCamp", "RottenFood");
 			break;
 		}
+		if(monsters_nearbe())
+			break;
 		if(confirm(getnm("MakeCampConfirm"))) {
 			if(last_item->iscursed())
 				sleep_party(-2);

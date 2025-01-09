@@ -64,6 +64,7 @@ struct dungeoni : dungeon_site {
 	bool			is(pointc v, cellfn i) const;
 	bool			is(pointc v, celln t1, celln t2) const;
 	bool			is(goaln v) const { return rewards.is(v); }
+	bool			is(fnpointc v) const;
 	bool			isitem(pointc v) const;
 	bool			ismonster(pointc v) const;
 	bool			ismonster(pointc v, featn f) const;

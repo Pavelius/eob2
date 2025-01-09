@@ -260,6 +260,17 @@ bool dungeoni::is(pointc v, cellfn i) const {
 	return (data[v.y][v.x] & (0x80 >> i)) != 0;
 }
 
+bool dungeoni::is(fnpointc proc) const {
+	pointc v;
+	for(v.y = 0; v.y < mpy; v.y++) {
+		for(v.x = 0; v.x < mpx; v.x++) {
+			if(proc(v))
+				return true;
+		}
+	}
+	return false;
+}
+
 bool dungeoni::is(pointc v, celln t1, celln t2) const {
 	if(!v)
 		return true;

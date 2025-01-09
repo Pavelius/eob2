@@ -352,3 +352,8 @@ You want steal some money, but all you try is failed.
 
 #EatAndDrinkMessage
 You taste local food and drink. Not bad. Now you are in good shape.
+
+#MonstersNearbeFail
+I hear monsters nearbe. We need find safe place.
+An monsters are near.
+This place is not safe. Monsters are near.

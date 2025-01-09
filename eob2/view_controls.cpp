@@ -968,6 +968,26 @@ static void paint_skills() {
 	fore = push_fore;
 }
 
+#ifdef _DEBUG
+static void paint_feats() {
+	rectpush push;
+	auto push_font = font;
+	auto push_fore = fore;
+	paint_sheet_head();
+	paint_blank();
+	header(getnm("CharacterFeats"));
+	width = 136;
+	for(auto i = (featn)NoExeptionalStrenght; i <= ImmuneIllusion; i = (featn)(i + 1)) {
+		auto value = player->is(i);
+		if(!value)
+			continue;
+		textn(bsdata<feati>::elements[i].getname());
+	}
+	font = push_font;
+	fore = push_fore;
+}
+#endif // _DEBUG
+
 static void warning(const char* format, unsigned flags) {
 	auto push_fore = fore;
 	fore = colors::text.mix(colors::red);
@@ -1568,6 +1588,11 @@ bool character_input() {
 	case 'C': switch_page(paint_sheet); break;
 	case 'G': switch_page(paint_quest_goals); break;
 	case 'X': switch_page(paint_skills); break;
+#ifdef _DEBUG
+	// Feats do not shown. Player must do not know what feat it is.
+	// So only in debug mode.
+	case 'F': switch_page(paint_feats); break;
+#endif
 	case 'P': pick_up_item(); break;
 	case 'Q': examine_item(); break;
 	case KeyEscape:

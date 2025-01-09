@@ -1,2 +1,2 @@
-﻿Error in file `rules/Core.txt`:
- Line 40: Can't find variant `DebugPartyAbilities`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `Spell3`

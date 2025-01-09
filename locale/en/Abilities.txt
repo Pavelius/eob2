@@ -45,6 +45,7 @@ Disabled: Disabled
 Diseased: Diseased
 Poisoned: Poisoned
 
+CharacterFeats: Character Feats
 Characterinfo: Character Information
 CharacterSkills: Character Skills
 
@@ -52,3 +53,17 @@ Blessing: Blessing
 Reputation: Reputation
 
 PartyStatusFormat: You have %GoldPiece gp.
+
+BonusHP: High constitution bonus
+BonusSaveVsPoison: Bonus save vs Poison
+BonusSaveVsSpells: Bonus save vs Spells
+ImmuneDisease: Immune to diseases
+ProtectedFromEvil: Protected from Evil
+UseLeather: Use leather armor
+UseMage: Use wizardy items
+UseMartial: Use martial weapons
+UseMetal: Use metal armor
+UsePriest: Use cleric items
+UseRogish: Use theif items
+UseShield: Use shields
+WeaponSpecialist: Weapon specialization

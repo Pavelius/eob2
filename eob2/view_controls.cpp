@@ -199,9 +199,11 @@ static void button_frame(int count, bool focused, bool pressed) {
 static bool button_input(const void* button_data, unsigned key, unsigned key_hot = 0xFFFF0000) {
 	if(!button_data)
 		return false;
-	auto ishilited = hot.mouse.in({caret.x, caret.y, caret.x + width, caret.y + height});
+	auto ishilited = ishilite();
 	auto isfocused = (current_focus == button_data);
-	if((isfocused && (hot.key == KeyEnter || hot.key == key_hot)) || (key && hot.key == key) || (ishilited && hot.pressed))
+	if(hot.key == MouseLeft && hot.pressed && ishilited && current_focus != button_data)
+		execute(cbsetptr, (long)button_data, 0, &current_focus);
+	else if((isfocused && (hot.key == KeyEnter || hot.key == key_hot)) || (key && hot.key == key) || (ishilited && hot.pressed))
 		pressed_focus = (void*)button_data;
 	else if((hot.key == InputKeyUp && pressed_focus == button_data) || (ishilited && hot.key == MouseLeft && !hot.pressed)) {
 		pressed_focus = 0;

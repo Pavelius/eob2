@@ -674,6 +674,7 @@ static void satisfy(int bonus) {
 }
 
 static void sleep_character(int bonus) {
+	camp_autocast();
 	natural_heal(bonus);
 	satisfy(0);
 	restore_spells(0);

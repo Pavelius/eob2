@@ -11,6 +11,7 @@ BuyWeaponsConfirm: Do you really want pay %2i gold piece to buy %-1?
 CalmDown: Calm
 CampMenu: Camp Options:
 CastSpell: Cast what spell?
+CastSpellInfo: %Name cast %1
 CastOnWho: Cast on who?
 CellKeyHoleDisable: Lock is picked up
 CellPitDisable: Pit is removed

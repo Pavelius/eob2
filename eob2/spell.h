@@ -29,6 +29,7 @@ typedef char spella[256];
 typedef flagable<8, unsigned> spellseta;
 
 void apply_enchant_spell(int bonus);
+void camp_autocast();
 bool can_cast_spell(int type, int level);
 bool can_learn_spell(int type, int level);
 void cast_spell();

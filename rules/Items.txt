@@ -61,7 +61,7 @@ RobePowers
  elements NoVariant Protection+1 Protection+2 Protection+3 Protection+4 Protection+5
 
 HelmPowers
- elements NoVariant AllLanguages+1 AC+1 AC+2
+ elements NoVariant AllLanguages+1 AC+1 AC+2 Clairaudience+2
 
 LearnNeutral
  elements ReadStory AddExpPersonal+1
@@ -290,7 +290,7 @@ FlameBladeHand avatar(82) damage_type(Fire) damage(1 4 6) wear(RightHand)
 #List
 
 DwarfFighterStartEquipment
- elements BattleAxe LeatherArmor Shield Helm
+ elements BattleAxe LeatherArmor Shield DwarvenHelm
 DwarfClericStartEquipment
  elements Mace LeatherArmor DwarvenHelm HolySymbol
 HalflingTheifStartEquipment
@@ -306,7 +306,7 @@ ClericStartEquipment
 TheifStartEquipment
  elements Longsword LeatherArmor
 MageStartEquipment
- elements Robe Wand IdentifyItem Staff
+ elements Wand IdentifyItem Robe Staff
 MageTheifStartEquipment
  elements Wand IdentifyItem Robe ShortSword
 
@@ -318,6 +318,8 @@ FighterMissionEquipment
  elements LargeRation
 ClericMissionEquipment
  elements BluePotion HealEffect+1
+MageMissionEquipment
+// elements Amulet Clairaudience+1
 
 MagicMapUse
  elements ClearArea AddAreaOverlay CellSecretButton FilterAreaExplored-1 RandomArea AddExp+4 PassRound ShowArea DestroyItem

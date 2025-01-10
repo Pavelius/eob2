@@ -2,10 +2,12 @@
 #include "boost.h"
 #include "bsdata.h"
 #include "cell.h"
+#include "console.h"
 #include "creature.h"
 #include "direction.h"
 #include "dungeon.h"
 #include "formula.h"
+#include "list.h"
 #include "math.h"
 #include "modifier.h"
 #include "party.h"
@@ -438,4 +440,22 @@ bool can_learn_spell(int type, int level) {
 			return false;
 	}
 	return true;
+}
+
+void camp_autocast() {
+	auto pi = bsdata<listi>::find("CampAutocast");
+	if(!pi)
+		return;
+	for(auto v : pi->elements) {
+		if(!v.iskind<spelli>())
+			continue;
+		auto count = player->spells[v.value];
+		if(!count)
+			continue;
+		auto ps = bsdata<spelli>::elements + v.value;
+		while(count-- && cast_spell(ps, player->getlevel(), 0, false, true, 0, 0)) {
+			cast_spell(ps, player->getlevel(), 35, true, true, 0, 0);
+			consolen(getnm("CastSpellInfo"), ps->getname());
+		}
+	}
 }

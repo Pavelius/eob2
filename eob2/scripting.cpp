@@ -792,7 +792,7 @@ static bool read_effect(creaturei* pn, variant v, int experience, unsigned durat
 		if(result)
 			pass_round();
 	} else if(v.iskind<listi>() || v.iskind<randomizeri>() || v.iskind<script>()) {
-		if(!player->roll(LearnSpell)) {
+		if(!player->roll(Intellegence)) {
 			auto format = find_speak("LearnTome", "Fail");
 			if(format) {
 				consolenl();

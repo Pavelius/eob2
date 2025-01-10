@@ -543,16 +543,33 @@ static void paint_avatar_border() {
 	}
 }
 
+static void paint_shadow() {
+	auto push = alpha; alpha = 64;
+	rectf();
+	alpha = push;
+}
+
 static bool mouse_button() {
 	if(!ishilite())
 		return false;
-	if(hot.pressed) {
-		auto push = alpha; alpha = 64;
-		rectf();
-		alpha = push;
-	}
+	if(hot.pressed)
+		paint_shadow();
 	if(hot.key == MouseLeft && !hot.pressed)
 		return true;
+	return false;
+}
+
+static bool mouse_button(void* button_data, unsigned key) {
+	if(!button_data)
+		return false;
+	if(mouse_button())
+		return true;
+	if(key && hot.key == key)
+		pressed_focus = (void*)button_data;
+	else if(hot.key == InputKeyUp && pressed_focus == button_data) {
+		pressed_focus = 0;
+		return true;
+	}
 	return false;
 }
 
@@ -649,16 +666,6 @@ static void paint_disabled() {
 	rectf();
 	fore = push_fore;
 	alpha = push_alpha;
-}
-
-static void mouse_input(const void* av) {
-	if(!av || disable_input)
-		return;
-	auto ishilited = hot.mouse.in({caret.x, caret.y, caret.x + width, caret.y + height});
-	if(ishilited && hot.key == MouseLeft && hot.pressed) {
-		if(current_focus != av)
-			execute(cbsetptr, (long)av, 0, &current_focus);
-	}
 }
 
 static void focus_and_pick_up_item() {

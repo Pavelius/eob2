@@ -169,6 +169,12 @@ bool item::join(item& it) {
 	}
 }
 
+int	item::getmagic() const {
+	if(iscursed())
+		return -2;
+	return getpower().counter;
+}
+
 variant item::getpower() const {
 	auto pi = geti().powers;
 	if(!pi)

@@ -62,6 +62,7 @@ public:
 	int			getcount() const { return iscountable() ? count + 1 : 1; }
 	const char*	getname() const;
 	void		getname(stringbuilder& sb) const;
+	int			getmagic() const;
 	variant		getpower() const;
 	void		set(purposen v) { purpose = v; }
 	void		setcount(int v);

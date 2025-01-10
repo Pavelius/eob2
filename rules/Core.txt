@@ -11,11 +11,6 @@
 #include "rules/Rooms.txt"
 #include "rules/Quests.txt"
 
-#RandomList
-
-RandomGender
- chance Male Female
-
 #List
 
 DebugCharacter
@@ -24,17 +19,17 @@ DebugMageSpells
 // elements AddExpPersonal+100 AddExpPersonal+100 PushModifier Permanent Invisibility StrenghtSpell
 
 HumanFighter
- elements Human Male Fighter CreateCharacter DebugCharacter
+ elements Human Male Fighter ChooseAlignment+1 CreateCharacter DebugCharacter
 HumanPaladin
- elements Human Male Paladin CreateCharacter DebugCharacter
+ elements Human Male Paladin ChooseAlignment+1 CreateCharacter DebugCharacter
 HumanRanger
- elements Human Male Ranger CreateCharacter DebugCharacter
+ elements Human Male Ranger ChooseAlignment+1 CreateCharacter DebugCharacter
 DwarfCleric
- elements Dwarf RandomGender Cleric CreateCharacter Helm SetDiety DebugCharacter
+ elements Dwarf ChooseGender+1 Cleric ChooseAlignment+1 CreateCharacter Helm SetDiety DebugCharacter
 ElfMage
- elements Elf RandomGender MageTheif CreateCharacter DebugCharacter DebugMageSpells
+ elements Elf ChooseGender+1 MageTheif ChooseAlignment+1 CreateCharacter DebugCharacter DebugMageSpells
 HalflingTheif
- elements Halfling Female Theif CreateCharacter
+ elements Halfling Female Theif ChooseAlignment+1 CreateCharacter
 
 GeneratePartyDebug
  elements HumanRanger JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty

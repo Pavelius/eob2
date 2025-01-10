@@ -1435,6 +1435,47 @@ static void show_sprites(resid id, point start, point size) {
 	fore = push_fore;
 }
 
+static void show_scene_font() {
+	auto push_font = font;
+	answer_index = 0;
+	answer_per_page = 128;
+	answer_origin = 0;
+	auto sx = 10;
+	auto size = 8;
+	// set_small_font();
+	while(ismodal()) {
+		fore = colors::black;
+		rectf();
+		width = sx; height = sx;
+		correct_answers(256);
+		for(auto y = 0; y < 8; y++) {
+			for(auto x = 0; x < 16; x++) {
+				caret.x = x * width;
+				caret.y = y * height;
+				auto index = y * 16 + x;
+				if(answer_index == index) {
+					fore = colors::gray.mix(colors::black, 128);
+					rectf();
+				}
+				fore = colors::white;
+				caret.x += (width - size) / 2;
+				caret.y += (height - size) / 2;
+				glyph(index, 0);
+			}
+		}
+		domodal();
+		switch(hot.key) {
+		case KeyRight: answer_index++; break;
+		case KeyLeft: answer_index--; break;
+		case KeyDown: answer_index += 16; break;
+		case KeyUp: answer_index -= 16; break;
+		case KeyEscape: breakmodal(0); break;
+		}
+		focus_input();
+	}
+	font = push_font;
+}
+
 static void show_scene_images() {
 	static resid sprites[] = {ADVENTURE, BUILDNGS, DUNGEONS, NPC, SCENES};
 	static int sprites_count = lenghtof(sprites);
@@ -1524,6 +1565,7 @@ static void common_input() {
 	case Ctrl + 'S': show_sprites(ITEMGS, {16, 16}, {32, 32}); break;
 	case Ctrl + 'L': show_sprites(ITEMGL, {32, 24}, {64, 32}); break;
 	case Ctrl + 'P': show_scene_images(); break;
+	case Ctrl + 'F': show_scene_font(); break;
 	}
 #endif
 }
@@ -2193,8 +2235,10 @@ static void paint_generate() {
 	paint_generate_avatars(player, player_position);
 }
 
-void* choose_generate_dialog(const char* header) {
+void* choose_generate_dialog(const char* header, bool random) {
 	an.sort();
+	if(random)
+		return an.random();
 	return choose_answer(header, 0, paint_generate, text_label_left, 2, 10, paint_generate_header);
 }
 

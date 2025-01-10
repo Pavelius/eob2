@@ -751,10 +751,6 @@ static int get_ability_number(creaturei* player, abilityn a, int magical_bonus) 
 	}
 }
 
-static void enchance_ability(abilityn a, unsigned duration, int value) {
-
-}
-
 static void drink_effect(variant v, unsigned duration, int multiplier) {
 	if(v.iskind<listi>()) {
 		for(auto e : bsdata<listi>::elements[v.value].elements)
@@ -975,7 +971,7 @@ static void use_item() {
 			pn->speak("MustBeWearing", "LeftHand");
 			break;
 		}
-		if(faith_effect(last_item->iscursed() ? -2 : last_item->getpower().counter)) {
+		if(faith_effect(last_item->getmagic())) {
 			last_item->usecharge("ToolCrumbleToDust");
 			pass_round();
 		}
@@ -983,7 +979,7 @@ static void use_item() {
 	case Usable:
 		if(!allow_use(pn, last_item))
 			break;
-		apply_script(last_item->geti().id, "Use", last_item->iscursed() ? -2 : last_item->getpower().counter);
+		apply_script(last_item->geti().id, "Use", last_item->getmagic());
 		break;
 	case Key:
 		if(!dungeon_use())
@@ -1046,20 +1042,20 @@ static void test_dungeon() {
 	thrown_item(v, Down, 6, get_party_index(player) % 2, 4);
 }
 
-static void choose_race() {
+static void choose_race(int bonus) {
 	pushanswer push;
 	for(auto& e : bsdata<racei>()) {
 		if(!e.maximal[0])
 			continue;
 		an.add(&e, e.getname());
 	}
-	auto p = (racei*)choose_generate_dialog(getnm("ChooseRace"));
+	auto p = (racei*)choose_generate_dialog(getnm("ChooseRace"), bonus > 0);
 	if(!p)
 		return;
 	last_race = (racen)(p - bsdata<racei>::elements);
 }
 
-static void choose_class() {
+static void choose_class(int bonus) {
 	pushanswer push;
 	for(auto& e : bsdata<classi>()) {
 		if(e.non_player)
@@ -1068,13 +1064,13 @@ static void choose_class() {
 			continue;
 		an.add(&e, e.getname());
 	}
-	auto p = (classi*)choose_generate_dialog(getnm("ChooseClass"));
+	auto p = (classi*)choose_generate_dialog(getnm("ChooseClass"), bonus > 0);
 	if(!p)
 		return;
 	last_class = (classn)(p - bsdata<classi>::elements);
 }
 
-static void choose_alignment() {
+static void choose_alignment(int bonus) {
 	pushanswer push;
 	auto& ei = bsdata<classi>::elements[last_class];
 	for(auto& e : bsdata<alignmenti>()) {
@@ -1082,17 +1078,17 @@ static void choose_alignment() {
 			continue;
 		an.add(&e, e.getname());
 	}
-	auto p = (alignmenti*)choose_generate_dialog(getnm("ChooseAlignment"));
+	auto p = (alignmenti*)choose_generate_dialog(getnm("ChooseAlignment"), bonus > 0);
 	if(!p)
 		return;
 	last_alignment = (alignmentn)(p - bsdata<alignmenti>::elements);
 }
 
-static void choose_gender() {
+static void choose_gender(int bonus) {
 	pushanswer push;
 	an.add(bsdata<genderi>::elements + Male, getnm("Male"));
 	an.add(bsdata<genderi>::elements + Female, getnm("Female"));
-	auto p = (genderi*)choose_generate_dialog(getnm("ChooseGender"));
+	auto p = (genderi*)choose_generate_dialog(getnm("ChooseGender"), bonus > 0);
 	if(!p)
 		return;
 	last_gender = (gendern)(p - bsdata<genderi>::elements);
@@ -1113,10 +1109,10 @@ static void generate_party(int bonus) {
 		if(*player_position)
 			choose_generate_box(paint_character_edit);
 		else {
-			choose_race();
-			choose_gender();
-			choose_class();
-			choose_alignment();
+			choose_race(0);
+			choose_gender(0);
+			choose_class(0);
+			choose_alignment(0);
 			player = bsdata<creaturei>::addz();
 			player->clear();
 			clear_spellbook();
@@ -2260,7 +2256,7 @@ static void make_roll_average(int bonus) {
 }
 
 static void set_diety(int bonus) {
-	if(bonus>=0)
+	if(bonus >= 0)
 		player->diety = (unsigned char)getbsi(last_diety);
 	else
 		player->diety = 0xFF;
@@ -3099,8 +3095,12 @@ BSDATA(script) = {
 	{"ConfirmAction", confirm_action},
 	{"Chance", apply_chance},
 	{"Character", set_character},
+	{"ChooseAlignment", choose_alignment},
+	{"ChooseClass", choose_class},
+	{"ChooseGender", choose_gender},
 	{"ChooseItems", choose_items},
 	{"ChooseMenu", choose_menu},
+	{"ChooseRace", choose_race},
 	{"ChooseShopItem", choose_shop_item},
 	{"ChooseSpells", choose_spells},
 	{"ClearArea", clear_area},

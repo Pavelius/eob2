@@ -248,6 +248,11 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 			if(!defender->roll(SaveVsPoison))
 				defender->add(DiseaseLevel, 1);
 		}
+		// RULE: poison attack
+		if(player->is(weapon, PoisonAttack)) {
+			if(!defender->roll(SaveVsPoison))
+				defender->add(DiseaseLevel, xrand(2, 8));
+		}
 		// RULE: paralized attack of ghouls and others
 		if(player->is(weapon, ParalizeAttack) && !defender->roll(SaveVsParalization))
 			add_boost(get_stamp(xrand(3, 8)), defender, bsdata<feati>::elements + Paralized);

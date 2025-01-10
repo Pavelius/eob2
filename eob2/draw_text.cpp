@@ -22,6 +22,29 @@ int draw::textw(int sym) {
 	return ((fxt*)font)->width;
 }
 
+void draw_glyph_zoomed(int sym, int zoom) {
+	auto f = (fxt*)draw::font;
+	int height = f->height;
+	int width = f->width;
+	for(int h = 0; h < height; h++) {
+		unsigned char line = *((unsigned char*)draw::font + ((fxt*)draw::font)->charoffset[sym] + h);
+		unsigned char bit = 0x80;
+		for(int w = 0; w < width; w++) {
+			if((line & bit) == bit) {
+				auto x0 = draw::caret.x + w * zoom;
+				auto x1 = x0 + zoom;
+				auto y0 = draw::caret.y + h * zoom;
+				auto y1 = y0 + zoom;
+				for(auto x = x0; x < x1; x++) {
+					for(auto y = y0; y < y1; y++)
+						draw::pixel(x, y);
+				}
+			}
+			bit = bit >> 1;
+		}
+	}
+}
+
 void draw::glyph(int sym, unsigned flags) {
 	if(flags & TextBold) {
 		auto push_caret = caret;

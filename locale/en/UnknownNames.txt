@@ -1,1 +1,2 @@
-﻿
+﻿GiantSpider: 
+Sting1d8: 

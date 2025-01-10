@@ -23,7 +23,7 @@ FloodedSewers
 ExploreNorthWood
  goals ExmploreMostArea(1)
  travel PassDays+8
- reward AddReward+1 Reputation+2 CursedDungeon ActivateQuest
+ reward AddReward+3 Reputation+2 CursedDungeon ActivateQuest
  sites type(forest) level(1) habbits(Wolf Goblin) language(Goblinoid) key(IronKey) features(RoomFeature) graves(3)
 
 CursedDungeon difficult(1)
@@ -33,3 +33,9 @@ CursedDungeon difficult(1)
  sites type(dung) level(1) habbits(Skeleton Zombie) language(Human) key(IronKey)\
   special(StoneAmulet) boss(Wight) minions(Ghoul)\
   features(RoomLair RoomFeature RoomFeature) trap(FireTrap)
+
+DwarfMountains
+ goals ExmploreMostArea(3)
+ travel PassDays+3
+ reward AddReward+10 Reputation+5
+ sites type(blue) level(1) habbits(Leech GiantSpider) language(Dwarf) key(CooperKey) features(RoomFeature RoomFeature) webs(20)

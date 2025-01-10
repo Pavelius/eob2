@@ -5,6 +5,8 @@ Kobold res(kobold) hd(0) ac(7) experience(7) alignment(LawfulEvil)
 
 Bugbear res(bugbear) hd(3) ac(5) experience(120) alignment(ChaoticEvil)
  feats Claws1d4 Constitution+6 Strenght+4 Large Sneaky+60
+GiantSpider res(spider1) hd(3) ac(4) experience(420) alignment(ChaoticEvil)
+ feats Intellegence-6 Large Constitution+5 Sting1d8 PoisonAttack
 Ghoul res(ghoul) hd(1) ac(6) experience(175) alignment(ChaoticEvil) reaction(Hostile)
  feats Claws1d3 Bite1d6 Undead ImmuneCharm ImmuneCold ImmuneIllusion ParalizeAttack
 Goblin res(goblin) hd(1) ac(8) experience(15) alignment(LawfulEvil)

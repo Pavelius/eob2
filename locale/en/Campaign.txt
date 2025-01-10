@@ -103,3 +103,24 @@ On eight day of travel you enter into deep forest.
 #ExploreNorthWoodFinish
 /npc 52
 "At least you back. You see goblins and wolf? What you say they use it as domestic animals? Interesting. Here your 300 gold. Good work."
+
+/////////////////////////////
+// DwarfMountains
+
+#DwarfMountains
+Dwarf mountains
+
+#DwarfMountainsSummary
+/npc 50
+"And here you again" Chief of local guad Halfast Rodgard meet you in taver "I have new quest for you."
+"You must find a dwarven settlement in old Dwarven mountain" he gulp a beer "We don't know if that settlement exist, but long ago it trade with our settlement."
+"Dwarves don't like visitors and try to hide in those mountain. Find them and route trade with them and I will reward you."
+
+#DwarfMountainsAgree
+"Good. Helm blessing on you in you difficult mission"
+
+#DwarfMountainsEntering
+/adventure 2
+You move to north about day on two. Green valley lay around you, but you go to nothern side, when you see moutains.
+/adventure 9
+On third day of travel you enter into mountain dungeon.

@@ -8,7 +8,7 @@ enum featn : unsigned char {
 	BonusVsElfWeapon, BonusAttackVsHated, BonusDamageVsEnemy, BonusACVsLargeEnemy, BonusHP,
 	UseMetal, UseLeather, UseShield,
 	UseMartial, UseElvish, UseRogish, UsePriest, UseMage, TwoHanded, Precise, Deadly, Unique,
-	DiseaseAttack, DrainStrenghtAttack, DrainEneryAttack, ParalizeAttack, VampiricAttack, VorpalAttack, Holy, WeaponSpecialist,
+	DiseaseAttack, DrainStrenghtAttack, DrainEneryAttack, ParalizeAttack, PoisonAttack, VampiricAttack, VorpalAttack, Holy, WeaponSpecialist,
 	Small, Large, Undead, Paralized, Moved, Surprised,
 	ProtectedFromEvil, Invisibled, Regenerated, Hasted, StoppedPoison, SlowMove, FeelPain, Displaced,
 	Blinded, Blinked, Blurred,

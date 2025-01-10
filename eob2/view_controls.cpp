@@ -604,8 +604,6 @@ static void paint_avatar() {
 			paint_player_damage(v, (animate_counter + pind) % 2);
 		}
 	}
-	if(mouse_button())
-		execute(apply_switch_page, (long)player);
 }
 
 static void greenbar(int vc, int vm) {
@@ -1435,6 +1433,8 @@ static void show_sprites(resid id, point start, point size) {
 	fore = push_fore;
 }
 
+void draw_glyph_zoomed(int sym, int zoom);
+
 static void show_scene_font() {
 	auto push_font = font;
 	answer_index = 0;
@@ -1463,6 +1463,9 @@ static void show_scene_font() {
 				glyph(index, 0);
 			}
 		}
+		caret.x = 176;
+		caret.y = 16;
+		draw_glyph_zoomed(answer_index, 4);
 		domodal();
 		switch(hot.key) {
 		case KeyRight: answer_index++; break;

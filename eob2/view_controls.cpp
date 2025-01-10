@@ -47,6 +47,8 @@ static int answer_origin, answer_per_page, answer_index;
 bool need_update_animation;
 unsigned long current_cpu_time;
 
+static void paint_inventory();
+
 struct pushscene : pushfocus {
 	const sprite* font;
 	pushscene() : pushfocus(), font(draw::font) {}
@@ -541,6 +543,28 @@ static void paint_avatar_border() {
 	}
 }
 
+static bool mouse_button() {
+	if(!ishilite())
+		return false;
+	if(hot.pressed) {
+		auto push = alpha; alpha = 64;
+		rectf();
+		alpha = push;
+	}
+	if(hot.key == MouseLeft && !hot.pressed)
+		return true;
+	return false;
+}
+
+static void apply_switch_page() {
+	player = (creaturei*)hot.param;
+	set_focus_by_player();
+	if(character_view_proc)
+		clear_page();
+	else
+		switch_page(paint_inventory);
+}
+
 static void paint_avatar() {
 	if(player->avatar == 0xFF)
 		return;
@@ -563,6 +587,8 @@ static void paint_avatar() {
 			paint_player_damage(v, (animate_counter + pind) % 2);
 		}
 	}
+	if(mouse_button())
+		execute(apply_switch_page, (long)player);
 }
 
 static void greenbar(int vc, int vm) {

@@ -1,0 +1,11 @@
+#Diety
+
+NoDiety
+
+Helm alignment(LawfulNeutral)
+ minor ProtectionFromEvil
+ major CureDisease RemoveCurse Prayer
+
+Tempus alignment(ChaoticNeutral)
+ minor Bless
+ major HoldPerson

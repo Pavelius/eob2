@@ -554,6 +554,9 @@
     <ClInclude Include="draw_control.h">
       <Filter>support</Filter>
     </ClInclude>
+    <ClInclude Include="diety.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -644,6 +647,9 @@
       <Filter>rules</Filter>
     </Text>
     <Text Include="..\rules\Traps.txt">
+      <Filter>rules</Filter>
+    </Text>
+    <Text Include="..\rules\Diety.txt">
       <Filter>rules</Filter>
     </Text>
   </ItemGroup>

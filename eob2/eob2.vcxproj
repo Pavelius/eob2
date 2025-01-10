@@ -156,6 +156,7 @@
     <ClInclude Include="creature.h" />
     <ClInclude Include="damage.h" />
     <ClInclude Include="dice.h" />
+    <ClInclude Include="diety.h" />
     <ClInclude Include="direction.h" />
     <ClInclude Include="draw.h" />
     <ClInclude Include="draw_control.h" />
@@ -336,6 +337,7 @@
     <Text Include="..\rules\Avatars.txt" />
     <Text Include="..\rules\Classes.txt" />
     <Text Include="..\rules\Core.txt" />
+    <Text Include="..\rules\Diety.txt" />
     <Text Include="..\rules\Items.txt" />
     <Text Include="..\rules\Actions.txt" />
     <Text Include="..\rules\Monsters.txt" />

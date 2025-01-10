@@ -1,2 +1,2 @@
-﻿Error in file `rules/Rooms.txt`:
- Line 10: Not found identifier `Minion`
+﻿Error in file `rules/Diety.txt`:
+ Line 1: Not find data type for `Diety`

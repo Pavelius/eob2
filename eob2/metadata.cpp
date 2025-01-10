@@ -8,6 +8,7 @@
 #include "class.h"
 #include "condition.h"
 #include "damage.h"
+#include "diety.h"
 #include "dungeon.h"
 #include "item.h"
 #include "keyvalue.h"
@@ -45,6 +46,7 @@ BSDATAC(advancement, 256)
 BSDATAC(boosti, 256)
 BSDATAC(classi, 32)
 BSDATAC(creaturei, 64)
+BSDATAC(dietyi, 32)
 BSDATAC(dungeoni, 256)
 BSDATAC(itemi, 256)
 BSDATAC(locationi, 128)
@@ -117,6 +119,11 @@ BSMETA(dice) = {
 	{}};
 BSMETA(damagei) = {
 	BSREQ(id),
+	{}};
+BSMETA(dietyi) = {
+	BSREQ(id),
+	BSREQ(minor), BSREQ(major),
+	BSENM(alignment, alignmenti),
 	{}};
 BSMETA(dungeoni) = {
 	BSENM(quest_id, quest),
@@ -273,6 +280,7 @@ BSDATA(varianti) = {
 	{"Condition", VAR(conditioni, 1), 0, 0, ftscript<conditioni>, fttest<conditioni>},
 	{"Creature", VAR(creaturei, 0)},
 	{"Damage", VAR(damagei, 1), 0, 0, ftscript<damagei>},
+	{"Diety", VAR(dietyi, 1)},
 	{"Dungeon", VAR(dungeoni, 0)},
 	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>, fttest<feati>},
 	{"Formula", VAR(formulai, 1), 0, 0, ftscript<formulai>},

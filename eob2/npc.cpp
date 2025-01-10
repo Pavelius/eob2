@@ -3,6 +3,7 @@
 #include "bsdata.h"
 #include "console.h"
 #include "class.h"
+#include "diety.h"
 #include "gender.h"
 #include "speech.h"
 #include "item.h"
@@ -125,4 +126,10 @@ const classi& npc::getclass() const {
 
 const classi& npc::getclassmain() const {
 	return bsdata<classi>::elements[bsdata<classi>::elements[character_class].classes[0]];
+}
+
+dietyi* npc::getdiety() const {
+	if(diety == 0xFF)
+		return 0;
+	return bsdata<dietyi>::elements + diety;
 }

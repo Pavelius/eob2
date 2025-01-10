@@ -8,6 +8,7 @@
 #include "condition.h"
 #include "console.h"
 #include "creature.h"
+#include "diety.h"
 #include "direction.h"
 #include "draw.h"
 #include "dungeon.h"
@@ -86,6 +87,10 @@ template<> void ftscript<quest>(int value, int bonus) {
 
 template<> void ftscript<damagei>(int value, int bonus) {
 	player->damage((damagen)value, get_bonus(bonus));
+}
+
+template<> void ftscript<dietyi>(int value, int bonus) {
+	last_diety = bsdata<dietyi>::elements + value;
 }
 
 template<> void ftscript<reactioni>(int value, int bonus) {
@@ -787,8 +792,16 @@ static bool read_effect(creaturei* pn, variant v, int experience, unsigned durat
 		if(result)
 			pass_round();
 	} else if(v.iskind<listi>() || v.iskind<randomizeri>() || v.iskind<script>()) {
-		script_run(v);
-		last_item->usecharge("ConsumeTome", 40, 5);
+		if(!player->roll(LearnSpell)) {
+			auto format = find_speak("LearnTome", "Fail");
+			if(format) {
+				consolenl();
+				consolev(format, 0);
+			}
+			result = false;
+		} else
+			script_run(v);
+		last_item->usecharge("ConsumeTome");
 		pass_hours(1);
 	}
 	player = push_player;
@@ -840,10 +853,10 @@ static bool use_bless_effect(const variants& source, int bonus) {
 	auto duration = (4 + bonus) * 60; // 4-9 hour standart duration for blessing
 	for(auto v : source) {
 		if(v.iskind<spelli>()) {
-			auto p = bsdata<spelli>::elements + v.value;
-			if(!cast_spell(p, level, 0, false, false, duration, 0))
+			last_spell = bsdata<spelli>::elements + v.value;
+			if(!cast_spell(last_spell, level, 0, false, false, duration, 0))
 				continue;
-			cast_spell(p, level, 0, true, true, duration, 0);
+			cast_spell(last_spell, level, 0, true, true, duration, 0);
 			return true;
 		}
 	}
@@ -851,22 +864,29 @@ static bool use_bless_effect(const variants& source, int bonus) {
 }
 
 static bool faith_effect(int bonus) {
-	auto pi = bsdata<listi>::find("GoodDietyDomain");
-	if(!pi)
+	pushvalue push(last_diety, player->getdiety());
+	if(!last_diety) {
+		consolen(getnm("YourHaveNoDiety"));
 		return false;
+	}
 	if(party.abilities[Blessing] <= 0) {
 		consolen(getnm("YourFaithIsWeak"));
 		return false;
 	}
+	pushvalue push_spell(last_spell);
+	auto elements = last_diety->minor;
+	auto consume_bless = false;
 	if(d100() < party.abilities[Blessing]) {
-		if(use_bless_effect(pi->elements, bonus)) {
-			if(result_player)
-				consolen(getnm("UseHolySymbolSuccessOnPlayer"), "Helm", result_player->getname());
-			else
-				consolen(getnm("UseHolySymbolSuccess"), "Helm");
-		} else
-			consolen(getnm("UseHolySymbolFail"));
-		add_party(Blessing, -1);
+		elements = last_diety->major;
+		consume_bless = true;
+	}
+	if(use_bless_effect(elements, bonus)) {
+		if(result_player)
+			consolen(getnm("UseHolySymbolSuccessOnPlayer"), result_player->getname());
+		else
+			consolen(getnm("UseHolySymbolSuccess"));
+		if(consume_bless)
+			add_party(Blessing, -1);
 	} else
 		consolen(getnm("UseHolySymbolFail"));
 	return true;
@@ -956,7 +976,7 @@ static void use_item() {
 			break;
 		}
 		if(faith_effect(last_item->iscursed() ? -2 : last_item->getpower().counter)) {
-			last_item->usecharge("ToolCrumbleToDust", 35, 5);
+			last_item->usecharge("ToolCrumbleToDust");
 			pass_round();
 		}
 		break;
@@ -2239,6 +2259,13 @@ static void make_roll_average(int bonus) {
 	}
 }
 
+static void set_diety(int bonus) {
+	if(bonus>=0)
+		player->diety = (unsigned char)getbsi(last_diety);
+	else
+		player->diety = 0xFF;
+}
+
 static void set_level(int bonus) {
 	last_number = last_level + get_bonus(bonus);
 }
@@ -2632,6 +2659,10 @@ static void player_name(stringbuilder& sb) {
 	sb.add(player->getname());
 }
 
+static void diety_name(stringbuilder& sb) {
+	sb.add(last_diety->getname());
+}
+
 static void player_gender(stringbuilder& sb) {
 	sb.add(getnm(getid<genderi>(player->gender)));
 }
@@ -2988,6 +3019,7 @@ static void talk_about(int bonus) {
 
 BSDATA(textscript) = {
 	{"Class", player_class},
+	{"Diety", diety_name},
 	{"DungeonBoss", dungeon_boss},
 	{"DungeonKey", dungeon_key},
 	{"DungeonOrigin", dungeon_origin},
@@ -3130,6 +3162,7 @@ BSDATA(script) = {
 	{"SaveNegate", save_negate},
 	{"SaveVsPoisonNegate", save_vs_poison_negate},
 	{"SelectArea", select_area},
+	{"SetDiety", set_diety},
 	{"SetLevel", set_level},
 	{"SetVariable", set_variable},
 	{"ShowArea", show_area},

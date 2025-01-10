@@ -27,8 +27,14 @@ void draw::glyph(int sym, unsigned flags) {
 		auto push_caret = caret;
 		auto push_fore = fore;
 		fore = fore_stroke;
-		caret.x += 1;
+		//caret.x += 1;
+		//caret.y += 1;
+		//glyph(sym, 0);
+		caret.x -= 1;
+		glyph(sym, 0);
 		caret.y += 1;
+		glyph(sym, 0);
+		caret.x += 1;
 		glyph(sym, 0);
 		fore = push_fore;
 		caret = push_caret;

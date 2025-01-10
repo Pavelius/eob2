@@ -276,6 +276,9 @@
     <ClCompile Include="draw_control.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="diety.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">

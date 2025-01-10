@@ -30,7 +30,7 @@ HumanPaladin
 HumanRanger
  elements Human Male Ranger CreateCharacter DebugCharacter
 DwarfCleric
- elements Dwarf RandomGender Cleric CreateCharacter DebugCharacter
+ elements Dwarf RandomGender Cleric CreateCharacter Helm SetDiety DebugCharacter
 ElfMage
  elements Elf RandomGender MageTheif CreateCharacter DebugCharacter DebugMageSpells
 HalflingTheif

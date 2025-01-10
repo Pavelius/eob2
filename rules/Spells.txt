@@ -76,7 +76,7 @@ DetectMagic levels(1 1) duration(Minute0x2)
  instant ApplyEnchantSpell
  wearing SeeMagical
 ProtectionFromEvil levels(1 1) lighting(150 00 24) duration(Turn5x1)
- feats Ally
+ feats Ally You
  instant ApplyEnchantSpell
  wearing ProtectedFromEvil
 PurifyFood levels(1 0)

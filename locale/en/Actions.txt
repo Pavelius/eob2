@@ -89,10 +89,11 @@ Talk: Talk
 ToolBroken: %1 is broken
 ToolCrumbleToDust: %1 crumble to dust
 UseHolySymbolFail: You praying is without answers
-UseHolySymbolSuccessOnPlayer: %1 answer the praying on %2
-UseHolySymbolSuccess: %1 answer the praying
+UseHolySymbolSuccessOnPlayer: %Diety %-SpellName on %1
+UseHolySymbolSuccess: %Diety create %SpellName
 WizardTower: Wizard Tower
 YourFaithIsWeak: Faith is weak, need more donation
+YourHaveNoDiety: You are diety less heretic
 
 Inn: Inn
 InnConfirm: Staying a day in inn cost for you %2i gold pieces. Do you really want pay?

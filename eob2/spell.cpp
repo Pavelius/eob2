@@ -313,10 +313,8 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 			add_targets(enemy_position, true, false, ps->is(You));
 		}
 	}
-	if(ps->is(You)) {
-		if(an.findvalue(player) == -1)
-			an.add(player, player->getname());
-	}
+	if(!ps->is(Ally) && !ps->is(Enemy) && ps->is(You))
+		an.add(player, player->getname());
 	if(explicit_target && !ps->is(Group)) {
 		an.clear();
 		an.add(explicit_target, explicit_target->getname());

@@ -280,7 +280,7 @@ BSDATA(varianti) = {
 	{"Condition", VAR(conditioni, 1), 0, 0, ftscript<conditioni>, fttest<conditioni>},
 	{"Creature", VAR(creaturei, 0)},
 	{"Damage", VAR(damagei, 1), 0, 0, ftscript<damagei>},
-	{"Diety", VAR(dietyi, 1)},
+	{"Diety", VAR(dietyi, 1), 0, 0, ftscript<dietyi>},
 	{"Dungeon", VAR(dungeoni, 0)},
 	{"Feat", VAR(feati, 1), 0, 0, ftscript<feati>, fttest<feati>},
 	{"Formula", VAR(formulai, 1), 0, 0, ftscript<formulai>},

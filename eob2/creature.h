@@ -2,7 +2,6 @@
 
 #include "class.h"
 #include "damage.h"
-#include "diety.h"
 #include "statable.h"
 #include "posable.h"
 #include "race.h"
@@ -18,7 +17,6 @@ struct creaturei : npc, statable, wearable, posable {
 	short			hp, hpm, hpr, hp_aid, food;
 	short unsigned	monster_id;
 	char			initiative, pallette;
-	dietyn			diety;
 	spella			spells;
 	racef			hate;
 	flag32			languages;

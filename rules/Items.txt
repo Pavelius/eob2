@@ -101,14 +101,15 @@ BattleAxe cost(5) speed(7) damage_type(Slashing) damage(1 8) avatar(3) avatar_gr
  feats UseMartial Deadly
 Axe cost(5) speed(4) damage_type(Slashing) damage(1 6) avatar(7) avatar_ground(4) wear(RightHand) powers(MeleePowers)
  feats UseMartial Deadly
-Club speed(4) damage(1 6) avatar(76) avatar_ground(12) wear(RightHand) powers(MeleePowers)
+Club speed(5) damage(1 6) avatar(116) avatar_ground(12) wear(RightHand) powers(MeleePowers)
+ feats TwoHanded
 Dagger cost(2) speed(2) damage_type(Piercing) damage(1 4) avatar(15) avatar_ground(3) wear(RightHand) powers(MeleePowers)
  feats Small Precise
 Flail cost(15) speed(7) damage(1 6 1) avatar(5) avatar_ground(2) wear(RightHand) powers(MeleePowers)
  feats UseMartial UsePriest
 Halberd cost(10) speed(9) damage(1 10) damage_large(3 6) avatar(9) avatar_ground(5) wear(RightHand) powers(MeleePowers)
  feats TwoHanded UseMartial Precise Deadly
-Warhammer cost(5) speed(4) damage(1 4 2) avatar(99) avatar_ground(13) wear(RightHand) powers(MeleePowers)
+Warhammer cost(5) speed(4) damage(1 4 2) avatar(115) avatar_ground(13) wear(RightHand) powers(MeleePowers)
  feats UseMartial UsePriest
 Mace cost(10) speed(7) damage(1 6 1) avatar(4) avatar_ground(1) wear(RightHand) powers(MeleePowers)
  feats UseMartial UsePriest

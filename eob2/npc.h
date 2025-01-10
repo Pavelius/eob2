@@ -6,6 +6,7 @@ enum gendern : unsigned char;
 enum racen : unsigned char;
 
 struct classi;
+struct dietyi;
 struct itemi;
 struct racei;
 
@@ -16,6 +17,7 @@ struct npc {
 	alignmentn		alignment;
 	racen			race;
 	gendern			gender;
+	unsigned char	diety;
 	classn			character_class;
 	unsigned char	avatar;
 	unsigned short	name;
@@ -23,6 +25,7 @@ struct npc {
 	int				experience;
 	const classi&	getclass() const;
 	const classi&	getclassmain() const;
+	dietyi*			getdiety() const;
 	int				getlevel(classn v) const;
 	int				getlevel() const { return levels[0]; }
 	const char*		getname() const;

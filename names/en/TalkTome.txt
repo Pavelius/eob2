@@ -56,3 +56,7 @@ a tale with bad end
 
 #LearnIntellegenceSuccess
 science work about mathematic and phisic
+
+#LearnTomeFail
+%Name fail to understand text
+%Name read something mundane

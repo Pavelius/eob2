@@ -206,8 +206,7 @@ static bool button_input(const void* button_data, unsigned key, unsigned key_hot
 	else if((hot.key == InputKeyUp && pressed_focus == button_data) || (ishilited && hot.key == MouseLeft && !hot.pressed)) {
 		pressed_focus = 0;
 		return true;
-	} else if(hot.key == MouseLeft && !hot.pressed)
-		pressed_focus = 0;
+	}
 	return false;
 }
 
@@ -624,6 +623,21 @@ static void paint_disabled() {
 	alpha = push_alpha;
 }
 
+static void mouse_input(const void* av) {
+	if(!av || disable_input)
+		return;
+	auto ishilited = hot.mouse.in({caret.x, caret.y, caret.x + width, caret.y + height});
+	if(ishilited && hot.key == MouseLeft && hot.pressed) {
+		if(current_focus != av)
+			execute(cbsetptr, (long)av, 0, &current_focus);
+	}
+}
+
+static void focus_and_pick_up_item() {
+	current_focus = (void*)hot.param;
+	pick_up_item();
+}
+
 static void paint_item(item& it, wearn id, int emphty_avatar = -1, int pallette_feat = -1, bool show_disabled = false) {
 	rectpush push;
 	if(pallette_feat == -1) {
@@ -634,13 +648,20 @@ static void paint_item(item& it, wearn id, int emphty_avatar = -1, int pallette_
 	}
 	if(!disable_input) {
 		focusing(&it);
-		mouse_input(&it);
-		if(!disable_input && hot.key == MouseLeft && hot.pressed && (&it == current_focus) && ishilite())
-			execute(pick_up_item);
 		if(current_select == &it)
 			paint_select_rect();
 		else if(current_focus == &it)
 			paint_focus_rect();
+		if(ishilite()) {
+			if(hot.key == MouseLeft && !hot.pressed) {
+				if(current_select)
+					execute(focus_and_pick_up_item, (long)&it);
+				else if(current_focus == &it)
+					execute(pick_up_item);
+				else
+					execute(cbsetptr, (long)&it, 0, &current_focus);
+			}
+		}
 	}
 	auto avatar = it.geti().avatar;
 	if(!it)

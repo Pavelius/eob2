@@ -424,19 +424,18 @@ static void create_wall(int i, pointc index, int frame, celln rec, bool flip) {
 			case BLUE:
 				if(loc->is(index, CellActive)) {
 					if(po) {
-						auto w = e1.sx - (e2.sx * 3) / 2;
-						p->x -= w;
+						auto w = e1.sx - (e2.sx * 3) / 2; p->x -= w;
 						p->zorder = 2;
 						p->frame[0] = door_offset + 6 + pos_levels[i] - 1;
 						p = add_copy_render();
 						p->x += 2 * w;
 						p->flags[0] = ImageMirrorH;
-					}
-					return;
+					} else
+						bsdata<renderi>::source.remove(); // Remove door
 				} else {
 					auto p1 = p;
 					p->frame[0] = door_offset + pos_levels[i] - 1;
-					p = add_render();
+					p = add_copy_render();
 					p->flags[0] = ImageMirrorH;
 					p->frame[0] = door_offset + pos_levels[i] - 1;
 					if(po) {

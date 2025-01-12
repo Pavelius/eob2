@@ -37,6 +37,7 @@ struct array {
 	void* ptrs(int index) const { return (((unsigned)index) < count) ? (char*)data + element_size * index : 0; }
 	template<class T> slice<T> records() const { return slice<T>((T*)data, count); }
 	void remove(int index, int elements_count = 1);
+	void remove();
 	void shift(int i1, int i2, size_t c1, size_t c2);
 	void setcount(unsigned value) { count = value; }
 	void setup(size_t size);

@@ -139,6 +139,11 @@ void array::remove(int index, int elements_count) {
 	count -= elements_count;
 }
 
+void array::remove() {
+	if(count)
+		remove(count - 1, 1);
+}
+
 int	array::indexof(const void* element) const {
 	if(element >= data && element < ((char*)data + element_size * count))
 		return ((char*)element - (char*)data) / element_size;

@@ -34,11 +34,11 @@ struct renderi {
 	void clear() { memset(this, 0, sizeof(renderi)); }
 };
 };
+BSDATAC(renderi, 512)
 static celln render_mirror1, render_mirror2;
 static resid render_door_type, render_dungeon;
 static int render_flipped_wall;
 static sprite* map_tiles;
-static renderi disp_data[512];
 static pointc indecies[18];
 static draw::surface scaler(320, 200, 32), scaler2(320, 200, 32);
 
@@ -129,9 +129,7 @@ static int get_tile_alternate(celln id) {
 renderi* get_disp(const void* target) {
 	if(!target)
 		return 0;
-	for(auto& e : disp_data) {
-		if(!e.rdata)
-			return 0;
+	for(auto& e : bsdata<renderi>()) {
 		if(e.target == target)
 			return &e;
 	}
@@ -142,7 +140,7 @@ static unsigned flip_flags(pointc pos, directions direction) {
 	return ((pos.x + pos.y + direction) & 1) != 0 ? ImageMirrorH : 0;
 }
 
-void fast_shadow(unsigned char* d, int d_scan, int width, int height, unsigned char alpha) {
+static void fast_shadow(unsigned char* d, int d_scan, int width, int height, unsigned char alpha) {
 	if(!alpha)
 		return;
 	while(height-- > 0) {
@@ -198,7 +196,7 @@ static void fast_fill_contour(unsigned char* d, int d_scan, int width, int heigh
 }
 
 void view_dungeon_reset() {
-	memset(disp_data, 0, sizeof(disp_data));
+	bsdata<renderi>::source.clear();
 	map_tiles = 0;
 }
 
@@ -210,12 +208,6 @@ void view_dungeon_reset() {
 //		return loc->is(v, CellActive) ? 2 : 1;
 //	return -1;
 //}
-
-void animation_clear() {
-}
-
-void animation_damage(creaturei* target, int hits) {
-}
 
 void set_dungeon_tiles(resid type) {
 	map_tiles = gres(type);
@@ -240,6 +232,12 @@ void set_dungeon_tiles(resid type) {
 	default:
 		break;
 	}
+}
+
+static renderi* create_render() {
+	auto p = bsdata<renderi>::add();
+	p->clear();
+	return p;
 }
 
 static dungeoni::overlayi* add_wall_decor(renderi* p, pointc index, directions dir, int n, bool flip, bool use_flip) {
@@ -269,16 +267,6 @@ static dungeoni::overlayi* add_wall_decor(renderi* p, pointc index, directions d
 	if(use_flip && flip && (render_mirror1 == tile || render_mirror2 == tile))
 		p->flags[1] ^= ImageMirrorH;
 	return povr;
-}
-
-static int get_throw_index(unsigned char type) {
-	//switch(type) {
-	//case Spear: return 6;
-	//case Dart: return 8;
-	//case Dagger: return 10;
-	//default: return 12;
-	//}
-	return 12;
 }
 
 static void fill_item_sprite(renderi* p, const itemi* pi, int frame = 0) {
@@ -336,7 +324,7 @@ static renderi* add_cellar_items(renderi* p, int i, dungeoni::overlayi* povr) {
 	return p;
 }
 
-static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln rec, bool flip) {
+static void create_wall(int i, pointc index, int frame, celln rec, bool flip) {
 	int n;
 	// Walls render
 	// | |_  5 4 7
@@ -413,28 +401,27 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 	bool enable;
 	auto cd = party.d;
 	if(frame == -1)
-		return p;
+		return;
 	// Front
 	n = walls_front[i];
 	if(n) {
-		p->clear();
+		auto p = create_render();
 		p->x = wall_position[i].x;
 		p->y = scry / 2;
 		p->z = pos_levels[i] * distance_per_level;
 		p->frame[0] = n + frame;
 		p->rdata = map_tiles;
-		//p->rec = rec;
 		auto front_wall = p;
 		if(rec == CellDoor && i < 15) {
-			p++;
+			p = create_render();
 			p->clear();
 			p->x = wall_position[i].x;
 			p->y = scry / 2;
 			p->z = pos_levels[i] * distance_per_level;
 			p->zorder = 1;
 			p->rdata = map_tiles;
-			auto e1 = map_tiles->get(door_offset + pos_levels[i] - 1);
-			auto e2 = map_tiles->get(door_offset + 6 + pos_levels[i] - 1);
+			auto& e1 = map_tiles->get(door_offset + pos_levels[i] - 1);
+			auto& e2 = map_tiles->get(door_offset + 6 + pos_levels[i] - 1);
 			auto po = loc->get(to(indecies[i], to(party.d, Down)), party.d);
 			switch(render_door_type) {
 			case BLUE:
@@ -449,11 +436,11 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 						p->flags[0] = ImageMirrorH;
 						p++;
 					}
-					return p;
+					return;
 				} else {
 					auto p1 = p;
 					p->frame[0] = door_offset + pos_levels[i] - 1;
-					p++; memcpy(p, p - 1, sizeof(p[0]));
+					p = create_render();
 					p->flags[0] = ImageMirrorH;
 					p->frame[0] = door_offset + pos_levels[i] - 1;
 					if(po) {
@@ -523,9 +510,8 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 				break;
 			}
 			auto povr = add_wall_decor(p, index, Down, decor_front[i], flip, true);
-			p = add_cellar_items(p, i, povr);
+			add_cellar_items(p, i, povr);
 		}
-		p++;
 	}
 	// Left
 	n = walls_left[i];
@@ -533,7 +519,7 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 	if((rec == CellStairsUp || rec == CellStairsDown) && i != 15)
 		enable = false;
 	if(n && enable) {
-		p->clear();
+		auto p = create_render();
 		p->x = wall_position[i].x;
 		if(n == 5 || n == 6)
 			p->x += wall_width[i] * 2;
@@ -544,7 +530,6 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 		p->frame[0] = n + frame;
 		p->rdata = map_tiles;
 		add_wall_decor(p, index, Right, decor_left[i], flip, false);
-		p++;
 	}
 	// Right
 	n = walls_right[i];
@@ -552,7 +537,7 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 	if((rec == CellStairsUp || rec == CellStairsDown) && i != 17)
 		enable = false;
 	if(n && enable) {
-		p->clear();
+		auto p = create_render();
 		p->x = wall_position[i].x;
 		if(n == 5 || n == 6)
 			p->x -= wall_width[i] * 2;
@@ -565,12 +550,10 @@ static renderi* create_wall(renderi* p, int i, pointc index, int frame, celln re
 		p->rdata = map_tiles;
 		p->flags[1] = ImageMirrorH;
 		add_wall_decor(p, index, Left, decor_right[i], flip, false);
-		p++;
 	}
-	return p;
 }
 
-static renderi* create_floor(renderi* p, int i, pointc index, celln rec, bool flip) {
+static void create_floor(int i, pointc index, celln rec, bool flip) {
 	static short floor_pos[18] = {
 		scrx / 2 - 42 * 3, scrx / 2 - 42 * 2, scrx / 2 - 42, scrx / 2, scrx / 2 + 42, scrx / 2 + 42 * 2, scrx / 2 + 42 * 3,
 		scrx / 2 - 64 * 2, scrx / 2 - 64, scrx / 2, scrx / 2 + 64, scrx / 2 + 64 * 2,
@@ -584,7 +567,7 @@ static renderi* create_floor(renderi* p, int i, pointc index, celln rec, bool fl
 	};
 	auto frame = get_tile(rec, false);
 	if(frame != -1) {
-		p->clear();
+		auto p = create_render();
 		p->x = floor_pos[i];
 		p->y = scry / 2;
 		p->z = pos_levels[i] * distance_per_level + 1;
@@ -597,32 +580,28 @@ static renderi* create_floor(renderi* p, int i, pointc index, celln rec, bool fl
 			p->rdata = gres(bsdata<celli>::elements[rec].res);
 		else
 			p->rdata = map_tiles;
-		p++;
 	}
-	return p;
 }
 
 static int get_x_from_line(int y, int x1, int y1, int x2, int y2) {
 	return ((y - y1) * (x2 - x1)) / (y2 - y1) + x1;
 }
 
-static renderi* create_items(renderi* p, int i, pointc v, directions dr) {
+static void create_items(int i, pointc v, directions dr) {
 	dungeoni::ground* result[64];
 	auto item_count = loc->getitems(result, lenghtof(result), v);
 	for(size_t n = 0; n < item_count; n++) {
 		auto pi = (dungeoni::ground*)result[n];
 		int s = get_side(pi->side, dr);
 		int d = pos_levels[i] * 2 + (1 - s / 2);
-		p->clear();
+		auto p = create_render();
 		p->x = item_position[i * 4 + s].x;
 		p->y = item_position[i * 4 + s].y;
 		p->z = pos_levels[i] * distance_per_level + 1 + (1 - s / 2);
 		p->percent = item_distances[d][0];
 		p->alpha = (unsigned char)item_distances[d][1];
 		fill_item_sprite(p, &pi->geti());
-		p++;
 	}
-	return p;
 }
 
 void create_monster_pallette() {
@@ -638,7 +617,7 @@ void create_monster_pallette() {
 	player->pallette = xrand(0, 2);
 }
 
-static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, bool flip) {
+static void create_monsters(int i, pointc index, directions dr, bool flip) {
 	creaturei* result[6]; loc->getmonsters(result, index, dr);
 	for(int n = 0; n < 4; n++) {
 		auto pc = result[n];
@@ -647,7 +626,7 @@ static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, 
 		auto large = pc->is(Large);
 		auto dir = get_view_direction(dr, pc->d);
 		int d = pos_levels[i] * 2 - (n / 2);
-		p->clear();
+		auto p = create_render();
 		if(large) {
 			p->x = item_position[i * 4 + 0].x + (item_position[i * 4 + 1].x - item_position[i * 4 + 0].x) / 2;
 			p->y = item_position[i * 4 + 0].y + (item_position[i * 4 + 3].y - item_position[i * 4 + 0].y) / 2;
@@ -694,9 +673,7 @@ static renderi* create_monsters(renderi* p, int i, pointc index, directions dr, 
 		}
 		for(int i = 0; i < lenghtof(p->flags); i++)
 			p->flags[i] = flags;
-		p++;
 	}
-	return p;
 }
 
 static void prepare_draw(pointc index, directions dr) {
@@ -739,14 +716,14 @@ static void prepare_draw(pointc index, directions dr) {
 	default:
 		return;
 	}
-	auto p = disp_data;
+	bsdata<renderi>::source.clear();
 	// walls
 	for(int i = 0; i < 18; i++) {
 		int x1 = x + offsets[i * 2 + 0];
 		int y1 = y + offsets[i * 2 + 1];
 		bool mr = ((x1 + y1 + party.d) & 1) != 0;
 		if(x1 < 0 || y1 < 0 || x1 >= mpx || y1 >= mpy) {
-			p = create_wall(p, i, {-1, -1}, get_tile(CellWall, mr), CellWall, !mr);
+			create_wall(i, {-1, -1}, get_tile(CellWall, mr), CellWall, !mr);
 			continue;
 		}
 		pointc index{(char)x1, (char)y1};
@@ -756,18 +733,17 @@ static void prepare_draw(pointc index, directions dr) {
 		if(tilt != CellWall && tilt != CellStairsUp && tilt != CellStairsDown) {
 			if(tilt != CellDoor) {
 				if(locup && locup->get(index) == CellPit)
-					p = create_floor(p, i, index, CellPitUp, mr);
+					create_floor(i, index, CellPitUp, mr);
 			}
-			p = create_items(p, i, index, dr);
-			p = create_monsters(p, i, index, dr, mr);
+			create_items(i, index, dr);
+			create_monsters(i, index, dr, mr);
 		}
 		auto& et = bsdata<celli>::elements[tile];
 		if(et.flags.is(LookWall))
-			p = create_wall(p, i, index, get_tile(tile, mr), tile, mr);
+			create_wall(i, index, get_tile(tile, mr), tile, mr);
 		else if(et.flags.is(LookObject))
-			p = create_floor(p, i, index, tile, mr);
+			create_floor(i, index, tile, mr);
 	}
-	p->rdata = 0;
 }
 
 static int compare_drawable(const void* p1, const void* p2) {
@@ -828,7 +804,7 @@ void fix_monster_damage(const creaturei* target) {
 }
 
 void fix_monster_damage_end() {
-	for(auto& e : disp_data) {
+	for(auto& e : bsdata<renderi>()) {
 		if(loc->have((creaturei*)e.target)) {
 			for(auto& f : e.flags)
 				f &= ~ImageColor;
@@ -941,8 +917,8 @@ void paint_dungeon() {
 	image(scrx / 2, scry / 2, map_tiles, 0, flags);
 	setclip({0, 0, scrx, scry});
 	renderi** pz = zorder;
-	for(renderi* p = disp_data; p->rdata; p++)
-		*pz++ = p;
+	for(auto& e : bsdata<renderi>())
+		*pz++ = &e;
 	qsort(zorder, pz - zorder, sizeof(zorder[0]), compare_drawable);
 	for(auto p1 = zorder; p1 < pz; p1++) {
 		renderi* p = *p1;
@@ -963,7 +939,7 @@ void animation_update() {
 }
 
 renderi* get_last_disp() {
-	for(auto& e : disp_data) {
+	for(auto& e : bsdata<renderi>()) {
 		if(!e.rdata)
 			return &e;
 	}
@@ -997,9 +973,9 @@ static void fill_sprite(renderi* p, int avatar_thrown, directions drs, int side)
 	//	fill_item_sprite(p, pi);
 }
 
-static renderi* create_thrown(renderi* p, int i, int ps, int avatar_thrown, directions dr, int side) {
+static void create_thrown(int i, int ps, int avatar_thrown, directions dr, int side) {
 	static int height_sizes[8] = {120, 96, 71, 64, 48, 40, 30, 24};
-	p->clear();
+	auto p = create_render();
 	int m = pos_levels[i];
 	int d = pos_levels[i] * 2 + (1 - ps / 2);
 	int h = height_sizes[d] / 6 - height_sizes[d];
@@ -1021,16 +997,12 @@ static renderi* create_thrown(renderi* p, int i, int ps, int avatar_thrown, dire
 	fill_sprite(p, avatar_thrown, dr, side);
 	p->percent = item_distances[d][0];
 	p->alpha = (unsigned char)item_distances[d][1];
-	p++;
-	p->rdata = 0;
-	return p;
 }
 
 static void thrown_step(pointc v, directions d, int avatar_thrown, int side) {
 	int i = get_index_pos(v);
 	if(i == -1)
 		return;
-	auto p = get_last_disp();
 	int s1, s2;
 	switch(d) {
 	case Up:
@@ -1042,15 +1014,14 @@ static void thrown_step(pointc v, directions d, int avatar_thrown, int side) {
 		s2 = 2;
 		break;
 	}
-	create_thrown(p, i, s1, avatar_thrown, d, side);
+	create_thrown(i, s1, avatar_thrown, d, side);
 	paint_dungeon();
 	doredraw();
 	waitcputime(64);
-	create_thrown(p, i, s2, avatar_thrown, d, side);
+	create_thrown(i, s2, avatar_thrown, d, side);
 	paint_dungeon();
 	doredraw();
 	waitcputime(64);
-	p->rdata = 0;
 }
 
 void thrown_item(pointc v, directions d, int avatar_thrown, int side, int distance) {

@@ -1,4 +1,5 @@
 ﻿Bugbear: Bugbear
+GiantSpider: Spider
 Ghoul: Ghoul
 Goblin: Goblin
 Kobold: Kobold

@@ -37,4 +37,4 @@ GeneratePartyDebug
 StartGameAbilities
  elements FloodedSewers ActivateQuest CursedDungeon ActivateQuest ExploreNorthWood ActivateQuest DwarfMountains ActivateQuest GoldPiece+50 Reputation+20 Blessing+20
 StartGame
- elements GeneratePartyDebug StartGameAbilities PassHours+7 Message HunterVillage EnterLocation
+ elements GenerateParty StartGameAbilities PassHours+7 Message HunterVillage EnterLocation

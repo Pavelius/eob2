@@ -122,5 +122,5 @@ Dwarf mountains
 #DwarfMountainsEntering
 /adventure 2
 You move to north about day on two. Green valley lay around you, but you go to nothern side, when you see moutains.
-/adventure 9
+/adventure 0
 On third day of travel you enter into mountain dungeon.

@@ -4,7 +4,11 @@
 #AnimalFriendly
 %OpponentName stand still and glazing at you.
 
-#KoboldFloodedSewers
+#IntellegenceFriendly
+"What do you want?"
+"What can I do for you?"
+
+#IntellegenceCareful
 "How you get there?"
 "How you get this place?"
 "Who is you? How you dig so deep?"

@@ -1,0 +1,2 @@
+﻿Can't find file 'rules/Core.txt'
+Can't find file 'rules/Avatars.txt'

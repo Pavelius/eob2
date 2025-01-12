@@ -1,2 +1,3 @@
-﻿Error in file `rules/Diety.txt`:
- Line 1: Not find data type for `Diety`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `GiantSpider`
+ Define translation for `Sting1d8`

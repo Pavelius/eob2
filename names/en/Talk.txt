@@ -249,7 +249,8 @@ Food is spoiled. We need clean it
 "You liers! You're not who you seem to be. I kill you!"
 
 #LieSuccess
-"Welcome friends! How can I help you?"
+"Welcome friends!"
+"I know, you are friends!"
 
 #CalmDownSuccess
 %Name is calm down and leave away.

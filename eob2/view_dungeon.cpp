@@ -110,6 +110,7 @@ static celln get_wall_type(celln v) {
 	case CellPortal:
 	case CellStairsUp:
 	case CellStairsDown:
+	case CellWall:
 		return CellWall;
 	default:
 		return v;
@@ -750,7 +751,7 @@ static void prepare_draw(pointc index, directions dr) {
 		}
 		auto tile = loc->get(index);
 		auto tilt = get_wall_type(tile);
-		if(tilt != CellWall && tilt != CellStairsUp && tilt != CellStairsDown && tilt!=CellPortal) {
+		if(tilt != CellWall) {
 			if(tilt != CellDoor) {
 				if(locup && locup->get(index) == CellPit)
 					create_floor(i, index, CellPitUp, mr);

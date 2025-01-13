@@ -468,6 +468,10 @@ static void create_wall(int i, pointc index, int frame, celln rec, bool flip) {
 			default:
 				// Drop down door
 				p->frame[0] = door_offset + pos_levels[i] - 1;
+				//if(loc->type == CRIMSON) {
+				//	p->x++;
+				//	p->y++;
+				//}
 				if(loc->is(index, CellActive)) {
 					auto x = wall_position[i].x - e1.ox;
 					auto y = wall_position[i].y - e1.oy;
@@ -547,6 +551,24 @@ static void create_wall(int i, pointc index, int frame, celln rec, bool flip) {
 	}
 }
 
+static bool cat_by_walls(int i1, int i2) {
+	return get_wall_type(loc->get(indecies[i1])) == CellWall
+		&& get_wall_type(loc->get(indecies[i2])) == CellWall;
+}
+
+static bool cat_by_walls(int i) {
+	switch(i) {
+	case 2: return cat_by_walls(3, 8);
+	case 4: return cat_by_walls(3, 10);
+	case 8: return cat_by_walls(9, 12);
+	case 9: return get_wall_type(loc->get(indecies[13])) == CellWall;
+	case 10: return cat_by_walls(9, 14);
+	case 12: return cat_by_walls(13, 15);
+	case 14: return cat_by_walls(13, 17);
+	default: return false;
+	}
+}
+
 static void create_floor(int i, pointc index, celln rec, bool flip) {
 	static short floor_pos[18] = {
 		scrx / 2 - 42 * 3, scrx / 2 - 42 * 2, scrx / 2 - 42, scrx / 2, scrx / 2 + 42, scrx / 2 + 42 * 2, scrx / 2 + 42 * 3,
@@ -612,6 +634,8 @@ void create_monster_pallette() {
 }
 
 static void create_monsters(int i, pointc index, directions dr, bool flip) {
+	if(cat_by_walls(i))
+		return;
 	creaturei* result[6]; loc->getmonsters(result, index, dr);
 	for(int n = 0; n < 4; n++) {
 		auto pc = result[n];
@@ -711,20 +735,22 @@ static void prepare_draw(pointc index, directions dr) {
 		return;
 	}
 	bsdata<renderi>::source.clear();
+	// indeciess
+	for(int i = 0; i < 18; i++) {
+		indecies[i].x = x + offsets[i * 2 + 0];
+		indecies[i].y = y + offsets[i * 2 + 1];
+	}
 	// walls
 	for(int i = 0; i < 18; i++) {
-		int x1 = x + offsets[i * 2 + 0];
-		int y1 = y + offsets[i * 2 + 1];
-		bool mr = ((x1 + y1 + party.d) & 1) != 0;
-		if(x1 < 0 || y1 < 0 || x1 >= mpx || y1 >= mpy) {
+		pointc index = indecies[i];
+		bool mr = ((index.x + index.y + party.d) & 1) != 0;
+		if(!index) {
 			create_wall(i, {-1, -1}, get_tile(CellWall, mr), CellWall, !mr);
 			continue;
 		}
-		pointc index{(char)x1, (char)y1};
 		auto tile = loc->get(index);
 		auto tilt = get_wall_type(tile);
-		indecies[i] = index;
-		if(tilt != CellWall && tilt != CellStairsUp && tilt != CellStairsDown) {
+		if(tilt != CellWall && tilt != CellStairsUp && tilt != CellStairsDown && tilt!=CellPortal) {
 			if(tilt != CellDoor) {
 				if(locup && locup->get(index) == CellPit)
 					create_floor(i, index, CellPitUp, mr);

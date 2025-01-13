@@ -910,7 +910,7 @@ static void link_dungeon(dungeoni& upper, dungeoni& current) {
 		}
 	}
 	// 4) Place random count of pits (usually for 1 to 4)
-	zshuffle(points.data, points.count);
+	points.shuffle();
 	points.top(xrand(1, 4));
 	for(auto v : points)
 		upper.set(v, CellPit);

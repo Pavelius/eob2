@@ -44,9 +44,18 @@ I see something behind bars
 Old drainage gate
 That eyes look on me
 
+#CellDecor2Crimson
+Strange banner
+Banner with some unknown heraldic
+
 #CellDecor3Dung
 Looks like on key or bone
 Interesting
+
+#CellDecor3Crimson
+There is good view
+We are on a top of rock
+I see sky and clouds
 
 #CellDecor3Brick
 What a stench!

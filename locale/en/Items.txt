@@ -71,6 +71,7 @@ Rotten: Rotten
 
 ReadableOfPower: %1
 RodOfPower: %1
+Magical: Magical
 
 OfAC: defence%+1i
 OfCharisma: human control

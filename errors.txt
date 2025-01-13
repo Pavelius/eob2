@@ -1,3 +1,2 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `GiantSpider`
- Define translation for `Sting1d8`
+ Define translation for `Magical`

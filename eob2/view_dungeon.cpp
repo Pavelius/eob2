@@ -458,10 +458,9 @@ static void create_wall(int i, pointc index, int frame, celln rec, bool flip) {
 					front_wall->frame[2] = door_offset + 6 + pos_levels[i] - 1;
 				break;
 			case GREEN:
-				// Drop down door
-				if(loc->is(index, CellActive)) {
-					// p--;
-				} else
+				if(loc->is(index, CellActive))
+					bsdata<renderi>::source.remove(); // Remove door
+				else
 					p->frame[0] = door_offset + pos_levels[i] - 1;
 				if(po)
 					front_wall->frame[1] = door_offset + 6 + pos_levels[i] - 1;

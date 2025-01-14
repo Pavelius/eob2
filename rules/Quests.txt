@@ -37,4 +37,4 @@ DwarfMountains difficult(1)
  goals ExmploreMostArea(3)
  travel PassDays+3
  reward AddReward+10 Reputation+5
- sites type(crimson) level(3) habbits(Goblin GiantSpider) language(Dwarf) key(CooperKey) features(RoomFeature RoomFeature) webs(20)
+ sites type(silver) level(3) habbits(Goblin GiantSpider) language(Dwarf) key(CooperKey) features(RoomFeature RoomFeature)

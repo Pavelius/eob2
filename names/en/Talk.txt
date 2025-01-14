@@ -1,3 +1,9 @@
+#AdventurerGroup
+Wizard
+Knight
+Fighter
+Theif
+
 #CellSecrectButtonAccept
 A secret door! I know it!
 Good, secret door
@@ -35,6 +41,10 @@ Stairs lie in %StairsDownSide part of tomb
 
 #CellDecor1BrickTheif
 Find ladder in %StairsDownSide part of dungeon
+
+#CellDecor1Silver
+Banner of a %AdventurerGroup guild, I think
+Some unknown heraldic
 
 #CellDecor2Brick
 A drainage gate. I think

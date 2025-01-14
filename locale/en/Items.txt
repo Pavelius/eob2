@@ -13,6 +13,7 @@ Bow: Bow
 ChainMail: Chain mail
 ChillTouchHand: Cold hand
 Club: Club
+CooperKey: Cooper key
 Dagger: Dagger
 DwarvenHelm: Dwarven helm
 DwarvenShield: Dwarven shield

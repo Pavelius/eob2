@@ -1,9 +1,9 @@
 #Diety
 
 Helm alignment(LawfulNeutral)
- minor ProtectionFromEvil
- major CureLightWounds CureDisease RemoveCurse
+ minor CureLightWounds ProtectionFromEvil
+ major RemoveCurse CureSeriousWounds
 
 Tempus alignment(ChaoticNeutral)
- minor Bless
- major CureLightWounds HoldPerson
+ minor CureLightWounds Bless
+ major HoldPerson

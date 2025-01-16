@@ -1028,7 +1028,7 @@ static spelli* choose_spell(int level, int type) {
 	return (spelli*)choose_small_menu(getnm("WhatSpell"), "Cancel");
 }
 
-static void test_dungeon() {
+static void explore_all_dungeon() {
 	pointc v;
 	for(v.x = 0; v.x < mpx; v.x++) {
 		for(v.y = 0; v.y < mpy; v.y++) {
@@ -1036,10 +1036,13 @@ static void test_dungeon() {
 				loc->set(v, CellExplored);
 		}
 	}
-	v = party;
+}
+
+static void test_dungeon() {
+	pointc v = party;
 	for(int i = 0; i < 3; i++)
 		v = to(v, party.d);
-	thrown_item(v, Down, 6, get_party_index(player) % 2, 4);
+	thrown_item(v, Down, 106, get_party_index(player) % 2, 4);
 }
 
 static void choose_race(int bonus) {

@@ -14,7 +14,7 @@
 #List
 
 DebugCharacter
- elements AddExpPersonal+100
+// elements AddExpPersonal+100
 DebugMageSpells
 // elements AddExpPersonal+100 AddExpPersonal+100 PushModifier Permanent Invisibility StrenghtSpell
 

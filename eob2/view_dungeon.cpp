@@ -976,30 +976,34 @@ static int get_index_pos(pointc index) {
 }
 
 int thrown_side(int avatar_thrown, int side) {
-	if(avatar_thrown >= 2 && avatar_thrown < 7)
+	if((avatar_thrown >= 2 && avatar_thrown < 7)
+		|| (avatar_thrown >= 200))
 		return -1;
 	return side;
 }
 
 static void fill_sprite(renderi* p, int avatar_thrown, directions drs, int side) {
-	p->frame[0] = avatar_thrown;
-	p->rdata = gres(THROWN);
-	if(avatar_thrown >= 7) {
+	if(avatar_thrown >= 200) {
+		p->frame[0] = avatar_thrown - 200;
+		p->rdata = gres(ITEMGL);
+	} else if(avatar_thrown >= 100) {
+		p->frame[0] = avatar_thrown - 100;
+		p->rdata = gres(ITEMGS);
+	} else if(avatar_thrown >= 7) {
+		p->frame[0] = avatar_thrown;
+		p->rdata = gres(THROWN);
 		if(drs == Down) {
 			p->flags[0] |= ImageMirrorV;
 			p->frame[0]++;
 		}
+	} else {
+		p->frame[0] = avatar_thrown;
+		p->rdata = gres(THROWN);
 	}
-	//} else
-	//	fill_item_sprite(p, pi);
 }
 
-static void create_thrown(int i, int ps, int avatar_thrown, directions dr, int side) {
-	static int height_sizes[8] = {120, 96, 71, 64, 48, 40, 30, 24};
-	auto p = add_render();
-	int m = pos_levels[i];
+static void fill_position(renderi* p, int i, int ps, int side) {
 	int d = pos_levels[i] * 2 + (1 - ps / 2);
-	int h = height_sizes[d] / 6 - height_sizes[d];
 	switch(side) {
 	case 0:
 		p->y = 24 + d * 2;
@@ -1015,9 +1019,18 @@ static void create_thrown(int i, int ps, int avatar_thrown, directions dr, int s
 		break;
 	}
 	p->z = pos_levels[i] * distance_per_level + (1 - ps / 2);
+}
+
+static renderi* create_thrown(renderi* p, int i, int ps, int avatar_thrown, directions dr, int side) {
+	if(!p)
+		p = add_render();
+	p->clear();
+	fill_position(p, i, ps, side);
 	fill_sprite(p, avatar_thrown, dr, side);
+	int d = pos_levels[i] * 2 + (1 - ps / 2);
 	p->percent = item_distances[d][0];
 	p->alpha = (unsigned char)item_distances[d][1];
+	return p;
 }
 
 static void thrown_step(pointc v, directions d, int avatar_thrown, int side) {
@@ -1035,14 +1048,16 @@ static void thrown_step(pointc v, directions d, int avatar_thrown, int side) {
 		s2 = 2;
 		break;
 	}
-	create_thrown(i, s1, avatar_thrown, d, side);
+	auto p = create_thrown(0, i, s1, avatar_thrown, d, side);
 	paint_dungeon();
 	doredraw();
 	waitcputime(64);
-	create_thrown(i, s2, avatar_thrown, d, side);
+	p = create_thrown(p, i, s2, avatar_thrown, d, side);
 	paint_dungeon();
 	doredraw();
 	waitcputime(64);
+	p->clear();
+	bsdata<renderi>::source.remove(bsdata<renderi>::source.indexof(p), 1);
 }
 
 void thrown_item(pointc v, directions d, int avatar_thrown, int side, int distance) {

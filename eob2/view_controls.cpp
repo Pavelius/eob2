@@ -1656,7 +1656,7 @@ static void choose_character(int index) {
 	}
 }
 
-bool character_input() {
+static bool character_input() {
 	switch(hot.key) {
 	case '1': case '2': case '3':
 	case '4': case '5': case '6':

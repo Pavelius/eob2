@@ -44,7 +44,6 @@ bool adventure_input(const hotkeyi* hotkeys);
 bool alternate_focus_input();
 void animation_update();
 void button_label(int index, const void* data, const char* format, unsigned key, fnevent proc);
-bool character_input();
 bool choose_avatar();
 void city_input(const hotkeyi* hotkeys);
 void clear_input();

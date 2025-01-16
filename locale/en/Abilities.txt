@@ -58,6 +58,8 @@ BonusHP: High constitution bonus
 BonusSaveVsPoison: Bonus save vs Poison
 BonusSaveVsSpells: Bonus save vs Spells
 ImmuneDisease: Immune to diseases
+ImmuneCharm: Immune to charm
+Precise: Precise
 ProtectedFromEvil: Protected from Evil
 UseLeather: Use leather armor
 UseMage: Use wizardy items

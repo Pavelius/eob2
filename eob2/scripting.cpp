@@ -744,8 +744,9 @@ static int get_ability_number(creaturei* player, abilityn a, int magical_bonus) 
 		case -3: return -60;
 		case -4: return -80;
 		case -5: return -100;
-		case 0: return 40;
-		case 1: case 2: case 3: case 4: case 5: return 100;
+		case 0: return 30;
+		case 1: return 60;
+		case 2: case 3: case 4: case 5: return 90;
 		default: return magical_bonus;
 		}
 	}

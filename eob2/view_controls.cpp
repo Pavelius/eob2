@@ -214,6 +214,28 @@ static bool button_input(const void* button_data, unsigned key, unsigned key_hot
 	return false;
 }
 
+static void button_press_effect() {
+	auto size = sizeof(color) * (width - 1);
+	for(auto y = caret.y + height - 2; y < caret.y; y--) {
+		memmove(canvas->ptr(caret.x + 1, y + 1), canvas->ptr(caret.x, y), size);
+		*((color*)canvas->ptr(caret.x, y)) = color();
+	}
+	memset(canvas->ptr(caret.x, caret.y), 0, width * sizeof(color));
+}
+
+static bool button(rect rc, unsigned key) {
+	rectpush push;
+	caret.x = rc.x1;
+	caret.y = rc.y1;
+	width = rc.width();
+	height = rc.height();
+	auto button_data = (void*)(*((int*)&caret));
+	auto run = button_input(button_data, key);
+	if(pressed_focus == button_data) {
+	}
+	return run;
+}
+
 static bool button(resid id, int normal, int pressed, int overlay, unsigned key) {
 	auto ps = gres(id);
 	rectpush push; width = ps->get(normal).sx; height = ps->get(normal).sy;
@@ -235,6 +257,11 @@ static bool button(resid id, int normal, int pressed, int overlay, unsigned key)
 
 static void button(resid id, int normal, int pressed, int overlay, unsigned key, fnevent proc, long param = 0, void* param_object = 0) {
 	if(button(id, normal, pressed, overlay, key))
+		execute(proc, param, 0, param_object);
+}
+
+static void button(rect rc, unsigned key, fnevent proc, long param = 0, void* param_object = 0) {
+	if(button(rc, key))
 		execute(proc, param, 0, param_object);
 }
 

@@ -1684,13 +1684,15 @@ bool character_input() {
 	return true;
 }
 
-void alternate_focus_input() {
+bool alternate_focus_input() {
 	switch(hot.key) {
 	case 'A': apply_focus(KeyLeft); break;
 	case 'S': apply_focus(KeyRight); break;
 	case 'W': apply_focus(KeyUp); break;
 	case 'Z': apply_focus(KeyDown); break;
+	default: return false;
 	}
+	return true;
 }
 
 void clear_input() {
@@ -1710,8 +1712,10 @@ bool hotkey_input(const hotkeyi* hotkeys) {
 }
 
 void city_input(const hotkeyi* hotkeys) {
-	focus_input();
-	alternate_focus_input();
+	if(focus_input())
+		return;
+	if(alternate_focus_input())
+		return;
 	if(character_input())
 		return;
 	if(hotkey_input(hotkeys))
@@ -1719,7 +1723,8 @@ void city_input(const hotkeyi* hotkeys) {
 }
 
 bool adventure_input(const hotkeyi* hotkeys) {
-	alternate_focus_input();
+	if(alternate_focus_input())
+		return true;
 	if(character_input())
 		return true;
 	if(hotkey_input(hotkeys))
@@ -1791,10 +1796,12 @@ static void* choose_answer(const char* title, const char* cancel, fnevent before
 			answer_paint(1000, 0, cancel, KeyEscape, update_buttonparam);
 		}
 		domodal();
-		if(!answer_input()) {
-			focus_input();
-			alternate_focus_input();
-		}
+		if(answer_input())
+			continue;
+		if(focus_input())
+			continue;
+		if(alternate_focus_input())
+			continue;
 		common_input();
 	}
 	answer_origin = push_origin;
@@ -2279,8 +2286,10 @@ void* show_message(const char* format, bool add_anaswers, const char* cancel, un
 			button_label(index++, 0, cancel, cancel_key, update_buttonparam);
 		}
 		domodal();
-		focus_input();
-		alternate_focus_input();
+		if(focus_input())
+			continue;
+		if(alternate_focus_input())
+			continue;
 		common_input();
 	}
 	picture = push_picture;

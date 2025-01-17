@@ -63,6 +63,7 @@ FlameBladeHand: Flame blade
 Bite1d6: Bite
 Claws1d3: Claws
 Claws1d4: Claws
+Slam1d4: Slam
 Slam1d8: Slam
 Sting1d8: Sting
 

@@ -284,7 +284,7 @@ Fireball levels(0 3) avatar_thrown(2)
 Haste levels(0 3) lighting(0 0 128)
  feats Ally You Group
  instant ApplyEnchantSpell
- wearing Hasted
+ wearing Hasted AdditionalAttacks+2 AC+4 Attack+4
 HoldUndead levels(0 3) duration(Roll1d4x1)
  feats Enemy
  filter Undead IfParalized-1

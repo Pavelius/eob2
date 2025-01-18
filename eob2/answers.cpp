@@ -40,7 +40,7 @@ void answers::clear() {
 	sc.clear();
 }
 
-int	answers::findvalue(const void* pv) const {
+size_t answers::findvalue(const void* pv) const {
 	for(auto& e : elements) {
 		if(e.value == pv)
 			return &e - elements.data;

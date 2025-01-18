@@ -102,7 +102,7 @@ static void set32(color* p, unsigned count) {
 	case 0:
 		break;
 	case 255:
-#ifdef _MSC_VER
+#ifdef WIN32
 		_asm {
 			mov edi, p
 			mov eax, fore

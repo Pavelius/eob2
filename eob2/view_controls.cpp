@@ -403,7 +403,7 @@ void text_label_menu(int index, const void* button_data, const char* format, uns
 		fore = colors::white;
 		if(index == answer_origin && answer_origin != 0)
 			paint_arrow(caret, Up, 6);
-		else if(answer_per_page != -1 && index == (answer_origin + answer_per_page - 1) && (answer_origin + answer_per_page < an.getcount()))
+		else if(answer_per_page != -1 && index == (answer_origin + answer_per_page - 1) && (answer_origin + answer_per_page < (int)an.getcount()))
 			paint_arrow(caret, Down, 6);
 	}
 	if(index >= 1000)

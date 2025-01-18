@@ -73,7 +73,7 @@ static const char* read_block(const char* p, shapei& e, stringbuilder& sb) {
 			sb.add(*p++);
 	}
 	if(e.size.x)
-		e.size.y = sb.size() / e.size.x;
+		e.size.y = (char)(sb.size() / e.size.x);
 	size_t mr = e.size.x * e.size.y;
 	size_t mn = sb.getmaximum();
 	if(mr > mn)

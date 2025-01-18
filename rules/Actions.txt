@@ -58,7 +58,7 @@ BuyArmor
  effect BuyArmors
  required Reputation(40)
 Donate avatar(scenes 5)
- effect ChooseDonation IfZero-1 PayGold+101 Div+50 Add-1 Blessing+101
+ effect ChooseDonation IfZero-1 PayGold+101 Div+50 Add-1 Blessing+101 Chance+100 Reputation+1
 EatAndDrink avatar(buildngs 6) cost(5)
  effect Message ForEachParty HealEffect
 GambleVisitors avatar(buildngs 24)

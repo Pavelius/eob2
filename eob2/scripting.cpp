@@ -866,7 +866,7 @@ static bool faith_effect(int bonus) {
 		consolen(getnm("YourHaveNoDiety"));
 		return false;
 	}
-	if(party.abilities[Blessing] <= 0) {
+	if(party.abilities[Blessing] <= 30) {
 		consolen(getnm("YourFaithIsWeak"));
 		return false;
 	}

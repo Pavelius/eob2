@@ -2528,6 +2528,11 @@ static bool filter_variant(variant v, variant t) {
 	return false;
 }
 
+static void clear_game(int bonus) {
+	party.clear();
+	bsdata<creaturei>::source.clear();
+}
+
 static void clear_area(int bonus) {
 	points.clear();
 }
@@ -3105,6 +3110,7 @@ BSDATA(script) = {
 	{"ChooseShopItem", choose_shop_item},
 	{"ChooseSpells", choose_spells},
 	{"ClearArea", clear_area},
+	{"ClearGame", clear_game},
 	{"CreateCharacter", create_character},
 	{"CreatePower", create_power},
 	{"CurseItem", curse_item},

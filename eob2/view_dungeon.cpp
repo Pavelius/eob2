@@ -604,13 +604,21 @@ static int get_x_from_line(int y, int x1, int y1, int x2, int y2) {
 	return ((y - y1) * (x2 - x1)) / (y2 - y1) + x1;
 }
 
+static int cell_position(int i, int side) {
+	return pos_levels[i] * 2 + ((side < 2) ? 1 : 0);
+}
+
+static int monster_position(int i, int side) {
+	return pos_levels[i] * 2 + ((side < 2) ? 0 : -1);
+}
+
 static void create_items(int i, pointc v, directions dr) {
 	dungeoni::ground* result[64];
 	auto item_count = loc->getitems(result, lenghtof(result), v);
 	for(size_t n = 0; n < item_count; n++) {
 		auto pi = (dungeoni::ground*)result[n];
-		int s = get_side(pi->side, dr);
-		int d = pos_levels[i] * 2 + (1 - s / 2);
+		auto s = get_side(pi->side, dr);
+		auto d = cell_position(i, s);
 		auto p = add_render();
 		p->x = item_position[i * 4 + s].x;
 		p->y = item_position[i * 4 + s].y;
@@ -637,6 +645,8 @@ void create_monster_pallette() {
 static void create_monsters(int i, pointc index, directions dr, bool flip) {
 	if(cat_by_walls(i))
 		return;
+	if(!pos_levels[i])
+		return;
 	creaturei* result[6]; loc->getmonsters(result, index, dr);
 	for(int n = 0; n < 4; n++) {
 		auto pc = result[n];
@@ -644,7 +654,7 @@ static void create_monsters(int i, pointc index, directions dr, bool flip) {
 			continue;
 		auto large = pc->is(Large);
 		auto dir = get_view_direction(dr, pc->d);
-		int d = pos_levels[i] * 2 - (n / 2);
+		auto d = monster_position(i, n);
 		auto p = add_render();
 		if(large) {
 			p->x = item_position[i * 4 + 0].x + (item_position[i * 4 + 1].x - item_position[i * 4 + 0].x) / 2;
@@ -889,7 +899,7 @@ void renderi::paint() const {
 	for(int i = 0; i < 4; i++) {
 		if(i && !frame[i])
 			break;
-		if(!percent && (flags[i] & ImageColor) == 0)
+		if((!percent || percent == 1000) && (flags[i] & ImageColor) == 0)
 			image(x, y, rdata, frame[i], flags[i] | flags_addon);
 		else
 			imagex(x, y, rdata, frame[i], flags[i] | flags_addon, percent, alpha);
@@ -1027,7 +1037,7 @@ static renderi* create_thrown(renderi* p, int i, int ps, int avatar_thrown, dire
 	p->clear();
 	fill_position(p, i, ps, side);
 	fill_sprite(p, avatar_thrown, dr, side);
-	int d = pos_levels[i] * 2 + (1 - ps / 2);
+	int d = cell_position(i, ps);
 	p->percent = item_distances[d][0];
 	p->alpha = (unsigned char)item_distances[d][1];
 	return p;

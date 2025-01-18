@@ -2041,7 +2041,7 @@ void draw::blit(surface& dest, int x, int y, int width, int height, unsigned fla
 		return;
 	scale32(
 		dest.ptr(x, y), dest.scanline, width, height,
-		const_cast<surface&>(source).ptr(x_source, y_source) + ox * 4, source.scanline, width_source, height_source);
+		const_cast<surface&>(source).ptr(x_source + ox, y_source), source.scanline, width_source, height_source);
 }
 
 const pma* pma::getheader(const char* id) const {

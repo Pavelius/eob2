@@ -870,20 +870,17 @@ static bool faith_effect(int bonus) {
 		consolen(getnm("YourFaithIsWeak"));
 		return false;
 	}
-	pushvalue push_spell(last_spell);
-	auto elements = last_diety->minor;
-	auto consume_bless = false;
-	if(d100() < party.abilities[Blessing]) {
-		elements = last_diety->major;
-		consume_bless = true;
+	if(d100() >= party.abilities[Blessing]) {
+		consolen(getnm("UseHolySymbolFail"));
+		return true;
 	}
-	if(use_bless_effect(elements, bonus)) {
+	pushvalue push_spell(last_spell);
+	if(use_bless_effect(last_diety->powers, bonus)) {
 		if(result_player)
 			consolen(getnm("UseHolySymbolSuccessOnPlayer"), result_player->getname());
 		else
 			consolen(getnm("UseHolySymbolSuccess"));
-		if(consume_bless)
-			add_party(Blessing, -1);
+		add_party(Blessing, -1);
 	} else
 		consolen(getnm("UseHolySymbolFail"));
 	return true;

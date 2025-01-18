@@ -48,6 +48,7 @@ ShieldSpell: Shield
 ShockingGrasp: Shocking Grasp
 SlowPoison: Slow Poison
 StrenghtSpell: Strenght
+Suggestion: Suggestion
 TurnUndead: Turn undead
 VampiricTouch: Vampiric Touch
 

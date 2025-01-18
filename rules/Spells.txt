@@ -58,6 +58,10 @@ TurnUndead
  feats Enemy Group SummaryEffect
  filter IfMonstersUndead
  instant TurningMonsters
+MiracleHealWounds
+ feats Ally Group
+ filter IfAlive IfWounded
+ instant Heal+90
 
 Bless levels(1 0) lighting(255 239 0) duration(Minute5x1)
  feats Ally

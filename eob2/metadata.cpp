@@ -122,7 +122,7 @@ BSMETA(damagei) = {
 	{}};
 BSMETA(dietyi) = {
 	BSREQ(id),
-	BSREQ(minor), BSREQ(major),
+	BSREQ(powers),
 	BSENM(alignment, alignmenti),
 	{}};
 BSMETA(dungeoni) = {

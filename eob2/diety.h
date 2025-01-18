@@ -6,6 +6,6 @@
 
 struct dietyi : nameable {
 	alignmentn	alignment;
-	variants	minor, major;
+	variants	powers;
 };
 extern dietyi* last_diety;

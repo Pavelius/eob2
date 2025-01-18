@@ -34,7 +34,9 @@ HalflingTheif
 GeneratePartyDebug
  elements HumanRanger JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty
 
+StartGameQuests
+ elements FloodedSewers ActivateQuest CursedDungeon ActivateQuest ExploreNorthWood ActivateQuest DwarfMountains ActivateQuest
 StartGameAbilities
- elements FloodedSewers ActivateQuest CursedDungeon ActivateQuest ExploreNorthWood ActivateQuest DwarfMountains ActivateQuest GoldPiece+50 Reputation+20 Blessing+20
+ elements GoldPiece+50 Reputation+20 Blessing+20
 StartGame
- elements GeneratePartyDebug StartGameAbilities PassHours+7 Message HunterVillage EnterLocation
+ elements GeneratePartyDebug StartGameQuests StartGameAbilities PassHours+7 Message HunterVillage EnterLocation

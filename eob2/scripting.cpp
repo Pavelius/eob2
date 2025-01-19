@@ -2244,6 +2244,16 @@ static void make_roll(int bonus) {
 	}
 }
 
+static void make_blessing_roll(int bonus) {
+	if(roll_ability(getparty(Blessing) + (get_bonus(bonus) * 5)))
+		dialog_message("Success");
+	else {
+		script_stop();
+		dialog_message("Fail");
+		apply_script(last_id, "Fail", 0);
+	}
+}
+
 static void make_roll_average(int bonus) {
 	if(party_roll(last_ability, get_bonus(bonus))) {
 		dialog_message("Success");
@@ -3161,6 +3171,7 @@ BSDATA(script) = {
 	{"ReturnToStreet", return_to_street},
 	{"Roll", make_roll},
 	{"RollAverage", make_roll_average},
+	{"RollBlessing", make_blessing_roll},
 	{"Satisfy", satisfy},
 	{"SaySpeech", say_speech},
 	{"SaveGame", save_game},

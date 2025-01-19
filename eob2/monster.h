@@ -11,13 +11,14 @@ enum featn : unsigned char;
 enum reactions : unsigned char;
 
 struct monsteri : nameable {
-   resid	res;
-   short	frames[4], overlays[4];
-   int		experience;
-   char		hd, ac;
-   reactions reaction;
-   alignmentn alignment;
-   variants	feats;
-   spella	spells; // Use spells
-   bool		is(featn v) const;
+   resid		res;
+   short		frames[4], overlays[4];
+   int			experience;
+   char			hd, ac;
+   reactions	reaction;
+   alignmentn	alignment;
+   variants		feats;
+   spella		spells; // Use spells
+   monsteri*	minions; // This creatures guard
+   bool			is(featn v) const;
 };

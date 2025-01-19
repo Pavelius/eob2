@@ -43,5 +43,5 @@ EvilTemple difficult(1)
  goals KillAlmostAllMonsters(2)
  travel PassDays+3
  reward AddReward+10 Reputation+5
- sites type(mezz) level(1) habbits(EvilMinion1 EvilMinion2) key(CooperKey) features(RoomFeature RoomFeature)
- sites type(mezz) level(1) habbits(EvilMinion2 EvilMinion3) key(CooperKey) features(RoomFeature RoomFeature)
+ sites type(mezz) level(1) habbits(EvilMinion2 EvilCleric) key(CooperKey) features(RoomFeature RoomFeature)
+ sites type(mezz) level(1) habbits(EvilMinion3 EvilMinion4) key(CooperKey) features(RoomFeature RoomFeature)

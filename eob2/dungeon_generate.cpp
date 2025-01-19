@@ -260,8 +260,15 @@ static void monster(pointc v, directions d, const monsteri* pi, int count) {
 	else {
 		int sides[4] = {0, 1, 2, 3};
 		zshuffle(sides, 4);
-		for(auto i = 0; i < count; i++)
-			loc->addmonster(v, d, sides[i], pi);
+		if(pi->minions) {
+			loc->addmonster(v, d, sides[0], pi);
+			// If creature have bodyguards, then this bodyguard guard it
+			for(auto i = 1; i < count; i++)
+				loc->addmonster(v, d, sides[i], pi->minions);
+		} else {
+			for(auto i = 0; i < count; i++)
+				loc->addmonster(v, d, sides[i], pi);
+		}
 	}
 }
 

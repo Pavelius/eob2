@@ -27,6 +27,7 @@ Roll2d8 base(2 8)
 Roll3d8 base(3 8)
 Roll1d6x1d6p1 base(1 6) raise(1 6) perlevel(0 1 10)
 Roll6d8 base(6 8)
+Roll8d8 base(8 8)
 Minute3x1 base(3) raise(1) perlevel(1 1)
 Minute3x3 base(3) raise(1) perlevel(1 3)
 Minute4x1 base(4) raise(1) perlevel(1 1)
@@ -47,8 +48,13 @@ Hour8 base(8) multiplier(60)
 
 TrapCells
  elements CellPit CellButton
+ExitCells
+ elements CellStairsUp CellStairsDown
 
 #Spell
+
+///////////////////////////////////////
+// PRIEST SPELLS
 
 LayOnHand
  feats Ally
@@ -97,7 +103,7 @@ FindTraps levels(2)
  instant SelectArea FilterArea TrapCells ShowArea
 HoldPerson levels(2 3) duration(Minute0x2)
  feats Enemy
- filter IfIntelligence IfParalized-1 ImmuneCharm-1
+ filter IfIntelligence IfParalized-1 ImmuneCharm-1 ImmuneParalize-1
  instant SaveNegate ApplyEnchantSpell EffectCount+1
  wearing Paralized
 ResistFireSpell levels(2) lighting(200 0 0) duration(Turn5x1)
@@ -120,10 +126,6 @@ CureDisease levels(3)
  feats Ally You
  filter IfAlive IfDiseased
  instant DiseaseLevel-100
-CurePoison levels(3)
- feats Ally You
- filter IfAlive IfPoisoned
- instant PoisonLevel-100
 MagicalVestment levels(3) duration(Hour0x1)
  feats You
  instant ApplyEnchantSpell
@@ -142,10 +144,23 @@ RemoveParalize levels(3)
  instant Paralized-1
 
 Abjure levels(4)
+CloackOfBravery levels(4) lighting(159 143 239) duration(Hour8)
+ feats Ally Group You
+ filter IfAlive
+ instant ApplyEnchantSpell
+ wearing Paniced-1 ImmuneFear
 CureSeriousWounds levels(4)
  feats Ally You
  filter IfAlive IfWounded
  instant Roll2d8+1 Heal+101
+Fear levels(4)
+ feats Enemy Group
+ filter IfIntelligence ImmuneFear-1 ImmuneCharm-1
+ instant MonstersFlee
+FreeAction levels(4) lighting(94 77 178) duration(Turn0x1)
+ feats Ally You
+ instant ApplyEnchantSpell
+ wearing ImmuneParalize
 NeutralizePoison levels(4)
  feats Ally You
  filter IfAlive IfPoisoned
@@ -159,6 +174,7 @@ CureCriticalWounds levels(5)
  feats Ally You
  filter IfAlive IfWounded
  instant Roll3d8+3 Heal+101
+DispellEvil levels(5)
 FlameStrike levels(5)
  feats Enemy Group
  instant Roll6d8 SaveHalf Fire+101
@@ -170,11 +186,19 @@ TrueSeeing
  feats You Ally Group
  instant ImmuneIllusion
 
+BladeBarrier levels(6)
+ feats Enemy Group
+ instant SaveNegate Roll8d8 Piercing+101
+FindPath levels(6)
+ feats You
+ instant SelectArea FilterArea ExitCells ShowArea
 HealSpell levels(6)
  feats Ally
  filter IfAlive IfWounded
  instant Heal+120 PoisonLevel-100 DiseaseLevel-100
 HeroesFeast levels(6)
+WorldOfRecall levels(6)
+ feats You
 
 Restoration levels(7)
  feats Ally You
@@ -183,6 +207,9 @@ SymbolPain levels(7) duration(Turn2d10)
  feats Enemy Group
  instant ApplyEnchantSpell
  wearing FeelPain
+
+///////////////////////////////////////
+// MAGE SPELLS
 
 Armor levels(0 1) lighting(50 205 50) duration(Hour8)
  feats You
@@ -256,7 +283,7 @@ MirrorImage levels(0 2) duration(Minute3x3)
  clearing DuplicateIllusion-100
 Scare levels(0 2)
  feats Enemy Group
- filter IfLowLevel IfIntelligence ImmuneCharm-1
+ filter IfLowLevel IfIntelligence ImmuneFear-1 ImmuneCharm-1
  instant MonstersFlee
 StrenghtSpell levels(0 2) duration(Hour1x1) lighting(185 122 87)
  feats Ally You
@@ -306,10 +333,7 @@ DefaultClericSpells
 DefaultMageSpells
  elements DetectMagic MagicMissile+2 Armor
 CampAutocast
- elements CureLightWounds CureSeriousWounds LayOnHand
-
-GoodDietyDomain
- elements CureLightWounds RemoveCurse CureDisease CurePoison Aid
+ elements CureLightWounds CureSeriousWounds LayOnHand Heal NeutralizePoison CureDisease
 
 #KeyValue
 

@@ -11,9 +11,9 @@ enum featn : unsigned char {
 	DiseaseAttack, DrainStrenghtAttack, DrainEneryAttack, ParalizeAttack, PoisonAttack, VampiricAttack, VorpalAttack, Holy, WeaponSpecialist,
 	Small, Large, Undead, Paralized, Moved, Surprised,
 	ProtectedFromEvil, Invisibled, Regenerated, Hasted, StoppedPoison, SlowMove, FeelPain, Displaced,
-	Blinded, Blinked, Blurred,
+	Blinded, Blinked, Blurred, Paniced,
 	ResistBludgeon, ResistSlashing, ResistPierce, ResistFire, ResistCold, ResistCharm, ResistSpells,
-	ImmuneNormalWeapon, ImmuneFire, ImmuneCold, ImmuneCharm, ImmunePoison, ImmuneSpells, ImmuneDisease,
+	ImmuneNormalWeapon, ImmuneFire, ImmuneFear, ImmuneCold, ImmuneCharm, ImmuneParalize, ImmunePoison, ImmuneSpells, ImmuneDisease,
 	Enemy, Ally, Group, You, SummaryEffect,
 	SeeMagical, SeeCursed, ImmuneIllusion,
 };

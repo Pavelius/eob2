@@ -38,7 +38,7 @@ MageIllusionSpells
  elements Friends+1 Mending+1 Knock+2 HypnoticPattern+1 Blur+1 Invisibility+1 MirrorImage+1\
  Blink+2 HoldPerson+2 Suggestion+2 ImprovedInvisibility+2
 PriestSpells
- elements PurifyFood+1 FindTraps+1 CureSeriousWounds+1 RemoveCurse+2 CurePoison+2 CureDisease+2 NeutralizePoison+3 RaiseDead+4 Restoration+5
+ elements PurifyFood+1 FindTraps+1 CureSeriousWounds+1 RemoveCurse+2 CureDisease+2 NeutralizePoison+3 RaiseDead+4 Restoration+5
 WandSpells
  elements BurningHands+1 DetectMagic+1 MagicMissile+1 ShockingGrasp+1 MelfAcidArrow+2 Fireball+3
 

@@ -183,6 +183,8 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		bonus += 3;
 		multiplier += 1;
 	}
+	if(player->is(Paniced))
+		bonus -= 2;
 	auto tohit = 20 - bonus - (10 - ac);
 	auto rolls = xrand(1, 20);
 	auto hits = -1;
@@ -431,6 +433,13 @@ void make_attacks(bool melee_combat) {
 		if(player->is(Surprised)) {
 			player->remove(Surprised);
 			continue;
+		}
+		// RULE: Paniced
+		if(player->is(Paniced)) {
+			if(d100() < 30) {
+				player->speak("Paniced", "Apply");
+				continue;
+			}
 		}
 		// If we can only shoot
 		if(enemy_distance > 1 && !player->wears[RightHand].isranged())

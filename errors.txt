@@ -1,3 +1,2 @@
-﻿Error in file `rules/Quests.txt`:
- Line 40: Not found requisit `laguage`
- Line 40: Not found resuisit `laguage`
+﻿Error in file `rules/Items.txt`:
+ Line 41: Can't find variant `CurePoison`

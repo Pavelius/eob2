@@ -1,7 +1,7 @@
 #Diety
 
 Helm alignment(LawfulNeutral)
- powers HealSpell RemoveCurse Prayer
+ powers HealSpell RemoveCurse ProtectionFromEvil10ft
 
 Tempus alignment(ChaoticNeutral)
- powers RaiseDead Prayer HealSpell FlameStrike
+ powers RaiseDead Prayer HealSpell Prayer FlameStrike

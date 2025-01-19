@@ -1,4 +1,9 @@
 ﻿Bugbear: Bugbear
+EvilCleric: Cleric
+EvilMinion1: Minion
+EvilMinion2: Minion
+EvilMinion3: Minion
+EvilMinion4: Minion
 GiantSpider: Spider
 Ghoul: Ghoul
 Goblin: Goblin

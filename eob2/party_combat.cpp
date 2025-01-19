@@ -1,4 +1,5 @@
 #include "adat.h"
+#include "answers.h"
 #include "boost.h"
 #include "cell.h"
 #include "console.h"
@@ -382,6 +383,30 @@ bool make_object_attack(pointc v) {
 	return true;
 }
 
+static spelli* ai_choose_spell() {
+	pushanswer push;
+	auto max_spells = sizeof(player->spells) / sizeof(player->spells[0]);
+	for(size_t i = 0; i < max_spells; i++) {
+		if(!player->spells[i])
+			continue;
+		auto ps = bsdata<spelli>::elements + i;
+		if(!cast_spell(ps, player->getlevel(), 32, false, false, 0, 0))
+			continue;
+		an.add(ps, ps->getname());
+	}
+	if(!an)
+		return 0;
+	return (spelli*)an.random();
+}
+
+static bool ai_use_spells() {
+	auto ps = ai_choose_spell();
+	if(!ps)
+		return false;
+	cast_spell(ps, player->getlevel(), 35, true, true, 0, 0);
+	return true;
+}
+
 void make_attacks(bool melee_combat) {
 	if(melee_combat) {
 		auto v = to(party, party.d);
@@ -411,10 +436,12 @@ void make_attacks(bool melee_combat) {
 		if(enemy_distance > 1 && !player->wears[RightHand].isranged())
 			continue;
 		if(player->ismonster()) {
-			auto left_side = (get_side(player->side, d) % 2) == 0;
-			if(player->is(Large))
-				left_side = (rand() % 2);
-			make_full_attack(get_opponent(left_side, false), 0, 1);
+			if(!ai_use_spells()) {
+				auto left_side = (get_side(player->side, d) % 2) == 0;
+				if(player->is(Large))
+					left_side = (rand() % 2);
+				make_full_attack(get_opponent(left_side, false), 0, 1);
+			}
 		} else {
 			auto left_side = (player->side % 2) == 0;
 			make_full_attack(get_opponent(left_side, true), 0, 1);

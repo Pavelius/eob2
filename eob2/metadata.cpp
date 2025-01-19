@@ -178,6 +178,7 @@ BSMETA(monsteri) = {
 	BSREQ(frames), BSREQ(overlays),
 	BSREQ(hd), BSREQ(ac),
 	BSREQ(feats),
+	BSDST(spells, spelli),
 	{}};
 BSMETA(partystati) = {
 	BSREQ(id),

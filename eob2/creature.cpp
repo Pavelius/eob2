@@ -23,6 +23,8 @@
 #include "party.h"
 #include "view.h"
 
+static_assert(sizeof(creaturei::spells) == sizeof(monsteri::spells), "Spells requisit in creaturei and monsteri must be same type.");
+
 creaturei *player, *opponent, *result_player;
 classn last_class;
 racen last_race;
@@ -630,6 +632,13 @@ static void apply_default_ability() {
 	player->basic.set(UseMage);
 }
 
+void set_monster_spells() {
+	auto pm = player->getmonster();
+	if(!pm)
+		return;
+	memcpy(player->spells, pm->spells, sizeof(player->spells));
+}
+
 void create_monster(const monsteri* pi) {
 	if(!pi)
 		return;
@@ -646,6 +655,7 @@ void create_monster(const monsteri* pi) {
 	apply_feats(pi->feats);
 	raise_monster_level();
 	create_monster_pallette();
+	set_monster_spells();
 	update_player();
 	player->hp = player->hpm;
 }

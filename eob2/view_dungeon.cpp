@@ -278,6 +278,12 @@ static void fill_item_sprite(renderi* p, const itemi* pi, int frame = 0) {
 	p->frame[frame] = pi->avatar_ground;
 }
 
+static void set_percent(renderi* p, int d) {
+	p->percent = item_distances[d][0];
+	if(p->percent == 1000)
+		p->percent = 0;
+}
+
 static void add_cellar_items(int i, dungeoni::overlayi* povr) {
 	if(!povr)
 		return;
@@ -316,8 +322,8 @@ static void add_cellar_items(int i, dungeoni::overlayi* povr) {
 			p->y = positions[i].y + (short)(n / 2);
 			p->z = pos_levels[i] * distance_per_level;
 			p->zorder = 2;
-			p->percent = item_distances[d][0];
 			p->alpha = (unsigned char)item_distances[d][1];
+			set_percent(p, d);
 			fill_item_sprite(p, &result[n]->geti());
 		}
 	}
@@ -623,8 +629,8 @@ static void create_items(int i, pointc v, directions dr) {
 		p->x = item_position[i * 4 + s].x;
 		p->y = item_position[i * 4 + s].y;
 		p->z = pos_levels[i] * distance_per_level + 1 + (1 - s / 2);
-		p->percent = item_distances[d][0];
 		p->alpha = (unsigned char)item_distances[d][1];
+		set_percent(p, d);
 		fill_item_sprite(p, &pi->geti());
 	}
 }
@@ -666,7 +672,7 @@ static void create_monsters(int i, pointc index, directions dr, bool flip) {
 			p->y = item_position[i * 4 + n].y;
 			p->z = pos_levels[i] * distance_per_level + 1 - (n / 2);
 		}
-		p->percent = item_distances[d][0];
+		set_percent(p, d);
 		p->alpha = (unsigned char)item_distances[d][1];
 		auto pm = pc->getmonster();
 		if(pm)
@@ -792,6 +798,8 @@ static int compare_drawable(const void* p1, const void* p2) {
 }
 
 static void imagex(int x, int y, const sprite* res, int id, unsigned flags, int percent, unsigned char shadow) {
+	if(!percent)
+		percent = 1000;
 	const sprite::frame& f = res->get(id);
 	int sx = f.sx;
 	int sy = f.sy;
@@ -899,7 +907,7 @@ void renderi::paint() const {
 	for(int i = 0; i < 4; i++) {
 		if(i && !frame[i])
 			break;
-		if((!percent || percent == 1000) && (flags[i] & ImageColor) == 0)
+		if(!percent && (flags[i] & ImageColor) == 0)
 			image(x, y, rdata, frame[i], flags[i] | flags_addon);
 		else
 			imagex(x, y, rdata, frame[i], flags[i] | flags_addon, percent, alpha);

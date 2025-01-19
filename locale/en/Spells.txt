@@ -21,9 +21,10 @@ FindTraps: Find Traps
 FlameBlade: Flame Blade
 Friends: Friends
 Haste: Haste
+HealSpell: Heal
 HypnoticPattern: Hypnotic Pattern
 HoldPerson: Hold Person
-HoldPersonGainEffect: %1i creatures stand still!
+HoldPersonGainEffect: %Number creatures stand still!
 Identify: Identify
 ImprovedInvisibility: Impr. Invisibility
 Invisibility: Invisibility

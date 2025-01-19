@@ -170,13 +170,12 @@ static void filter_summon_slot(wearn wear) {
 	an.elements.count = ps - an.begin();
 }
 
-static void add_targets(pointc v, bool enemy, bool ally, bool include_player) {
+static void add_targets(pointc v, bool include_player) {
 	creaturei* targets[6] = {};
-	if(enemy) {
-		if(loc)
-			loc->getmonsters(targets, v);
-	} else
+	if(party==v)
 		memcpy(targets, characters, sizeof(targets));
+	else if(loc)
+		loc->getmonsters(targets, v);
 	for(auto p : targets) {
 		if(!p)
 			continue;
@@ -299,19 +298,20 @@ static bool use_spell_on_object(pointc v, bool run) {
 bool cast_spell(const spelli* ps, int level, int experience, bool run, bool random_target, unsigned durations, creaturei* explicit_target) {
 	pushvalue push_spell(last_spell, ps);
 	pushanswer push_answers;
-	pointc enemy_position = to(party, party.d);
+	auto party_is_friendly = party_is(player);
+	pointc friendly_position = party_is_friendly ? party : pointc(*player);
+	auto enemy_direction = party_is_friendly ? party.d : to(party.d, Down);
+	pointc enemy_position = to(friendly_position, enemy_direction);
 	result_player = 0;
 	if(ps->is(Ally))
-		add_targets(party, false, true, ps->is(You));
+		add_targets(friendly_position, ps->is(You));
 	if(ps->is(Enemy)) {
 		if(ps->isthrown()) {
-			enemy_position = party;
-			if(look_group(enemy_position, party.d))
-				add_targets(enemy_position, true, false, false);
-		} else {
-			enemy_position = to(party, party.d);
-			add_targets(enemy_position, true, false, ps->is(You));
-		}
+			enemy_position = friendly_position;
+			if(!look_group(enemy_position, enemy_direction))
+				add_targets(enemy_position, false);
+		} else
+			add_targets(enemy_position, ps->is(You));
 	}
 	if(!ps->is(Ally) && !ps->is(Enemy) && ps->is(You))
 		an.add(player, player->getname());

@@ -24,7 +24,7 @@ Haste: Haste
 HealSpell: Heal
 HypnoticPattern: Hypnotic Pattern
 HoldPerson: Hold Person
-HoldPersonGainEffect: %Number creatures stand still!
+HoldPersonGainEffect: %EffectCount creatures stand still!
 Identify: Identify
 ImprovedInvisibility: Impr. Invisibility
 Invisibility: Invisibility

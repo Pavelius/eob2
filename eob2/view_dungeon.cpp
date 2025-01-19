@@ -954,7 +954,7 @@ void paint_dungeon() {
 	auto push_clip = clipping;
 	unsigned flags = flip_flags(party, party.d);
 	image(scrx / 2, scry / 2, map_tiles, 0, flags);
-	setclip({0, 0, scrx, scry});
+	setclip({0, 0, scrx - 1, scry - 1});
 	renderi** pz = zorder;
 	for(auto& e : bsdata<renderi>())
 		*pz++ = &e;

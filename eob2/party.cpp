@@ -268,7 +268,7 @@ static void monster_move(pointc v, directions d) {
 		reaction_check(0);
 		return;
 	}
-	if(!n || loc->ismonster(n) || !loc->ispassable(n))
+	if(!n || loc->ismonster(n) || !loc->ispassable(n) || loc->isforbidden(n))
 		return;
 	for(auto& e : loc->monsters) {
 		if(e != v)

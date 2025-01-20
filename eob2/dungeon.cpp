@@ -349,19 +349,30 @@ bool dungeoni::ismonster(pointc v, featn f) const {
 bool dungeoni::ispassable(pointc v) const {
 	if(!v)
 		return false;
-	switch(get(v)) {
-	case CellPassable:
-	case CellButton:
-	case CellWebTorned:
-	case CellBarelDestroyed:
-	case CellCoconOpened:
-	case CellGraveDesecrated:
-		return true;
-	case CellDoor:
+	//switch(get(v)) {
+	//case CellPassable:
+	//case CellButton:
+	//case CellWebTorned:
+	//case CellBarelDestroyed:
+	//case CellCoconOpened:
+	//case CellGraveDesecrated:
+	//	return true;
+	//case CellDoor:
+	//	return is(v, CellActive);
+	//default:
+	//	return false;
+	//}
+	auto& e = bsdata<celli>::elements[get(v)];
+	if(e.flags.is(PassableActivated))
 		return is(v, CellActive);
-	default:
+	return e.flags.is(Passable);
+}
+
+bool dungeoni::isforbidden(pointc v) const {
+	if(!v)
 		return false;
-	}
+	auto i = get(v);
+	return bsdata<celli>::elements[i].flags.is(MonsterForbidden);
 }
 
 int dungeoni::around(pointc v, celln t1, celln t2) const {

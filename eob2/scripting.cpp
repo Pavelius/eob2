@@ -1044,6 +1044,7 @@ static void test_throw_item() {
 }
 
 static void test_ground() {
+	explore_all_dungeon();
 	test_throw_item();
 }
 

@@ -1,2 +1,2 @@
-﻿Error in file `rules/Quests.txt`:
- Line 34: Expected token `#`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `ProtectionFromEvil10ft`

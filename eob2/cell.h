@@ -14,7 +14,7 @@ enum celln : unsigned char {
 	CellWeb, CellWebTorned,
 	CellBarel, CellBarelDestroyed,
 	CellEyeColumn,
-	CellBloodStain, CellJugDestroyed,
+	CellBloodStain, CellBloodStainBlades, CellJugDestroyed,
 	CellCocon, CellCoconOpened,
 	CellGrave, CellGraveDesecrated,
 	CellPitUp, // On floor
@@ -26,7 +26,7 @@ enum celln : unsigned char {
 };
 enum cellfn : unsigned char {
 	CellExplored, CellActive, CellExperience,
-	Passable,
+	Passable, MonsterForbidden,
 	LookWall, LookOverlay, LookObject,
 	PassableActivated
 };

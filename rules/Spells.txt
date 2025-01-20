@@ -193,7 +193,7 @@ FindPath levels(6)
  feats You
  instant SelectArea FilterArea ExitCells ShowArea
 HealSpell levels(6)
- feats Ally
+ feats Ally You
  filter IfAlive IfWounded
  instant Heal+120 PoisonLevel-100 DiseaseLevel-100
 HeroesFeast levels(6)

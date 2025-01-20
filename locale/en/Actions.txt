@@ -89,6 +89,7 @@ Talk: Talk
 ToolBroken: %1 is broken
 ToolCrumbleToDust: %1 crumble to dust
 UseHolySymbolFail: You praying is without answers
+UseHolySymbolNoEffect: Your praing have no sence
 UseHolySymbolSuccessOnPlayer: %Diety %-SpellName on %1
 UseHolySymbolSuccess: %Diety create %SpellName
 WizardTower: Wizard Tower

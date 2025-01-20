@@ -39,6 +39,7 @@ MirrorImage: Mirror Image
 NeutralizePoison: Neutralize Poison
 Prayer: Prayer
 ProtectionFromEvil: Prot. from Evil
+ProtectionFromEvil10ft: Prot. from Evil 10ft
 PurifyFood: Purify Food
 RemoveCurse: Remove Curse
 RemoveParalize: Remove Paralize

@@ -375,10 +375,10 @@ static void paint_automap() {
 				pixel(caret.x + 2, caret.y + mpg - 3);
 				pixel(caret.x + mpg - 3, caret.y + mpg - 3);
 				break;
-			case CellBoulders:
-				fore = cwall;
-				paint_bold(caret.x + 2, caret.y + 2);
-				paint_bold(caret.x + mpg - 3, caret.y + mpg - 3);
+			case CellJugDestroyed:
+				fore = bpass;
+				setoffset(2, 2);
+				rectf();
 				break;
 			case CellStairsUp:
 			case CellStairsDown:

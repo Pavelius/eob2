@@ -1020,18 +1020,11 @@ static creaturei* choose_character(bool you) {
 	return (creaturei*)choose_small_menu(getnm("WhatCharacter"), "Cancel");
 }
 
-static spelli* choose_spell(int level, int type) {
-	pushanswer push_answer;
-	for(auto& e : bsdata<spelli>()) {
-		if(e.levels[type] != level)
-			continue;
-		an.add(&e, e.getname());
-	}
-	an.sort();
-	return (spelli*)choose_small_menu(getnm("WhatSpell"), "Cancel");
-}
+#ifdef _DEBUG
 
 static void explore_all_dungeon() {
+	if(!loc)
+		return;
 	pointc v;
 	for(v.x = 0; v.x < mpx; v.x++) {
 		for(v.y = 0; v.y < mpy; v.y++) {
@@ -1041,13 +1034,20 @@ static void explore_all_dungeon() {
 	}
 }
 
-static void test_dungeon() {
-	explore_all_dungeon();
+static void test_throw_item() {
+	if(!loc)
+		return;
 	pointc v = party;
 	for(int i = 0; i < 3; i++)
 		v = to(v, party.d);
 	thrown_item(v, Down, 106, get_party_index(player) % 2, 4);
 }
+
+static void test_ground() {
+	test_throw_item();
+}
+
+#endif // _DEBUG
 
 static void choose_race(int bonus) {
 	pushanswer push;
@@ -1184,7 +1184,9 @@ static void city_adventure_input() {
 		{'D', drop_city_item},
 		{'U', use_item},
 		{'R', change_quick_item},
-		{'T', test_dungeon},
+#ifdef _DEBUG
+		{'T', test_ground},
+#endif
 		{}};
 	city_input(keys);
 }
@@ -1871,11 +1873,13 @@ static void play_dungeon_input() {
 		{'V', show_dungeon_automap},
 		{'M', manipulate},
 		{'D', drop_dungeon_item},
-		{'T', test_dungeon},
 		{'U', use_item},
 		{'E', cast_spell},
 		{'R', change_quick_item},
 		{KeyEscape, choose_dungeon_menu},
+#ifdef _DEBUG
+		{'T', test_ground},
+#endif
 		{}};
 	adventure_input(source);
 	set_player_by_focus();

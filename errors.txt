@@ -1,2 +1,2 @@
-﻿Error in file `rules/Items.txt`:
- Line 41: Can't find variant `CurePoison`
+﻿Error in file `rules/Quests.txt`:
+ Line 34: Expected token `#`

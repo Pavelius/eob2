@@ -845,7 +845,7 @@ static bool dungeon_use() {
 	return true;
 }
 
-static bool use_bless_effect(const variants& source, int bonus) {
+static bool use_bless_effect(const variants& source, int bonus, bool run) {
 	auto level = player->getlevel() + bonus;
 	auto duration = (4 + bonus) * 60; // 4-9 hour standart duration for blessing
 	for(auto v : source) {
@@ -853,7 +853,8 @@ static bool use_bless_effect(const variants& source, int bonus) {
 			last_spell = bsdata<spelli>::elements + v.value;
 			if(!cast_spell(last_spell, level, 0, false, false, duration, 0))
 				continue;
-			cast_spell(last_spell, level, 0, true, true, duration, 0);
+			if(run)
+				cast_spell(last_spell, level, 0, true, true, duration, 0);
 			return true;
 		}
 	}
@@ -870,12 +871,16 @@ static bool faith_effect(int bonus) {
 		consolen(getnm("YourFaithIsWeak"));
 		return false;
 	}
+	pushvalue push_spell(last_spell);
+	if(!use_bless_effect(last_diety->powers, bonus, false)) {
+		consolen(getnm("UseHolySymbolNoEffect"));
+		return false;
+	}
 	if(d100() >= party.abilities[Blessing]) {
 		consolen(getnm("UseHolySymbolFail"));
 		return true;
 	}
-	pushvalue push_spell(last_spell);
-	if(use_bless_effect(last_diety->powers, bonus)) {
+	if(use_bless_effect(last_diety->powers, bonus, true)) {
 		if(result_player)
 			consolen(getnm("UseHolySymbolSuccessOnPlayer"), result_player->getname());
 		else
@@ -1037,6 +1042,7 @@ static void explore_all_dungeon() {
 }
 
 static void test_dungeon() {
+	explore_all_dungeon();
 	pointc v = party;
 	for(int i = 0; i < 3; i++)
 		v = to(v, party.d);

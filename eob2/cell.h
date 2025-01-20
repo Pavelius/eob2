@@ -14,6 +14,7 @@ enum celln : unsigned char {
 	CellWeb, CellWebTorned,
 	CellBarel, CellBarelDestroyed,
 	CellEyeColumn,
+	CellBloodStain, CellJugDestroyed,
 	CellCocon, CellCoconOpened,
 	CellGrave, CellGraveDesecrated,
 	CellPitUp, // On floor
@@ -32,6 +33,7 @@ enum cellfn : unsigned char {
 struct celli : nameable, picturei {
 	flag32	flags;
 	celln	activate;
+	bool	is(cellfn v) const { return flags.is(v); }
 };
 struct cellfi : nameable {
 };

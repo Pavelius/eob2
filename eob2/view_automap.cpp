@@ -52,6 +52,13 @@ void paint_cross(int offset) {
 	line(caret.x + width - offset - 2, caret.y);
 }
 
+static void paint_bold(int x, int y) {
+	pixel(x, y);
+	pixel(x + 1, y);
+	pixel(x, y + 1);
+	pixel(x + 1, y + 1);
+}
+
 void paint_arrow(point camera, directions direct, int mpg) {
 	auto x1 = camera.x;
 	auto y1 = camera.y;
@@ -360,6 +367,18 @@ static void paint_automap() {
 				fill_border(1, cdoor, nb, CellWall);
 				fill_border(0, bwall, nb, CellWall);
 				fill_side(2, bwall, nb, CellPassable);
+				break;
+			case CellBloodStain:
+				fore = cwall;
+				pixel(caret.x + 2, caret.y + 2);
+				pixel(caret.x + mpg - 3, caret.y + 2);
+				pixel(caret.x + 2, caret.y + mpg - 3);
+				pixel(caret.x + mpg - 3, caret.y + mpg - 3);
+				break;
+			case CellBoulders:
+				fore = cwall;
+				paint_bold(caret.x + 2, caret.y + 2);
+				paint_bold(caret.x + mpg - 3, caret.y + mpg - 3);
 				break;
 			case CellStairsUp:
 			case CellStairsDown:

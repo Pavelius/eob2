@@ -19,6 +19,8 @@ BSDATA(celli) = {
 	{"CellBarel", DECORS, 3 * decor_frames, FG(LookObject), CellBarelDestroyed},
 	{"CellBarelDestroyed", DECORS, 4 * decor_frames, FG(LookObject) | FG(Passable)},
 	{"CellEyeColumn", DECORS, 5 * decor_frames, FG(LookObject)},
+	{"CellBloodStain", DECORS, 10 * decor_frames, FG(LookObject) | FG(Passable)},
+	{"CellJugDestroyed", DECORS, 11 * decor_frames, FG(LookObject) | FG(Passable)},
 	{"CellCocon", DECORS, 6 * decor_frames, FG(LookObject), CellCoconOpened},
 	{"CellCoconOpened", DECORS, 7 * decor_frames, FG(LookObject) | FG(Passable)},
 	{"CellGrave", DECORS, 8 * decor_frames, FG(LookObject) | FG(Passable), CellGraveDesecrated},

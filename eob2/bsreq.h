@@ -27,36 +27,36 @@ enum bstype_s : unsigned char {
 };
 // Metadata field descriptor
 struct bsreq {
-	const char*				id; // field identifier
-	unsigned				offset; // offset from begin of class or object
-	unsigned				size; // size of single element
-	unsigned				lenght; // total size in bytes of all field (array has size*count)
-	unsigned				count; // count of elements
-	const bsreq*			type; // metadata of element
-	bstype_s				subtype; // metadata subtype
-	array*					source; // data source for enumerators
+	const char*		id; // field identifier
+	unsigned		offset; // offset from begin of class or object
+	unsigned		size; // size of single element
+	unsigned		lenght; // total size in bytes of all field (array has size*count)
+	unsigned		count; // count of elements
+	const bsreq*	type; // metadata of element
+	bstype_s		subtype; // metadata subtype
+	array*			source; // data source for enumerators
 	constexpr explicit operator bool() const { return id != 0; }
-	const bsreq*			find(const char* name) const;
-	const bsreq*			find(const char* name, unsigned count) const;
-	const bsreq*			find(const char* name, const bsreq* type) const;
-	int						findenum(const char* name) const;
-	long					get(const void* p) const;
-	const char*				get(const void* p, char* result, const char* result_max) const;
-	const char*				gets(const void* p) const;
-	const bsreq*			getname() const;
-	bool					is(bstype_s v) const { return subtype == v; }
-	bool					issimple() const { return is(KindNumber) || is(KindText); }
-	bool					match(const void* p, const char* name) const;
-	char*					ptr(const void* data) const { return (char*)data + offset; }
-	char*					ptr(const void* data, int index) const { return (char*)data + offset + index * size; }
-	static void				read(const char* url);
-	void					set(const void* p, long value) const;
+	const bsreq*	find(const char* name) const;
+	const bsreq*	find(const char* name, unsigned count) const;
+	const bsreq*	find(const char* name, const bsreq* type) const;
+	int				findenum(const char* name) const;
+	long			get(const void* p) const;
+	const char*		get(const void* p, char* result, const char* result_max) const;
+	const char*		gets(const void* p) const;
+	const bsreq*	getname() const;
+	bool			is(bstype_s v) const { return subtype == v; }
+	bool			issimple() const { return is(KindNumber) || is(KindText); }
+	bool			match(const void* p, const char* name) const;
+	char*			ptr(const void* data) const { return (char*)data + offset; }
+	char*			ptr(const void* data, int index) const { return (char*)data + offset + index * size; }
+	static void		read(const char* url);
+	void			set(const void* p, long value) const;
 };
 NOBSDATA(bsreq)
 
 template<typename T> struct bsmeta {
-	typedef T				data_type;
-	static const bsreq		meta[];
+	typedef T data_type;
+	static const bsreq meta[];
 };
 
 template<class T> struct meta_decoy { typedef T value; };

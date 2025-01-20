@@ -11,7 +11,7 @@ struct dungeon_site {
 	unsigned char boss, minions; // Boss with minions can be present on level lair
 	unsigned char key; // Key open all doors
 	unsigned char special; // Special item find somewhere
-	unsigned char webs, barrels, eggs, graves, blood; // Count of special corridor features in dungeon
+	unsigned char webs, barrels, eggs, graves, blood, dirt, blades, jug; // Count of special corridor features in dungeon
 	unsigned char trap; // Type of all dungeon traps
 	char cursed; // Chance to all items found be cursed
 	char magical; // Chance to all items found be magical

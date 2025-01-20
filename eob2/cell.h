@@ -14,7 +14,7 @@ enum celln : unsigned char {
 	CellWeb, CellWebTorned,
 	CellBarel, CellBarelDestroyed,
 	CellEyeColumn,
-	CellBloodStain, CellBloodStainBlades, CellJugDestroyed,
+	CellBloodStain, CellBloodBlades, CellDirtyStains, CellJugDestroyed,
 	CellCocon, CellCoconOpened,
 	CellGrave, CellGraveDesecrated,
 	CellPitUp, // On floor
@@ -27,7 +27,7 @@ enum celln : unsigned char {
 enum cellfn : unsigned char {
 	CellExplored, CellActive, CellExperience,
 	Passable, MonsterForbidden,
-	LookWall, LookOverlay, LookObject,
+	LookWall, LookOverlay, LookObject, FloorLevel,
 	PassableActivated
 };
 struct celli : nameable, picturei {

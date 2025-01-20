@@ -368,7 +368,7 @@ static void paint_automap() {
 				fill_border(0, bwall, nb, CellWall);
 				fill_side(2, bwall, nb, CellPassable);
 				break;
-			case CellBloodStainBlades:
+			case CellBloodBlades:
 				fore = cwall;
 				pixel(caret.x + 2, caret.y + 2);
 				pixel(caret.x + mpg - 3, caret.y + 2);

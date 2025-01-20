@@ -991,8 +991,14 @@ static void create_dungeon_objects() {
 		add_special(points, CellWeb, loc->webs, loc->webs * 2);
 	if(loc->barrels)
 		add_special(points, CellBarel, loc->barrels / 2, loc->barrels);
+	if(loc->jug)
+		add_special(points, CellJugDestroyed, loc->jug / 2, loc->jug);
 	if(loc->blood)
-		add_special(points, CellBloodStain, 1, loc->blood);
+		add_special(points, CellBloodStain, loc->blood / 2, loc->blood);
+	if(loc->dirt)
+		add_special(points, CellDirtyStains, loc->dirt / 2, loc->dirt);
+	if(loc->blades)
+		add_special(points, CellBloodBlades, 1, loc->blades);
 	points.clear();
 	select_points(points, is_empthy_corner);
 	if(loc->graves)

@@ -30,8 +30,9 @@ CursedDungeon difficult(1)
  goals TakeSpecialItem(1)
  travel PassHours+6
  reward AddReward+10
- sites type(dung) level(1) habbits(Skeleton Zombie) language(Human) key(IronKey) features(RoomLair RoomFeature RoomFeature)\
-  trap(FireTrap) special(StoneAmulet) boss(Wight) minions(Ghoul) blood(10)
+ sites type(dung) level(1) habbits(Skeleton Zombie) language(Human) key(IronKey)\
+  features(RoomLair RoomFeature RoomFeature)\
+  trap(FireTrap) special(StoneAmulet) boss(Wight) minions(Ghoul) blood(10) dirt(10)
 
 DwarfMountains difficult(1)
  goals ExmploreMostArea(3)

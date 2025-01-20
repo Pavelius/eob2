@@ -593,7 +593,7 @@ static void create_floor(int i, pointc index, celln rec, bool flip) {
 		auto p = add_render();
 		p->x = floor_pos[i];
 		p->y = scry / 2;
-		p->z = pos_levels[i] * distance_per_level + 1;
+		p->z = pos_levels[i] * distance_per_level;
 		if(flip)
 			p->flags[0] = ImageMirrorH;
 		if(rec == CellButton && loc->is(index, CellActive))
@@ -630,6 +630,7 @@ static void create_items(int i, pointc v, directions dr) {
 		p->y = item_position[i * 4 + s].y;
 		p->z = pos_levels[i] * distance_per_level + 1 + (1 - s / 2);
 		p->alpha = (unsigned char)item_distances[d][1];
+		p->zorder = 1;
 		set_percent(p, d);
 		fill_item_sprite(p, &pi->geti());
 	}
@@ -681,6 +682,7 @@ static void create_monsters(int i, pointc index, directions dr, bool flip) {
 			continue;
 		p->target = pc;
 		p->pallette = pc->pallette;
+		p->zorder = 2;
 		unsigned flags = 0;
 		// Animate active monsters
 		if(((p->x + current_cpu_time / 100) / 16) % 2) {

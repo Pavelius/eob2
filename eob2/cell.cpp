@@ -12,7 +12,7 @@ BSDATA(celli) = {
 	{"CellStairsUp", NONE, 3 * walls_frames, FG(LookWall) | FG(Passable) | FG(MonsterForbidden)},
 	{"CellStairsDown", NONE, 4 * walls_frames, FG(LookWall) | FG(Passable) | FG(MonsterForbidden)},
 	{"CellPortal", NONE, 5 * walls_frames, FG(LookWall)},
-	{"CellButton", NONE, decor_offset + 1 * decor_frames, FG(LookObject) | FG(Passable)},
+	{"CellButton", NONE, decor_offset + 1 * decor_frames, FG(LookObject) | FG(Passable) | FG(FloorLevel)},
 	{"CellPit", NONE, decor_offset + 3 * decor_frames, FG(LookObject) | FG(Passable) | FG(MonsterForbidden) | FG(FloorLevel)},
 	{"CellWeb", DECORS, 0 * decor_frames, FG(LookObject), CellWebTorned},
 	{"CellWebTorned", DECORS, 1 * decor_frames, FG(LookObject) | FG(Passable)},

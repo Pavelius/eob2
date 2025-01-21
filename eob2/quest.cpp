@@ -78,7 +78,9 @@ void create_game_quests() {
 bool last_quest_complite() {
 	if(!last_quest)
 		return false;
-	auto quest_id = getbsi(last_quest);
+	auto quest_id = find_quest(last_quest);
+	if(quest_id == 0xFFFF)
+		return false;
 	for(auto i = (goaln)0; i <= KillAlmostAllMonsters; i = (goaln)(i + 1)) {
 		if(!last_quest->goals[i])
 			continue;

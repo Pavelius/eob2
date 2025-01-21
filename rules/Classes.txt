@@ -28,3 +28,12 @@ MageTheif minimal(0 9 0 9 0 0) primary(Intellegence) classes(Mage Theif) count(2
 FighterMageTheif classes(Fighter Mage Theif) count(3) exp_per_hd(700) caster(1)
  races HalfElf
  alignment NeutralGood ChaoticGood LawfulNeutral TrueNeutral ChaoticNeutral LawfulEvil NeutralEvil ChaoticEvil
+
+#List
+
+ClericJoinParty
+ elements Blessing+5
+PaladinJoinParty
+ elements Reputation+5
+TheifJoinParty
+ elements GoldPiece+50 GoldPiece+50

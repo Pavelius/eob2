@@ -111,6 +111,7 @@ void join_party(int bonus) {
 	update_party_side();
 	update_default_spells();
 	restore_spells(0);
+	apply_player_script("JoinParty");
 }
 
 void add_party(partystatn id, int value) {

@@ -1155,6 +1155,7 @@ static void generate_party(int bonus) {
 		update_party_side();
 		update_default_spells();
 		restore_spells(0);
+		apply_player_script("JoinParty");
 	}
 }
 

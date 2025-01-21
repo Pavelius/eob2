@@ -555,14 +555,18 @@ void set_race_ability() {
 	advance_level(bsdata<racei>::elements + player->race, 0);
 }
 
-static void set_starting_equipment() {
+void apply_player_script(const char* action) {
 	auto& pc = player->getclass();
 	auto& pr = player->getrace();
-	auto p = bsdata<listi>::find(ids(pr.id, pc.id, "StartEquipment"));
+	auto p = bsdata<listi>::find(ids(pr.id, pc.id, action));
 	if(!p)
-		p = bsdata<listi>::find(ids(pc.id, "StartEquipment"));
+		p = bsdata<listi>::find(ids(pc.id, action));
 	if(p)
 		script_run(p->elements);
+}
+
+static void set_starting_equipment() {
+	apply_player_script("StartEquipment");
 }
 
 bool no_party_avatars(unsigned char value) {

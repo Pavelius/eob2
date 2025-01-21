@@ -1198,7 +1198,7 @@ static void paint_party_sheets() {
 }
 
 static void get_closed_goals(goala goals) {
-	auto quest_id = getbsi(last_quest);
+	auto quest_id = find_quest(last_quest);
 	if(quest_id == 0xFFFF)
 		return;
 	for(auto& e : bsdata<dungeoni>()) {
@@ -1221,7 +1221,6 @@ static void paint_quest_goals() {
 	if(last_quest) {
 		header(getnm("QuestGoals"));
 		width -= 2;
-		auto quest_id = getbsi(last_quest);
 		for(auto i = (goaln)0; i <= KillAlmostAllMonsters; i = (goaln)(i + 1)) {
 			if(last_quest->goals[i] <= 0 && goals[i] <= 0)
 				continue;

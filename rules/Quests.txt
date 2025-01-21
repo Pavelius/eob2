@@ -9,9 +9,11 @@ CellGraveUse
 
 #Quest
 
+CursedDungeon
+DwarfMountains
+EvilTemple
 ExploreNorthWood
 FloodedSewers
-CursedDungeon
 
 FloodedSewers
  goals KillAlmostAllMonsters(3)
@@ -23,21 +25,21 @@ FloodedSewers
 ExploreNorthWood
  goals ExmploreMostArea(1)
  travel PassDays+8
- reward AddReward+3 Reputation+2 CursedDungeon ActivateQuest
+ reward AddReward+3 Reputation+2 DwarfMountains ActivateQuest
  sites type(forest) level(1) habbits(Wolf Goblin) language(Goblinoid) key(IronKey) features(RoomFeature) graves(3)
 
 CursedDungeon difficult(1)
  goals TakeSpecialItem(1)
  travel PassHours+6
- reward AddReward+10
+ reward AddReward+10 ExploreNorthWood ActivateQuest
  sites type(dung) level(1) habbits(Skeleton Zombie) language(Human) key(IronKey)\
   features(RoomLair RoomFeature RoomFeature)\
-  trap(FireTrap) special(StoneAmulet) boss(Wight) minions(Ghoul) blood(10) dirt(10)
+  trap(FireTrap) special(StoneAmulet) boss(Wight) minions(Ghoul) blood(5)
 
 DwarfMountains difficult(1)
  goals ExmploreMostArea(3)
  travel PassDays+3
- reward AddReward+10 Reputation+5
+ reward AddReward+10 Reputation+5 EvilTemple ActivateQuest
  sites type(blue) level(2) habbits(Goblin GiantSpider) language(Dwarf) key(CooperKey) features(RoomFeature RoomFeature)
 
 EvilTemple difficult(1)

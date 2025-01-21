@@ -1,10 +1,12 @@
+#include "bsdata.h"
 #include "boost.h"
 
 void clear_boost(unsigned stamp, fnclearboost proc) {
 	auto ps = bsdata<boosti>::begin();
 	for(auto& e : bsdata<boosti>()) {
 		if(e.stamp <= stamp) {
-			proc(e.target, e.effect);
+			if(proc)
+				proc(e.target, e.type, e.param);
 			continue;
 		}
 		*ps++ = e;
@@ -12,16 +14,16 @@ void clear_boost(unsigned stamp, fnclearboost proc) {
 	bsdata<boosti>::source.count = ps - bsdata<boosti>::elements;
 }
 
-boosti* find_boost(referencei target, variant effect) {
+boosti* find_boost(referencei target, short type, short param) {
 	for(auto& e : bsdata<boosti>()) {
-		if(e.target == target && e.effect == effect)
+		if(e.type == type && e.param == param && e.target == target)
 			return &e;
 	}
 	return 0;
 }
 
-void add_boost(unsigned stamp, referencei target, variant effect) {
-	auto p = find_boost(target, effect);
+void add_boost(unsigned stamp, referencei target, short type, short param) {
+	auto p = find_boost(target, type, param);
 	if(p) {
 		if(p->stamp < stamp)
 			p->stamp = stamp;
@@ -29,6 +31,7 @@ void add_boost(unsigned stamp, referencei target, variant effect) {
 	}
 	p = bsdata<boosti>::add();
 	p->target = target;
-	p->effect = effect;
+	p->type = type;
+	p->param = param;
 	p->stamp = stamp;
 }

@@ -1,17 +1,16 @@
 #pragma once
 
 #include "reference.h"
-#include "variant.h"
 
 struct boosti {
 	unsigned	stamp;
 	referencei	target;
-	variant		effect;
+	short		type, param;
 	explicit operator bool() const { return stamp != 0; }
 };
-typedef void(*fnclearboost)(referencei target, variant effect);
+typedef void(*fnclearboost)(referencei target, short type, short param);
 
-void add_boost(unsigned stamp, referencei target, variant effect);
+void add_boost(unsigned stamp, referencei target, short type, short param);
 void clear_boost(unsigned current_stamp, fnclearboost clearing);
 
-boosti* find_boost(unsigned short location, unsigned short creature, variant effect);
+boosti* find_boost(referencei target, short type, short param);

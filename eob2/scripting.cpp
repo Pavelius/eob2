@@ -772,11 +772,11 @@ static void drink_effect(variant v, unsigned duration, int multiplier) {
 				v.value = ExeptionalStrenght;
 			v.counter = get_ability_number(player, (abilityn)v.value, v.counter * multiplier);
 			if(v.counter)
-				add_boost(party.abilities[Minutes] + duration, player, v);
+				add_boost(party.abilities[Minutes] + duration, player, v.value, v.counter);
 		}
 	} else if(v.iskind<feati>()) {
 		v.counter = multiplier;
-		add_boost(party.abilities[Minutes] + duration, player, v);
+		add_boost(party.abilities[Minutes] + duration, player, BoostFeat, v.value);
 	}
 }
 
@@ -2550,6 +2550,7 @@ static bool filter_variant(variant v, variant t) {
 }
 
 static void clear_game(int bonus) {
+	clear_quests();
 	party.clear();
 	bsdata<creaturei>::source.clear();
 }

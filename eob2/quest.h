@@ -16,5 +16,7 @@ struct quest : nameable {
 	leveli		sites[8];
 };
 extern quest* last_quest;
+extern quest* party_quests[128];
 
+void clear_quests();
 bool last_quest_complite();

@@ -667,9 +667,9 @@ static void check_goals() {
 	}
 }
 
-static void clear_boost_proc(referencei target, variant v) {
-	if(v.iskind<spelli>()) {
-		auto pi = bsdata<spelli>::elements + v.value;
+static void clear_boost_proc(referencei target, short type, short param) {
+	if(type==BoostSpell) {
+		auto pi = bsdata<spelli>::elements + param;
 		if(pi->clearing) {
 			auto push = player;
 			player = target;

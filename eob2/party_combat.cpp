@@ -258,7 +258,7 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		}
 		// RULE: paralized attack of ghouls and others
 		if(player->is(weapon, ParalizeAttack) && !defender->roll(SaveVsParalization))
-			add_boost(get_stamp(xrand(3, 8)), defender, bsdata<feati>::elements + Paralized);
+			add_boost(get_stamp(xrand(3, 8)), defender, BoostFeat, Paralized);
 		drain_attack(defender, weapon, DrainStrenghtAttack, DrainStrenght, 0);
 		drain_attack(defender, weapon, DrainEneryAttack, DrainLevel, -100);
 		// Poison attack

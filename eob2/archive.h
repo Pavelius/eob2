@@ -14,7 +14,6 @@ struct archive {
 	bool version(short major, short minor);
 	bool checksum(unsigned long value);
 	void set(void* value, unsigned size);
-	void setpointer(void** value);
 	void set(array& value);
 	// Array with fixed count
 	template<typename T, size_t N> void set(T(&value)[N]) {
@@ -35,5 +34,5 @@ struct archive {
 	template<class T> void set(T& value) {
 		set(&value, sizeof(value));
 	}
-	template<class T> void set(T*& value) { setpointer((void**)&value); }
+	void setpointer(void** value, array& source);
 };

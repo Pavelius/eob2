@@ -550,8 +550,8 @@ static void paint_avatar_border() {
 	for(auto& e : bsdata<boosti>()) {
 		if(e.target != target)
 			continue;
-		if(e.effect.iskind<spelli>()) {
-			auto ps = bsdata<spelli>::elements + e.effect.value;
+		if(e.type==BoostSpell) {
+			auto ps = bsdata<spelli>::elements + e.param;
 			if(!ps->lighting)
 				continue;
 			avatar_colors.add(ps->lighting);

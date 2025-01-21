@@ -12,6 +12,9 @@
 
 struct monsteri;
 
+enum boostn : short {
+	BoostSpell = 1000, BoostFeat,
+};
 struct creaturei : npc, statable, wearable, posable {
 	statable		basic;
 	short			hp, hpm, hpr, hp_aid, food;

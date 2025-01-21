@@ -381,12 +381,19 @@ static void update_wear() {
 	modifier = push_modifier;
 }
 
+static void apply_boost(short type, short param) {
+	if(type == BoostSpell)
+		ftscript<spelli>(param, 0);
+	else
+		player->add((abilityn)type, param);
+}
+
 static void update_duration() {
 	auto push_modifier = modifier; modifier = Wearing;
 	referencei target = player;
 	for(auto& e : bsdata<boosti>()) {
 		if(e.target == target)
-			script_run(e.effect);
+			apply_boost(e.type, e.param);
 	}
 	modifier = push_modifier;
 }
@@ -394,9 +401,8 @@ static void update_duration() {
 static bool have_boost_summon(const item& it) {
 	referencei target = player;
 	for(auto& e : bsdata<boosti>()) {
-		if(e.target == target && e.effect.iskind<spelli>()) {
-			auto& ei = bsdata<spelli>::elements[e.effect.value];
-			if(it.is(ei.summon))
+		if(e.target == target && e.type==BoostSpell) {
+			if(it.is(bsdata<spelli>::elements[e.param].summon))
 				return true;
 		}
 	}
@@ -1041,4 +1047,11 @@ void check_reaction(creaturei** creatures, int bonus) {
 			v = Careful;
 		set_reaction(creatures, v);
 	}
+}
+
+void add_boost(unsigned stamp, creaturei* target, abilityn v, int value) {
+	//add_boost(stamp, target, )
+}
+
+void add_boost(unsigned stamp, creaturei* target, spelli* ps) {
 }

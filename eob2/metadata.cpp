@@ -36,7 +36,6 @@
 
 NOBSDATA(color)
 NOBSDATA(dice)
-NOBSDATA(dungeon_site)
 NOBSDATA(point)
 NOBSDATA(picturei)
 NOBSDATA(quest::leveli)
@@ -127,16 +126,6 @@ BSMETA(dietyi) = {
 	{}};
 BSMETA(dungeoni) = {
 	BSENM(quest_id, quest),
-	{}};
-BSMETA(dungeon_site) = {
-	BSENM(type, residi),
-	BSENM(habbits, monsteri),
-	BSENM(boss, monsteri),
-	BSENM(minions, monsteri),
-	BSREQ(level),
-	BSENM(key, itemi),
-	BSENM(special, itemi),
-	BSENM(language, racei),
 	{}};
 BSMETA(feati) = {
 	BSREQ(id),

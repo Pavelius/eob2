@@ -68,7 +68,7 @@ template<> void ftscript<spelli>(int value, int bonus) {
 
 static bool is_enchant(referencei target, variant v) {
 	for(auto& e : bsdata<boosti>()) {
-		if(e.target == target && e.effect.type == v.type && e.effect.value == v.value)
+		if(e.target == target && e.type == BoostSpell && e.param == v.value)
 			return true;
 	}
 	return false;
@@ -220,7 +220,7 @@ static void apply_effect(const variants& source, const itemi* summon) {
 void apply_enchant_spell(int bonus) {
 	last_number += bonus;
 	if(last_spell && last_number > 0 && player)
-		add_boost(party.abilities[Minutes] + last_number, player, last_spell);
+		add_boost(party.abilities[Minutes] + last_number, player, BoostSpell, last_spell - bsdata<spelli>::elements);
 }
 
 static void select_items(const variants& filter) {

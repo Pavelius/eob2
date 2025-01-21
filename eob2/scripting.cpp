@@ -8,7 +8,6 @@
 #include "condition.h"
 #include "console.h"
 #include "creature.h"
-#include "diety.h"
 #include "direction.h"
 #include "draw.h"
 #include "dungeon.h"
@@ -98,10 +97,6 @@ template<> void ftscript<quest>(int value, int bonus) {
 
 template<> void ftscript<damagei>(int value, int bonus) {
 	player->damage((damagen)value, get_bonus(bonus));
-}
-
-template<> void ftscript<dietyi>(int value, int bonus) {
-	last_diety = bsdata<dietyi>::elements + value;
 }
 
 template<> void ftscript<reactioni>(int value, int bonus) {
@@ -870,17 +865,15 @@ static bool use_bless_effect(const variants& source, int bonus, bool run) {
 }
 
 static bool faith_effect(int bonus) {
-	pushvalue push(last_diety, player->getdiety());
-	if(!last_diety) {
-		consolen(getnm("YourHaveNoDiety"));
+	auto powers = bsdata<listi>::find("GoodDietyPowers");
+	if(!powers)
 		return false;
-	}
 	if(party.abilities[Blessing] <= 30) {
 		consolen(getnm("YourFaithIsWeak"));
 		return false;
 	}
 	pushvalue push_spell(last_spell);
-	if(!use_bless_effect(last_diety->powers, bonus, false)) {
+	if(!use_bless_effect(powers->elements, bonus, false)) {
 		consolen(getnm("UseHolySymbolNoEffect"));
 		return false;
 	}
@@ -888,7 +881,7 @@ static bool faith_effect(int bonus) {
 		consolen(getnm("UseHolySymbolFail"));
 		return true;
 	}
-	if(use_bless_effect(last_diety->powers, bonus, true)) {
+	if(use_bless_effect(powers->elements, bonus, true)) {
 		if(result_player)
 			consolen(getnm("UseHolySymbolSuccessOnPlayer"), result_player->getname());
 		else
@@ -2288,13 +2281,6 @@ static void make_roll_average(int bonus) {
 	}
 }
 
-static void set_diety(int bonus) {
-	if(bonus >= 0)
-		player->diety = (unsigned char)getbsi(last_diety);
-	else
-		player->diety = 0xFF;
-}
-
 static void set_level(int bonus) {
 	last_number = last_level + get_bonus(bonus);
 }
@@ -2701,7 +2687,7 @@ static void player_name(stringbuilder& sb) {
 }
 
 static void diety_name(stringbuilder& sb) {
-	sb.add(last_diety->getname());
+	sb.add("Helm");
 }
 
 static void player_gender(stringbuilder& sb) {
@@ -3208,7 +3194,6 @@ BSDATA(script) = {
 	{"SaveNegate", save_negate},
 	{"SaveVsPoisonNegate", save_vs_poison_negate},
 	{"SelectArea", select_area},
-	{"SetDiety", set_diety},
 	{"SetLevel", set_level},
 	{"SetVariable", set_variable},
 	{"ShowArea", show_area},

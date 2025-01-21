@@ -1,3 +1,4 @@
-﻿Error in file `rules/Classes.txt`:
- Line 39: Can't find variant `Longsword`
- Line 39: Can't find variant `LeatherArmor`
+﻿Error in file `rules/Diety.txt`:
+ Line 1: Not find data type for `Diety`
+Error in file `rules/Core.txt`:
+ Line 28: Can't find variant `SetDiety`

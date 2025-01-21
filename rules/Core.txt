@@ -5,7 +5,6 @@
 #include "rules/Traps.txt"
 #include "rules/Advance.txt"
 #include "rules/Actions.txt"
-#include "rules/Diety.txt"
 #include "rules/Monsters.txt"
 #include "rules/Shapes.txt" Shape
 #include "rules/Rooms.txt"
@@ -25,7 +24,7 @@ HumanPaladin
 HumanRanger
  elements Human Male Ranger ChooseAlignment+1 CreateCharacter DebugCharacter
 DwarfCleric
- elements Dwarf ChooseGender+1 Cleric ChooseAlignment+1 CreateCharacter Helm SetDiety DebugCharacter
+ elements Dwarf ChooseGender+1 Cleric ChooseAlignment+1 CreateCharacter DebugCharacter
 ElfMage
  elements Elf ChooseGender+1 MageTheif ChooseAlignment+1 CreateCharacter DebugCharacter DebugMageSpells
 HalflingTheif
@@ -39,4 +38,4 @@ StartGameQuests
 StartGameAbilities
  elements GoldPiece+50 Reputation+20 Blessing+30
 StartGame
- elements ClearGame GenerateParty StartGameQuests StartGameAbilities PassHours+7 Message HunterVillage EnterLocation
+ elements ClearGame GeneratePartyDebug StartGameQuests StartGameAbilities PassHours+7 Message HunterVillage EnterLocation

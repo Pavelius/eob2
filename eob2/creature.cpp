@@ -184,7 +184,6 @@ void creaturei::clear() {
 	memset(this, 0, sizeof(*this));
 	avatar = 0xFF;
 	name = 0xFFFF;
-	diety = 0xFF;
 	monster_id = 0xFFFF;
 	x = -1;
 	y = -1;

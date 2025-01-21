@@ -332,6 +332,8 @@ DefaultClericSpells
  elements CureLightWounds+4 Bless
 DefaultMageSpells
  elements DetectMagic MagicMissile+2 Armor
+GoodDietyPowers
+ elements RaiseDead RemoveCurse HealSpell Prayer FlameStrike
 CampAutocast
  elements CureLightWounds CureSeriousWounds LayOnHand Heal NeutralizePoison CureDisease
 

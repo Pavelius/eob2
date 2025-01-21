@@ -165,7 +165,7 @@ NeutralizePoison levels(4)
  feats Ally You
  filter IfAlive IfPoisoned
  instant PoisonLevel-100
-ProtectionFromEvil10ft levels(4 3) duration(Turn0x1)
+ProtectionFromEvil10ft levels(4 3) lighting(150 00 24) duration(Turn0x1)
  feats Ally You Group
  instant ApplyEnchantSpell
  wearing ProtectedFromEvil

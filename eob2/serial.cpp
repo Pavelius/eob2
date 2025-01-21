@@ -9,20 +9,20 @@
 
 extern spella spells_prepared[6];
 
-// Special case character serialization
-template<> void archive::set(creaturei*& value) {
-}
+// Define Either setpointer((void**)&value, bsdata<T>::source), or setpointerbyname((void**)&value, bsdata<T>::source)
 
 static bool check_game(archive& e) {
 	unsigned long total = 0;
 	int index = 1;
-	total += ImmuneIllusion * (index++);
 	total += sizeof(partyi) * (index++);
-	total += sizeof(spells_prepared) * (index++);
+	total += sizeof(creaturei) * (index++);
 	total += sizeof(dungeoni) * (index++);
 	total += sizeof(boosti) * (index++);
 	total += sizeof(spellseta) * (index++);
+	total += ImmuneIllusion * (index++);
 	total += bsdata<shopi>::source.getcount() * (index++);
+	total += bsdata<spelli>::source.getcount() * (index++);
+	total += sizeof(spells_prepared) * (index++);
 	return e.checksum(total);
 }
 
@@ -36,12 +36,12 @@ static bool serial_game(const char* url, bool writemode) {
 	if(!check_game(e))
 		return false;
 	for(auto i = 0; i < 6; i++)
-		e.setpointer((void**)&characters[i], bsdata<creaturei>::source);
+		e.set(characters[i]);
 	e.set(party);
 	e.set(spells_prepared, sizeof(spells_prepared));
 	e.set(bsdata<spellseta>::elements, sizeof(spellseta) * bsdata<spellseta>::source.getmaximum());
 	e.set(loc);
-	e.set(bsdata<boosti>::source); // This one can be problem if change metadata. Look boost.h.
+	e.set(bsdata<boosti>::source);
 	e.set(bsdata<creaturei>::source);
 	e.set(bsdata<dungeoni>::source);
 	for(auto& v : bsdata<shopi>())

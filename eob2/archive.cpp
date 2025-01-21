@@ -1,4 +1,5 @@
 #include "archive.h"
+#include "nameable.h"
 #include "stringbuilder.h"
 
 bool archive::signature(const char* id) {
@@ -57,12 +58,51 @@ void archive::set(void* value, unsigned size) {
 		source.read(value, size);
 }
 
-void archive::setpointer(void** value, array& source) {
+void archive::setname(const char*& value) {
+	short unsigned v;
 	if(writemode) {
-		auto v = (unsigned short)source.indexof(*value);
+		if(value) {
+			v = (short unsigned)zlen(value);
+			set(v);
+			set((void*)value, v);
+		} else {
+			v = 0;
+			set(v);
+		}
+	} else {
+		char temp[1024];
+		char* p = temp;
+		set(v);
+		if(v > sizeof(temp) - 2)
+			p = new char[v];
+		set(p, v);
+		p[v] = 0;
+		value = szdup(p);
+		if(p != temp)
+			delete[] p;
+	}
+}
+
+void archive::setpointer(void** value, array& source) {
+	unsigned short v;
+	if(writemode) {
+		v = source.indexof(*value);
 		set(v);
 	} else {
-		unsigned short v; set(v);
+		set(v);
 		*value = (v==0xFFFF) ? 0 : source.ptr(v);
+	}
+}
+
+void archive::setpointerbyname(void** value, array& source) {
+	const char* p;
+	if(writemode) {
+		p = 0;
+		if(*value)
+			p = ((nameable*)(*value))->id;
+		setname(p);
+	} else {
+		setname(p);
+		*value = source.findv(p, 0);
 	}
 }

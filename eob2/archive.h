@@ -1,4 +1,5 @@
 #include "adat.h"
+#include "bsdata.h"
 #include "io_stream.h"
 #include "vector.h"
 
@@ -34,5 +35,12 @@ struct archive {
 	template<class T> void set(T& value) {
 		set(&value, sizeof(value));
 	}
+	void setname(const char*& value);
 	void setpointer(void** value, array& source);
+	void setpointerbyname(void** value, array& source);
+	// Reference serialization (order in array is matters)
+	template<class T> void set(T*& value) {
+		setpointer((void**)&value, bsdata<T>::source);
+		// Can be overloaded by setpointerbyname((void**)&value, bsdata<T>::source);
+	}
 };

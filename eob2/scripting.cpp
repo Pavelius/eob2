@@ -82,7 +82,18 @@ template<> void ftscript<actioni>(int value, int bonus) {
 }
 
 template<> void ftscript<quest>(int value, int bonus) {
+	auto push = last_quest;
 	last_quest = bsdata<quest>::elements + value;
+	auto index = add_quest(last_quest);
+	if(bonus >= 0) {
+		if(!party.prepared.is(index)) {
+			party.prepared.set(index);
+			dungeon_create();
+		}
+		party.active.set(index);
+	} else
+		party.active.remove(index);
+	last_quest = push;
 }
 
 template<> void ftscript<damagei>(int value, int bonus) {
@@ -143,7 +154,7 @@ template<> void ftscript<itemi>(int value, int bonus) {
 }
 
 static dungeoni* find_dungeon(int level) {
-	auto id = party.quest_id;
+	auto id = find_quest(last_quest);
 	for(auto& e : bsdata<dungeoni>()) {
 		if(e.quest_id == id && e.level == level)
 			return &e;
@@ -218,9 +229,8 @@ static bool apply_script(const char* id, const char* action, const char* postfix
 }
 
 static bool apply_script(const char* id, const char* action, int bonus) {
-	auto quest = party.getquest();
-	if(quest) {
-		if(apply_script(id, action, quest->id, bonus))
+	if(last_quest) {
+		if(apply_script(id, action, last_quest->id, bonus))
 			return true;
 	}
 	return apply_script(id, action, 0, bonus);
@@ -229,9 +239,8 @@ static bool apply_script(const char* id, const char* action, int bonus) {
 static const char* find_speak(const char* id, const char* action) {
 	if(!player)
 		return 0;
-	auto quest = party.getquest();
-	if(quest) {
-		auto p = speech_get(ids(id, action, quest->id));
+	if(last_quest) {
+		auto p = speech_get(ids(id, action, last_quest->id));
 		if(p)
 			return p;
 	}
@@ -250,9 +259,8 @@ static const char* find_speak(const char* id, const char* action) {
 static const char* find_text(const char* id, const char* action) {
 	if(!player)
 		return 0;
-	auto quest = party.getquest();
-	if(quest) {
-		auto p = getnme(ids(id, action, quest->id));
+	if(last_quest) {
+		auto p = getnme(ids(id, action, last_quest->id));
 		if(p)
 			return p;
 	}
@@ -1240,6 +1248,8 @@ static void clear_edible() {
 }
 
 static bool is_special_item(const item& it) {
+	if(!last_quest)
+		return false;
 	auto item_type = getbsi(&it.geti());
 	if(!item_type)
 		return false;
@@ -1259,6 +1269,17 @@ static void clear_quest_items() {
 	}
 }
 
+static void activate_next_quest() {
+	for(auto index = 0; index < (int)(sizeof(party_quests) / sizeof(party_quests[0])); index++) {
+		if(!party_quests[index])
+			continue;
+		if(party.active.is(index) || party.done.is(index))
+			continue;
+		ftscript<quest>(index, 0);
+		break;
+	}
+}
+
 static void check_quest_complited() {
 	if(!last_quest_complite())
 		return;
@@ -1269,7 +1290,10 @@ static void check_quest_complited() {
 	all_party(clear_quest_items, false); // Remove quest item only if done quest
 	script_run(last_quest->reward);
 	last_quest = push_quest;
-	party.done.set(getbsi(last_quest));
+	auto index = find_quest(last_quest);
+	if(index != 0xFFFF)
+		party.done.set(index);
+	activate_next_quest();
 }
 
 static void loot_selling() {
@@ -1351,7 +1375,6 @@ static void enter_location(int bonus) {
 	party_unlock();
 	loc = 0;
 	last_quest = 0;
-	party.quest_id = 0xFFFF;
 	party.location_id = getbsi(last_location);
 	picture = last_location->avatar;
 	save_focus = current_focus;
@@ -1509,34 +1532,25 @@ static void action_player_items(int bonus) {
 	last_item = push;
 }
 
-static void activate_quest(int bonus) {
-	if(!last_quest)
-		return;
-	if(bonus >= 0) {
-		auto index = getbsi(last_quest);
-		if(!party.prepared.is(index)) {
-			party.prepared.set(index);
-			dungeon_create();
-		}
-		party.active.set(index);
-	} else
-		party.active.remove(bsdata<quest>::source.indexof(last_quest));
-}
-
 static void done_quest(int bonus) {
 	if(!last_quest)
 		return;
+	auto index = find_quest(last_quest);
+	if(index == 0xFFFF)
+		return;
 	if(bonus >= 0)
-		party.done.set(bsdata<quest>::source.indexof(last_quest));
+		party.done.set(index);
 	else
-		party.done.remove(bsdata<quest>::source.indexof(last_quest));
+		party.done.remove(index);
 }
 
 static void choose_quest() {
 	auto push_answers = an;
 	an.clear();
 	for(auto& e : bsdata<quest>()) {
-		auto index = getbsi(&e);
+		auto index = find_quest(&e);
+		if(index == 0xFFFF)
+			continue;
 		if(!party.active.is(index))
 			continue;
 		if(party.done.is(index))
@@ -1973,12 +1987,11 @@ static void talk_monsters(const char* format) {
 	auto pm = opponent->getmonster();
 	if(!pm)
 		return;
-	auto pq = party.getquest();
-	if(!pq)
+	if(!last_quest)
 		return;
 	auto rm = bsdata<reactioni>::elements[last_reaction].id;
 	pushanswer push;
-	auto pe = bsdata<listi>::find(ids(pq->id, rm));
+	auto pe = bsdata<listi>::find(ids(last_quest->id, rm));
 	if(!pe && opponent->isanimal())
 		pe = bsdata<listi>::find(ids("Animal", rm));
 	if(!pe)
@@ -1998,10 +2011,9 @@ static bool talk_monsters() {
 	if(!pm)
 		return false;
 	auto rm = bsdata<reactioni>::elements[last_reaction].id;
-	auto pq = party.getquest();
-	if(!pq)
+	if(!last_quest)
 		return false;
-	auto pn = speech_get_na(pm->id, pq->id);
+	auto pn = speech_get_na(pm->id, last_quest->id);
 	if(!pn)
 		pn = speech_get_na(pm->id, rm);
 	if(!pn) {
@@ -2110,13 +2122,11 @@ static void party_adventure(int bonus) {
 		message(pn);
 	script_run(last_quest->travel);
 	picture = push_picture;
-	party.quest_id = getbsi(last_quest);
 	all_party(craft_mission_equipment, true);
 	enter_dungeon(0);
 }
 
 void continue_game() {
-	last_quest = party.getquest();
 	last_location = party.getlocation();
 	current_focus = 0;
 	if(loc)
@@ -2373,6 +2383,12 @@ static void push_player(int bonus) {
 	player = push;
 }
 
+static void push_quest(int bonus) {
+	auto push = last_quest;
+	script_run();
+	last_quest = push;
+}
+
 static void push_modifier(int bonus) {
 	auto push = modifier;
 	script_run();
@@ -2550,9 +2566,9 @@ static bool filter_variant(variant v, variant t) {
 }
 
 static void clear_game(int bonus) {
-	clear_quests();
 	party.clear();
 	bsdata<creaturei>::source.clear();
+	create_game_quests();
 }
 
 static void clear_area(int bonus) {
@@ -2941,16 +2957,16 @@ static void talk_standart() {
 }
 
 static bool talk_stage(bool run) {
-	auto pq = party.getquest();
-	if(!pq)
+	auto index = find_quest(last_quest);
+	if(index==0xFFFF)
 		return false;
-	auto new_stage = party.stages[party.quest_id] + 1;
-	auto pn = speech_get(str("%1Stage%2i", pq->id, new_stage));
+	auto new_stage = party.stages[index] + 1;
+	auto pn = speech_get(str("%1Stage%2i", last_quest->id, new_stage));
 	if(!pn)
 		return false;
 	if(run) {
 		dialog(0, pn);
-		party.stages[party.quest_id]++;
+		party.stages[index]++;
 		party_addexp(200);
 	}
 	return true;
@@ -3101,7 +3117,6 @@ BSDATA(script) = {
 	{"Attack", attack_modify},
 	{"ActionItems", action_items},
 	{"ActionPlayerItems", action_player_items},
-	{"ActivateQuest", activate_quest},
 	{"ActivateLinkedOverlay", activate_linked_overlay},
 	{"AddAid", player_add_aid},
 	{"AddAreaItems", add_area_items},
@@ -3139,7 +3154,6 @@ BSDATA(script) = {
 	{"Damage", damage_modify},
 	{"DamageItem", damage_item},
 	{"DestroyItem", destroy_item},
-	{"DoneQuest", done_quest},
 	{"ExitGame", exit_game},
 	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
@@ -3176,6 +3190,7 @@ BSDATA(script) = {
 	{"PushItem", push_item},
 	{"PushModifier", push_modifier},
 	{"PushPlayer", push_player},
+	{"PushQuest", push_quest},
 	{"RandomArea", random_area},
 	{"ReactionCheck", reaction_check},
 	{"ReadStory", read_story},

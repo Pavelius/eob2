@@ -18,20 +18,20 @@ FloodedSewers
 FloodedSewers
  goals KillAlmostAllMonsters(3)
  travel PassHours+1
- reward AddReward+5 Reputation+5 CursedDungeon ActivateQuest
+ reward AddReward+5 Reputation+5
  sites type(brick) level(2) habbits(Kobold Leech) language(Human) key(IronKey) features(RoomFeature RoomFeature)
- sites type(brick) level(3) habbits(Kobold Leech) language(Human) key(IronKey) features(RoomLair)
+ sites type(brick) level(1) habbits(Kobold Leech) language(Human) key(IronKey) features(RoomLair)
 
 ExploreNorthWood
  goals ExmploreMostArea(1)
  travel PassDays+8
- reward AddReward+3 Reputation+2 DwarfMountains ActivateQuest
+ reward AddReward+3 Reputation+2
  sites type(forest) level(1) habbits(Wolf Goblin) language(Goblinoid) key(IronKey) features(RoomFeature) graves(3)
 
 CursedDungeon difficult(1)
  goals TakeSpecialItem(1)
  travel PassHours+6
- reward AddReward+10 ExploreNorthWood ActivateQuest
+ reward AddReward+10 Reputation+5
  sites type(dung) level(1) habbits(Skeleton Zombie) language(Human) key(IronKey)\
   features(RoomLair RoomFeature RoomFeature)\
   trap(FireTrap) special(StoneAmulet) boss(Wight) minions(Ghoul) blood(5)
@@ -39,10 +39,10 @@ CursedDungeon difficult(1)
 DwarfMountains difficult(1)
  goals ExmploreMostArea(3)
  travel PassDays+3
- reward AddReward+10 Reputation+5 EvilTemple ActivateQuest
+ reward AddReward+10 Reputation+5
  sites type(blue) level(2) habbits(Goblin GiantSpider) language(Dwarf) key(CooperKey) features(RoomFeature RoomFeature)
 
-EvilTemple difficult(1)
+EvilTemple difficult(2)
  goals KillAlmostAllMonsters(2)
  travel PassDays+3
  reward AddReward+10 Reputation+5

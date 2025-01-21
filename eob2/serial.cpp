@@ -41,6 +41,7 @@ static bool serial_game(const char* url, bool writemode) {
 	e.set(spells_prepared, sizeof(spells_prepared));
 	e.set(bsdata<spellseta>::elements, sizeof(spellseta) * bsdata<spellseta>::source.getmaximum());
 	e.set(loc);
+	e.set(last_quest);
 	e.set(bsdata<boosti>::source);
 	e.set(bsdata<creaturei>::source);
 	e.set(bsdata<dungeoni>::source);

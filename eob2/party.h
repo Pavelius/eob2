@@ -32,17 +32,13 @@ struct partystati : nameable {
 };
 struct partyi : posable, partystata {
 	int				unlock[Blessing + 1];
-	short unsigned	location_id, quest_id;
+	short unsigned	location_id;
 	questa			active, done, prepared;
 	unsigned char	stages[256];
 	void			clear();
 	locationi*		getlocation() const;
-	int				getstage(unsigned char v) const { return stages[quest_id]; }
-	int				getstage(const quest* v) const;
-	quest*			getquest() const;
 };
 extern creaturei* characters[6];
-extern creaturei* monsters[6];
 extern creaturei** player_position;
 extern partyi party;
 extern partystatn last_variable;

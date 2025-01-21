@@ -363,11 +363,6 @@ static void check_disease() {
 	}
 }
 
-static void random_characters() {
-	memcpy(monsters, characters, sizeof(monsters));
-	zshuffle(monsters, 6);
-}
-
 static size_t shrink(creaturei** target, creaturei** source) {
 	auto ps = target;
 	for(auto i = 0; i < 6; i++) {
@@ -781,19 +776,8 @@ bool party_roll(abilityn v, int bonus) {
 	return roll_ability(chance);
 }
 
-quest* partyi::getquest() const {
-	return getbs<quest>(quest_id);
-}
-
 locationi* partyi::getlocation() const {
 	return getbs<locationi>(location_id);
-}
-
-int	partyi::getstage(const quest* v) const {
-	auto n = getbsi(v);
-	if(n == 0xFFFF)
-		return 0;
-	return stages[n];
 }
 
 void partyi::clear() {

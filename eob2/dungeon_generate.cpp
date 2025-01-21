@@ -1073,7 +1073,7 @@ static void dungeon_create(unsigned short quest_id, slice<quest::leveli> source)
 
 void dungeon_create() {
 	auto push_loc = loc;
-	dungeon_create(getbsi(last_quest), last_quest->sites);
+	dungeon_create(find_quest(last_quest), last_quest->sites);
 	loc = push_loc;
 }
 

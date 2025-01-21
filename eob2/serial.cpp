@@ -9,7 +9,9 @@
 
 extern spella spells_prepared[6];
 
-// Define Either setpointer((void**)&value, bsdata<T>::source), or setpointerbyname((void**)&value, bsdata<T>::source)
+template<> void archive::set<quest>(quest*& value) {
+	setpointerbyname((void**)&value, bsdata<quest>::source);
+}
 
 static bool check_game(archive& e) {
 	unsigned long total = 0;

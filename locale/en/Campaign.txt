@@ -51,6 +51,17 @@ Old collector builded hundred years ago. What lie below the earth?
 "You are back? I don't expect this. So ... here 500 gold pieces."
 "And found me later. You may give a service to goverment and army."
 
+#FloodedSewersFinishHistory
+/npc 50
+"And ... you say this creatures talk about master? Interesting. He sad master live in mountains and kill many people long time ago. I tell this our local wizard. You are good in bussiness."
+
+#FloodedSewersStage1
+"We come from deep. Our master send us there to investigate coming adventurers such as you. We don't like this mission, we want to go away from here."
+#FloodedSewersStage2
+"Our master need those stone items. We seek any. If you have those items, give it to us. We will be pleased."
+#FloodedSewersStage3
+"Our master is in the deep of mountains. He evil and mighty. He kill many humans, elves and dwarves long time ago."
+
 /////////////////////////////
 // CursedDungeon
 
@@ -123,7 +134,7 @@ Dwarf mountains
 /adventure 2
 You move to north about day on two. Green valley lay around you, but you go to nothern side, when you see moutains.
 /adventure 0
-On third day of travel you enter into mountain dungeon.
+On third day of travel you enter into mountain dungeon. There is no dwarves, but everything you sence persistent smell of orcs.
 
 /////////////////////////////
 // EvilTemple

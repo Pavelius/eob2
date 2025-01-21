@@ -157,6 +157,22 @@ static dungeoni* find_dungeon(int level) {
 	return 0;
 }
 
+static int get_maximum_stage() {
+	if(!last_quest)
+		return 0;
+	auto result = 0;
+	while(getnme(str("%1Stage%2i", last_quest->id, result + 1)) != 0)
+		result++;
+	return result;
+}
+
+static int get_stage() {
+	auto index = find_quest(last_quest);
+	if(index == 0xFFFF)
+		return 0;
+	return party.stages[index];
+}
+
 static void attack_modify(int bonus) {
 	ftscript<abilityi>(AttackMelee, bonus);
 	ftscript<abilityi>(AttackRange, bonus);
@@ -1278,11 +1294,18 @@ static void check_quest_complited() {
 	if(!last_quest_complite())
 		return;
 	auto push_quest = last_quest;
+	auto complete_stage = (get_stage() >= get_maximum_stage());
 	auto pn = getnme(ids(last_quest->id, "Finish"));
 	if(pn)
 		message(pn);
 	all_party(clear_quest_items, false); // Remove quest item only if done quest
 	script_run(last_quest->reward);
+	if(complete_stage) {
+		auto pn = getnme(ids(last_quest->id, "FinishHistory"));
+		if(pn)
+			message(pn);
+		script_run(last_quest->reward_history);
+	}
 	last_quest = push_quest;
 	auto index = find_quest(last_quest);
 	if(index != 0xFFFF)
@@ -2945,10 +2968,10 @@ static void talk_standart() {
 
 static bool talk_stage(bool run) {
 	auto index = find_quest(last_quest);
-	if(index==0xFFFF)
+	if(index == 0xFFFF)
 		return false;
 	auto new_stage = party.stages[index] + 1;
-	auto pn = speech_get(str("%1Stage%2i", last_quest->id, new_stage));
+	auto pn = getnme(str("%1Stage%2i", last_quest->id, new_stage));
 	if(!pn)
 		return false;
 	if(run) {

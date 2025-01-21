@@ -174,7 +174,7 @@ BSMETA(quest) = {
 	BSREQ(id),
 	BSREQ(sites),
 	BSREQ(travel),
-	BSREQ(reward),
+	BSREQ(reward), BSREQ(reward_history),
 	BSREQ(difficult),
 	BSDST(goals, goali),
 	{}};

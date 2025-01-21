@@ -322,16 +322,16 @@ I need rest
 When we make camp?
 I tired
 
+#KillAlmostAllMonstersReward
+We kill almost all of these creatures
+That will be last one
+
 #TakeSpecialItemReward
-We found item. Now we can leave this place.
+We found item, now leave this place
 
 #FindAllSecretsReward
-This secret seems to be last on this level.
-We found all secrets. Not bad.
-
-#FindAllSecretsReward
-This secret seems to be last on this level.
-We found all secrets. Not bad.
+This secret seems to be last on this level
+We found all secrets
 
 #ExmploreMostAreaReward
 Looks like we explore most part of this place

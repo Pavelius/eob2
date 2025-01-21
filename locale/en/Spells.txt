@@ -18,6 +18,7 @@ DetectEvil: Detect Evil
 DetectMagic: Detect Magic
 DispellMagic: Dispell Magic
 FindTraps: Find Traps
+Fireball: Fireball
 FlameBlade: Flame Blade
 Friends: Friends
 Haste: Haste

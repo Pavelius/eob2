@@ -13,12 +13,6 @@
 "How you get this place?"
 "Who is you? How you dig so deep?"
 
-#FloodedSewersStage1
-"We come from deep. Our master send us there to investigate coming adventurers such as you. We don't like this mission, we want to go away from here."
-
-#FloodedSewersStage2
-"Our master need those stone items. We seek any. If you have those items, give it to us. We will be pleased."
-
 #TalkCursed
 "I tell you something that you may not to known. That item in your package is a %-ItemName. Don't use it or it will be bad."
 

@@ -136,6 +136,9 @@ You move to north about day on two. Green valley lay around you, but you go to n
 /adventure 0
 On third day of travel you enter into mountain dungeon. There is no dwarves, but everything you sence persistent smell of orcs.
 
+#DwarfMountainsStage1
+Are you looking for dwarves? Theres in none of them. We kill they all. But, you need to look on lower levels of this mountain.
+
 /////////////////////////////
 // EvilTemple
 

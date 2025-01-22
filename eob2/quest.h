@@ -7,13 +7,17 @@
 
 struct dungeoni;
 
+enum stagen : char {
+	StageActive, StageClosed,
+};
+
 struct quest : nameable {
 	struct leveli : dungeon_site {
 		variants features;
 	};
 	char		difficult; // From 0 to 5. Add to magic item level.
 	goala		goals;
-	variants	travel, reward, reward_history;
+	variants	travel, reward;
 	leveli		sites[8];
 };
 extern quest* last_quest;

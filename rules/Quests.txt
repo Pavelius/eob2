@@ -19,7 +19,6 @@ FloodedSewers
  goals KillAlmostAllMonsters(3)
  travel PassHours+1
  reward AddReward+5 Reputation+5
- reward_history Reputation+3
  sites type(brick) level(2) habbits(Kobold Leech) language(Human) key(IronKey) features(RoomFeature RoomFeature)
  sites type(brick) level(1) habbits(Kobold Leech) language(Human) key(IronKey) features(RoomLair)
 
@@ -41,8 +40,8 @@ DwarfMountains difficult(1)
  goals ExmploreMostArea(3)
  travel PassDays+3
  reward AddReward+10 Reputation+5
- sites type(blue) level(2) habbits(Goblin GiantSpider) language(Dwarf) key(CooperKey)\
-  features(RoomFeature RoomFeature) webs(10)
+//sites type(blue) level(2) habbits(Goblin GiantSpider) language(Dwarf) key(CooperKey) features(RoomFeature RoomFeature) webs(10)
+ sites type(blue) level(1) habbits(DwarfWarrior Goblin) language(Dwarf) key(CooperKey) features(RoomLair)
 
 EvilTemple difficult(2)
  goals KillAlmostAllMonsters(2)

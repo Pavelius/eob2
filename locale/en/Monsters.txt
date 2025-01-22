@@ -10,6 +10,7 @@ Ghoul: Ghoul
 Goblin: Goblin
 Kobold: Kobold
 Leech: Leech
+Ork: Ork
 Shadow: Shadow
 Skeleton: Skeleton
 Zombie: Zombie

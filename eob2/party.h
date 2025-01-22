@@ -34,7 +34,6 @@ struct partyi : posable, partystata {
 	int				unlock[Blessing + 1];
 	short unsigned	location_id;
 	questa			active, done, prepared;
-	unsigned char	stages[256];
 	void			clear();
 	locationi*		getlocation() const;
 };

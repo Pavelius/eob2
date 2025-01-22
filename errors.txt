@@ -1,3 +1,2 @@
-﻿Error in file `rules/Actions.txt`:
- Line 107: Expected token `)`
- Line 107: Expected line feed
+﻿Error in file `rules/Quests.txt`:
+ Line 22: Not found requisit `reward_history`

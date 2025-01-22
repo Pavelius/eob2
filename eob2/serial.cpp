@@ -2,6 +2,7 @@
 #include "boost.h"
 #include "creature.h"
 #include "dungeon.h"
+#include "history.h"
 #include "party.h"
 #include "quest.h"
 #include "shop.h"
@@ -24,6 +25,7 @@ static bool check_game(archive& e) {
 	total += ImmuneIllusion * (index++);
 	total += sizeof(spells_prepared) * (index++);
 	total += bsdata<shopi>::source.getcount() * (index++); // Because we can serialize shop items - part of shop.
+	total += bsdata<monsteri>::source.getcount() * (index++); // Because in creature struct we have monster_id.
 	return e.checksum(total);
 }
 
@@ -47,8 +49,11 @@ static bool serial_game(const char* url, bool writemode) {
 	e.set(bsdata<boosti>::source);
 	e.set(bsdata<creaturei>::source);
 	e.set(bsdata<dungeoni>::source);
+	e.set(bsdata<historyi>::source);
 	for(auto& v : bsdata<shopi>())
 		e.set(v.items);
+	for(auto& v : bsdata<historyi>())
+		e.set(v.value);
 	return true;
 }
 

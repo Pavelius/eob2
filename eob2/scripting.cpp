@@ -14,6 +14,7 @@
 #include "formula.h"
 #include "gender.h"
 #include "hotkey.h"
+#include "history.h"
 #include "keyvalue.h"
 #include "list.h"
 #include "location.h"
@@ -164,13 +165,6 @@ static int get_maximum_stage() {
 	while(getnme(str("%1Stage%2i", last_quest->id, result + 1)) != 0)
 		result++;
 	return result;
-}
-
-static int get_stage() {
-	auto index = find_quest(last_quest);
-	if(index == 0xFFFF)
-		return 0;
-	return party.stages[index];
 }
 
 static void attack_modify(int bonus) {
@@ -1294,18 +1288,17 @@ static void check_quest_complited() {
 	if(!last_quest_complite())
 		return;
 	auto push_quest = last_quest;
-	auto complete_stage = (get_stage() >= get_maximum_stage());
 	auto pn = getnme(ids(last_quest->id, "Finish"));
 	if(pn)
 		message(pn);
 	all_party(clear_quest_items, false); // Remove quest item only if done quest
 	script_run(last_quest->reward);
-	if(complete_stage) {
-		auto pn = getnme(ids(last_quest->id, "FinishHistory"));
-		if(pn)
-			message(pn);
-		script_run(last_quest->reward_history);
-	}
+	//if(complete_stage) {
+	//	auto pn = getnme(ids(last_quest->id, "FinishHistory"));
+	//	if(pn)
+	//		message(pn);
+	//	script_run(last_quest->reward_history);
+	//}
 	last_quest = push_quest;
 	auto index = find_quest(last_quest);
 	if(index != 0xFFFF)
@@ -1992,14 +1985,6 @@ static bool party_move_interact(pointc v) {
 	return true;
 }
 
-static creaturei* get_leader(creaturei** creatures) {
-	for(auto i = 0; i < 6; i++) {
-		if(creatures[i])
-			return creatures[i];
-	}
-	return 0;
-}
-
 static void talk_monsters(const char* format) {
 	auto pm = opponent->getmonster();
 	if(!pm)
@@ -2070,10 +2055,10 @@ void reaction_check(int bonus) {
 	creaturei* creatures[6] = {};
 	while(true) {
 		loc->getmonsters(creatures, to(party, party.d));
-		check_reaction(creatures, bonus);
 		opponent = get_leader(creatures);
 		if(!opponent)
 			break;
+		check_reaction(creatures, bonus);
 		last_reaction = opponent->reaction;
 		auto prev_reaction = last_reaction;
 		party_set(creatures, Moved);
@@ -2970,17 +2955,25 @@ static void talk_standart() {
 	dialog(0, speech_get(last_talk->id), 0);
 }
 
+static const char* get_stage_text(short unsigned quest_id, short unsigned monster_id, int stage) {
+	return getnme(str("%1%2%3i", party_quests.data[quest_id]->id, bsdata<monsteri>::elements[monster_id].id, stage));
+}
+
 static bool talk_stage(bool run) {
-	auto index = find_quest(last_quest);
-	if(index == 0xFFFF)
+	auto pm = opponent->getmonster();
+	if(!pm)
 		return false;
-	auto new_stage = party.stages[index] + 1;
-	auto pn = getnme(str("%1Stage%2i", last_quest->id, new_stage));
+	auto quest_id = find_quest(last_quest);
+	auto monster_id = getbsi(pm);
+	auto current_stage = get_history(quest_id, monster_id);
+	auto pn = get_stage_text(quest_id, monster_id, current_stage + 1);
 	if(!pn)
 		return false;
 	if(run) {
 		dialog(0, pn);
-		party.stages[index]++;
+		auto ph = add_history(quest_id, monster_id);
+		if(ph)
+			ph->value = current_stage + 1;
 		party_addexp(200);
 	}
 	return true;

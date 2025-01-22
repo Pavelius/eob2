@@ -25,6 +25,7 @@
 
 static_assert(sizeof(creaturei::spells) == sizeof(monsteri::spells), "Spells requisit in creaturei and monsteri must be same type.");
 
+const int encounter_table_maximum = 19;
 creaturei *player, *opponent, *result_player;
 classn last_class;
 racen last_race;
@@ -1022,6 +1023,19 @@ void set_reaction(creaturei** creatures, reactions v) {
 	}
 }
 
+creaturei* get_leader(creaturei** creatures) {
+	creaturei* result = 0;
+	for(auto i = 0; i < 6; i++) {
+		if(!creatures[i] || creatures[i]->isdisabled())
+			continue;
+		if(!result)
+			result = creatures[i];
+		else if(result->getlevel() < creatures[i]->getlevel())
+			result = creatures[i];
+	}
+	return result;
+}
+
 reactions get_reaction(creaturei** creatures) {
 	for(auto i = 0; i < 6; i++) {
 		if(creatures[i] && creatures[i]->reaction != Indifferent)
@@ -1030,22 +1044,54 @@ reactions get_reaction(creaturei** creatures) {
 	return Indifferent;
 }
 
-static reactions roll_reaction(int bonus) {
-	static reactions data[19] = {
+static reactions* encounter_table(alignmentn monster_alignment) {
+	static reactions hostile_players[encounter_table_maximum] = {
 		Friendly, Friendly,
 		Careful, Careful, Careful, Careful, Careful, Careful,
 		Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile,
 	};
-	int n = rand() % (sizeof(data) / sizeof(data[0]));
-	n -= bonus;
-	return maptbl(data, n);
+	static reactions indifferent_players[encounter_table_maximum] = {
+		Friendly, Friendly, Friendly, Friendly, Friendly,
+		Careful, Careful, Careful, Careful, Careful, Careful, Careful, Careful, Careful,
+		Hostile, Hostile, Hostile, Hostile, Hostile,
+	};
+	static reactions friendly_players[encounter_table_maximum] = {
+		Friendly, Friendly, Friendly, Friendly, Friendly, Friendly,
+		Careful, Careful, Careful, Careful, Careful, Careful, Careful, Careful, Careful, Careful,
+		Hostile, Hostile, Hostile,
+	};
+	switch(monster_alignment) {
+	case LawfulGood:
+	case NeutralGood:
+		return friendly_players;
+	case ChaoticGood:
+	case LawfulNeutral:
+	case TrueNeutral:
+		return indifferent_players;
+	default:
+		return hostile_players;
+	}
+}
+
+static reactions roll_reaction(alignmentn monster_alignment, int bonus) {
+	auto n = (rand() % encounter_table_maximum) - bonus;
+	auto t = encounter_table(monster_alignment);
+	if(n < 0)
+		n = 0;
+	else if(n > (encounter_table_maximum - 1))
+		n = encounter_table_maximum - 1;
+	return t[n];
 }
 
 void check_reaction(creaturei** creatures, int bonus) {
 	auto v = get_reaction(creatures);
 	if(v == Indifferent) {
 		auto charisma = party_median(characters, Charisma) + bonus;
-		v = roll_reaction(maptbl(cha_reaction_adjustment, charisma));
+		auto alignment = LawfulEvil;
+		auto leader = get_leader(creatures);
+		if(leader)
+			alignment = leader->alignment;
+		v = roll_reaction(alignment, maptbl(cha_reaction_adjustment, charisma));
 		if(v == Indifferent)
 			v = Careful;
 		set_reaction(creatures, v);

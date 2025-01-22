@@ -1,4 +1,5 @@
 ﻿Bugbear: Bugbear
+DwarfWarrior: Dwarf
 EvilCleric: Cleric
 EvilMinion1: Minion
 EvilMinion2: Minion

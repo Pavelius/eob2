@@ -96,3 +96,5 @@ char* get_spells_prepared(const creaturei* target);
 item* party_get_item(const itemi* pi);
 
 reactions get_reaction(creaturei** creatures);
+
+creaturei* get_leader(creaturei** creatures);

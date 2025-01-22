@@ -22,10 +22,10 @@ GiantSpider res(spider1) hd(3) ac(4) experience(420) alignment(ChaoticEvil)
  feats Intellegence-6 Large Constitution+5 Sting1d8 PoisonAttack
 Ghoul res(ghoul) hd(1) ac(6) experience(175) alignment(ChaoticEvil) reaction(Hostile)
  feats Claws1d3 Bite1d6 Undead ImmuneCharm ImmuneCold ImmuneIllusion ParalizeAttack
-Goblin res(goblin) hd(1) ac(8) experience(15) alignment(LawfulEvil)
- feats Constitution-4 Dexterity+5 Axe Shield
 Leech res(leech) hd(4) ac(9) experience(175) alignment(TrueNeutral)
  feats Intellegence-6 Large VampiricAttack DiseaseAttack Mandibules
+Ork res(goblin) hd(1) ac(7) experience(15) alignment(LawfulEvil)
+ feats Axe Shield
 Shadow res(shadow) hd(3) ac(7) experience(420) alignment(ChaoticEvil) reaction(Hostile)
  feats Strenght+6 Constitution+6 Slam1d4 Undead DrainStrenghtAttack ImmuneNormalWeapon ImmuneIllusion Sneaky+80
 Skeleton res(skeleton) hd(1) ac(7) experience(65) alignment(TrueNeutral) reaction(Hostile)

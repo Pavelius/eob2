@@ -1284,6 +1284,30 @@ static void activate_next_quest() {
 	}
 }
 
+static const char* get_stage_id(short unsigned quest_id, short unsigned monster_id, int stage, const char* action) {
+	return str("%1%2%4%3i", party_quests.data[quest_id]->id, bsdata<monsteri>::elements[monster_id].id, stage, action);
+}
+
+static const char* get_stage_text(short unsigned quest_id, short unsigned monster_id, int stage, const char* action) {
+	return getnme(get_stage_id(quest_id, monster_id, stage, action));
+}
+
+static void check_history_completed() {
+	for(auto& e : bsdata<historyi>()) {
+		if(e.stage >= e.value)
+			continue;
+		for(auto i = e.stage + 1; i <= e.value; i++) {
+			auto pn = get_stage_text(e.p1, e.p2, i, "Explain");
+			if(pn)
+				message(pn);
+			auto ps = bsdata<listi>::find(get_stage_id(e.p1, e.p2, i, "Explain"));
+			if(ps)
+				script_run(ps->id, ps->elements);
+			e.stage = i;
+		}
+	}
+}
+
 static void check_quest_complited() {
 	if(!last_quest_complite())
 		return;
@@ -1377,6 +1401,7 @@ static void enter_location(int bonus) {
 	if(loc) {
 		all_party(clear_mission_equipment, false);
 		all_party(clear_edible, false);
+		check_history_completed();
 		check_quest_complited();
 		after_dungeon_action("LootIdentyfing", loot_identyfing);
 		after_dungeon_action("LootSelling", loot_selling);
@@ -2955,10 +2980,6 @@ static void talk_standart() {
 	dialog(0, speech_get(last_talk->id), 0);
 }
 
-static const char* get_stage_text(short unsigned quest_id, short unsigned monster_id, int stage) {
-	return getnme(str("%1%2%3i", party_quests.data[quest_id]->id, bsdata<monsteri>::elements[monster_id].id, stage));
-}
-
 static bool talk_stage(bool run) {
 	auto pm = opponent->getmonster();
 	if(!pm)
@@ -2966,7 +2987,7 @@ static bool talk_stage(bool run) {
 	auto quest_id = find_quest(last_quest);
 	auto monster_id = getbsi(pm);
 	auto current_stage = get_history(quest_id, monster_id);
-	auto pn = get_stage_text(quest_id, monster_id, current_stage + 1);
+	auto pn = get_stage_text(quest_id, monster_id, current_stage + 1, 0);
 	if(!pn)
 		return false;
 	if(run) {

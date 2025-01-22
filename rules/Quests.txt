@@ -7,6 +7,11 @@ CellBarelUse
 CellGraveUse
  chance RandomSmallItem
 
+#List
+
+FloodedSewersKoboldExplain3
+ elements Reputation+2
+
 #Quest
 
 CursedDungeon
@@ -26,7 +31,7 @@ ExploreNorthWood
  goals ExmploreMostArea(1)
  travel PassDays+8
  reward AddReward+3 Reputation+2
- sites type(forest) level(1) habbits(Wolf Goblin) language(Goblinoid) key(IronKey) features(RoomFeature) graves(3)
+ sites type(forest) level(1) habbits(Wolf Ork) language(Goblinoid) key(IronKey) features(RoomFeature) graves(3)
 
 CursedDungeon difficult(1)
  goals TakeSpecialItem(1)
@@ -40,8 +45,8 @@ DwarfMountains difficult(1)
  goals ExmploreMostArea(3)
  travel PassDays+3
  reward AddReward+10 Reputation+5
-//sites type(blue) level(2) habbits(Goblin GiantSpider) language(Dwarf) key(CooperKey) features(RoomFeature RoomFeature) webs(10)
- sites type(blue) level(1) habbits(DwarfWarrior Goblin) language(Dwarf) key(CooperKey) features(RoomLair)
+//sites type(blue) level(2) habbits(Ork GiantSpider) language(Dwarf) key(CooperKey) features(RoomFeature RoomFeature) webs(10)
+ sites type(blue) level(1) habbits(DwarfWarrior Ork) language(Dwarf) key(CooperKey) features(RoomLair)
 
 EvilTemple difficult(2)
  goals KillAlmostAllMonsters(2)

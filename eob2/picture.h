@@ -1,5 +1,7 @@
 #pragma once
 
+#include "color.h"
+
 enum resid : unsigned short;
 
 struct picturei {

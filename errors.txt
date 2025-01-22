@@ -1,3 +1,3 @@
-﻿Error in file `rules/Spells.txt`:
- Line 177: Not found RandomEffect identifier `Round0x1`
- Line 180: Can't find variant `DispellEvilAttack`
+﻿Error in file `rules/Actions.txt`:
+ Line 107: Expected token `)`
+ Line 107: Expected line feed

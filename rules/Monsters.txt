@@ -5,6 +5,8 @@ Kobold res(kobold) hd(0) ac(7) experience(7) alignment(LawfulEvil)
 
 Bugbear res(bugbear) hd(3) ac(5) experience(120) alignment(ChaoticEvil)
  feats Claws1d4 Constitution+6 Strenght+4 Large Sneaky+60
+DwarfWarrior res(dwarf) hd(3) ac(4) experience(270) alignment(LawfulGood)
+ feats UseShield BattleAxe DwarvenShield Strenght+5 Constitution+5 BonusSaveVsPoison BonusSaveVsSpells
 EvilMinion1 res(cleric3) hd(3) ac(5) experience(65) alignment(LawfulEvil) overlays(0 2 3)
  feats Flail
 EvilMinion2 res(cleric3) hd(4) ac(5) experience(120) alignment(LawfulEvil) overlays(0 3) minions(EvilMinion1)

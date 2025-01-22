@@ -7,20 +7,16 @@
 typedef adat<quest*> questc;
 
 quest* last_quest;
-quest* party_quests[128];
+adat<quest*> party_quests;
 
 void clear_quests() {
-	memset(party_quests, 0, sizeof(party_quests));
+	memset(&party_quests, 0, sizeof(party_quests));
 }
 
 unsigned short find_quest(quest* p) {
 	if(!p)
 		return 0xFFFF;
-	for(size_t i = 0; i < sizeof(party_quests) / sizeof(party_quests[0]); i++) {
-		if(party_quests[i] == p)
-			return (unsigned short)i;
-	}
-	return 0xFFFF;
+	return party_quests.find(p);
 }
 
 unsigned short add_quest(quest* p) {
@@ -29,14 +25,9 @@ unsigned short add_quest(quest* p) {
 	auto index = find_quest(p);
 	if(index != 0xFFFF)
 		return index;
-	for(auto& e : party_quests) {
-		if(e)
-			continue;
-		e = p;
-		index = &e - party_quests;
-		break;
-	}
-	return index;
+	auto pn = party_quests.add();
+	*pn = p;
+	return pn - party_quests.data;
 }
 
 static void add_quests(const questc& source) {
@@ -59,10 +50,6 @@ static void prepare_quests(questc& source) {
 		return;
 	source.shuffle();
 	source.top(current / 2); // Only half quest used. Other quest can be in next started game.
-}
-
-static void activate_quest(quest* p) {
-	ftscript<quest>(getbsi(p), 0);
 }
 
 void create_game_quests() {

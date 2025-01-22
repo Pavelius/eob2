@@ -42,7 +42,7 @@ DwarfMountains difficult(1)
  travel PassDays+3
  reward AddReward+10 Reputation+5
  sites type(blue) level(2) habbits(Goblin GiantSpider) language(Dwarf) key(CooperKey)\
-  features(RoomFeature RoomFeature) web(10)
+  features(RoomFeature RoomFeature) webs(10)
 
 EvilTemple difficult(2)
  goals KillAlmostAllMonsters(2)

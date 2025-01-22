@@ -1,5 +1,6 @@
 #pragma once
 
+#include "adat.h"
 #include "dungeon_site.h"
 #include "goal.h"
 #include "variant.h"
@@ -16,7 +17,7 @@ struct quest : nameable {
 	leveli		sites[8];
 };
 extern quest* last_quest;
-extern quest* party_quests[128];
+extern adat<quest*> party_quests;
 
 void clear_quests();
 void create_game_quests();

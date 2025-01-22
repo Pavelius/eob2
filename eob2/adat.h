@@ -1,8 +1,7 @@
 #pragma once
 
 #include "slice.h"
-
-extern "C" int rand(void);
+#include "rand.h"
 
 template<class T, size_t count_max = 128>
 struct adat {

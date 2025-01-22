@@ -648,7 +648,6 @@ int party_goal(unsigned short quest_id, goaln v) {
 static void check_goals() {
 	if(!loc || !player)
 		return;
-	bool check_main_quest = false;
 	for(auto i = (goaln)0; i <= KillAlmostAllMonsters; i = (goaln)(i + 1)) {
 		if(loc->rewards.is(i))
 			continue;
@@ -658,7 +657,6 @@ static void check_goals() {
 			if(!player->isdisabled())
 				player->speak(ei.id, "Reward");
 			party_addexp(ei.experience);
-			check_main_quest = true;
 		}
 	}
 }

@@ -2,6 +2,7 @@
 
 #include "adat.h"
 #include "flagable.h"
+#include "goal.h"
 #include "posable.h"
 #include "wallmessage.h"
 
@@ -27,6 +28,6 @@ struct dungeon_state {
 	short unsigned	total_passable; // total cell passable (include buttons and pits)
 	short unsigned	explored_passable; // total cell passable (include buttons and pits) explored
 	short unsigned	wallmessages[MessageHabbits]; // count of variable messages
-	flagable<2>		goals; // Reaching goals by party
+	goalf			goals; // Reaching goals by party
 	void clear();
 };

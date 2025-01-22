@@ -1,2 +1,3 @@
-﻿Error in file `rules/Quests.txt`:
- Line 46: Not found Monster identifier `Dwarf`
+﻿Error in file `rules/Spells.txt`:
+ Line 177: Not found RandomEffect identifier `Round0x1`
+ Line 180: Can't find variant `DispellEvilAttack`

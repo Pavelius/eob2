@@ -28,6 +28,7 @@ Roll3d8 base(3 8)
 Roll1d6x1d6p1 base(1 6) raise(1 6) perlevel(0 1 10)
 Roll6d8 base(6 8)
 Roll8d8 base(8 8)
+Minute0x1 raise(1) perlevel(0 1)
 Minute3x1 base(3) raise(1) perlevel(1 1)
 Minute3x3 base(3) raise(1) perlevel(1 3)
 Minute4x1 base(4) raise(1) perlevel(1 1)
@@ -144,6 +145,9 @@ RemoveParalize levels(3)
  instant Paralized-1
 
 Abjure levels(4)
+ feats Enemy
+ filter Outsider
+ instant SaveNegate InstantKill
 CloackOfBravery levels(4) lighting(159 143 239) duration(Hour8)
  feats Ally Group You
  filter IfAlive
@@ -174,7 +178,10 @@ CureCriticalWounds levels(5)
  feats Ally You
  filter IfAlive IfWounded
  instant Roll3d8+3 Heal+101
-DispellEvil levels(5)
+DispellEvil levels(5) lighting(248 116 98) duration(Minute0x1)
+ feats Ally You
+ instant ApplyEnchantSpell
+ wearing DispelEvilAttack
 FlameStrike levels(5)
  feats Enemy Group
  instant Roll6d8 SaveHalf Fire+101

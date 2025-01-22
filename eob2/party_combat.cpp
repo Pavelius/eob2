@@ -179,7 +179,8 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		if(player->is(BonusDamageVsEnemy))
 			bonus += 4;
 	}
-	if((power.iskind<racei>() && defender->race == power.value) || (player->is(weapon, Holy) && defender->is(Undead))) {
+	if((power.iskind<racei>() && defender->race == power.value)
+		|| (player->is(weapon, Holy) && defender->is(Undead))) {
 		bonus += 3;
 		multiplier += 1;
 	}
@@ -204,8 +205,6 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		}
 		attack_damage.m = multiplier;
 		hits = attack_damage.roll();
-		if(player->is(weapon, VorpalAttack) && is_critical_hit)
-			hits = 1000;
 		// Weapon of specific damage type
 		if(power.iskind<damagei>()) {
 			damage_type = (damagen)power.value;
@@ -214,6 +213,12 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 			case Cold: hits += xrand(2, 5); break;
 			default: hits += xrand(0, 2); break;
 			}
+		}
+		if(player->is(weapon, VorpalAttack) && is_critical_hit)
+			hits = 1000;
+		if(player->is(weapon, DispelEvilAttack) && defender->is(Outsider)) {
+			if(!defender->roll(SaveVsMagic))
+				hits = 1000;
 		}
 		if(defender->is(Displaced) && d100() < 50)
 			hits = -1; // Miss if displaced

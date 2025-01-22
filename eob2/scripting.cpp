@@ -2160,6 +2160,10 @@ static void identify_item(int bonus) {
 	last_item->identify(bonus);
 }
 
+static void instant_kill(int bonus) {
+	player->kill();
+}
+
 static void curse_item(int bonus) {
 	last_item->curse(bonus);
 }
@@ -3176,6 +3180,7 @@ BSDATA(script) = {
 	{"Heal", player_heal},
 	{"HealEffect", player_heal_effect},
 	{"IdentifyItem", identify_item},
+	{"InstantKill", instant_kill},
 	{"ItemPowerSpell", item_power_spell},
 	{"Leader", monster_leader},
 	{"LearnClericSpells", learn_cleric_spells},

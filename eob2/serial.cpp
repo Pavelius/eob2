@@ -22,9 +22,8 @@ static bool check_game(archive& e) {
 	total += sizeof(boosti) * (index++);
 	total += sizeof(spellseta) * (index++);
 	total += ImmuneIllusion * (index++);
-	total += bsdata<shopi>::source.getcount() * (index++);
-	total += bsdata<spelli>::source.getcount() * (index++);
 	total += sizeof(spells_prepared) * (index++);
+	total += bsdata<shopi>::source.getcount() * (index++); // Because we can serialize shop items - part of shop.
 	return e.checksum(total);
 }
 

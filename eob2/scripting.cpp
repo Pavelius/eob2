@@ -1317,12 +1317,6 @@ static void check_quest_complited() {
 		message(pn);
 	all_party(clear_quest_items, false); // Remove quest item only if done quest
 	script_run(last_quest->reward);
-	//if(complete_stage) {
-	//	auto pn = getnme(ids(last_quest->id, "FinishHistory"));
-	//	if(pn)
-	//		message(pn);
-	//	script_run(last_quest->reward_history);
-	//}
 	last_quest = push_quest;
 	auto index = find_quest(last_quest);
 	if(index != 0xFFFF)

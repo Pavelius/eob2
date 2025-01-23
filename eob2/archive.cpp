@@ -70,8 +70,10 @@ void archive::set(array& v) {
 void archive::set(void* value, unsigned size) {
 	if(writemode)
 		source.write(value, size);
-	else
+	else if(value)
 		source.read(value, size);
+	else // Skip same count of bytes if readed object is empthy
+		source.seek(size, SeekCur);
 }
 
 void archive::setname(const char*& value) {
@@ -119,6 +121,7 @@ void archive::setpointerbyname(void** value, array& source) {
 		setname(p);
 	} else {
 		setname(p);
-		*value = source.findv(p, 0);
+		if(value)
+			*value = source.findv(p, 0);
 	}
 }

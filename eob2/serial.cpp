@@ -1,5 +1,6 @@
 #include "archive.h"
 #include "boost.h"
+#include "bsreq.h"
 #include "creature.h"
 #include "dungeon.h"
 #include "history.h"
@@ -14,6 +15,11 @@ template<> void archive::set<quest>(quest*& value) {
 	setpointerbyname((void**)&value, bsdata<quest>::source);
 }
 
+BSARCH(shopi) = {
+	BSREQ(id),
+	BSRAW(items),
+	{}};
+
 static bool check_game(archive& e) {
 	unsigned long total = 0;
 	int index = 1;
@@ -24,7 +30,6 @@ static bool check_game(archive& e) {
 	total += sizeof(spellseta) * (index++);
 	total += ImmuneIllusion * (index++);
 	total += sizeof(spells_prepared) * (index++);
-	total += bsdata<shopi>::source.getcount() * (index++); // Because we can serialize shop items - part of shop.
 	total += bsdata<monsteri>::source.getcount() * (index++); // Because in creature struct we have monster_id.
 	return e.checksum(total);
 }
@@ -50,10 +55,7 @@ static bool serial_game(const char* url, bool writemode) {
 	e.set(bsdata<creaturei>::source);
 	e.set(bsdata<dungeoni>::source);
 	e.set(bsdata<historyi>::source);
-	for(auto& v : bsdata<shopi>())
-		e.set(v.items);
-	for(auto& v : bsdata<historyi>())
-		e.set(v.value);
+	e.setng(bsdata<shopi>::source, bsarch<shopi>::meta);
 	return true;
 }
 

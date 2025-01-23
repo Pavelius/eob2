@@ -36,6 +36,7 @@ struct archive {
 	void set(array& value);
 	void set(void* object, const bsreq* type); // Extern for binary object serialization
 	void set(array& source, const bsreq* type); // Extern for binary object serialization
+	void setng(array& source, const bsreq* type); // Serial array, but when read - search by name and not create new.
 	// Array with fixed count
 	template<typename T, size_t N> void set(T(&value)[N]) {
 		for(int i = 0; i < N; i++)

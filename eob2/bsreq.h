@@ -21,6 +21,7 @@
 #pragma once
 
 #define BSMETA(e) template<> const bsreq bsmeta<e>::meta[]
+#define BSARCH(e) template<> const bsreq bsarch<e>::meta[]
 
 #define	BSREQ(fn) {#fn, FO(data_type, fn),\
 sizeof(meta_size<decltype(data_type::fn)>::value),\
@@ -34,12 +35,13 @@ bsdata<meta_decoy<decltype(data_type::fn)>::value>::source_ptr}
 #define	BSFLG(fn, T) {#fn, FO(data_type, fn), sizeof(data_type::fn), sizeof(data_type::fn), 1, bsmeta<T>::meta, KindFlags, bsdata<T>::source_ptr}
 #define	BSENM(fn, T) {#fn, FO(data_type, fn), sizeof(meta_size<decltype(data_type::fn)>::value), sizeof(data_type::fn), meta_count<decltype(data_type::fn)>::value, bsmeta<T>::meta, KindEnum, bsdata<T>::source_ptr}
 #define	BSREF(fn, T) {#fn, FO(data_type, fn), sizeof(data_type::fn), sizeof(data_type::fn), 1, bsmeta<T>::meta, KindReference, bsdata<T>::source_ptr}
+#define	BSRAW(fn) {#fn, FO(data_type, fn), 1, sizeof(data_type::fn), sizeof(data_type::fn), 0, KindNumber, 0}
 
 // Basic metadata types
 enum bstype_s : unsigned char {
 	KindNoType,
 	KindNumber, KindText, KindScalar, KindEnum, KindReference,
-	KindADat, KindSlice, KindFlags, KindDSet
+	KindADat, KindSlice, KindFlags, KindDSet,
 };
 // Metadata field descriptor
 struct bsreq {
@@ -70,7 +72,13 @@ struct bsreq {
 };
 NOBSDATA(bsreq)
 
+// Metadata of any object
 template<typename T> struct bsmeta {
+	typedef T data_type;
+	static const bsreq meta[];
+};
+// Special metadata use to binary serialization
+template<typename T> struct bsarch {
 	typedef T data_type;
 	static const bsreq meta[];
 };

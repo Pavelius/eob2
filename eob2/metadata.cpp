@@ -228,6 +228,7 @@ BSMETA(shopi) = {
 	BSREQ(effect),
 	BSREQ(days),
 	BSREQ(count),
+	BSRAW(items),
 	{}};
 BSMETA(spelli) = {
 	BSREQ(id),

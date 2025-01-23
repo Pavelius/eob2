@@ -14,14 +14,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#pragma once
+
 #include "adat.h"
 #include "bsdata.h"
 #include "io_stream.h"
 #include "vector.h"
 
-#pragma once
+#define BSRAW(T, R) {FO(T,R), sizeof(T::R)}
 
-struct bsreq; // Extern for binary serialization
+// Serialization metadata descriptor
+struct bsarh {
+	size_t offset;
+	size_t size;
+};
 
 // Fast and simple driver for streaming binary data.
 // Allow arrays and simple collections.
@@ -34,9 +40,7 @@ struct archive {
 	bool checksum(unsigned long value);
 	void set(void* value, unsigned size);
 	void set(array& value);
-	void set(void* object, const bsreq* type); // Extern for binary object serialization
-	void set(array& source, const bsreq* type); // Extern for binary object serialization
-	void setng(array& source, const bsreq* type); // Serial array, but when read - search by name and not create new.
+	void set(array& value, const bsarh* metadata); // Serial array, but when read - search by name and not create new.
 	// Array with fixed count
 	template<typename T, size_t N> void set(T(&value)[N]) {
 		for(int i = 0; i < N; i++)

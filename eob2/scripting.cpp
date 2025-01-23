@@ -14,7 +14,6 @@
 #include "formula.h"
 #include "gender.h"
 #include "hotkey.h"
-#include "history.h"
 #include "keyvalue.h"
 #include "list.h"
 #include "location.h"
@@ -82,18 +81,12 @@ template<> void ftscript<actioni>(int value, int bonus) {
 }
 
 template<> void ftscript<quest>(int value, int bonus) {
-	auto push = last_quest;
-	last_quest = bsdata<quest>::elements + value;
-	auto index = add_quest(last_quest);
+	auto p = bsdata<quest>::elements + value;
 	if(bonus >= 0) {
-		if(!party.prepared.is(index)) {
-			party.prepared.set(index);
-			dungeon_create();
-		}
-		party.active.set(index);
+		p->prepare();
+		p->set(QuestActive);
 	} else
-		party.active.remove(index);
-	last_quest = push;
+		p->remove(QuestActive);
 }
 
 template<> void ftscript<damagei>(int value, int bonus) {
@@ -150,9 +143,8 @@ template<> void ftscript<itemi>(int value, int bonus) {
 }
 
 static dungeoni* find_dungeon(int level) {
-	auto id = find_quest(last_quest);
-	for(auto& e : bsdata<dungeoni>()) {
-		if(e.quest_id == id && e.level == level)
+	for(auto& e : last_quest->dungeon) {
+		if(e.level == level)
 			return &e;
 	}
 	return 0;
@@ -1274,36 +1266,40 @@ static void clear_quest_items() {
 }
 
 static void activate_next_quest() {
-	for(auto index = 0; index < (int)(sizeof(party_quests) / sizeof(party_quests[0])); index++) {
-		if(!party_quests[index])
+	for(auto& e : bsdata<quest>()) {
+		if(!e.dungeon)
 			continue;
-		if(party.active.is(index) || party.done.is(index))
+		if(e.is(QuestClosed) || e.is(QuestActive))
 			continue;
-		ftscript<quest>(index, 0);
+		e.set(QuestActive);
 		break;
 	}
 }
 
-static const char* get_stage_id(short unsigned quest_id, short unsigned monster_id, int stage, const char* action) {
-	return str("%1%2%4%3i", party_quests.data[quest_id]->id, bsdata<monsteri>::elements[monster_id].id, stage, action);
+static const char* get_stage_id(const quest* p, short unsigned monster_id, int stage, const char* action) {
+	return str("%1%2%4%3i", p->id, bsdata<monsteri>::elements[monster_id].id, stage, action);
 }
 
-static const char* get_stage_text(short unsigned quest_id, short unsigned monster_id, int stage, const char* action) {
-	return getnme(get_stage_id(quest_id, monster_id, stage, action));
+static const char* get_stage_text(const quest* p, short unsigned monster_id, int stage, const char* action) {
+	return getnme(get_stage_id(p, monster_id, stage, action));
 }
 
 static void check_history_completed() {
-	for(auto& e : bsdata<historyi>()) {
-		if(e.stage >= e.value)
+	for(auto& q : bsdata<quest>()) {
+		if(!q.dungeon)
 			continue;
-		for(auto i = e.stage + 1; i <= e.value; i++) {
-			auto pn = get_stage_text(e.p1, e.p2, i, "Explain");
-			if(pn)
-				message(pn);
-			auto ps = bsdata<listi>::find(get_stage_id(e.p1, e.p2, i, "Explain"));
-			if(ps)
-				script_run(ps->id, ps->elements);
-			e.stage = i;
+		for(auto& e : q.history) {
+			if(e.stage >= e.value)
+				continue;
+			for(auto i = e.stage + 1; i <= e.value; i++) {
+				auto pn = get_stage_text(&q, e.monster, i, "Explain");
+				if(pn)
+					message(pn);
+				auto ps = bsdata<listi>::find(get_stage_id(&q, e.monster, i, "Explain"));
+				if(ps)
+					script_run(ps->id, ps->elements);
+				e.stage = i;
+			}
 		}
 	}
 }
@@ -1318,9 +1314,8 @@ static void check_quest_complited() {
 	all_party(clear_quest_items, false); // Remove quest item only if done quest
 	script_run(last_quest->reward);
 	last_quest = push_quest;
-	auto index = find_quest(last_quest);
-	if(index != 0xFFFF)
-		party.done.set(index);
+	last_quest->set(QuestClosed);
+	last_quest->remove(QuestActive);
 	activate_next_quest();
 }
 
@@ -1564,25 +1559,15 @@ static void action_player_items(int bonus) {
 static void done_quest(int bonus) {
 	if(!last_quest)
 		return;
-	auto index = find_quest(last_quest);
-	if(index == 0xFFFF)
-		return;
-	if(bonus >= 0)
-		party.done.set(index);
-	else
-		party.done.remove(index);
+	last_quest->set(QuestClosed);
+	last_quest->remove(QuestActive);
 }
 
 static void choose_quest() {
 	auto push_answers = an;
 	an.clear();
 	for(auto& e : bsdata<quest>()) {
-		auto index = find_quest(&e);
-		if(index == 0xFFFF)
-			continue;
-		if(!party.active.is(index))
-			continue;
-		if(party.done.is(index))
+		if(!e.is(QuestActive) || e.is(QuestClosed))
 			continue;
 		an.add(&e, e.getname());
 	}
@@ -2978,15 +2963,14 @@ static bool talk_stage(bool run) {
 	auto pm = opponent->getmonster();
 	if(!pm)
 		return false;
-	auto quest_id = find_quest(last_quest);
 	auto monster_id = getbsi(pm);
-	auto current_stage = get_history(quest_id, monster_id);
-	auto pn = get_stage_text(quest_id, monster_id, current_stage + 1, 0);
+	auto current_stage = last_quest->gethistory(monster_id);
+	auto pn = get_stage_text(last_quest, monster_id, current_stage + 1, 0);
 	if(!pn)
 		return false;
 	if(run) {
 		dialog(0, pn);
-		auto ph = add_history(quest_id, monster_id);
+		auto ph = last_quest->addhistory(monster_id);
 		if(ph)
 			ph->value = current_stage + 1;
 		party_addexp(200);

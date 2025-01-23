@@ -1,9 +1,7 @@
 #include "archive.h"
 #include "boost.h"
-#include "bsreq.h"
 #include "creature.h"
 #include "dungeon.h"
-#include "history.h"
 #include "party.h"
 #include "quest.h"
 #include "shop.h"
@@ -14,11 +12,6 @@ extern spella spells_prepared[6];
 template<> void archive::set<quest>(quest*& value) {
 	setpointerbyname((void**)&value, bsdata<quest>::source);
 }
-
-BSARCH(shopi) = {
-	BSREQ(id),
-	BSRAW(items),
-	{}};
 
 static bool check_game_content(archive& e) {
 	unsigned long total = 0;
@@ -36,6 +29,14 @@ static bool check_game_content(archive& e) {
 }
 
 static bool serial_game(const char* url, bool writemode) {
+	static bsarh shop_metadata[] = {
+		BSRAW(shopi, items),
+		{}};
+	static bsarh quest_metadata[] = {
+		BSRAW(quest, flags),
+		BSRAW(quest, history),
+		BSRAW(quest, dungeon),
+		{}};
 	io::file file(url, writemode ? StreamWrite : StreamRead);
 	if(!file)
 		return false;
@@ -51,12 +52,11 @@ static bool serial_game(const char* url, bool writemode) {
 	e.set(bsdata<spellseta>::elements, sizeof(spellseta) * bsdata<spellseta>::source.getmaximum());
 	e.set(loc);
 	e.set(last_quest);
-	e.set(party_quests);
 	e.set(bsdata<boosti>::source);
 	e.set(bsdata<creaturei>::source);
 	e.set(bsdata<dungeoni>::source);
-	e.set(bsdata<historyi>::source);
-	e.setng(bsdata<shopi>::source, bsarch<shopi>::meta);
+	e.set(bsdata<shopi>::source, shop_metadata);
+	e.set(bsdata<quest>::source, quest_metadata);
 	return true;
 }
 

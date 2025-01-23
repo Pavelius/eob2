@@ -1007,7 +1007,7 @@ static void create_dungeon_objects() {
 		add_special(points, CellCocon, loc->eggs, loc->eggs);
 }
 
-static void dungeon_create(unsigned short quest_id, slice<quest::leveli> source) {
+static void dungeon_create(slice<quest::leveli> source) {
 	auto base = 1;
 	auto total_level_count = total_levels(source);
 	dungeoni* previous = 0;
@@ -1030,7 +1030,7 @@ static void dungeon_create(unsigned short quest_id, slice<quest::leveli> source)
 			while(true) {
 				loc->clear();
 				assign<dungeon_site>(*loc, ei);
-				loc->quest_id = quest_id;
+				// loc->quest_id = quest_id;
 				loc->level = level;
 				loc->cursed = 5;
 				create_rooms(start, last_level, ei.features);
@@ -1073,7 +1073,7 @@ static void dungeon_create(unsigned short quest_id, slice<quest::leveli> source)
 
 void dungeon_create() {
 	auto push_loc = loc;
-	dungeon_create(find_quest(last_quest), last_quest->sites);
+	dungeon_create(last_quest->sites);
 	loc = push_loc;
 }
 

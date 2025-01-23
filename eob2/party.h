@@ -5,8 +5,6 @@
 #include "nameable.h"
 #include "posable.h"
 
-typedef flagable<8, unsigned> questa;
-
 class item;
 
 struct creaturei;
@@ -33,7 +31,6 @@ struct partystati : nameable {
 struct partyi : posable, partystata {
 	int				unlock[Blessing + 1];
 	short unsigned	location_id;
-	questa			active, done, prepared;
 	void			clear();
 	locationi*		getlocation() const;
 };
@@ -86,7 +83,7 @@ void update_party_side();
 
 int getparty(partystatn id);
 int get_party_index(const creaturei* target);
-int party_goal(unsigned short quest_id, goaln v);
+int party_goal(goaln v);
 int party_best(creaturei** creatures, abilityn v, bool set_player);
 int party_median(creaturei** creatures, abilityn v);
 

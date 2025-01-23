@@ -1201,12 +1201,7 @@ static void paint_party_sheets() {
 }
 
 static void get_closed_goals(goala goals) {
-	auto quest_id = find_quest(last_quest);
-	if(quest_id == 0xFFFF)
-		return;
-	for(auto& e : bsdata<dungeoni>()) {
-		if(e.quest_id != quest_id)
-			continue;
+	for(auto& e : last_quest->dungeon) {
 		for(auto i = (goaln)0; i <= KillAlmostAllMonsters; i = (goaln)(i + 1)) {
 			if(e.is(i))
 				goals[i]++;

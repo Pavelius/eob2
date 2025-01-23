@@ -125,3 +125,30 @@ void archive::setpointerbyname(void** value, array& source) {
 			*value = source.findv(p, 0);
 	}
 }
+
+void archive::set(array& source, const bsarh* type) {
+	const char* name;
+	if(!type)
+		return;
+	if(writemode) {
+		set(source.count);
+		auto pe = source.end();
+		for(auto p = source.begin(); p < pe; p += source.element_size) {
+			setname(*((const char**)p));
+			for(auto ps = type; ps->size; ps++)
+				this->source.write((char*)p + ps->offset, ps->size);
+		}
+	} else {
+		decltype(source.count) size; set(size);
+		for(decltype(size) i = 0; i < size; i++) {
+			setname(name);
+			auto object = source.findv(name, 0); // Do not create new element
+			for(auto ps = type; ps->size; ps++) {
+				if(object)
+					this->source.read((char*)object + ps->offset, ps->size);
+				else
+					this->source.seek(ps->size, SeekCur); // Skip count of bytes in read sequence
+			}
+		}
+	}
+}

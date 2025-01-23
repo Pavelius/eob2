@@ -276,12 +276,6 @@
     <ClCompile Include="diety.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="history.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
-    <ClCompile Include="archive_bsreq.cpp">
-      <Filter>support</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -558,9 +552,6 @@
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="diety.h">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="history.h">
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="index.h">

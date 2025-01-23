@@ -9,7 +9,6 @@
 #include "condition.h"
 #include "damage.h"
 #include "dungeon.h"
-#include "history.h"
 #include "item.h"
 #include "keyvalue.h"
 #include "list.h"
@@ -46,7 +45,6 @@ BSDATAC(boosti, 256)
 BSDATAC(classi, 32)
 BSDATAC(creaturei, 64)
 BSDATAC(dungeoni, 256)
-BSDATAC(historyi, 128)
 BSDATAC(itemi, 256)
 BSDATAC(locationi, 128)
 BSDATAC(monsteri, 256)
@@ -228,7 +226,6 @@ BSMETA(shopi) = {
 	BSREQ(effect),
 	BSREQ(days),
 	BSREQ(count),
-	BSRAW(items),
 	{}};
 BSMETA(spelli) = {
 	BSREQ(id),

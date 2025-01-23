@@ -1,2 +1,3 @@
-﻿Error in file `rules/Quests.txt`:
- Line 22: Not found requisit `reward_history`
+﻿Error in file `rules/Actions.txt`:
+ Line 52: Can't find variant `MagicSpellsShop`
+ Line 53: Can't find variant `MagicSpellsShop`

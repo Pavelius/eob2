@@ -20,7 +20,7 @@ BSARCH(shopi) = {
 	BSRAW(items),
 	{}};
 
-static bool check_game(archive& e) {
+static bool check_game_content(archive& e) {
 	unsigned long total = 0;
 	int index = 1;
 	total += sizeof(partyi) * (index++);
@@ -30,6 +30,7 @@ static bool check_game(archive& e) {
 	total += sizeof(spellseta) * (index++);
 	total += ImmuneIllusion * (index++);
 	total += sizeof(spells_prepared) * (index++);
+	total += bsdata<itemi>::source.getcount() * (index++); // Because in dungeon and shop struct we have `item` object with requisit `type`.
 	total += bsdata<monsteri>::source.getcount() * (index++); // Because in creature struct we have monster_id.
 	return e.checksum(total);
 }
@@ -41,7 +42,7 @@ static bool serial_game(const char* url, bool writemode) {
 	archive e(file, writemode);
 	if(!e.signature("SAV"))
 		return false;
-	if(!check_game(e))
+	if(!check_game_content(e))
 		return false;
 	for(auto i = 0; i < 6; i++)
 		e.set(characters[i]);

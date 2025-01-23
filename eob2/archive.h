@@ -21,6 +21,8 @@
 
 #pragma once
 
+struct bsreq; // Extern for binary serialization
+
 // Fast and simple driver for streaming binary data.
 // Allow arrays and simple collections.
 struct archive {
@@ -32,6 +34,8 @@ struct archive {
 	bool checksum(unsigned long value);
 	void set(void* value, unsigned size);
 	void set(array& value);
+	void set(void* object, const bsreq* type); // Extern for binary object serialization
+	void set(array& source, const bsreq* type); // Extern for binary object serialization
 	// Array with fixed count
 	template<typename T, size_t N> void set(T(&value)[N]) {
 		for(int i = 0; i < N; i++)

@@ -30,6 +30,7 @@ static bool check_game_content(archive& e) {
 	total += sizeof(dungeoni) * (index++);
 	total += sizeof(boosti) * (index++);
 	total += sizeof(spellseta) * (index++);
+	total += bsdata<spellseta>::source.getmaximum() * (index++);
 	total += ImmuneIllusion * (index++);
 	total += sizeof(spells_prepared) * (index++);
 	total += bsdata<itemi>::source.getcount() * (index++); // Because in dungeon and shop struct we have `item` object with requisit `type`.
@@ -48,16 +49,16 @@ static bool serial_game(const char* url, bool writemode) {
 		return false;
 	for(auto i = 0; i < 6; i++)
 		e.set(characters[i]);
+	e.set(loc);
+	e.set(last_quest);
 	e.set(party);
 	e.set(spells_prepared, sizeof(spells_prepared));
 	e.set(bsdata<spellseta>::elements, sizeof(spellseta) * bsdata<spellseta>::source.getmaximum());
-	e.set(loc);
-	e.set(last_quest);
 	e.set(bsdata<boosti>::source);
 	e.set(bsdata<creaturei>::source);
 	e.set(bsdata<dungeoni>::source);
-	e.setbinary<shopi>();
-	e.setbinary<quest>();
+	e.setpartial<shopi>();
+	e.setpartial<quest>();
 	return true;
 }
 

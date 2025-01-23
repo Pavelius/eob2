@@ -71,5 +71,5 @@ struct archive {
 		setpointer((void**)&value, bsdata<T>::source);
 		// Can be overloaded by setpointerbyname((void**)&value, bsdata<T>::source);
 	}
-	template<class T> void setbinary() { set(bsdata<T>::source, type<T>::meta); }
+	template<class T> void setpartial() { set(bsdata<T>::source, type<T>::meta); }
 };

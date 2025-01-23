@@ -273,9 +273,6 @@
     <ClCompile Include="save.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="draw_control.cpp">
-      <Filter>support</Filter>
-    </ClCompile>
     <ClCompile Include="diety.cpp">
       <Filter>logic</Filter>
     </ClCompile>
@@ -556,9 +553,6 @@
     </ClInclude>
     <ClInclude Include="save.h">
       <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="draw_control.h">
-      <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="diety.h">
       <Filter>logic</Filter>

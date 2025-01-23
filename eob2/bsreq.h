@@ -1,8 +1,26 @@
+/////////////////////////////////////////////////////////////////////////
+// 
+// Copyright 2024 Pavel Chistyakov
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http ://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 #include "adat.h"
 #include "sliceu.h"
 #include "vector.h"
 
 #pragma once
+
+#define BSMETA(e) template<> const bsreq bsmeta<e>::meta[]
 
 #define	BSREQ(fn) {#fn, FO(data_type, fn),\
 sizeof(meta_size<decltype(data_type::fn)>::value),\
@@ -11,13 +29,11 @@ meta_count<decltype(data_type::fn)>::value,\
 bsmeta<meta_decoy<decltype(data_type::fn)>::value>::meta,\
 meta_kind<decltype(data_type::fn)>::value,\
 bsdata<meta_decoy<decltype(data_type::fn)>::value>::source_ptr}
-#define	BSCST(fn, K, TM, TI, C) {#fn, FO(data_type, fn), sizeof(TM), sizeof(data_type::fn), C, bsmeta<TI>::meta, K, bsdata<TI>::source_ptr}
+
 #define	BSDST(fn, TE) {#fn, FO(data_type, fn), sizeof(data_type::fn[0]), sizeof(data_type::fn), sizeof(data_type::fn)/sizeof(data_type::fn[0]), bsmeta<TE>::meta, KindDSet, bsdata<TE>::source_ptr}
 #define	BSFLG(fn, T) {#fn, FO(data_type, fn), sizeof(data_type::fn), sizeof(data_type::fn), 1, bsmeta<T>::meta, KindFlags, bsdata<T>::source_ptr}
 #define	BSENM(fn, T) {#fn, FO(data_type, fn), sizeof(meta_size<decltype(data_type::fn)>::value), sizeof(data_type::fn), meta_count<decltype(data_type::fn)>::value, bsmeta<T>::meta, KindEnum, bsdata<T>::source_ptr}
 #define	BSREF(fn, T) {#fn, FO(data_type, fn), sizeof(data_type::fn), sizeof(data_type::fn), 1, bsmeta<T>::meta, KindReference, bsdata<T>::source_ptr}
-#define BSMETA(e) template<> const bsreq bsmeta<e>::meta[]
-#define BSINF(N, T) {#N, 0, sizeof(T), sizeof(T), 1, bsmeta<T>::meta, KindScalar, bsdata<T>::source_ptr}
 
 // Basic metadata types
 enum bstype_s : unsigned char {

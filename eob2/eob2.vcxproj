@@ -166,7 +166,6 @@
     </ClInclude>
     <ClInclude Include="direction.h" />
     <ClInclude Include="draw.h" />
-    <ClInclude Include="draw_control.h" />
     <ClInclude Include="dungeon.h" />
     <ClInclude Include="dungeon_site.h" />
     <ClInclude Include="dungeon_state.h" />
@@ -175,7 +174,9 @@
     <ClInclude Include="formula.h" />
     <ClInclude Include="gender.h" />
     <ClInclude Include="goal.h" />
-    <ClInclude Include="hashsum.h" />
+    <ClInclude Include="hashsum.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="history.h" />
     <ClInclude Include="hotkey.h" />
     <ClInclude Include="index.h" />
@@ -259,7 +260,6 @@
     </ClCompile>
     <ClCompile Include="direction.cpp" />
     <ClCompile Include="draw.cpp" />
-    <ClCompile Include="draw_control.cpp" />
     <ClCompile Include="draw_text.cpp" />
     <ClCompile Include="dungeon.cpp" />
     <ClCompile Include="dungeon_generate.cpp" />
@@ -267,7 +267,9 @@
     <ClCompile Include="feat.cpp" />
     <ClCompile Include="formula.cpp" />
     <ClCompile Include="gender.cpp" />
-    <ClCompile Include="hashsum.cpp" />
+    <ClCompile Include="hashsum.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="history.cpp" />
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="item.cpp" />

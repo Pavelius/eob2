@@ -21,17 +21,20 @@
 #include "io_stream.h"
 #include "vector.h"
 
-#define BSRAW(T, R) {FO(T,R), sizeof(T::R)}
-
-// Serialization metadata descriptor
-struct bsarh {
-	size_t offset;
-	size_t size;
-};
+#define BSRAW(R) {FO(data_type,R), sizeof(data_type::R)}
+#define BSARH(T) template<> const archive::record archive::type<T>::meta[]
 
 // Fast and simple driver for streaming binary data.
 // Allow arrays and simple collections.
 struct archive {
+	struct record {
+		size_t offset;
+		size_t size;
+	};
+	template<class T> struct type {
+		typedef T data_type;
+		static const record meta[];
+	};
 	io::stream&	source;
 	bool writemode;
 	constexpr archive(io::stream& source, bool writemode) : source(source), writemode(writemode) {}
@@ -40,7 +43,7 @@ struct archive {
 	bool checksum(unsigned long value);
 	void set(void* value, unsigned size);
 	void set(array& value);
-	void set(array& value, const bsarh* metadata); // Serial array, but when read - search by name and not create new.
+	void set(array& value, const record* metadata); // Serial array, but when read - search by name and not create new.
 	// Array with fixed count
 	template<typename T, size_t N> void set(T(&value)[N]) {
 		for(int i = 0; i < N; i++)
@@ -68,4 +71,5 @@ struct archive {
 		setpointer((void**)&value, bsdata<T>::source);
 		// Can be overloaded by setpointerbyname((void**)&value, bsdata<T>::source);
 	}
+	template<class T> void setbinary() { set(bsdata<T>::source, type<T>::meta); }
 };

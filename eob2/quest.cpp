@@ -36,7 +36,7 @@ int quest::gethistory(unsigned short id) const {
 }
 
 void quest::clear() {
-	flags.clear();
+	stage = Hide;
 	dungeon.clear();
 	history.clear();
 }
@@ -52,32 +52,10 @@ void quest::prepare() {
 	last_quest = push;
 }
 
-static void clear_quests() {
+static void clear_all_quests() {
 	for(auto& e : bsdata<quest>())
 		e.clear();
 }
-
-//unsigned short find_quest(quest* p) {
-//	if(!p)
-//		return 0xFFFF;
-//	return party_quests.find(p);
-//}
-//
-//unsigned short add_quest(quest* p) {
-//	if(!p)
-//		return 0xFFFF;
-//	auto index = find_quest(p);
-//	if(index != 0xFFFF)
-//		return index;
-//	auto pn = party_quests.add();
-//	*pn = p;
-//	return pn - party_quests.data;
-//}
-//
-//static void add_quests(const questc& source) {
-//	for(auto p : source)
-//		add_quest(p);
-//}
 
 static void select_quests(questa& source, int difficult) {
 	source.clear();
@@ -103,7 +81,8 @@ static void add_quests(questa& source) {
 
 void create_game_quests() {
 	questa source;
-	clear_quests();
+	bsdata<dungeoni>::source.clear();
+	clear_all_quests();
 	for(auto i = 0; i <= 5; i++) {
 		select_quests(source, i);
 		prepare_quests(source);

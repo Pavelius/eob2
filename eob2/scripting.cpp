@@ -84,9 +84,9 @@ template<> void ftscript<quest>(int value, int bonus) {
 	auto p = bsdata<quest>::elements + value;
 	if(bonus >= 0) {
 		p->prepare();
-		p->set(QuestActive);
+		p->stage = quest::Active;
 	} else
-		p->remove(QuestActive);
+		p->stage = quest::Hide;
 }
 
 template<> void ftscript<damagei>(int value, int bonus) {
@@ -1267,11 +1267,11 @@ static void clear_quest_items() {
 
 static void activate_next_quest() {
 	for(auto& e : bsdata<quest>()) {
-		if(!e.dungeon)
+		if(!e)
 			continue;
-		if(e.is(QuestClosed) || e.is(QuestActive))
+		if(e.stage != quest::Hide)
 			continue;
-		e.set(QuestActive);
+		e.stage = quest::Active;
 		break;
 	}
 }
@@ -1314,8 +1314,7 @@ static void check_quest_complited() {
 	all_party(clear_quest_items, false); // Remove quest item only if done quest
 	script_run(last_quest->reward);
 	last_quest = push_quest;
-	last_quest->set(QuestClosed);
-	last_quest->remove(QuestActive);
+	last_quest->stage = quest::Done;
 	activate_next_quest();
 }
 
@@ -1557,17 +1556,15 @@ static void action_player_items(int bonus) {
 }
 
 static void done_quest(int bonus) {
-	if(!last_quest)
-		return;
-	last_quest->set(QuestClosed);
-	last_quest->remove(QuestActive);
+	if(last_quest)
+		last_quest->stage = quest::Done;
 }
 
 static void choose_quest() {
 	auto push_answers = an;
 	an.clear();
 	for(auto& e : bsdata<quest>()) {
-		if(!e.is(QuestActive) || e.is(QuestClosed))
+		if(e.stage != quest::Active)
 			continue;
 		an.add(&e, e.getname());
 	}

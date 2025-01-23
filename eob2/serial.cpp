@@ -9,6 +9,15 @@
 
 extern spella spells_prepared[6];
 
+BSARH(quest) = {
+	BSRAW(stage),
+	BSRAW(history),
+	BSRAW(dungeon),
+	{}};
+BSARH(shopi) = {
+	BSRAW(items),
+	{}};
+
 template<> void archive::set<quest>(quest*& value) {
 	setpointerbyname((void**)&value, bsdata<quest>::source);
 }
@@ -29,14 +38,6 @@ static bool check_game_content(archive& e) {
 }
 
 static bool serial_game(const char* url, bool writemode) {
-	static bsarh shop_metadata[] = {
-		BSRAW(shopi, items),
-		{}};
-	static bsarh quest_metadata[] = {
-		BSRAW(quest, flags),
-		BSRAW(quest, history),
-		BSRAW(quest, dungeon),
-		{}};
 	io::file file(url, writemode ? StreamWrite : StreamRead);
 	if(!file)
 		return false;
@@ -55,8 +56,8 @@ static bool serial_game(const char* url, bool writemode) {
 	e.set(bsdata<boosti>::source);
 	e.set(bsdata<creaturei>::source);
 	e.set(bsdata<dungeoni>::source);
-	e.set(bsdata<shopi>::source, shop_metadata);
-	e.set(bsdata<quest>::source, quest_metadata);
+	e.setbinary<shopi>();
+	e.setbinary<quest>();
 	return true;
 }
 

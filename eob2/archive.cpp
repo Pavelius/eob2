@@ -126,7 +126,7 @@ void archive::setpointerbyname(void** value, array& source) {
 	}
 }
 
-void archive::set(array& source, const bsarh* type) {
+void archive::set(array& source, const record* type) {
 	const char* name;
 	if(!type)
 		return;

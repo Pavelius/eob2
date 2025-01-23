@@ -2565,12 +2565,6 @@ static bool filter_variant(variant v, variant t) {
 	return false;
 }
 
-static void clear_game(int bonus) {
-	party.clear();
-	bsdata<creaturei>::source.clear();
-	create_game_quests();
-}
-
 static void clear_area(int bonus) {
 	points.clear();
 }

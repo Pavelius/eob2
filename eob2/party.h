@@ -49,6 +49,7 @@ void add_party(partystatn id, int value);
 bool apply_message(const char* id, const char* action);
 void broke_cell(pointc v);
 void check_reaction(creaturei** creatures, int bonus);
+void clear_game(int bonus);
 void continue_game();
 void delete_game(const char* id);
 bool is_dead_line();

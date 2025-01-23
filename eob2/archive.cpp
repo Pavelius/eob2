@@ -152,3 +152,11 @@ void archive::set(array& source, const record* type) {
 		}
 	}
 }
+
+void archive::cleanup(array& source, const record* type) {
+	auto pe = source.end();
+	for(auto p = source.begin(); p < pe; p += source.element_size) {
+		for(auto ps = type; ps->size; ps++)
+			memset((char*)p + ps->offset, 0, ps->size);
+	}
+}

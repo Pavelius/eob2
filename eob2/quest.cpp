@@ -67,11 +67,13 @@ static void select_quests(questa& source, int difficult) {
 }
 
 static void prepare_quests(questa& source) {
-	auto current = source.getcount();
-	if(current < 2)
+	auto current = source.getcount() / 2;
+	if(current < 1)
 		return;
+	if(current > 4)
+		current = 4;
 	source.shuffle();
-	source.top(current / 2); // Only half quest used. Other quest can be in next started game.
+	source.top(current); // Only half quest used. Other quest can be in next started game.
 }
 
 static void add_quests(questa& source) {
@@ -81,8 +83,6 @@ static void add_quests(questa& source) {
 
 void create_game_quests() {
 	questa source;
-	bsdata<dungeoni>::source.clear();
-	clear_all_quests();
 	for(auto i = 0; i <= 5; i++) {
 		select_quests(source, i);
 		prepare_quests(source);

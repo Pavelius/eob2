@@ -22,6 +22,20 @@ template<> void archive::set<quest>(quest*& value) {
 	setpointerbyname((void**)&value, bsdata<quest>::source);
 }
 
+void clear_game(int bonus) {
+	loc = 0;
+	last_quest = 0;
+	party.clear();
+	memset(spells_prepared, 0, sizeof(spells_prepared));
+	memset(bsdata<spellseta>::elements, 0, bsdata<spellseta>::source.getmaximum() * sizeof(bsdata<spellseta>::elements[0]));
+	bsdata<boosti>::source.clear();
+	bsdata<creaturei>::source.clear();
+	bsdata<dungeoni>::source.clear();
+	archive::cleanup<quest>();
+	archive::cleanup<shopi>();
+	create_game_quests();
+}
+
 static bool check_game_content(archive& e) {
 	unsigned long total = 0;
 	int index = 1;

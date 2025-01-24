@@ -272,7 +272,7 @@ HypnoticPattern levels(0 2) duration(Minute3x1)
 Knock levels(0 2)
  feats You SummaryEffect
  filter IfAreaLocked
- instant ActivateLinkedOverlay
+ instant ActivateLinkedOverlay EffectCount+1
 Invisibility levels(0 2) duration(Hour1)
  feats You Ally
  instant ApplyEnchantSpell

@@ -1501,7 +1501,7 @@ static void for_each_opponents(int bonus) {
 }
 
 static void activate_linked_overlay(int bonus) {
-	auto po = loc->get(*player, player->d);
+	auto po = loc->get(party, party.d);
 	if(!po || !po->link)
 		return;
 	loc->set(po->link, CellActive);
@@ -2767,7 +2767,7 @@ static bool if_alive() {
 }
 
 static bool if_area_locked() {
-	auto po = loc->get(*player, player->d);
+	auto po = loc->get(party, party.d);
 	if(!po || po->type != CellKeyHole || !po->link)
 		return false;
 	return !loc->is(po->link, CellActive);

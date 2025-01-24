@@ -255,6 +255,10 @@ I repair %EffectCount items
 #MendingNoEffect
 I don't see any damaged items
 
+#KnockGainEffect
+The door is open
+Knock-knock
+
 #SurpriseApply
 Who is here?
 What is going on here?

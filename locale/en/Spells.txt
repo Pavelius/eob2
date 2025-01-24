@@ -4,6 +4,7 @@ Armor: Armor
 Barkskin: Barkskin
 Bless: Bless
 Blinding: Blinding
+Blink: Blink
 Blur: Blur
 BurningHands: Burning Hands
 ChillTouch: Chill Touch

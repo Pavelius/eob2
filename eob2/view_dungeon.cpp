@@ -881,7 +881,7 @@ void add_color_data(pma* result, const unsigned char* bitdata) {
 	epr->name[1] = 'O';
 	epr->name[2] = 'L';
 	epr->name[3] = 0;
-	epr->size = sizeof(epr);
+	epr->size = sizeof(*epr);
 	epr->count = 18;
 	for(auto x = 0; x < 18; x++) {
 		for(auto y = 0; y < 16; y++)

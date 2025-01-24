@@ -308,7 +308,7 @@ bool cast_spell(const spelli* ps, int level, int experience, bool run, bool rand
 	if(ps->is(Enemy)) {
 		if(ps->isthrown()) {
 			enemy_position = friendly_position;
-			if(!look_group(enemy_position, enemy_direction))
+			if(look_group(enemy_position, enemy_direction))
 				add_targets(enemy_position, false);
 		} else
 			add_targets(enemy_position, ps->is(You));

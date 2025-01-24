@@ -11,7 +11,7 @@ EvilMinion1 res(cleric3) hd(3) ac(5) experience(65) alignment(LawfulEvil) overla
  feats Flail
 EvilMinion2 res(cleric3) hd(4) ac(5) experience(120) alignment(LawfulEvil) overlays(0 3) minions(EvilMinion1)
  feats Flail
-EvilMinion3 res(cleric3) hd(5) ac(4) experience(175) alignment(LawfulEvil) overlays(0 2 1 3)
+EvilMinion3 res(cleric3) hd(5) ac(4) experience(175) alignment(LawfulEvil) overlays(0 2 3)
  feats Flail
 EvilMinion4 res(cleric3) hd(6) ac(4) experience(270) alignment(LawfulEvil) overlays(0 1 3)
  feats Flail

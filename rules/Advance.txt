@@ -273,6 +273,10 @@ Cleric+4 Spells
  elements Spell1+1 Spell2+1
 Cleric+5 Spells
  elements LearnClericSpells+3 Spell2+1 Spell3+1
+Cleric+6 Spells
+ elements Spell3+1
+Cleric+7 Spells
+ elements LearnClericSpells+4 Spell4+1
 
 Cleric+4 CombatSkills
  elements Attack+2
@@ -302,6 +306,10 @@ Mage+4 Spells
  elements Spell1+1 Spell2+1
 Mage+5 Spells
  elements Spell1+1 Spell3+1
+Mage+6 Spells
+ elements Spell3+1
+Mage+7 Spells
+ elements Spell2+1 Spell4+1
 
 Mage+4 CombatSkills
  elements Attack+1

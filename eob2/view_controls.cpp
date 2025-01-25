@@ -553,7 +553,7 @@ static void paint_avatar_border() {
 	for(auto& e : bsdata<boosti>()) {
 		if(e.target != target)
 			continue;
-		if(e.type==BoostSpell) {
+		if(e.type == BoostSpell) {
 			auto ps = bsdata<spelli>::elements + e.param;
 			if(!ps->lighting)
 				continue;
@@ -1649,7 +1649,8 @@ void pick_up_item() {
 		if(!p2->join(*p1))
 			iswap(*p1, *p2);
 		update_player(c1);
-		update_player(c2);
+		if(c1 != c2)
+			update_player(c2);
 	}
 }
 

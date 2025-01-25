@@ -84,3 +84,27 @@ item* wearable::freebackpack() {
 	}
 	return 0;
 }
+
+void wearable::shrinkbelt() {
+	auto ps = wears + FirstBelt;
+	for(auto& e : beltslots()) {
+		if(!e)
+			continue;
+		*ps++ = e;
+	}
+	// Clear tail items
+	auto pe = wears + LastBelt + 1;
+	while(ps < pe) {
+		ps->clear();
+		ps++;
+	}
+}
+
+void wearable::putbelt(item& v) {
+	shrinkbelt();
+	if(!freebelt())
+		return;
+	memmove(wears + FirstBelt, wears + FirstBelt + 1, sizeof(item) * (LastBelt - FirstBelt));
+	wears[FirstBelt] = v;
+	v.clear();
+}

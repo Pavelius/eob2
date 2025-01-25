@@ -143,12 +143,12 @@ static void remove_summon_slot(wearn wear) {
 		return;
 	item* ps = 0;
 	if(wear == RightHand || wear == LeftHand)
-		ps = player->freebelt();
-	else
-		ps = player->freebackpack();
-	if(!ps)
-		return;
-	iswap(*ps, player->wears[wear]);
+		player->putbelt(player->wears[wear]);
+	else {
+		auto ps = player->freebackpack();
+		if(ps)
+			iswap(*ps, player->wears[wear]);
+	}
 }
 
 static void filter_summon_slot(wearn wear) {
@@ -161,6 +161,9 @@ static void filter_summon_slot(wearn wear) {
 				continue;
 			if(wear == RightHand || wear == LeftHand) {
 				if(!player->freebelt())
+					continue;
+			} else {
+				if(!player->freebackpack())
 					continue;
 			}
 		}
@@ -207,9 +210,9 @@ static void apply_effect(const variants& source, const itemi* summon) {
 			script_run(source);
 		} else {
 			player = (creaturei*)p;
-			script_run(source);
 			if(summon)
 				remove_summon_slot(summon->wear);
+			script_run(source);
 		}
 		update_player();
 	}

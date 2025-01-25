@@ -71,6 +71,7 @@ void add_spells(int type, int level, const spellseta* include);
 void apply_player_script(const char* action);
 bool can_loose(item* pi, bool speech = true);
 bool can_remove(item* pi, bool speech = true);
+void change_quick_item(creaturei* player, wearn w);
 void check_levelup();
 void create_player();
 void create_player_finish();

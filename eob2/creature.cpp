@@ -365,14 +365,14 @@ static void update_wear() {
 		if(!e)
 			continue;
 		auto& ei = e.geti();
-		if(ei.wearing) {
-			if(ei.wear == LeftHand) {
-				if(player->wears[RightHand] && player->wears[RightHand].is(TwoHanded))
-					continue; // RULE: Two handed weapon
-			}
-			script_run(ei.wearing);
+		if(ei.wear == LeftHand) {
+			if(player->wears[RightHand] && player->wears[RightHand].is(TwoHanded))
+				continue; // RULE: Two handed weapon
 		}
-		if(ei.wear != LeftHand && ei.wear != RightHand) {
+		if(ei.wearing)
+			script_run(ei.wearing);
+		if((ei.wear >= Head && ei.wear <= Legs) // If wearable equipment only!
+			&& ei.wear != LeftHand && ei.wear != RightHand) {
 			auto power = e.getpower();
 			if(power)
 				magic_wear(power);
@@ -401,7 +401,7 @@ static void update_duration() {
 static bool have_boost_summon(const item& it) {
 	referencei target = player;
 	for(auto& e : bsdata<boosti>()) {
-		if(e.target == target && e.type==BoostSpell) {
+		if(e.target == target && e.type == BoostSpell) {
 			if(it.is(bsdata<spelli>::elements[e.param].summon))
 				return true;
 		}
@@ -411,8 +411,12 @@ static bool have_boost_summon(const item& it) {
 
 static void update_summon() {
 	for(auto& it : player->wears) {
-		if(it.is(SummonedItem) && !have_boost_summon(it))
+		if(it.is(SummonedItem) && !have_boost_summon(it)) {
+			auto w = it.geti().wear;
 			it.clear();
+			if(w == RightHand)
+				change_quick_item(player, RightHand);
+		}
 	}
 }
 
@@ -614,7 +618,7 @@ void create_player() {
 	create_player_finish();
 }
 
-static void apply_feats(const variants& elements) {
+static void apply_feats(const variants & elements) {
 	auto push_modifier = modifier;
 	modifier = Permanent;
 	script_run(elements);
@@ -649,7 +653,7 @@ void set_monster_spells() {
 	memcpy(player->spells, pm->spells, sizeof(player->spells));
 }
 
-void create_monster(const monsteri* pi) {
+void create_monster(const monsteri * pi) {
 	if(!pi)
 		return;
 	player->clear();
@@ -688,13 +692,13 @@ wearn item_wear(const void* p) {
 	auto i = bsdata<creaturei>::source.indexof(p);
 	if(i != -1) {
 		auto pi = (creaturei*)bsdata<creaturei>::elements + i;
-		if(p >= pi->wears && p <= pi->wears + LastBelt)
+		if(p >= pi->wears && p <= pi->wears + LastInvertory)
 			return (wearn)((item*)p - pi->wears);
 	}
 	return Backpack;
 }
 
-bool creaturei::isallow(const item& it) const {
+bool creaturei::isallow(const item & it) const {
 	auto item_feats = it.geti().feats[0];
 	auto player_feats = feats[0];
 	// One of this
@@ -710,7 +714,7 @@ bool creaturei::isallow(const item& it) const {
 	return true;
 }
 
-void creaturei::additem(item& it) {
+void creaturei::additem(item & it) {
 	if(isallow(it))
 		equip(it);
 	if(it)
@@ -727,7 +731,7 @@ dice creaturei::getdamage(int& bonus, wearn id, bool large_enemy) const {
 	bonus += player->get(isranged ? AttackRange : AttackMelee);
 	result.b += player->get(isranged ? DamageRange : DamageMelee);
 	// Only single player fighter have bonus speñialization (bonus attack keep)
-	if(is(WeaponSpecialist) && isspecialist(&ei) && getclass().count==1) {
+	if(is(WeaponSpecialist) && isspecialist(&ei) && getclass().count == 1) {
 		if(wears[id].isranged())
 			bonus += 2;
 		else {
@@ -797,7 +801,7 @@ const monsteri*	creaturei::getmonster() const {
 	return getbs<monsteri>(monster_id);
 }
 
-bool can_remove(item* pi, bool speech) {
+bool can_remove(item * pi, bool speech) {
 	if(pi->is(SummonedItem))
 		return false;
 	if(pi->is(NaturalItem))
@@ -818,7 +822,7 @@ bool can_remove(item* pi, bool speech) {
 	return true;
 }
 
-bool can_loose(item* pi, bool speech) {
+bool can_loose(item * pi, bool speech) {
 	if(pi->is(QuestItem)) {
 		if(speech)
 			player->say(speech_get("CantDropQuestItem"));
@@ -919,7 +923,7 @@ int creaturei::getexpaward() const {
 	return exp;
 }
 
-void drop_unique_loot(creaturei* player) {
+void drop_unique_loot(creaturei * player) {
 	for(auto& it : player->wears) {
 		if(!it || it.is(NaturalItem) || it.is(SummonedItem))
 			continue;
@@ -930,7 +934,7 @@ void drop_unique_loot(creaturei* player) {
 	}
 }
 
-static void drop_loot(creaturei* player) {
+static void drop_loot(creaturei * player) {
 	for(auto& it : player->wears) {
 		if(!it || it.is(NaturalItem) || it.is(SummonedItem))
 			continue;
@@ -954,13 +958,13 @@ void creaturei::kill() {
 	clear();
 }
 
-static bool isf(const creaturei* player, const item& weapon, featn v) {
+static bool isf(const creaturei * player, const item & weapon, featn v) {
 	if(player->is(v) || weapon.geti().is(v))
 		return true;
 	return false;
 }
 
-bool creaturei::is(const item& weapon, featn v) const {
+bool creaturei::is(const item & weapon, featn v) const {
 	if(is(v) || weapon.geti().is(v))
 		return true;
 	auto power = weapon.getpower();
@@ -1025,14 +1029,14 @@ int	creaturei::getcaster() const {
 	return getclass().caster;
 }
 
-void set_reaction(creaturei** creatures, reactions v) {
+void set_reaction(creaturei * *creatures, reactions v) {
 	for(auto i = 0; i < 6; i++) {
 		if(creatures[i])
 			creatures[i]->reaction = v;
 	}
 }
 
-creaturei* get_leader(creaturei** creatures) {
+creaturei* get_leader(creaturei * *creatures) {
 	creaturei* result = 0;
 	for(auto i = 0; i < 6; i++) {
 		if(!creatures[i] || creatures[i]->isdisabled())
@@ -1045,7 +1049,7 @@ creaturei* get_leader(creaturei** creatures) {
 	return result;
 }
 
-reactions get_reaction(creaturei** creatures) {
+reactions get_reaction(creaturei * *creatures) {
 	for(auto i = 0; i < 6; i++) {
 		if(creatures[i] && creatures[i]->reaction != Indifferent)
 			return creatures[i]->reaction;
@@ -1092,7 +1096,7 @@ static reactions roll_reaction(alignmentn monster_alignment, int bonus) {
 	return t[n];
 }
 
-void check_reaction(creaturei** creatures, int bonus) {
+void check_reaction(creaturei * *creatures, int bonus) {
 	auto v = get_reaction(creatures);
 	if(v == Indifferent) {
 		auto charisma = party_median(characters, Charisma) + bonus;
@@ -1104,5 +1108,32 @@ void check_reaction(creaturei** creatures, int bonus) {
 		if(v == Indifferent)
 			v = Careful;
 		set_reaction(creatures, v);
+	}
+}
+
+void change_quick_item(creaturei * player, wearn w) {
+	if(!player || w != RightHand)
+		return;
+	if(!player->wears[FirstBelt]) {
+		player->speak("NoQuickItem", 0);
+		return;
+	}
+	if(!player->wears[FirstBelt].isallow(w))
+		return;
+	if(!player->isallow(player->wears[FirstBelt]))
+		return;
+	if(!can_remove(player->wears + w, true))
+		return;
+	auto it = player->wears[w];
+	player->wears[w] = player->wears[FirstBelt];
+	memmove(player->wears + FirstBelt, player->wears + SecondBelt, sizeof(it) * 2);
+	player->wears[LastBelt].clear();
+	if(it) {
+		for(auto i = FirstBelt; i <= LastBelt; i = (wearn)(i + 1)) {
+			if(!player->wears[i]) {
+				player->wears[i] = it;
+				break;
+			}
+		}
 	}
 }

@@ -20,4 +20,6 @@ struct wearable {
 	slice<item> equipment() { return slice<item>(wears + Head, wears + Legs + 1); }
 	item*		freebelt();
 	item*		freebackpack();
+	void		putbelt(item& v);
+	void		shrinkbelt();
 };

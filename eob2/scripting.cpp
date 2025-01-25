@@ -195,6 +195,9 @@ static void wizardy_effect(int bonus) {
 	case 1: ftscript<abilityi>(Spell1, player->basic.abilities[Spell1]); break;
 	case 2: ftscript<abilityi>(Spell2, player->basic.abilities[Spell2]); break;
 	case 3: ftscript<abilityi>(Spell3, player->basic.abilities[Spell3]); break;
+	case 4: ftscript<abilityi>(Spell4, player->basic.abilities[Spell4]); break;
+	case 5: ftscript<abilityi>(Spell5, player->basic.abilities[Spell5]); break;
+	case -2: ftscript<abilityi>(Spell1, -4); ftscript<abilityi>(Spell2, -4); break; // Cursed version
 	default: break;
 	}
 }
@@ -1155,28 +1158,7 @@ static void change_quick_item() {
 	auto pi = (item*)current_focus;
 	auto pn = item_owner(pi);
 	auto w = item_wear(pi);
-	if(!pn || w != RightHand)
-		return;
-	if(!pn->wears[FirstBelt]) {
-		pn->speak("NoQuickItem", 0);
-		return;
-	}
-	if(!pn->wears[FirstBelt].isallow(w))
-		return;
-	if(!pn->isallow(pn->wears[FirstBelt]))
-		return;
-	if(!can_remove(pi, true))
-		return;
-	auto it = *pi;
-	*pi = pn->wears[FirstBelt];
-	memmove(pn->wears + FirstBelt, pn->wears + SecondBelt, sizeof(it) * 2);
-	pn->wears[LastBelt].clear();
-	for(auto i = FirstBelt; i <= LastBelt; i = (wearn)(i + 1)) {
-		if(!pn->wears[i]) {
-			pn->wears[i] = it;
-			break;
-		}
-	}
+	change_quick_item(pn, w);
 }
 
 static void city_adventure_input() {

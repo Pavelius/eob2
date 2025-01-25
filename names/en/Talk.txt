@@ -254,6 +254,10 @@ The %EffectCount pieces of food were purified
 #PurifyFoodNoEffect
 I don't see any rotten food
 
+#NoQuickItem
+I have no items on my belt
+Nothing to switch with
+
 #MendingGainEffect
 The %EffectCount items are as new
 I repair %EffectCount items

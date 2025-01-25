@@ -38,4 +38,4 @@ StartGameQuests
 StartGameAbilities
  elements GoldPiece+50 Reputation+20 Blessing+30
 StartGame
- elements ClearGame GenerateParty StartGameQuests StartGameAbilities PassHours+7 Message HunterVillage EnterLocation
+ elements ClearGame GeneratePartyDebug StartGameQuests StartGameAbilities PassHours+7 Message HunterVillage EnterLocation

@@ -59,7 +59,6 @@ ShieldPowers
  elements NoVariant AC+1 AC+2
 RobePowers
  elements NoVariant Protection+1 Protection+2 Protection+3 Protection+4 Protection+5
-
 HelmPowers
  elements NoVariant AllLanguages+1 AC+1 AC+2 Clairaudience+2
 

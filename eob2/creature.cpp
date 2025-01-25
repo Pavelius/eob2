@@ -818,6 +818,15 @@ bool can_remove(item* pi, bool speech) {
 	return true;
 }
 
+bool can_loose(item* pi, bool speech) {
+	if(pi->is(QuestItem)) {
+		if(speech)
+			player->say(speech_get("CantDropQuestItem"));
+		return false;
+	}
+	return true;
+}
+
 void creaturei::setframe(short* frames, short index) const {
 	if(ismonster()) {
 		auto po = getmonster()->overlays;
@@ -1096,11 +1105,4 @@ void check_reaction(creaturei** creatures, int bonus) {
 			v = Careful;
 		set_reaction(creatures, v);
 	}
-}
-
-void add_boost(unsigned stamp, creaturei* target, abilityn v, int value) {
-	//add_boost(stamp, target, )
-}
-
-void add_boost(unsigned stamp, creaturei* target, spelli* ps) {
 }

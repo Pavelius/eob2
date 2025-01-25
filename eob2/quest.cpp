@@ -52,11 +52,6 @@ void quest::prepare() {
 	last_quest = push;
 }
 
-static void clear_all_quests() {
-	for(auto& e : bsdata<quest>())
-		e.clear();
-}
-
 static void select_quests(questa& source, int difficult) {
 	source.clear();
 	for(auto& e : bsdata<quest>()) {

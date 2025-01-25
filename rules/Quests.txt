@@ -46,7 +46,7 @@ DwarfMountains difficult(1)
  travel PassDays+3
  reward AddReward+10 Reputation+5
 //sites type(blue) level(2) habbits(Ork GiantSpider) language(Dwarf) key(CooperKey) features(RoomFeature RoomFeature) webs(10)
- sites type(blue) level(1) habbits(DwarfWarrior Ork) language(Dwarf) key(CooperKey) features(RoomLair)
+ sites type(blue) level(1) habbits(DwarfWarrior Ork) language(Dwarf) key(CooperKey) features(RoomCity RoomFeature RoomFeature)
 
 EvilTemple difficult(2)
  goals KillAlmostAllMonsters(2)

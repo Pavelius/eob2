@@ -10,4 +10,6 @@ RoomSmallLair shape(ShapeRoom) floor(WanderingMonster)
  features Boss Door Minions
 RoomTrap shape(ShapePassage) floor(FloorTrap)
  features FloorTreasure Door
+RoomCity shape(ShapeCity)
+ features FloorTreasure Door Dwellers FloorTreasure FloorTreasure
 RoomCorner shape(ShapeDeadEnd)

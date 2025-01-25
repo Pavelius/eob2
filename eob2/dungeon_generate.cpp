@@ -288,6 +288,11 @@ static void monster_minion(pointc v, directions d) {
 	monster(v, d, pi, xrand(1, 4));
 }
 
+static void monster_dweller(pointc v, directions d) {
+	auto pi = bsdata<monsteri>::elements + loc->habbits[0];
+	monster(v, d, pi, xrand(1, 4));
+}
+
 static void prison(pointc v, directions d) {
 	if(loc->type == FOREST)
 		return;
@@ -1083,6 +1088,7 @@ BSDATA(corridori) = {
 	{"Cellar", cellar},
 	{"Decoration", decoration},
 	{"Door", lair_door},
+	{"Dwellers", monster_dweller},
 	{"FloorRation", rations},
 	{"FloorStones", stones},
 	{"FloorTrap", trap},

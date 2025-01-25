@@ -47,10 +47,14 @@ int get_party_index(const creaturei* target) {
 	return -1;
 }
 
-void update_party_side() {
+void update_party_position() {
 	for(auto i = 0; i < lenghtof(characters); i++) {
-		if(characters[i])
-			characters[i]->side = i;
+		if(!characters[i])
+			continue;
+		characters[i]->side = i;
+		characters[i]->x = party.x;
+		characters[i]->y = party.y;
+		characters[i]->d = party.d;
 	}
 }
 
@@ -101,6 +105,13 @@ void update_default_spells() {
 	}
 }
 
+void join_party() {
+	update_party_position();
+	update_default_spells();
+	restore_spells(0);
+	apply_player_script("JoinParty");
+}
+
 void join_party(int bonus) {
 	for(auto& e : characters) {
 		if(e)
@@ -108,10 +119,6 @@ void join_party(int bonus) {
 		e = player;
 		break;
 	}
-	update_party_side();
-	update_default_spells();
-	restore_spells(0);
-	apply_player_script("JoinParty");
 }
 
 void add_party(partystatn id, int value) {
@@ -147,6 +154,7 @@ bool parse_abilities(stringbuilder& sb, const char* id) {
 void set_party_position(pointc v) {
 	party.x = v.x;
 	party.y = v.y;
+	update_party_position();
 }
 
 void set_party_position(pointc v, directions d) {
@@ -685,6 +693,7 @@ void pass_round() {
 	monsters_movement();
 	add_party(Minutes, 1);
 	animation_update();
+	update_party_position();
 	update_floor_state();
 	check_secrets();
 	check_noises_behind_door();

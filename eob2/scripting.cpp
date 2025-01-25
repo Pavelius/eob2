@@ -576,7 +576,7 @@ static void drop_city_item() {
 		return;
 	if(!can_remove(pi))
 		return;
-	if(pi->is(QuestItem))
+	if(!can_loose(pi))
 		return;
 	char temp[128]; stringbuilder sb(temp);
 	sb.add(getnm("SellConfirm"), pi->getname(), cost);
@@ -1147,10 +1147,7 @@ static void generate_party(int bonus) {
 		if(!p)
 			continue;
 		player = p;
-		update_party_side();
-		update_default_spells();
-		restore_spells(0);
-		apply_player_script("JoinParty");
+		join_party();
 	}
 }
 
@@ -1501,7 +1498,7 @@ static void for_each_opponents(int bonus) {
 }
 
 static void activate_linked_overlay(int bonus) {
-	auto po = loc->get(party, party.d);
+	auto po = loc->get(*player, player->d);
 	if(!po || !po->link)
 		return;
 	loc->set(po->link, CellActive);
@@ -1598,10 +1595,12 @@ static void move_party_down() {
 
 static void turn_right() {
 	party.d = to(party.d, Right);
+	update_party_position();
 }
 
 static void turn_left() {
 	party.d = to(party.d, Left);
+	update_party_position();
 }
 
 static void explore_area() {
@@ -1695,7 +1694,7 @@ static void use_tool_success(celln n) {
 }
 
 static void use_theif_tools(int bonus) {
-	auto p = loc->get(party, party.d);
+	auto p = loc->get(*player, player->d);
 	if(p) {
 		switch(p->type) {
 		case CellKeyHole:
@@ -1724,7 +1723,7 @@ static void use_theif_tools(int bonus) {
 			break;
 		}
 	}
-	switch(loc->get(to(party, party.d))) {
+	switch(loc->get(to(*player, player->d))) {
 	case CellPit:
 		if(use_tool_item(RemoveTraps)) {
 			loc->set(to(party, party.d), CellPassable);
@@ -1739,10 +1738,10 @@ static void use_theif_tools(int bonus) {
 }
 
 static bool manipulate_overlay() {
-	auto p = loc->get(party, party.d);
+	auto p = loc->get(*player, player->d);
 	if(!p)
 		return false;
-	auto v = to(party, party.d);
+	auto v = to(*player, player->d);
 	auto pi = (item*)current_focus;
 	switch(p->type) {
 	case CellDoorButton:
@@ -1754,7 +1753,7 @@ static bool manipulate_overlay() {
 		player->speak(getid<celli>(p->type), getid<residi>(loc->type));
 		break;
 	case CellSecretButton:
-		if(change_overlay(party, party.d)) {
+		if(change_overlay(*player, player->d)) {
 			party_addexp(400);
 			player->speak("CellSecrectButton", "Accept");
 			loc->state.secrets_found++;
@@ -1788,7 +1787,7 @@ static bool manipulate_overlay() {
 }
 
 static bool manipulate_cell() {
-	auto v = to(party, party.d);
+	auto v = to(*player, player->d);
 	auto t = loc->get(v);
 	switch(t) {
 	case CellPortal:
@@ -1807,8 +1806,7 @@ static bool manipulate_cell() {
 }
 
 static void manipulate() {
-	auto v = to(party, party.d);
-	auto player = item_owner(current_focus);
+	// auto player = item_owner(current_focus);
 	if(!player)
 		return;
 	if(!player->isactable())
@@ -2767,7 +2765,7 @@ static bool if_alive() {
 }
 
 static bool if_area_locked() {
-	auto po = loc->get(party, party.d);
+	auto po = loc->get(*player, player->d);
 	if(!po || po->type != CellKeyHole || !po->link)
 		return false;
 	return !loc->is(po->link, CellActive);

@@ -56,6 +56,7 @@ bool is_dead_line();
 bool is_party_full();
 bool ismatch(char* abilitites);
 void join_party(int bonus);
+void join_party();
 void main_menu();
 void make_attacks(bool melee_combat);
 bool make_object_attack(pointc v);
@@ -80,7 +81,7 @@ void set_reaction(creaturei** creatures, reactions v);
 void surprise_roll(creaturei** creatures, int bonus);
 void turnto(pointc v, directions d, bool test_surprise = false, int sneaky_bonus = 0);
 void update_default_spells();
-void update_party_side();
+void update_party_position();
 
 int getparty(partystatn id);
 int get_party_index(const creaturei* target);

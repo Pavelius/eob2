@@ -125,12 +125,13 @@ void item::getname(stringbuilder& sb) const {
 
 int	item::getcost() const {
 	static int magic_weapon_cost[6] = {0, 500, 1000, 2000, 4000, 8000};
-	auto base = geti().cost;
+	static int drinkable_cost[6] = {0, 0, 10, 50, 200, 1000};
+	auto& ei = geti();
+	auto base = ei.cost;
 	if(isidentified()) {
 		if(iscursed())
 			base = base / 2;
 		else {
-			auto& ei = geti();
 			auto power = getpower();
 			auto cost = magic_weapon_cost[power.counter];
 			if(cost > 0) {
@@ -147,7 +148,7 @@ int	item::getcost() const {
 					base += cost;
 					break;
 				case Drinkable:
-					base += cost / 10;
+					base += maptbl(drinkable_cost, power.counter);
 					break;
 				}
 			}

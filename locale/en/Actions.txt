@@ -72,6 +72,7 @@ PayGoldConfirm: Do you really want to pay %2i golds for this?
 PickPockets: Pick pockets
 PickPocketsAction: Pick pockets
 PickPocketsVisit: Pick some pockets
+PortalReturnToCityConfirm: Do you really want activate portal?
 PrayForSpells: Pray for Spells
 PlayerRead: %Name read
 QuestGoals: Quest Goals

@@ -276,6 +276,14 @@ static const char* find_text(const char* id, const char* action) {
 	return getnme(ids(id, action, 0));
 }
 
+static void dialog_message(const char* action) {
+	auto format = find_speak(last_id, action);
+	if(!format)
+		format = find_text(last_id, action);
+	if(format)
+		dialog(0, format);
+}
+
 bool apply_message(const char* id, const char* action) {
 	if(!player)
 		return false;
@@ -574,7 +582,7 @@ static void drop_city_item() {
 	auto pn = item_owner(pi);
 	if(!pn)
 		return;
-	auto cost = pi->getcost() / 2;
+	auto cost = pi->getcost() / 2; // Selling is half priced by default
 	if(!cost)
 		return;
 	if(!can_remove(pi))
@@ -1601,6 +1609,8 @@ static void turn_left() {
 }
 
 static void explore_area() {
+	if(!loc)
+		return;
 	loc->set(party, CellExplored);
 	loc->set(to(party, Up), CellExplored);
 	loc->set(to(party, Down), CellExplored);
@@ -1783,11 +1793,28 @@ static bool manipulate_overlay() {
 	return true;
 }
 
+static void portal_return(int bonus) {
+	enter_location(0);
+}
+
 static bool manipulate_cell() {
 	auto v = to(*player, player->d);
 	auto t = loc->get(v);
 	switch(t) {
 	case CellPortal:
+		player->speak(getid<celli>(t), "About");
+		if(player->is(UseMage)) {
+			if(!loc->is(v, CellExplored)) {
+				player->addexp(100);
+				loc->set(v, CellExplored);
+			} else {
+				if(!confirm(getnm("PortalReturnToCityConfirm")))
+					return false;
+				dialog_message("PortalReturnToCity");
+				portal_return(0);
+			}
+		}
+		break;
 	case CellBarel:
 	case CellWeb:
 	case CellCocon:
@@ -1942,6 +1969,60 @@ static void enter_dungeon_from_up(int bonus) {
 		return;
 	set_party_position(to(loc->state.down, loc->state.down.d), loc->state.down.d);
 	enter_active_dungeon();
+}
+
+static dungeoni* choose_teleport_target() {
+	pushanswer push;
+	for(auto& e : bsdata<quest>()) {
+		if(!e || e.stage != quest::Active)
+			continue;
+		for(auto& d : e.dungeon) {
+			if(!d.state.portal)
+				continue;
+			if(!d.is(d.state.portal, CellExplored))
+				continue;
+			an.add(&e, e.getname());
+			break;
+		}
+	}
+	last_result = choose_large_menu(getnm("TeleportationChoosePlace"), getnm("Cancel"));
+	if(!last_result)
+		return 0;
+	an.clear();
+	for(auto& e : ((quest*)last_result)->dungeon) {
+		if(!e.state.portal)
+			continue;
+		if(!e.is(e.state.portal, CellExplored))
+			continue;
+		an.add(&e, getnm("TeleportAskLevel"), e.level);
+	}
+	return (dungeoni*)choose_large_menu(getnm("TeleportationChooseLevel"), getnm("Cancel"));
+}
+
+static quest* find_quest(dungeoni* p) {
+	for(auto& e : bsdata<quest>()) {
+		if(!e)
+			continue;
+		for(auto& d : e.dungeon) {
+			if(&d == p)
+				return &e;
+		}
+	}
+	return 0;
+}
+
+static void portal_teleportation(int bonus) {
+	auto p = choose_teleport_target();
+	if(!p) {
+		script_stop();
+		apply_script(last_id, "Fail", 0);
+		return;
+	}
+	loc = p;
+	last_quest = find_quest(loc);
+	set_party_position(to(loc->state.portal, loc->state.portal.d), loc->state.portal.d);
+	enter_active_dungeon();
+	consolen(getnm("PartyPortalTeleportation"));
 }
 
 static void pit_fall_down() {
@@ -2238,14 +2319,6 @@ static void apply_racial_enemy(int bonus) {
 		player->hate.set(last_race);
 	else
 		player->hate.remove(last_race);
-}
-
-static void dialog_message(const char* action) {
-	auto format = find_speak(last_id, action);
-	if(!format)
-		format = find_text(last_id, action);
-	if(format)
-		dialog(0, format);
 }
 
 static void player_speak(const char* action) {
@@ -3196,6 +3269,8 @@ BSDATA(script) = {
 	{"PassDays", pass_hours},
 	{"PassHours", pass_hours},
 	{"PassRound", pass_round},
+	{"PortalTeleportation", portal_teleportation},
+	{"PortalReturn", portal_return},
 	{"Protection", protection_modify},
 	{"PushItem", push_item},
 	{"PushModifier", push_modifier},

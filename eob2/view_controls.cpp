@@ -1,6 +1,7 @@
 #include "answers.h"
 #include "avatar.h"
 #include "boost.h"
+#include "cell.h"
 #include "creature.h"
 #include "class.h"
 #include "console.h"
@@ -1342,6 +1343,12 @@ void paint_adventure() {
 	paint_console();
 }
 
+void paint_test_mode() {
+	paint_background(PLAYFLD, 0);
+	paint_compass(party.d);
+	paint_avatars_no_focus_hilite();
+}
+
 static void paint_adventure_no_update() {
 	paint_background(PLAYFLD, 0);
 	paint_compass(party.d);
@@ -1587,9 +1594,10 @@ static void common_input() {
 	}
 #ifdef _DEBUG
 	switch(hot.key) {
-	case Ctrl + 'I': show_sprites(ITEMS, {8, 8}, {16, 16}); break;
 	case Ctrl + 'A': show_sprites(PORTM, {0, 0}, {32, 32}); break;
 	case Ctrl + 'S': show_sprites(ITEMGS, {16, 16}, {32, 32}); break;
+	case Ctrl + 'D': show_dungeon_images(); break;
+	case Ctrl + 'I': show_sprites(ITEMS, {8, 8}, {16, 16}); break;
 	case Ctrl + 'L': show_sprites(ITEMGL, {32, 24}, {64, 32}); break;
 	case Ctrl + 'P': show_scene_images(); break;
 	case Ctrl + 'F': show_scene_font(); break;

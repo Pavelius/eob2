@@ -19,8 +19,8 @@ namespace {
 struct palspr : pma {
 	unsigned char		data[18][16];
 };
-struct renderi {
-	short				x, y, z;
+struct renderi : point {
+	short				z;
 	short				frame[4];
 	short unsigned		flags[4];
 	const sprite*		rdata;
@@ -99,24 +99,25 @@ static point item_position[18 * 4] = {
 	{49, 118}, {127, 118}, {40, 136}, {136, 136},
 	{205, 118}, {283, 118}, {232, 136}, {328, 136},
 };
-static point wall_position[18] = {{scrx / 2 - 48 * 3, scry / 2},
+point wall_position[18] = {
+	{scrx / 2 - 48 * 3, scry / 2},
 	{scrx / 2 - 48 * 2, scry / 2},
 	{scrx / 2 - 48 * 1, scry / 2},
 	{scrx / 2, scry / 2},
 	{scrx / 2 + 48 * 1, scry / 2},
 	{scrx / 2 + 48 * 2, scry / 2},
 	{scrx / 2 + 48 * 3, scry / 2},
-	// Level 2
+	// Level 2 (index 7)
 	{scrx / 2 - 80 * 2, scry / 2},
 	{scrx / 2 - 80 * 1, scry / 2},
 	{scrx / 2, scry / 2},
 	{scrx / 2 + 80 * 1, scry / 2},
 	{scrx / 2 + 80 * 2, scry / 2},
-	// Level 1
+	// Level 1 (index 12)
 	{scrx / 2 - 128, scry / 2},
 	{scrx / 2, scry / 2},
 	{scrx / 2 + 128, scry / 2},
-	// Level 0
+	// Level 0 (index 15)
 	{scrx / 2, scry / 2},
 	{scrx / 2, scry / 2},
 	{scrx / 2, scry / 2},
@@ -565,9 +566,8 @@ static bool is_between_vert_walls(pointc index) {
 		&& get_wall_type(loc->get(to(index, to(party.d, Down)))) == CellWall;
 }
 
-static void create_overlay(int i, pointc index, int frame, bool mr) {
-	const int w1 = 30, w2 = 64, w3 = 84;
-	// const int h1 = 31, h2 = 37, h3 = 46;
+static void set_back_position(point& result, int i, resid type) {
+	const int w1 = 30, w2 = 56, w3 = 84;
 	const int h1 = 28, h2 = 32, h3 = 40;
 	static point back_position[18] = {{scrx / 2 - w1 / 2 - w1 * 3, scry / 2 - h1},
 		{scrx / 2 - w1 / 2 - w1 * 2, scry / 2 - h1},
@@ -591,6 +591,25 @@ static void create_overlay(int i, pointc index, int frame, bool mr) {
 		{scrx / 2, scry / 2},
 		{scrx / 2, scry / 2},
 	};
+	result.x = back_position[i].x;
+	result.y = back_position[i].y;
+	switch(type) {
+	case DROW:
+		switch(pos_levels[i]) {
+		case 1: result.y += 5; break;
+		case 2: result.y += 3; break;
+		case 3: result.y += 2; break;
+		}
+		break;
+	case XANATHA:
+		switch(pos_levels[i]) {
+		case 1: result.y += 2; break;
+		}
+		break;
+	}
+}
+
+static void create_overlay(int i, pointc index, int frame, bool mr) {
 	static int wall_percent[18] = {
 		375, 375, 375, 375, 375, 375, 375,
 		625, 625, 625, 625, 625,
@@ -612,8 +631,7 @@ static void create_overlay(int i, pointc index, int frame, bool mr) {
 		return;
 	// Background
 	auto p = add_render();
-	p->x = back_position[i].x;
-	p->y = back_position[i].y;
+	set_back_position(*p, i, loc->type);
 	p->percent = wall_percent[i];
 	p->alpha = wall_alpha[i];
 	p->z = pos_levels[i] * distance_per_level + 2;
@@ -1182,4 +1200,73 @@ void thrown_item(pointc v, directions d, int avatar_thrown, int side, int distan
 		if(!v)
 			break;
 	}
+}
+
+void show_dungeon_images() {
+	static resid sprites[] = {BLUE, BRICK, CRIMSON, DROW, DUNG, GREEN, FOREST, MEZZ, SILVER, XANATHA};
+	static int sprites_count = lenghtof(sprites);
+	rectpush push;
+	auto push_fore = fore;
+	auto push_font = font;
+	set_small_font();
+	auto show_texture = true;
+	auto po = gres(OVERLAYS);
+	int focus = 0;
+	int sprite_number = 0;
+	while(ismodal()) {
+		if(sprite_number < 0)
+			sprite_number = 0;
+		else if(sprite_number > sprites_count - 1)
+			sprite_number = sprites_count - 1;
+		auto pi = bsdata<residi>::elements + sprites[sprite_number];
+		auto ps = pi->get();
+		auto maximum = po->count;
+		if(focus < 0)
+			focus = 0;
+		else if(focus > maximum - 1)
+			focus = maximum - 1;
+		paint_test_mode();
+		image(scrx / 2, scry / 2, ps, 0, 0);
+		auto push_clip = clipping; setclip({0, 0, scrx, scry});
+		auto wall = bsdata<celli>::elements[CellWall].frame;
+		caret = {scrx / 2, scry / 2};
+		image(ps, 1 + wall + 3, 0);
+		image(ps, 1 + wall + 3, ImageMirrorH);
+		image(ps, 1 + wall + 2, 0);
+		image(ps, 1 + wall + 2, ImageMirrorH);
+		image(ps, 1 + wall + 1, 0);
+		image(ps, 1 + wall + 1, ImageMirrorH);
+		auto door = bsdata<celli>::elements[CellDoor].frame;
+		auto dungeon = sprites[sprite_number];
+		if(show_texture) {
+			point position; set_back_position(position, 13, dungeon);
+			image(position.x, position.y, po, focus, 0);
+		}
+		switch(dungeon) {
+		case DROW:
+			image(ps, 1 + door + 8, 0);
+			image(ps, door_offset + 3, 0);
+			break;
+		default:
+			image(ps, 1 + door + 8, 0);
+			break;
+		}
+		caret.x -= 128; image(ps, 1 + wall + 8, 0);
+		caret.x += 128 * 2; image(ps, 1 + wall + 8, 0);
+		clipping = push_clip;
+		// Footer
+		caret = {5, 180};
+		text(str("dungeon %1, texture %2i/%3i", pi->id, focus, maximum), -1, TextBold);
+		domodal();
+		switch(hot.key) {
+		case KeyRight: focus++; break;
+		case KeyLeft: focus--; break;
+		case KeyDown: sprite_number++; break;
+		case KeyUp: sprite_number--; break;
+		case KeyEscape: breakmodal(0); break;
+		case 'M': show_texture = !show_texture; break;
+		}
+	}
+	font = push_font;
+	fore = push_fore;
 }

@@ -72,11 +72,13 @@ void paint_dungeon();
 void paint_main_menu();
 void paint_party_status();
 void paint_small_menu();
+void paint_test_mode();
 void pick_up_item();
 void set_dungeon_tiles(resid type);
 void set_focus_by_player();
 void set_player_by_focus();
 void set_small_font();
+void show_dungeon_images();
 void text_label(int index, const void* data, const char* format, unsigned key, fnevent proc);
 void text_label_menu(int index, const void* data, const char* format, unsigned key, fnevent proc);
 

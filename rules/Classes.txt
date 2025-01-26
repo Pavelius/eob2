@@ -33,7 +33,11 @@ FighterMageTheif classes(Fighter Mage Theif) count(3) exp_per_hd(700) caster(1)
 
 ClericJoinParty
  elements Blessing+5
+MageJoinParty
+ elements GoldPiece+50 Reputation+5
 PaladinJoinParty
  elements Reputation+5
 TheifJoinParty
  elements GoldPiece+50 GoldPiece+50
+MageTheifJoinParty
+ elements GoldPiece+50 Reputation+2

@@ -119,6 +119,7 @@ void join_party(int bonus) {
 		e = player;
 		break;
 	}
+	join_party();
 }
 
 void add_party(partystatn id, int value) {

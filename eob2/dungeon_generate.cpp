@@ -227,6 +227,10 @@ static void items(pointc v, int bonus_level) {
 	items(v, single("RandomItem"), bonus_level);
 }
 
+static void treasure_item(pointc v, int bonus_level) {
+	items(v, single("RandomTreasure"), bonus_level);
+}
+
 static void secret(pointc v, directions d) {
 	auto v1 = to(v, d);
 	if(!v1)
@@ -339,6 +343,13 @@ static void floor_treasure(pointc v, directions d) {
 	loc->set(v, CellPassable);
 	for(auto i = 3 + random_count(); i > 0; i--)
 		items(v, 2);
+}
+
+static void floor_lair_treasure(pointc v, directions d) {
+	loc->set(v, CellPassable);
+	for(auto i = 2 + random_count(); i > 0; i--)
+		treasure_item(v, 2);
+	floor_treasure(v, d);
 }
 
 static void treasure(pointc v, directions d) {
@@ -1109,6 +1120,7 @@ BSDATA(corridori) = {
 	{"FloorStones", stones},
 	{"FloorTrap", trap},
 	{"FloorTreasure", floor_treasure},
+	{"FloorLairTreasure", floor_lair_treasure},
 	{"Message", message},
 	{"Minions", monster_minion},
 	{"Interact1", overlay_interact1},

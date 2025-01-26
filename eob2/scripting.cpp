@@ -1935,7 +1935,8 @@ static void pit_fall_down() {
 }
 
 static bool party_move_interact(pointc v) {
-	switch(loc->get(v)) {
+	auto t = loc->get(v);
+	switch(t) {
 	case CellStairsUp:
 		if(find_dungeon(loc->level - 1)) {
 			enter_dungeon_from_up(loc->level - 1);
@@ -1959,6 +1960,11 @@ static bool party_move_interact(pointc v) {
 		enter_active_dungeon();
 		animation_update();
 		pass_round();
+		break;
+	case CellOverlay1:
+	case CellOverlay2:
+	case CellOverlay3:
+		apply_script("Use", bsdata<celli>::elements[t].id, 0);
 		break;
 	default:
 		return false;

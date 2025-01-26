@@ -560,6 +560,90 @@ static void create_wall(int i, pointc index, int frame, celln rec, bool flip) {
 	}
 }
 
+static bool is_between_vert_walls(pointc index) {
+	return get_wall_type(loc->get(to(index, party.d))) == CellWall
+		&& get_wall_type(loc->get(to(index, to(party.d, Down)))) == CellWall;
+}
+
+static void create_overlay(int i, pointc index, int frame, bool mr) {
+	const int w1 = 30, w2 = 64, w3 = 84;
+	// const int h1 = 31, h2 = 37, h3 = 46;
+	const int h1 = 28, h2 = 32, h3 = 40;
+	static point back_position[18] = {{scrx / 2 - w1 / 2 - w1 * 3, scry / 2 - h1},
+		{scrx / 2 - w1 / 2 - w1 * 2, scry / 2 - h1},
+		{scrx / 2 - w1 / 2 - w1 * 1, scry / 2 - h1},
+		{scrx / 2 - w1 / 2, scry / 2 - h1},
+		{scrx / 2 - w1 / 2 + w1 * 1, scry / 2 - h1},
+		{scrx / 2 - w1 / 2 + w1 * 2, scry / 2 - h1},
+		{scrx / 2 - w1 / 2 + w1 * 3, scry / 2 - h1},
+		// Level 2
+		{scrx / 2 - w2 / 2 - w2 * 2, scry / 2 - h2},
+		{scrx / 2 - w2 / 2 - w2 * 1, scry / 2 - h2},
+		{scrx / 2 - w2 / 2, scry / 2 - h2},
+		{scrx / 2 - w2 / 2 + w2 * 1, scry / 2 - h2},
+		{scrx / 2 - w2 / 2 + w2 * 2, scry / 2 - h2},
+		// Level 1
+		{scrx / 2 - w3 / 2 - w3, scry / 2 - h3},
+		{scrx / 2 - w3 / 2, scry / 2 - h3},
+		{scrx / 2 - w3 / 2 + w3, scry / 2 - h3},
+		// Level 0
+		{scrx / 2, scry / 2},
+		{scrx / 2, scry / 2},
+		{scrx / 2, scry / 2},
+	};
+	static int wall_percent[18] = {
+		375, 375, 375, 375, 375, 375, 375,
+		625, 625, 625, 625, 625,
+		0, 0, 0,
+		0, 0, 0,
+	};
+	static unsigned char wall_alpha[18] = {
+		128, 128, 128, 128, 128, 128, 128,
+		64, 64, 64, 64, 64,
+		0, 0, 0,
+		0, 0, 0,
+	};
+	if(i >= 15)
+		return;
+	if(is_between_vert_walls(index))
+		return; // Return if not front look at
+	auto n = loc->textures[frame];
+	if(n == 0xFFFF)
+		return;
+	// Background
+	auto p = add_render();
+	p->x = back_position[i].x;
+	p->y = back_position[i].y;
+	p->percent = wall_percent[i];
+	p->alpha = wall_alpha[i];
+	p->z = pos_levels[i] * distance_per_level + 2;
+	p->frame[0] = n;
+	p->rdata = gres(OVERLAYS);
+	auto pb = p;
+	// Door entrance
+	p = add_render();
+	p->x = wall_position[i].x;
+	p->y = scry / 2;
+	p->z = pos_levels[i] * distance_per_level;
+	p->frame[0] = get_tile(CellDoor, mr) + walls_front[i];
+	p->rdata = map_tiles;
+	switch(loc->type) {
+	case DROW:
+		p->frame[1] = door_offset + pos_levels[i] - 1 + 3;
+		switch(pos_levels[i]) {
+		case 1: pb->y += 5; break;
+		case 2: pb->y += 3; break;
+		case 3: pb->y += 2; break;
+		}
+		break;
+	case XANATHA:
+		switch(pos_levels[i]) {
+		case 1: pb->y += 2; break;
+		}
+		break;
+	}
+}
+
 static bool cat_by_walls(int i1, int i2) {
 	return get_wall_type(loc->get(indecies[i1])) == CellWall
 		&& get_wall_type(loc->get(indecies[i2])) == CellWall;
@@ -716,74 +800,6 @@ static void create_monsters(int i, pointc index, directions dr, bool flip) {
 		for(int i = 0; i < lenghtof(p->flags); i++)
 			p->flags[i] = flags;
 	}
-}
-
-static bool is_between_vert_walls(pointc index) {
-	return get_wall_type(loc->get(to(index, party.d))) == CellWall
-		&& get_wall_type(loc->get(to(index, to(party.d, Down)))) == CellWall;
-}
-
-static void create_overlay(int i, pointc index, int frame, bool mr) {
-	const int w1 = 30, w2 = 64, w3 = 84;
-	// const int h1 = 31, h2 = 37, h3 = 46;
-	const int h1 = 28, h2 = 32, h3 = 40;
-	static point back_position[18] = {{scrx / 2 - w1 / 2 - w1 * 3, scry / 2 - h1},
-		{scrx / 2 - w1 / 2 - w1 * 2, scry / 2 - h1},
-		{scrx / 2 - w1 / 2 - w1 * 1, scry / 2 - h1},
-		{scrx / 2 - w1 / 2, scry / 2 - h1 / 2},
-		{scrx / 2 - w1 / 2 + w1 * 1, scry / 2 - h1},
-		{scrx / 2 - w1 / 2 + w1 * 2, scry / 2 - h1},
-		{scrx / 2 - w1 / 2 + w1 * 3, scry / 2 - h1},
-		// Level 2
-		{scrx / 2 - w2 / 2 - w2 * 2, scry / 2 - h2},
-		{scrx / 2 - w2 / 2 - w2 * 1, scry / 2 - h2},
-		{scrx / 2 - w2 / 2, scry / 2 - h2 / 2},
-		{scrx / 2 - w2 / 2 + w2 * 1, scry / 2 - h2},
-		{scrx / 2 - w2 / 2 + w2 * 2, scry / 2 - h2},
-		// Level 1
-		{scrx / 2 - w3 / 2 - w3, scry / 2 - h3},
-		{scrx / 2 - w3 / 2, scry / 2 - h3},
-		{scrx / 2 - w3 / 2 + w3, scry / 2 - h3},
-		// Level 0
-		{scrx / 2, scry / 2},
-		{scrx / 2, scry / 2},
-		{scrx / 2, scry / 2},
-	};
-	static int wall_percent[18] = {
-		375, 375, 375, 375, 375, 375, 375,
-		625, 625, 625, 625, 625,
-		0, 0, 0,
-		0, 0, 0,
-	};
-	static unsigned char wall_alpha[18] = {
-		128, 128, 128, 128, 128, 128, 128,
-		64, 64, 64, 64, 64,
-		0, 0, 0,
-		0, 0, 0,
-	};
-	if(i >= 15)
-		return;
-	if(is_between_vert_walls(index))
-		return; // Return if not front look at
-	auto n = loc->textures[frame];
-	if(n == 0xFFFF)
-		return;
-	// Background
-	auto p = add_render();
-	p->x = back_position[i].x;
-	p->y = back_position[i].y;
-	p->percent = wall_percent[i];
-	p->alpha = wall_alpha[i];
-	p->z = pos_levels[i] * distance_per_level + 2;
-	p->frame[0] = n;
-	p->rdata = gres(OVERLAYS);
-	// Door entrance
-	p = add_render();
-	p->x = wall_position[i].x;
-	p->y = scry / 2;
-	p->z = pos_levels[i] * distance_per_level;
-	p->frame[0] = get_tile(CellDoor, mr) + walls_front[i];
-	p->rdata = map_tiles;
 }
 
 static void prepare_draw(pointc index, directions dr) {

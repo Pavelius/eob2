@@ -33,7 +33,7 @@ static point gs(int x, int y) {
 static void paint_marker() {
 	auto push_caret = caret;
 	line(caret.x + mpg, caret.y + mpg);
-	caret.x = push_caret.x + mpg;
+	caret.x = push_caret.x + mpg - 1;
 	caret.y = push_caret.y;
 	line(push_caret.x, push_caret.y + mpg);
 	caret = push_caret;

@@ -124,7 +124,36 @@ void item::getname(stringbuilder& sb) const {
 }
 
 int	item::getcost() const {
-	return geti().cost;
+	static int magic_weapon_cost[6] = {0, 500, 1000, 2000, 4000, 8000};
+	auto base = geti().cost;
+	if(isidentified()) {
+		if(iscursed())
+			base = base / 2;
+		else {
+			auto& ei = geti();
+			auto power = getpower();
+			auto cost = magic_weapon_cost[power.counter];
+			if(cost > 0) {
+				switch(ei.wear) {
+				case RightHand:
+				case LeftHand:
+					base += cost + base * (cost / 1000);
+					break;
+				case Body: case Legs: case Head: case Elbow:
+					base += cost / 2;
+					break;
+				case LeftRing:
+				case RightRing:
+					base += cost;
+					break;
+				case Drinkable:
+					base += cost / 10;
+					break;
+				}
+			}
+		}
+	}
+	return base;
 }
 
 bool item::isweapon() const {

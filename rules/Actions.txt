@@ -45,6 +45,9 @@ PickPocketsActionSuccess
 
 #Action
 
+BuyDwarvenHealing cost(40)
+ filter IfAlive IfWounded
+ effect Heal+120 DiseaseLevel-100 PoisonLevel-100
 BuyHealing avatar(scenes 6) cost(30)
  filter IfAlive IfWounded
  effect Heal+120 DiseaseLevel-100 PoisonLevel-100
@@ -59,8 +62,8 @@ BuyDwarvenWeapon
 BuyArmor
  effect BuyArmors
  required Reputation(40)
-Donate avatar(scenes 5)
- effect ChooseDonation IfZero-1 PayGold+101 Div+50 Add-1 Blessing+101 Chance+100 Reputation+1
+Donate
+ effect ChooseDonation IfZero-1 PayGold+101 Message Div+50 Add-1 Blessing+101 Chance+100 Reputation+1
 EatAndDrink avatar(buildngs 6) cost(5)
  effect Message ForEachParty HealEffect
 GambleVisitors avatar(buildngs 24)
@@ -107,6 +110,10 @@ Bribe
 HunterVillage
 DwarvenCity
 
+DwarvenSmith avatar(buildngs 31) parent(DwarvenCity)
+ options RepairItems BuyDwarvenWeapon ReturnToStreet
+DwarvenTemple avatar(buildngs 32) parent(DwarvenCity)
+ options BuyDwarvenHealing Donate ReturnToStreet
 Inn avatar(buildngs 7) parent(HunterVillage) cost(10)
  options RestParty MemorizeSpells PrayForSpells ScribleScrolls GameOptions
 Tavern avatar(buildngs 5) parent(HunterVillage)
@@ -119,13 +126,11 @@ Blacksmith avatar(buildngs 0) parent(HunterVillage)
 WizardTower avatar(buildngs 3) parent(HunterVillage)
  options BuySpell ReturnToStreet
  required Reputation(30)
-DwarvenSmith avatar(buildngs 31) parent(DwarvenCity)
- options RepairItems BuyDwarvenWeapon ReturnToStreet
 
 HunterVillage avatar(buildngs 26)
  options PartyAdventure Inn Tavern Temple Blacksmith WizardTower
 DwarvenCity avatar(buildngs 30)
- options PartyLeave Temple DwarvenSmith
+ options PartyLeave DwarvenTemple DwarvenSmith
 
 #List
 

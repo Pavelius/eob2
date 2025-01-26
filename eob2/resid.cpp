@@ -34,6 +34,7 @@ BSDATA(residi) = {
 	{"dungeons", root},
 	{"crystal", root},
 	{"scenes", root},
+	{"overlays", root},
 
 	{"blue", root_dungeon},
 	{"brick", root_dungeon},

@@ -2289,7 +2289,6 @@ void* show_message(const char* format, bool add_anaswers, const char* cancel, un
 		caret = {6, 128};
 		width = 308;
 		height = 56;
-		// rectb();
 		texta(format, TextBold);
 		if(picture)
 			paint_picture();

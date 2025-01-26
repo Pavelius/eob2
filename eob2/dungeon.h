@@ -36,7 +36,8 @@ struct dungeoni : dungeon_site {
 	creaturei		monsters[256];
 	overlayi		overlays[256];
 	overlayitem		overlayitems[256];
-	unsigned char	data[mpy][mpx];
+	celln			data[mpy][mpx];
+	unsigned char	flags[mpy][mpx];
 	goalf			rewards;
 	overlayi*		add(pointc v, directions d, celln i);
 	void			add(overlayi* po, item& it);

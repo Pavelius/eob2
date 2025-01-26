@@ -22,7 +22,9 @@ enum celln : unsigned char {
 	CellPuller, CellSecretButton, CellCellar, CellMessage,
 	CellKeyHole, CellTrapLauncher,
 	CellDecor1, CellDecor2, CellDecor3,
-	CellDoorButton
+	CellDoorButton,
+	// Overaly
+	CellOverlay1, CellOverlay2, CellOverlay3,
 };
 enum cellfn : unsigned char {
 	CellExplored, CellActive, CellExperience,

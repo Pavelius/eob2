@@ -6,7 +6,6 @@
 #include "pointca.h"
 #include "reference.h"
 
-const unsigned char	CellMask = 0x1F;
 const unsigned short Blocked = 0xFFFF;
 static directions all_directions[] = {Up, Right, Down, Left};
 unsigned short pathmap[mpy][mpx];
@@ -138,7 +137,7 @@ void dungeoni::block(bool treat_door_as_passable) const {
 celln dungeoni::get(pointc v) const {
 	if(!v)
 		return CellWall;
-	return (celln)((data[v.y][v.x] & CellMask));
+	return data[v.y][v.x];
 }
 
 dungeoni::overlayi* dungeoni::add(pointc v, directions d, celln i) {
@@ -244,7 +243,7 @@ void dungeoni::set(pointc v, celln i) {
 	case CellStairsDown: state.down = v; break;
 	default: break;
 	}
-	data[v.y][v.x] = (data[v.y][v.x] & (~CellMask)) | i;
+	data[v.y][v.x] = i;
 }
 
 void dungeoni::set(pointc v, celln i, pointc size) {
@@ -257,7 +256,19 @@ void dungeoni::set(pointc v, celln i, pointc size) {
 bool dungeoni::is(pointc v, cellfn i) const {
 	if(!v)
 		return false;
-	return (data[v.y][v.x] & (0x80 >> i)) != 0;
+	return (flags[v.y][v.x] & (1 << i)) != 0;
+}
+
+void dungeoni::set(pointc v, cellfn i) {
+	if(!v)
+		return;
+	flags[v.y][v.x] |= (1 << i);
+}
+
+void dungeoni::remove(pointc v, cellfn i) {
+	if(!v)
+		return;
+	flags[v.y][v.x] &= ~(1 << i);
 }
 
 bool dungeoni::is(fnpointc proc) const {
@@ -278,12 +289,6 @@ bool dungeoni::is(pointc v, celln t1, celln t2) const {
 	return t == t1 || t == t2;
 }
 
-void dungeoni::remove(pointc v, cellfn i) {
-	if(!v)
-		return;
-	data[v.y][v.x] &= ~(0x80 >> i);
-}
-
 void dungeoni::removeov(pointc v) {
 	if(!v)
 		return;
@@ -293,12 +298,6 @@ void dungeoni::removeov(pointc v) {
 		if(to(e, e.d) == v)
 			e.clear();
 	}
-}
-
-void dungeoni::set(pointc v, cellfn i) {
-	if(!v)
-		return;
-	data[v.y][v.x] |= 0x80 >> i;
 }
 
 void dungeoni::set(pointc v, celln type, directions d) {

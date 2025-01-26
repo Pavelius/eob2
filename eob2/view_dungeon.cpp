@@ -47,6 +47,7 @@ color damage(255, 255, 255);
 color fire(255, 0, 0);
 }
 
+// Central indecies 3, 9, 13, 16
 static char	pos_levels[18] = {
 	3, 3, 3, 3, 3, 3, 3,
 	2, 2, 2, 2, 2,
@@ -91,6 +92,28 @@ static point item_position[18 * 4] = {
 	{-107, 118}, {-29, 118}, {-152, 136}, {-56, 136},
 	{49, 118}, {127, 118}, {40, 136}, {136, 136},
 	{205, 118}, {283, 118}, {232, 136}, {328, 136},
+};
+static point wall_position[18] = {{scrx / 2 - 48 * 3, scry / 2},
+	{scrx / 2 - 48 * 2, scry / 2},
+	{scrx / 2 - 48 * 1, scry / 2},
+	{scrx / 2, scry / 2},
+	{scrx / 2 + 48 * 1, scry / 2},
+	{scrx / 2 + 48 * 2, scry / 2},
+	{scrx / 2 + 48 * 3, scry / 2},
+	// Level 2
+	{scrx / 2 - 80 * 2, scry / 2},
+	{scrx / 2 - 80 * 1, scry / 2},
+	{scrx / 2, scry / 2},
+	{scrx / 2 + 80 * 1, scry / 2},
+	{scrx / 2 + 80 * 2, scry / 2},
+	// Level 1
+	{scrx / 2 - 128, scry / 2},
+	{scrx / 2, scry / 2},
+	{scrx / 2 + 128, scry / 2},
+	// Level 0
+	{scrx / 2, scry / 2},
+	{scrx / 2, scry / 2},
+	{scrx / 2, scry / 2},
 };
 
 static directions get_view_direction(directions d, directions d1) {
@@ -356,28 +379,6 @@ static void create_wall(int i, pointc index, int frame, celln rec, bool flip) {
 		0, 0, 0, 3, 6,
 		0, 0, 2,
 		0, 0, 1,
-	};
-	static point wall_position[18] = {{scrx / 2 - 48 * 3, scry / 2},
-		{scrx / 2 - 48 * 2, scry / 2},
-		{scrx / 2 - 48 * 1, scry / 2},
-		{scrx / 2, scry / 2},
-		{scrx / 2 + 48 * 1, scry / 2},
-		{scrx / 2 + 48 * 2, scry / 2},
-		{scrx / 2 + 48 * 3, scry / 2},
-		// Level 2
-		{scrx / 2 - 80 * 2, scry / 2},
-		{scrx / 2 - 80 * 1, scry / 2},
-		{scrx / 2, scry / 2},
-		{scrx / 2 + 80 * 1, scry / 2},
-		{scrx / 2 + 80 * 2, scry / 2},
-		// Level 1
-		{scrx / 2 - 128, scry / 2},
-		{scrx / 2, scry / 2},
-		{scrx / 2 + 128, scry / 2},
-		// Level 0
-		{scrx / 2, scry / 2},
-		{scrx / 2, scry / 2},
-		{scrx / 2, scry / 2},
 	};
 	// Decors render
 	// 9 7 3 7 9
@@ -716,6 +717,33 @@ static void create_monsters(int i, pointc index, directions dr, bool flip) {
 	}
 }
 
+static void create_overlay(int i, pointc index, int frame, celln rec, bool flip) {
+	auto n = loc->texture[frame];
+	if(n == 0xFFFF)
+		return;
+	auto p = add_render();
+	p->x = wall_position[i].x;
+	p->y = scry / 2;
+	p->z = pos_levels[i] * distance_per_level;
+	p->frame[0] = loc->texture[frame];
+	p->rdata = gres(OVERLAYS);
+	switch(i) {
+	case 3:
+		p->percent = 375;
+		p->alpha = 128;
+		p->x -= 24; p->y -= 33;
+		break;
+	case 9:
+		p->percent = 625;
+		p->alpha = 64;
+		p->x -= 40; p->y -= 40;
+		break;
+	case 13:
+		p->x -= 64; p->y -= 52;
+		break;
+	}
+}
+
 static void prepare_draw(pointc index, directions dr) {
 	static char offset_north[18][2] = {{-3, -3}, {-2, -3}, {-1, -3}, {0, -3}, {1, -3}, {2, -3}, {3, -3},
 		{-2, -2}, {-1, -2}, {0, -2}, {1, -2}, {2, -2},
@@ -781,9 +809,12 @@ static void prepare_draw(pointc index, directions dr) {
 			create_monsters(i, index, dr, mr);
 		}
 		auto& et = bsdata<celli>::elements[tile];
-		if(et.flags.is(LookWall))
-			create_wall(i, index, get_tile(tile, mr), tile, mr);
-		else if(et.flags.is(LookObject))
+		if(et.flags.is(LookWall)) {
+			if(et.res == OVERLAYS && (i == 3 || i == 9 || i == 13))
+				create_overlay(i, index, et.frame, tile, mr);
+			else
+				create_wall(i, index, get_tile(tile, mr), tile, mr);
+		} else if(et.flags.is(LookObject))
 			create_floor(i, index, tile, mr);
 	}
 }

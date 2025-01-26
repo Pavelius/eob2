@@ -30,15 +30,19 @@ static point gs(int x, int y) {
 	return {(short)(x * mpg + mpg), (short)(y * mpg + mpg)};
 }
 
-static void red_marker() {
-	auto push_fore = fore;
+static void paint_marker() {
 	auto push_caret = caret;
-	fore = colors::red;
 	line(caret.x + mpg, caret.y + mpg);
 	caret.x = push_caret.x + mpg;
 	caret.y = push_caret.y;
 	line(push_caret.x, push_caret.y + mpg);
 	caret = push_caret;
+}
+
+static void red_marker() {
+	auto push_fore = fore;
+	fore = colors::red;
+	paint_marker();
 	fore = push_fore;
 }
 
@@ -321,6 +325,12 @@ static void paint_automap() {
 				if(t == CellGraveDesecrated)
 					fore = fore.mix(cpass);
 				paint_cross(2);
+				break;
+			case CellOverlay1:
+			case CellOverlay2:
+			case CellOverlay3:
+				fore = cbarrel;
+				paint_marker();
 				break;
 			case CellDoor:
 				fore = cdoor;

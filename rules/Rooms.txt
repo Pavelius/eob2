@@ -13,3 +13,5 @@ RoomTrap shape(ShapePassage) floor(FloorTrap)
 RoomCity shape(ShapeCity)
  features FloorTreasure Door Dwellers FloorTreasure FloorTreasure
 RoomCorner shape(ShapeDeadEnd)
+RoomExitOverlay1 shape(ShapeExit)
+ features Interact1 Door

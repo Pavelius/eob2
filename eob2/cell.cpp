@@ -38,8 +38,11 @@ BSDATA(celli) = {
 	{"CellDecor2", NONE, decor_offset + 17 * decor_frames, FG(LookOverlay)},
 	{"CellDecor3", NONE, decor_offset + 18 * decor_frames, FG(LookOverlay)},
 	{"CellDoorButton", NONE, -1, FG(LookOverlay)},
+	{"CellOverlay1", OVERLAYS, 0, FG(LookWall) | FG(Passable) | FG(MonsterForbidden)},
+	{"CellOverlay2", OVERLAYS, 1, FG(LookWall) | FG(Passable) | FG(MonsterForbidden)},
+	{"CellOverlay3", OVERLAYS, 2, FG(LookWall) | FG(Passable) | FG(MonsterForbidden)},
 };
-assert_enum(celli, CellDoorButton)
+assert_enum(celli, CellOverlay3)
 BSDATA(cellfi) = {
 	{"CellExplored"},
 	{"CellActive"},

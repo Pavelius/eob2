@@ -16,8 +16,8 @@
 #include "wallmessage.h"
 
 #ifdef _DEBUG
-// #define DEBUG_DUNGEON
-// #define DEBUG_ROOM
+//#define DEBUG_DUNGEON
+//#define DEBUG_ROOM
 #endif
 
 static directions all_directions[] = {Up, Down, Left, Right};
@@ -286,6 +286,22 @@ static void monster_boss(pointc v, directions d) {
 static void monster_minion(pointc v, directions d) {
 	auto pi = bsdata<monsteri>::elements + (loc->minions ? loc->minions : loc->habbits[1]);
 	monster(v, d, pi, xrand(1, 4));
+}
+
+static void overlay_interact(pointc v, directions d, celln tile) {
+	loc->set(v, tile);
+}
+
+static void overlay_interact1(pointc v, directions d) {
+	overlay_interact(v, d, CellOverlay1);
+}
+
+static void overlay_interact2(pointc v, directions d) {
+	overlay_interact(v, d, CellOverlay2);
+}
+
+static void overlay_interact3(pointc v, directions d) {
+	overlay_interact(v, d, CellOverlay3);
 }
 
 static void monster_dweller(pointc v, directions d) {
@@ -1095,6 +1111,9 @@ BSDATA(corridori) = {
 	{"FloorTreasure", floor_treasure},
 	{"Message", message},
 	{"Minions", monster_minion},
+	{"Interact1", overlay_interact1},
+	{"Interact2", overlay_interact2},
+	{"Interact3", overlay_interact3},
 	{"Passable", corridor_passable},
 	{"Portal", portal},
 	{"Prison", prison},

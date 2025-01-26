@@ -34,7 +34,7 @@ GeneratePartyDebug
  elements HumanPaladin JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty
 
 StartGameQuests
- elements FloodedSewers DwarfMountains
+ elements FloodedSewers
 StartGameAbilities
  elements GoldPiece+50 Reputation+20 Blessing+30
 StartGame

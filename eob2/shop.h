@@ -6,6 +6,7 @@ struct shopi : nameable {
 	item		items[8];
 	unsigned	stamp;
 	char		days;
+	char		magic, chance, cursed;
 	dice		count;
 	variants	effect; // Refresh items
 	void		clear();

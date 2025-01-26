@@ -1337,7 +1337,7 @@ static void copy_ability(int* dest, int* source) {
 	}
 }
 
-static void party_unlock() {
+static void party_unlock(int bonus) {
 	// Unlock locations
 	for(auto& e : bsdata<locationi>()) {
 		if(!ismatch(e.required))
@@ -1364,8 +1364,19 @@ static void party_unlock() {
 	copy_ability(party.unlock, party.abilities);
 }
 
+static void enter_location() {
+	loc = 0;
+	last_quest = 0;
+	party.location_id = getbsi(last_location);
+	picture = last_location->avatar;
+	save_focus = current_focus;
+	set_next_scene(play_location);
+}
+
 static void enter_location(int bonus) {
 	if(loc) {
+		last_dungeon = loc;
+		last_exit = party;
 		all_party(clear_mission_equipment, false);
 		all_party(clear_edible, false);
 		check_history_completed();
@@ -1373,14 +1384,18 @@ static void enter_location(int bonus) {
 		after_dungeon_action("LootIdentyfing", loot_identyfing);
 		after_dungeon_action("LootSelling", loot_selling);
 		pass_hours(xrand(2, 4));
+		party_unlock(0);
 	}
-	party_unlock();
-	loc = 0;
-	last_quest = 0;
-	party.location_id = getbsi(last_location);
-	picture = last_location->avatar;
-	save_focus = current_focus;
-	set_next_scene(play_location);
+	enter_location();
+}
+
+static void enter_sanctuary(int bonus) {
+	if(loc) {
+		last_dungeon = loc;
+		last_exit = party;
+		pass_hours(1);
+	}
+	enter_location();
 }
 
 static void return_to_street(int bonus) {
@@ -2113,6 +2128,14 @@ static void party_adventure(int bonus) {
 	picture = push_picture;
 	all_party(craft_mission_equipment, true);
 	enter_dungeon(0);
+}
+
+static void party_leave(int bonus) {
+	if(!last_dungeon)
+		return;
+	loc = last_dungeon;
+	set_party_position(last_exit, to(last_exit.d, Down));
+	enter_active_dungeon();
 }
 
 void continue_game() {
@@ -3140,6 +3163,7 @@ BSDATA(script) = {
 	{"ExitGame", exit_game},
 	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
+	{"EnterSanctuary", enter_sanctuary},
 	{"FilterArea", filter_area},
 	{"FilterAreaExplored", filter_area_explored},
 	{"ForEachItem", for_each_item},
@@ -3165,6 +3189,8 @@ BSDATA(script) = {
 	{"NaturalHeal", natural_heal},
 	{"JoinParty", join_party},
 	{"PartyAdventure", party_adventure},
+	{"PartyLeave", party_leave},
+	{"PartyUnlock", party_unlock},
 	{"PayGold", pay_gold},
 	{"PayGoldConfirm", pay_gold_confirm},
 	{"PassDays", pass_hours},

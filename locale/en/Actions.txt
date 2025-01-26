@@ -1,7 +1,7 @@
 ﻿AmbushTest: You were ambushed by enemy!
 Attack: Attack
-Blacksmith: Blacksmith
 Bribe: Bribe
+BuyDwarvenWeapon: Buy Weapon
 BuyHealing: Buy Healing
 BuyHealingConfirm: Healing is not for free. Priestess want some compensation for herbs and pouches and for wasted time. Do you agree to restore all %Name's hit points and get rid of poison and disease for %2i gold pieces?
 BuySpell: Buy Spell
@@ -96,6 +96,9 @@ WizardTower: Wizard Tower
 YourFaithIsWeak: Faith is weak, need more donation
 YourHaveNoDiety: You are diety less heretic
 
+Blacksmith: Blacksmith
+DwarvenCity: Dwarven city
+DwarvenSmith: Smith
 Inn: Inn
 InnConfirm: Staying a day in inn cost for you %2i gold pieces. Do you really want pay?
 Tavern: Tavern
@@ -103,6 +106,7 @@ Temple: Temple
 Stables: Stables
 
 Options: Options
+PartyLeave: Leave Settlement
 ReturnBack: Back
 Visit: Visit
 VisitPrompt: Visit %1

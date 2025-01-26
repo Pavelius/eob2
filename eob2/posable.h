@@ -13,4 +13,5 @@ struct posable : pointc {
 	void		clear() { pointc::clear(); side = 0; d = (directions)0; }
 	void		set(pointc v, directions d) { x = v.x; y = v.y; d = d; }
 };
+extern posable last_exit;
 pointc to(pointc v, directions d);

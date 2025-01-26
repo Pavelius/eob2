@@ -11,7 +11,11 @@ RoomSmallLair shape(ShapeRoom) floor(WanderingMonster)
 RoomTrap shape(ShapePassage) floor(FloorTrap)
  features FloorTreasure Door
 RoomCity shape(ShapeCity)
- features FloorTreasure Door Dwellers FloorTreasure FloorTreasure
+ features Interact1 Door Dwellers FloorTreasure FloorTreasure
 RoomCorner shape(ShapeDeadEnd)
-RoomExitOverlay1 shape(ShapeExit)
- features Interact1 Door
+RoomOverlay1 shape(ShapeExit)
+ features Interact1
+RoomOverlay2 shape(ShapeExit)
+ features Interact2
+RoomOverlay3 shape(ShapeExit)
+ features Interact3

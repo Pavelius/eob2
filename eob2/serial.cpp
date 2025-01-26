@@ -23,9 +23,10 @@ template<> void archive::set<quest>(quest*& value) {
 }
 
 void clear_game(int bonus) {
-	loc = 0;
+	loc = last_dungeon = 0;
 	last_quest = 0;
 	party.clear();
+	last_exit.clear();
 	memset(spells_prepared, 0, sizeof(spells_prepared));
 	memset(bsdata<spellseta>::elements, 0, bsdata<spellseta>::source.getmaximum() * sizeof(bsdata<spellseta>::elements[0]));
 	bsdata<boosti>::source.clear();
@@ -64,6 +65,8 @@ static bool serial_game(const char* url, bool writemode) {
 	for(auto i = 0; i < 6; i++)
 		e.set(characters[i]);
 	e.set(loc);
+	e.set(last_dungeon);
+	e.set(last_exit);
 	e.set(last_quest);
 	e.set(party);
 	e.set(spells_prepared, sizeof(spells_prepared));

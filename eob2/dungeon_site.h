@@ -15,6 +15,6 @@ struct dungeon_site {
 	unsigned char trap; // Type of all dungeon traps
 	char cursed; // Chance to all items found be cursed
 	char magical; // Chance to all items found be magical
-	unsigned short texture[3]; // Special wall for interactions with special texture
+	unsigned short textures[3]; // Special wall for interactions with special texture
 	constexpr explicit operator bool() const { return type != (resid)0; }
 };

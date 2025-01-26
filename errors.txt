@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Blink`
+﻿Error in file `rules/Actions.txt`:
+ Line 121: Not found Location identifier `DwarvenCity`

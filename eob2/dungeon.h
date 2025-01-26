@@ -82,7 +82,7 @@ struct dungeoni : dungeon_site {
 	void			set(pointc v, cellfn i, int radius);
 	void			set(pointc v, cellfn i);
 };
-extern dungeoni *loc, *locup;
+extern dungeoni *loc, *locup, *last_dungeon;
 
 const char* get_part_placement(pointc v);
 

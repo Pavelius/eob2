@@ -44,5 +44,5 @@ void shopi::update(unsigned new_stamp) {
 	clear();
 	auto new_count = count.roll();
 	for(auto i = 0; i < new_count; i++)
-		additem(5, 100, 0, true);
+		additem(magic, 100, 0, true);
 }

@@ -13,7 +13,7 @@ static pointc path_stack[256];
 static unsigned char path_push;
 static unsigned char path_pop;
 
-dungeoni *loc, *locup;
+dungeoni *loc, *locup, *last_dungeon;
 
 static void snode(pointc v, short unsigned cost) {
 	if(!v)

@@ -392,5 +392,5 @@ Halfling
 
 #Shop
 
-MagicSpellsShop count(1 4 2) days(7)
+MagicSpellsShop count(1 4 2) days(7) magic(5) chance(100) cursed(0)
  effect MageEvocationScroll+2 MageIllusionScroll+3 MageDivinationScroll+1

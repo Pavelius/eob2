@@ -54,6 +54,8 @@ BuySpell
 BuyWeapon
  effect BuyWeapons
  required Reputation(30)
+BuyDwarvenWeapon
+ effect BuyMenu Mace Warhammer BattleAxe
 BuyArmor
  effect BuyArmors
  required Reputation(40)
@@ -103,6 +105,7 @@ Bribe
 #Location
 
 HunterVillage
+DwarvenCity
 
 Inn avatar(buildngs 7) parent(HunterVillage) cost(10)
  options RestParty MemorizeSpells PrayForSpells ScribleScrolls GameOptions
@@ -116,9 +119,13 @@ Blacksmith avatar(buildngs 0) parent(HunterVillage)
 WizardTower avatar(buildngs 3) parent(HunterVillage)
  options BuySpell ReturnToStreet
  required Reputation(30)
+DwarvenSmith avatar(buildngs 31) parent(DwarvenCity)
+ options RepairItems BuyDwarvenWeapon ReturnToStreet
 
 HunterVillage avatar(buildngs 26)
  options PartyAdventure Inn Tavern Temple Blacksmith WizardTower
+DwarvenCity avatar(buildngs 30)
+ options PartyLeave Temple DwarvenSmith
 
 #List
 

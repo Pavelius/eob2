@@ -718,14 +718,14 @@ static void create_monsters(int i, pointc index, directions dr, bool flip) {
 }
 
 static void create_overlay(int i, pointc index, int frame, celln rec, bool flip) {
-	auto n = loc->texture[frame];
+	auto n = loc->textures[frame];
 	if(n == 0xFFFF)
 		return;
 	auto p = add_render();
 	p->x = wall_position[i].x;
 	p->y = scry / 2;
 	p->z = pos_levels[i] * distance_per_level;
-	p->frame[0] = loc->texture[frame];
+	p->frame[0] = n;
 	p->rdata = gres(OVERLAYS);
 	switch(i) {
 	case 3:

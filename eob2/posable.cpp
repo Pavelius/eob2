@@ -1,6 +1,8 @@
 #include "direction.h"
 #include "posable.h"
 
+posable last_exit;
+
 pointc to(pointc v, directions d) {
 	switch(d) {
 	case Up: return {v.x, v.y - (char)1};

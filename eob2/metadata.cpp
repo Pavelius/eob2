@@ -191,6 +191,7 @@ BSMETA(quest::leveli) = {
 	BSENM(special, itemi),
 	BSENM(language, racei),
 	BSREQ(features),
+	BSREQ(textures),
 	{}};
 BSMETA(racei) = {
 	BSREQ(id),
@@ -226,6 +227,7 @@ BSMETA(shopi) = {
 	BSREQ(effect),
 	BSREQ(days),
 	BSREQ(count),
+	BSREQ(magic), BSREQ(chance), BSREQ(cursed),
 	{}};
 BSMETA(spelli) = {
 	BSREQ(id),

@@ -11,6 +11,8 @@ CellGraveUse
 
 FloodedSewersKoboldExplain3
  elements Reputation+2
+UseCellOverlay1DwarfMountains
+ elements DwarvenCity EnterSanctuary
 
 #Quest
 

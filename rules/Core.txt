@@ -34,8 +34,8 @@ GeneratePartyDebug
  elements HumanPaladin JoinParty HumanFighter JoinParty ElfMage JoinParty DwarfCleric JoinParty
 
 StartGameQuests
- elements FloodedSewers
+ elements FloodedSewers DwarfMountains
 StartGameAbilities
  elements GoldPiece+50 Reputation+20 Blessing+30
 StartGame
- elements ClearGame GeneratePartyDebug StartGameQuests StartGameAbilities PassHours+7 Message DwarvenCity EnterLocation
+ elements ClearGame GeneratePartyDebug StartGameQuests StartGameAbilities PassHours+7 Message PartyUnlock HunterVillage EnterLocation

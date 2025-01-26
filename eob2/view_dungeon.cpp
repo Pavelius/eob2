@@ -717,7 +717,9 @@ static void create_monsters(int i, pointc index, directions dr, bool flip) {
 	}
 }
 
-static void create_overlay(int i, pointc index, int frame, celln rec, bool flip) {
+static void create_overlay(int i, pointc index, int frame) {
+	if(i >= 15)
+		return;
 	auto n = loc->textures[frame];
 	if(n == 0xFFFF)
 		return;
@@ -728,17 +730,17 @@ static void create_overlay(int i, pointc index, int frame, celln rec, bool flip)
 	p->frame[0] = n;
 	p->rdata = gres(OVERLAYS);
 	switch(i) {
-	case 3:
+	case 0: case 1: case 2: case 3: case 4: case 5: case 6:
 		p->percent = 375;
 		p->alpha = 128;
 		p->x -= 24; p->y -= 33;
 		break;
-	case 9:
+	case 7: case 8: case 9: case 10: case 11:
 		p->percent = 625;
 		p->alpha = 64;
 		p->x -= 40; p->y -= 40;
 		break;
-	case 13:
+	case 12: case 13: case 14:
 		p->x -= 64; p->y -= 52;
 		break;
 	}
@@ -810,8 +812,8 @@ static void prepare_draw(pointc index, directions dr) {
 		}
 		auto& et = bsdata<celli>::elements[tile];
 		if(et.flags.is(LookWall)) {
-			if(et.res == OVERLAYS && (i == 3 || i == 9 || i == 13))
-				create_overlay(i, index, et.frame, tile, mr);
+			if(et.res == OVERLAYS)
+				create_overlay(i, index, et.frame);
 			else
 				create_wall(i, index, get_tile(tile, mr), tile, mr);
 		} else if(et.flags.is(LookObject))

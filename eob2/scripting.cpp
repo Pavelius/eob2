@@ -1366,7 +1366,6 @@ static void party_unlock(int bonus) {
 
 static void enter_location() {
 	loc = 0;
-	last_quest = 0;
 	party.location_id = getbsi(last_location);
 	picture = last_location->avatar;
 	save_focus = current_focus;
@@ -1386,6 +1385,7 @@ static void enter_location(int bonus) {
 		pass_hours(xrand(2, 4));
 		party_unlock(0);
 	}
+	last_quest = 0;
 	enter_location();
 }
 

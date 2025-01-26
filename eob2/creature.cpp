@@ -1089,6 +1089,10 @@ static reactions* encounter_table(alignmentn monster_alignment) {
 static reactions roll_reaction(alignmentn monster_alignment, int bonus) {
 	auto n = (rand() % encounter_table_maximum) - bonus;
 	auto t = encounter_table(monster_alignment);
+	if(ismorale(monster_alignment, Lawful))
+		bonus += 1;
+	else if(ismorale(monster_alignment, Chaotic))
+		bonus -= 1;
 	if(n < 0)
 		n = 0;
 	else if(n > (encounter_table_maximum - 1))

@@ -17,6 +17,7 @@ CastSpellInfo: %Name cast %1
 CastOnWho: Cast on who?
 CellKeyHoleDisable: Lock is picked up
 CellPitDisable: Pit is removed
+CellPortalUseConfirm: Do you really want activate portal?
 CellTrapLauncherDisable: Trap is removed
 CellGraveUse: %Name dig the grave
 ChooseAlignment: Select Alignment
@@ -73,7 +74,6 @@ PayGoldConfirm: Do you really want to pay %2i golds for this?
 PickPockets: Pick pockets
 PickPocketsAction: Pick pockets
 PickPocketsVisit: Pick some pockets
-PortalReturnToCityConfirm: Do you really want activate portal?
 PrayForSpells: Pray for Spells
 PlayerRead: %Name read
 QuestGoals: Quest Goals

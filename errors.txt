@@ -1,3 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `PartyPortalTeleportation`
- Define translation for `TeleportToDungeon`
+﻿Error in file `rules/Quests.txt`:
+ Line 17: Can't find variant `Confirm`

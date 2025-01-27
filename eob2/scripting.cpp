@@ -1793,32 +1793,21 @@ static bool manipulate_overlay() {
 	return true;
 }
 
-static void portal_return(int bonus) {
-	enter_location(0);
-}
-
 static bool manipulate_cell() {
 	auto v = to(*player, player->d);
 	auto t = loc->get(v);
+	auto id = getid<celli>(t);
 	switch(t) {
 	case CellPortal:
-		player->speak(getid<celli>(t), "About");
-		if(player->is(UseMage)) {
-			if(!loc->is(v, CellExplored)) {
-				player->addexp(100);
-				loc->set(v, CellExplored);
-			} else {
-				if(!confirm(getnm("PortalReturnToCityConfirm")))
-					return false;
-				dialog_message("PortalReturnToCity");
-				portal_return(0);
-			}
-		}
+		player->speak(id, "About");
+		if(player->is(UseMage))
+			apply_script(id, "Use", 0);
 		break;
 	case CellBarel:
 	case CellWeb:
 	case CellCocon:
-		player->speak(getid<celli>(t), "About");
+		player->speak(id, "About");
+		apply_script(id, "Use", 0);
 		break;
 	case CellGrave:
 		broke_cell(v);
@@ -1830,7 +1819,6 @@ static bool manipulate_cell() {
 }
 
 static void manipulate() {
-	// auto player = item_owner(current_focus);
 	if(!player)
 		return;
 	if(!player->isactable())
@@ -1939,10 +1927,23 @@ static void play_dungeon() {
 	show_scene(paint_adventure, play_dungeon_input, save_focus);
 }
 
+static quest* find_quest(dungeoni* p) {
+	for(auto& e : bsdata<quest>()) {
+		if(!e)
+			continue;
+		for(auto& d : e.dungeon) {
+			if(&d == p)
+				return &e;
+		}
+	}
+	return 0;
+}
+
 static void enter_active_dungeon() {
 	locup = 0;
 	if(loc->level > 1)
 		locup = loc - 1;
+	last_quest = find_quest(loc);
 	set_dungeon_tiles(loc->type);
 	make_action();
 	save_focus = current_focus;
@@ -1999,18 +2000,6 @@ static dungeoni* choose_teleport_target() {
 	return (dungeoni*)choose_large_menu(getnm("TeleportChooseLevel"), getnm("Cancel"));
 }
 
-static quest* find_quest(dungeoni* p) {
-	for(auto& e : bsdata<quest>()) {
-		if(!e)
-			continue;
-		for(auto& d : e.dungeon) {
-			if(&d == p)
-				return &e;
-		}
-	}
-	return 0;
-}
-
 static void portal_teleportation(int bonus) {
 	auto p = choose_teleport_target();
 	if(!p) {
@@ -2023,7 +2012,6 @@ static void portal_teleportation(int bonus) {
 	if(bonus)
 		all_party(craft_mission_equipment, true);
 	loc = p;
-	last_quest = find_quest(loc);
 	set_party_position(to(loc->state.portal, d), d);
 	enter_active_dungeon();
 	consolen(getnm("PartyPortalTeleportation"));
@@ -2064,7 +2052,7 @@ static bool party_move_interact(pointc v) {
 	case CellOverlay1:
 	case CellOverlay2:
 	case CellOverlay3:
-		apply_script("Use", bsdata<celli>::elements[t].id, 0);
+		apply_script(getid<celli>(t), "Use", 0);
 		break;
 	default:
 		return false;
@@ -3274,7 +3262,6 @@ BSDATA(script) = {
 	{"PassHours", pass_hours},
 	{"PassRound", pass_round},
 	{"PortalTeleportation", portal_teleportation},
-	{"PortalReturn", portal_return},
 	{"Protection", protection_modify},
 	{"PushItem", push_item},
 	{"PushModifier", push_modifier},

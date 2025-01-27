@@ -11,8 +11,10 @@ CellGraveUse
 
 FloodedSewersKoboldExplain3
  elements Reputation+2
-UseCellOverlay1DwarfMountains
+CellOverlay1UseDwarfMountains
  elements DwarvenCity EnterSanctuary
+CellPortalUse
+ elements ConfirmAction HunterVillage EnterLocation
 
 #Quest
 

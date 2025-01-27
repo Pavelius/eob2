@@ -91,6 +91,7 @@ OfImmuneFire: fire immunity
 OfLifeWater: experience
 OfMoveSilently: chameleon power
 OfProtection: protection%+1i
+OfProtectedFromEvil: proof against evil
 OfResistFire: fire resistance
 OfResistCold: cold resistance
 OfShockingGrasp: shocking

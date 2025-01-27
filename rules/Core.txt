@@ -9,6 +9,7 @@
 #include "rules/Shapes.txt" Shape
 #include "rules/Rooms.txt"
 #include "rules/Quests.txt"
+#include "rules/Carousing.txt"
 
 #List
 

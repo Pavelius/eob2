@@ -276,6 +276,9 @@
     <ClCompile Include="diety.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="carousing.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -557,6 +560,9 @@
     <ClInclude Include="index.h">
       <Filter>support</Filter>
     </ClInclude>
+    <ClInclude Include="carousing.h">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -650,6 +656,9 @@
       <Filter>rules</Filter>
     </Text>
     <Text Include="..\rules\Diety.txt">
+      <Filter>rules</Filter>
+    </Text>
+    <Text Include="..\rules\Carousing.txt">
       <Filter>rules</Filter>
     </Text>
   </ItemGroup>

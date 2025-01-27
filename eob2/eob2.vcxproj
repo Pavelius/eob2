@@ -152,6 +152,7 @@
     <ClInclude Include="boost.h" />
     <ClInclude Include="bsdata.h" />
     <ClInclude Include="bsreq.h" />
+    <ClInclude Include="carousing.h" />
     <ClInclude Include="cell.h" />
     <ClInclude Include="class.h" />
     <ClInclude Include="color.h" />
@@ -247,6 +248,7 @@
     <ClCompile Include="avatar.cpp" />
     <ClCompile Include="boost.cpp" />
     <ClCompile Include="bsreq.cpp" />
+    <ClCompile Include="carousing.cpp" />
     <ClCompile Include="cell.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="condition.cpp" />
@@ -348,6 +350,7 @@
     <Text Include="..\names\en\TalkTome.txt" />
     <Text Include="..\rules\Advance.txt" />
     <Text Include="..\rules\Avatars.txt" />
+    <Text Include="..\rules\Carousing.txt" />
     <Text Include="..\rules\Classes.txt" />
     <Text Include="..\rules\Core.txt" />
     <Text Include="..\rules\Diety.txt" />

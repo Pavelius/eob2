@@ -3,6 +3,7 @@
 #include "answers.h"
 #include "avatar.h"
 #include "boost.h"
+#include "carousing.h"
 #include "cell.h"
 #include "class.h"
 #include "condition.h"
@@ -3216,6 +3217,7 @@ BSDATA(script) = {
 	{"AddReward", add_reward},
 	{"AddVariable", add_variable},
 	{"ApplyAction", apply_action},
+	{"ApplyCarousing", apply_carousing},
 	{"ApplyEnchantSpell", apply_enchant_spell},
 	{"ApplyRacialEnemy", apply_racial_enemy},
 	{"BestPlayer", best_player},

@@ -86,6 +86,8 @@ RestParty
 ScribleScrolls
  classes Mage
  effect ChooseMageScrolls IfLastItem ItemPowerSpell LearnSpell Roll LearnLastSpell DestroyItem
+TavernCarousing cost(200)
+ effect ApplyCarousing
 TeleportToDungeon
  effect PortalTeleportation+1
 
@@ -119,7 +121,7 @@ DwarvenTemple avatar(buildngs 32) parent(DwarvenCity)
 Inn avatar(buildngs 7) parent(HunterVillage) cost(10)
  options RestParty MemorizeSpells PrayForSpells ScribleScrolls GameOptions
 Tavern avatar(buildngs 5) parent(HunterVillage)
- options EatAndDrink GambleVisitors PickPocketsAction ReturnToStreet
+ options EatAndDrink TavernCarousing GambleVisitors PickPocketsAction ReturnToStreet
 Temple avatar(buildngs 8) parent(HunterVillage)
  options BuyHealing Donate ReturnToStreet
 Blacksmith avatar(buildngs 0) parent(HunterVillage)

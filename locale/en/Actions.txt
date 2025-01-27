@@ -91,6 +91,8 @@ SneakAttackAct: %Name use sneack attack
 StartGame: Create new game
 SurpriseFailed: %1 is surprised
 Talk: Talk
+TavernCarousing: Carousing
+TavernCarousingConfirm: Do you really want to drink with everyone in tavern and have fun? This will be cost 200 gold, but any of you remember that event.
 TeleportAskLevel: Level %1i
 TeleportChoosePlace: Teleport which way?
 TeleportChooseLevel: Teleport what level?

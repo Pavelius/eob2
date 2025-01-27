@@ -1,0 +1,27 @@
+#Carousing
+
+AmazingAcrobaticPerfomance ability(Dexterity)
+AmazingChanting ability(Charisma)
+AmazingGambling ability(Charisma)
+AmazingPickPockets ability(PickPockets)
+ArmRestlingContest
+DrinkingContest
+DrinkingIllness
+FireIncident
+FightingVsPatrons
+ fail Roll3d6 Bludgeon+101
+FightingVsGuards
+ fail Roll3d6 Bludgeon+101
+GallopedNackedByCityStreet ability(Dexterity)
+GatherTreasureMap
+JoinAllyFriendPatron
+RobbedByThief ability(Wisdow)
+ fail Roll6d8 Mul+10 GoldPiece-101
+SeduceBeautifulWoman ability(Charisma)
+ filter Male
+SeduceLocalPriestess ability(Charisma)
+ filter Male
+ success Blessing+1
+SeducedByBeautifulMan ability(Charisma)
+ filter Female
+WanderedMageDrinking

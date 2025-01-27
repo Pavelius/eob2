@@ -1,2 +1,3 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Invisibled`
+﻿Error in file `rules/Carousing.txt`:
+ Line 12: Can't find variant `Roll3d6`
+ Line 14: Can't find variant `Roll3d6`

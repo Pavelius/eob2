@@ -4,6 +4,7 @@
 #include "alignment.h"
 #include "boost.h"
 #include "bsreq.h"
+#include "carousing.h"
 #include "cell.h"
 #include "class.h"
 #include "condition.h"
@@ -42,6 +43,7 @@ NOBSDATA(quest::leveli)
 BSDATAC(actioni, 256)
 BSDATAC(advancement, 256)
 BSDATAC(boosti, 256)
+BSDATAC(carousingi, 256)
 BSDATAC(classi, 32)
 BSDATAC(creaturei, 64)
 BSDATAC(dungeoni, 256)
@@ -80,6 +82,12 @@ BSMETA(advancement) = {
 	{}};
 BSMETA(alignmenti) = {
 	BSREQ(id),
+	{}};
+BSMETA(carousingi) = {
+	BSREQ(id),
+	BSENM(ability, abilityi),
+	BSREQ(filter),
+	BSREQ(fail), BSREQ(success),
 	{}};
 BSMETA(celli) = {
 	BSREQ(id),
@@ -262,6 +270,7 @@ BSDATA(varianti) = {
 	{"Action", VAR(actioni, 1), 0, 0, ftscript<actioni>},
 	{"Advance", VAR(advancement, 2)},
 	{"Alignment", VAR(alignmenti, 1)},
+	{"Carousing", VAR(carousingi, 1)},
 	{"Cell", VAR(celli, 1)},
 	{"Class", VAR(classi, 1), 0, 0, ftscript<classi>},
 	{"Condition", VAR(conditioni, 1), 0, 0, ftscript<conditioni>, fttest<conditioni>},

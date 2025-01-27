@@ -336,6 +336,7 @@
     <Text Include="..\locale\en\Abilities.txt" />
     <Text Include="..\locale\en\Actions.txt" />
     <Text Include="..\locale\en\Alignments.txt" />
+    <Text Include="..\locale\en\Carousing.txt" />
     <Text Include="..\locale\en\Classes.txt" />
     <Text Include="..\locale\en\Directions.txt" />
     <Text Include="..\locale\en\Items.txt" />

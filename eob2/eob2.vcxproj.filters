@@ -661,6 +661,9 @@
     <Text Include="..\rules\Carousing.txt">
       <Filter>rules</Filter>
     </Text>
+    <Text Include="..\locale\en\Carousing.txt">
+      <Filter>locale</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint">

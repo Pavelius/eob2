@@ -17,11 +17,11 @@ GatherTreasureMap
 JoinAllyFriendPatron
 RobbedByThief ability(Wisdow)
  fail Roll6d8 Mul+10 GoldPiece-101
-SeduceBeautifulWoman ability(Charisma)
+SeduceBeautifulWoman ability(Charisma) avatar(buildngs 20)
  filter Male
-SeduceLocalPriestess ability(Charisma)
+SeduceLocalPriestess ability(Charisma) avatar(buildngs 20)
  filter Male
  success Blessing+1
-SeducedByBeautifulMan ability(Charisma)
+SeducedByBeautifulMan ability(Charisma) avatar(buildngs 20)
  filter Female
-WanderedMageDrinking
+WanderedMageDrinking ability(Intellegence)

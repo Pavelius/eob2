@@ -85,6 +85,7 @@ BSMETA(alignmenti) = {
 	{}};
 BSMETA(carousingi) = {
 	BSREQ(id),
+	BSREQ(avatar),
 	BSENM(ability, abilityi),
 	BSREQ(filter),
 	BSREQ(fail), BSREQ(success),

@@ -1,8 +1,1 @@
-﻿DrinkingIllness: 
-DrinkingIllnessSuccess: 
-SeduceBeautifulWoman: 
-SeduceBeautifulWomanSuccess: 
-SeduceLocalPriestess: 
-SeduceLocalPriestessFail: 
-WanderedMageDrinking: 
-WanderedMageDrinkingFail: 
+﻿RobbedByThiefSuccess: 

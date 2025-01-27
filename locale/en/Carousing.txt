@@ -1,0 +1,85 @@
+#AmazingAcrobaticPerfomance
+In the middle of evening %Name jump on the table and start jungling empthy bottles speaking stupid jokes about a king. Local tavern patrons clapped their hands approvingly and drank to your health while enjoying the show.
+#AmazingAcrobaticPerfomanceFail
+But in the end %Name drop down and collapse table. Bottles flies away and hit patrons. In general, no one appreciated the end of your perfomance.
+#AmazingAcrobaticPerfomanceSuccess:
+In the end %Name drop down on table and catch all bottles. The crowd shouted with delight. For now, you %Name is hero of this drunken patrons!
+
+#AmazingChanting
+%Name sang a funny song about the king and his retinue.
+#AmazingChantingFail
+King's retinue was in this tavern too.
+
+#AmazingGambling
+This is gambling day, and this is your chance, %Name.
+#AmazingGamblingFail
+You loose a lot of money.
+
+#AmazingPickPockets
+%Name get a jackpot! Many drunked patrons and their pockets. You stab almost all of them. And get many golds to you hands.
+#AmazingPickPocketsSuccess
+You get something very valuable.
+
+#ArmRestlingContest
+%Name and strong men sit at the table and struggle arm restling.
+#ArmRestlingContestFail
+To the laughter of the crowd, you lost, and the winner took his winnings and all the attention.
+
+#DrinkingContest
+An dwarf in A in a dirty apron proposed a drinking contest. With joyful shouts, the crowd supported the proposals, and %Name just couldn't refuse it.
+#DrinkingContestFail
+After all you wake up under table in puddle of spilled beer and urine. With a hangover, your head hurt terribly.
+#DrinkingContestSuccess
+After all your opponent drop down under table in puddle of spilled beer and urine. You gray all stackes and shout "Barmen? Whhhhere is my orrdered ddrink? How long can I wait?"
+
+#DrinkingIllness
+%Name drink all evening local beer and have fun. But the beer turned out to be sour. You feel very bad.
+#DrinkingIllnessFail
+Another portion of beer be fatal. You drop under table. When you wake up you feel bad.
+#DrinkingIllnessSuccess
+But another portion of beer be mutch better. Your stomach turn off all illness and you be in good shape again.
+
+#FightingVsPatrons
+"Did you tell me that?" tall patron catch you and drop on table. Another patron hit that patron, but next patron hit them and everithing is start fight.
+#FightingVsPatronsFail
+%Name was hitted in the face and drop on table.
+
+#FireIncident
+You turn a oil lamp into.
+#FireIncidentFail
+Tavern is set a fire.
+
+#GatherTreasureMap
+Old man with scars sold to you treasure map.
+
+#GallopedNackedByCityStreet
+You bet with one tavern guest that you would ride naked through the city on a horse in the middle of the night. And there is you in the saddle, galloped by city street!
+#GallopedNackedByCityStreetSuccess
+After all you scare some street beggars and cats. Nobody can stop your perfomance, but you get a cash from surprised tavern guest.
+
+#RobbedByThief
+In the midst of the fun, %Name discovered that gold was missing somewhere.
+#RobbedByThiefFail
+Theif is disappear. And money too.
+
+#SeduceBeautifulWoman
+When %Name drinking to the end a beautiful madam sit on you table and have a company. You get another drinking ad drink with her. After party you get in inn and be together to the morning.
+#SeduceBeautifulWomanSuccess
+But, when morning is come woman is disapear.
+
+#SeducedByBeautifulMan
+Noble man offer drink to %Name. You agree.
+#SeducedByBeautifulManFail
+You are broken heart.
+#SeducedByBeautifulManSuccess
+Amazing love experience.
+
+#SeduceLocalPriestess
+When %Name drinking to the end a beautiful local priestess sit on you table and get you a company. You get another drinking ad drink with her. After party you get in inn and be together to the morning.
+#SeduceLocalPriestessFail
+But, when morning is come woman is disapear. And you fill a bad presence in your items. Apparently, in the evening you said a lot of unnecessary things about her deity.
+
+#WanderedMageDrinking
+You drunk with very interesting person coming to tavern. It is an old man with staff in colorfull robe. All evening you have been arguing about the universal universe, the philosophy of good and evil, and the predestination of fate.
+#WanderedMageDrinkingFail
+When morning is coming you wake up in a barn with cows in a pile of manure.

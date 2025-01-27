@@ -11,9 +11,11 @@ In the end %Name drop down on table and catch all bottles. The crowd shouted wit
 King's retinue was in this tavern too.
 
 #AmazingGambling
-This is gambling day, and this is your chance, %Name.
+Everybody drink and play games. You sence - this is your chance, %Name. After a few moments of hesitation you join a game.
 #AmazingGamblingFail
-You loose a lot of money.
+You loose a some money, but win much more. After all you win %Number gold pieces. This is your day, but not so lucky as you planned.
+#AmazingGamblingSuccess
+You win a jackpot! Everybody lose to you and you get their stack. After all calcuation you win %Number of gold pieces.
 
 #AmazingPickPockets
 %Name get a jackpot! Many drunked patrons and their pockets. You stab almost all of them. And get many golds to you hands.
@@ -63,6 +65,11 @@ Old man with scars sold to you treasure map.
 You bet with one tavern guest that you would ride naked through the city on a horse in the middle of the night. And there is you in the saddle, galloped by city street!
 #GallopedNackedByCityStreetSuccess
 After all you scare some street beggars and cats. Nobody can stop your perfomance, but you get a cash from surprised tavern guest.
+
+#JoinAllyFriendPatron
+An adventurer sit to drink with you.
+#JoinAllyFriendPatronFail
+He goes away.
 
 #RobbedByThief
 In the midst of the fun, %Name discovered that gold was missing somewhere.

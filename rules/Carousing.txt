@@ -8,6 +8,8 @@ TheifClasses
 AmazingAcrobaticPerfomance ability(Dexterity)
 AmazingChanting ability(Charisma)
 AmazingGambling ability(Charisma) avatar(buildngs 24)
+ fail Roll3d8 GoldPiece+101
+ success Roll3d8 Mul+20 GoldPiece+101
 AmazingPickPockets ability(PickPockets) avatar(buildngs 10)
  filter TheifClasses
 ArmRestlingContest
@@ -19,15 +21,17 @@ FightingVsPatrons
 FightingVsGuards
  fail Roll3d6 Bludgeon+101
 GallopedNackedByCityStreet ability(Dexterity) avatar(scenes 7)
+ success Reputation+1
 GatherTreasureMap
 JoinAllyFriendPatron
 RobbedByThief ability(Wisdow)
  fail Roll6d8 Mul+10 GoldPiece-101
+ success Reputation+1
 SeduceBeautifulWoman ability(Charisma) avatar(buildngs 20)
  filter Male
 SeduceLocalPriestess ability(Charisma) avatar(buildngs 20)
  filter Male
- success Blessing+1
+ success AddExp+1 Blessing+1
 SeducedByBeautifulMan ability(Charisma) avatar(buildngs 20)
  filter Female
 WanderedMageDrinking ability(Intellegence)

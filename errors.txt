@@ -1,2 +1,3 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `ArmRestlingContestSuccess`
+ Define translation for `JoinAllyFriendPatron`
+ Define translation for `JoinAllyFriendPatronFail`

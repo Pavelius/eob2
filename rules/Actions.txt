@@ -86,6 +86,8 @@ RestParty
 ScribleScrolls
  classes Mage
  effect ChooseMageScrolls IfLastItem ItemPowerSpell LearnSpell Roll LearnLastSpell DestroyItem
+TeleportToDungeon
+ effect PortalTeleportation+1
 
 Attack
  effect Hostile AddExpEvil+1
@@ -124,7 +126,7 @@ Blacksmith avatar(buildngs 0) parent(HunterVillage)
  options RepairItems BuyWeapon ReturnToStreet
  required Reputation(25)
 WizardTower avatar(buildngs 3) parent(HunterVillage)
- options BuySpell ReturnToStreet
+ options BuySpell TeleportToDungeon ReturnToStreet
  required Reputation(30)
 
 HunterVillage avatar(buildngs 26)

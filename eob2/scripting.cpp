@@ -1985,7 +1985,7 @@ static dungeoni* choose_teleport_target() {
 			break;
 		}
 	}
-	last_result = choose_large_menu(getnm("TeleportationChoosePlace"), getnm("Cancel"));
+	last_result = choose_large_menu(getnm("TeleportChoosePlace"), getnm("Cancel"));
 	if(!last_result)
 		return 0;
 	an.clear();
@@ -1996,7 +1996,7 @@ static dungeoni* choose_teleport_target() {
 			continue;
 		an.add(&e, getnm("TeleportAskLevel"), e.level);
 	}
-	return (dungeoni*)choose_large_menu(getnm("TeleportationChooseLevel"), getnm("Cancel"));
+	return (dungeoni*)choose_large_menu(getnm("TeleportChooseLevel"), getnm("Cancel"));
 }
 
 static quest* find_quest(dungeoni* p) {
@@ -2015,12 +2015,16 @@ static void portal_teleportation(int bonus) {
 	auto p = choose_teleport_target();
 	if(!p) {
 		script_stop();
-		apply_script(last_id, "Fail", 0);
 		return;
 	}
+	auto d = p->getnear(p->state.portal, CellPassable);
+	if(d == Center)
+		return;
+	if(bonus)
+		all_party(craft_mission_equipment, true);
 	loc = p;
 	last_quest = find_quest(loc);
-	set_party_position(to(loc->state.portal, loc->state.portal.d), loc->state.portal.d);
+	set_party_position(to(loc->state.portal, d), d);
 	enter_active_dungeon();
 	consolen(getnm("PartyPortalTeleportation"));
 }

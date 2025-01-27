@@ -68,6 +68,7 @@ PartyAdventureOptions: Which way to go?
 PartyGoingDown: Party going down...
 PartyGoingUp: Party going up...
 PartyFallPit: Party fall down...
+PartyPortalTeleportation: Party teleported ...
 PayGoldConfirm: Do you really want to pay %2i golds for this?
 PickPockets: Pick pockets
 PickPocketsAction: Pick pockets
@@ -90,6 +91,10 @@ SneakAttackAct: %Name use sneack attack
 StartGame: Create new game
 SurpriseFailed: %1 is surprised
 Talk: Talk
+TeleportAskLevel: Level %1i
+TeleportChoosePlace: Teleport which way?
+TeleportChooseLevel: Teleport what level?
+TeleportToDungeon: Teleport to Portal
 ToolBroken: %1 is broken
 ToolCrumbleToDust: %1 crumble to dust
 UseHolySymbolFail: You praying is without answers

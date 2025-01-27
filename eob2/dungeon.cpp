@@ -226,6 +226,15 @@ dungeoni::overlayi* dungeoni::getlinked(pointc v) {
 	return 0;
 }
 
+directions dungeoni::getnear(pointc v, celln t) const {
+	for(auto d : all_directions) {
+		auto t1 = get(to(v, d));
+		if(t1 == t)
+			return d;
+	}
+	return Center;
+}
+
 dungeoni::overlayi* dungeoni::getoverlay(pointc v, celln type) {
 	for(auto& e : overlays) {
 		if(e == v && e.type == type)

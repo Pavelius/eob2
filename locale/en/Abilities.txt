@@ -60,6 +60,7 @@ BonusSaveVsSpells: Bonus save vs Spells
 ImmuneCold: Immune to cold
 ImmuneDisease: Immune to diseases
 ImmuneCharm: Immune to charm
+Invisibled: Invisibled
 Precise: Precise
 ProtectedFromEvil: Protected from Evil
 UseLeather: Use leather armor

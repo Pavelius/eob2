@@ -36,7 +36,7 @@ City flooded Sewers
 /npc 50
 "Well met, my friends." Chief of local guard was good spirited. You sit in local tavern. "My name if Halfast Rodgar. And I am chief of local guard as you now."
 "We have a problem in collectors. Two our men are going down and not returned yet. Maybe, there is a some kind of monsters inside."
-"I need your help to deal with them. Kill them all. Going down to the last level and kill all of these creatures and our comunity will reward you. Small rewar, say 500 gold pieces."
+"I need your help to deal with them. Kill them all. Going down to the last level and kill all of these creatures and our comunity will reward you. Small rewar, say %QuestRewardGold gold pieces."
 
 #FloodedSewersAgree
 /npc 50
@@ -74,7 +74,7 @@ Cursed dungeon
 /npc 51
 "Hello. Are you ... that ... adventures?" man smoking tabacco sitting in tavern address to you "My name is Dunkan. And I have a job for you."
 "I need you service to take some item from ruin, hauted by evil undead long time ago. That item is my familiy relict. A stone medallion of Tempus."
-"If you can deliver the item to me I will pay you 1000 gold pieces."
+"If you can deliver the item to me I will pay you %QuestRewardGold gold pieces."
 
 #CursedDungeonAgree
 /npc 51
@@ -102,7 +102,7 @@ Explore North Woods
 Man in tavern sit to you table. "Hello. My name is Alf Bowmen and I local ranger."
 "As you know, this village is lay on outskirs of civilization. Wast and unexplored forest lay to the north in a week of foot travel. A dangerous and ancient forest."
 He gulp a beer and continue "And what lay in this forest? Forgotten treasures of ancient civilization? Maybe. And I give you chance to explore this for my money."
-"Explore this forest, investigate its forgotten corners and I pay you 300 gold piece for information. I use it to hunt prey and, maybe to settle in those lands."
+"Explore this forest, investigate its forgotten corners and I pay you %QuestRewardGold gold piece for information. I use it to hunt prey and, maybe to settle in those lands."
 
 #ExploreNorthWoodAgree
 "Great! Wait for your reports, when you explore most part of forest entrance to the north."
@@ -115,7 +115,7 @@ On eight day of travel you enter into deep forest.
 
 #ExploreNorthWoodFinish
 /npc 52
-"At least you back. You see goblins and wolf? What you say they use it as domestic animals? Interesting. Here your 300 gold. Good work."
+"At least you back. You see goblins and wolf? What you say they use it as domestic animals? Interesting. Here your %QuestRewardGold gold. Good work."
 
 /////////////////////////////
 // DwarfMountains
@@ -151,7 +151,7 @@ Evil temple
 /npc 50
 "My name is Olsan Brief. I am hight priest of Helm in city Ireaebor. And I need your help."
 "Evil settled in Reching Woods to north of the city. There is evil cult of Dragon, that kindnapping people and kill them."
-"You must find this evil citadel located in the forest and destory their leader. I will pay you church reward 2000 gold pieces for that."
+"You must find this evil citadel located in the forest and destory their leader. I will pay you church reward %QuestRewardGold gold pieces for that."
 
 #EvilTempleAgree
 "Good. Helm blessing on you in you difficult mission. I belive you make this quick."

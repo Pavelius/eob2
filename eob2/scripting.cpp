@@ -2787,6 +2787,20 @@ static void opponent_name(stringbuilder& sb) {
 	sb.add(opponent->getname());
 }
 
+static int total_count(const variants& effect, variant type) {
+	auto result = 0;
+	for(auto v : effect) {
+		if(v.type == type.type && v.value == type.value)
+			result += v.counter;
+	}
+	return result;
+}
+
+static void quest_reward_gold(stringbuilder& sb) {
+	auto result = total_count(last_quest->reward, "AddReward") * 100;
+	sb.add("%1i", result);
+}
+
 static void item_name(stringbuilder& sb) {
 	last_item->getname(sb);
 }
@@ -3142,6 +3156,7 @@ BSDATA(textscript) = {
 	{"Name", player_name},
 	{"OpponentName", opponent_name},
 	{"Number", effect_number},
+	{"QuestRewardGold", quest_reward_gold},
 	{"Race", player_race},
 	{"StairsDownSide", stairs_down_side},
 	{"StairsUpSide", stairs_up_side},

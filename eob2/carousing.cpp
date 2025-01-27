@@ -66,6 +66,7 @@ static void apply_carousing(creaturei** characters) {
 	}
 	player = push_player;
 	last_carousing = push_carousing;
+	dialog(getnm("Continue"), getnm("CarousingEnd"));
 }
 
 void apply_carousing(int bonus) {

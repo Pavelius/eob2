@@ -24,6 +24,8 @@ You get something very valuable.
 %Name and strong men sit at the table and struggle arm restling.
 #ArmRestlingContestFail
 To the laughter of the crowd, you lost, and the winner took his winnings and all the attention.
+#ArmRestlingContestSuccess
+You win!
 
 #DrinkingContest
 An dwarf in A in a dirty apron proposed a drinking contest. With joyful shouts, the crowd supported the proposals, and %Name just couldn't refuse it.
@@ -38,6 +40,11 @@ After all your opponent drop down under table in puddle of spilled beer and urin
 Another portion of beer be fatal. You drop under table. When you wake up you feel bad.
 #DrinkingIllnessSuccess
 But another portion of beer be mutch better. Your stomach turn off all illness and you be in good shape again.
+
+#FightingVsGuards
+Drunken guards take a fight with %Name.
+#FightingVsGuardsFail
+After all he get you in jail.
 
 #FightingVsPatrons
 "Did you tell me that?" tall patron catch you and drop on table. Another patron hit that patron, but next patron hit them and everithing is start fight.
@@ -61,6 +68,8 @@ After all you scare some street beggars and cats. Nobody can stop your perfomanc
 In the midst of the fun, %Name discovered that gold was missing somewhere.
 #RobbedByThiefFail
 Theif is disappear. And money too.
+#RobbedByThiefSuccess
+You catch the theif!
 
 #SeduceBeautifulWoman
 When %Name drinking to the end a beautiful madam sit on you table and have a company. You get another drinking ad drink with her. After party you get in inn and be together to the morning.
@@ -83,3 +92,7 @@ But, when morning is come woman is disapear. And you fill a bad presence in your
 You drunk with very interesting person coming to tavern. It is an old man with staff in colorfull robe. All evening you have been arguing about the universal universe, the philosophy of good and evil, and the predestination of fate.
 #WanderedMageDrinkingFail
 When morning is coming you wake up in a barn with cows in a pile of manure.
+
+#CarousingEnd
+/scenes 8
+After all you wake up in the morning.

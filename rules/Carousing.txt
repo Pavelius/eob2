@@ -1,9 +1,15 @@
+#List
+
+TheifClasses
+ elements Theif FighterTheif MageTheif
+
 #Carousing
 
 AmazingAcrobaticPerfomance ability(Dexterity)
 AmazingChanting ability(Charisma)
-AmazingGambling ability(Charisma)
-AmazingPickPockets ability(PickPockets)
+AmazingGambling ability(Charisma) avatar(buildngs 24)
+AmazingPickPockets ability(PickPockets) avatar(buildngs 10)
+ filter TheifClasses
 ArmRestlingContest
 DrinkingContest
 DrinkingIllness
@@ -12,7 +18,7 @@ FightingVsPatrons
  fail Roll3d6 Bludgeon+101
 FightingVsGuards
  fail Roll3d6 Bludgeon+101
-GallopedNackedByCityStreet ability(Dexterity)
+GallopedNackedByCityStreet ability(Dexterity) avatar(scenes 7)
 GatherTreasureMap
 JoinAllyFriendPatron
 RobbedByThief ability(Wisdow)

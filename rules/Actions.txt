@@ -86,7 +86,7 @@ RestParty
 ScribleScrolls
  classes Mage
  effect ChooseMageScrolls IfLastItem ItemPowerSpell LearnSpell Roll LearnLastSpell DestroyItem
-TavernCarousing cost(200)
+TavernCarousing cost(200) avatar(scenes 3)
  effect ApplyCarousing
 TeleportToDungeon
  effect PortalTeleportation+1

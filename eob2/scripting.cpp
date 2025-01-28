@@ -819,7 +819,7 @@ static bool read_effect(creaturei* pn, variant v, int experience, unsigned durat
 			result = false;
 		} else
 			script_run(v);
-		last_item->usecharge("ConsumeTome");
+		last_item->usecharge("ConsumeTome", 40, 5);
 		pass_hours(1);
 	}
 	player = push_player;
@@ -3282,6 +3282,7 @@ BSDATA(script) = {
 	{"ForEachOpponents", for_each_opponents},
 	{"ForEachParty", for_each_party},
 	{"GenerateParty", generate_party},
+	{"GrapplingHookUse", use_grappling_hook},
 	{"Heal", player_heal},
 	{"HealEffect", player_heal_effect},
 	{"IdentifyItem", identify_item},

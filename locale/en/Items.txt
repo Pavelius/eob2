@@ -10,6 +10,7 @@ BlueRing: Ring
 Bones: Bones
 Boots: Boots
 Bow: Bow
+Bracers: Bracers
 ChainMail: Chain mail
 ChillTouchHand: Cold hand
 Club: Club
@@ -22,6 +23,7 @@ Halberd: Halberd
 Helm: Helm
 HolySymbol: Holy symbol
 HolySymbolEvil: Holy symbol
+GrapplingHook: Grappling hook
 GreenGem: Gem
 GreenPotion: Potion
 GreenRing: Ring

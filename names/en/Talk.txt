@@ -125,6 +125,10 @@ Not in this place!
 Use on pit, trap launcher or key hole
 I don't see valid target
 
+#GrapplingHookNoTargets
+Use on ceiling pit or floor pit
+I can't see any pit under my head
+
 #MessageMagicWeaponsMiss
 You not find any magic weapons here
 #MessageMagicWeaponsPresent

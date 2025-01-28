@@ -206,6 +206,7 @@ Wand cost(100) avatar(52) avatar_ground(10) wear(Rod) powers(WandSpells)
 
 TheifTools cost(10) avatar(54) avatar_ground(1) wear(Usable)
  feats Small UseRogish
+GrapplingHook cost(5) avatar(117) avatar_ground(14) wear(Usable)
 HolySymbol cost(20) avatar(53) avatar_ground(20) wear(Faithable)
  feats Small UsePriest
 HolySymbolEvil cost(20) avatar(27) avatar_ground(20) wear(Faithable)
@@ -264,6 +265,12 @@ StoneDagger speed(2) damage_type(Piercing) damage(1 4) avatar(60) avatar_ground(
 StoneGem cost(400) avatar(57) avatar_ground(3) wear(Backpack)
  feats Small
 StoneAmulet avatar(64) avatar_ground(13) wear(Neck) powers(AmuletPowers)
+ feats Small
+StoneSphere avatar(61) avatar_ground(18) wear(Usable)
+ feats Small
+StoneHolySymbol avatar(63) avatar_ground(20) wear(Usable)
+ feats Small
+StoneCrest avatar(113) avatar_ground(20) wear(Usable)
  feats Small
 RedCircle cost(100) avatar(105) avatar_ground(21)
  feats Small
@@ -344,9 +351,9 @@ RandomExoticWeapon
 RandomWeapon
  chance RandomSword+5 RandomSimpleWeapon+3 RandomExoticWeapon
 RandomArmorMinor
- chance Shield+5 DwarvenShield Helm+5 Boots+3 DwarvenHelm
+ chance Shield+5 DwarvenShield Helm+5 Boots+3 Bracers+4 DwarvenHelm
 RandomArmor
- chance LeatherArmor+6 Robe RedCloack BlueCloack ScaleMail+2 ChainMail+2 BandedMail PlateMail
+ chance LeatherArmor+6 Robe RedCloack BlueCloack ScaleMail+3 ChainMail+3 BandedMail PlateMail
 RandomPotions
  chance RedPotion GreenPotion+2 BluePotion+4
 RandomRings
@@ -358,7 +365,7 @@ RandomScrolls
 RandomWands
  chance Wand
 RandomTools
- chance TheifTools+2 HolySymbol HolySymbolEvil MageBook
+ chance TheifTools+2 GrapplingHook+2 HolySymbol HolySymbolEvil MageBook
 RandomExotic
  chance Bones
 RandomKeys

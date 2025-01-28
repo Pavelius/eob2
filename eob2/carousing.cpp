@@ -18,7 +18,8 @@ static void create_source(carousinga& source) {
 static carousingi* pick(carousinga& source) {
 	for(auto& p : source) {
 		if(p->filter) {
-
+			if(!script_allow(p->filter))
+				continue;
 		}
 		auto result = p;
 		auto index = source.indexof(&p);

@@ -1704,6 +1704,7 @@ static bool character_input() {
 		// So only in debug mode.
 	case 'F': switch_page(paint_feats); break;
 #endif
+	case 'O': replace_character(); break;
 	case 'P': pick_up_item(); break;
 	case 'Q': examine_item(); break;
 	case KeyEscape:

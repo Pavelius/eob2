@@ -1,3 +1,4 @@
+#include "answers.h"
 #include "boost.h"
 #include "bsdata.h"
 #include "cell.h"
@@ -830,6 +831,29 @@ bool party_is(featn v) {
 			return true;
 	}
 	return false;
+}
+
+static creaturei* choose_character(const char* header, bool exclude_player) {
+	pushanswer push;
+	for(auto p : characters) {
+		if(!p)
+			continue;
+		if(exclude_player && p == player)
+			continue;
+		an.add(p, p->getname());
+	}
+	return (creaturei*)choose_small_menu(header, getnm("Cancel"));
+}
+
+void replace_character() {
+	auto p = choose_character(getnm("ReplaceCharacterHeader"), true);
+	if(!p)
+		return;
+	auto i1 = get_party_index(p);
+	auto i2 = get_party_index(player);
+	if(i1 == -1 || i2 == -1)
+		return;
+	iswap(characters[i1], characters[i2]);
 }
 
 static bool if_take_special_item() {

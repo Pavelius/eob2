@@ -1,3 +1,2 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `JoinAllyFriendPatron`
- Define translation for `JoinAllyFriendPatronFail`
+ Define translation for `JoinAllyFriendPatronSuccess`

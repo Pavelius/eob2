@@ -70,6 +70,8 @@ After all you scare some street beggars and cats. Nobody can stop your perfomanc
 An adventurer sit to drink with you.
 #JoinAllyFriendPatronFail
 He goes away.
+#JoinAllyFriendPatronSuccess
+He join party.
 
 #RobbedByThief
 In the midst of the fun, %Name discovered that gold was missing somewhere.

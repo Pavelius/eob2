@@ -74,6 +74,7 @@ void pass_hours(int count);
 void pass_round();
 void reaction_check(int bonus);
 bool read_game(const char* id);
+void replace_character();
 void save_game(const char* id);
 void set_party_position(pointc v);
 void set_party_position(pointc v, directions d);

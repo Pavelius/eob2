@@ -65,6 +65,9 @@ template<> void ftscript<classi>(int value, int bonus) {
 	last_class = (classn)value;
 }
 
+template<> bool fttest<genderi>(int value, int bonus) {
+	return (player->gender == (gendern)value) == (bonus >= 0);
+}
 template<> void ftscript<genderi>(int value, int bonus) {
 	last_gender = (gendern)value;
 }

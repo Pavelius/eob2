@@ -12,7 +12,7 @@ AmazingGambling ability(Charisma) avatar(buildngs 24)
  success Roll3d8 Mul+20 GoldPiece+101
 AmazingPickPockets ability(PickPockets) avatar(buildngs 10)
  filter TheifClasses
-ArmRestlingContest
+ArmRestlingContest ability(Strenght) avatar(scenes 9)
 DrinkingContest
 DrinkingIllness
 FireIncident

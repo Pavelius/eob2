@@ -465,6 +465,7 @@ static bool choose_dialog(const char* format, const char* format_param, const ch
 }
 
 static bool confirm_payment(const char* name, int gold_coins) {
+	pushvalue push_number(last_number, gold_coins);
 	char temp[260]; stringbuilder sb(temp);
 	auto format = getnme(ids(last_id, "Confirm"));
 	if(!format)
@@ -1708,7 +1709,7 @@ static int get_level_difficult() {
 	auto n = loc->level;
 	if(n <= 1)
 		return 0;
-	return - (n - 1) * 5;
+	return -(n - 1) * 5;
 }
 
 static void use_theif_tools(int bonus) {
@@ -2266,7 +2267,8 @@ static void curse_item(int bonus) {
 }
 
 static void create_power(int bonus) {
-	last_item->createpower(bonus, 100, 0);
+	if(bonus > 0)
+		last_item->createpower(bonus, 100, 0);
 }
 
 static void item_power_spell(int bonus) {

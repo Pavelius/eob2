@@ -18,9 +18,11 @@ You loose a some money, but win much more. After all you win %Number gold pieces
 You win a jackpot! Everybody lose to you and you get their stack. After all calcuation you win %Number of gold pieces.
 
 #AmazingPickPockets
-%Name get a jackpot! Many drunked patrons and their pockets. You stab almost all of them. And get many golds to you hands.
+%Name get a jackpot! Many drunked patrons and their pockets. You grab gold pieces and drink. What can be better?
+#AmazingPickPocketsFail
+You get %Number gold pieces from innocent patrons. They smile to you and drink with you. Not bad for this evening.
 #AmazingPickPocketsSuccess
-You get something very valuable.
+You get %Number gold pieces from innocent patrons. They smile to you and drink with you. But in the end, you pick very rich jentleman and grab his %ItemName.
 
 #ArmRestlingContest
 %Name and strong men sit at the table and struggle arm restling.
@@ -30,7 +32,7 @@ To the laughter of the crowd, you lost, and the winner took his winnings and all
 You win!
 
 #DrinkingContest
-An dwarf in A in a dirty apron proposed a drinking contest. With joyful shouts, the crowd supported the proposals, and %Name just couldn't refuse it.
+An dwarf in a dirty apron proposed a drinking contest. With joyful shouts, the crowd supported the proposals, and %Name just couldn't refuse it.
 #DrinkingContestFail
 After all you wake up under table in puddle of spilled beer and urine. With a hangover, your head hurt terribly.
 #DrinkingContestSuccess
@@ -61,8 +63,8 @@ Tavern is set a fire.
 #GatherTreasureMap
 Old man with scars sold to you treasure map.
 
-#GallopedNackedByCityStreet
-You bet with one tavern guest that you would ride naked through the city on a horse in the middle of the night. And there is you in the saddle, galloped by city street!
+#GallopedNackedByCityStreets
+%Name bet with one tavern guest that would ride naked through the city on a horse in the middle of the night. And there is you in the saddle, galloped by city street!
 #GallopedNackedByCityStreetSuccess
 After all you scare some street beggars and cats. Nobody can stop your perfomance, but you get a cash from surprised tavern guest.
 

@@ -6,6 +6,11 @@
 // - Make additional rolls by `<Ability> Roll` script. For example `Constitution Roll`, or `Strenght Roll-2`.
 // - Make damage by `<RollDice>` `<Damage>+101` script. For example `Roll3d6 Bludgeon+101`.
 
+#RandomList
+
+RandomJewelry
+ chance RandomRings RandomAmulets
+
 #List
 
 TheifClasses
@@ -13,14 +18,17 @@ TheifClasses
 
 #Carousing
 
-AmazingAcrobaticPerfomance ability(Dexterity)
+AmazingAcrobaticPerfomance ability(Dexterity) avatar(scenes 10)
+ fail Roll1d6 Bludgeon+101
+ success Roll3d6 GoldPiece+101 Reputation+2
 AmazingChanting ability(Charisma)
 AmazingGambling ability(Charisma) avatar(buildngs 24)
  fail Roll3d8 Mul+5 GoldPiece+101
  success Roll8d8 Mul+10 GoldPiece+101
 AmazingPickPockets ability(PickPockets) avatar(buildngs 10)
  filter TheifClasses
- success Roll3d8 Mul+10 GoldPiece+101
+ fail Roll3d8 Mul+5 GoldPiece+101
+ success Roll3d8 Mul+5 GoldPiece+101 RandomJewelry CreatePower+5 IdentifyItem+1
 ArmRestlingContest ability(Strenght) avatar(scenes 9)
 DrinkingContest
 DrinkingIllness
@@ -30,7 +38,7 @@ FightingVsPatrons
 FightingVsGuards
  fail Roll3d6 Bludgeon+101
 GallopedNackedByCityStreet ability(Dexterity) avatar(scenes 7)
- success Reputation+1
+ success Roll3d6 GoldPiece+101 Reputation+3
 GatherTreasureMap
 JoinAllyFriendPatron
 RobbedByThief ability(Wisdow)

@@ -1743,7 +1743,7 @@ static void use_theif_tools(int bonus) {
 	}
 	switch(loc->get(to(*player, player->d))) {
 	case CellPit:
-		if(use_tool_item(RemoveTraps, 2 * get_level_difficult())) {
+		if(use_tool_item(RemoveTraps, get_level_difficult() - 10)) {
 			loc->set(to(party, party.d), CellPassable);
 			use_tool_success(CellPit);
 		}

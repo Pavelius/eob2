@@ -88,7 +88,7 @@ ProtectionFromEvil levels(1 1) lighting(150 00 24) duration(Turn5x1)
  instant ApplyEnchantSpell
  wearing ProtectedFromEvil
 PurifyFood levels(1 0)
- feats Ally Group
+ feats Ally Group You
  filter_item IfItemEdible IfItemDamaged
  instant DamageItem-1 EffectCount+1
 

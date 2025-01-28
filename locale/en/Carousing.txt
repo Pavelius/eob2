@@ -101,6 +101,8 @@ But, when morning is come woman is disapear. And you fill a bad presence in your
 You drunk with very interesting person coming to tavern. It is an old man with staff in colorfull robe. All evening you have been arguing about the universal universe, the philosophy of good and evil, and the predestination of fate.
 #WanderedMageDrinkingFail
 When morning is coming you wake up in a barn with cows in a pile of manure.
+#WanderedMageDrinkingSuccess
+Mage give you advice.
 
 #CarousingEnd
 /scenes 8

@@ -1,3 +1,11 @@
+//////////////////////////////////////////////////////////
+// This file describe carousing effect.
+// If you make roll by `ability` you are `success`, if not you are `fail`.
+// Let's give you some advice:
+// - Reward experience by AddExpPersonal/AddExpGood/AddExpEvil. For each plus or minus 100/40/40 experience.
+// - Make additional rolls by `<Ability> Roll` script. For example `Constitution Roll`, or `Strenght Roll-2`.
+// - Make damage by `<RollDice>` `<Damage>+101` script. For example `Roll3d6 Bludgeon+101`.
+
 #List
 
 TheifClasses
@@ -8,10 +16,11 @@ TheifClasses
 AmazingAcrobaticPerfomance ability(Dexterity)
 AmazingChanting ability(Charisma)
 AmazingGambling ability(Charisma) avatar(buildngs 24)
- fail Roll3d8 GoldPiece+101
- success Roll3d8 Mul+20 GoldPiece+101
+ fail Roll3d8 Mul+5 GoldPiece+101
+ success Roll8d8 Mul+10 GoldPiece+101
 AmazingPickPockets ability(PickPockets) avatar(buildngs 10)
  filter TheifClasses
+ success Roll3d8 Mul+10 GoldPiece+101
 ArmRestlingContest ability(Strenght) avatar(scenes 9)
 DrinkingContest
 DrinkingIllness
@@ -29,9 +38,14 @@ RobbedByThief ability(Wisdow)
  success Reputation+1
 SeduceBeautifulWoman ability(Charisma) avatar(buildngs 20)
  filter Male
+ fail AddExpPersonal+1 Constitution Roll DiseaseLevel+2
+ success AddExpPersonal+3
 SeduceLocalPriestess ability(Charisma) avatar(buildngs 20)
  filter Male
- success AddExp+1 Blessing+1
+ success AddExpPersonal+3 Blessing+1
 SeducedByBeautifulMan ability(Charisma) avatar(buildngs 20)
  filter Female
+ fail AddExpPersonal+1
+ success AddExpPersonal+2
 WanderedMageDrinking ability(Intellegence)
+ success AddExpPersonal+6

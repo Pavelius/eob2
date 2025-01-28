@@ -111,7 +111,7 @@ static void filter_creatures(const variants& source) {
 	an.elements.count = ps - an.begin();
 }
 
-static bool have_items(creaturei* player, const variants& source) {
+static bool have_items(const variants& source) {
 	pushvalue push(last_item);
 	for(auto& e : player->wears) {
 		if(!e)
@@ -129,7 +129,8 @@ static void filter_creature_items(const variants& source) {
 	pushvalue push(player);
 	auto ps = an.elements.begin();
 	for(auto& e : an.elements) {
-		if(!have_items((creaturei*)e.value, source))
+		player = (creaturei*)e.value;
+		if(!have_items(source))
 			continue;
 		*ps++ = e;
 	}

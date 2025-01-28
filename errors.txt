@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `JoinAllyFriendPatronSuccess`
+﻿Error in file `rules/Carousing.txt`:
+ Line 36: Can't find variant `ConstitutionRoll`

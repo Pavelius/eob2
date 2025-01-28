@@ -268,7 +268,7 @@ StoneAmulet avatar(64) avatar_ground(13) wear(Neck) powers(AmuletPowers)
 RedCircle cost(100) avatar(105) avatar_ground(21)
  feats Small
 
-Bite1d6 damage_type(Slashing) damage(1 6) wear(Head)
+Bite1d6 damage_type(Slashing) damage(1 6) wear(RightHand)
  feats You
 ChillTouchHand avatar(80) damage_type(Cold) damage(1 4) wear(RightHand)
  feats You DrainStrenghtAttack
@@ -278,7 +278,7 @@ Claws1d4 damage_type(Slashing) damage(1 4) wear(RightHand) number_attacks(4)
  feats You TwoHanded
 Hag2d4 damage_type(Slashing) damage(2 4) wear(RightHand)
  feats You
-Mandibules damage_type(Slashing) damage(1 4)
+Mandibules damage_type(Slashing) damage(1 4) wear(RightHand)
  feats You
 Slam1d4 damage_type(Bludgeon) damage(1 4) wear(RightHand)
  feats You

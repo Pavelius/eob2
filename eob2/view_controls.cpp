@@ -850,7 +850,7 @@ static void add_value(stringbuilder& sb, abilityn id) {
 	int bonus;
 	switch(id) {
 	case AttackMelee:
-		sb.add("%1i", 20 - player->get(id) - get_weapon_attack_bonus(RightHand));
+		sb.add("%1i", 20 - get_weapon_attack_bonus(RightHand));
 		break;
 	case DamageMelee:
 		bonus = 0;

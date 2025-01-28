@@ -105,7 +105,7 @@ BSMETA(classi) = {
 	BSREQ(experience),
 	BSREQ(non_player),
 	BSENM(primary, abilityi),
-	BSREQ(hd), BSREQ(exp_per_hd), BSREQ(caster),
+	BSREQ(hd), BSREQ(exp_per_hd), BSREQ(caster), BSREQ(save_group),
 	BSENM(classes, classi), BSREQ(count),
 	BSFLG(alignment, alignmenti),
 	BSFLG(races, racei),

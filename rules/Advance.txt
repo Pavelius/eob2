@@ -49,22 +49,6 @@ Halfling TheifSkills
  elements PickPockets+5 OpenLocks+5 RemoveTraps+5 MoveSilently+10 HearNoise+5 ClimbWalls-15 ReadLanguages-5
 
 /////////////////////////////////////////////////
-// All monsters
-
-Monster+1 CombatSkills
- elements Attack+1
-Monster+3 CombatSkills
- elements Attack+2
-Monster+5 CombatSkills
- elements Attack+2
-Monster+7 CombatSkills
- elements Attack+2
-Monster+9 CombatSkills
- elements Attack+2
-Monster+11 CombatSkills
- elements Attack+2
-
-/////////////////////////////////////////////////
 // Fighter
 
 Fighter+1 AllowedEquipment
@@ -72,44 +56,10 @@ Fighter+1 AllowedEquipment
 Fighter+1 BasicAbilities
  elements BonusHP WeaponSpecialist
 
-Fighter+2 CombatSkills
- elements Attack+1
-Fighter+3 CombatSkills
- elements Attack+1
-Fighter+4 CombatSkills
- elements Attack+1
-Fighter+5 CombatSkills
- elements Attack+1
-Fighter+6 CombatSkills
- elements Attack+1
 Fighter+7 CombatSkills
- elements Attack+1 AdditionalAttacks+1
-Fighter+8 CombatSkills
- elements Attack+1
-Fighter+9 CombatSkills
- elements Attack+1
-Fighter+10 CombatSkills
- elements Attack+1
-Fighter+11 CombatSkills
- elements Attack+1
-Fighter+12 CombatSkills
- elements Attack+1
+ elements AdditionalAttacks+1
 Fighter+13 CombatSkills
- elements Attack+1 AdditionalAttacks+1
-Fighter+14 CombatSkills
- elements Attack+1
-Fighter+15 CombatSkills
- elements Attack+1
-Fighter+16 CombatSkills
- elements Attack+1
-Fighter+17 CombatSkills
- elements Attack+1
-Fighter+18 CombatSkills
- elements Attack+1
-Fighter+19 CombatSkills
- elements Attack+1
-Fighter+20 CombatSkills
- elements Attack+1
+ elements AdditionalAttacks+1
 
 /////////////////////////////////////////////////
 // Paladin
@@ -121,44 +71,10 @@ Paladin+1 BasicAbilities
 Paladin+1 SaveThrow
  elements SaveVsParalization+10 SaveVsPoison+10 SaveVsTraps+10 SaveVsMagic+10
 
-Paladin+2 CombatSkills
- elements Attack+1
-Paladin+3 CombatSkills
- elements Attack+1
-Paladin+4 CombatSkills
- elements Attack+1
-Paladin+5 CombatSkills
- elements Attack+1
-Paladin+6 CombatSkills
- elements Attack+1
 Paladin+7 CombatSkills
- elements Attack+1 AdditionalAttacks+1
-Paladin+8 CombatSkills
- elements Attack+1
-Paladin+9 CombatSkills
- elements Attack+1
-Paladin+10 CombatSkills
- elements Attack+1
-Paladin+11 CombatSkills
- elements Attack+1
-Paladin+12 CombatSkills
- elements Attack+1
+ elements AdditionalAttacks+1
 Paladin+13 CombatSkills
- elements Attack+1 AdditionalAttacks+1
-Paladin+14 CombatSkills
- elements Attack+1
-Paladin+15 CombatSkills
- elements Attack+1
-Paladin+16 CombatSkills
- elements Attack+1
-Paladin+17 CombatSkills
- elements Attack+1
-Paladin+18 CombatSkills
- elements Attack+1
-Paladin+19 CombatSkills
- elements Attack+1
-Paladin+20 CombatSkills
- elements Attack+1
+ elements AdditionalAttacks+1
 
 /////////////////////////////////////////////////
 // Ranger
@@ -199,44 +115,10 @@ Ranger+14 TheifSkills
 Ranger+15 TheifSkills
  elements MoveSilently+6
 
-Ranger+2 CombatSkills
- elements Attack+1
-Ranger+3 CombatSkills
- elements Attack+1
-Ranger+4 CombatSkills
- elements Attack+1
-Ranger+5 CombatSkills
- elements Attack+1
-Ranger+6 CombatSkills
- elements Attack+1
 Ranger+7 CombatSkills
- elements Attack+1 AdditionalAttacks+1
-Ranger+8 CombatSkills
- elements Attack+1
-Ranger+9 CombatSkills
- elements Attack+1
-Ranger+10 CombatSkills
- elements Attack+1
-Ranger+11 CombatSkills
- elements Attack+1
-Ranger+12 CombatSkills
- elements Attack+1
+ elements AdditionalAttacks+1
 Ranger+13 CombatSkills
- elements Attack+1 AdditionalAttacks+1
-Ranger+14 CombatSkills
- elements Attack+1
-Ranger+15 CombatSkills
- elements Attack+1
-Ranger+16 CombatSkills
- elements Attack+1
-Ranger+17 CombatSkills
- elements Attack+1
-Ranger+18 CombatSkills
- elements Attack+1
-Ranger+19 CombatSkills
- elements Attack+1
-Ranger+20 CombatSkills
- elements Attack+1
+ elements AdditionalAttacks+1
 
 Ranger+8 Spells
  elements LearnClericSpells+1 Spell1+1
@@ -278,19 +160,6 @@ Cleric+6 Spells
 Cleric+7 Spells
  elements LearnClericSpells+4 Spell4+1
 
-Cleric+4 CombatSkills
- elements Attack+2
-Cleric+7 CombatSkills
- elements Attack+2
-Cleric+10 CombatSkills
- elements Attack+2
-Cleric+13 CombatSkills
- elements Attack+2
-Cleric+16 CombatSkills
- elements Attack+2
-Cleric+19 CombatSkills
- elements Attack+2
-
 /////////////////////////////////////////////////
 // Mage
 
@@ -310,19 +179,6 @@ Mage+6 Spells
  elements Spell3+1
 Mage+7 Spells
  elements Spell2+1 Spell4+1
-
-Mage+4 CombatSkills
- elements Attack+1
-Mage+7 CombatSkills
- elements Attack+1
-Mage+10 CombatSkills
- elements Attack+1
-Mage+13 CombatSkills
- elements Attack+1
-Mage+16 CombatSkills
- elements Attack+1
-Mage+19 CombatSkills
- elements Attack+1
 
 /////////////////////////////////////////////////
 // Theif
@@ -350,22 +206,3 @@ Theif+9 BasicAbilities
  elements Backstab+1
 Theif+13 BasicAbilities
  elements Backstab+1
-
-Theif+3 CombatSkills
- elements Attack+1
-Theif+5 CombatSkills
- elements Attack+1
-Theif+7 CombatSkills
- elements Attack+1
-Theif+9 CombatSkills
- elements Attack+1
-Theif+11 CombatSkills
- elements Attack+1
-Theif+13 CombatSkills
- elements Attack+1
-Theif+15 CombatSkills
- elements Attack+1
-Theif+17 CombatSkills
- elements Attack+1
-Theif+19 CombatSkills
- elements Attack+1

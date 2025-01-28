@@ -1755,6 +1755,24 @@ static void use_theif_tools(int bonus) {
 	player->speak("TheifTool", "NoTargets");
 }
 
+static void use_grappling_hook(int bonus) {
+	switch(loc->get(to(*player, player->d))) {
+	case CellPit:
+		pass_round();
+		return;
+	default:
+		break;
+	}
+	switch(loc->get(*player)) {
+	case CellPitUp:
+		pass_round();
+		return;
+	default:
+		break;
+	}
+	player->speak("GrapplingHook", "NoTargets");
+}
+
 static bool manipulate_overlay() {
 	auto p = loc->get(*player, player->d);
 	if(!p)

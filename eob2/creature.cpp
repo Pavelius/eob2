@@ -92,6 +92,12 @@ static char chance_learn_spell[] = {
 //	30, 30, 30, 35, 40, 45, 50, 55, 60, 65,
 //	70, 75, 80, 85, 88, 91, 95, 97, 99
 //};
+static char thac0_advance[4][22] = {
+	{0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
+	{0, 0, 0, 0, 2, 2, 2, 4, 4, 4, 6, 6, 6, 8, 8, 8, 10, 10, 10, 12, 12, 12},
+	{0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10},
+	{0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6},
+};
 static char saves_advance[4][5][22] = {
 	// Warriors - 0
 	{{16, 14, 14, 13, 13, 11, 11, 10, 10, 8, 8, 7, 7, 5, 5, 4, 4, 3, 3, 2, 2, 2},
@@ -420,17 +426,27 @@ static void update_summon() {
 	}
 }
 
+static int get_thac0_value() {
+	auto& ei = player->getclass();
+	auto result = 0;
+	for(auto i = 0; i < ei.count; i++) {
+		auto pi = bsdata<classi>::elements + ei.classes[i];
+		auto level = imin(imax(0, (int)player->levels[i]), 21);
+		auto save_group = imin(imax(0, (int)pi->save_group), 3);
+		auto value = thac0_advance[save_group][level];
+		if(value > result)
+			result = value;
+	}
+	return result;
+}
+
 static int get_save_value(int save_index_value) {
 	auto& ei = player->getclass();
 	auto result = 20;
 	for(auto i = 0; i < ei.count; i++) {
 		auto pi = bsdata<classi>::elements + ei.classes[i];
-		auto level = player->levels[i];
-		if(level > 22)
-			level = 22;
-		auto save_group = pi->save_group;
-		if(save_group > 3)
-			save_group = 3;
+		auto level = imin(imax(0, (int)player->levels[i]), 21);
+		auto save_group = imin(imax(0, (int)pi->save_group), 3);
 		auto value = saves_advance[save_group][save_index_value][level];
 		if(value < result)
 			result = value;
@@ -441,6 +457,12 @@ static int get_save_value(int save_index_value) {
 static void update_saves() {
 	for(auto i = SaveVsParalization; i <= SaveVsMagic; i = (abilityn)(i + 1))
 		player->abilities[i] += get_save_value(save_index[i - SaveVsParalization]);
+}
+
+static void update_thac0() {
+	auto value = get_thac0_value();
+	player->abilities[AttackMelee] += value;
+	player->abilities[AttackRange] += value;
 }
 
 static void update_bonus_experience() {
@@ -456,6 +478,7 @@ void update_player() {
 	update_wear();
 	update_duration();
 	update_saves();
+	update_thac0();
 	update_abilities();
 	update_depended_abilities();
 	update_additional_spells();

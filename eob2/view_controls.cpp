@@ -1329,6 +1329,7 @@ void paint_city() {
 	paint_party_status();
 	paint_party_sheets();
 	update_focus_player();
+	console_scroll(3000);
 	paint_console();
 }
 

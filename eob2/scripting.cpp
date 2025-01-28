@@ -1691,8 +1691,8 @@ static bool active_overlay(dungeoni::overlayi* p, bool test_linked) {
 	return false;
 }
 
-static bool use_tool_item(abilityn skill) {
-	if(player->roll(skill))
+static bool use_tool_item(abilityn skill, int bonus) {
+	if(player->roll(skill, bonus))
 		return true;
 	consolen(getnm(ids(bsdata<abilityi>::elements[skill].id, "Fail")));
 	last_item->usecharge("ToolBroken");
@@ -1704,6 +1704,13 @@ static void use_tool_success(celln n) {
 	consolen(getnm(ids(bsdata<celli>::elements[n].id, "Disable")));
 }
 
+static int get_level_difficult() {
+	auto n = loc->level;
+	if(n <= 1)
+		return 0;
+	return - (n - 1) * 5;
+}
+
 static void use_theif_tools(int bonus) {
 	auto p = loc->get(*player, player->d);
 	if(p) {
@@ -1711,7 +1718,7 @@ static void use_theif_tools(int bonus) {
 		case CellKeyHole:
 			if(active_overlay(p, true))
 				return;
-			if(use_tool_item(OpenLocks)) {
+			if(use_tool_item(OpenLocks, get_level_difficult())) {
 				if(p->link) {
 					use_tool_success(p->type);
 					loc->set(p->link, CellActive);
@@ -1723,7 +1730,7 @@ static void use_theif_tools(int bonus) {
 		case CellTrapLauncher:
 			if(active_overlay(p, false))
 				return;
-			if(use_tool_item(RemoveTraps)) {
+			if(use_tool_item(RemoveTraps, get_level_difficult())) {
 				use_tool_success(p->type);
 				p->set(CellActive);
 				loc->state.traps_disabled++;
@@ -1736,7 +1743,7 @@ static void use_theif_tools(int bonus) {
 	}
 	switch(loc->get(to(*player, player->d))) {
 	case CellPit:
-		if(use_tool_item(RemoveTraps)) {
+		if(use_tool_item(RemoveTraps, 2 * get_level_difficult())) {
 			loc->set(to(party, party.d), CellPassable);
 			use_tool_success(CellPit);
 		}

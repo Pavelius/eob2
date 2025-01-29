@@ -322,7 +322,7 @@ MageTheifStartEquipment
 CommonMissionEquipment
  elements Ration
 TheifMissionEquipment
- elements TheifTools
+ elements TheifTools GrapplingHook
 FighterMissionEquipment
  elements LargeRation
 ClericMissionEquipment

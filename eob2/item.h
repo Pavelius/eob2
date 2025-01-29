@@ -68,6 +68,6 @@ public:
 	void		setcount(int v);
 	void		setpower(variant v);
 	void		consume() { setcount(getcount() - 1); }
-	void		usecharge(const char* interactive, int chance = 35, int maximum = 10);
+	void		usecharge(const char* interactive, int chance = 35, int use = 1); // Maximum charges is always 10
 };
 extern item* last_item;

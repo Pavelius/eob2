@@ -1,2 +1,3 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `Mandibules`
+ Define translation for `ClimbWallsFail`
+ Define translation for `PartyClimbUp`

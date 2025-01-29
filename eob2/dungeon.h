@@ -60,6 +60,7 @@ struct dungeoni : dungeon_site {
 	void			getmonsters(creaturei** result, pointc index);
 	overlayi*		getoverlay(pointc v, celln type);
 	void			getoverlays(pointca& result, celln type, bool hidden) const;
+	directions		getpassable(pointc v) const;
 	int				getpassables(bool explored) const;
 	bool			have(const overlayi* p) const { return p >= overlays && p <= overlays + lenghtof(overlays); }
 	bool			have(const creaturei* p) const { return p >= monsters && p <= monsters + lenghtof(monsters); }
@@ -88,6 +89,7 @@ extern dungeoni *loc, *locup, *last_dungeon;
 const char* get_part_placement(pointc v);
 
 void dungeon_create();
+void enter_active_dungeon();
 bool filter_corridor(pointc v);
 void show_automap(bool show_fog_of_war, bool show_secrets, bool show_party, const pointca* red_markers);
 void show_automap(const pointca& markers, int explore_radius);

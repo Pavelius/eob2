@@ -29,6 +29,7 @@ ChooseGenerateOptions: Select the box of the character you wish to create or vie
 ChooseGeneratePlay: Your party is complete. Press 'P' to start the game.
 ChooseMageScrollsOptions: What scroll?
 ChooseRace: Select Race
+ClimbWallsFail: Climb pit failed
 ConsumeRod: %1 used last charge
 ConsumeTome: %+1 is read to the end
 CreateNewGame: Create new game
@@ -66,6 +67,7 @@ MulChooseDonation: Donate %1i golds
 OpenLocksFail: Pick locks fail
 PartyAdventure: Go to adventure
 PartyAdventureOptions: Which way to go?
+PartyClimbUp: Party climb up ...
 PartyGoingDown: Party going down...
 PartyGoingUp: Party going up...
 PartyFallPit: Party fall down...

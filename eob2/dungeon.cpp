@@ -357,19 +357,6 @@ bool dungeoni::ismonster(pointc v, featn f) const {
 bool dungeoni::ispassable(pointc v) const {
 	if(!v)
 		return false;
-	//switch(get(v)) {
-	//case CellPassable:
-	//case CellButton:
-	//case CellWebTorned:
-	//case CellBarelDestroyed:
-	//case CellCoconOpened:
-	//case CellGraveDesecrated:
-	//	return true;
-	//case CellDoor:
-	//	return is(v, CellActive);
-	//default:
-	//	return false;
-	//}
 	auto& e = bsdata<celli>::elements[get(v)];
 	if(e.flags.is(PassableActivated))
 		return is(v, CellActive);
@@ -386,11 +373,22 @@ bool dungeoni::isforbidden(pointc v) const {
 int dungeoni::around(pointc v, celln t1, celln t2) const {
 	auto result = 0;
 	for(auto d : all_directions) {
-		auto t = loc->get(to(v, d));
+		auto t = get(to(v, d));
 		if(t == t1 || t == t2)
 			result++;
 	}
 	return result;
+}
+
+directions dungeoni::getpassable(pointc v) const {
+	for(auto d : all_directions) {
+		auto v1 = to(v, d);
+		if(!v1)
+			continue;
+		if(ispassable(v1))
+			return d;
+	}
+	return Center;
 }
 
 void dungeoni::drop(pointc v, item& it, int side) {
@@ -465,9 +463,7 @@ void dungeoni::getmonsters(creaturei** result, pointc index) {
 }
 
 creaturei* dungeoni::getmonster(short unsigned monster_id) {
-	if(!loc)
-		return 0;
-	for(auto& e : loc->monsters) {
+	for(auto& e : monsters) {
 		if(e && e.monster_id == monster_id)
 			return &e;
 	}

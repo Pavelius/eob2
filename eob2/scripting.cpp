@@ -819,7 +819,7 @@ static bool read_effect(creaturei* pn, variant v, int experience, unsigned durat
 			result = false;
 		} else
 			script_run(v);
-		last_item->usecharge("ConsumeTome", 40, 5);
+		last_item->usecharge("ConsumeTome", 40, 3); // Aproximally 3-4 uses
 		pass_hours(1);
 	}
 	player = push_player;
@@ -1692,11 +1692,11 @@ static bool active_overlay(dungeoni::overlayi* p, bool test_linked) {
 	return false;
 }
 
-static bool use_tool_item(abilityn skill, int bonus, int chance_good_shape = 35) {
+static bool use_tool_item(abilityn skill, int bonus, int chance_good_shape = 35, int use = 1) {
 	if(player->roll(skill, bonus))
 		return true;
 	consolen(getnm(ids(bsdata<abilityi>::elements[skill].id, "Fail")));
-	last_item->usecharge("ToolBroken", chance_good_shape);
+	last_item->usecharge("ToolBroken", chance_good_shape, use);
 	return false;
 }
 
@@ -1749,7 +1749,7 @@ static void use_theif_tools(int bonus) {
 static void use_grappling_hook(int bonus) {
 	switch(loc->get(to(*player, player->d))) {
 	case CellPit:
-		if(use_tool_item(ClimbWalls, get_level_difficult(), 15)) {
+		if(use_tool_item(ClimbWalls, get_level_difficult(), 25, 2)) {
 			loc->set(to(party, party.d), CellPassable);
 			use_tool_success(CellPit, 20);
 		}
@@ -1761,10 +1761,15 @@ static void use_grappling_hook(int bonus) {
 	if(locup) {
 		switch(locup->get(*player)) {
 		case CellPit:
-			//if(use_tool_item(ClimbWalls, get_level_difficult(), 15)) {
-			//	loc->set(to(party, party.d), CellPassable);
-			//	use_tool_success(CellPit, 20);
-			//}
+			if(use_tool_item(ClimbWalls, get_level_difficult(), 25, 3)) {
+				auto pd = find_dungeon(loc->level - 1);
+				if(!pd)
+					break;
+				loc = pd;
+				enter_active_dungeon();
+				consolen(getnm("PartyClimbUp"));
+				use_tool_success(CellPit, 20);
+			}
 			pass_round();
 			return;
 		default:
@@ -1969,7 +1974,7 @@ static quest* find_quest(dungeoni* p) {
 	return 0;
 }
 
-static void enter_active_dungeon() {
+void enter_active_dungeon() {
 	locup = 0;
 	if(loc->level > 1)
 		locup = loc - 1;

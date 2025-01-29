@@ -237,11 +237,11 @@ void item::createpower(char magic_bonus, int chance_magical, int chance_cursed) 
 		setpower(source.random());
 }
 
-void item::usecharge(const char* interactive, int chance, int maximum) {
-	maximum += getpower().counter;
+void item::usecharge(const char* interactive, int chance, int use) {
+	auto maximum = 10 + getpower().counter;
 	if(d100() < chance)
 		return;
-	count++;
+	count += use;
 	if(count >= maximum) {
 		if(interactive)
 			consolen(getnm(interactive), getnm(geti().id));

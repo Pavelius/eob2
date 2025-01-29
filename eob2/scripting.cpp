@@ -128,12 +128,6 @@ template<> void ftscript<abilityi>(int value, int bonus) {
 	}
 }
 
-template<> bool fttest<partystati>(int value, int bonus) {
-	if(bonus>=0)
-		return party.abilities[value] >= bonus;
-	else
-		return party.abilities[value] < -bonus;
-}
 template<> void ftscript<partystati>(int value, int bonus) {
 	add_party((partystatn)value, get_bonus(bonus));
 	if(bonus == 0)

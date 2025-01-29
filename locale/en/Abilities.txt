@@ -28,6 +28,7 @@ ClimbWalls: Climb Walls
 CriticalDeflect: Critical deflect
 DetectSecrets: Detect Secrets
 HearNoise: Hear Noise
+Hits: Hits
 LearnSpell: Learning
 MoveSilently: Move Silently
 OpenLocks: Open locks

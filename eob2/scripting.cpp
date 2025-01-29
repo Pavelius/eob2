@@ -1692,16 +1692,17 @@ static bool active_overlay(dungeoni::overlayi* p, bool test_linked) {
 	return false;
 }
 
-static bool use_tool_item(abilityn skill, int bonus) {
+static bool use_tool_item(abilityn skill, int bonus, int chance_good_shape = 35) {
 	if(player->roll(skill, bonus))
 		return true;
 	consolen(getnm(ids(bsdata<abilityi>::elements[skill].id, "Fail")));
-	last_item->usecharge("ToolBroken");
+	last_item->usecharge("ToolBroken", chance_good_shape);
 	return false;
 }
 
-static void use_tool_success(celln n) {
-	player->addexp(100);
+static void use_tool_success(celln n, int add_experience = 100) {
+	if(add_experience)
+		player->addexp(add_experience);
 	consolen(getnm(ids(bsdata<celli>::elements[n].id, "Disable")));
 }
 
@@ -1742,34 +1743,33 @@ static void use_theif_tools(int bonus) {
 			break;
 		}
 	}
-	switch(loc->get(to(*player, player->d))) {
-	case CellPit:
-		if(use_tool_item(RemoveTraps, get_level_difficult() - 10)) {
-			loc->set(to(party, party.d), CellPassable);
-			use_tool_success(CellPit);
-		}
-		pass_round();
-		return;
-	default:
-		break;
-	}
 	player->speak("TheifTool", "NoTargets");
 }
 
 static void use_grappling_hook(int bonus) {
 	switch(loc->get(to(*player, player->d))) {
 	case CellPit:
+		if(use_tool_item(ClimbWalls, get_level_difficult(), 15)) {
+			loc->set(to(party, party.d), CellPassable);
+			use_tool_success(CellPit, 20);
+		}
 		pass_round();
 		return;
 	default:
 		break;
 	}
-	switch(loc->get(*player)) {
-	case CellPitUp:
-		pass_round();
-		return;
-	default:
-		break;
+	if(locup) {
+		switch(locup->get(*player)) {
+		case CellPit:
+			//if(use_tool_item(ClimbWalls, get_level_difficult(), 15)) {
+			//	loc->set(to(party, party.d), CellPassable);
+			//	use_tool_success(CellPit, 20);
+			//}
+			pass_round();
+			return;
+		default:
+			break;
+		}
 	}
 	player->speak("GrapplingHook", "NoTargets");
 }

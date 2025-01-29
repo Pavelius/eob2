@@ -122,7 +122,7 @@ Use it here? Are you sure?
 Not in this place!
 
 #TheifToolNoTargets
-Use on pit, trap launcher or key hole
+Use on trap launcher or key hole
 I don't see valid target
 
 #GrapplingHookNoTargets

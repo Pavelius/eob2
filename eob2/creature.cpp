@@ -236,6 +236,10 @@ static void update_basic() {
 }
 
 static int get_skill_level(featn v) {
+	// For monsters and other special effects
+	if(player->is(v))
+		return player->getlevel();
+	// For multiclass and characters
 	auto& ei = player->getclass();
 	for(auto i = 0; i < ei.count; i++) {
 		if(bsdata<classi>::elements[ei.classes[i]].is(v))

@@ -2115,8 +2115,10 @@ static bool party_move_interact(pointc v) {
 		if(find_dungeon(loc->level - 1)) {
 			enter_dungeon_from_up(loc->level - 1);
 			consolen(getnm("PartyGoingUp"));
-		} else if(confirm(getnm("ReturnToTownConfirm")))
+		} else if(confirm(getnm("ReturnToTownConfirm"))) {
+			last_location = bsdata<locationi>::elements;
 			enter_location(0);
+		}
 		break;
 	case CellStairsDown:
 		if(find_dungeon(loc->level + 1)) {

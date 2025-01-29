@@ -81,7 +81,9 @@ Magical: Magical
 OfAC: defence%+1i
 OfCharisma: human control
 OfClimbWalls: feather fall
+OfDetectMagic: magic sence
 OfDexterity: fox cunning
+OfDrakonoid: dragon bane
 OfHasted: speed
 OfHealEffect1: healing
 OfHealEffect2: extra-healing
@@ -97,6 +99,7 @@ OfProtection: protection%+1i
 OfProtectedFromEvil: proof against evil
 OfResistFire: fire resistance
 OfResistCold: cold resistance
+OfShock: shocking
 OfShockingGrasp: shocking
 OfStrenght1: bull strenght
 OfStrenght2: giant strenght

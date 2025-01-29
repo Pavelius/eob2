@@ -1,3 +1,4 @@
+#include "bsdata.h"
 #include "statable.h"
 
 void statable::add(abilityn i, int v) {

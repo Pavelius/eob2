@@ -366,6 +366,8 @@ RandomWands
  chance Wand
 RandomTools
  chance TheifTools+2 GrapplingHook+2 HolySymbol HolySymbolEvil MageBook
+RandomToolsSmall
+ chance TheifTools+2 HolySymbol HolySymbolEvil MageBook
 RandomExotic
  chance Bones
 RandomKeys
@@ -379,7 +381,7 @@ RandomItem
 	RandomKeys RandomTools+2 RandomExotic RandomGem
 
 RandomSmallItem
- chance RandomPotions+4 RandomRings RandomKeys RandomTools RandomWands RandomScrolls+4 RandomGem
+ chance RandomPotions+4 RandomRings RandomKeys RandomToolsSmall RandomWands RandomScrolls+4 RandomGem
 
 RandomTreasure
  chance RandomWeapon+4 RandomArmor RandomArmorMinor RandomRings RandomAmulets RandomExotic RandomGem

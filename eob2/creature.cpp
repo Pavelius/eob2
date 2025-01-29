@@ -154,6 +154,27 @@ static char theif_skill_adjustment[][5] = {
 	{15, 20, 10, 15, 15}, // 19
 };
 
+static char theif_skill_basic[][7] = {
+	{40, 10, 0, 0, 0, 0, 0}, // 0
+	{85, 10, 15, 25, 30, 20, 0}, // 1
+	{86, 10, 21, 29, 35, 25, 0}, // 2
+	{87, 15, 27, 33, 40, 30, 0}, // 3
+	{88, 15, 33, 37, 45, 35, 20}, // 4
+	{90, 20, 40, 42, 50, 40, 25}, // 5
+	{92, 20, 47, 47, 55, 45, 30}, // 6
+	{94, 25, 55, 52, 60, 50, 35}, // 7
+	{96, 25, 62, 57, 65, 55, 40}, // 8
+	{98, 30, 70, 62, 70, 60, 45}, // 9
+	{99, 30, 78, 67, 80, 65, 50}, // 10
+	{99, 35, 86, 72, 90, 70, 55}, // 11
+	{99, 35, 94, 77, 95, 75, 60}, // 12
+	{99, 40, 99, 82, 99, 80, 65}, // 13
+	{99, 40, 99, 87, 99, 85, 70}, // 14
+	{99, 50, 99, 92, 99, 90, 75}, // 15
+	{99, 50, 99, 97, 99, 95, 80}, // 16
+	{99, 55, 99, 99, 99, 99, 80}, // 17
+};
+
 static int experience_paladin[21] = {
 	0, 0, 2250, 4500, 9000, 18000, 36000, 75000, 150000, 300000,
 	600000, 900000, 1200000, 1500000, 1800000, 2100000, 2400000, 2700000, 3000000, 3300000,
@@ -212,6 +233,23 @@ static void update_languages() {
 static void update_basic() {
 	memcpy(player->abilities, player->basic.abilities, ExeptionalStrenght + 1);
 	memcpy(player->feats, player->basic.feats, sizeof(player->basic.feats));
+}
+
+static int get_skill_level(featn v) {
+	auto& ei = player->getclass();
+	for(auto i = 0; i < ei.count; i++) {
+		if(bsdata<classi>::elements[ei.classes[i]].is(v))
+			return player->levels[i];
+	}
+	return 0;
+}
+
+static void update_basic_skills() {
+	for(auto i = ClimbWalls; i <= ReadLanguages; i = (abilityn)(i + 1)) {
+		auto level = imin(imax(0, get_skill_level(bsdata<abilityi>::elements[i].skill)), 17);
+		auto value = theif_skill_basic[level][i - ClimbWalls];
+		player->abilities[i] += value;
+	}
 }
 
 static int get_maximum_hits() {
@@ -479,6 +517,7 @@ void update_player() {
 	update_duration();
 	update_saves();
 	update_thac0();
+	update_basic_skills();
 	update_abilities();
 	update_depended_abilities();
 	update_additional_spells();
@@ -569,7 +608,7 @@ void roll_player_hits() {
 	}
 }
 
-static void set_class_ability() {
+static void apply_class_ability() {
 	auto& ei = player->getclass();
 	for(char i = 0; i < ei.count; i++) {
 		auto pd = bsdata<classi>::elements + ei.classes[i];
@@ -578,7 +617,7 @@ static void set_class_ability() {
 	}
 }
 
-void set_race_ability() {
+void apply_race_ability() {
 	advance_level(bsdata<racei>::elements + player->race, 0);
 }
 
@@ -623,7 +662,7 @@ void update_player_hits() {
 
 void create_player_finish() {
 	set_basic_ability();
-	set_class_ability();
+	apply_class_ability();
 	update_player();
 	update_player_hits();
 	set_starting_equipment();
@@ -636,7 +675,7 @@ void create_player() {
 	player->clear();
 	create_npc(player, no_party_avatars, is_party_name);
 	generate_abilities();
-	set_race_ability();
+	apply_race_ability();
 	roll_player_hits();
 	create_player_finish();
 }
@@ -686,7 +725,7 @@ void create_monster(const monsteri * pi) {
 	player->alignment = pi->alignment;
 	player->reaction = pi->reaction;
 	set_basic_ability();
-	set_race_ability();
+	apply_race_ability();
 	apply_default_ability();
 	update_basic();
 	apply_feats(pi->feats);

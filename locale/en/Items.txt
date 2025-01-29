@@ -38,6 +38,7 @@ MageEvocationScroll: Scroll
 MageIllusionScroll: Scroll
 MagicMap: Map
 MageBook: Tome
+Mandibules: Mandibules
 PlateMail: Plate mail
 PriestScroll: Scroll
 PurpleGem: Gem

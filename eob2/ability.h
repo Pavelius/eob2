@@ -2,6 +2,8 @@
 
 #include "nameable.h"
 
+enum featn : unsigned char;
+
 enum abilityn : unsigned char {
 	Strenght, Dexterity, Constitution, Intellegence, Wisdow, Charisma,
 	SaveVsParalization, SaveVsPoison, SaveVsTraps, SaveVsMagic,
@@ -22,5 +24,6 @@ enum abilityn : unsigned char {
 };
 struct abilityi : nameable {
 	int		wearing_multiplier;
+	featn	skill;
 };
 extern abilityn last_ability;

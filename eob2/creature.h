@@ -84,7 +84,7 @@ bool no_party_avatars(unsigned char value);
 bool roll_ability(int chance);
 void roll_player_hits();
 void set_monster_spells();
-void set_race_ability();
+void apply_race_ability();
 void set_reaction(creaturei** creatures, reactions v);
 void update_player();
 void update_player_hits();

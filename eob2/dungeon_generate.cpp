@@ -929,6 +929,9 @@ static void link_dungeon(dungeoni& upper, dungeoni& current) {
 				pm2[v.y][v.x] = 0xFFFF;
 			if(current.get(v) == CellPit || upper.get(v) == CellPit)
 				pm2[v.y][v.x] = 0xFFFF;
+			// There is no items lying on pit cells
+			if(upper.isitem(v))
+				pm2[v.y][v.x] = 0xFFFF;
 			// There is no location right before stairs
 			if(v == to(upper.state.down, upper.state.down.d)
 				|| v == to(upper.state.up, upper.state.up.d)

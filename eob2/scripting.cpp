@@ -123,7 +123,7 @@ template<> void ftscript<abilityi>(int value, int bonus) {
 	if(!bonus)
 		return;
 	switch(modifier) {
-	case Permanent: player->basic.add((abilityn)value, get_bonus(bonus)); break;
+	case Permanent: player->basic.abilities[value] += get_bonus(bonus); break;
 	default: player->add((abilityn)value, get_bonus(bonus)); break;
 	}
 }
@@ -1145,7 +1145,7 @@ static void generate_party(int bonus) {
 			clear_spellbook();
 			create_npc(player, 0, is_party_name);
 			generate_abilities();
-			set_race_ability();
+			apply_race_ability();
 			roll_player_hits();
 			update_player();
 			update_player_hits();

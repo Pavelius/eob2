@@ -109,6 +109,7 @@ BSMETA(classi) = {
 	BSENM(classes, classi), BSREQ(count),
 	BSFLG(alignment, alignmenti),
 	BSFLG(races, racei),
+	BSFLG(feats, feati),
 	{}};
 BSMETA(color) = {
 	BSREQ(r), BSREQ(g), BSREQ(b),

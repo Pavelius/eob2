@@ -1,5 +1,6 @@
 #include "ability.h"
 #include "bsdata.h"
+#include "feat.h"
 
 BSDATA(abilityi) = {
 	{"Strenght", 100},
@@ -12,13 +13,13 @@ BSDATA(abilityi) = {
 	{"SaveVsPoison", 10},
 	{"SaveVsTraps", 10},
 	{"SaveVsMagic", 10},
-	{"ClimbWalls", 50},
-	{"HearNoise", 50},
-	{"MoveSilently", 50},
-	{"OpenLocks", 50},
-	{"PickPockets", 50},
-	{"RemoveTraps", 50},
-	{"ReadLanguages", 20},
+	{"ClimbWalls", 50, TheifSkills},
+	{"HearNoise", 50, TheifSkills},
+	{"MoveSilently", 50, StealthSkills},
+	{"OpenLocks", 50, TheifSkills},
+	{"PickPockets", 50, TheifSkills},
+	{"RemoveTraps", 50, TheifSkills},
+	{"ReadLanguages", 20, TheifSkills},
 	{"LearnSpell", 40},
 	{"ResistMagic", 20},
 	{"Sneaky", 1},

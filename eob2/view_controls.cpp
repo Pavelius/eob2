@@ -2233,7 +2233,7 @@ static void reroll_player() {
 	create_npc(player, 0, is_party_name);
 	player->avatar = avatar;
 	generate_abilities();
-	set_race_ability();
+	apply_race_ability();
 	roll_player_hits();
 	update_player();
 	update_player_hits();

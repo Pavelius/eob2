@@ -8,9 +8,11 @@ Mage minimal(0 0 0 9 0 0) primary(Intellegence) hd(4) classes(Mage) count(1) cas
  races Human Elf HalfElf
 Theif minimal(0 9 0 0 0 0) primary(Dexterity) hd(6) classes(Theif) count(1) caster(-1) save_group(2)
  alignment NeutralGood ChaoticGood TrueNeutral ChaoticNeutral NeutralEvil ChaoticEvil
+ feats TheifSkills StealthSkills
 Ranger minimal(13 13 14 0 14 0) primary(Strenght) hd(10) classes(Ranger) count(1) caster(3) exp_per_hd(1000) experience(4)
  alignment LawfulGood NeutralGood ChaoticGood
  races Human Elf HalfElf
+ feats StealthSkills
 Paladin minimal(12 0 9 0 13 17) primary(Strenght) hd(10) classes(Paladin) count(1) caster(2) exp_per_hd(1000) experience(4)
  alignment LawfulGood
  races Human

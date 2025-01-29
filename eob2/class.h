@@ -10,7 +10,7 @@ enum classn : unsigned char;
 
 typedef char abilitya[6];
 
-struct classi : nameable {
+struct classi : nameable, featable {
 	classn		classes[3];
 	char		count, hd, caster, experience;
 	char		save_group; // Calculation saving throws: 0 warrior, 1 priest, 2 rogues, 3 wizards

@@ -51,7 +51,7 @@ MiracleEffect
 
 #Action
 
-AskForMiracle
+AskForMiracle avatar(scenes 11)
  filter Blessing+50
  effect Roll2d6+5 Blessing-101 RollBlessing ApplyMiracle+1
 BuyDwarvenHealing cost(40)

@@ -1692,13 +1692,13 @@ static bool active_overlay(dungeoni::overlayi* p, bool test_linked) {
 	return false;
 }
 
-static bool use_tool_item(abilityn skill, int bonus, int chance_good_shape = 35, int use = 1) {
+static bool use_tool_item(abilityn skill, int bonus, int use = 1) {
 	if(player->roll(skill, bonus)) {
-		last_item->usecharge("ToolBroken", chance_good_shape, use);
+		last_item->usecharge("ToolBroken", 40, use);
 		return true;
 	}
 	consolen(getnm(ids(bsdata<abilityi>::elements[skill].id, "Fail")));
-	last_item->usecharge("ToolBroken", chance_good_shape, use);
+	last_item->usecharge("ToolBroken", 35, use);
 	return false;
 }
 
@@ -1751,7 +1751,7 @@ static void use_theif_tools(int bonus) {
 static void use_grappling_hook(int bonus) {
 	switch(loc->get(to(*player, player->d))) {
 	case CellPit:
-		if(use_tool_item(ClimbWalls, get_level_difficult(), 25, 2)) {
+		if(use_tool_item(ClimbWalls, get_level_difficult(), 2)) {
 			loc->set(to(party, party.d), CellPassable);
 			use_tool_success(CellPit, 20);
 		}
@@ -1763,7 +1763,7 @@ static void use_grappling_hook(int bonus) {
 	if(locup) {
 		switch(locup->get(*player)) {
 		case CellPit:
-			if(use_tool_item(ClimbWalls, get_level_difficult(), 25, 3)) {
+			if(use_tool_item(ClimbWalls, get_level_difficult(), 3)) {
 				auto pd = find_dungeon(loc->level - 1);
 				if(!pd)
 					break;

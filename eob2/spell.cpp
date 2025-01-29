@@ -78,11 +78,20 @@ static spelli* choose_prepared_spell() {
 	pushanswer push_answer;
 	if(!player->isactable())
 		return 0;
+	char temp[32]; stringbuilder sb(temp);
 	for(auto& e : bsdata<spelli>()) {
 		auto index = &e - bsdata<spelli>::elements;
 		auto count = player->spells[index];
-		for(auto i = 0; i < count; i++)
-			an.add(&e, e.getname());
+		if(!count)
+			continue;
+		sb.clear();
+		sb.add(e.getname());
+		sb.left(15);
+		while(sb.size() < 16)
+			sb.add(" ");
+		sb.add("%1i", count);
+		// for(auto i = 0; i < count; i++)
+			an.add(&e, temp);
 	}
 	if(!an) {
 		auto caster = player->getclass().caster;

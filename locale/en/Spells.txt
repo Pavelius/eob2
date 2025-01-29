@@ -1,7 +1,9 @@
 ﻿Aid: Aid
+Abjure: Abjure
 Augury: Augury
 Armor: Armor
 Barkskin: Barkskin
+BladeBarrier: Blade Barrier
 Bless: Bless
 Blinding: Blinding
 Blink: Blink
@@ -9,6 +11,8 @@ Blur: Blur
 BurningHands: Burning Hands
 ChillTouch: Chill Touch
 Clairaudience: Clairaudience
+CloackOfBravery: Cloack of Bravery
+CureCriticalWounds: Cure Critical Wounds
 CureDisease: Cure Disease
 CureLightWounds: Cure Light Wounds
 CurePoison: Cure Poison
@@ -17,10 +21,15 @@ ComprehendLanguages: Comprehend Lang.
 CreateFood: Create Food
 DetectEvil: Detect Evil
 DetectMagic: Detect Magic
+DispellEvil: Dispell Evil
 DispellMagic: Dispell Magic
+Fear: Fear
+FindPath: Find Path
 FindTraps: Find Traps
 Fireball: Fireball
 FlameBlade: Flame Blade
+FlameStrike: Flame Strike
+FreeAction: Free Action
 Friends: Friends
 Haste: Haste
 HealSpell: Heal

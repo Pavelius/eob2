@@ -1,3 +1,17 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `ClimbWallsFail`
- Define translation for `PartyClimbUp`
+ Define translation for `Abjure`
+ Define translation for `BladeBarrier`
+ Define translation for `CloackOfBravery`
+ Define translation for `CureCriticalWounds`
+ Define translation for `DispellEvil`
+ Define translation for `Fear`
+ Define translation for `FindPath`
+ Define translation for `FlameStrike`
+ Define translation for `FreeAction`
+ Define translation for `HeroesFeast`
+ Define translation for `HoldUndead`
+ Define translation for `RaiseDead`
+ Define translation for `Restoration`
+ Define translation for `SymbolPain`
+ Define translation for `TrueSeeing`
+ Define translation for `WorldOfRecall`

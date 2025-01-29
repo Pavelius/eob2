@@ -79,11 +79,12 @@ public:
 	bool			isempthy() const { return !pb || pb[0] == 0; }
 	bool			isfull() const { return p >= pe; }
 	bool			ispos(const char* v) const { return p == v; }
+	void			left(size_t value) { auto pn = pb + value; if(p > pn) { p = pn; p[0] = 0; }}
 	void			lower();
-	const char*	psidf(const char* pb);
-	const char*	psparam(const char* p);
-	const char*	psstr(const char* p, char end_symbol);
-	const char*	psstrlf(const char* p);
+	const char*		psidf(const char* pb);
+	const char*		psparam(const char* p);
+	const char*		psstr(const char* p, char end_symbol);
+	const char*		psstrlf(const char* p);
 	void			set(char* v) { p = v; p[0] = 0; }
 	size_t			size() const { return p - pb; }
 	void			trimr();

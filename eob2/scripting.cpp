@@ -128,8 +128,16 @@ template<> void ftscript<abilityi>(int value, int bonus) {
 	}
 }
 
+template<> bool fttest<partystati>(int value, int bonus) {
+	if(bonus>=0)
+		return party.abilities[value] >= bonus;
+	else
+		return party.abilities[value] < -bonus;
+}
 template<> void ftscript<partystati>(int value, int bonus) {
 	add_party((partystatn)value, get_bonus(bonus));
+	if(bonus == 0)
+		last_number = party.abilities[value];
 }
 
 template<> void ftscript<itemi>(int value, int bonus) {
@@ -602,10 +610,47 @@ static void drop_city_item() {
 	add_party(GoldPiece, cost);
 }
 
+static void player_add_ability(int bonus) {
+	ftscript<abilityi>(last_ability, bonus);
+}
+
+static void player_raise_hp(int bonus) {
+	player->hpr += get_bonus(bonus) * player->getclass().count;
+}
+
 static void player_add_aid(int bonus) {
 	player->hp_aid += get_bonus(bonus);
 	if(player->hp_aid < 0)
 		player->hp_aid = 0;
+}
+
+static void apply_miracle(int bonus) {
+	auto result = single("MiracleEffect");
+	if(result.iskind<abilityi>()) {
+		switch(result.value) {
+		case Strenght: case Dexterity: case Constitution:
+		case Intellegence: case Wisdow: case Charisma:
+		case AttackMelee: case AttackRange:
+		case DamageMelee: case DamageRange:
+			bonus += player->basic.abilities[result.value];
+			if(bonus > 25)
+				bonus = 25;
+			player->basic.abilities[result.value] = bonus;
+			break;
+		case Hits:
+			player->hpr += bonus * player->getclass().count;
+			break;
+		default:
+			bonus *= 5;
+			bonus += player->basic.abilities[result.value];
+			if(bonus > 120)
+				bonus = 120;
+			player->basic.abilities[result.value] = bonus;
+			break;
+		}
+	}
+	consolen(getnm("AskForMiracleSuccessText"), result.getname());
+	update_player();
 }
 
 static void player_heal(int bonus) {
@@ -2351,6 +2396,13 @@ static void apply_racial_enemy(int bonus) {
 		player->hate.remove(last_race);
 }
 
+static void console_message(const char* action) {
+	auto p = find_text(last_id, action);
+	if(!p)
+		return;
+	consolen(p);
+}
+
 static void player_speak(const char* action) {
 	player->speakn(last_id, action);
 }
@@ -2379,6 +2431,7 @@ static void make_roll(int bonus) {
 	} else {
 		script_stop();
 		dialog_message("Fail");
+		console_message("FailText");
 		player_speak("FailSpeech");
 		apply_script(last_id, "Fail", 0);
 	}
@@ -2390,6 +2443,7 @@ static void make_blessing_roll(int bonus) {
 	else {
 		script_stop();
 		dialog_message("Fail");
+		console_message("FailText");
 		apply_script(last_id, "Fail", 0);
 	}
 }
@@ -2907,6 +2961,10 @@ static bool if_zero() {
 	return last_number == 0;
 }
 
+static bool if_greater() {
+	return last_number == 0;
+}
+
 static bool if_intelligence() {
 	return player->get(Intellegence) >= 6;
 }
@@ -3213,6 +3271,7 @@ BSDATA(conditioni) = {
 	{"IfAlive", if_alive},
 	{"IfAreaLocked", if_area_locked},
 	{"IfDiseased", if_diseased},
+	{"IfGreater", if_greater},
 	{"IfIntelligence", if_intelligence},
 	{"IfItemBribe", if_item_bribe},
 	{"IfItemCanLearnSpell", if_item_can_learn_spell},
@@ -3242,6 +3301,7 @@ BSDATA(script) = {
 	{"ActionItems", action_items},
 	{"ActionPlayerItems", action_player_items},
 	{"ActivateLinkedOverlay", activate_linked_overlay},
+	{"AddAbility", player_add_ability},
 	{"AddAid", player_add_aid},
 	{"AddAreaItems", add_area_items},
 	{"AddAreaMonsters", add_area_monsters},
@@ -3256,6 +3316,7 @@ BSDATA(script) = {
 	{"ApplyAction", apply_action},
 	{"ApplyCarousing", apply_carousing},
 	{"ApplyEnchantSpell", apply_enchant_spell},
+	{"ApplyMiracle", apply_miracle},
 	{"ApplyRacialEnemy", apply_racial_enemy},
 	{"BestPlayer", best_player},
 	{"BuyMenu", buy_menu},
@@ -3322,6 +3383,7 @@ BSDATA(script) = {
 	{"PushModifier", push_modifier},
 	{"PushPlayer", push_player},
 	{"PushQuest", push_quest},
+	{"RaiseHP", player_raise_hp},
 	{"RandomArea", random_area},
 	{"ReactionCheck", reaction_check},
 	{"ReadStory", read_story},

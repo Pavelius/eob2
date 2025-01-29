@@ -1,9 +1,5 @@
 #List
 
-BuyArmors
- elements BuyMenu LeatherArmor ScaleMail BandedMail
-BuyWeapons
- elements BuyMenu ShortSword Longsword Dagger BattleAxe Mace
 EnemyNoSurprise
  elements ForEachOpponents Surprised-1
 PartySurprise
@@ -11,6 +7,10 @@ PartySurprise
 PartyAmbush
  elements Hostile PartySurprise EnemyNoSurprise
 
+BuyArmors
+ elements BuyMenu LeatherArmor ScaleMail BandedMail
+BuyWeapons
+ elements BuyMenu ShortSword Longsword Dagger BattleAxe Mace
 CalmDownFail
  elements PartyAmbush
 ChooseBet
@@ -42,9 +42,18 @@ PickPocketsActionFail
  chance PickPocketsNothing+4 PickPocketsFight
 PickPocketsActionSuccess
  chance PickPocketsCoinsAtBar
+RandomAbility
+ chance Strenght Dexterity Constitution Intellegence Wisdow Charisma
+RandomSave
+ chance SaveVsPoison SaveVsTraps SaveVsMagic
+MiracleEffect
+ chance RandomAbility+3 RandomSave+2 Hits
 
 #Action
 
+AskForMiracle
+ filter Blessing+50
+ effect Roll2d6+5 Blessing-101 RollBlessing ApplyMiracle+1
 BuyDwarvenHealing cost(40)
  filter IfAlive IfWounded
  effect Heal+120 DiseaseLevel-100 PoisonLevel-100
@@ -123,7 +132,7 @@ Inn avatar(buildngs 7) parent(HunterVillage) cost(10)
 Tavern avatar(buildngs 5) parent(HunterVillage)
  options EatAndDrink TavernCarousing GambleVisitors PickPocketsAction ReturnToStreet
 Temple avatar(buildngs 8) parent(HunterVillage)
- options BuyHealing Donate ReturnToStreet
+ options AskForMiracle BuyHealing Donate ReturnToStreet
 Blacksmith avatar(buildngs 0) parent(HunterVillage)
  options RepairItems BuyWeapon ReturnToStreet
  required Reputation(25)

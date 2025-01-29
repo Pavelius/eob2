@@ -965,18 +965,12 @@ int creaturei::getexpaward() const {
 		return pm->experience;
 	if(get(AC) >= 10)
 		r += 1;
-	//if(is(OfPoison))
-	//	r += 1;
 	if(is(ResistBludgeon) || is(ResistPierce) || is(ResistSlashing))
 		r += 1;
 	if(is(ImmuneNormalWeapon))
 		r += 1;
-	//if(is(OfEnergyDrain))
-	//	r += 3;
 	if(is(Undead))
 		r++;
-	//if(is(OfFear))
-	//	r += 1;
 	if(is(ParalizeAttack))
 		r += 1;
 	if(basic.abilities[ResistMagic] >= 50)

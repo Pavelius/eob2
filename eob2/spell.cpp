@@ -90,8 +90,7 @@ static spelli* choose_prepared_spell() {
 		while(sb.size() < 16)
 			sb.add(" ");
 		sb.add("%1i", count);
-		// for(auto i = 0; i < count; i++)
-			an.add(&e, temp);
+		an.add(&e, temp);
 	}
 	if(!an) {
 		auto caster = player->getclass().caster;

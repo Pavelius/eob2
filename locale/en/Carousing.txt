@@ -2,7 +2,7 @@
 In the middle of evening %Name jump on the table and start jungling empthy bottles speaking stupid jokes about a king. Local tavern patrons clapped their hands approvingly and drank to your health while enjoying the show.
 #AmazingAcrobaticPerfomanceFail
 But in the end %Name drop down and collapse table. Bottles flies away and hit patrons. In general, no one appreciated the end of your perfomance.
-#AmazingAcrobaticPerfomanceSuccess:
+#AmazingAcrobaticPerfomanceSuccess
 In the end %Name drop down on table and catch all bottles. The crowd shouted with delight. For now, you %Name is hero of this drunken patrons!
 
 #AmazingChanting
@@ -63,7 +63,7 @@ Tavern is set a fire.
 #GatherTreasureMap
 Old man with scars sold to you treasure map.
 
-#GallopedNackedByCityStreets
+#GallopedNackedByCityStreet
 %Name bet with one tavern guest that would ride naked through the city on a horse in the middle of the night. And there is you in the saddle, galloped by city street!
 #GallopedNackedByCityStreetSuccess
 After all you scare some street beggars and cats. Nobody can stop your perfomance, but you get a cash from surprised tavern guest.

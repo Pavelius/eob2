@@ -289,7 +289,7 @@ BSDATA(varianti) = {
 	{"Modifier", VAR(modifieri, 1), 0, 0, ftscript<modifieri>},
 	{"Monster", VAR(monsteri, 1)},
 	{"Quest", VAR(quest, 1), 0, 0, ftscript<quest>},
-	{"PartyAbility", VAR(partystati, 1), 0, 0, ftscript<partystati>},
+	{"PartyAbility", VAR(partystati, 1), 0, 0, ftscript<partystati>, fttest<partystati>},
 	{"Race", VAR(racei, 1), 0, 0, ftscript<racei>},
 	{"RandomEffect", VAR(randomeffecti, 1), 0, 0, ftscript<randomeffecti>},
 	{"RandomList", VAR(randomizeri, 1), 0, 0, ftscript<randomizeri>},

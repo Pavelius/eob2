@@ -1,4 +1,7 @@
 ﻿AmbushTest: You were ambushed by enemy!
+AskForMiracle: Ask for Miracle
+AskForMiracleFailText: %Diety don't answer the call
+AskForMiracleSuccessText: %Name's %1 raised
 Attack: Attack
 Bribe: Bribe
 BuyDwarvenWeapon: Buy Weapon

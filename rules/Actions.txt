@@ -47,7 +47,7 @@ RandomAbility
 RandomSave
  chance SaveVsPoison SaveVsTraps SaveVsMagic
 MiracleEffect
- chance RandomAbility+3 RandomSave+2 Hits
+ chance RaiseBestClassAbility+1 RandomAbility+2 RandomSave+1 Hits+1
 
 #Action
 

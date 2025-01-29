@@ -624,8 +624,17 @@ static void player_add_aid(int bonus) {
 		player->hp_aid = 0;
 }
 
+static void raise_best_class_ability(int bonus) {
+	auto n = player->getclass().primary;
+	bonus += player->basic.abilities[n];
+	if(bonus > 25)
+		bonus = 25;
+	player->basic.abilities[n] = bonus;
+}
+
 static void apply_miracle(int bonus) {
 	auto result = single("MiracleEffect");
+	result.counter = bonus;
 	if(result.iskind<abilityi>()) {
 		switch(result.value) {
 		case Strenght: case Dexterity: case Constitution:
@@ -648,7 +657,8 @@ static void apply_miracle(int bonus) {
 			player->basic.abilities[result.value] = bonus;
 			break;
 		}
-	}
+	} else
+		script_run(result);
 	consolen(getnm("AskForMiracleSuccessText"), result.getname());
 	update_player();
 }
@@ -3383,6 +3393,7 @@ BSDATA(script) = {
 	{"PushModifier", push_modifier},
 	{"PushPlayer", push_player},
 	{"PushQuest", push_quest},
+	{"RaiseBestClassAbility", raise_best_class_ability},
 	{"RaiseHP", player_raise_hp},
 	{"RandomArea", random_area},
 	{"ReactionCheck", reaction_check},

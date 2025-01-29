@@ -1693,8 +1693,10 @@ static bool active_overlay(dungeoni::overlayi* p, bool test_linked) {
 }
 
 static bool use_tool_item(abilityn skill, int bonus, int chance_good_shape = 35, int use = 1) {
-	if(player->roll(skill, bonus))
+	if(player->roll(skill, bonus)) {
+		last_item->usecharge("ToolBroken", chance_good_shape, use);
 		return true;
+	}
 	consolen(getnm(ids(bsdata<abilityi>::elements[skill].id, "Fail")));
 	last_item->usecharge("ToolBroken", chance_good_shape, use);
 	return false;

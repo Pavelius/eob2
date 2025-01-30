@@ -46,13 +46,13 @@ RandomAbility
  chance Strenght Dexterity Constitution Intellegence Wisdow Charisma
 RandomSave
  chance SaveVsPoison SaveVsTraps SaveVsMagic
-MiracleEffect
- chance RaiseBestClassAbility+1 RandomAbility+2 RandomSave+1 Hits+1
+MiracleAbility
+ chance BestAbility+1 RandomAbility+2 RandomSave+1 Hits+1
 
 #Action
 
 AskForMiracle avatar(scenes 11)
- effect Roll3d6+5 Blessing-101 RollBlessing ApplyMiracle+1
+ effect Roll3d6+5 Blessing-101 RollBlessing MiracleAbility RaiseAbility+1
  required Blessing(50)
 BuyDwarvenHealing cost(40)
  filter IfAlive IfWounded

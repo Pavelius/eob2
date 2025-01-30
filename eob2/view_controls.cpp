@@ -1276,6 +1276,10 @@ static void paint_quest_goals() {
 }
 
 static void field(const char* header, int title_width, int total, int value, int maximum) {
+	if(value > maximum)
+		value = maximum;
+	else if(value < 0)
+		value = 0;
 	auto push_width = width;
 	auto push_height = height;
 	auto push_caret = caret;

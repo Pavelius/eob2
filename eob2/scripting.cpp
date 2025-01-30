@@ -618,42 +618,34 @@ static void player_add_aid(int bonus) {
 		player->hp_aid = 0;
 }
 
-static void raise_best_class_ability(int bonus) {
-	auto n = player->getclass().primary;
-	bonus += player->basic.abilities[n];
-	if(bonus > 25)
-		bonus = 25;
-	player->basic.abilities[n] = bonus;
+static void player_best_ability(int bonus) {
+	last_ability = player->getclass().primary;
 }
 
-static void apply_miracle(int bonus) {
-	auto result = single("MiracleEffect");
-	result.counter = bonus;
-	if(result.iskind<abilityi>()) {
-		switch(result.value) {
-		case Strenght: case Dexterity: case Constitution:
-		case Intellegence: case Wisdow: case Charisma:
-		case AttackMelee: case AttackRange:
-		case DamageMelee: case DamageRange:
-			bonus += player->basic.abilities[result.value];
-			if(bonus > 25)
-				bonus = 25;
-			player->basic.abilities[result.value] = bonus;
-			break;
-		case Hits:
-			player->hpr += bonus * player->getclass().count;
-			break;
-		default:
-			bonus *= 5;
-			bonus += player->basic.abilities[result.value];
-			if(bonus > 120)
-				bonus = 120;
-			player->basic.abilities[result.value] = bonus;
-			break;
-		}
-	} else
-		script_run(result);
-	consolen(getnm("AskForMiracleSuccessText"), result.getname());
+static void raise_ability(int bonus) {
+	switch(last_ability) {
+	case Strenght:
+	case Dexterity: case Constitution:
+	case Intellegence: case Wisdow: case Charisma:
+	case AttackMelee: case AttackRange:
+	case DamageMelee: case DamageRange:
+		bonus += player->basic.abilities[last_ability];
+		if(bonus > 25)
+			bonus = 25;
+		player->basic.abilities[last_ability] = bonus;
+		break;
+	case Hits:
+		player->hpr += bonus * player->getclass().count;
+		break;
+	default:
+		bonus *= 5;
+		bonus += player->basic.abilities[last_ability];
+		if(bonus > 120)
+			bonus = 120;
+		player->basic.abilities[last_ability] = bonus;
+		break;
+	}
+	consolen(getnm(ids(last_id, "SuccessText")), bsdata<abilityi>::elements[last_ability].getname());
 	update_player();
 }
 
@@ -2873,6 +2865,10 @@ static void player_gender(stringbuilder& sb) {
 	sb.add(getnm(getid<genderi>(player->gender)));
 }
 
+static void ability_name(stringbuilder& sb) {
+	sb.add(bsdata<abilityi>::elements[last_ability].getname());
+}
+
 static void player_class(stringbuilder& sb) {
 	sb.add(getnm(getid<classi>(player->character_class)));
 }
@@ -3245,6 +3241,7 @@ static void talk_about(int bonus) {
 }
 
 BSDATA(textscript) = {
+	{"Ability", ability_name},
 	{"Class", player_class},
 	{"Diety", diety_name},
 	{"DungeonBoss", dungeon_boss},
@@ -3322,8 +3319,8 @@ BSDATA(script) = {
 	{"ApplyAction", apply_action},
 	{"ApplyCarousing", apply_carousing},
 	{"ApplyEnchantSpell", apply_enchant_spell},
-	{"ApplyMiracle", apply_miracle},
 	{"ApplyRacialEnemy", apply_racial_enemy},
+	{"BestAbility", player_best_ability},
 	{"BestPlayer", best_player},
 	{"BuyMenu", buy_menu},
 	{"Caster", set_caster},
@@ -3389,7 +3386,7 @@ BSDATA(script) = {
 	{"PushModifier", push_modifier},
 	{"PushPlayer", push_player},
 	{"PushQuest", push_quest},
-	{"RaiseBestClassAbility", raise_best_class_ability},
+	{"RaiseAbility", raise_ability},
 	{"RaiseHP", player_raise_hp},
 	{"RandomArea", random_area},
 	{"ReactionCheck", reaction_check},

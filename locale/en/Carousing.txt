@@ -62,6 +62,8 @@ Tavern is set a fire.
 
 #GatherTreasureMap
 Old man with scars sold to you treasure map.
+#GatherTreasureMapFail
+But, when you examine map close you undestand - this is only fake.
 
 #GallopedNackedByCityStreet
 %Name bet with one tavern guest that would ride naked through the city on a horse in the middle of the night. And there is you in the saddle, galloped by city street!

@@ -1509,7 +1509,7 @@ static void buy_menu(int bonus) {
 	}
 }
 
-static void choose_items(int bonus) {
+static void choose_item(int bonus) {
 	scriptbody commands;
 	choose_item(last_id, commands, bonus);
 	script_stop();
@@ -2310,6 +2310,14 @@ static void choose_spells(int bonus) {
 	choose_spells("Spells available:", "Cancel", bonus);
 }
 
+static void choose_wear(int bonus) {
+	pushanswer push;
+	for(auto& e : player->equipment()) {
+		if(!e)
+			continue;
+	}
+}
+
 static void identify_item(int bonus) {
 	last_item->identify(bonus);
 }
@@ -2569,6 +2577,13 @@ static void push_item(int bonus) {
 	auto push = last_item;
 	script_run();
 	last_item = push;
+}
+
+static void push_interactive(int bonus) {
+	auto push = show_interactive;
+	show_interactive = (bonus >= 0);
+	script_run();
+	show_interactive = push;
 }
 
 static void monsters_reaction(int bonus) {
@@ -3075,6 +3090,14 @@ static bool if_item_damaged() {
 	return last_item->isdamaged();
 }
 
+static bool if_item() {
+	return last_item != 0;
+}
+
+static bool if_wear() {
+	return last_item >= (player->wears + Head) && last_item <= (player->wears + Quiver);
+}
+
 static bool if_item_bribe() {
 	if(last_item->isidentified() && last_item->ismagical())
 		return false;
@@ -3282,6 +3305,7 @@ BSDATA(conditioni) = {
 	{"IfDiseased", if_diseased},
 	{"IfGreater", if_greater},
 	{"IfIntelligence", if_intelligence},
+	{"IfItem", if_item},
 	{"IfItemBribe", if_item_bribe},
 	{"IfItemCanLearnSpell", if_item_can_learn_spell},
 	{"IfItemCharged", if_item_charged},
@@ -3300,6 +3324,7 @@ BSDATA(conditioni) = {
 	{"IfPoisoned", if_poisoned},
 	{"IfPrepared", if_prepared},
 	{"IfTalk", if_talk},
+	{"IfWear", if_wear},
 	{"IfWounded", if_wounded},
 	{"IfZero", if_zero},
 };
@@ -3336,7 +3361,7 @@ BSDATA(script) = {
 	{"ChooseAlignment", choose_alignment},
 	{"ChooseClass", choose_class},
 	{"ChooseGender", choose_gender},
-	{"ChooseItems", choose_items},
+	{"ChooseItem", choose_item},
 	{"ChooseMenu", choose_menu},
 	{"ChooseRace", choose_race},
 	{"ChooseShopItem", choose_shop_item},
@@ -3388,6 +3413,7 @@ BSDATA(script) = {
 	{"PassRound", pass_round},
 	{"PortalTeleportation", portal_teleportation},
 	{"Protection", protection_modify},
+	{"PushInteractive", push_interactive},
 	{"PushItem", push_item},
 	{"PushModifier", push_modifier},
 	{"PushPlayer", push_player},

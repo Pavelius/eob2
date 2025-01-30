@@ -6,6 +6,11 @@
 // - Make additional rolls by `<Ability> Roll` script. For example `Constitution Roll`, or `Strenght Roll-2`.
 // - Make damage by `<RollDice>` `<Damage>+101` script. For example `Roll3d6 Bludgeon+101`.
 
+#List
+
+RandomNotCursedWear
+ elements PushInteractive-1 ChooseItem IfWear IfItemCursed-1
+
 #RandomList
 
 RandomJewelry
@@ -27,7 +32,7 @@ AmazingPickPockets ability(PickPockets) avatar(buildngs 10)
  success Roll3d8 Mul+5 GoldPiece+101 RandomJewelry CreatePower+5 IdentifyItem+1
 ArmRestlingContest ability(Strenght) avatar(scenes 9)
 DrinkingContest ability(Constitution) avatar(buildngs 6)
-DrinkingIllness ability(SaveVsPoison)
+DrinkingIllness ability(SaveVsPoison) avatar(scenes 16)
  success SaveVsPoison RaiseAbility+1
  fail DiseaseLevel+4
 FireIncident ability(Dexterity) avatar(scenes 13)
@@ -49,8 +54,8 @@ SeduceBeautifulWoman ability(Charisma) avatar(npc 53)
  success AddExpPersonal+3
 SeduceLocalPriestess ability(Charisma) avatar(npc 55)
  filter Male
- fail Blessing-2
- success AddExpPersonal+3 Blessing+1
+ fail RandomNotCursedWear IfItem CurseItem+1
+ success AddExpPersonal+3 Blessing+3
 SeducedByBeautifulMan ability(Charisma) avatar(buildngs 20)
  filter Female
  fail AddExpPersonal+1

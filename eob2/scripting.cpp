@@ -61,6 +61,9 @@ template<> void ftscript<racei>(int value, int bonus) {
 	last_race = (racen)value;
 }
 
+template<> bool fttest<classi>(int value, int bonus) {
+	return (player->getlevel((classn)value) > 0) == (bonus >= 0);
+}
 template<> void ftscript<classi>(int value, int bonus) {
 	last_class = (classn)value;
 }

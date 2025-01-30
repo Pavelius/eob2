@@ -28,3 +28,8 @@ template<> void ftscript<listi>(int value, int counter) {
 	auto p = bsdata<listi>::elements + value;
 	script_run(p->id, p->elements);
 }
+
+template<> bool fttest<listi>(int value, int counter) {
+	auto result = script_allow(bsdata<listi>::elements[value].elements, (counter==2 || counter==-2));
+	return (counter >= 0) ? result : !result;
+}

@@ -11,11 +11,6 @@
 RandomJewelry
  chance RandomRings RandomAmulets
 
-#List
-
-TheifClasses
- elements Theif FighterTheif MageTheif
-
 #Carousing
 
 AmazingAcrobaticPerfomance ability(Dexterity) avatar(scenes 10)
@@ -27,7 +22,7 @@ AmazingGambling ability(Charisma) avatar(buildngs 24)
  fail Roll3d8 Mul+5 GoldPiece+101
  success Roll8d8 Mul+10 GoldPiece+101
 AmazingPickPockets ability(PickPockets) avatar(buildngs 10)
- filter TheifClasses
+ filter Theif
  fail Roll3d8 Mul+5 GoldPiece+101
  success Roll3d8 Mul+5 GoldPiece+101 RandomJewelry CreatePower+5 IdentifyItem+1
 ArmRestlingContest ability(Strenght) avatar(scenes 9)
@@ -48,11 +43,11 @@ JoinAllyFriendPatron ability(Charisma) avatar(npc 65)
 RobbedByThief ability(Wisdow) avatar(buildngs 10)
  fail Roll6d8 Mul+10 GoldPiece-101
  success Reputation+1
-SeduceBeautifulWoman ability(Charisma) avatar(buildngs 20)
+SeduceBeautifulWoman ability(Charisma) avatar(npc 53)
  filter Male
  fail AddExpPersonal+1 DiseaseLevel+3
  success AddExpPersonal+3
-SeduceLocalPriestess ability(Charisma) avatar(buildngs 20)
+SeduceLocalPriestess ability(Charisma) avatar(npc 55)
  filter Male
  fail Blessing-2
  success AddExpPersonal+3 Blessing+1

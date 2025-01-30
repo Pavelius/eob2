@@ -38,7 +38,7 @@ extern variant* script_end;
 extern const char* last_id;
 
 bool script_allow(variant v);
-bool script_allow(const variants& elements);
+bool script_allow(const variants& elements, bool apply_and = true);
 void script_stop();
 bool script_stopped();
 void script_run();

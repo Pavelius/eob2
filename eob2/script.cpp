@@ -59,21 +59,31 @@ bool script_allow(variant v) {
 	return true;
 }
 
-bool script_allow(const variants& elements) {
+bool script_allow(const variants& elements, bool apply_and) {
 	auto push_begin = script_begin;
 	auto push_end = script_end;
 	script_begin = elements.begin();
 	script_end = elements.end();
-	while(script_begin < script_end) {
-		if(!script_allow(*script_begin++)) {
-			script_begin = push_begin;
-			script_end = push_end;
-			return false;
+	auto result = true;
+	if(apply_and) {
+		while(script_begin < script_end) {
+			if(!script_allow(*script_begin++)) {
+				result = false;
+				break;
+			}
+		}
+	} else {
+		result = false;
+		while(script_begin < script_end) {
+			if(script_allow(*script_begin++)) {
+				result = true;
+				break;
+			}
 		}
 	}
 	script_begin = push_begin;
 	script_end = push_end;
-	return true;
+	return result;
 }
 
 void script_run() {

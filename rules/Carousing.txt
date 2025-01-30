@@ -21,7 +21,7 @@ TheifClasses
 AmazingAcrobaticPerfomance ability(Dexterity) avatar(scenes 10)
  fail Roll1d6 Bludgeon+101
  success Roll3d6 GoldPiece+101 Reputation+2
-AmazingChanting ability(Charisma)
+AmazingChanting ability(Charisma) avatar(scenes 14)
 AmazingGambling ability(Charisma) avatar(buildngs 24)
  fail Roll3d8 Mul+5 GoldPiece+101
  success Roll8d8 Mul+10 GoldPiece+101
@@ -30,7 +30,7 @@ AmazingPickPockets ability(PickPockets) avatar(buildngs 10)
  fail Roll3d8 Mul+5 GoldPiece+101
  success Roll3d8 Mul+5 GoldPiece+101 RandomJewelry CreatePower+5 IdentifyItem+1
 ArmRestlingContest ability(Strenght) avatar(scenes 9)
-DrinkingContest
+DrinkingContest avatar(buildngs 6)
 DrinkingIllness ability(SaveVsPoison)
  fail DiseaseLevel+4
 FireIncident avatar(scenes 13)
@@ -40,9 +40,9 @@ FightingVsGuards avatar(scenes 0)
  fail Roll3d6 Bludgeon+101
 GallopedNackedByCityStreet ability(Dexterity) avatar(scenes 7)
  success Roll3d6 GoldPiece+101 Reputation+3
-GatherTreasureMap
-JoinAllyFriendPatron
-RobbedByThief ability(Wisdow)
+GatherTreasureMap avatar(scenes 15)
+JoinAllyFriendPatron avatar(npc 65)
+RobbedByThief ability(Wisdow) avatar(buildngs 10)
  fail Roll6d8 Mul+10 GoldPiece-101
  success Reputation+1
 SeduceBeautifulWoman ability(Charisma) avatar(buildngs 20)

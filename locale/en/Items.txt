@@ -99,6 +99,7 @@ OfMagical: %+1i
 OfMoveSilently: of chameleon power
 OfProtection: of protection%+1i
 OfProtectedFromEvil: of proof against evil
+OfRegenerated: of regeneration
 OfResistFire: of fire resistance
 OfResistCold: of cold resistance
 OfShock: of shocking

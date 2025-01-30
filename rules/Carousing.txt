@@ -22,6 +22,7 @@ AmazingAcrobaticPerfomance ability(Dexterity) avatar(scenes 10)
  fail Roll1d6 Bludgeon+101
  success Roll3d6 GoldPiece+101 Reputation+2
 AmazingChanting ability(Charisma) avatar(scenes 14)
+ success Roll2d6 GoldPiece+101 Reputation+3
 AmazingGambling ability(Charisma) avatar(buildngs 24)
  fail Roll3d8 Mul+5 GoldPiece+101
  success Roll8d8 Mul+10 GoldPiece+101
@@ -30,27 +31,30 @@ AmazingPickPockets ability(PickPockets) avatar(buildngs 10)
  fail Roll3d8 Mul+5 GoldPiece+101
  success Roll3d8 Mul+5 GoldPiece+101 RandomJewelry CreatePower+5 IdentifyItem+1
 ArmRestlingContest ability(Strenght) avatar(scenes 9)
-DrinkingContest avatar(buildngs 6)
+DrinkingContest ability(Constitution) avatar(buildngs 6)
 DrinkingIllness ability(SaveVsPoison)
+ success SaveVsPoison RaiseAbility+1
  fail DiseaseLevel+4
-FireIncident avatar(scenes 13)
-FightingVsPatrons avatar(scenes 0)
- fail Roll3d6 Bludgeon+101
-FightingVsGuards avatar(scenes 0)
+FireIncident ability(Dexterity) avatar(scenes 13)
+FightingVsPatrons ability(Strenght) avatar(scenes 0)
+ fail Roll1d6 Bludgeon+101
+FightingVsGuards ability(Strenght) avatar(scenes 0)
  fail Roll3d6 Bludgeon+101
 GallopedNackedByCityStreet ability(Dexterity) avatar(scenes 7)
  success Roll3d6 GoldPiece+101 Reputation+3
-GatherTreasureMap avatar(scenes 15)
-JoinAllyFriendPatron avatar(npc 65)
+GatherTreasureMap ability(Intellegence) avatar(scenes 15)
+JoinAllyFriendPatron ability(Charisma) avatar(npc 65)
+ success ChooseRace+1 ChooseClass+1 Male ChooseAlignment+1 CreateCharacter+1 JoinParty
 RobbedByThief ability(Wisdow) avatar(buildngs 10)
  fail Roll6d8 Mul+10 GoldPiece-101
  success Reputation+1
 SeduceBeautifulWoman ability(Charisma) avatar(buildngs 20)
  filter Male
- fail AddExpPersonal+1 Constitution Roll DiseaseLevel+2
+ fail AddExpPersonal+1 DiseaseLevel+3
  success AddExpPersonal+3
 SeduceLocalPriestess ability(Charisma) avatar(buildngs 20)
  filter Male
+ fail Blessing-2
  success AddExpPersonal+3 Blessing+1
 SeducedByBeautifulMan ability(Charisma) avatar(buildngs 20)
  filter Female

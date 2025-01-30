@@ -49,6 +49,8 @@ void console(const char* format, ...) {
 }
 
 void consolen(const char* format, ...) {
+	if(!format || !format[0])
+		return;
 	consolenl();
 	XVA_FORMAT(format);
 	consolev(format, format_param);

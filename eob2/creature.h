@@ -74,6 +74,7 @@ bool can_remove(item* pi, bool speech = true);
 void change_quick_item(creaturei* player, wearn w);
 void check_levelup();
 void create_player();
+void create_player_super_stats();
 void create_player_finish();
 void create_monster(const monsteri* pi);
 void create_monster_pallette();

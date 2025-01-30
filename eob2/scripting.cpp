@@ -379,7 +379,10 @@ static void filter_items(conditioni::fntest proc, bool keep) {
 }
 
 static void create_character(int bonus) {
-	create_player();
+	if(bonus > 0)
+		create_player_super_stats();
+	else
+		create_player();
 }
 
 static const char* get_header(const char* id, const char* action) {
@@ -645,7 +648,7 @@ static void raise_ability(int bonus) {
 		player->basic.abilities[last_ability] = bonus;
 		break;
 	}
-	consolen(getnm(ids(last_id, "SuccessText")), bsdata<abilityi>::elements[last_ability].getname());
+	consolen(getnme(ids(last_id, "SuccessText")), bsdata<abilityi>::elements[last_ability].getname());
 	update_player();
 }
 

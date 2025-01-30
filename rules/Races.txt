@@ -1,10 +1,10 @@
 #Race
 
-Human minimal(3 3 3 3 3 3) maximal(18 18 18 18 18 18)
-Dwarf minimal(8 3 11 3 3 3) maximal(18 17 18 18 18 17)
-Elf minimal(3 6 7 8 3 8) maximal(18 18 18 18 18 18)
-HalfElf minimal(3 6 6 4 3 3) maximal(18 18 18 18 18 18) origin(Elf)
-Halfling minimal(7 7 10 6 3 3) maximal(18 18 18 18 17 18)
+Human minimal(3 3 3 3 3 3) ability(Charisma) maximal(18 18 18 18 18 18)
+Dwarf minimal(8 3 11 3 3 3) ability(Constitution) maximal(18 17 18 18 18 17)
+Elf minimal(3 6 7 8 3 8) ability(Dexterity) maximal(18 18 18 18 18 18)
+HalfElf minimal(3 6 6 4 3 3) ability(Dexterity) maximal(18 18 18 18 18 18) origin(Elf)
+Halfling minimal(7 7 10 6 3 3) ability(Dexterity) maximal(18 18 18 18 17 18)
 
 Animal
 Goblinoid

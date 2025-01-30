@@ -64,6 +64,7 @@ ImmuneCharm: Immune to charm
 Invisibled: Invisibled
 Precise: Precise
 ProtectedFromEvil: Protected from Evil
+Regenerated: Regenerated
 UseLeather: Use leather armor
 UseMage: Use wizardy items
 UseMartial: Use martial weapons

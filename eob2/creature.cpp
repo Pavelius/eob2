@@ -684,6 +684,31 @@ void create_player() {
 	create_player_finish();
 }
 
+static void generate_super_stats() {
+	auto& ei = player->getclass();
+	for(auto i = 0; i < ei.count; i++) {
+		auto ability = bsdata<classi>::elements[ei.classes[i]].primary;
+		auto value = xrand(16, 18);
+		if(player->basic.abilities[ability] < value)
+			player->basic.abilities[ability] = value;
+	}
+	auto ability = player->getrace().ability;
+	auto value = xrand(15, 18);
+	if(player->basic.abilities[ability] < value)
+		player->basic.abilities[ability] = value;
+}
+
+void create_player_super_stats() {
+	player = bsdata<creaturei>::addz();
+	player->clear();
+	create_npc(player, no_party_avatars, is_party_name);
+	generate_abilities();
+	generate_super_stats();
+	apply_race_ability();
+	roll_player_hits();
+	create_player_finish();
+}
+
 static void apply_feats(const variants & elements) {
 	auto push_modifier = modifier;
 	modifier = Permanent;

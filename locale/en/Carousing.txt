@@ -54,21 +54,29 @@ After all he get you in jail.
 "Did you tell me that?" tall patron catch you and drop on table. Another patron hit that patron, but next patron hit them and everithing is start fight.
 #FightingVsPatronsFail
 %Name was hitted in the face and drop on table.
+#FightingVsPatronsSuccess
+%Name fight off from all patrons and crush some tables.
 
 #FireIncident
 You turn a oil lamp into.
 #FireIncidentFail
 Tavern is set a fire.
+#FireIncidentSuccess
+All party run away from incedent and continue drunk in another tavern.
 
 #GatherTreasureMap
 Old man with scars sold to you treasure map.
 #GatherTreasureMapFail
 But, when you examine map close you undestand - this is only fake.
+#GatherTreasureMapSuccess
+It's true map and it show you a new location of interest with many treasure.
 
 #GallopedNackedByCityStreet
 %Name bet with one tavern guest that would ride naked through the city on a horse in the middle of the night. And there is you in the saddle, galloped by city street!
+#GallopedNackedByCityStreetFail
+City guards catch you and stop you perfomance.
 #GallopedNackedByCityStreetSuccess
-After all you scare some street beggars and cats. Nobody can stop your perfomance, but you get a cash from surprised tavern guest.
+After all you scare some street beggars and cats. Nobody can stop your perfomance, but you get a cash and respect from surprised tavern guest.
 
 #JoinAllyFriendPatron
 An adventurer sit to drink with you.
@@ -86,6 +94,8 @@ You catch the theif!
 
 #SeduceBeautifulWoman
 When %Name drinking to the end a beautiful madam sit on you table and have a company. You get another drinking ad drink with her. After party you get in inn and be together to the morning.
+#SeduceBeautifulWomanFail
+After all these procedures, you began to feel worse.
 #SeduceBeautifulWomanSuccess
 But, when morning is come woman is disapear.
 
@@ -102,11 +112,11 @@ When %Name drinking to the end a beautiful local priestess sit on you table and 
 But, when morning is come woman is disapear. And you fill a bad presence in your items. Apparently, in the evening you said a lot of unnecessary things about her deity.
 
 #WanderedMageDrinking
-You drunk with very interesting person coming to tavern. It is an old man with staff in colorfull robe. All evening you have been arguing about the universal universe, the philosophy of good and evil, and the predestination of fate.
+All evening you drunk with old man in colorfull robe. All time you have been arguing about the universal universe, the philosophy of good and evil, and the predestination of fate.
 #WanderedMageDrinkingFail
 When morning is coming you wake up in a barn with cows in a pile of manure.
 #WanderedMageDrinkingSuccess
-Mage give you advice.
+At the and of your conversation you get a series of good advices from the strangers.
 
 #CarousingEnd
 /scenes 8

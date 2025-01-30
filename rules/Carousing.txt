@@ -31,11 +31,12 @@ AmazingPickPockets ability(PickPockets) avatar(buildngs 10)
  success Roll3d8 Mul+5 GoldPiece+101 RandomJewelry CreatePower+5 IdentifyItem+1
 ArmRestlingContest ability(Strenght) avatar(scenes 9)
 DrinkingContest
-DrinkingIllness
-FireIncident
-FightingVsPatrons
+DrinkingIllness ability(SaveVsPoison)
+ fail DiseaseLevel+4
+FireIncident avatar(scenes 13)
+FightingVsPatrons avatar(scenes 0)
  fail Roll3d6 Bludgeon+101
-FightingVsGuards
+FightingVsGuards avatar(scenes 0)
  fail Roll3d6 Bludgeon+101
 GallopedNackedByCityStreet ability(Dexterity) avatar(scenes 7)
  success Roll3d6 GoldPiece+101 Reputation+3
@@ -54,6 +55,6 @@ SeduceLocalPriestess ability(Charisma) avatar(buildngs 20)
 SeducedByBeautifulMan ability(Charisma) avatar(buildngs 20)
  filter Female
  fail AddExpPersonal+1
- success AddExpPersonal+2
-WanderedMageDrinking ability(Intellegence)
+ success AddExpPersonal+4
+WanderedMageDrinking ability(Intellegence) avatar(scenes 12)
  success AddExpPersonal+6

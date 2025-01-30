@@ -105,6 +105,7 @@ void item::getname(stringbuilder& sb) const {
 	sb.adds(bsdata<itemi>::elements[type].getname());
 	if(identified) {
 		auto power = getpower();
+		auto magic = power.counter;
 		if(power) {
 			auto pn = getnme(ids(bsdata<weari>::elements[ei.wear].id, "OfPower"));
 			if(pn)
@@ -113,11 +114,12 @@ void item::getname(stringbuilder& sb) const {
 				auto pn = getnme(str("Of%1%2i", power.getid(), iabs(power.counter)));
 				if(!pn)
 					pn = getnme(ids("Of", power.getid()));
-				if(pn) {
-					sb.adds("of ");
-					sb.add(pn, power.counter);
-				} else
-					sb.add("%+1i", power.counter);
+				if(pn)
+					sb.adds(pn, power.counter);
+				else {
+					sb.adds("of");
+					sb.adds(power.getname(), power.counter);
+				}
 			}
 		}
 	}

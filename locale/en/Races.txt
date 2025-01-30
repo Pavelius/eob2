@@ -4,11 +4,15 @@ Elf: Elf
 Halfling: Halfling
 HalfElf: Half-Elf
 
+Goblinoid: Orc
+Drakonoid: Dragon
+
 Male: Male
 Female: Female
 
 DrakonoidOf: Drakonic
 DwarfOf: Dwarvish
 ElfOf: Elvish
+GoblinoidOf: Orcish
 HalflingOf: Halflings
 HumanOf: Humans

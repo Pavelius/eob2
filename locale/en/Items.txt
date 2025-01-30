@@ -75,38 +75,40 @@ Damaged: Damaged
 Rotten: Rotten
 
 ReadableOfPower: %1
-RodOfPower: %1
+RodOfPower: of %1
 Magical: Magical
 
-OfAC: defence%+1i
-OfCharisma: human control
-OfClimbWalls: feather fall
-OfDetectMagic: magic sence
-OfDexterity: fox cunning
-OfDrakonoid: dragon bane
-OfHasted: speed
-OfHealEffect1: healing
-OfHealEffect2: extra-healing
-OfHealth: health
-OfHearNoise: clairaudience
-OfInvisibled: invisibility
-OfInvulnerability: invulnerability
-OfImmuneCold: cold immunity
-OfImmuneFire: fire immunity
-OfLifeWater: experience
-OfMoveSilently: chameleon power
-OfProtection: protection%+1i
-OfProtectedFromEvil: proof against evil
-OfResistFire: fire resistance
-OfResistCold: cold resistance
-OfShock: shocking
-OfShockingGrasp: shocking
-OfStrenght1: bull strenght
-OfStrenght2: giant strenght
-OfStrenght3: titan strenght
-OfWizardy1: wizardy I
-OfWizardy2: wizardy II
-OfWizardy3: wizardy III
+OfAC: of defence%+1i
+OfCharisma: of human control
+OfClimbWalls: of feather fall
+OfDetectMagic: of magic sence
+OfDexterity: of fox cunning
+OfDrakonoid: of dragon bane
+OfGoblinoid: of orc bane
+OfHasted: of speed
+OfHealEffect1: of healing
+OfHealEffect2: of extra-healing
+OfHealth: of health
+OfHearNoise: of clairaudience
+OfInvisibled: of invisibility
+OfInvulnerability: of invulnerability
+OfImmuneCold: of cold immunity
+OfImmuneFire: of fire immunity
+OfLifeWater: of experience
+OfMagical: %+1i
+OfMoveSilently: of chameleon power
+OfProtection: of protection%+1i
+OfProtectedFromEvil: of proof against evil
+OfResistFire: of fire resistance
+OfResistCold: of cold resistance
+OfShock: of shocking
+OfShockingGrasp: of shocking
+OfStrenght1: of bull strenght
+OfStrenght2: of giant strenght
+OfStrenght3: of titan strenght
+OfWizardy1: of wizardy I
+OfWizardy2: of wizardy II
+OfWizardy3: of wizardy III
 
 OfCommonTales: tales
 

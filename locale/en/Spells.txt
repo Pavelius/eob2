@@ -36,6 +36,7 @@ HealSpell: Heal
 HypnoticPattern: Hypnotic Pattern
 HoldPerson: Hold Person
 HoldPersonGainEffect: %EffectCount creatures stand still!
+HoldUndead: Hold Undead
 Identify: Identify
 ImprovedInvisibility: Impr. Invisibility
 Invisibility: Invisibility

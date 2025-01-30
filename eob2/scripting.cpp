@@ -959,7 +959,7 @@ static bool faith_effect(int bonus) {
 	return true;
 }
 
-static void use_item() {
+void use_item() {
 	last_item = (item*)current_focus;
 	auto pn = item_owner(last_item);
 	if(!pn)

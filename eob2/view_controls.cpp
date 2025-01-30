@@ -86,6 +86,11 @@ static const char* namesh(const char* id) {
 	return p;
 }
 
+static void press_key() {
+	hot.key = hot.param;
+	hot.pressed = false;
+}
+
 void set_small_font() {
 	font = gres(FONT6);
 }
@@ -220,23 +225,34 @@ static bool button_input(const void* button_data, unsigned key, unsigned key_hot
 
 static void button_press_effect() {
 	auto size = sizeof(color) * (width - 1);
-	for(auto y = caret.y + height - 2; y < caret.y; y--) {
+	for(auto y = caret.y + height - 2; y >= caret.y; y--) {
 		memmove(canvas->ptr(caret.x + 1, y + 1), canvas->ptr(caret.x, y), size);
 		*((color*)canvas->ptr(caret.x, y)) = color();
+		*((color*)canvas->ptr(caret.x, y + 1)) = color();
 	}
 	memset(canvas->ptr(caret.x, caret.y), 0, width * sizeof(color));
 }
 
-static bool button(rect rc, unsigned key) {
+static bool button(rect rc) {
+	if(disable_input)
+		return false;
 	rectpush push;
 	caret.x = rc.x1;
 	caret.y = rc.y1;
 	width = rc.width();
 	height = rc.height();
 	auto button_data = (void*)(*((int*)&caret));
-	auto run = button_input(button_data, key);
-	if(pressed_focus == button_data) {
+	auto ishilited = ishilite();
+	auto isfocused = (current_focus == button_data);
+	auto run = false;
+	if(ishilited && hot.pressed)
+		pressed_focus = (void*)button_data;
+	else if(ishilited && hot.key == MouseLeft && !hot.pressed) {
+		pressed_focus = 0;
+		run = true;
 	}
+	if(pressed_focus == button_data)
+		button_press_effect();
 	return run;
 }
 
@@ -264,8 +280,8 @@ static void button(resid id, int normal, int pressed, int overlay, unsigned key,
 		execute(proc, param, 0, param_object);
 }
 
-static void button(rect rc, unsigned key, fnevent proc, long param = 0, void* param_object = 0) {
-	if(button(rc, key))
+static void button(rect rc, fnevent proc, long param = 0, void* param_object = 0) {
+	if(button(rc))
 		execute(proc, param, 0, param_object);
 }
 
@@ -499,6 +515,12 @@ static void paint_compass(directions d) {
 	image(114, 132, gres(COMPASS), i, 0);
 	image(79, 158, gres(COMPASS), 4 + i, 0);
 	image(150, 158, gres(COMPASS), 8 + i, 0);
+	button({ 5, 128, 24, 144}, press_key, KeyHome);
+	button({24, 128, 44, 144}, press_key, KeyUp);
+	button({44, 128, 64, 144}, press_key, KeyPageUp);
+	button({5, 145, 24, 161}, press_key, KeyLeft);
+	button({24, 145, 44, 161}, press_key, KeyDown);
+	button({44, 145, 64, 161}, press_key, KeyRight);
 }
 
 static void paint_menu(point position, int object_width, int object_height) {
@@ -635,6 +657,7 @@ static void paint_avatar() {
 			paint_player_damage(v, (animate_counter + pind) % 2);
 		}
 	}
+	button({push.caret.x, push.caret.y, push.caret.x + 31, push.caret.y + 32}, apply_switch_page, (long)player);
 }
 
 static void greenbar(int vc, int vm) {
@@ -771,6 +794,26 @@ static void paint_ring(item& it, wearn id) {
 	paint_item(it, id);
 }
 
+static void prev_character() {
+	auto index = get_party_index(player);
+	if(index <= 0)
+		return;
+	if(characters[index - 1]) {
+		player = characters[index - 1];
+		set_focus_by_player();
+	}
+}
+
+static void next_character() {
+	auto index = get_party_index(player);
+	if(index < 0 || index >= 5)
+		return;
+	if(characters[index + 1]) {
+		player = characters[index + 1];
+		set_focus_by_player();
+	}
+}
+
 static void paint_sheet_head() {
 	const point origin = {178, 0};
 	caret = origin;
@@ -795,6 +838,8 @@ static void paint_sheet_head() {
 	caret.y = origin.y + 36;
 	width = 140; height = 131;
 	fore = colors::info;
+	button({274, 36, 293, 50}, prev_character);
+	button({297, 36, 316, 50}, next_character);
 }
 
 static void paint_blank() {
@@ -1114,6 +1159,7 @@ static void paint_inventory() {
 	paint_states();
 	font = push_font;
 	fore = push_fore;
+	button({237, 38, 265, 52}, use_item);
 }
 
 static void paint_character() {
@@ -1161,8 +1207,6 @@ static void paint_character(bool disabled, bool hilite) {
 
 void paint_avatars() {
 	static point points[] = {{183, 1}, {255, 1}, {183, 53}, {255, 53}, {183, 105}, {255, 105}};
-	//if(!current_focus)
-	//	set_focus_by_player();
 	rectpush push;
 	auto push_player = player;
 	if(characters[4])
@@ -1178,6 +1222,7 @@ void paint_avatars() {
 			hilite_player && (player == push_player));
 	}
 	player = push_player;
+	button({289, 178, 319, 198}, press_key, KeyEscape);
 }
 
 void paint_avatars_no_focus() {

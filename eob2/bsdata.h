@@ -59,6 +59,7 @@ NOBSDATA(unsigned char)
 NOBSDATA(const char*)
 NOBSDATA(bool)
 
+template<typename T> T& getd(int v) { return bsdata<T>::elements[v]; }
 template<typename T> short unsigned getbsi(const T* v) { return bsdata<T>::source.indexof(v); }
 template<typename T> T* getbs(short unsigned v) { return (v==0xFFFF) ? 0 : (T*)bsdata<T>::source.ptr(v); }
 template<typename T> const char* getid(int v) { return bsdata<T>::elements[v].id; }

@@ -22,8 +22,8 @@
 
 BSDATA(partystati) = {
 	{"GoldPiece"},
-	{"Reputation"},
-	{"Blessing"},
+	{"Reputation", 100},
+	{"Blessing", 100},
 	{"StartYear"},
 	{"StartDeadLine"},
 	{"StopDeadLine"},
@@ -124,7 +124,11 @@ void join_party(int bonus) {
 }
 
 void add_party(partystatn id, int value) {
-	party.abilities[id] += value;
+	value += party.abilities[id];
+	auto maximum = getd<partystati>(id).maximum;
+	if(maximum && value > maximum)
+		value = maximum;
+	party.abilities[id] = value;
 }
 
 int getparty(partystatn id) {

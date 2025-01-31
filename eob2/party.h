@@ -27,6 +27,7 @@ struct partystata {
 	int				abilities[EffectCount + 1];
 };
 struct partystati : nameable {
+	int				maximum;
 };
 struct partyi : posable, partystata {
 	int				unlock[Blessing + 1];
@@ -69,7 +70,6 @@ bool party_is(featn v);
 bool party_is(creaturei* player);
 bool party_roll(abilityn v, int bonus);
 void party_say(const char* id, const char* action);
-void party_unlock();
 void pass_hours(int count);
 void pass_round();
 void reaction_check(int bonus);

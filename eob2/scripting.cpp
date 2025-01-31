@@ -501,12 +501,48 @@ static bool apply_cost(const char* id, int cost, const picturei& avatar) {
 	return confirm_payment(getnm(id), cost);
 }
 
+static void copy_ability(int* dest, int* source) {
+	for(auto i = 0; i <= Blessing; i++) {
+		if(dest[i] < source[i])
+			dest[i] = source[i];
+	}
+}
+
+static void party_unlock(int bonus) {
+	// Unlock locations
+	for(auto& e : bsdata<locationi>()) {
+		if(!ismatch(e.required))
+			continue;
+		if(ismatch(e.required, party.unlock))
+			continue;
+		auto pn = getnme(ids(e.id, "Unlock"));
+		if(!pn)
+			continue;
+		dialog(0, pn);
+	}
+	// Unlock actions
+	for(auto& e : bsdata<actioni>()) {
+		if(!ismatch(e.required))
+			continue;
+		if(ismatch(e.required, party.unlock))
+			continue;
+		auto pn = getnme(ids(e.id, "Unlock"));
+		if(!pn)
+			continue;
+		dialog(0, pn);
+	}
+	// Copy unlock ability
+	copy_ability(party.unlock, party.abilities);
+}
+
 static void apply_action(int bonus) {
 	if(!apply_cost(last_action->id, last_action->cost, last_action->avatar))
 		return;
 	if(last_action->avatar)
 		picture = last_action->avatar;
 	script_run(last_action->id, last_action->effect);
+	if(!loc)
+		party_unlock(0);
 }
 
 static void apply_result() {
@@ -1388,40 +1424,6 @@ static void after_dungeon_action(const char* id, fnevent proc) {
 	all_party(proc, false);
 	if(last_number)
 		dialog(0, getnm(id));
-}
-
-static void copy_ability(int* dest, int* source) {
-	for(auto i = 0; i <= Blessing; i++) {
-		if(dest[i] < source[i])
-			dest[i] = source[i];
-	}
-}
-
-static void party_unlock(int bonus) {
-	// Unlock locations
-	for(auto& e : bsdata<locationi>()) {
-		if(!ismatch(e.required))
-			continue;
-		if(ismatch(e.required, party.unlock))
-			continue;
-		auto pn = getnme(ids(e.id, "Unlock"));
-		if(!pn)
-			continue;
-		dialog(0, pn);
-	}
-	// Unlock actions
-	for(auto& e : bsdata<actioni>()) {
-		if(!ismatch(e.required))
-			continue;
-		if(ismatch(e.required, party.unlock))
-			continue;
-		auto pn = getnme(ids(e.id, "Unlock"));
-		if(!pn)
-			continue;
-		dialog(0, pn);
-	}
-	// Copy unlock ability
-	copy_ability(party.unlock, party.abilities);
 }
 
 static void enter_location() {

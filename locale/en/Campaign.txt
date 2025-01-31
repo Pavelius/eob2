@@ -1,14 +1,14 @@
 /////////////////////////////
 // General
 
-#HunterVillage
-Hunterville Village
+#BaseCity
+Iriaebor city
 
 #StartGameMessage
 /scenes 3
-Yes, all of you meet in tavern. You siting around a table, drink dark beer and telling a stories to the morning about your recent adventures.
+Yes, all of you meet in tavern. You are siting around a table, drinking a dark beer and telling stories about your recent adventures.
 But, when morning is coming and your booze is over, you wake up on floor under table in a puddle of beer and leftovers. The new day begin.
-You are party of adventurers in small borderland village named Hunterville. And you adventure begin here...
+You are party of adventurers who are just arrived in the city of Iriaebor - in the Western Heartlands region of Faerun. And you adventure begin here...
 
 #LootSelling
 /buildngs 27
@@ -16,15 +16,15 @@ After returning to town you visit shop and sold all valuable loot. Totaly you ea
 
 #LootIdentyfing
 /buildngs 28
-Before visit any shop you try identify any items that you grab in dungeon. Speaking with skilled people you identify %Number items in you package.
+Before visit any shop you try identify any items that you grab in dungeon. Speaking with skilled people you identify as magical %Number items in you package.
 
 #BlacksmithUnlock
 /buildngs 0
-A village blacksmith invite you to visit blacksmith, located on outskirts of village. There you can repair you items.
+A city smith invite you to visit blacksmith, located on outskirts of city. There you can repair you items and get other service later.
 
 #WizardTowerUnlock
 /npc 59
-"Hello" - you see a strange woman in tavern - "My name an Hanna Weird and this people calling my local village wizard. If you want a new magic scroll I can sell it for you Visit my tower to the south of village."
+"Hello" - you see a strange woman in tavern - "My name an Hanna Weird and I am a one of local city wizard. If you want a new magic scroll I can sell it for you. Visit my tower to the south outskirt of city."
 
 /////////////////////////////
 // FloodedSewers
@@ -100,7 +100,7 @@ Explore North Woods
 #ExploreNorthWoodSummary
 /npc 52
 Man in tavern sit to you table. "Hello. My name is Alf Bowmen and I local ranger."
-"As you know, this village is lay on outskirs of civilization. Wast and unexplored forest lay to the north in a week of foot travel. A dangerous and ancient forest."
+"As you know, this city is lay on outskirs of civilization. Wast and unexplored forest lay to the north in a week of foot travel. A dangerous and ancient forest."
 He gulp a beer and continue "And what lay in this forest? Forgotten treasures of ancient civilization? Maybe. And I give you chance to explore this for my money."
 "Explore this forest, investigate its forgotten corners and I pay you %QuestRewardGold gold piece for information. I use it to hunt prey and, maybe to settle in those lands."
 

@@ -14,7 +14,7 @@ FloodedSewersKoboldExplain3
 CellOverlay1UseDwarfMountains
  elements DwarvenCity EnterSanctuary
 CellPortalUse
- elements IfLowLevel-1 ConfirmAction HunterVillage EnterLocation
+ elements IfLowLevel-1 ConfirmAction BaseCity EnterLocation
 
 #Quest
 

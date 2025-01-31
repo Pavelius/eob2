@@ -1,2 +1,2 @@
-﻿Error in file `rules/Actions.txt`:
- Line 23: Can't find variant `ChooseItems`
+﻿Error in file `rules/Quests.txt`:
+ Line 17: Can't find variant `HunterVillage`

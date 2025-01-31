@@ -509,6 +509,8 @@ static void copy_ability(int* dest, int* source) {
 }
 
 static void party_unlock(int bonus) {
+	if(loc) // Only in settlements
+		return;
 	// Unlock locations
 	for(auto& e : bsdata<locationi>()) {
 		if(!ismatch(e.required))
@@ -541,8 +543,7 @@ static void apply_action(int bonus) {
 	if(last_action->avatar)
 		picture = last_action->avatar;
 	script_run(last_action->id, last_action->effect);
-	if(!loc)
-		party_unlock(0);
+	party_unlock(0);
 }
 
 static void apply_result() {

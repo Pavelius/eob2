@@ -1,4 +1,4 @@
-﻿AmbushTest: You were ambushed by enemy!
+﻿Ambush: Ambush
 AskForMiracle: Ask for Miracle
 AskForMiracleFailText: %Diety don't answer the call
 AskForMiracleSuccessText: %Name's %1 raised
@@ -94,7 +94,7 @@ ReturnToStreet: Leave to the street
 ReturnToTownConfirm: Do you really want return to town?
 ScribleScrolls: Scrible Scrolls
 SellConfirm: Do you really want sell %-1 for %2i gold pieces?
-SneakAttackAct: %Name use sneack attack
+SneakAttackAct: %Name use backstab
 StartGame: Create new game
 SurpriseFailed: %1 is surprised
 Talk: Talk

@@ -2,8 +2,14 @@
 
 EnemyNoSurprise
  elements ForEachOpponents Surprised-1
+EnemySurprise
+ elements ForEachOpponents Surprised
+PartyNoSurprise
+ elements ForEachParty Surprised-1
 PartySurprise
  elements ForEachParty Surprised
+EnemyAmbush
+ elements Hostile PartyNoSurprise EnemySurprise
 PartyAmbush
  elements Hostile PartySurprise EnemyNoSurprise
 
@@ -100,6 +106,8 @@ TavernCarousing cost(400) avatar(scenes 3)
 TeleportToDungeon
  effect PortalTeleportation+1
 
+Ambush
+ effect EnemyAmbush AddExpEvil+2
 Attack
  effect Hostile AddExpEvil+1
 CalmDown
@@ -156,7 +164,7 @@ MainMenu
 NegotiationCareful
  elements Attack Lie Bribe
 NegotiationFriendly
- elements Attack Talk
+ elements Ambush Talk
 AnimalCareful
  elements Attack CalmDown
 AnimalFriendly

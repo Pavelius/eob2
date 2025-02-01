@@ -367,6 +367,8 @@ static void treasure(pointc v, directions d) {
 	auto v2 = to(v1, d);
 	if(!isaround(v2, d, CellWall))
 		return;
+	if(loc->isoverlay(to(v, to(d, Right)), d))
+		return;
 	loc->set(v1, CellDoor);
 	auto po = loc->add(to(v, to(d, Right)), d, CellKeyHole);
 	if(po)
@@ -387,6 +389,8 @@ static void decoration(pointc v, directions d) {
 		return;
 	auto v1 = to(v, d);
 	if(!loc->is(v1, CellWall, CellUnknown))
+		return;
+	if(loc->isoverlay(v, d))
 		return;
 	static celln random[] = {CellDecor1, CellDecor2, CellDecor3};
 	loc->set(v1, CellWall);
@@ -438,6 +442,8 @@ static void message(pointc v, directions d) {
 		return;
 	auto v1 = to(v, d);
 	if(!loc->is(v1, CellWall, CellUnknown))
+		return;
+	if(loc->isoverlay(v, d))
 		return;
 	loc->set(v1, CellWall);
 	auto po = loc->add(v, d, CellMessage);

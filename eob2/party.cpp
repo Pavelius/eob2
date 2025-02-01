@@ -182,6 +182,17 @@ int party_count() {
 	return party_count(characters);
 }
 
+void party_set(creaturei** creatures, featn v, bool apply) {
+	for(auto i = 0; i < 6; i++) {
+		if(creatures[i]) {
+			if(apply)
+				creatures[i]->set(v);
+			else
+				creatures[i]->remove(v);
+		}
+	}
+}
+
 void party_addexp(int value) {
 	auto n = party_count();
 	if(!n)

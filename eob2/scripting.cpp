@@ -2209,13 +2209,6 @@ static bool talk_monsters() {
 	return false;
 }
 
-static void party_set(creaturei** creatures, featn v) {
-	for(auto i = 0; i < 6; i++) {
-		if(creatures[i])
-			creatures[i]->set(v);
-	}
-}
-
 static void party_set(creaturei** creatures, directions v) {
 	for(auto i = 0; i < 6; i++) {
 		if(creatures[i])
@@ -2241,10 +2234,14 @@ void reaction_check(int bonus) {
 		party_set(creatures, to(party.d, Down));
 		switch(last_reaction) {
 		case Careful:
+			party_set(creatures, Surprised, false);
+			party_set(characters, Surprised, false);
 			talk_monsters();
 			loc->getmonsters(creatures, to(party, party.d));
 			break;
 		case Friendly:
+			party_set(creatures, Surprised, false);
+			party_set(characters, Surprised, false);
 			talk_monsters();
 			loc->getmonsters(creatures, to(party, party.d));
 			break;

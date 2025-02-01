@@ -70,6 +70,7 @@ bool party_is(featn v);
 bool party_is(creaturei* player);
 bool party_roll(abilityn v, int bonus);
 void party_say(const char* id, const char* action);
+void party_set(creaturei** creatures, featn v, bool apply = true);
 void pass_hours(int count);
 void pass_round();
 void reaction_check(int bonus);

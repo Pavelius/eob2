@@ -168,13 +168,18 @@ void set_party_position(pointc v, directions d) {
 	party.d = d;
 }
 
-int party_count() {
+int party_count(creaturei** characters) {
 	int result = 0;
-	for(auto p : characters) {
+	for(auto i = 0; i < 6; i++) {
+		auto p = characters[i];
 		if(p && !p->isdisabled())
 			result++;
 	}
 	return result;
+}
+
+int party_count() {
+	return party_count(characters);
 }
 
 void party_addexp(int value) {
@@ -267,7 +272,12 @@ static int get_monster_best(pointc v, abilityn a) {
 void surprise_roll(creaturei** creatures, int bonus) {
 	for(auto i = 0; i < 6; i++) {
 		auto p = creatures[i];
-		if(p && !p->roll(Alertness, bonus)) {
+		if(!p || p->isdisabled())
+			continue;
+		auto chance = 30 + bonus;
+		if(p->is(Alertness))
+			chance -= 20;
+		if(roll_ability(chance)) {
 			consolen(getnm("SurpriseFailed"), p->getname());
 			p->set(Surprised);
 		}
@@ -278,8 +288,7 @@ static void monster_move(pointc v, directions d) {
 	auto n = to(v, d);
 	if(n == party) {
 		set_monster_moved(v);
-		// CHEAT: Monster have best sneak. Party only median.
-		turnto(party, to(d, Down), true, get_monster_best(v, Sneaky));
+		turnto(party, to(d, Down), true);
 		reaction_check(0);
 		return;
 	}
@@ -642,6 +651,19 @@ void all_creatures(fnevent proc) {
 	player = push_player;
 }
 
+int party_sneaky(creaturei** creatures) {
+	auto total_sneaky = party_count(creatures, Sneaky);
+	if(total_sneaky > 0) {
+		auto total = 4 - (party_count(creatures) - total_sneaky);
+		if(total > 4)
+			total = 4;
+		else if(total < 0)
+			total = 0;
+		return total * 10;
+	} else
+		return 0;
+}
+
 static void party_clear() {
 	memset(characters, 0, sizeof(characters));
 	memset(spells_prepared, 0, sizeof(spells_prepared));
@@ -676,7 +698,7 @@ static void check_goals() {
 }
 
 static void clear_boost_proc(referencei target, short type, short param) {
-	if(type==BoostSpell) {
+	if(type == BoostSpell) {
 		auto pi = bsdata<spelli>::elements + param;
 		auto push = player; player = target;
 		if(pi->clearing)
@@ -835,6 +857,16 @@ bool party_is(featn v) {
 			return true;
 	}
 	return false;
+}
+
+int party_count(creaturei** characters, featn v) {
+	auto result = 0;
+	for(auto i = 0; i < 6; i++) {
+		auto p = characters[i];
+		if(p && !p->isdisabled() && p->is(v))
+			result++;
+	}
+	return result;
 }
 
 static creaturei* choose_character(const char* header, bool exclude_player) {

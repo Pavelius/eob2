@@ -237,6 +237,13 @@ static bool apply_script(const char* id, const char* action, const char* postfix
 	return false;
 }
 
+static void apply_dialog_script(const char* id, const char* action) {
+	auto pn = getnme(ids(id, "ReachMaximum"));
+	if(pn)
+		dialog(0, pn);
+	apply_script(id, action, 0, 0);
+}
+
 static bool apply_script(const char* id, const char* action, int bonus) {
 	if(last_quest) {
 		if(apply_script(id, action, last_quest->id, bonus))
@@ -501,10 +508,15 @@ static bool apply_cost(const char* id, int cost, const picturei& avatar) {
 	return confirm_payment(getnm(id), cost);
 }
 
-static void copy_ability(int* dest, int* source) {
+static void party_set_maximum(int* dest, int* source) {
 	for(auto i = 0; i <= Blessing; i++) {
-		if(dest[i] < source[i])
-			dest[i] = source[i];
+		if(dest[i] >= source[i])
+			continue;
+		auto maximum = bsdata<partystati>::elements[i].maximum;
+		auto run_maximum_script = (dest[i] < maximum && source[i] >= maximum);
+		dest[i] = source[i];
+		if(run_maximum_script)
+			apply_dialog_script(bsdata<partystati>::elements[i].id, "ReachMaximum");
 	}
 }
 
@@ -534,7 +546,7 @@ static void party_unlock(int bonus) {
 		dialog(0, pn);
 	}
 	// Copy unlock ability
-	copy_ability(party.unlock, party.abilities);
+	party_set_maximum(party.unlock, party.abilities);
 }
 
 static void apply_action(int bonus) {
@@ -1748,7 +1760,7 @@ static bool use_tool_item(abilityn skill, int bonus, int use = 1) {
 		return true;
 	}
 	consolen(getnm(ids(bsdata<abilityi>::elements[skill].id, "Fail")));
-	last_item->usecharge("ToolBroken", 35, use);
+	last_item->usecharge("ToolBroken", 30, use);
 	return false;
 }
 
@@ -1801,7 +1813,7 @@ static void use_theif_tools(int bonus) {
 static void use_grappling_hook(int bonus) {
 	switch(loc->get(to(*player, player->d))) {
 	case CellPit:
-		if(use_tool_item(ClimbWalls, get_level_difficult(), 2)) {
+		if(use_tool_item(ClimbWalls, get_level_difficult(), 4)) {
 			loc->set(to(party, party.d), CellPassable);
 			use_tool_success(CellPit, 20);
 		}
@@ -1813,7 +1825,7 @@ static void use_grappling_hook(int bonus) {
 	if(locup) {
 		switch(locup->get(*player)) {
 		case CellPit:
-			if(use_tool_item(ClimbWalls, get_level_difficult(), 3)) {
+			if(use_tool_item(ClimbWalls, get_level_difficult(), 6)) {
 				auto pd = find_dungeon(loc->level - 1);
 				if(!pd)
 					break;
@@ -2256,7 +2268,7 @@ void move_party(pointc v) {
 	if(!is_passable(v))
 		return;
 	if(loc->ismonster(v)) {
-		turnto(v, to(party.d, Down), true, -party_median(characters, Sneaky));
+		turnto(v, to(party.d, Down), true);
 		reaction_check(0);
 		pass_round();
 		return;

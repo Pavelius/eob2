@@ -80,16 +80,20 @@ void set_party_position(pointc v);
 void set_party_position(pointc v, directions d);
 void set_reaction(creaturei** creatures, reactions v);
 void surprise_roll(creaturei** creatures, int bonus);
-void turnto(pointc v, directions d, bool test_surprise = false, int sneaky_bonus = 0);
+void turnto(pointc v, directions d, bool test_surprise = false);
 void update_default_spells();
 void update_party_position();
 void use_item();
 
 int getparty(partystatn id);
 int get_party_index(const creaturei* target);
+int party_count();
+int party_count(creaturei** characters);
+int party_count(creaturei** characters, featn v);
 int party_goal(goaln v);
 int party_best(creaturei** creatures, abilityn v, bool set_player);
 int party_median(creaturei** creatures, abilityn v);
+int party_sneaky(creaturei** creatures);
 
 char* get_spells_prepared(const creaturei* target);
 

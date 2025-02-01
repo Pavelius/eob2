@@ -23,7 +23,7 @@ enum featn : unsigned char {
 	BonusSaveVsPoison, BonusSaveVsSpells,
 	BonusVsElfWeapon, BonusAttackVsHated, BonusDamageVsEnemy, BonusACVsLargeEnemy, BonusHP,
 	UseMetal, UseLeather, UseShield,
-	UseMartial, UseElvish, UseRogish, UsePriest, UseMage, TheifSkills, StealthSkills,
+	UseMartial, UseElvish, UseRogish, UsePriest, UseMage, TheifSkills, StealthSkills, Sneaky, Alertness,
 	TwoHanded, Precise, Deadly, Unique,
 	DiseaseAttack, DispelEvilAttack, DrainStrenghtAttack, DrainEneryAttack, ParalizeAttack, PoisonAttack, VampiricAttack, VorpalAttack, Holy, WeaponSpecialist,
 	Small, Large, Undead, Outsider, Paralized, Moved, Surprised,

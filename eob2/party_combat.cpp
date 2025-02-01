@@ -329,28 +329,30 @@ static void make_full_attack(creaturei* enemy, int bonus, int multiplier) {
 	fix_monster_attack_end(player);
 }
 
-void turnto(pointc v, directions d, bool test_surprise, int sneaky_bonus) {
+void turnto(pointc v, directions d, bool test_surprise) {
 	if(!d)
 		return;
 	if(v == party) {
 		if(test_surprise) {
-			if(party.d != d)
-				surprise_roll(characters, sneaky_bonus);
+			if(party.d != d) {
+				creaturei* monsters[6]; loc->getmonsters(monsters, to(v, d));
+				surprise_roll(characters, party_sneaky(monsters));
+			}
 		}
 		set_party_position(v, d);
 	} else {
-		creaturei* result[6] = {}; loc->getmonsters(result, v, party.d);
+		creaturei* monsters[6] = {}; loc->getmonsters(monsters, v, party.d);
 		for(int i = 0; i < 6; i++) {
-			auto pc = result[i];
-			if(!pc)
+			auto p = monsters[i];
+			if(!p || p->isdisabled())
 				continue;
 			if(test_surprise) {
-				if(pc->d != d) {
-					surprise_roll(result, sneaky_bonus);
+				if(p->d != d) {
+					surprise_roll(monsters, party_sneaky(characters));
 					test_surprise = false;
 				}
 			}
-			pc->d = d;
+			p->d = d;
 		}
 	}
 }

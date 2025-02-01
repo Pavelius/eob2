@@ -814,6 +814,8 @@ static void next_character() {
 	}
 }
 
+static void next_sheet_page();
+
 static void paint_sheet_head() {
 	const point origin = {178, 0};
 	caret = origin;
@@ -840,20 +842,22 @@ static void paint_sheet_head() {
 	fore = colors::info;
 	button({274, 36, 293, 50}, prev_character);
 	button({297, 36, 316, 50}, next_character);
+	button({302, 149, 319, 166}, next_sheet_page);
 }
 
 static void paint_blank() {
 	auto push_caret = caret;
 	auto push_fore = fore;
+	auto push_width = width;
+	auto push_height = height;
 	fore = colors::form;
-	rectf();
+	height -= 19; rectf();
+	caret.y = caret.y + height; height = 18; width -= 19; rectf();
+	caret = push_caret; width = push_width; height = push_height;
 	fore = color(208, 208, 216);
 	caret.x = 274; caret.y = 35;
 	line(319, caret.y);
-	line(319, 166);
-	fore = color(88, 88, 116);
-	caret.x = 178;
-	line(319, caret.y);
+	line(319, 147);
 	fore = push_fore;
 	caret = push_caret;
 	caret.x += 1; caret.y += 2;
@@ -2234,6 +2238,25 @@ static void paint_character_info() {
 	paint_character_info_left();
 	caret.x += 80;
 	paint_character_info_right();
+}
+
+static void next_sheet_page() {
+	static fnevent pages[] = {paint_inventory, paint_sheet, paint_skills, paint_quest_goals};
+	int current = -1;
+	int maximum = sizeof(pages) / sizeof(pages[0]);
+	for(auto i = 0; i < maximum; i++) {
+		if(pages[i] == character_view_proc) {
+			current = i;
+			break;
+		}
+	}
+	if(current == -1)
+		current = 0;
+	else if(current < maximum - 1)
+		current++;
+	else
+		current = 0;
+	character_view_proc = pages[current];
 }
 
 void paint_choose_avatars() {

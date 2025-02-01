@@ -18,8 +18,10 @@ DebugCharacter
 DebugMageSpells
 // elements AddExpPersonal+100 AddExpPersonal+100 PushModifier Permanent Invisibility StrenghtSpell
 
+DwarfFighter
+ elements Dwarf Male Fighter ChooseAlignment+1 CreateCharacter+1 DebugCharacter
 HumanFighter
- elements Human Male Fighter ChooseAlignment+1 CreateCharacter+1 DebugCharacter
+ elements Human ChooseGender+1 Fighter ChooseAlignment+1 CreateCharacter+1 DebugCharacter
 HumanPaladin
  elements Human Male Paladin ChooseAlignment+1 CreateCharacter+1 DebugCharacter
 HumanRanger
@@ -37,6 +39,6 @@ GeneratePartyDebug
 StartGameQuests
  elements FloodedSewers
 StartGameAbilities
- elements AddReward+5 GoldPiece+50 GoldPiece+50 Reputation+20 Blessing+30 Blessing+70
+ elements GoldPiece+50 GoldPiece+50 Reputation+20 Blessing+30
 StartGame
  elements ClearGame GeneratePartyDebug StartGameQuests StartGameAbilities PassHours+7 Message PartyUnlock BaseCity EnterLocation

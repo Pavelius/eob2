@@ -1417,7 +1417,7 @@ static void loot_selling() {
 		auto& ei = e.geti();
 		if(ei.wear == Key || ei.wear == Readable)
 			continue;
-		auto value = e.geti().cost; // Full price??
+		auto value = e.getcost(); // Full price??
 		last_number += value;
 		party.abilities[GoldPiece] += value;
 		e.clear();

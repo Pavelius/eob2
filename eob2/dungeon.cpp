@@ -346,14 +346,6 @@ bool dungeoni::isoverlay(pointc v) const {
 	return false;
 }
 
-bool dungeoni::isoverlay(pointc v, directions d) const {
-	for(auto& e : overlays) {
-		if(e && e == v && e.d==d)
-			return true;
-	}
-	return false;
-}
-
 bool dungeoni::ismonster(pointc v, featn f) const {
 	for(auto& e : monsters) {
 		if(e && e == v && e.is(f))

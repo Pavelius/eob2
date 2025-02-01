@@ -458,7 +458,7 @@ static pointc find_free_wall(pointc v, directions d) {
 			return {-1, -1};
 		switch(loc->get(v1)) {
 		case CellWall:
-			if(loc->get(v, d))
+			if(loc->isoverlay(v, d))
 				return {-1, -1};
 			return v;
 		case CellPassable:

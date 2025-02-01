@@ -238,7 +238,7 @@ static bool apply_script(const char* id, const char* action, const char* postfix
 }
 
 static void apply_dialog_script(const char* id, const char* action) {
-	auto pn = getnme(ids(id, "ReachMaximum"));
+	auto pn = getnme(ids(id, action));
 	if(pn)
 		dialog(0, pn);
 	apply_script(id, action, 0, 0);
@@ -1353,15 +1353,16 @@ static void clear_quest_items() {
 	}
 }
 
-static void activate_next_quest() {
+static bool activate_next_quest() {
 	for(auto& e : bsdata<quest>()) {
 		if(!e)
 			continue;
 		if(e.stage != quest::Hide)
 			continue;
 		e.stage = quest::Active;
-		break;
+		return true;
 	}
+	return false;
 }
 
 static const char* get_stage_id(const quest* p, short unsigned monster_id, int stage, const char* action) {
@@ -1403,7 +1404,8 @@ static void check_quest_complited() {
 	script_run(last_quest->reward);
 	last_quest = push_quest;
 	last_quest->stage = quest::Done;
-	activate_next_quest();
+	if(!activate_next_quest())
+		apply_dialog_script("Game", "QuestsDone");
 }
 
 static void loot_selling() {

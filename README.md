@@ -14,7 +14,7 @@ Creating new unique engine to play in AD&D on PC. This engine will be based on g
 
 ## Release
 
-Currently release is here (https://github.com/Pavelius/eob2/blob/master/install/win32.zip)
+Recent release is [here](https://github.com/Pavelius/eob2/blob/master/install/win32.zip). Or you can compile and build this project.
 
 # How to play
 We try to follow original rules of advanced dungeon and dragons second edition.

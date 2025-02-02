@@ -43,7 +43,7 @@ static bool select_combatants(pointc position) {
 		else if(p->is(Surprised))
 			p->initiative = 100; // Move last
 		else
-			p->initiative = xrand(1, 10) - p->get(Speed);
+			p->initiative = xrand(1, 10) + p->get(Speed);
 	}
 	qsort(combatants.data, combatants.count, sizeof(combatants.data[0]), compare_creatures);
 	return true;
@@ -222,7 +222,7 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 		}
 		if(defender->is(Displaced) && d100() < 50)
 			hits = -1; // Miss if displaced
-		if(defender->is(Blinked) && defender->initiative > player->initiative)
+		if(defender->is(Blinked) && defender->initiative < player->initiative)
 			hits = -1; // Miss if blinked away
 	}
 	// Show result

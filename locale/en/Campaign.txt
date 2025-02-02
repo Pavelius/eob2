@@ -26,6 +26,12 @@ A city smith invite you to visit blacksmith, located on outskirts of city. There
 /npc 59
 "Hello" - you see a strange woman in tavern - "My name an Hanna Weird and I am a one of local city wizard. If you want a new magic scroll I can sell it for you. Visit my tower to the south outskirt of city."
 
+#ReputationReachMaximum
+For now you are notable persons in the city. This goal is marked and you don't have sence to clean dungeons anymore. You are lords now!
+
+#GameQuestsDone
+You are finish all quests. This is all. For now your mission here is done.
+
 /////////////////////////////
 // FloodedSewers
 

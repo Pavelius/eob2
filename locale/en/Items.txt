@@ -78,7 +78,7 @@ ReadableOfPower: %1
 RodOfPower: of %1
 Magical: Magical
 
-OfAC: of defence%+1i
+OfAC: %+1i
 OfCharisma: of human control
 OfClimbWalls: of feather fall
 OfDetectMagic: of magic sence
@@ -107,6 +107,7 @@ OfShockingGrasp: of shocking
 OfStrenght1: of bull strenght
 OfStrenght2: of giant strenght
 OfStrenght3: of titan strenght
+OfVampiricAttack: of life drain
 OfWizardy1: of wizardy I
 OfWizardy2: of wizardy II
 OfWizardy3: of wizardy III

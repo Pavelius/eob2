@@ -970,6 +970,7 @@ DLL int WINAPI				ReleaseCapture(void);
 DLL int WINAPI				ReleaseDC(void*, void*);
 DLL int WINAPI				ScreenToClient(void* hWnd, POINT* lpPoint);
 WINGDIAPI void* WINAPI		SelectObject(void*, void*);
+DLL int WINAPI			mciSendStringA(const char* lpstrCommand, char* lpstrReturnString, unsigned uReturnLength, void* hwndCallback);
 DLL void* WINAPI			SetCapture(void*);
 DLL void* WINAPI			SetClipboardData(UINT, void*);
 DLL int WINAPI				SetCurrentDirectoryA(const char* path);

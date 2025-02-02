@@ -515,7 +515,7 @@ static void paint_compass(directions d) {
 	image(114, 132, gres(COMPASS), i, 0);
 	image(79, 158, gres(COMPASS), 4 + i, 0);
 	image(150, 158, gres(COMPASS), 8 + i, 0);
-	button({ 5, 128, 24, 144}, press_key, KeyHome);
+	button({5, 128, 24, 144}, press_key, KeyHome);
 	button({24, 128, 44, 144}, press_key, KeyUp);
 	button({44, 128, 64, 144}, press_key, KeyPageUp);
 	button({5, 145, 24, 161}, press_key, KeyLeft);
@@ -910,9 +910,6 @@ static void add_value(stringbuilder& sb, abilityn id) {
 		break;
 	case Hits:
 		sb.add("%1i", player->hpm);
-		break;
-	case Speed:
-		sb.add("%1i", -player->get(id));
 		break;
 	case ReactionBonus:
 		sb.add("%+1i", player->get(id));
@@ -1527,8 +1524,12 @@ static void show_scene_font() {
 	answer_origin = 0;
 	auto sx = 10;
 	auto size = 8;
-	// set_small_font();
+	set_small_font();
 	while(ismodal()) {
+		if(answer_index < 0)
+			answer_index = 0;
+		else if(answer_index > 127)
+			answer_index = 127;
 		fore = colors::black;
 		rectf();
 		width = sx; height = sx;

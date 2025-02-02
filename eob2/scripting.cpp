@@ -1490,6 +1490,10 @@ static void confirm_action(int bonus) {
 		script_stop();
 }
 
+static void end_game(int bonus) {
+	set_next_scene(main_menu);
+}
+
 static void exit_game(int bonus) {
 	if(confirm(getnme("ExitConfirm")))
 		exit(0);
@@ -3389,6 +3393,7 @@ BSDATA(script) = {
 	{"DamageItem", damage_item},
 	{"DestroyItem", destroy_item},
 	{"ExitGame", exit_game},
+	{"EndGame", end_game},
 	{"EnterDungeon", enter_dungeon},
 	{"EnterLocation", enter_location},
 	{"EnterSanctuary", enter_sanctuary},

@@ -62,6 +62,7 @@ ImmuneCold: Immune to cold
 ImmuneDisease: Immune to diseases
 ImmuneCharm: Immune to charm
 Invisibled: Invisibled
+Paralized: Paralized
 Precise: Precise
 ProtectedFromEvil: Protected from Evil
 Regenerated: Regenerated

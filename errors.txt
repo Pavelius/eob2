@@ -1,2 +1,2 @@
-﻿Error in file `rules/Quests.txt`:
- Line 17: Can't find variant `HunterVillage`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `Paralized`

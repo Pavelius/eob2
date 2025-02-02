@@ -366,9 +366,13 @@ static void update_depended_abilities() {
 	player->abilities[ReactionBonus] += maptbl(cha_reaction_adjustment, player->abilities[Charisma]);
 	player->abilities[LearnSpell] += maptbl(chance_learn_spell, player->abilities[Intellegence]);
 	if(player->wears[RightHand])
-		player->abilities[Speed] -= player->wears[RightHand].geti().speed;
+		player->abilities[Speed] += player->wears[RightHand].geti().speed;
+	else if(player->wears[LeftHand])
+		player->abilities[Speed] += player->wears[LeftHand].geti().speed;
+	else if(player->is(Large))
+		player->abilities[Speed] += 6;
 	else
-		player->abilities[Speed] -= player->wears[LeftHand].geti().speed;
+		player->abilities[Speed] += 3;
 	if(player->is(FeelPain))
 		player->add(AttackMelee, -4);
 	if(player->is(Blinded)) {

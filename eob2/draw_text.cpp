@@ -39,17 +39,25 @@ int draw::textw(int sym) {
 }
 
 void draw_glyph_zoomed(int sym, int zoom) {
+	draw::rectpush push;
 	auto f = (fxt*)draw::font;
 	int height = f->height;
 	int width = f->width;
+	draw::width = zoom - 1;
+	draw::height = zoom - 1;
+	auto push_fore = draw::fore;
+	auto back = draw::fore.mix(colors::black, 32);
 	for(int h = 0; h < height; h++) {
 		unsigned char line = *((unsigned char*)draw::font + ((fxt*)draw::font)->charoffset[sym] + h);
 		unsigned char bit = 0x80;
 		for(int w = 0; w < width; w++) {
+			auto x0 = push.caret.x + w * zoom;
+			auto y0 = push.caret.y + h * zoom;
+			draw::caret.x = x0; draw::caret.y = y0;
+			draw::fore = back; draw::rectf();
+			draw::fore = push_fore;
 			if((line & bit) == bit) {
-				auto x0 = draw::caret.x + w * zoom;
 				auto x1 = x0 + zoom;
-				auto y0 = draw::caret.y + h * zoom;
 				auto y1 = y0 + zoom;
 				for(auto x = x0; x < x1; x++) {
 					for(auto y = y0; y < y1; y++)
@@ -59,6 +67,7 @@ void draw_glyph_zoomed(int sym, int zoom) {
 			bit = bit >> 1;
 		}
 	}
+	draw::fore = push_fore;
 }
 
 void draw::glyph(int sym, unsigned flags) {

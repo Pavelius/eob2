@@ -279,6 +279,12 @@
     <ClCompile Include="carousing.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="midi.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="thread.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -562,6 +568,12 @@
     </ClInclude>
     <ClInclude Include="carousing.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="midi.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="thread.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

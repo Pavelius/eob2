@@ -185,6 +185,7 @@
     <ClInclude Include="list.h" />
     <ClInclude Include="location.h" />
     <ClInclude Include="logvalue.h" />
+    <ClInclude Include="midi.h" />
     <ClInclude Include="modifier.h" />
     <ClInclude Include="monster.h" />
     <ClInclude Include="my_initialize_list.h" />
@@ -218,6 +219,7 @@
     <ClInclude Include="sprite_util.h" />
     <ClInclude Include="talking.h" />
     <ClInclude Include="textscript.h" />
+    <ClInclude Include="thread.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="io_stream.h" />
     <ClInclude Include="log.h" />
@@ -279,6 +281,7 @@
     <ClCompile Include="logvalue.cpp" />
     <ClCompile Include="main_util.cpp" />
     <ClCompile Include="metadata.cpp" />
+    <ClCompile Include="midi.cpp" />
     <ClCompile Include="modifier.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="npc.cpp" />
@@ -306,6 +309,7 @@
     <ClCompile Include="surface_util.cpp" />
     <ClCompile Include="talking.cpp" />
     <ClCompile Include="textscript.cpp" />
+    <ClCompile Include="thread.cpp" />
     <ClCompile Include="variant.cpp" />
     <ClCompile Include="view_automap.cpp" />
     <ClCompile Include="view_dungeon.cpp" />

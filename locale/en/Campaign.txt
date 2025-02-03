@@ -30,6 +30,7 @@ A city smith invite you to visit blacksmith, located on outskirts of city. There
 For now you are notable persons in the city. This goal is marked and you don't have sence to clean dungeons anymore. You are lords now!
 
 #GameQuestsDone
+/scenes 18
 You are finish all quests. This is all. For now your mission here is done.
 
 /////////////////////////////

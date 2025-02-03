@@ -3,10 +3,10 @@
 #include "draw.h"
 #include "log.h"
 #include "midi.h"
+#include "music.h"
 #include "party.h"
 #include "rand.h"
 #include "speech.h"
-#include "thread.h"
 #include "timer.h"
 #include "textscript.h"
 #include "script.h"
@@ -14,15 +14,12 @@
 
 void util_main();
 
-static void play_background_music(void* proc) {
-	midi_play("music/star_craft_1.mid");
-}
-
 int main() {
 	start_random_seed = getcputime();
 	//start_random_seed = 1423089921;
 	srand(start_random_seed);
 	initialize_gui();
+	music_initialize();
 	initialize_translation();
 	initialize_strings();
 	log::readlf(speech_read, "names", "*.txt");
@@ -38,7 +35,7 @@ int main() {
 	draw::create(-1, -1, 320, 200, 0, 32);
 	draw::setcaption("Eye of beholder (remake)");
 	draw::settimer(100);
-	io::thread music(play_background_music);
+	song_play("kvirasim");
 	set_next_scene(main_menu);
 	run_next_scene();
 }

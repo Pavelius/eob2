@@ -19,6 +19,7 @@
 #include "list.h"
 #include "location.h"
 #include "math.h"
+#include "midi.h"
 #include "modifier.h"
 #include "monster.h"
 #include "party.h"
@@ -802,6 +803,10 @@ static void sleep_character(int bonus) {
 	restore_spells(0);
 }
 
+static void stop_music(int bonus) {
+	midi_music_stop();
+}
+
 static void strenght_add(int bonus) {
 	if(bonus > 0) {
 		bonus += player->abilities[Strenght];
@@ -1446,6 +1451,8 @@ static void enter_location() {
 	party.location_id = getbsi(last_location);
 	picture = last_location->avatar;
 	save_focus = current_focus;
+	if(last_location->music)
+		song_play(last_location->music->id);
 	set_next_scene(play_location);
 }
 
@@ -2052,6 +2059,10 @@ void enter_active_dungeon() {
 	set_dungeon_tiles(loc->type);
 	make_action();
 	save_focus = current_focus;
+	if(last_quest) {
+		if(last_quest->music)
+			song_play(last_quest->music->id);
+	}
 	set_next_scene(play_dungeon);
 }
 
@@ -2295,6 +2306,7 @@ static void party_adventure(int bonus) {
 			return;
 		}
 	}
+	stop_music(0);
 	pn = getnme(ids(last_quest->id, "Agree"));
 	if(pn)
 		message(pn);
@@ -3460,6 +3472,7 @@ BSDATA(script) = {
 	{"ShowArea", show_area},
 	{"SleepParty", sleep_party},
 	{"StrenghtAdd", strenght_add},
+	{"StopMusic", stop_music},
 	{"Switch", apply_switch},
 	{"TalkAbout", talk_about},
 	{"TheifToolsUse", use_theif_tools},

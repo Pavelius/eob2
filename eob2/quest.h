@@ -6,6 +6,7 @@
 #include "variant.h"
 
 struct dungeoni;
+struct musici;
 
 struct quest : nameable {
 	enum stagen : unsigned char {
@@ -27,6 +28,7 @@ struct quest : nameable {
 	leveli		sites[8];
 	historya	history;
 	dungeona	dungeon;
+	musici*		music;
 	explicit operator bool() const { return dungeon.operator bool(); }
 	historyi*	addhistory(unsigned short id);
 	void		clear();

@@ -137,7 +137,7 @@ DwarvenTemple avatar(buildngs 32) parent(DwarvenCity)
  options BuyDwarvenHealing Donate ReturnToStreet
 Inn avatar(buildngs 7) parent(BaseCity) cost(10)
  options RestParty MemorizeSpells PrayForSpells ScribleScrolls GameOptions
-Tavern avatar(buildngs 5) parent(BaseCity)
+Tavern avatar(buildngs 5) parent(BaseCity) music(tavern)
  options EatAndDrink TavernCarousing GambleVisitors PickPocketsAction ReturnToStreet
 Temple avatar(buildngs 8) parent(BaseCity)
  options AskForMiracle BuyHealing Donate ReturnToStreet
@@ -148,7 +148,7 @@ WizardTower avatar(buildngs 3) parent(BaseCity)
  options BuySpell TeleportToDungeon ReturnToStreet
  required Reputation(30)
 
-BaseCity avatar(buildngs 15)
+BaseCity avatar(buildngs 15) music(kvirasim)
  options PartyAdventure Inn Tavern Temple Blacksmith WizardTower
 DwarvenCity avatar(buildngs 30)
  options PartyLeave DwarvenTemple DwarvenSmith

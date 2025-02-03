@@ -285,6 +285,12 @@
     <ClCompile Include="thread.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="manager.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="music.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -373,9 +379,6 @@
     </ClInclude>
     <ClInclude Include="direction.h">
       <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="my_initialize_list.h">
-      <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="race.h">
       <Filter>logic</Filter>
@@ -573,6 +576,12 @@
       <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="thread.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="manager.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="music.h">
       <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>

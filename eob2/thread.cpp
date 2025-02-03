@@ -29,8 +29,11 @@ void io::thread::resume() {
 	ResumeThread((HANDLE)s);
 }
 
-io::thread::~thread() {
+void io::thread::close() {
+	if(s == 0xFFFFFFFF)
+		return;
 	CloseHandle((void*)s);
+	s = 0xFFFFFFFF;
 }
 
 void io::thread::join() {

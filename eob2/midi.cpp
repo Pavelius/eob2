@@ -29,6 +29,8 @@ struct evt {
 };
 }
 
+static volatile bool midi_need_close;
+
 static unsigned long read_var_long(unsigned char* buf, unsigned int* bytesread) {
 	unsigned long var = 0;
 	unsigned char c;
@@ -147,6 +149,7 @@ struct MIDIHDR {
 WINMMAPI MMRESULT WINAPI midiStreamOpen(HMIDISTRM* phms, unsigned int* puDeviceID, DWORD cMidi, DWORD_PTR dwCallback, DWORD_PTR dwInstance, DWORD fdwOpen);
 WINMMAPI MMRESULT WINAPI midiStreamProperty(HMIDISTRM hms, unsigned char* lppropdata, DWORD dwProperty);
 WINMMAPI MMRESULT WINAPI midiOutPrepareHeader(HMIDIOUT hmo, MIDIHDR* pmh, unsigned int cbmh);
+WINMMAPI MMRESULT WINAPI midiStreamPause(HMIDISTRM hms);
 WINMMAPI MMRESULT WINAPI midiStreamRestart(HMIDISTRM hms);
 WINMMAPI MMRESULT WINAPI midiStreamOut(HMIDISTRM hms, MIDIHDR* pmh, unsigned int cbmh);
 WINMMAPI MMRESULT WINAPI midiOutReset(HMIDIOUT hmo);
@@ -164,8 +167,7 @@ WINMMAPI DWORD WINAPI WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds);
 
 const unsigned int music_buffer_size = 512 * 12;
 
-static HANDLE event;
-static HMIDISTRM music_stream;
+static HANDLE music_event;
 static unsigned music_buffer[music_buffer_size];
 
 void midi_sleep(unsigned milliseconds) {
@@ -176,7 +178,7 @@ void midi_sleep(unsigned milliseconds) {
 static void CALLBACK midi_play_callback(HMIDIOUT out, unsigned int msg, DWORD dwInstance, DWORD dwParam1, DWORD dwParam2) {
 	switch(msg) {
 	case MOM_DONE:
-		SetEvent(event);
+		SetEvent(music_event);
 		break;
 	}
 }
@@ -299,8 +301,8 @@ static unsigned int get_buffer_ex9(struct trk* tracks, unsigned int ntracks, uns
 }
 
 static void midi_play(unsigned ticks, trk* tracks, unsigned ntracks, unsigned* streambuf, unsigned streambufsize) {
-	event = CreateEventA(0, 0, 0, 0);
-	if(event != 0) {
+	music_event = CreateEventA(0, 0, 0, 0);
+	if(music_event && !midi_need_close) {
 		HMIDISTRM out;
 		unsigned int device = 0;
 		if(midiStreamOpen(&out, &device, 1, (DWORD)midi_play_callback, 0, CALLBACK_FUNCTION) == MMSYSERR_NOERROR) {
@@ -320,7 +322,9 @@ static void midi_play(unsigned ticks, trk* tracks, unsigned ntracks, unsigned* s
 							mhdr.dwBytesRecorded = streamlen;
 							if(midiStreamOut(out, &mhdr, sizeof(MIDIHDR)) != MMSYSERR_NOERROR)
 								break;
-							WaitForSingleObject(event, INFINITE);
+							WaitForSingleObject(music_event, INFINITE);
+							if(midi_need_close)
+								break;
 							get_buffer_ex9(tracks, ntracks, streambuf, &streamlen);
 						}
 						midiOutReset((HMIDIOUT)out);
@@ -330,19 +334,20 @@ static void midi_play(unsigned ticks, trk* tracks, unsigned ntracks, unsigned* s
 			}
 			midiStreamClose(out);
 		}
-		CloseHandle(event);
+		CloseHandle(music_event);
 	}
+	midi_need_close = false;
 }
 
 #endif // _WIN32
 
-bool midi_play(const char* file_name) {	
-	
-	auto midibuf = (unsigned char*)loadb(file_name, 0);
-	if(!midibuf)
-		return false;
+void midi_play_raw(void* mid_data) {
 
-	auto hdr = (mid_header*)midibuf;
+	if(!mid_data)
+		return;
+
+	auto midibuf = (unsigned char*)mid_data;
+	auto hdr = (mid_header*)mid_data;
 	midibuf += sizeof(struct mid_header);
 	int ntracks = midi_bytes_short(hdr->tracks);
 
@@ -360,6 +365,22 @@ bool midi_play(const char* file_name) {
 		delete[] tracks;
 	}
 
-	delete[] (void*)hdr;
+}
+
+bool midi_busy() {
+	return midi_need_close;
+}
+
+bool midi_play(const char* file_name) {
+	auto midibuf = (unsigned char*)loadb(file_name, 0);
+	if(!midibuf)
+		return false;
+	midi_play_raw(midibuf);
+	delete[] midibuf;
 	return true;
+}
+
+void midi_music_stop() {
+	midi_need_close = true;
+	SetEvent(music_event);
 }

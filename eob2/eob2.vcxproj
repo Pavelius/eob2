@@ -188,7 +188,8 @@
     <ClInclude Include="midi.h" />
     <ClInclude Include="modifier.h" />
     <ClInclude Include="monster.h" />
-    <ClInclude Include="my_initialize_list.h" />
+    <ClInclude Include="manager.h" />
+    <ClInclude Include="music.h" />
     <ClInclude Include="npc.h" />
     <ClInclude Include="party.h" />
     <ClInclude Include="picture.h" />
@@ -280,10 +281,12 @@
     <ClCompile Include="location.cpp" />
     <ClCompile Include="logvalue.cpp" />
     <ClCompile Include="main_util.cpp" />
+    <ClCompile Include="manager.cpp" />
     <ClCompile Include="metadata.cpp" />
     <ClCompile Include="midi.cpp" />
     <ClCompile Include="modifier.cpp" />
     <ClCompile Include="monster.cpp" />
+    <ClCompile Include="music.cpp" />
     <ClCompile Include="npc.cpp" />
     <ClCompile Include="party_combat.cpp" />
     <ClCompile Include="picture.cpp" />

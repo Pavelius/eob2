@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Paralized`
+﻿Error in file `rules/Core.txt`:
+ Line 42: Can't find variant `AddAwards`

@@ -11,12 +11,13 @@
 #include "damage.h"
 #include "dungeon.h"
 #include "item.h"
-#include "keyvalue.h"
-#include "list.h"
-#include "location.h"
 #include "feat.h"
 #include "formula.h"
 #include "gender.h"
+#include "keyvalue.h"
+#include "list.h"
+#include "location.h"
+#include "music.h"
 #include "monster.h"
 #include "shape.h"
 #include "script.h"
@@ -39,6 +40,8 @@ NOBSDATA(dice)
 NOBSDATA(point)
 NOBSDATA(picturei)
 NOBSDATA(quest::leveli)
+
+BSDATAD(musici)
 
 BSDATAC(actioni, 256)
 BSDATAC(advancement, 256)
@@ -159,6 +162,7 @@ BSMETA(locationi) = {
 	BSREQ(avatar),
 	BSREQ(options),
 	BSREQ(cost),
+	BSREQ(music),
 	BSDST(required, partystati),
 	{}};
 BSMETA(monsteri) = {
@@ -173,6 +177,9 @@ BSMETA(monsteri) = {
 	BSREQ(minions),
 	BSDST(spells, spelli),
 	{}};
+BSMETA(musici) = {
+	BSREQ(id),
+	{}};
 BSMETA(partystati) = {
 	BSREQ(id),
 	{}};
@@ -186,6 +193,7 @@ BSMETA(quest) = {
 	BSREQ(travel),
 	BSREQ(reward),
 	BSREQ(difficult),
+	BSREQ(music),
 	BSDST(goals, goali),
 	{}};
 BSMETA(quest::leveli) = {

@@ -85,6 +85,7 @@ public:
 	const char*		psparam(const char* p);
 	const char*		psstr(const char* p, char end_symbol);
 	const char*		psstrlf(const char* p);
+	void			reset() { p = pb; }
 	void			set(char* v) { p = v; p[0] = 0; }
 	size_t			size() const { return p - pb; }
 	void			trimr();

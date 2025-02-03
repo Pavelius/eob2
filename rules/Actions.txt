@@ -135,13 +135,13 @@ DwarvenSmith avatar(buildngs 31) parent(DwarvenCity)
  options RepairItems BuyDwarvenWeapon ReturnToStreet
 DwarvenTemple avatar(buildngs 32) parent(DwarvenCity)
  options BuyDwarvenHealing Donate ReturnToStreet
-Inn avatar(buildngs 7) parent(BaseCity) cost(10)
+Inn avatar(buildngs 7) parent(BaseCity) cost(10) music(inn)
  options RestParty MemorizeSpells PrayForSpells ScribleScrolls GameOptions
 Tavern avatar(buildngs 5) parent(BaseCity) music(tavern)
  options EatAndDrink TavernCarousing GambleVisitors PickPocketsAction ReturnToStreet
-Temple avatar(buildngs 8) parent(BaseCity)
+Temple avatar(buildngs 8) parent(BaseCity) music(temple)
  options AskForMiracle BuyHealing Donate ReturnToStreet
-Blacksmith avatar(buildngs 0) parent(BaseCity)
+Blacksmith avatar(buildngs 0) parent(BaseCity) music(smith)
  options RepairItems BuyWeapon ReturnToStreet
  required Reputation(25)
 WizardTower avatar(buildngs 3) parent(BaseCity)

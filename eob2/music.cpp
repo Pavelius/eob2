@@ -4,6 +4,7 @@
 #include "thread.h"
 
 static volatile void* played_music;
+static void* current_music;
 
 io::thread music_tread;
 
@@ -20,18 +21,20 @@ void* song_get(const char* id) {
 }
 
 static void music_play_background(void* music_data) {
-	midi_play_raw(music_data);
+	played_music = music_data;
+	while(played_music)
+		midi_play_raw(music_data);
 	played_music = 0;
 }
 
 void music_play(void* new_music) {
-	if(played_music == new_music)
+	if(current_music == new_music)
 		return;
-	if(played_music)
-		midi_music_stop();
-	while(played_music && midi_busy())
+	current_music = new_music;
+	played_music = 0;
+	midi_music_stop();
+	while(midi_busy())
 		midi_sleep(10);
-	played_music = new_music;
 	if(new_music) {
 		music_tread.close();
 		music_tread.start(music_play_background, new_music);

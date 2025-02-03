@@ -1248,6 +1248,8 @@ static void paint_party_sheets() {
 }
 
 static void get_closed_goals(goala goals) {
+	if(!last_quest)
+		return;
 	for(auto& e : last_quest->dungeon) {
 		for(auto i = (goaln)0; i <= KillAlmostAllMonsters; i = (goaln)(i + 1)) {
 			if(e.is(i))

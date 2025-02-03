@@ -19,7 +19,6 @@
 #include "list.h"
 #include "location.h"
 #include "math.h"
-#include "midi.h"
 #include "modifier.h"
 #include "monster.h"
 #include "party.h"
@@ -804,7 +803,6 @@ static void sleep_character(int bonus) {
 }
 
 static void stop_music(int bonus) {
-	midi_music_stop();
 }
 
 static void strenght_add(int bonus) {

@@ -178,7 +178,8 @@ void midi_sleep(unsigned milliseconds) {
 static void CALLBACK midi_play_callback(HMIDIOUT out, unsigned int msg, DWORD dwInstance, DWORD dwParam1, DWORD dwParam2) {
 	switch(msg) {
 	case MOM_DONE:
-		SetEvent(music_event);
+		if(music_event)
+			SetEvent(music_event);
 		break;
 	}
 }
@@ -335,6 +336,7 @@ static void midi_play(unsigned ticks, trk* tracks, unsigned ntracks, unsigned* s
 			midiStreamClose(out);
 		}
 		CloseHandle(music_event);
+		music_event = 0;
 	}
 	midi_need_close = false;
 }
@@ -381,6 +383,8 @@ bool midi_play(const char* file_name) {
 }
 
 void midi_music_stop() {
-	midi_need_close = true;
-	SetEvent(music_event);
+	if(music_event) {
+		midi_need_close = true;
+		SetEvent(music_event);
+	}
 }

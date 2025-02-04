@@ -146,14 +146,19 @@ struct MIDIHDR {
 	DWORD*      dwReserved[8];        /* Reserved for MMSYSTEM */
 };
 
+WINMMAPI MMRESULT WINAPI midiOutOpen(HMIDIOUT* phmo, unsigned int uDeviceID, DWORD_PTR dwCallback, DWORD_PTR dwInstance, DWORD fdwOpen);
+WINMMAPI MMRESULT WINAPI midiOutClose(HMIDIOUT hmo);
+WINMMAPI MMRESULT WINAPI midiOutShortMsg(HMIDIOUT hmo, DWORD dwMsg);
+
+WINMMAPI MMRESULT WINAPI midiOutReset(HMIDIOUT hmo);
+WINMMAPI MMRESULT WINAPI midiOutPrepareHeader(HMIDIOUT hmo, MIDIHDR* pmh, unsigned int cbmh);
+WINMMAPI MMRESULT WINAPI midiOutUnprepareHeader(HMIDIOUT hmo, MIDIHDR* pmh, unsigned int cbmh);
+
 WINMMAPI MMRESULT WINAPI midiStreamOpen(HMIDISTRM* phms, unsigned int* puDeviceID, DWORD cMidi, DWORD_PTR dwCallback, DWORD_PTR dwInstance, DWORD fdwOpen);
 WINMMAPI MMRESULT WINAPI midiStreamProperty(HMIDISTRM hms, unsigned char* lppropdata, DWORD dwProperty);
-WINMMAPI MMRESULT WINAPI midiOutPrepareHeader(HMIDIOUT hmo, MIDIHDR* pmh, unsigned int cbmh);
 WINMMAPI MMRESULT WINAPI midiStreamPause(HMIDISTRM hms);
 WINMMAPI MMRESULT WINAPI midiStreamRestart(HMIDISTRM hms);
 WINMMAPI MMRESULT WINAPI midiStreamOut(HMIDISTRM hms, MIDIHDR* pmh, unsigned int cbmh);
-WINMMAPI MMRESULT WINAPI midiOutReset(HMIDIOUT hmo);
-WINMMAPI MMRESULT WINAPI midiOutUnprepareHeader(HMIDIOUT hmo, MIDIHDR* pmh, unsigned int cbmh);
 WINMMAPI MMRESULT WINAPI midiStreamClose(HMIDISTRM hms);
 
 WINMMAPI int WINAPI CloseHandle(HANDLE hObject);
@@ -303,7 +308,7 @@ static unsigned int get_buffer_ex9(struct trk* tracks, unsigned int ntracks, uns
 
 static void midi_play(unsigned ticks, trk* tracks, unsigned ntracks, unsigned* streambuf, unsigned streambufsize) {
 	music_event = CreateEventA(0, 0, 0, 0);
-	if(music_event && !midi_need_close) {
+	if(music_event) {
 		HMIDISTRM out;
 		unsigned int device = 0;
 		if(midiStreamOpen(&out, &device, 1, (DWORD)midi_play_callback, 0, CALLBACK_FUNCTION) == MMSYSERR_NOERROR) {
@@ -319,7 +324,7 @@ static void midi_play(unsigned ticks, trk* tracks, unsigned ntracks, unsigned* s
 					if(midiStreamRestart(out) == MMSYSERR_NOERROR) {
 						unsigned int streamlen = 0;
 						get_buffer_ex9(tracks, ntracks, streambuf, &streamlen);
-						while(streamlen > 0) {
+						while(streamlen > 0 && !midi_need_close) {
 							mhdr.dwBytesRecorded = streamlen;
 							if(midiStreamOut(out, &mhdr, sizeof(MIDIHDR)) != MMSYSERR_NOERROR)
 								break;
@@ -339,6 +344,20 @@ static void midi_play(unsigned ticks, trk* tracks, unsigned ntracks, unsigned* s
 		music_event = 0;
 	}
 	midi_need_close = false;
+}
+
+static HMIDIOUT sound_handle;
+
+void midi_open() {
+	midiOutOpen(&sound_handle, 0, 0, 0, CALLBACK_NULL);
+}
+
+void midi_close() {
+	midiOutClose(sound_handle);
+}
+
+void midi_event(unsigned command) {
+	midiOutShortMsg(sound_handle, command);
 }
 
 #endif // _WIN32

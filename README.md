@@ -17,6 +17,8 @@ Creating new unique engine to play in AD&D on PC. This engine will be based on g
 Recent release is [here](https://github.com/Pavelius/eob2/blob/master/install/win32.zip). Or you can compile and build this project.
 
 # How to play
+You are party of adventurers who are just arrived in the city of Iriaebor - in the Western Heartlands region of Faerun. Explore dungeons near, complete quests.
+
 We try to follow original rules of advanced dungeon and dragons second edition.
 
 ## General terminology

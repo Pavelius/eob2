@@ -17,8 +17,10 @@ static unsigned short generate_name(racen race, gendern gender, fnallowus name_f
 	unsigned short name = 0xFFFF;
 	if(name == 0xFFFF)
 		name = speech_random_name(ids(pr->id, pg->id), name_filter);
-	if(name == 0xFFFF && szstart(pr->id, "Half"))
-		name = speech_random_name(ids(pr->id + 4, pg->id), name_filter);
+	if(name == 0xFFFF && pr->origin && d100() < 60) // 60% of all "half" race have names of their origin, other names of humans
+		name = speech_random_name(ids(getid<racei>(pr->origin), pg->id), name_filter);
+	if(name == 0xFFFF)
+		name = speech_random_name(ids("Human", pg->id), name_filter);
 	return name;
 }
 

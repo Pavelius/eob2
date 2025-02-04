@@ -13,6 +13,7 @@
 #include "io_stream.h"
 #include "location.h"
 #include "math.h"
+#include "midi.h"
 #include "picture.h"
 #include "quest.h"
 #include "race.h"

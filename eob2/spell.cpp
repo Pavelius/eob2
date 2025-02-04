@@ -394,6 +394,10 @@ void cast_spell() {
 	pass_round();
 }
 
+void cast_spell(int bonus) {
+	cast_spell();
+}
+
 void add_spells(int type, int level, const spellseta* include) {
 	an.clear();
 	for(auto& e : bsdata<spelli>()) {

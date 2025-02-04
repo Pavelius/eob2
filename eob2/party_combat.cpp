@@ -128,7 +128,7 @@ static void hit_equipment(creaturei* player) {
 			continue;
 		if(player->roll(SaveVsParalization))
 			continue;
-		player->wears[w].damage(1);
+		player->wears[w].damage(0, 1);
 		break;
 	}
 }
@@ -274,16 +274,8 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 			hit_equipment(defender);
 	}
 	// Weapon can be broken
-	if(rolls == 1) {
-		if(weapon && d100() < 60) {
-			auto name = weapon.getname();
-			weapon.damage(1);
-			if(!weapon)
-				player->speak("Weapon", "Broken", name);
-		} else
-			player->damage(Bludgeon, 1, 5);
-		return;
-	}
+	if(rolls == 1)
+		weapon.damage("WeaponBroken", 1);
 }
 
 static void single_main_attack(wearn wear, creaturei* enemy, int bonus, int multiplier) {

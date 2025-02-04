@@ -77,6 +77,8 @@ BuyDwarvenWeapon
 BuyArmor
  effect BuyArmors
  required Reputation(40)
+CastSpellAction
+ effect CastSpell
 Donate
  effect ChooseDonation IfZero-1 PayGold+101 Message Div+50 Add-1 Blessing+101 Chance+100 Reputation+1
 EatAndDrink avatar(buildngs 6) cost(5)
@@ -84,6 +86,8 @@ EatAndDrink avatar(buildngs 6) cost(5)
 GambleVisitors avatar(buildngs 24)
  classes Fighter Theif
  effect ChooseBet PayGold+101 Charisma Roll-2 Mul+2 GoldPiece+101
+ManipulateAction
+ effect Manipulate
 MemorizeSpells
  classes Mage
  effect ChooseSpells+1
@@ -157,7 +161,7 @@ DwarvenCity avatar(buildngs 30)
 
 StartGame
 CampMenu
- elements MemorizeSpells PrayForSpells ScribleScrolls GameOptions
+ elements CastSpellAction MemorizeSpells PrayForSpells ScribleScrolls ManipulateAction GameOptions
 MainMenu
  elements StartGame LoadGame ExitGame
 

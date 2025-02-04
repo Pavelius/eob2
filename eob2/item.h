@@ -41,7 +41,7 @@ public:
 	void		create(const itemi* pi);
 	void		createpower(char magic_bonus, int chance_magical, int chance_cursed);
 	void		curse(int v) { cursed = (v >= 0) ? 1 : 0; }
-	void		damage(int v);
+	void		damage(const char* interactive, int use);
 	const itemi& geti() const;
 	void		identify(int v) { identified = (v >= 0) ? 1 : 0; }
 	bool		is(featn v) const { return geti().is(v); }

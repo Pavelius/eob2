@@ -163,22 +163,6 @@ bool item::isweapon() const {
 	return geti().damage.c != 0;
 }
 
-void item::damage(int bonus) {
-	if(!type) // Already empthy. If comment this can be bugged.
-		return;
-	if(bonus >= 0) {
-		bonus += count;
-		if(bonus >= 10) {
-			if(isartifact())
-				count = 9;
-			else
-				clear();
-		} else
-			count = bonus;
-	} else
-		count = 0;
-}
-
 bool item::join(item& it) {
 	if(!type) {
 		*this = it;
@@ -240,13 +224,32 @@ void item::createpower(char magic_bonus, int chance_magical, int chance_cursed) 
 }
 
 void item::usecharge(const char* interactive, int chance, int use) {
-	auto maximum = 10 + getpower().counter;
 	if(d100() < chance)
 		return;
+	damage(interactive, use);
 	count += use;
+	auto maximum = 10 + getpower().counter;
 	if(count >= maximum) {
-		if(interactive)
-			consolen(getnm(interactive), getnm(geti().id));
 		clear();
 	}
+}
+
+void item::damage(const char* interactive, int use) {
+	if(!type) // Already empthy. If comment this can be bugged.
+		return;
+	if(use >= 0) {
+		use += count;
+		auto maximum = 10 + getpower().counter;
+		if(use >= maximum) {
+			if(isartifact())
+				count = maximum - 1;
+			else {
+				if(interactive)
+					consolen(getnm(interactive), getnm(geti().id));
+				clear();
+			}
+		} else
+			count = use;
+	} else
+		count = 0;
 }

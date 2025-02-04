@@ -49,6 +49,8 @@ void manager_initialize(array& source, const char* folder, const char* filter) {
 }
 
 void* manager_get(array& source, const char* id, const char* folder, const char* ext) {
+	if(!id || id[0] == 0)
+		return 0;
 	nameable e; e.id = id;
 	auto p = (manageri*)bsearch(&e, source.data, source.count, source.element_size, compare);
 	if(!p)

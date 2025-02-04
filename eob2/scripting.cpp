@@ -179,7 +179,7 @@ static void damage_modify(int bonus) {
 }
 
 static void damage_item(int bonus) {
-	last_item->damage(bonus);
+	last_item->damage(0, bonus);
 }
 
 static void destroy_item(int bonus) {
@@ -1937,6 +1937,10 @@ static void manipulate() {
 		make_action();
 }
 
+static void manipulate(int bonus) {
+	manipulate();
+}
+
 static int get_side(const creaturei* p) {
 	for(auto i = 0; i < 6; i++) {
 		if(characters[i] == p) {
@@ -2060,6 +2064,8 @@ void enter_active_dungeon() {
 	if(last_quest) {
 		if(last_quest->music)
 			song_play(last_quest->music->id);
+		else
+			song_play(0);
 	}
 	set_next_scene(play_dungeon);
 }
@@ -3383,6 +3389,7 @@ BSDATA(script) = {
 	{"BestPlayer", best_player},
 	{"BuyMenu", buy_menu},
 	{"Caster", set_caster},
+	{"CastSpell", cast_spell},
 	{"ConfirmAction", confirm_action},
 	{"Chance", apply_chance},
 	{"Character", set_character},
@@ -3425,6 +3432,7 @@ BSDATA(script) = {
 	{"LearnMageSpells", learn_mage_spells},
 	{"LoadGame", load_game},
 	{"Magical", empthy_script},
+	{"Manipulate", manipulate},
 	{"Message", script_message},
 	{"MonstersFlee", monsters_flee},
 	{"MonstersKill", monsters_kill},

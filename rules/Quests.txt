@@ -26,7 +26,7 @@ EvilTemple
 ExploreNorthWood
 FloodedSewers
 
-FloodedSewers music(adept)
+FloodedSewers
  goals KillAlmostAllMonsters(3)
  travel PassHours+1
  reward AddReward+5 Reputation+5

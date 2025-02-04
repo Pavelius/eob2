@@ -33,6 +33,7 @@ void camp_autocast();
 bool can_cast_spell(int type, int level);
 bool can_learn_spell(int type, int level);
 void cast_spell();
+void cast_spell(int bonus);
 bool cast_spell(const spelli* ps, int level, int experience, bool run, bool random_target, unsigned durations, creaturei* explicit_target);
 void clear_spellbook();
 

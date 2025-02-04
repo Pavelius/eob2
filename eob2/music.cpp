@@ -17,7 +17,7 @@ void music_initialize() {
 }
 
 void* song_get(const char* id) {
-	return manager_get(bsdata<musici>::source, id, "music", "mid");
+	return manager_get(bsdata<musici>::source, id, "mid");
 }
 
 static void music_play_background(void* music_data) {

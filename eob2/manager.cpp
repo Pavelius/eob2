@@ -22,7 +22,7 @@ static int compare(const void* v1, const void* v2) {
 
 void manager_initialize(array& source, const char* folder, const char* filter) {
 	char temp[260]; stringbuilder sb(temp);
-	manager_clear(source);
+	folder = szdup(folder);
 	for(io::file::find find(folder); find; find.next()) {
 		auto pn = find.name();
 		if(!pn || pn[0] == '.')
@@ -43,12 +43,13 @@ void manager_initialize(array& source, const char* folder, const char* filter) {
 			memset(p, 0, source.element_size);
 		}
 		p->clear();
+		p->folder = folder;
 		p->id = szdup(temp);
 	}
 	qsort(source.data, source.count, source.element_size, compare);
 }
 
-void* manager_get(array& source, const char* id, const char* folder, const char* ext) {
+void* manager_get(array& source, const char* id, const char* ext) {
 	if(!id || id[0] == 0)
 		return 0;
 	nameable e; e.id = id;
@@ -60,8 +61,8 @@ void* manager_get(array& source, const char* id, const char* folder, const char*
 	if(p->error)
 		return 0;
 	char temp[260]; stringbuilder sb(temp);
-	if(folder) {
-		sb.add(folder);
+	if(p->folder) {
+		sb.add(p->folder);
 		sb.add("/");
 	}
 	sb.add(id);

@@ -285,10 +285,10 @@
     <ClCompile Include="thread.cpp">
       <Filter>support</Filter>
     </ClCompile>
-    <ClCompile Include="manager.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="music.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="manager.cpp">
       <Filter>support</Filter>
     </ClCompile>
   </ItemGroup>
@@ -578,10 +578,10 @@
     <ClInclude Include="thread.h">
       <Filter>support</Filter>
     </ClInclude>
-    <ClInclude Include="manager.h">
-      <Filter>logic</Filter>
-    </ClInclude>
     <ClInclude Include="music.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="manager.h">
       <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>

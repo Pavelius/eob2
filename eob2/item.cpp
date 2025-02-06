@@ -227,11 +227,6 @@ void item::usecharge(const char* interactive, int chance, int use) {
 	if(d100() < chance)
 		return;
 	damage(interactive, use);
-	count += use;
-	auto maximum = 10 + getpower().counter;
-	if(count >= maximum) {
-		clear();
-	}
 }
 
 void item::damage(const char* interactive, int use) {
@@ -241,13 +236,9 @@ void item::damage(const char* interactive, int use) {
 		use += count;
 		auto maximum = 10 + getpower().counter;
 		if(use >= maximum) {
-			if(isartifact())
-				count = maximum - 1;
-			else {
-				if(interactive)
-					consolen(getnm(interactive), getnm(geti().id));
-				clear();
-			}
+			if(interactive)
+				consolen(getnm(interactive), getnm(geti().id));
+			clear();
 		} else
 			count = use;
 	} else

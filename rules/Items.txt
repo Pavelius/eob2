@@ -212,7 +212,7 @@ HolySymbol cost(20) avatar(53) avatar_ground(20) wear(Faithable)
 HolySymbolEvil cost(20) avatar(27) avatar_ground(20) wear(Faithable)
  feats Small UsePriest
 MageBook cost(50) avatar(35) avatar_ground(11) wear(Readable) powers(TomePowers)
- feats Small UseMage
+ feats Small
 Horn cost(30) avatar(59) avatar_ground(23) wear(Usable)
  feats Small
 

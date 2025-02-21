@@ -84,7 +84,7 @@ sprite* residi::get() {
 		data = (sprite*)loadb(temp);
 		if(!data) {
 			szurl(temp, folder, id, "FNT");
-			data = (sprite*)loadb(temp);
+			data = (sprite*)loadb(temp, 0);
 		}
 		error = (data != 0);
 	}

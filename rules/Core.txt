@@ -41,4 +41,4 @@ StartGameQuests
 StartGameAbilities
  elements AddReward+10 GoldPiece+50 GoldPiece+50 Reputation+20 Blessing+30
 StartGame
- elements ClearGame GeneratePartyDebug StartGameQuests StartGameAbilities PassHours+7 Message PartyUnlock BaseCity EnterLocation
+ elements ClearGame GenerateParty StartGameQuests StartGameAbilities PassHours+7 Message PartyUnlock BaseCity EnterLocation

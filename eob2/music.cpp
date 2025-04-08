@@ -6,7 +6,7 @@
 static volatile void* played_music;
 static void* current_music;
 
-io::thread music_tread;
+//io::thread music_tread;
 
 void music_clear() {
 	manager_clear(bsdata<musici>::source);
@@ -35,10 +35,10 @@ void music_play(void* new_music) {
 	midi_music_stop();
 	while(midi_busy())
 		midi_sleep(10);
-	if(new_music) {
-		music_tread.close();
-		music_tread.start(music_play_background, new_music);
-	}
+//	if(new_music) {
+//		music_tread.close();
+//		music_tread.start(music_play_background, new_music);
+//	}
 }
 
 void song_play(const char* id) {

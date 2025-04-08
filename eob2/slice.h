@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////
-// 
+//
 // Copyright 2024 Pavel Chistyakov
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +27,7 @@ typedef void(*fnevent)(); // Callback function of any command executing
 typedef bool(*fnvisible)(const void* object);
 typedef const char*(*fngetname)(const void* object);
 
-extern "C" void* bsearch(const void* key, const void* base, unsigned num, size_t size, fncompare proc);
+extern "C" void* bsearch(const void* key, const void* base, size_t num, size_t size, fncompare proc);
 extern "C" void* memchr(const void* ptr, int value, long unsigned num);
 extern "C" void* memcpy(void* destination, const void* source, long unsigned size) noexcept(true);
 extern "C" int memcmp(const void* p1, const void* p2, size_t size) noexcept(true);

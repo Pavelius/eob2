@@ -152,6 +152,8 @@ int	item::getcost() const {
 				case Drinkable:
 					base += maptbl(drinkable_cost, power.counter);
 					break;
+            default:
+               break;
 				}
 			}
 		}

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "slice.h"
+
 enum classn : unsigned char;
 enum gendern : unsigned char;
 enum racen : unsigned char;

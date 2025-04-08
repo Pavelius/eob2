@@ -606,6 +606,8 @@ static void set_back_position(point& result, int i, resid type) {
 		case 1: result.y += 2; break;
 		}
 		break;
+   default:
+      break;
 	}
 }
 
@@ -659,6 +661,8 @@ static void create_overlay(int i, pointc index, int frame, bool mr) {
 		case 1: pb->y += 2; break;
 		}
 		break;
+   default:
+      break;
 	}
 }
 

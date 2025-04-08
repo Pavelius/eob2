@@ -7,7 +7,7 @@
 #include "stringbuilder.h"
 #include "timer.h"
 
-// #define SCALE_FACTOR 3
+#define SCALE_FACTOR 3
 
 using namespace draw;
 
@@ -232,6 +232,10 @@ static bool handle(XEvent& e) {
 		hot.key = MouseMove;
 		hot.mouse.x = e.xmotion.x;
 		hot.mouse.y = e.xmotion.y;
+#ifdef SCALE_FACTOR
+		hot.mouse.x /= SCALE_FACTOR;
+		hot.mouse.y /= SCALE_FACTOR;
+#endif // SCALE_FACTOR
 		break;
 	case VisibilityNotify:
 		hot.key = InputUpdate;

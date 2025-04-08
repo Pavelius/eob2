@@ -211,6 +211,8 @@ static void create_item(item& it, itemi* pi, int bonus_level = 0, int chance_ide
 		if(it.ismagical())
 			loc->state.wallmessages[MessageMagicWeapons]++;
 		break;
+   default:
+      break;
 	}
 }
 
@@ -771,12 +773,12 @@ static void stairs_down(pointc v, directions d, const shapei* ps) {
 	loc->state.down.d = d;
 }
 
-static void create_lair(pointc v, directions d, const shapei* ps) {
-	apply_shape(v, d, ps, '0', monster_boss);
-	apply_shape(v, d, ps, '1', lair_door);
-	apply_shape(v, d, ps, '2', monster_minion);
-	apply_shape(v, d, ps, '.', monster);
-}
+//static void create_lair(pointc v, directions d, const shapei* ps) {
+//	apply_shape(v, d, ps, '0', monster_boss);
+//	apply_shape(v, d, ps, '1', lair_door);
+//	apply_shape(v, d, ps, '2', monster_minion);
+//	apply_shape(v, d, ps, '.', monster);
+//}
 
 static void validate_position(pointc& v, directions d, const shapei* shape) {
 	if(test_shape(v, d, shape))

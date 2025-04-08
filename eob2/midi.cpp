@@ -1,6 +1,8 @@
 #include "io_stream.h"
+#include "slice.h"
 
-#pragma comment(lib, "winmm.lib")
+const unsigned int music_buffer_size = 512 * 12;
+static unsigned music_buffer[music_buffer_size];
 
 namespace {
 #pragma pack(push, 1)
@@ -74,6 +76,8 @@ static int is_track_end(const struct evt* e) {
 }
 
 #ifdef _WIN32
+
+#pragma comment(lib, "winmm.lib")
 
 //#define USE_WIN_HEADER
 
@@ -170,10 +174,7 @@ WINMMAPI DWORD WINAPI WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds);
 
 #endif
 
-const unsigned int music_buffer_size = 512 * 12;
-
 static HANDLE music_event;
-static unsigned music_buffer[music_buffer_size];
 
 void midi_sleep(unsigned milliseconds) {
 	if(milliseconds)
@@ -360,6 +361,33 @@ void midi_event(unsigned command) {
 	midiOutShortMsg(sound_handle, command);
 }
 
+void midi_music_stop() {
+	if(music_event) {
+		midi_need_close = true;
+		SetEvent(music_event);
+	}
+}
+
+#else
+
+static void midi_play(unsigned ticks, trk* tracks, unsigned ntracks, unsigned* streambuf, unsigned streambufsize) {
+}
+
+void midi_open() {
+}
+
+void midi_close() {
+}
+
+void midi_event(unsigned command) {
+}
+
+void midi_music_stop() {
+}
+
+void midi_sleep(unsigned milliseconds) {
+}
+
 #endif // _WIN32
 
 void midi_play_raw(void* mid_data) {
@@ -399,11 +427,4 @@ bool midi_play(const char* file_name) {
 	midi_play_raw(midibuf);
 	delete[] midibuf;
 	return true;
-}
-
-void midi_music_stop() {
-	if(music_event) {
-		midi_need_close = true;
-		SetEvent(music_event);
-	}
 }

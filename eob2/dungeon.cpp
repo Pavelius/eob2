@@ -530,6 +530,8 @@ int	dungeoni::getpassables(bool explored) const {
 					break;
 				result++;
 				break;
+         default:
+            break;
 			}
 		}
 	}

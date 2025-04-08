@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////
-// 
+//
 // Copyright 2024 Pavel Chistyakov
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +19,7 @@
 #ifdef _MSC_VER
 #define XVA_FORMAT(V) auto format_param = (((const char*)&V) + sizeof(V));
 #else
+#include "slice.h"
 #include <stdarg.h>
 struct xva_gcc_list {
 	int gpr, fpr;

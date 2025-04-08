@@ -100,18 +100,18 @@ static void set_big_font() {
 	font = gres(FONT8);
 }
 
-static int get_party_disp(creaturei* target, wearn id) {
-	if(!target)
-		return 0;
-	int pind = get_party_index(target);
-	if(pind == -1)
-		return 0;
-	if(id == RightHand)
-		return disp_weapon[pind][0];
-	else if(id == LeftHand)
-		return disp_weapon[pind][1];
-	return 0;
-}
+//static int get_party_disp(creaturei* target, wearn id) {
+//	if(!target)
+//		return 0;
+//	int pind = get_party_index(target);
+//	if(pind == -1)
+//		return 0;
+//	if(id == RightHand)
+//		return disp_weapon[pind][0];
+//	else if(id == LeftHand)
+//		return disp_weapon[pind][1];
+//	return 0;
+//}
 
 void fix_damage(const creaturei* target, int value) {
 	auto i = get_party_index(target);
@@ -1642,8 +1642,8 @@ static void make_screenshoot() {
 	auto index = get_file_number("screenshoots", "scr*.bmp");
 	char temp[260]; stringbuilder sb(temp);
 	sb.add("screenshoots/scr%1.5i.bmp", index);
-	write(temp,
-		draw::canvas->ptr(0, 0), canvas->width, canvas->height, canvas->bpp, canvas->scanline, 0);
+//	draw::write(temp,
+//		draw::canvas->ptr(0, 0), canvas->width, canvas->height, canvas->bpp, canvas->scanline, 0);
 }
 
 static void common_input() {
@@ -2320,7 +2320,7 @@ bool choose_avatar() {
 	unsigned char avatars[256];
 	auto count = get_avatars(avatars, last_race, last_gender, last_class, no_party_avatars);
 	character_avatars = slice<unsigned char>(avatars, count);
-	auto result = (unsigned char)(int)choose_generate_box(paint_choose_avatars);
+	auto result = (unsigned char)(long)choose_generate_box(paint_choose_avatars);
 	if(result == 0xFF)
 		return false;
 	player->avatar = result;

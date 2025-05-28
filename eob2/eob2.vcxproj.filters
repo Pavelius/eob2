@@ -147,9 +147,6 @@
     <ClCompile Include="sprite_util.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="surface_util.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
     <ClCompile Include="draw_text.cpp">
       <Filter>support</Filter>
     </ClCompile>
@@ -289,6 +286,9 @@
       <Filter>support</Filter>
     </ClCompile>
     <ClCompile Include="manager.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_serial.cpp">
       <Filter>support</Filter>
     </ClCompile>
   </ItemGroup>

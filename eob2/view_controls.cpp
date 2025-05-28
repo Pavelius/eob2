@@ -1642,8 +1642,8 @@ static void make_screenshoot() {
 	auto index = get_file_number("screenshoots", "scr*.bmp");
 	char temp[260]; stringbuilder sb(temp);
 	sb.add("screenshoots/scr%1.5i.bmp", index);
-//	draw::write(temp,
-//		draw::canvas->ptr(0, 0), canvas->width, canvas->height, canvas->bpp, canvas->scanline, 0);
+	draw::write(temp,
+		draw::canvas->ptr(0, 0), canvas->width, canvas->height, canvas->bpp, canvas->scanline, 0);
 }
 
 static void common_input() {
@@ -2193,6 +2193,9 @@ static void paint_avatar_list() {
 			break;
 		auto n = character_avatars[index];
 		image(gres(PORTM), n, 0);
+		if(hot.mouse.in(getrect()) && hot.key == MouseLeft && !hot.pressed && answer_index != index)
+			execute(buttonparam, (long)n);
+		button_input(character_avatars.begin() + index, 0, 0);
 		if(index == answer_index)
 			paint_hilite_rect();
 		caret.x += 32;

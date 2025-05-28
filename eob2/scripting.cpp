@@ -1228,6 +1228,7 @@ static creaturei** choose_player_position() {
 }
 
 static void generate_party(int bonus) {
+	song_play("generate");
 	while(true) {
 		player_position = choose_player_position();
 		if(!player_position)

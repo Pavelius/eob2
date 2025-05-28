@@ -1,8 +1,6 @@
 #include "io_stream.h"
-#include "slice.h"
 
-const unsigned int music_buffer_size = 512 * 12;
-static unsigned music_buffer[music_buffer_size];
+#pragma comment(lib, "winmm.lib")
 
 namespace {
 #pragma pack(push, 1)
@@ -32,6 +30,7 @@ struct evt {
 }
 
 static volatile bool midi_need_close;
+static unsigned int current_time = 0;
 
 static unsigned long read_var_long(unsigned char* buf, unsigned int* bytesread) {
 	unsigned long var = 0;
@@ -76,8 +75,6 @@ static int is_track_end(const struct evt* e) {
 }
 
 #ifdef _WIN32
-
-#pragma comment(lib, "winmm.lib")
 
 //#define USE_WIN_HEADER
 
@@ -174,7 +171,11 @@ WINMMAPI DWORD WINAPI WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds);
 
 #endif
 
+const unsigned int music_buffer_size = 512 * 12;
+
 static HANDLE music_event;
+static HMIDISTRM out = 0;
+static unsigned music_buffer[music_buffer_size];
 
 void midi_sleep(unsigned milliseconds) {
 	if(milliseconds)
@@ -194,7 +195,6 @@ static unsigned int get_buffer_ex9(struct trk* tracks, unsigned int ntracks, uns
 	MIDIEVENT e, *p;
 	unsigned int streamlen = 0;
 	unsigned int i;
-	static unsigned int current_time = 0;
 
 	if(!tracks || !out || !outlen)
 		return 0;
@@ -307,58 +307,53 @@ static unsigned int get_buffer_ex9(struct trk* tracks, unsigned int ntracks, uns
 	return 1;
 }
 
+void midi_open() {
+	if(out)
+		return;
+	unsigned int device = 0;
+	midiStreamOpen(&out, &device, 1, (DWORD)midi_play_callback, 0, CALLBACK_FUNCTION);
+}
+
 static void midi_play(unsigned ticks, trk* tracks, unsigned ntracks, unsigned* streambuf, unsigned streambufsize) {
+	if(music_event)
+		return;
 	music_event = CreateEventA(0, 0, 0, 0);
 	if(music_event) {
-		HMIDISTRM out;
-		unsigned int device = 0;
-		if(midiStreamOpen(&out, &device, 1, (DWORD)midi_play_callback, 0, CALLBACK_FUNCTION) == MMSYSERR_NOERROR) {
-			MIDIPROPTIMEDIV prop;
-			prop.cbStruct = sizeof(MIDIPROPTIMEDIV);
-			prop.dwTimeDiv = ticks;
-			if(midiStreamProperty(out, (unsigned char*)&prop, MIDIPROP_SET | MIDIPROP_TIMEDIV) == MMSYSERR_NOERROR) {
-				MIDIHDR mhdr;
-				mhdr.lpData = (char*)streambuf;
-				mhdr.dwBufferLength = mhdr.dwBytesRecorded = streambufsize;
-				mhdr.dwFlags = 0;
-				if(midiOutPrepareHeader((HMIDIOUT)out, &mhdr, sizeof(MIDIHDR)) == MMSYSERR_NOERROR) {
-					if(midiStreamRestart(out) == MMSYSERR_NOERROR) {
-						unsigned int streamlen = 0;
+		MIDIPROPTIMEDIV prop;
+		prop.cbStruct = sizeof(MIDIPROPTIMEDIV);
+		prop.dwTimeDiv = ticks;
+		if(midiStreamProperty(out, (unsigned char*)&prop, MIDIPROP_SET | MIDIPROP_TIMEDIV) == MMSYSERR_NOERROR) {
+			MIDIHDR mhdr;
+			mhdr.lpData = (char*)streambuf;
+			mhdr.dwBufferLength = mhdr.dwBytesRecorded = streambufsize;
+			mhdr.dwFlags = 0;
+			if(midiOutPrepareHeader((HMIDIOUT)out, &mhdr, sizeof(MIDIHDR)) == MMSYSERR_NOERROR) {
+				if(midiStreamRestart(out) == MMSYSERR_NOERROR) {
+					unsigned int streamlen = 0;
+					get_buffer_ex9(tracks, ntracks, streambuf, &streamlen);
+					while(streamlen > 0 && !midi_need_close) {
+						mhdr.dwBytesRecorded = streamlen;
+						if(midiStreamOut(out, &mhdr, sizeof(MIDIHDR)) != MMSYSERR_NOERROR)
+							break;
+						WaitForSingleObject(music_event, INFINITE);
+						if(midi_need_close)
+							break;
 						get_buffer_ex9(tracks, ntracks, streambuf, &streamlen);
-						while(streamlen > 0 && !midi_need_close) {
-							mhdr.dwBytesRecorded = streamlen;
-							if(midiStreamOut(out, &mhdr, sizeof(MIDIHDR)) != MMSYSERR_NOERROR)
-								break;
-							WaitForSingleObject(music_event, INFINITE);
-							if(midi_need_close)
-								break;
-							get_buffer_ex9(tracks, ntracks, streambuf, &streamlen);
-						}
-						midiOutReset((HMIDIOUT)out);
 					}
-					midiOutUnprepareHeader((HMIDIOUT)out, &mhdr, sizeof(MIDIHDR));
+					midiOutReset((HMIDIOUT)out);
 				}
+				midiOutUnprepareHeader((HMIDIOUT)out, &mhdr, sizeof(MIDIHDR));
 			}
-			midiStreamClose(out);
 		}
 		CloseHandle(music_event);
 		music_event = 0;
 	}
+	current_time = 0;
 	midi_need_close = false;
 }
 
-static HMIDIOUT sound_handle;
-
-void midi_open() {
-	midiOutOpen(&sound_handle, 0, 0, 0, CALLBACK_NULL);
-}
-
-void midi_close() {
-	midiOutClose(sound_handle);
-}
-
-void midi_event(unsigned command) {
-	midiOutShortMsg(sound_handle, command);
+bool midi_busy() {
+	return music_event != 0;
 }
 
 void midi_music_stop() {
@@ -368,33 +363,16 @@ void midi_music_stop() {
 	}
 }
 
-#else
-
-static void midi_play(unsigned ticks, trk* tracks, unsigned ntracks, unsigned* streambuf, unsigned streambufsize) {
-}
-
-void midi_open() {
-}
-
-void midi_close() {
-}
-
-void midi_event(unsigned command) {
-}
-
-void midi_music_stop() {
-}
-
-void midi_sleep(unsigned milliseconds) {
-}
-
 #endif // _WIN32
 
 void midi_play_raw(void* mid_data) {
 
-	if(!mid_data)
+	if(!mid_data || music_event)
 		return;
 
+	midi_open();
+
+	current_time = 0;
 	auto midibuf = (unsigned char*)mid_data;
 	auto hdr = (mid_header*)mid_data;
 	midibuf += sizeof(struct mid_header);
@@ -414,17 +392,4 @@ void midi_play_raw(void* mid_data) {
 		delete[] tracks;
 	}
 
-}
-
-bool midi_busy() {
-	return midi_need_close;
-}
-
-bool midi_play(const char* file_name) {
-	auto midibuf = (unsigned char*)loadb(file_name, 0);
-	if(!midibuf)
-		return false;
-	midi_play_raw(midibuf);
-	delete[] midibuf;
-	return true;
 }

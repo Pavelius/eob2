@@ -214,22 +214,36 @@
 		<Unit filename="errors.txt" />
 		<Unit filename="locale/en/Abilities.txt" />
 		<Unit filename="locale/en/Actions.txt" />
+		<Unit filename="locale/en/Alignments.txt" />
 		<Unit filename="locale/en/Campaign.txt" />
+		<Unit filename="locale/en/Carousing.txt" />
+		<Unit filename="locale/en/Classes.txt" />
+		<Unit filename="locale/en/Directions.txt" />
 		<Unit filename="locale/en/Items.txt" />
+		<Unit filename="locale/en/Monsters.txt" />
 		<Unit filename="locale/en/QuestFloodedSewers.txt" />
 		<Unit filename="locale/en/Races.txt" />
 		<Unit filename="locale/en/Spells.txt" />
 		<Unit filename="locale/en/UnknownNames.txt" />
+		<Unit filename="names/en/Names.txt" />
 		<Unit filename="names/en/Talk.txt" />
+		<Unit filename="names/en/TalkMonsters.txt" />
+		<Unit filename="names/en/TalkTome.txt" />
+		<Unit filename="rules/Actions.txt" />
 		<Unit filename="rules/Advance.txt" />
 		<Unit filename="rules/Avatars.txt" />
+		<Unit filename="rules/Carousing.txt" />
 		<Unit filename="rules/Classes.txt" />
 		<Unit filename="rules/Core.txt" />
+		<Unit filename="rules/Diety.txt" />
 		<Unit filename="rules/Items.txt" />
-		<Unit filename="rules/Locations.txt" />
+		<Unit filename="rules/Monsters.txt" />
 		<Unit filename="rules/Quests.txt" />
 		<Unit filename="rules/Races.txt" />
+		<Unit filename="rules/Rooms.txt" />
+		<Unit filename="rules/Shapes.txt" />
 		<Unit filename="rules/Spells.txt" />
+		<Unit filename="rules/Traps.txt" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

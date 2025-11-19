@@ -1153,9 +1153,9 @@ static reactions* encounter_table(alignmentn monster_alignment) {
 		Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile, Hostile,
 	};
 	static reactions indifferent_players[encounter_table_maximum] = {
-		Friendly, Friendly, Friendly, Friendly, Friendly,
+		Friendly, Friendly, Friendly, Friendly,
 		Careful, Careful, Careful, Careful, Careful, Careful, Careful, Careful, Careful,
-		Hostile, Hostile, Hostile, Hostile, Hostile,
+		Hostile, Hostile, Hostile, Hostile, Hostile, Hostile,
 	};
 	static reactions friendly_players[encounter_table_maximum] = {
 		Friendly, Friendly, Friendly, Friendly, Friendly, Friendly,

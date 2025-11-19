@@ -162,9 +162,6 @@
     <ClInclude Include="creature.h" />
     <ClInclude Include="damage.h" />
     <ClInclude Include="dice.h" />
-    <ClInclude Include="diety.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="direction.h" />
     <ClInclude Include="draw.h" />
     <ClInclude Include="dungeon.h" />
@@ -259,9 +256,6 @@
     <ClCompile Include="creature.cpp" />
     <ClCompile Include="damage.cpp" />
     <ClCompile Include="dice.cpp" />
-    <ClCompile Include="diety.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="direction.cpp" />
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="draw_text.cpp" />

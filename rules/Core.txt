@@ -39,6 +39,10 @@ GeneratePartyDebug
 StartGameQuests
  elements FloodedSewers
 StartGameAbilities
+<<<<<<< HEAD
  elements GoldPiece+10 Reputation+10 Blessing+10
+=======
+ elements AddReward+10 GoldPiece+50 GoldPiece+50 Reputation+20 Blessing+20
+>>>>>>> bd025b7d418318ecf55e6aafba31683718687204
 StartGame
  elements ClearGame GenerateParty StartGameQuests StartGameAbilities PassHours+7 Message PartyUnlock BaseCity EnterLocation

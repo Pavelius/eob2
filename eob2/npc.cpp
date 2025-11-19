@@ -3,7 +3,6 @@
 #include "bsdata.h"
 #include "console.h"
 #include "class.h"
-#include "diety.h"
 #include "gender.h"
 #include "speech.h"
 #include "item.h"

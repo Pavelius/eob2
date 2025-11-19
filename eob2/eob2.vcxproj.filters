@@ -270,9 +270,6 @@
     <ClCompile Include="save.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="diety.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="carousing.cpp">
       <Filter>logic</Filter>
     </ClCompile>
@@ -561,9 +558,6 @@
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="save.h">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="diety.h">
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="index.h">

@@ -2,6 +2,5 @@
 
 Helm alignment(LawfulNeutral)
  powers HealSpell RemoveCurse ProtectionFromEvil10ft
-
 Tempus alignment(ChaoticNeutral)
  powers RaiseDead Prayer HealSpell Prayer FlameStrike

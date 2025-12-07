@@ -1,2 +1,2 @@
 ﻿Error in file `rules/Core.txt`:
- Line 42: Can't find variant `AddAwards`
+ Line 41: Expected token `#`

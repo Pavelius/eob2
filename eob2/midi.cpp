@@ -363,8 +363,6 @@ void midi_music_stop() {
 	}
 }
 
-#endif // _WIN32
-
 void midi_play_raw(void* mid_data) {
 
 	if(!mid_data || music_event)
@@ -393,3 +391,19 @@ void midi_play_raw(void* mid_data) {
 	}
 
 }
+#else
+
+void midi_open() {
+}
+
+void midi_play_raw(void* mid_data) {
+}
+
+bool midi_busy() {
+	return false;
+}
+
+void midi_music_stop() {
+}
+
+#endif // _WIN32

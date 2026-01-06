@@ -136,7 +136,7 @@
 1744089661 /home/user-331/projects/eob2/eob2/vector.h
 	"array.h"
 
-1744089661 source:/home/user-331/projects/eob2/eob2/creature.cpp
+1763552316 source:/home/user-331/projects/eob2/eob2/creature.cpp
 	"advancement.h"
 	"alignment.h"
 	"avatar.h"
@@ -410,13 +410,12 @@
 	"nameable.h"
 	"stringbuilder.h"
 
-1744089661 source:/home/user-331/projects/eob2/eob2/npc.cpp
+1763552316 source:/home/user-331/projects/eob2/eob2/npc.cpp
 	"avatar.h"
 	"alignment.h"
 	"bsdata.h"
 	"console.h"
 	"class.h"
-	"diety.h"
 	"gender.h"
 	"speech.h"
 	"item.h"
@@ -471,7 +470,7 @@
 	"rand.h"
 	"script.h"
 
-1744091929 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1762873805 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"alignment.h"
 	"answers.h"
@@ -728,7 +727,7 @@
 	"screenshoot.h"
 	"view.h"
 
-1744091612 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
+1762873805 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
 	"answers.h"
 	"avatar.h"
 	"boost.h"
@@ -935,7 +934,7 @@
 1731405611 source:/home/user-331/projects/eob2/eob2/talking.cpp
 	"talking.h"
 
-1744089661 /home/user-331/projects/eob2/eob2/music.h
+1762873805 /home/user-331/projects/eob2/eob2/music.h
 	"manager.h"
 
 1744089661 /home/user-331/projects/eob2/eob2/manager.h
@@ -954,7 +953,7 @@
 	"pointc.h"
 	"nameable.h"
 
-1744089661 /home/user-331/projects/eob2/eob2/midi.h
+1762873805 /home/user-331/projects/eob2/eob2/midi.h
 
 1744089661 /home/user-331/projects/eob2/eob2/carousing.h
 	"ability.h"
@@ -984,8 +983,9 @@
 	"point.h"
 	"draw.h"
 
-1744090368 source:/home/user-331/projects/eob2/eob2/music.cpp
+1762873805 source:/home/user-331/projects/eob2/eob2/music.cpp
 	"bsdata.h"
+	"bsreq.h"
 	"midi.h"
 	"music.h"
 	"thread.h"
@@ -997,9 +997,8 @@
 	"manager.h"
 	"stringbuilder.h"
 
-1744091998 source:/home/user-331/projects/eob2/eob2/midi.cpp
+1766590499 source:/home/user-331/projects/eob2/eob2/midi.cpp
 	"io_stream.h"
-	"slice.h"
 	<windows.h>
 	<mmsystem.h>
 	"slice.h"

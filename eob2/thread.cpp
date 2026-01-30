@@ -1,6 +1,7 @@
 #include "thread.h"
 
 #ifdef _WIN32
+
 #define WINAPI __stdcall
 #define DWORD unsigned int
 #define HANDLE void*

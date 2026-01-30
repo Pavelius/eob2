@@ -322,8 +322,9 @@ Aha! Secret door
 #UseMagicMapFail
 There is no secret doors nearbe
 
-#UseBonesSuccess
+#BonesUseSuccess
 Rest in peace my friend
+Blessed bury this brave fellow
 
 #HolySymbolSuccess
 Oh! Thank you my god, for you assistance

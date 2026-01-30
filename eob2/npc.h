@@ -27,11 +27,11 @@ struct npc {
 	int				getlevel() const { return levels[0]; }
 	const char*		getname() const;
 	const racei&	getrace() const;
-	bool			isspecialist(const itemi* pi) const;
 	void			say(const char* format, ...) const;
 	void			sayv(const char* format, const char* format_param) const;
 	void			speak(const char* id, const char* action, ...) const;
 	bool			speakn(const char* id, const char* action, ...) const;
+	bool			specialization(const itemi* pi) const;
 };
 
 void create_npc(npc* p, fnallowuc avatar_test, fnallowus name_test);

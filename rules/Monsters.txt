@@ -31,7 +31,7 @@ Shadow res(shadow) hd(3) ac(7) experience(420) alignment(ChaoticEvil) reaction(H
 Skeleton res(skeleton) hd(1) ac(7) experience(65) alignment(TrueNeutral) reaction(Hostile)
  feats Dexterity+3 Axe Undead ResistPierce ResistSlashing ImmuneCharm ImmuneCold ImmuneIllusion
 Wight res(wight) hd(4) ac(5) experience(1400) alignment(LawfulEvil)
- feats Constitution+5 Slam1d4 Undead ImmuneCharm ImmuneCold ImmunePoison ImmuneIllusion ImmuneNormalWeapon
+ feats Constitution+5 Slam1d4 Undead ImmuneCharm ImmuneCold ImmunePoison ImmuneIllusion ImmuneNormalWeapon DrainEneryAttack
 Wolf res(wolf) hd(3) ac(7) experience(65) alignment(TrueNeutral)
  feats Intellegence-6 Large Strenght+6 Slam1d4
 Worg res(wolf) hd(3) ac(6) experience(120) alignment(TrueNeutral)

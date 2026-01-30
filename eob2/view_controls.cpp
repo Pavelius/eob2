@@ -100,19 +100,6 @@ static void set_big_font() {
 	font = gres(FONT8);
 }
 
-//static int get_party_disp(creaturei* target, wearn id) {
-//	if(!target)
-//		return 0;
-//	int pind = get_party_index(target);
-//	if(pind == -1)
-//		return 0;
-//	if(id == RightHand)
-//		return disp_weapon[pind][0];
-//	else if(id == LeftHand)
-//		return disp_weapon[pind][1];
-//	return 0;
-//}
-
 void fix_damage(const creaturei* target, int value) {
 	auto i = get_party_index(target);
 	if(i == -1)

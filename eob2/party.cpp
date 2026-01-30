@@ -741,10 +741,10 @@ void pass_round() {
 	all_party(check_food, true);
 	if((party.abilities[Minutes] % 6) == 0)
 		all_creatures(update_every_turn);
-	if((party.abilities[Minutes] % 60) == 0) {
+	if((party.abilities[Minutes] % 20) == 0)
 		check_return_to_base();
+	if((party.abilities[Minutes] % 60) == 0)
 		all_creatures(update_every_hour);
-	}
 	check_goals();
 	fix_animate();
 	if(all_party_disabled()) {
@@ -910,7 +910,7 @@ static bool if_take_special_item() {
 }
 
 static bool if_kill_almost_all_monsters() {
-	return loc->state.monsters_killed >= (90 * loc->state.monsters / 100);
+	return loc->state.monsters_killed >= (88 * loc->state.monsters / 100);
 }
 
 static bool if_kill_boss() {

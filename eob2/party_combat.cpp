@@ -283,8 +283,8 @@ static void single_main_attack(wearn wear, creaturei* enemy, int bonus, int mult
 	if(!number_attacks)
 		number_attacks = 2;
 	number_attacks += player->get(AdditionalAttacks);
-	if(player->is(WeaponSpecialist) && player->isspecialist(&player->wears[wear].geti()))
-		number_attacks += 1;
+	if(player->is(WeaponSpecialist) && player->specialization(&player->wears[wear].geti()))
+		number_attacks += 1; // Not only single class fighter and also fighter multiclass have bonus attack specialization.
 	if(party.abilities[Minutes] % 2)
 		number_attacks += 1;
 	number_attacks /= 2;

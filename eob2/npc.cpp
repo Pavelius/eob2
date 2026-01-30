@@ -99,7 +99,7 @@ void npc::sayv(const char* format, const char* format_param) const {
 	console("\"");
 }
 
-bool npc::isspecialist(const itemi* pi) const {
+bool npc::specialization(const itemi* pi) const {
 	auto i = bsdata<itemi>::source.indexof(pi);
 	if(i == -1 || i >= 32)
 		return false;

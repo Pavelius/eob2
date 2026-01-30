@@ -39,7 +39,7 @@ ExploreNorthWood
  reward AddReward+3 Reputation+2
  sites type(forest) level(1) habbits(Wolf Ork) language(Goblinoid) key(IronKey) features(RoomFeature) graves(3)
 
-CursedDungeon difficult(1)
+CursedDungeon difficult(1) music(binge)
  goals TakeSpecialItem(1)
  travel PassHours+6
  reward AddReward+10 Reputation+5

@@ -304,12 +304,12 @@ static void update_ability(abilityn v, int level, int per_level, int minimal) {
 }
 
 static void update_abilities() {
-	auto n = -(player->abilities[DrainStrenght] + player->abilities[DrainLevel]);
-	auto s = -player->abilities[DrainLevel] * 5;
 	player->add(Strenght, -player->abilities[DrainStrenght]);
+	auto n = -(player->abilities[DrainStrenght] + player->abilities[DrainLevel]);
 	player->add(AttackMelee, n);
 	player->add(AttackRange, n);
 	player->add(Constitution, -player->abilities[DrainConstitution]);
+	auto s = -player->abilities[DrainLevel] * 5;
 	player->add(SaveVsParalization, s);
 	player->add(SaveVsPoison, s);
 	player->add(SaveVsTraps, s);
@@ -434,10 +434,15 @@ static void update_wear() {
 }
 
 static void apply_boost(short type, short param) {
-	if(type == BoostSpell)
-		ftscript<spelli>(param, 0);
-	else
+	if(type <= Hits)
 		player->add((abilityn)type, param);
+	else if(type == BoostSpell)
+		ftscript<spelli>(param, 0);
+	else if(type == BoostFeat)
+		ftscript<feati>(param, 0);
+	else {
+		// TODO: error for debuging
+	}
 }
 
 static void update_duration() {
@@ -826,7 +831,7 @@ dice creaturei::getdamage(int& bonus, wearn id, bool large_enemy) const {
 	bonus += player->get(isranged ? AttackRange : AttackMelee);
 	result.b += player->get(isranged ? DamageRange : DamageMelee);
 	// Only single player fighter have bonus speñialization (bonus attack keep)
-	if(is(WeaponSpecialist) && isspecialist(&ei) && getclass().count == 1) {
+	if(is(WeaponSpecialist) && specialization(&ei) && getclass().count == 1) {
 		if(wears[id].isranged())
 			bonus += 2;
 		else {

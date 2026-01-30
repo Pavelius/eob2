@@ -22,7 +22,6 @@ enum modifiern : unsigned char;
 
 struct script {
 	typedef void(*fnrun)(int bonus);
-	typedef bool(*fntest)(int bonus);
 	const char*	id;
 	fnrun		proc;
 };

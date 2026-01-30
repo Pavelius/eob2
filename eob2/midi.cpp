@@ -30,6 +30,7 @@ struct evt {
 }
 
 static volatile bool midi_need_close;
+static volatile bool midi_need_repeat;
 static unsigned int current_time = 0;
 
 static unsigned long read_var_long(unsigned char* buf, unsigned int* bytesread) {
@@ -72,6 +73,10 @@ static int is_track_end(const struct evt* e) {
 		if(*(e->data + 1) == 0x2f) // track end?
 			return 1;
 	return 0;
+}
+
+void midi_repeat(bool value) {
+	midi_need_repeat = value;
 }
 
 #ifdef _WIN32
@@ -359,6 +364,7 @@ bool midi_busy() {
 void midi_music_stop() {
 	if(music_event) {
 		midi_need_close = true;
+		midi_need_repeat = false;
 		SetEvent(music_event);
 	}
 }
@@ -370,27 +376,35 @@ void midi_play_raw(void* mid_data) {
 
 	midi_open();
 
-	current_time = 0;
-	auto midibuf = (unsigned char*)mid_data;
-	auto hdr = (mid_header*)mid_data;
-	midibuf += sizeof(struct mid_header);
-	int ntracks = midi_bytes_short(hdr->tracks);
+	midi_need_repeat = true;
 
-	auto tracks = new trk[ntracks];
-	if(tracks) {
-		for(auto i = 0; i < ntracks; i++) {
-			tracks[i].track = (struct mid_track*)midibuf;
-			tracks[i].buf = midibuf + sizeof(struct mid_track);
-			tracks[i].absolute_time = 0;
-			tracks[i].last_event = 0;
-			midibuf += sizeof(struct mid_track) + midi_bytes_long(tracks[i].track->length);
-		}
-		memset(music_buffer, 0, sizeof(unsigned int) * music_buffer_size);
-		midi_play(midi_bytes_short(hdr->ticks), tracks, ntracks, music_buffer, music_buffer_size);
-		delete[] tracks;
+	while(midi_need_repeat) {
+
+		current_time = 0;
+		auto midibuf = (unsigned char*)mid_data;
+		auto hdr = (mid_header*)mid_data;
+		midibuf += sizeof(struct mid_header);
+		int ntracks = midi_bytes_short(hdr->tracks);
+
+		auto tracks = new trk[ntracks];
+		if(tracks) {
+			for(auto i = 0; i < ntracks; i++) {
+				tracks[i].track = (struct mid_track*)midibuf;
+				tracks[i].buf = midibuf + sizeof(struct mid_track);
+				tracks[i].absolute_time = 0;
+				tracks[i].last_event = 0;
+				midibuf += sizeof(struct mid_track) + midi_bytes_long(tracks[i].track->length);
+			}
+			memset(music_buffer, 0, sizeof(unsigned int) * music_buffer_size);
+			midi_play(midi_bytes_short(hdr->ticks), tracks, ntracks, music_buffer, music_buffer_size);
+			delete[] tracks;
+		} else
+			midi_need_repeat = false;
+
 	}
-
+	
 }
+
 #else
 
 void midi_open() {

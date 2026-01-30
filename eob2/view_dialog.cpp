@@ -31,6 +31,7 @@ static void parse_special(const char* p) {
 }
 
 void* dialogv(const char* cancel, const char* format) {
+	char temn[512]; stringbuilder sn(temn);
 	char temp[512]; stringbuilder sb(temp);
 	void* result = 0;
 	while(format[0]) {
@@ -40,16 +41,18 @@ void* dialogv(const char* cancel, const char* format) {
 			parse_special(temp);
 			continue;
 		}
-		if(format[0])
-			result = show_message(temp, false, getnm("Continue"), KeyEnter);
-		else {
+		if(format[0]) {
+			sn.clear(); sn.add(temp);
+			result = show_message(temn, false, getnm("Continue"), KeyEnter);
+		} else {
 			auto cancel_key = KeyEscape;
 			if(!an) {
 				if(!cancel)
 					cancel = getnm("Continue");
 				cancel_key = KeyEnter;
 			}
-			result = show_message(temp, true, cancel, cancel_key);
+			sn.clear(); sn.add(temp);
+			result = show_message(temn, true, cancel, cancel_key);
 		}
 	}
 	return result;

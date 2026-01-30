@@ -1362,6 +1362,16 @@ static void clear_quest_items() {
 	}
 }
 
+static quest* get_active_quest() {
+	for(auto& e : bsdata<quest>()) {
+		if(!e)
+			continue;
+		if(e.stage == quest::Active)
+			return &e;
+	}
+	return 0;
+}
+
 static bool activate_next_quest() {
 	for(auto& e : bsdata<quest>()) {
 		if(!e)
@@ -1413,8 +1423,14 @@ static void check_quest_complited() {
 	script_run(last_quest->reward);
 	last_quest = push_quest;
 	last_quest->stage = quest::Done;
-	if(!activate_next_quest())
+	activate_next_quest();
+}
+
+static void check_win_game() {
+	if(!get_active_quest()) {
+		song_play("f037");
 		apply_dialog_script("Game", "QuestsDone");
+	}
 }
 
 static void loot_selling() {
@@ -1472,6 +1488,7 @@ static void enter_location(int bonus) {
 		after_dungeon_action("LootSelling", loot_selling);
 		pass_hours(xrand(2, 4));
 		party_unlock(0);
+		check_win_game();
 	}
 	last_quest = 0;
 	enter_location();

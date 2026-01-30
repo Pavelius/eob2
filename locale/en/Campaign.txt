@@ -155,7 +155,7 @@ Are you looking for dwarves? Theres in none of them. We kill they all. But, you 
 Evil temple
 
 #EvilTempleSummary
-/npc 50
+/npc 64
 "My name is Olsan Brief. I am hight priest of Helm in city Ireaebor. And I need your help."
 "Evil settled in Reching Woods to north of the city. There is evil cult of Dragon, that kindnapping people and kill them."
 "You must find this evil citadel located in the forest and destory their leader. I will pay you church reward %QuestRewardGold gold pieces for that."
@@ -166,5 +166,10 @@ Evil temple
 #EvilTempleEntering
 /adventure 2
 You move to north about day. Green valley lay around you, but you go to nothern side.
-/adventure 0
+/adventure 6
 On second day of travel you enter into deep forest, where locate citadel of great evil cultist.
+
+#EvilTempleFinish
+/npc 64
+"At least. You destroy this evil cult and back here again. Here you reward a %QuestRewardGold gold pieces and got blessing."
+"Our church is on service for now. Good to work with you, my friends. Visit our church later."

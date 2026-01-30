@@ -415,6 +415,7 @@ void make_attacks(bool melee_combat) {
 		auto v = to(party, party.d);
 		auto d = to(party.d, Down);
 		turnto(v, d);
+		move_closer(v);
 		animation_update();
 		enemy_distance = 1;
 		if(!select_combatants(v))

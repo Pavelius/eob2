@@ -78,6 +78,9 @@ ReadableOfPower: %1
 RodOfPower: of %1
 Magical: Magical
 
+AllLanguages: all languages
+Fire: fire
+
 OfAC: %+1i
 OfCharisma: of human control
 OfClimbWalls: of feather fall

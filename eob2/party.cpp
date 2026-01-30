@@ -632,8 +632,8 @@ static void update_floor_state() {
 							if(!po->is(CellActive))
 								trap_launch(*po, to(po->d, Down));
 							break;
-                  default:
-                     break;
+						default:
+							break;
 						}
 					}
 				}

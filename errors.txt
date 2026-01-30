@@ -1,2 +1,3 @@
-﻿Error in file `rules/Core.txt`:
- Line 41: Expected token `#`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `AllLanguages`
+ Define translation for `Fire`

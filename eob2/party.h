@@ -61,6 +61,7 @@ void join_party();
 void main_menu();
 void make_attacks(bool melee_combat);
 bool make_object_attack(pointc v);
+void move_closer(pointc v);
 void move_party(pointc v);
 void party_addexp(int value);
 void party_addexp_per_killed(int victim_hit_die);

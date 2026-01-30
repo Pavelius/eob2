@@ -128,7 +128,7 @@ CureDisease levels(3)
  feats Ally You
  filter IfAlive IfDiseased
  instant DiseaseLevel-100
-MagicalVestment levels(3) duration(Hour0x1)
+MagicalVestment levels(3) duration(Hour0x1) lighting(94 77 178)
  feats You
  instant ApplyEnchantSpell
  wearing AC+4

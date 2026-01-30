@@ -845,11 +845,15 @@ static int get_permanent_raise(creaturei* player, abilityn a, int magical_bonus)
 
 static int get_ability_number(creaturei* player, abilityn a, int magical_bonus) {
 	switch(a) {
-	case Strenght: case Dexterity: case Constitution:
+	case Strenght:
+		if(magical_bonus < 0)
+			return 4 - player->basic.abilities[a];
+		return 18 - player->basic.abilities[a] + magical_bonus;
+	case Dexterity: case Constitution:
 	case Intellegence: case Wisdow: case Charisma:
 		if(magical_bonus < 0)
 			return 4 - player->basic.abilities[a];
-		return 17 + magical_bonus - player->basic.abilities[a];
+		return 17 - player->basic.abilities[a] + magical_bonus;
 	case ExeptionalStrenght:
 		return magical_bonus * 10;
 	case AC: case AttackMelee: case AttackRange: case DamageMelee: case DamageRange:
@@ -888,8 +892,8 @@ static void drink_effect(variant v, unsigned duration, int multiplier) {
 		else if(v.counter >= permanent)
 			player->basic.add((abilityn)v.value, (v.counter - permanent + 1) * multiplier);
 		else {
-			if(v.value == Strenght && player->get(Strenght) == 18)
-				v.value = ExeptionalStrenght;
+			//if(v.value == Strenght && player->get(Strenght) == 18)
+			//	v.value = ExeptionalStrenght;
 			v.counter = get_ability_number(player, (abilityn)v.value, v.counter * multiplier);
 			if(v.counter)
 				add_boost(party.abilities[Minutes] + duration, player, v.value, v.counter);
@@ -1045,6 +1049,7 @@ void use_item() {
 		drink_effect(pn, last_item->getpower(), xrand(5, 20) * 10, last_item->iscursed() ? -1 : 1);
 		consolen(getnm("DrinkPotionAct"));
 		last_item->clear();
+		pass_round();
 		break;
 	case Edible:
 		if(!allow_use(pn, last_item))
@@ -2236,6 +2241,17 @@ static void party_set(creaturei** creatures, directions v) {
 		if(creatures[i])
 			creatures[i]->d = v;
 	}
+}
+
+static void move_closer(creaturei** creatures, directions d) {
+}
+
+void move_closer(pointc v) {
+	creaturei* creatures[6] = {};
+	loc->getmonsters(creatures, v);
+	if(!creatures[0])
+		return;
+	move_closer(creatures, party.d);
 }
 
 void reaction_check(int bonus) {

@@ -12,7 +12,7 @@ You are party of adventurers who are just arrived in the city of Iriaebor - in t
 
 #LootSelling
 /buildngs 27
-After returning to town you visit shop and sold all valuable loot. Totaly you earn %Number gold pieces after this.
+You visit locale market and sold all valuable loot you get from adventure. Totaly you earn %Number gold pieces after this.
 
 #LootIdentyfing
 /buildngs 28

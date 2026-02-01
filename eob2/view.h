@@ -25,6 +25,8 @@ struct creaturei;
 extern unsigned long current_cpu_time;
 extern bool need_update_animation;
 
+unsigned char* get_font_data(int sym);
+
 void* choose_dialog(const char* title, int dx);
 void* choose_generate_box(const char* header, const char* footer);
 void* choose_generate_box(fnevent proc);
@@ -74,6 +76,7 @@ void paint_party_status();
 void paint_small_menu();
 void paint_test_mode();
 void pick_up_item();
+void set_big_font();
 void set_dungeon_tiles(resid type);
 void set_focus_by_player();
 void set_player_by_focus();

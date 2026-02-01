@@ -37,6 +37,8 @@ static color down(81, 85, 166); // Green bar background color
 static color title(64, 255, 255); // Spells header color
 }
 
+int answer_origin, answer_per_page, answer_index;
+
 static fnevent character_view_proc;
 static void* current_select;
 static point cancel_position;
@@ -45,7 +47,6 @@ static int disp_damage[6];
 static int disp_weapon[6][2];
 static unsigned animate_counter;
 static int last_spell_level;
-static int answer_origin, answer_per_page, answer_index;
 bool need_update_animation;
 unsigned long current_cpu_time;
 
@@ -96,7 +97,7 @@ void set_small_font() {
 	font = gres(FONT6);
 }
 
-static void set_big_font() {
+void set_big_font() {
 	font = gres(FONT8);
 }
 
@@ -273,7 +274,7 @@ static void button(rect rc, fnevent proc, long param = 0, void* param_object = 0
 		execute(proc, param, 0, param_object);
 }
 
-static void correct_answers(int maximum) {
+void correct_answers(int maximum) {
 	if(answer_index >= maximum)
 		answer_index = maximum - 1;
 	if(answer_index < 0)
@@ -1505,56 +1506,6 @@ static void show_sprites(resid id, point start, point size) {
 	fore = push_fore;
 }
 
-void draw_glyph_zoomed(int sym, int zoom);
-
-static void show_scene_font() {
-	auto push_font = font;
-	answer_index = 0;
-	answer_per_page = 128;
-	answer_origin = 0;
-	auto sx = 10;
-	auto size = 8;
-	set_small_font();
-	while(ismodal()) {
-		if(answer_index < 0)
-			answer_index = 0;
-		else if(answer_index > 127)
-			answer_index = 127;
-		fore = colors::black;
-		rectf();
-		width = sx; height = sx;
-		correct_answers(256);
-		for(auto y = 0; y < 8; y++) {
-			for(auto x = 0; x < 16; x++) {
-				caret.x = x * width;
-				caret.y = y * height;
-				auto index = y * 16 + x;
-				if(answer_index == index) {
-					fore = colors::gray.mix(colors::black, 128);
-					rectf();
-				}
-				fore = colors::white;
-				caret.x += (width - size) / 2;
-				caret.y += (height - size) / 2;
-				glyph(index, 0);
-			}
-		}
-		caret.x = 176;
-		caret.y = 16;
-		draw_glyph_zoomed(answer_index, 4);
-		domodal();
-		switch(hot.key) {
-		case KeyRight: answer_index++; break;
-		case KeyLeft: answer_index--; break;
-		case KeyDown: answer_index += 16; break;
-		case KeyUp: answer_index -= 16; break;
-		case KeyEscape: breakmodal(0); break;
-		}
-		focus_input();
-	}
-	font = push_font;
-}
-
 static void show_scene_images() {
 	static resid sprites[] = {ADVENTURE, BUILDNGS, DUNGEONS, NPC, SCENES};
 	static int sprites_count = lenghtof(sprites);
@@ -1632,6 +1583,8 @@ static void make_screenshoot() {
 	draw::write(temp,
 		draw::canvas->ptr(0, 0), canvas->width, canvas->height, canvas->bpp, canvas->scanline, 0);
 }
+
+void show_scene_font();
 
 static void common_input() {
 	switch(hot.key) {

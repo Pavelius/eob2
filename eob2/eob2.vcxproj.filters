@@ -288,6 +288,9 @@
     <ClCompile Include="surface_serial.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="view_util.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">

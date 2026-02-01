@@ -1,2 +1,10 @@
-﻿Error in file `rules/Spells.txt`:
- Line 223: Can't find variant `Roll10d8`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `ACShort`
+ Define translation for `AttackMeleeShort`
+ Define translation for `CharismaShort`
+ Define translation for `ConstitutionShort`
+ Define translation for `DexterityShort`
+ Define translation for `HitsShort`
+ Define translation for `IntellegenceShort`
+ Define translation for `StrenghtShort`
+ Define translation for `WisdowShort`

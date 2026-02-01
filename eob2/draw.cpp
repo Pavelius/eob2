@@ -1612,7 +1612,7 @@ void draw::text(const char* string, int count, unsigned flags) {
 	auto push_caret = caret;
 	// unsigned char s0 = 0x0;
 	while(s1 < s2) {
-		int sm = *s1++;
+		unsigned char sm = *s1++;
 		if(sm >= 0x21)
 			glyph(sm, flags);
 		caret.x += textw(sm);

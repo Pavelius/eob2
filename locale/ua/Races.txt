@@ -1,0 +1,18 @@
+﻿Human: Людина
+Dwarf: Гном
+Elf: Єльф
+Halfling: Хоббіт
+HalfElf: Полуєльф
+
+Goblinoid: Орк
+Drakonoid: Дракон
+
+Male: Чоловік
+Female: Жінка
+
+DrakonoidOf: Драконій
+DwarfOf: Гномій
+ElfOf: Єльфійський
+GoblinoidOf: Орочій
+HalflingOf: Хобітський
+HumanOf: Людський

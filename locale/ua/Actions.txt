@@ -1,0 +1,156 @@
+﻿Ambush: Засідка
+AskForMiracle: Просити про чудо
+AskForMiracleFailText: %Diety не відповів на запит
+AskForMiracleSuccessText: %Name's %1 росте
+Attack: Атака
+RaiseBestClassAbility: Найкраща спроможність
+Bribe: Підкуп
+BuyDwarvenWeapon: Купити зброю
+BuyDwarvenHealing: Купити лікування
+BuyDwarvenHealingConfirm: Гноми бажають компенсувати витрати на лікувальні гриби та витрачений час. Ви згодні відновити всі хіти у %Name's, та позбутися яду або хвороби за %2i золотих?
+BuyHealing: Купити лікування
+BuyHealingConfirm: Жриця бажає компенсувати витрати на лікувальні трави та витрачений час. Ви згодні відновити всі хіти у %Name's, та позбутися яду або хвороби за %2i золотих?
+BuySpell: Купити закляття
+BuySpellConfirm: Do you really want pay 50 gold piece to buy spell scroll?
+BuyWeapon: Купити зброю
+BuyWeaponsConfirm: Do you really want pay %2i gold piece to buy %-1?
+CalmDown: Заспокоїти
+CampMenu: Camp Options:
+CastSpell: Cast what spell?
+CastSpellAction: Cast Spell
+CastSpellInfo: %Name cast %1
+CastOnWho: Cast on who?
+CellKeyHoleDisable: Замок взломаний
+CellPitDisable: Яма прибрана
+CellPortalUseConfirm: Do you really want activate portal?
+CellTrapLauncherDisable: Пастка прибрана
+CellGraveUse: %Name раскопа%ла могили
+ChooseAlignment: Вибирайте світогляд
+ChooseBetOptions: Скільки бажаєте поставити?
+ChooseClass: Вибрати класс
+ChooseDonationOptions: Скільки бажаєте пожертвувати?
+ChooseGender: Вибрати пол
+ChooseGenerateOptions: Виберіть поле з персонажем, якого ви хочете створити або переглянути.
+ChooseGeneratePlay: Your party is complete. Press 'P' to start the game.
+ChooseMageScrollsOptions: What scroll?
+ChooseRace: Вибрати расу
+ClimbWallsFail: Climb pit failed
+ConsumeRod: %1 used last charge
+ConsumeTome: %+1 is read to the end
+DebugTest: Debug Test
+DebugTestVisit: Debug test string
+Delete: Видалити
+Donate: Пожертвувати
+DonateMessage: "Ваша пожертва прийнята. Да прибуде на вас, мої друзі святе благословіння" мовляла жриця
+DoorOpened: Locked door opened
+DrinkPotionAct: %Name випив %ItemName
+EatAndDrink: Їсти та пити
+EatAndDrinkConfirm: Do you really want pay %2i gold piece for food and drink?
+EatAndDrinkNotEnoughtGold: "Return when you will have %2i gold piece" sad bartender "Now, get lost"
+EatAndDrinkVisit: Їсти та пити
+ExitConfirm: Do you really want to exit game?
+Faces: Faces
+FeelDisease: %Name погано почувається
+FeelPoison: %Name страждає від отруєння
+FeelWorse: %Name погано почувається
+FindAllSecrets: Find all secrets
+FriendsSpellAction: Friends
+GambleVisitors: Gamble with someone
+GameOptions: Game Options
+GameOptionsOptions: Game Options
+GlobalCampMenu: Camp menu
+GlobalOptions: What %Name want?
+GlobalVisit: Visit %1
+Hunt: Полювати
+Leave: Піти
+Lie: Врати
+MakeCampConfirm: Do you want to make camp?
+ManipulateAction: Manipulate
+MemorizeSpells: Memorize Spells
+MulChooseBet: Bet %1i gold pieces
+MulChooseDonation: Donate %1i golds
+OpenLocksFail: Pick locks fail
+PartyAdventure: Шукати пригод
+PartyAdventureOptions: Куди підете?
+PartyClimbUp: Партія залізла вверх ...
+PartyGoingDown: Партія спустилася нижче ...
+PartyGoingUp: Партія йде вище ...
+PartyFallPit: Партія впала вниз ...
+PartyPortalTeleportation: Партія телепортувалася ...
+PayGoldConfirm: Ви дійсно бажаєте заплатити за це %2i золотих?
+PickPockets: Почистити кишені 
+PickPocketsAction: Почистити кишені
+PickPocketsVisit: Почистити деякі кишені
+PrayForSpells: Молитися
+PlayerRead: %Name прочита%ла
+QuestGoals: Цілі завдання
+RemoveTrapsFail: Fail remove trap
+RepairItems: Вдремонтувати речі
+RepairItemsConfirm: "I can repair all your weapons and tools. They be as new. And it will be cost for you just %Number gold pieces. Better offer, I think."
+ReplaceCharacterHeader: Помінятися з ким?
+Reroll: Перебросити
+RestParty: Rest party
+RestPartyConfirm: Rest all party for 8 hours?
+ReturnToStreet: Вийти на вулицю
+ReturnToTownConfirm: Do you really want return to town?
+ScribleScrolls: Scrible Scrolls
+SellConfirm: Do you really want sell %-1 for %2i gold pieces?
+SneakAttackAct: %Name use backstab
+SurpriseFailed: %1 is surprised
+Talk: Розмовляти
+TavernCarousing: Гуляти
+TavernCarousingConfirm: Do you really want to drink with everyone in tavern and have fun? This will be cost %Number gold, but any of you remember that event.
+TeleportAskLevel: Level %1i
+TeleportChoosePlace: Teleport which way?
+TeleportChooseLevel: Teleport what level?
+TeleportToDungeon: Teleport to Portal
+ToolBroken: %1 зломан%а
+ToolCrumbleToDust: %1 crumble to dust
+UseHolySymbolFail: You praying is without answers
+UseHolySymbolNoEffect: Your praing have no sence
+UseHolySymbolSuccessOnPlayer: %Diety %-SpellName on %1
+UseHolySymbolSuccess: %Diety create %SpellName
+WeaponBroken: %1 is broken
+YourFaithIsWeak: Faith is weak, need more donation
+YourHaveNoDiety: Ви є безбожник, та нехрест
+
+Blacksmith: Ковальня
+DwarvenCity: Город гномів
+DwarvenSmith: Кузня
+DwarvenTemple: Храм
+Inn: Готель
+InnConfirm: Залишитись на день у готелі коштує разом для вас усіх %2i золотих. Ви дійсно бажаєте заплатити?
+Tavern: Таверна
+Temple: Храм
+WizardTower: Башня чарівника
+
+Options: Налаштування
+PartyLeave: Leave Settlement
+ReturnBack: Назад
+Visit: Відвідати
+VisitPrompt: Відвідати %1
+Village: Село
+
+Accept: Погодитись
+AllPartyDead: All party members is dead. Try start game again.
+Cancel: Скасувати
+Continue: Продовжити
+CreateNewGame: Створити нову гру
+Decline: Відмовити
+ExitGame: Покинути гру
+LoadGame: Завантажити гру
+No: Ні
+OK: OK
+SaveGame: Зберегти гру
+StartGame: Створити нову гру
+Yes: Так
+WhatCharacter: Який персонаж?
+WhatSpell: Яке закляття?
+
+DisableAllTraps: Знешкодено всі пастки
+ExmploreMostArea: Розвідати область
+KillAlmostAllMonsters: Вбити їх усіх
+KillBoss: Вбити босса
+KillBossMinions: Вбити слуг босса
+TakeSpecialItem: Знайти особу річ
+OpenAllLockedDoors: Відкрити всі замки

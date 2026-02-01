@@ -192,10 +192,14 @@ char* szput(char* p, unsigned value, codepage code) {
 		if(value >= 0x410 && value <= 0x44F)
 			value = value - 0x410 + 0xC0;
 		else switch(value) {
-		case 0x406: value = 0xB2; break; // I
-		case 0x407: value = 0xAF; break; // ¯
-		case 0x456: value = 0xB3; break;
-		case 0x457: value = 0xBF; break;
+		case 0x401: value = 0xA8; break; // Yo capital
+		case 0x404: value = 0xAA; break; // Ye capital
+		case 0x406: value = 0xB2; break; // I capital
+		case 0x407: value = 0xAF; break; // Yi capital
+		case 0x451: value = 0xB8; break; // Yo small
+		case 0x454: value = 0xBA; break; // Ye small
+		case 0x456: value = 0xB3; break; // i small
+		case 0x457: value = 0xBF; break; // yi small
 		}
 		*p++ = (unsigned char)value;
 		break;

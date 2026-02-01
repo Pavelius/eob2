@@ -91,6 +91,16 @@ sprite* residi::get() {
 	return data;
 }
 
+residi* findresid(const void* data) {
+	if(!data)
+		return 0;
+	for(auto& e : bsdata<residi>()) {
+		if(e.data == data)
+			return &e;
+	}
+	return 0;
+}
+
 sprite* gres(resid i) {
 	if(i == NONE)
 		return 0;

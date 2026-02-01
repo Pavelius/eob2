@@ -22,6 +22,10 @@ struct residi {
 	bool			error;
 	sprite*			get();
 };
+
 void clear_sprites();
+
 sprite* gres(resid i);
 sprite* gres(const char* id);
+
+residi* findresid(const void* data);

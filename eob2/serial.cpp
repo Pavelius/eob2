@@ -27,6 +27,7 @@ void clear_game(int bonus) {
 	last_quest = 0;
 	party.clear();
 	last_exit.clear();
+	memset(characters, 0, sizeof(characters));
 	memset(spells_prepared, 0, sizeof(spells_prepared));
 	memset(bsdata<spellseta>::elements, 0, bsdata<spellseta>::source.getmaximum() * sizeof(bsdata<spellseta>::elements[0]));
 	bsdata<boosti>::source.clear();

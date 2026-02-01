@@ -1,3 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `AllLanguages`
- Define translation for `Fire`
+﻿Error in file `rules/Spells.txt`:
+ Line 223: Can't find variant `Roll10d8`

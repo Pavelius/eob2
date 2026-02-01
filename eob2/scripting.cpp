@@ -1426,12 +1426,12 @@ static void check_quest_complited() {
 	activate_next_quest();
 }
 
-static void check_win_game() {
-	if(!get_active_quest()) {
-		song_play("f037");
-		apply_dialog_script("Game", "QuestsDone");
-	}
-}
+//static void check_win_game() {
+//	if(!get_active_quest()) {
+//		song_play("f037");
+//		apply_dialog_script("Game", "QuestsDone");
+//	}
+//}
 
 static void loot_selling() {
 	for(auto& e : player->backpack()) {
@@ -1488,7 +1488,6 @@ static void enter_location(int bonus) {
 		after_dungeon_action("LootSelling", loot_selling);
 		pass_hours(xrand(2, 4));
 		party_unlock(0);
-		check_win_game();
 	}
 	last_quest = 0;
 	enter_location();
@@ -2333,9 +2332,13 @@ void move_party(pointc v) {
 }
 
 static void party_adventure(int bonus) {
-	choose_quest();
-	if(!last_quest)
+	// choose_quest();
+	last_quest = get_active_quest();
+	if(!last_quest) {
+		song_play("f037");
+		apply_dialog_script("Game", "QuestsDone");
 		return;
+	}
 	auto push_picture = picture;
 	auto pn = getnme(ids(last_quest->id, "Summary"));
 	if(pn) {

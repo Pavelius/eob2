@@ -61,3 +61,11 @@ XXX
 X.X
 X0X
 XXX
+
+#ShapeTorture
+
+XX1XX
+X...X
+XX1XX
+X.0.X
+XXXXX

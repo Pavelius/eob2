@@ -205,12 +205,22 @@ HealSpell levels(6)
  filter IfAlive IfWounded
  instant Heal+120 PoisonLevel-100 DiseaseLevel-100
 HeroesFeast levels(6)
+ feats Ally Group You
+ instant DiseaseLevel-100 Ration
 WorldOfRecall levels(6)
  feats You
 
 Restoration levels(7)
  feats Ally You
  instant DrainStrenght-100 DrainLevel-100 DrainConstitution-100
+FireStorm levels(7)
+ feats Enemy Group
+ instant Roll8d8 SaveHalf Fire+101
+Ressurection levels(7)
+SunRay levels(7)
+ feats Enemy Group
+ filter IfMonstersUndead
+ instant Roll8d8 SaveHalf Fire+101
 SymbolPain levels(7) duration(Turn2d10)
  feats Enemy Group
  instant ApplyEnchantSpell

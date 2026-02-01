@@ -25,8 +25,6 @@ struct creaturei;
 extern unsigned long current_cpu_time;
 extern bool need_update_animation;
 
-unsigned char* get_font_data(int sym);
-
 void* choose_dialog(const char* title, int dx);
 void* choose_generate_box(const char* header, const char* footer);
 void* choose_generate_box(fnevent proc);

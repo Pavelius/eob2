@@ -9,8 +9,8 @@ static const char* root_monsters = "art/monsters";
 BSDATA(residi) = {
 	{"NONE"},
 
-	{"FONT6", root},
-	{"FONT8", root},
+	{"font6c", root},
+	{"font8c", root},
 	{"border", root},
 	{"outtake", root},
 	{"decors", root},

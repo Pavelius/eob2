@@ -1,0 +1,9 @@
+﻿ChaoticEvil: Хаотично злий
+ChaoticGood: Хаотично добрий
+ChaoticNeutral: Хаотично нейтральний
+LawfulEvil: Законно злий
+LawfulGood: Законно добрий
+LawfulNeutral: Законно нейтральний
+NeutralEvil: Нейтрально злий
+NeutralGood: Нейтрально добрий
+TrueNeutral: Справді нейтральний

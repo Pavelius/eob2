@@ -19,8 +19,8 @@ You visit locale market and sold all valuable loot you get from adventure. Total
 Before visit any shop you try identify any items that you grab in dungeon. Speaking with skilled people you identify as magical %Number items in you package.
 
 #BlacksmithUnlock
-/buildngs 0
-A city smith invite you to visit blacksmith, located on outskirts of city. There you can repair you items and get other service later.
+/npc 58
+A city blacksmith invite you to visit blacksmith, located on outskirts of city. There you can repair you items and get other service later.
 
 #WizardTowerUnlock
 /npc 59

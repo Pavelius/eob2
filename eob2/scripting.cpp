@@ -1426,13 +1426,6 @@ static void check_quest_complited() {
 	activate_next_quest();
 }
 
-//static void check_win_game() {
-//	if(!get_active_quest()) {
-//		song_play("f037");
-//		apply_dialog_script("Game", "QuestsDone");
-//	}
-//}
-
 static void loot_selling() {
 	for(auto& e : player->backpack()) {
 		if(!e || e.ismagical())

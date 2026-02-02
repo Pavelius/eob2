@@ -601,9 +601,6 @@
     <Text Include="..\rules\Items.txt">
       <Filter>rules</Filter>
     </Text>
-    <Text Include="..\names\en\Names.txt">
-      <Filter>locale</Filter>
-    </Text>
     <Text Include="..\rules\Advance.txt">
       <Filter>rules</Filter>
     </Text>
@@ -626,9 +623,6 @@
       <Filter>rules</Filter>
     </Text>
     <Text Include="..\locale\en\Actions.txt">
-      <Filter>locale</Filter>
-    </Text>
-    <Text Include="..\names\en\Talk.txt">
       <Filter>locale</Filter>
     </Text>
     <Text Include="..\LICENSE.txt">
@@ -658,13 +652,7 @@
     <Text Include="..\locale\en\Monsters.txt">
       <Filter>locale</Filter>
     </Text>
-    <Text Include="..\names\en\TalkMonsters.txt">
-      <Filter>locale</Filter>
-    </Text>
     <Text Include="..\locale\en\Classes.txt">
-      <Filter>locale</Filter>
-    </Text>
-    <Text Include="..\names\en\TalkTome.txt">
       <Filter>locale</Filter>
     </Text>
     <Text Include="..\rules\Rooms.txt">
@@ -688,6 +676,18 @@
       <Filter>support</Filter>
     </None>
     <None Include="..\README.md">
+      <Filter>locale</Filter>
+    </None>
+    <None Include="..\locale\en\Names.str">
+      <Filter>locale</Filter>
+    </None>
+    <None Include="..\locale\en\Talk.str">
+      <Filter>locale</Filter>
+    </None>
+    <None Include="..\locale\en\TalkMonsters.str">
+      <Filter>locale</Filter>
+    </None>
+    <None Include="..\locale\en\TalkTome.str">
       <Filter>locale</Filter>
     </None>
   </ItemGroup>

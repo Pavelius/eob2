@@ -347,10 +347,6 @@
     <Text Include="..\locale\en\Races.txt" />
     <Text Include="..\locale\en\Spells.txt" />
     <Text Include="..\locale\en\UnknownNames.txt" />
-    <Text Include="..\names\en\Names.txt" />
-    <Text Include="..\names\en\Talk.txt" />
-    <Text Include="..\names\en\TalkMonsters.txt" />
-    <Text Include="..\names\en\TalkTome.txt" />
     <Text Include="..\rules\Advance.txt" />
     <Text Include="..\rules\Avatars.txt" />
     <Text Include="..\rules\Carousing.txt" />
@@ -368,6 +364,10 @@
     <Text Include="..\rules\Traps.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\locale\en\Names.str" />
+    <None Include="..\locale\en\Talk.str" />
+    <None Include="..\locale\en\TalkMonsters.str" />
+    <None Include="..\locale\en\TalkTome.str" />
     <None Include="..\README.md" />
     <None Include="cpp.hint" />
   </ItemGroup>

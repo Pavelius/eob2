@@ -34,11 +34,13 @@ FighterMageTheif primary(Strenght) classes(Fighter Mage Theif) count(3) exp_per_
 #List
 
 ClericJoinParty
- elements Blessing+5
+ elements GoldPiece+20 Blessing+5
 MageJoinParty
  elements GoldPiece+50 Reputation+5
 PaladinJoinParty
- elements Reputation+5
+ elements Reputation+5 Blessing+2
+RangerJoinParty
+ elements GoldPiece+10
 TheifJoinParty
  elements GoldPiece+50 GoldPiece+50
 MageTheifJoinParty

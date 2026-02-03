@@ -33,6 +33,7 @@ struct answers {
 	answers() : sc(buffer) {}
 	constexpr operator bool() const { return elements.count != 0; }
 	void			add(const void* value, const char* name, ...) { XVA_FORMAT(name); addv(value, name, format_param, 0); }
+	void			addv(const void* value, unsigned key);
 	void			addv(const void* value, const char* name, const char* format, unsigned key);
 	const element*	begin() const { return elements.data; }
 	element*		begin() { return elements.data; }

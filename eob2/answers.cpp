@@ -33,6 +33,13 @@ void answers::addv(const void* value, const char* text, const char* format, unsi
 	sc.addsz();
 }
 
+void answers::addv(const void* value, unsigned key) {
+	auto p = elements.add();
+	p->value = value;
+	p->text = sc.get();
+	p->key = key;
+}
+
 void answers::sort() {
 	qsort(elements.data, elements.count, sizeof(elements.data[0]), compare);
 }

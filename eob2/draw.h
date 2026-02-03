@@ -188,6 +188,12 @@ struct rectpush {
 	rectpush() : caret(draw::caret), width(draw::width), height(draw::height) {}
 	~rectpush() { draw::caret = caret; draw::width = width; draw::height = height; }
 };
+struct pushfore {
+	color fore;
+	pushfore() : fore(draw::fore) {}
+	pushfore(color v) : fore(draw::fore) { draw::fore = v; }
+	~pushfore() { draw::fore = fore; }
+};
 int					aligned(int x, int width, unsigned state, int string_width);
 int					alignedh(const rect& rc, const char* string, unsigned state);
 void				blend(const surface& destination, unsigned milliseconds);

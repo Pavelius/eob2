@@ -75,22 +75,20 @@ static bool is_enchant(referencei target, variant v) {
 }
 
 static spelli* choose_prepared_spell() {
+	static int columns[] = {87, 13, 0};
 	pushanswer push_answer;
 	if(!player->isactable())
 		return 0;
-	char temp[32]; stringbuilder sb(temp);
 	for(auto& e : bsdata<spelli>()) {
 		auto index = &e - bsdata<spelli>::elements;
 		auto count = player->spells[index];
 		if(!count)
 			continue;
-		sb.clear();
-		sb.add(e.getname());
-		sb.left(15);
-		while(sb.size() < 16)
-			sb.add(" ");
-		sb.add("%1i", count);
-		an.add(&e, temp);
+		an.addv(&e, 0);
+		an.sc.add(e.getname());
+		an.sc.addsz();
+		an.sc.add("%1i", count);
+		an.sc.addsz();
 	}
 	if(!an) {
 		auto caster = player->getclass().caster;
@@ -101,7 +99,7 @@ static spelli* choose_prepared_spell() {
 		return 0;
 	}
 	an.sort();
-	return (spelli*)choose_small_menu(getnm("CastSpell"), getnm("Cancel"));
+	return (spelli*)choose_small_menu(getnm("CastSpell"), getnm("Cancel"), columns);
 }
 
 static void filter_creatures(const variants& source) {

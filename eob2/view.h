@@ -32,7 +32,7 @@ void* choose_generate_dialog(const char* header, bool random);
 void* choose_large_menu(const char* header, const char* cancel);
 void* choose_main_menu();
 void* choose_small_menu(const char* header, const char* cancel);
-void* choose_small_menu_spells(const char* header, const char* cancel);
+void* choose_small_menu(const char* header, const char* cancel, int* columns);
 void* show_message(const char* format, bool add_anaswers, const char* cancel = 0, unsigned cancel_key = 27);
 void* dialogv(const char* cancel, const char* format);
 void* dialogv(const char* cancel, const char* format, const char* format_param);

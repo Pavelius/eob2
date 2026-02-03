@@ -15,6 +15,7 @@
 #include "math.h"
 #include "midi.h"
 #include "picture.h"
+#include "pushvalue.h"
 #include "quest.h"
 #include "race.h"
 #include "resid.h"
@@ -47,6 +48,8 @@ static int disp_damage[6];
 static int disp_weapon[6][2];
 static unsigned animate_counter;
 static int last_spell_level;
+static int* table_columns;
+
 bool need_update_animation;
 unsigned long current_cpu_time;
 
@@ -421,7 +424,58 @@ void text_label_menu(int index, const void* button_data, const char* format, uns
 		fore = colors::white;
 	if(pressed_focus == button_data)
 		fore = fore.darken();
-	texta(format, 0);
+	text(format);
+	fore = push_fore;
+}
+
+static void text_label_row(const char* format) {
+	if(!table_columns)
+		return;
+	auto push_caret = caret;
+	auto push_width = width;
+	for(auto n = 0; table_columns[n]; n++) {
+		width = table_columns[n];
+		if(n == 0)
+			texta(format, AlignLeft | TextSingleLine);
+		else
+			texta(format, AlignRight | TextSingleLine);
+		format = zend(format) + 1;
+		caret.x += width + 1;
+	}
+	caret = push_caret;
+	width = push_width;
+}
+
+static void text_label_menu_table(int index, const void* button_data, const char* format, unsigned key, fnevent proc) {
+	auto push_fore = fore;
+	if(!button_data)
+		button_data = (void*)format;
+	focusing(button_data);
+	if(button_input(button_data, key, 'E'))
+		execute(proc, (long)button_data);
+	if(current_focus == button_data) {
+		rectpush push;
+		caret.x -= 2; caret.y -= 1;
+		fore = colors::dark;
+		rectf();
+		caret = push.caret;
+		caret.x += width - textw('1') - 2;
+		fore = colors::white;
+		if(index == answer_origin && answer_origin != 0)
+			paint_arrow(caret, Up, 6);
+		else if(answer_per_page != -1 && index == (answer_origin + answer_per_page - 1) && (answer_origin + answer_per_page < (int)an.getcount()))
+			paint_arrow(caret, Down, 6);
+	}
+	if(index >= 1000)
+		fore = colors::white.mix(colors::dark, 196);
+	else
+		fore = colors::white;
+	if(pressed_focus == button_data)
+		fore = fore.darken();
+	if(index >= 1000)
+		text(format);
+	else
+		text_label_row(format);
 	fore = push_fore;
 }
 
@@ -932,30 +986,31 @@ void header_yellow(const char* format) {
 	caret.y += texth() + 1;
 	fore = push_fore;
 }
-static void header_yellow_spells_by_level(int level, int max_level) {
-	auto push_caret = caret;
-	auto push_with = width; width = 12;
-	auto push_heigh = height; height = 7;
-	auto push_fore = fore; fore = colors::yellow;
-	caret.x -= 2; caret.y -= 2;
-	for(auto i = 1; i <= max_level; i++) {
-		button_frame(1, false, (level == i));
-		caret.y += 2;
-		texta(str("%1i", i), AlignCenterCenter);
-		caret.y -= 2;
-		auto hot_key = '1' + i - 1;
-		caret.x += width;
-	}
-	height = push_heigh;
-	width = push_with;
-	caret = push_caret;
-	fore = push_fore;
-	caret.y += texth() + 1;
-}
 
-static void header_yellow_spells(const char* format) {
-	header_yellow_spells_by_level(last_spell_level, 9);
-}
+//static void header_yellow_spells_by_level(int level, int max_level) {
+//	auto push_caret = caret;
+//	auto push_with = width; width = 12;
+//	auto push_heigh = height; height = 7;
+//	auto push_fore = fore; fore = colors::yellow;
+//	caret.x -= 2; caret.y -= 2;
+//	for(auto i = 1; i <= max_level; i++) {
+//		button_frame(1, false, (level == i));
+//		caret.y += 2;
+//		texta(str("%1i", i), AlignCenterCenter);
+//		caret.y -= 2;
+//		auto hot_key = '1' + i - 1;
+//		caret.x += width;
+//	}
+//	height = push_heigh;
+//	width = push_with;
+//	caret = push_caret;
+//	fore = push_fore;
+//	caret.y += texth() + 1;
+//}
+//
+//static void header_yellow_spells(const char* format) {
+//	header_yellow_spells_by_level(last_spell_level, 9);
+//}
 
 static void header(const char* format) {
 	auto push_fore = fore;
@@ -1851,14 +1906,22 @@ void* choose_small_menu(const char* header, const char* cancel) {
 	return choose_answer(header, cancel, paint_small_menu, text_label_menu, 0, maximum, header_yellow);
 }
 
-void* choose_small_menu_spells(const char* header, const char* cancel) {
+void* choose_small_menu(const char* header, const char* cancel, int* columns) {
 	int maximum = 6;
 	if(cancel)
 		maximum--;
-	last_spell_level = 1;
-	// last_spell_level = 1;
-	return choose_answer(header, cancel, paint_small_menu, text_label_menu, 0, maximum, header_yellow_spells);
+	pushvalue push(table_columns, columns);
+	return choose_answer(header, cancel, paint_small_menu, text_label_menu_table, 0, maximum, header_yellow);
 }
+
+//void* choose_small_menu_spells(const char* header, const char* cancel) {
+//	int maximum = 6;
+//	if(cancel)
+//		maximum--;
+//	last_spell_level = 1;
+//	// last_spell_level = 1;
+//	return choose_answer(header, cancel, paint_small_menu, text_label_menu, 0, maximum, header_yellow_spells);
+//}
 
 void* choose_main_menu() {
 	return choose_answer(0, 0, paint_main_menu, text_label, 1, -1, 0);

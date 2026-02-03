@@ -1,2 +1,18 @@
-﻿Error in file `rules/Core.txt`:
- Line 1: Expected string value
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `Armor`
+ Define translation for `BaseCity`
+ Define translation for `Bless`
+ Define translation for `BurningHands`
+ Define translation for `ChillTouch`
+ Define translation for `ComprehendLanguages`
+ Define translation for `CureLightWounds`
+ Define translation for `DetectEvil`
+ Define translation for `DetectMagic`
+ Define translation for `Friends`
+ Define translation for `Identify`
+ Define translation for `MagicMissile`
+ Define translation for `Mending`
+ Define translation for `ProtectionFromEvil`
+ Define translation for `PurifyFood`
+ Define translation for `ShieldSpell`
+ Define translation for `ShockingGrasp`

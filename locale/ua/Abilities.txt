@@ -1,0 +1,76 @@
+﻿Charisma: Харізма
+Constitution: Статура
+Dexterity: Спритність
+Intellegence: Інтелект
+Strenght: Сила
+Wisdow: Мудрість
+
+CharismaShort: Хар
+ConstitutionShort: Ста
+DexterityShort: Спр
+IntellegenceShort: Інт
+StrenghtShort: Сил
+WisdowShort: Муд
+
+ACShort: КЗ
+AttackMeleeShort: Атк
+DamageMeleeShort: Пк
+ExperienceShort: Опт
+HitsShort: Хт
+LevelShort: Урв
+SpeedShort: Швд
+ReactionBonusShort: Ра
+
+Class: Класс
+
+Alertness: Пильність
+ClimbWalls: Climb Walls
+CriticalDeflect: Critical deflect
+DetectSecrets: Знайти Секрети
+HearNoise: Чути Звуки
+Hits: Хіти
+LearnSpell: Вивчити закляття
+MoveSilently: Move Silently
+OpenLocks: Вкрити замок
+ReadLanguages: Читати на язиках
+RemoveTraps: Прибрати пастку
+ResistMagic: Супротив магії
+SaveVsMagic: Захист від магії
+SaveVsParalization: Захист від параліча
+SaveVsPoison: Захист від яду
+SaveVsTraps: Захист від пасток
+
+Sneaky: Скритний
+Dead: Мертвий
+Disabled: Нерухомий
+Diseased: Захворів
+Poisoned: Отриений
+
+CharacterFeats: Ознаки персонажу
+Characterinfo: Інформація по персонажу
+CharacterSkills: Навичкі персонажа
+
+Blessing: Благословіння
+Reputation: Репутація
+
+PartyStatusFormat: В вас %GoldPiece монет.
+
+BonusHP: Бонуси до статури
+BonusSaveVsPoison: Бонуси захисту від яду
+BonusSaveVsSpells: Бонуси захисту від магії
+ImmuneCold: Іммунітет до холоду
+ImmuneDisease: Іммунітет до хвороб
+ImmuneCharm: Іммунітет до зачарування
+Invisibled: Невідимий
+Paralized: Паралізований
+Precise: Точний
+ProtectedFromEvil: Захист від зла
+Regenerated: Регенерація
+UseLeather: Носить кожану броню
+UseMage: Носить речі чарівника
+UseMartial: Носить військову зброю
+UseMetal: Носить металічну броню
+UsePriest: Носить речі клірика
+UseRogish: Носить речі злодія
+UseShield: Носить щит
+WeaponSpecialist: Спеціаліст по зброї

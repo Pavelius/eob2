@@ -1,11 +1,11 @@
 ﻿Fighter: Боєць
 FighterCleric: Боєць/Клірик
 FighterMage: Боєць/Маг
-FighterMageTheif: Боєць/Маг/Злодій
-FighterTheif: Боєць/Злодій
+FighterMageTheif: Боєць/Маг/Крадій
+FighterTheif: Боєць/Крадій
 Cleric: Клірик
 Mage: Маг
-MageTheif: Маг/Злодій
+MageTheif: Маг/Крадій
 Paladin: Паладін
 Ranger: Слідопит
-Theif: Злодій
+Theif: Крадій

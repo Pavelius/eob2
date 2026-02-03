@@ -53,13 +53,12 @@ Faces: Faces
 FeelDisease: %Name погано почувається
 FeelPoison: %Name страждає від отруєння
 FeelWorse: %Name погано почувається
-FindAllSecrets: Find all secrets
-FriendsSpellAction: Friends
-GambleVisitors: Gamble with someone
-GameOptions: Game Options
-GameOptionsOptions: Game Options
+FriendsSpellAction: Друзі
+GambleVisitors: Пограти з кимось
+GameOptions: Опції гри
+GameOptionsOptions: Опції гри
 GlobalCampMenu: Camp menu
-GlobalOptions: What %Name want?
+GlobalOptions: Що бажає %Name?
 GlobalVisit: Visit %1
 Hunt: Полювати
 Leave: Піти
@@ -96,22 +95,22 @@ ReturnToTownConfirm: Do you really want return to town?
 ScribleScrolls: Scrible Scrolls
 SellConfirm: Do you really want sell %-1 for %2i gold pieces?
 SneakAttackAct: %Name use backstab
-SurpriseFailed: %1 is surprised
+SurpriseFailed: %1 застигнут зненацька
 Talk: Розмовляти
 TavernCarousing: Гуляти
 TavernCarousingConfirm: Do you really want to drink with everyone in tavern and have fun? This will be cost %Number gold, but any of you remember that event.
-TeleportAskLevel: Level %1i
-TeleportChoosePlace: Teleport which way?
-TeleportChooseLevel: Teleport what level?
-TeleportToDungeon: Teleport to Portal
+TeleportAskLevel: Рівень %1i
+TeleportChoosePlace: Телепортуватися куди?
+TeleportChooseLevel: Телепортуватися на якій рівень?
+TeleportToDungeon: Телепортуватись до порталу
 ToolBroken: %1 зломан%а
 ToolCrumbleToDust: %1 crumble to dust
 UseHolySymbolFail: You praying is without answers
 UseHolySymbolNoEffect: Your praing have no sence
 UseHolySymbolSuccessOnPlayer: %Diety %-SpellName on %1
 UseHolySymbolSuccess: %Diety create %SpellName
-WeaponBroken: %1 is broken
-YourFaithIsWeak: Faith is weak, need more donation
+WeaponBroken: %1 зломано
+YourFaithIsWeak: Наша віра слабка, ми повинні більше жертвувати
 YourHaveNoDiety: Ви є безбожник, та нехрест
 
 Blacksmith: Ковальня
@@ -132,7 +131,7 @@ VisitPrompt: Відвідати %1
 Village: Село
 
 Accept: Погодитись
-AllPartyDead: All party members is dead. Try start game again.
+AllPartyDead: Всі герої загинули. На цей раз непощастило. Час почати гру заново.
 Cancel: Скасувати
 Continue: Продовжити
 CreateNewGame: Створити нову гру
@@ -149,6 +148,7 @@ WhatSpell: Яке закляття?
 
 DisableAllTraps: Знешкодити всі пастки
 ExmploreMostArea: Розвідати область
+FindAllSecrets: Знайти усі схованки
 KillAlmostAllMonsters: Вбити їх усіх
 KillBoss: Вбити босса
 KillBossMinions: Вбити слуг босса

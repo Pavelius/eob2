@@ -1,9 +1,1 @@
-﻿ACShort: 
-AttackMeleeShort: 
-CharismaShort: 
-ConstitutionShort: 
-DexterityShort: 
-HitsShort: 
-IntellegenceShort: 
-StrenghtShort: 
-WisdowShort: 
+﻿DetectMagic: 

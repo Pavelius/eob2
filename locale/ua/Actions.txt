@@ -1,5 +1,5 @@
 ﻿Ambush: Засідка
-AskForMiracle: Просити про чудо
+AskForMiracle: Просити чудо
 AskForMiracleFailText: %Diety не відповів на запит
 AskForMiracleSuccessText: %Name's %1 росте
 Attack: Атака
@@ -147,7 +147,7 @@ Yes: Так
 WhatCharacter: Який персонаж?
 WhatSpell: Яке закляття?
 
-DisableAllTraps: Знешкодено всі пастки
+DisableAllTraps: Знешкодити всі пастки
 ExmploreMostArea: Розвідати область
 KillAlmostAllMonsters: Вбити їх усіх
 KillBoss: Вбити босса

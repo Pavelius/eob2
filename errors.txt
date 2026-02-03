@@ -1,1 +1,2 @@
-﻿
+﻿Error in file `rules/Core.txt`:
+ Line 1: Expected string value

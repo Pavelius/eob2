@@ -22,11 +22,11 @@ int main() {
 	srand(start_random_seed);
 	initialize_gui();
 	music_initialize();
+	bsreq::read("rules/Core.txt");
+	avatar_read("rules/Avatars.txt");
 	initialize_translation();
 	initialize_strings();
 	log::readlf(speech_read, "locale", "*.str");
-	bsreq::read("rules/Core.txt");
-	avatar_read("rules/Avatars.txt");
 	if(log::errors > 0)
 		return -1;
 #ifdef _DEBUG

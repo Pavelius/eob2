@@ -54,7 +54,7 @@ DwarfMountains difficult(1)
  sites type(blue) level(2) habbits(Ork GiantSpider) language(Dwarf) key(CooperKey) features(RoomFeature RoomFeature) webs(10)
  sites type(blue) level(1) habbits(DwarfWarrior GiantSpider) language(Dwarf) key(CooperKey) features(RoomCity RoomFeature RoomFeature) webs(10) textures(0)
 
-EvilTemple difficult(2)
+EvilTemple difficult(2) music(phextemp)
  goals KillAlmostAllMonsters(2)
  travel PassDays+2
  reward AddReward+15 Reputation+8

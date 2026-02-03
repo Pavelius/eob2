@@ -1461,6 +1461,7 @@ static void after_dungeon_action(const char* id, fnevent proc) {
 
 static void enter_location() {
 	loc = 0;
+	party_unlock(0);
 	party.location_id = getbsi(last_location);
 	picture = last_location->avatar;
 	save_focus = current_focus;
@@ -1480,7 +1481,6 @@ static void enter_location(int bonus) {
 		after_dungeon_action("LootIdentyfing", loot_identyfing);
 		after_dungeon_action("LootSelling", loot_selling);
 		pass_hours(xrand(2, 4));
-		party_unlock(0);
 	}
 	last_quest = 0;
 	enter_location();

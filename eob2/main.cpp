@@ -16,7 +16,9 @@ void util_main();
 
 int main() {
 	start_random_seed = getcputime();
-	//start_random_seed = 1423089921;
+	// start_random_seed = 1423089921;
+	// current_locale[0] = 'u';
+	// current_locale[1] = 'a';
 	srand(start_random_seed);
 	initialize_gui();
 	music_initialize();

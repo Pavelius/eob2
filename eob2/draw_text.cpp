@@ -35,7 +35,7 @@ int draw::texth() {
 int draw::textw(int sym) {
 	if(!font)
 		return 0;
-	return font->width;
+	return font->ptr(sizeof(sprite))[(unsigned char)sym];
 }
 
 void draw::glyph(int sym, unsigned flags) {
@@ -54,7 +54,7 @@ void draw::glyph(int sym, unsigned flags) {
 	}
 	int height = font->height;
 	int width = font->width;
-	auto base = (unsigned char*)font->ptr(sizeof(sprite) + sym * font->height);
+	auto base = (unsigned char*)font->ptr(sizeof(sprite) + 256 + sym * font->height);
 	for(int h = 0; h < height; h++) {
 		unsigned char line = base[h];
 		unsigned char bit = 0x80;

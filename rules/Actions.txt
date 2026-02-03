@@ -105,7 +105,7 @@ RestParty
 ScribleScrolls
  classes Mage
  effect ChooseMageScrolls IfLastItem ItemPowerSpell LearnSpell Roll LearnLastSpell DestroyItem
-TavernCarousing cost(400) avatar(scenes 3)
+TavernCarousing cost(200) avatar(scenes 3)
  effect ApplyCarousing PassHours+8
 TeleportToDungeon
  effect PortalTeleportation+1
@@ -124,7 +124,7 @@ Talk
  filter IfTalk
  effect TalkAbout AddExp+2 AddExpGood+1 MonstersLeave
 Lie
- effect Charisma RollAverage Friendly AddExpEvil+1
+ effect Charisma RollAverage-3 Friendly AddExpEvil+1
  restrict_classes Paladin
 Bribe
  effect MonstersLeave ActionItems+1 ForEachItem DestroyItem

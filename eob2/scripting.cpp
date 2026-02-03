@@ -3203,6 +3203,14 @@ static bool if_low_level() {
 	return player->getlevel() <= 4;
 }
 
+static bool if_mage_scroll() {
+	auto power = last_item->getpower();
+	if(!power.iskind<spelli>())
+		return false;
+	auto p = bsdata<spelli>::elements + power.value;
+	return p->levels[1] > 0;
+}
+
 static bool if_item_can_learn_spell() {
 	auto power = last_item->getpower();
 	if(power.iskind<spelli>())
@@ -3383,6 +3391,7 @@ BSDATA(conditioni) = {
 	{"IfItemKnownSpell", if_item_known_spell},
 	{"IfLastItem", if_last_item},
 	{"IfLowLevel", if_low_level},
+	{"IfMageScroll", if_mage_scroll},
 	{"IfMonstersUndead", if_monsters_undead},
 	{"IfParalized", if_paralized},
 	{"IfPoisoned", if_poisoned},

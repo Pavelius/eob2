@@ -708,7 +708,7 @@ static void greenbar(int vc, int vm) {
 		return;
 	if(vc < 0)
 		vc = 0;
-	auto push_fore = fore;
+	pushfore push_fore;
 	rectpush push;
 	color c1 = colors::green.darken().mix(colors::red, vc * 255 / vm);
 	border_down();
@@ -721,14 +721,11 @@ static void greenbar(int vc, int vm) {
 		fore = c1;
 		rectf();
 	}
-	fore = push_fore;
 }
 
 static void paint_focus_rect() {
-	auto push_fore = fore;
-	fore = colors::white;
+	pushfore push(colors::white);
 	rectb();
-	fore = push_fore;
 }
 
 static void paint_hilite_rect() {
@@ -754,12 +751,10 @@ static void paint_select_rect() {
 }
 
 static void paint_disabled() {
+	pushfore push(colors::black);
 	auto push_alpha = alpha;
-	auto push_fore = fore;
 	alpha = 128;
-	fore = colors::black;
 	rectf();
-	fore = push_fore;
 	alpha = push_alpha;
 }
 

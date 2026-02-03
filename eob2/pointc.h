@@ -13,19 +13,8 @@ struct pointc {
 	pointc operator-(int i) const { pointc v; v.set(x - i, y - i); return v; }
 	void	clear() { x = y = -1; }
 	int		distance(pointc v) const;
+	void	set(int x1, int y1);
 	pointc	to(int dx, int dy) const { return {(char)(x + dx), (char)(y + dy)}; }
-	void set(int x1, int y1) {
-		if(x1 < 0)
-         x1 = 0;
-      else if(x1 >= mpx)
-         x1 = mpx - 1;
-		if(y1 < 0)
-         y1 = 0;
-      if(y1 >= mpy)
-         x1 = mpy - 1;
-		x = (char)x1;
-		y = (char)y1;
-	}
 };
 extern pointc last_point;
 

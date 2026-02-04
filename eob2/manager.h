@@ -4,8 +4,8 @@
 #include "nameable.h"
 
 struct manageri : nameable {
-	void*		data;
 	const char*	folder;
+	void*		data;
 	int			size;
 	bool		error;
 	void		clear();

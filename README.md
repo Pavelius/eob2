@@ -21,18 +21,6 @@ You are party of adventurers who are just arrived in the city of Iriaebor - in t
 
 We try to follow original rules of advanced dungeon and dragons second edition.
 
-## General terminology
-
-### Once per day
-
-When we say `once per day` that actually mean once before rest. After party rest all spells and abilities refreshes.
-
-## Exeptions
-
-- **Percent saving throws**: repsresent percent visualisation of saving throws instead of chance on d20 dice. All mechanics have original values but representation is percent. So `20` on d20 is 5% success, `19+` on d20 is 10% success and so on.
-- **Deflect critial**: when occurs critical hit this is chance to evade doubled (or tripled) damage.
-- **Detect secrets door**: when passed by secret button character has chance to notify button on wall.
-
 ### Hot keys
 
 - `A` (or `Left` in city) move focus rect to the left.

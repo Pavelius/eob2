@@ -44,3 +44,7 @@ We try to follow original rules of advanced dungeon and dragons second edition.
 - `G` show currently quest goals.
 - `P` pick item and drop in other inventory slot. Or pick up items from floor to empthy inventiry slot (equip item if needed).
 - `R` pick item from body belt (right side of character sheet). Opening inventiry take action. Take item from belt - not.
+
+### AI use
+
+I am programmer, not illustrator or painter. I use AI for some picture generation. I am sory for this :)

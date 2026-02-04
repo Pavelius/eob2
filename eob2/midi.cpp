@@ -182,11 +182,6 @@ static HANDLE music_event;
 static HMIDISTRM out = 0;
 static unsigned music_buffer[music_buffer_size];
 
-void midi_sleep(unsigned milliseconds) {
-	if(milliseconds)
-		Sleep(milliseconds);
-}
-
 static void CALLBACK midi_play_callback(HMIDIOUT out, unsigned int msg, DWORD dwInstance, DWORD dwParam1, DWORD dwParam2) {
 	switch(msg) {
 	case MOM_DONE:

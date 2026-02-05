@@ -24,13 +24,13 @@ ReactionBonusShort: Ра
 Class: Класс
 
 Alertness: Пильність
-ClimbWalls: Climb Walls
-CriticalDeflect: Critical deflect
+ClimbWalls: Лазити по стінах
+CriticalDeflect: Відвернути критикал
 DetectSecrets: Знайти Секрети
 HearNoise: Чути Звуки
 Hits: Хіти
 LearnSpell: Вивчити закляття
-MoveSilently: Move Silently
+MoveSilently: Безшумно рухатися
 OpenLocks: Вкрити замок
 ReadLanguages: Читати на язиках
 RemoveTraps: Прибрати пастку

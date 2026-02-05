@@ -11,18 +11,18 @@ BuyDwarvenHealingConfirm: Гноми бажають компенсувати в�
 BuyHealing: Купити лікування
 BuyHealingConfirm: Жриця бажає компенсувати витрати на лікувальні трави та витрачений час. Ви згодні відновити всі хіти у %Name's, та позбутися яду або хвороби за %2i золотих?
 BuySpell: Купити закляття
-BuySpellConfirm: Do you really want pay 50 gold piece to buy spell scroll?
+BuySpellConfirm: Ви дійсно бажаєте заплатити 50 золотих щоб купити це закляття?
 BuyWeapon: Купити зброю
-BuyWeaponsConfirm: Do you really want pay %2i gold piece to buy %-1?
+BuyWeaponsConfirm: Ви дійсно бажаете заплатити %2i золотих за покупку %-1?
 CalmDown: Заспокоїти
 CampMenu: Camp Options:
-CastSpell: Cast what spell?
-CastSpellAction: Cast Spell
-CastSpellInfo: %Name cast %1
-CastOnWho: Cast on who?
+CastSpell: Створити яке закляття?
+CastSpellAction: Створити закляття
+CastSpellInfo: %Name створив %1
+CastOnWho: Створити на кого?
 CellKeyHoleDisable: Замок взломаний
 CellPitDisable: Яма прибрана
-CellPortalUseConfirm: Do you really want activate portal?
+CellPortalUseConfirm: Ви дійсно бажаєте активувати портал?
 CellTrapLauncherDisable: Пастка прибрана
 CellGraveUse: %Name раскопа%ла могили
 ChooseAlignment: Вибирайте світогляд
@@ -31,25 +31,25 @@ ChooseClass: Вибрати класс
 ChooseDonationOptions: Скільки бажаєте пожертвувати?
 ChooseGender: Вибрати пол
 ChooseGenerateOptions: Виберіть поле з персонажем, якого ви хочете створити або переглянути.
-ChooseGeneratePlay: Your party is complete. Press 'P' to start the game.
-ChooseMageScrollsOptions: What scroll?
+ChooseGeneratePlay: Ваша группа створена. Нажміть 'P' для початку гри.
+ChooseMageScrollsOptions: Який свиток?
 ChooseRace: Вибрати расу
-ClimbWallsFail: Climb pit failed
-ConsumeRod: %1 used last charge
-ConsumeTome: %+1 is read to the end
-DebugTest: Debug Test
-DebugTestVisit: Debug test string
+ClimbWallsFail: Не вдалося перелізти яму
+ConsumeRod: %1 використано останній заряд
+ConsumeTome: %+1 прочитана до кінця
+DebugTest: Тестування
+DebugTestVisit: Тестування строки
 Delete: Видалити
 Donate: Пожертвувати
 DonateMessage: "Ваша пожертва прийнята. Да прибуде на вас, мої друзі святе благословіння" мовляла жриця
-DoorOpened: Locked door opened
+DoorOpened: Закритий замок відкрито
 DrinkPotionAct: %Name випив %ItemName
 EatAndDrink: Їсти та пити
-EatAndDrinkConfirm: Do you really want pay %2i gold piece for food and drink?
-EatAndDrinkNotEnoughtGold: "Return when you will have %2i gold piece" sad bartender "Now, get lost"
+EatAndDrinkConfirm: Ви дійсно бажаєте заплатити %2i за їжу та випивку?
+EatAndDrinkNotEnoughtGold: "Вертайтеся коли в вас з'явиться %2i золотих" сказав утримувач таверні "А зараз, йдіть геть"
 EatAndDrinkVisit: Їсти та пити
-ExitConfirm: Do you really want to exit game?
-Faces: Faces
+ExitConfirm: Ви дійсно бажаете вийти з гри?
+Faces: Аватари
 FeelDisease: %Name погано почувається
 FeelPoison: %Name страждає від отруєння
 FeelWorse: %Name погано почувається
@@ -57,18 +57,18 @@ FriendsSpellAction: Друзі
 GambleVisitors: Пограти з кимось
 GameOptions: Опції гри
 GameOptionsOptions: Опції гри
-GlobalCampMenu: Camp menu
+GlobalCampMenu: Меню табора
 GlobalOptions: Що бажає %Name?
-GlobalVisit: Visit %1
+GlobalVisit: Відвідати %1
 Hunt: Полювати
 Leave: Піти
 Lie: Врати
-MakeCampConfirm: Do you want to make camp?
+MakeCampConfirm: Ви дійсно бажаете зробити табір?
 ManipulateAction: Manipulate
-MemorizeSpells: Memorize Spells
-MulChooseBet: Bet %1i gold pieces
-MulChooseDonation: Donate %1i golds
-OpenLocksFail: Pick locks fail
+MemorizeSpells: Запам'ятати закляття
+MulChooseBet: Поставити %1i золотих
+MulChooseDonation: Пожертвувати %1i золотих
+OpenLocksFail: Злам замків не вдався
 PartyAdventure: Шукати пригод
 PartyAdventureOptions: Куди підете?
 PartyClimbUp: Партія залізла вверх ...
@@ -83,15 +83,15 @@ PickPocketsVisit: Почистити деякі кишені
 PrayForSpells: Молитися
 PlayerRead: %Name прочита%ла
 QuestGoals: Цілі завдання
-RemoveTrapsFail: Fail remove trap
+RemoveTrapsFail: Видалити пастку не вдалося
 RepairItems: Вдремонтувати речі
 RepairItemsConfirm: "I can repair all your weapons and tools. They be as new. And it will be cost for you just %Number gold pieces. Better offer, I think."
 ReplaceCharacterHeader: Помінятися з ким?
 Reroll: Перебросити
-RestParty: Rest party
-RestPartyConfirm: Rest all party for 8 hours?
+RestParty: Відпочивати до ранку
+RestPartyConfirm: Відпочивати всією группою 8 годин?
 ReturnToStreet: Вийти на вулицю
-ReturnToTownConfirm: Do you really want return to town?
+ReturnToTownConfirm: Ви дійсно бажаете повернутися до міста?
 ScribleScrolls: Scrible Scrolls
 SellConfirm: Do you really want sell %-1 for %2i gold pieces?
 SneakAttackAct: %Name use backstab

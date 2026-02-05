@@ -1568,33 +1568,16 @@ int draw::textw(const char* string, int count) {
 	if(!font)
 		return 0;
 	int x1 = 0;
-	const pma* pk = 0;//font->getheader("KRN");
 	// unsigned char s0 = 0x0;
 	if(count == -1) {
 		const char *s1 = string;
-		if(pk) {
-			while(*s1) {
-				// unsigned char sr = *((unsigned char*)s1);
-				x1 += textw(szget(&s1, codepage::W1251));
-				// s0 = sr;
-			}
-		} else {
-			while(*s1)
-				x1 += textw(szget(&s1, codepage::W1251));
-		}
+		while(*s1)
+			x1 += textw((unsigned char)*s1++);
 	} else {
 		const char *s1 = string;
 		const char *s2 = string + count;
-		if(pk) {
-			while(s1 < s2) {
-				// unsigned char sr = *((unsigned char*)s1);
-				x1 += textw(szget(&s1, codepage::W1251));
-				// s0 = sr;
-			}
-		} else {
-			while(s1 < s2)
-				x1 += textw(szget(&s1, codepage::W1251));
-		}
+		while(s1 < s2)
+			x1 += textw((unsigned char)*s1++);
 	}
 	return x1;
 }

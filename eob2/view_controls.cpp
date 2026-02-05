@@ -411,12 +411,12 @@ void text_label_menu(int index, const void* button_data, const char* format, uns
 		fore = colors::dark;
 		rectf();
 		caret = push.caret;
-		caret.x += width - textw('1') - 2;
+		caret.x += width - textw('1') - 4;
 		fore = colors::white;
 		if(index == answer_origin && answer_origin != 0)
-			paint_arrow(caret, Up, 6);
+			text("\x5e");
 		else if(answer_per_page != -1 && index == (answer_origin + answer_per_page - 1) && (answer_origin + answer_per_page < (int)an.getcount()))
-			paint_arrow(caret, Down, 6);
+			text("\x8b");
 	}
 	if(index >= 1000)
 		fore = colors::white.mix(colors::dark, 196);
@@ -459,12 +459,12 @@ static void text_label_menu_table(int index, const void* button_data, const char
 		fore = colors::dark;
 		rectf();
 		caret = push.caret;
-		caret.x += width - textw('1') - 2;
+		caret.x += width - textw('1') - 4;
 		fore = colors::white;
 		if(index == answer_origin && answer_origin != 0)
-			paint_arrow(caret, Up, 6);
+			text("\x5e");
 		else if(answer_per_page != -1 && index == (answer_origin + answer_per_page - 1) && (answer_origin + answer_per_page < (int)an.getcount()))
-			paint_arrow(caret, Down, 6);
+			text("\x8b");
 	}
 	if(index >= 1000)
 		fore = colors::white.mix(colors::dark, 196);
@@ -1908,15 +1908,6 @@ void* choose_small_menu(const char* header, const char* cancel, int* columns) {
 	pushvalue push(table_columns, columns);
 	return choose_answer(header, cancel, paint_small_menu, text_label_menu_table, 0, maximum, header_yellow);
 }
-
-//void* choose_small_menu_spells(const char* header, const char* cancel) {
-//	int maximum = 6;
-//	if(cancel)
-//		maximum--;
-//	last_spell_level = 1;
-//	// last_spell_level = 1;
-//	return choose_answer(header, cancel, paint_small_menu, text_label_menu, 0, maximum, header_yellow_spells);
-//}
 
 void* choose_main_menu() {
 	return choose_answer(0, 0, paint_main_menu, text_label, 1, -1, 0);

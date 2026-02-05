@@ -372,7 +372,6 @@ void midi_play_raw(void* mid_data) {
 	midi_open();
 
 	midi_need_repeat = true;
-
 	while(midi_need_repeat) {
 
 		current_time = 0;

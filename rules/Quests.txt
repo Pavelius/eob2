@@ -47,7 +47,7 @@ CursedDungeon difficult(1) music(blut)
   features(RoomLair RoomFeature RoomFeature)\
   trap(FireTrap) special(StoneAmulet) boss(Wight) minions(Ghoul) blood(5)
 
-DwarfMountains difficult(1)
+DwarfMountains difficult(1) music(binge)
  goals ExmploreMostArea(3)
  travel PassDays+3
  reward AddReward+8 Reputation+5

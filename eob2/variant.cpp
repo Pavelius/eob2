@@ -118,6 +118,20 @@ const varianti* find_variant(const void* object) {
 	return 0;
 }
 
+unsigned long bsreq_hash(const array& source) {
+	auto pe = source.end();
+	unsigned long result = 0;
+	unsigned i = 1;
+	for(auto pb = source.begin(); pb < pe; pb += source.element_size) {
+		auto pn = ((nameable*)pb)->id;
+		if(pn) {
+			while(*pn++)
+				result += (i++) * ((unsigned char)*pn);
+		}
+	}
+	return result;
+}
+
 unsigned long bsreq_signature() {
 	unsigned long result = 0;
 	unsigned i = 1;
@@ -140,21 +154,7 @@ unsigned long bsreq_name_count_signature() {
 	for(auto& e : bsdata<varianti>()) {
 		if(!e.metadata || !e.source || e.metadata->offset || e.key_count != 1)
 			continue;
-		auto count = e.source->size();
-		auto size = e.source->element_size;
-		auto pb = (char*)e.source->ptr(0);
-		auto pe = (char*)e.source->ptr(count);
-		// Add element count
-		result += (i++) * count;
-		// Add all element names
-		while(pb < pe) {
-			auto pn = *((const char**)pb);
-			if(pn) {
-				while(*pn++)
-					result += (i++) * ((unsigned char)*pn);
-			}
-			pb += size;
-		}
+		result += bsreq_hash(*e.source);
 	}
 	return result;
 }

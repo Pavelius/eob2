@@ -90,7 +90,7 @@ void dungeoni::ground::clear() {
 }
 
 void dungeoni::clear() {
-	memset(this, 0, sizeof(*this));
+	memset((void*)this, 0, sizeof(*this));
 	state.clear();
 	for(auto& e : overlays)
 		e.clear();

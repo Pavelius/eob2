@@ -41,8 +41,6 @@ NOBSDATA(point)
 NOBSDATA(picturei)
 NOBSDATA(quest::leveli)
 
-BSDATAD(musici)
-
 BSDATAC(actioni, 256)
 BSDATAC(advancement, 256)
 BSDATAC(boosti, 256)
@@ -176,9 +174,6 @@ BSMETA(monsteri) = {
 	BSREQ(feats),
 	BSREQ(minions),
 	BSDST(spells, spelli),
-	{}};
-BSMETA(musici) = {
-	BSREQ(id),
 	{}};
 BSMETA(partystati) = {
 	BSREQ(id),

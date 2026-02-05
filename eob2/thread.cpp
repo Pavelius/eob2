@@ -41,4 +41,18 @@ void io::thread::join() {
 	WaitForSingleObject((void*)s, 0xFFFFFFFF);
 }
 
+#else
+
+void io::thread::start(fnroutine proc, void* v) {
+}
+
+void io::thread::close() {
+	if(s == 0xFFFFFFFF)
+		return;
+	s = 0xFFFFFFFF;
+}
+
+void io::thread::join() {
+}
+
 #endif // _WIN32

@@ -190,11 +190,14 @@
 		<Unit filename="eob2/statable.h" />
 		<Unit filename="eob2/stringbuilder.cpp" />
 		<Unit filename="eob2/stringbuilder.h" />
+		<Unit filename="eob2/surface_serial.cpp" />
 		<Unit filename="eob2/szdup.cpp" />
 		<Unit filename="eob2/talking.cpp" />
 		<Unit filename="eob2/talking.h" />
 		<Unit filename="eob2/textscript.cpp" />
 		<Unit filename="eob2/textscript.h" />
+		<Unit filename="eob2/thread.cpp" />
+		<Unit filename="eob2/thread.h" />
 		<Unit filename="eob2/timer.h" />
 		<Unit filename="eob2/variant.cpp" />
 		<Unit filename="eob2/variant.h" />

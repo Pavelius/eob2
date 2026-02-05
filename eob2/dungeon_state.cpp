@@ -2,7 +2,7 @@
 #include "slice.h"
 
 void dungeon_state::clear() {
-	memset(this, 0, sizeof(*this));
+	memset((void*)this, 0, sizeof(*this));
 	up.clear();
 	down.clear();
 	portal.clear();

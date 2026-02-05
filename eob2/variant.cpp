@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////
-// 
+//
 // Copyright 2024 Pavel Chistyakov
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -150,7 +150,6 @@ unsigned long bsreq_signature() {
 
 unsigned long bsreq_name_count_signature() {
 	unsigned long result = 0;
-	unsigned i = 1;
 	for(auto& e : bsdata<varianti>()) {
 		if(!e.metadata || !e.source || e.metadata->offset || e.key_count != 1)
 			continue;

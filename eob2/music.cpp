@@ -4,7 +4,7 @@
 #include "music.h"
 #include "thread.h"
 
-BSDATAC(musici, 512)
+BSDATAD(musici)
 BSMETA(musici) = {
 	BSREQ(id),
 	{}};

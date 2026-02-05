@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////
-// 
+//
 // Copyright 2024 Pavel Chistyakov
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ struct valuei {
 	long		number;
 	void*		data;
 	variant	identifier;
-	void clear() { memset(this, 0, sizeof(*this)); }
+	void clear() { memset((void*)this, 0, sizeof(*this)); }
 	const char* read(const char* p, stringbuilder& sb);
 };
 const char*		psval(const char* p, variant& v);

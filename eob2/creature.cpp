@@ -209,7 +209,7 @@ static int* get_experience_table(classn character_class) {
 }
 
 void creaturei::clear() {
-	memset(this, 0, sizeof(*this));
+	memset((void*)this, 0, sizeof(*this));
 	avatar = 0xFF;
 	name = 0xFFFF;
 	monster_id = 0xFFFF;

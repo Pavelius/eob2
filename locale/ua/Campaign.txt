@@ -1,0 +1,175 @@
+/////////////////////////////
+// General
+
+#BaseCity
+Місто Іреайбор
+
+#StartGameMessage
+/scenes 3
+Так, ви всі зустрілися у таверні. Ви сіділи за столом, пили темне пиво, та розповідали історії про ваші нещодавні пригоди.
+Але зранку, коли настало похмілля, ви попросиналися на полу таверні під столом у залишках пива та їжі. Почався новий день.
+Ви группа шукачів пригод які тільки з'явилися у місті Іреайбор - що знаходиться у Західному Середземї континента Файерун. А ваша пригода почалася тут ...
+
+#LootSelling
+/buildngs 27
+Ви зайшли на місцевий ринок та продали усі цінні речі, які здобули у пригоді ы якы вам не потрыбны. Всього ви здобули %Number золотих.
+
+#LootIdentyfing
+/buildngs 28
+Перш за все ви спробували опознати кожну річ, яку знайшли у пригоді. Поспілкувавшись з людьми ви ідентифікували як магічні %Number речей у вашому багажі.
+
+#BlacksmithUnlock
+/npc 58
+A city blacksmith invite you to visit blacksmith, located on outskirts of city. There you can repair you items and get other service later.
+
+#WizardTowerUnlock
+/npc 59
+"Hello" - you see a strange woman in tavern - "My name an Hanna Weird and I am a one of local city wizard. If you want a new magic scroll I can sell it for you. Visit my tower to the south outskirt of city."
+
+#ReputationReachMaximum
+For now you are notable persons in the city. This goal is marked and you don't have sence to clean dungeons anymore. You are lords now!
+
+#GameQuestsDone
+/scenes 18
+You are finish all quests. This is all. For now your mission here is done.
+
+/////////////////////////////
+// FloodedSewers
+
+#FloodedSewers
+Міська затоплена каналізація
+
+#FloodedSewersSummary
+/npc 50
+"Well met, my friends." Chief of local guard was good spirited. You sit in local tavern. "My name if Halfast Rodgar. And I am chief of local guard as you now."
+"We have a problem in collectors. Two our men are going down and not returned yet. Maybe, there is a some kind of monsters inside."
+"I need your help to deal with them. Kill them all. Going down to the last level and kill all of these creatures and our comunity will reward you. Small rewar, say %QuestRewardGold gold pieces."
+
+#FloodedSewersAgree
+/npc 50
+"Very well! You are good mens. Let's luck be with you."
+
+#FloodedSewersEntering
+/buildngs 11
+Old collector builded hundred years ago. What lie below the earth?
+
+#FloodedSewersFinish
+/npc 50
+"You are back? I don't expect this. So ... here 500 gold pieces."
+"And found me later. You may give a service to goverment and army."
+
+#FloodedSewersKobold1
+"We come from deep. Our master send us there to investigate coming adventurers such as you. We don't like this mission, we want to go away from here."
+#FloodedSewersKoboldExplain1
+/npc 50
+"You saw kobolds? And those creatures sad about mystery master? Looks like a bull shit! Anyway kill all those creatures."
+#FloodedSewersKobold2
+"Our master need those stone items. We seek any. If you have those items, give it to us. We will be pleased."
+#FloodedSewersKobold3
+"Our master is in the deep of mountains. He evil and mighty. He kill many humans, elves and dwarves long time ago."
+#FloodedSewersKoboldExplain3
+/npc 50
+"You sad that kobolds talk about master live in mountains and kill many people long time ago. I tell this our local wizard. You are good mens. May god be with you."
+
+/////////////////////////////
+// CursedDungeon
+
+#CursedDungeon
+Cursed dungeon
+
+#CursedDungeonSummary
+/npc 51
+"Hello. Are you ... that ... adventures?" man smoking tabacco sitting in tavern address to you "My name is Dunkan. And I have a job for you."
+"I need you service to take some item from ruin, hauted by evil undead long time ago. That item is my familiy relict. A stone medallion of Tempus."
+"If you can deliver the item to me I will pay you %QuestRewardGold gold pieces."
+
+#CursedDungeonAgree
+/npc 51
+"You are good for doing bussiness, men! Meet there when you will get this item."
+
+#CursedDungeonEntering
+/adventure 2
+After a several hours of feet travel to north you found ruins.
+/adventure 3
+When you search ruins you found an entrance to ruins dungeon.
+
+#CursedDungeonFinish
+/npc 51
+"At least! I have this ... artefact. Very well! You reward just a gold. Take this."
+"You are good in bussiness. Maybe I found you later."
+
+/////////////////////////////
+// ExploreNorthWood
+
+#ExploreNorthWood
+Explore North Woods
+
+#ExploreNorthWoodSummary
+/npc 52
+Man in tavern sit to you table. "Hello. My name is Alf Bowmen and I local ranger."
+"As you know, this city is lay on outskirs of civilization. Wast and unexplored forest lay to the north in a week of foot travel. A dangerous and ancient forest."
+He gulp a beer and continue "And what lay in this forest? Forgotten treasures of ancient civilization? Maybe. And I give you chance to explore this for my money."
+"Explore this forest, investigate its forgotten corners and I pay you %QuestRewardGold gold piece for information. I use it to hunt prey and, maybe to settle in those lands."
+
+#ExploreNorthWoodAgree
+"Great! Wait for your reports, when you explore most part of forest entrance to the north."
+
+#ExploreNorthWoodEntering
+/adventure 2
+You move to north several day by foot. Green valley lay around you, but to nothern side you see moutains.
+/adventure 9
+On eight day of travel you enter into deep forest.
+
+#ExploreNorthWoodFinish
+/npc 52
+"At least you back. You see goblins and wolf? What you say they use it as domestic animals? Interesting. Here your %QuestRewardGold gold. Good work."
+
+/////////////////////////////
+// DwarfMountains
+
+#DwarfMountains
+Dwarf mountains
+
+#DwarfMountainsSummary
+/npc 50
+"And here you again" Chief of local guad Halfast Rodgard meet you in taver "I have new quest for you."
+"You must find a dwarven settlement in old Dwarven mountain" he gulp a beer "We don't know if that settlement exist, but long ago it trade with our settlement."
+"Dwarves don't like visitors and try to hide in those mountain. Find them and route trade with them and I will reward you."
+
+#DwarfMountainsAgree
+"Good. Helm blessing on you in you difficult mission"
+
+#DwarfMountainsEntering
+/adventure 2
+You move to north about day on two. Green valley lay around you, but you go to nothern side, when you see moutains.
+/adventure 0
+On third day of travel you enter into mountain dungeon. There is no dwarves, but everything you sence persistent smell of orcs.
+
+#DwarfMountainsOrk1
+Are you looking for dwarves? Theres in none of them. We kill they all. But, you need to look on lower levels of this mountain.
+
+/////////////////////////////
+// EvilTemple
+
+#EvilTemple
+Evil temple
+
+#EvilTempleSummary
+/npc 64
+"My name is Olsan Brief. I am hight priest of Helm in city Ireaebor. And I need your help."
+"Evil settled in Reching Woods to north of the city. There is evil cult of Dragon, that kindnapping people and kill them."
+"You must find this evil citadel located in the forest and destory their leader. I will pay you church reward %QuestRewardGold gold pieces for that."
+
+#EvilTempleAgree
+"Good. Helm blessing on you in you difficult mission. I belive you make this quick."
+
+#EvilTempleEntering
+/adventure 2
+You move to north about day. Green valley lay around you, but you go to nothern side.
+/adventure 6
+On second day of travel you enter into deep forest, where locate citadel of great evil cultist.
+
+#EvilTempleFinish
+/npc 64
+"At least. You destroy this evil cult and back here again. Here you reward a %QuestRewardGold gold pieces and got blessing."
+"Our church is on service for now. Good to work with you, my friends. Visit our church later."

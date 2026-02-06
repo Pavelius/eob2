@@ -1,0 +1,122 @@
+﻿Axe: Сокира
+Amulet: Амулет
+Arrow: Стріла
+BandedMail: Лати
+BattleAxe: Бойова сокира
+BlueCloack: Плащ
+BlueGem: Драгоцінне каміння
+BluePotion: Зілля
+BlueRing: Кільце
+Bones: Кості
+Boots: Чоботи
+Bow: Лук
+Bracers: Наручі
+ChainMail: Кольчуга
+ChillTouchHand: Ледяна рука
+Club: Дубина
+CooperKey: Ключ
+Dagger: Кинжал
+DwarvenHelm: Шолом
+DwarvenShield: Щит
+Flail: Цеп
+Halberd: Алебарда
+Helm: Шолом
+HolySymbol: Святий символ
+HolySymbolEvil: Святий символ
+GrapplingHook: Крюк
+GreenGem: Драгоцінне каміння
+GreenPotion: Зілля
+GreenRing: Кільце
+IronKey: Ключ
+LargeRation: Раціон
+LeatherArmor: Кожана броня
+Longsword: Довгий Меч
+Mace: Булава
+MageAbjurationScroll: Світок
+MageDivinationScroll: Світок
+MageEvocationScroll: Світок
+MageIllusionScroll: Світок
+MagicMap: Мапа
+MageBook: Том
+Mandibules: Мандібули
+PlateMail: Лати
+PriestScroll: Світок
+PurpleGem: Драгоцінне каміння
+Ration: Раціон
+RedCloack: Плац
+RedGem: Рубін
+RedPotion: Зілля
+RedRing: Кільце
+Robe: Роба
+ScaleMail: Кольчуга
+Sling: Праща
+Shield: Щит
+ShortSword: Короткий меч
+Spear: Спис
+Staff: Посох
+Stone: Каміння
+StoneAmulet: Кам'яний амулет
+StuddedLeatherArmor: Клепана кожана броня
+TheifTools: Інструменти крадія
+TwoHandedSword: Двуручний меч
+Wand: Палочка
+Warhammer: Бойовий молот
+
+FlameBladeHand: Вогняний меч
+Bite1d6: Укус
+Claws1d3: Кігті
+Claws1d4: Кігті
+Slam1d4: Навала
+Slam1d8: Навала
+Sting1d8: Жало
+
+Cursed: Прокляте
+Damaged: Пошкоджене
+Rotten: Згнивший
+
+ReadableOfPower: %1
+RodOfPower: %1
+Magical: Магічний
+
+AllLanguages: всіх язиків
+Fire: вогню
+
+OfAC: %+1i
+OfCharisma: управління людьми
+OfClimbWalls: падіння пера
+OfDetectMagic: магічного чуття
+OfDexterity: спритності лиса
+OfDrakonoid: загибелі драконів
+OfGoblinoid: загибелі орків
+OfHasted: швидкості
+OfHealEffect1: сцілення
+OfHealEffect2: екстра-сцілення
+OfHealth: здоров'я
+OfHearNoise: яснобачення
+OfInvisibled: небачення
+OfInvulnerability: невразливості
+OfImmuneCold: імунітету до холода
+OfImmuneFire: імунітету до вогню
+OfLifeWater: досвіду
+OfMagical: %+1i
+OfMoveSilently: сили хамеліона
+OfProtection: захисту%+1i
+OfProtectedFromEvil: оберігу від зла
+OfRegenerated: регенерації
+OfResistFire: супротиву вогню
+OfResistCold: супротиву холоду
+OfShock: шока
+OfShockingGrasp: шокування
+OfStrenght1: сили бика
+OfStrenght2: сили гіганта
+OfStrenght3: сили тітана
+OfVampiricAttack: висмактування життя
+OfWizardy1: чарівництва I
+OfWizardy2: чарівництва II
+OfWizardy3: чарівництва III
+
+OfCommonTales: казок
+
+ExamineItem: %1
+ExamineIdentifiedItem: Це %1
+WrongItem: Я не бачу ныяких речей

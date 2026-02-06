@@ -15,7 +15,7 @@ BuySpellConfirm: Ви дійсно бажаєте заплатити 50 золо
 BuyWeapon: Купити зброю
 BuyWeaponsConfirm: Ви дійсно бажаете заплатити %2i золотих за покупку %-1?
 CalmDown: Заспокоїти
-CampMenu: Camp Options:
+CampMenu: Опції лагеря:
 CastSpell: Створити яке закляття?
 CastSpellAction: Створити закляття
 CastSpellInfo: %Name створив %1
@@ -64,7 +64,7 @@ Hunt: Полювати
 Leave: Піти
 Lie: Врати
 MakeCampConfirm: Ви дійсно бажаете зробити табір?
-ManipulateAction: Manipulate
+ManipulateAction: Маніпулювати
 MemorizeSpells: Запам'ятати закляття
 MulChooseBet: Поставити %1i золотих
 MulChooseDonation: Пожертвувати %1i золотих
@@ -85,30 +85,30 @@ PlayerRead: %Name прочита%ла
 QuestGoals: Цілі завдання
 RemoveTrapsFail: Видалити пастку не вдалося
 RepairItems: Вдремонтувати речі
-RepairItemsConfirm: "I can repair all your weapons and tools. They be as new. And it will be cost for you just %Number gold pieces. Better offer, I think."
+RepairItemsConfirm: "Я можу відремонтувати всю твою зброю та інструменти. Вони будуть як нові. І це буде коштувати лише %Number золотих для тебе. Наякраща пропизиція, як на мене."
 ReplaceCharacterHeader: Помінятися з ким?
 Reroll: Перебросити
 RestParty: Відпочивати до ранку
 RestPartyConfirm: Відпочивати всією группою 8 годин?
 ReturnToStreet: Вийти на вулицю
 ReturnToTownConfirm: Ви дійсно бажаете повернутися до міста?
-ScribleScrolls: Scrible Scrolls
-SellConfirm: Do you really want sell %-1 for %2i gold pieces?
-SneakAttackAct: %Name use backstab
+ScribleScrolls: Переписати світки
+SellConfirm: Ви дійсно бажаєте продати %-1 за %2i золотих?
+SneakAttackAct: %Name вдарив у спину
 SurpriseFailed: %1 застигнут зненацька
 Talk: Розмовляти
 TavernCarousing: Гуляти
-TavernCarousingConfirm: Do you really want to drink with everyone in tavern and have fun? This will be cost %Number gold, but any of you remember that event.
+TavernCarousingConfirm: Ви дійсно бажаете пити з усіма в таверні та розважатися на повну? Це буде коштувати %Number золотих, але ви всі точно запам'ятаєте цю подію.
 TeleportAskLevel: Рівень %1i
 TeleportChoosePlace: Телепортуватися куди?
 TeleportChooseLevel: Телепортуватися на якій рівень?
 TeleportToDungeon: Телепортуватись до порталу
 ToolBroken: %1 зломан%а
-ToolCrumbleToDust: %1 crumble to dust
-UseHolySymbolFail: You praying is without answers
-UseHolySymbolNoEffect: Your praing have no sence
-UseHolySymbolSuccessOnPlayer: %Diety %-SpellName on %1
-UseHolySymbolSuccess: %Diety create %SpellName
+ToolCrumbleToDust: %1 перетворилось на пил
+UseHolySymbolFail: Ваша молитва залишилася без відповіді
+UseHolySymbolNoEffect: Ваша молитва наразі не має сенсу
+UseHolySymbolSuccessOnPlayer: %Diety %-SpellName на %1
+UseHolySymbolSuccess: %Diety створив %SpellName
 WeaponBroken: %1 зломано
 YourFaithIsWeak: Наша віра слабка, ми повинні більше жертвувати
 YourHaveNoDiety: Ви є безбожник, та нехрест
@@ -124,7 +124,7 @@ Temple: Храм
 WizardTower: Башня чарівника
 
 Options: Налаштування
-PartyLeave: Leave Settlement
+PartyLeave: Залишити поселення
 ReturnBack: Назад
 Visit: Відвідати
 VisitPrompt: Відвідати %1

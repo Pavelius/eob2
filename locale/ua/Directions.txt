@@ -1,0 +1,11 @@
+﻿NorthWest: північно-західній
+North: північній
+NorthEast: північно-східній
+West: західній
+Central: цетральній
+East: східній
+SouthWest: південно-західній
+South: південній
+SouthEast: південно-східній
+
+NonExist: не існуючій

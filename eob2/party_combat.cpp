@@ -304,7 +304,7 @@ static void make_full_attack(creaturei* enemy, int bonus, int multiplier) {
 	if(!wp3.isweapon())
 		wp3.clear();
 	// RULE: backstabbing attack depend on surprise check and invisibility. Chance is move silently.
-	if(enemy->is(Surprised) || player->is(Invisibled) || player->initiative < enemy->initiative) {
+	if((enemy->is(Surprised) || player->is(Invisibled) || player->initiative < enemy->initiative) && !enemy->is(Undead)) {
 		auto theif_bakstab = player->get(Backstab);
 		if(theif_bakstab > 0 && player->roll(MoveSilently)) {
 			consolen(getnm("SneakAttackAct"));

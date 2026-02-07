@@ -16,7 +16,7 @@ BuyWeapon: Купити зброю
 BuyWeaponsConfirm: Ви дійсно бажаете заплатити %2i золотих за покупку %-1?
 CalmDown: Заспокоїти
 CampMenu: Опції лагеря:
-CastSpell: Створити яке закляття?
+CastSpell: Яке закляття?
 CastSpellAction: Створити закляття
 CastSpellInfo: %Name створив %1
 CastOnWho: Створити на кого?
@@ -26,7 +26,7 @@ CellPortalUseConfirm: Ви дійсно бажаєте активувати по
 CellTrapLauncherDisable: Пастка прибрана
 CellGraveUse: %Name раскопа%ла могили
 ChooseAlignment: Вибирайте світогляд
-ChooseBetOptions: Скільки бажаєте поставити?
+ChooseBetOptions: Скільки поставити?
 ChooseClass: Вибрати класс
 ChooseDonationOptions: Скільки бажаєте пожертвувати?
 ChooseGender: Вибрати пол
@@ -97,8 +97,8 @@ SellConfirm: Ви дійсно бажаєте продати %-1 за %2i зол
 SneakAttackAct: %Name вдарив у спину
 SurpriseFailed: %1 застигнут зненацька
 Talk: Розмовляти
-TavernCarousing: Гуляти
-TavernCarousingConfirm: Ви дійсно бажаете пити з усіма в таверні та розважатися на повну? Це буде коштувати %Number золотих, але ви всі точно запам'ятаєте цю подію.
+TavernCarousing: Гуляти на повну
+TavernCarousingConfirm: Ви дійсно бажаете випивати з усіма в таверні та розважатися на повну? Це буде коштувати %Number золотих, але ви всі точно запам'ятаєте цю подію.
 TeleportAskLevel: Рівень %1i
 TeleportChoosePlace: Телепортуватися куди?
 TeleportChooseLevel: Телепортуватися на якій рівень?

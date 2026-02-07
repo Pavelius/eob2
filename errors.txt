@@ -1,3 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `Monster`
- Define translation for `NoGender`
+﻿Error in file `locale/en/Campaign.txt`:
+Not define locale string `DwarfMountainsFinish`

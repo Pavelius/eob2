@@ -31,7 +31,7 @@ HearNoise: Чути Звуки
 Hits: Хіти
 LearnSpell: Вивчити закляття
 MoveSilently: Безшумно рухатися
-OpenLocks: Вкрити замок
+OpenLocks: Вскрити замок
 ReadLanguages: Читати на язиках
 RemoveTraps: Прибрати пастку
 ResistMagic: Супротив магії

@@ -56,6 +56,11 @@ void log::println() {
 	printv("\r\n");
 }
 
+void log::contexti::seturl(const char* v) {
+	header = "Error in file `%1`:";
+	url = v;
+}
+
 const char* log::read(const char* url, bool error_if_not_exist) {
 	context.clear();
 	auto p_alloc = loadt(url);
@@ -64,8 +69,7 @@ const char* log::read(const char* url, bool error_if_not_exist) {
 			errorp(0, "Can't find file '%1'", url);
 		return 0;
 	}
-	context.header = "Error in file `%1`:";
-	context.url = url;
+	context.seturl(url);
 	context.file = p_alloc;
 	return p_alloc;
 }

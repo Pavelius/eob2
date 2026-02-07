@@ -145,6 +145,10 @@ You move to north about day on two. Green valley lay around you, but you go to n
 /adventure 0
 On third day of travel you enter into mountain dungeon. There is no dwarves, but everything you sence persistent smell of orcs.
 
+#DwarfMountainsFinish
+/npc 50
+"At leat, you do it. Good work and here is your reward %QuestRewardGold gold. Trade route established. We got message from dwarves. They want to trade."
+
 #DwarfMountainsOrk1
 Are you looking for dwarves? Theres in none of them. We kill they all. But, you need to look on lower levels of this mountain.
 

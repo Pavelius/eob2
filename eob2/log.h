@@ -25,6 +25,7 @@ struct contexti {
 	const char* file;
 	const char* header;
 	void clear();
+	void seturl(const char* v);
 };
 extern contexti context;
 extern bool allowparse;

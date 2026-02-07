@@ -1,9 +1,1 @@
-﻿AmazingGambling: 
-AmazingGamblingFail: 
-CarousingEnd: 
-FightingVsGuards: 
-FightingVsGuardsSuccess: 
-GatherTreasureMap: 
-GatherTreasureMapFail: 
-JoinAllyFriendPatron: 
-JoinAllyFriendPatronFail: 
+﻿

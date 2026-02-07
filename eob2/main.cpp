@@ -5,6 +5,7 @@
 #include "midi.h"
 #include "music.h"
 #include "party.h"
+#include "quest.h"
 #include "rand.h"
 #include "speech.h"
 #include "timer.h"
@@ -13,6 +14,26 @@
 #include "view.h"
 
 void util_main();
+
+static void check_locale_exist(const char* id, const char* suffix) {
+	char temp[128]; stringbuilder sb(temp);
+	sb.add("%1%2", id, suffix);
+	auto pn = getnme(temp);
+	if(pn)
+		return;
+	log::errorp(0, "Not define locale string `%1`", temp);
+}
+
+static void check_quest_locals() {
+	char temp[128]; stringbuilder sb(temp); sb.add("locale/%1/Campaign.txt", current_locale);
+	auto push = log::context;
+	log::context.seturl(temp);
+	for(auto& e : bsdata<quest>()) {
+		check_locale_exist(e.id, "Summary");
+		check_locale_exist(e.id, "Agree");
+		check_locale_exist(e.id, "Finish");
+	}
+}
 
 int main() {
 	start_random_seed = getcputime();
@@ -27,6 +48,7 @@ int main() {
 	initialize_translation();
 	initialize_strings();
 	log::readlf(speech_read, "locale", "*.str");
+	check_quest_locals();
 	if(log::errors > 0)
 		return -1;
 #ifdef _DEBUG

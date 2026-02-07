@@ -7,8 +7,7 @@
 #StartGameMessage
 /scenes 3
 Так, ви всі зустрілися у таверні. Ви сіділи за столом, пили темне пиво, та розповідали історії про ваші нещодавні пригоди.
-Але зранку, коли настало похмілля, ви попросиналися на полу таверні під столом у залишках пива та їжі. Почався новий день.
-Ви группа шукачів пригод які тільки з'явилися у місті Іреайбор - що знаходиться у Західному Середземї континента Файерун. А ваша пригода почалася тут ...
+Ви группа шукачів пригод які тільки з'явилися у місті Іреайбор - що знаходиться у Західному Середзем`ї континента Файерун. А ваша пригода почалася тут ...
 
 #LootSelling
 /buildngs 27
@@ -41,7 +40,7 @@
 
 #FloodedSewersSummary
 /npc 50
-"Доброго дня, шановні пані та панове." Глава місцевої стражи був привітливою людиною. Ви сиділи у місцевій таверні. "Моє ім'я Халфаст Родгар. І я шеф місцевої стражи, як ви вже напевно здогадались."
+"Доброго дня, шановні пані та панове." Глава місцевої варти був привітливою людиною. Ви сиділи у місцевій таверні. "Моє ім'я Холфаст Родгар. І я шеф місцевої варта, як ви вже напевно здогадались."
 "В нас є деякі проблеми з міською каналізацією. Дві мої людини спустилися тиду перевірити і сгинули. Може там якісь монстри, чи щось таке."
 "Мені потрібна ваша допомога з цим. Вбийте їх усіх. Спустіться до останнього рівня і вбийте всіх цих огидних створінь і від нашої комуни отримаєте нагороду, скажимо say %QuestRewardGold золотих монет."
 
@@ -59,104 +58,104 @@
 "І знайдіть мене пізніше. Може знову будете корисні для міста і місцевої армії."
 
 #FloodedSewersKobold1
-"We come from deep. Our master send us there to investigate coming adventurers such as you. We don't like this mission, we want to go away from here."
+"Ми прийшли з глибин. Наш володар посилаэ нас сюди, щоб ми розвыдували місцевість, та слідкували за шукачами пригод, такими як ви. Але нам не подобається це, ми бажаємо поскоріше прибратися геть."
 #FloodedSewersKoboldExplain1
 /npc 50
-"You saw kobolds? And those creatures sad about mystery master? Looks like a bull shit! Anyway kill all those creatures."
+"Ви бачили кобольдів? І ці істоти щось патакали про якогось володоря? Схоже на якусь маячню. В любому випадку потрібно вбити всіх цих істот."
 #FloodedSewersKobold2
-"Our master need those stone items. We seek any. If you have those items, give it to us. We will be pleased."
+"Наш володар бажає знайти ці скам'янілі речі. Ми шукаємо іх для нього. Він буде задоволений."
 #FloodedSewersKobold3
-"Our master is in the deep of mountains. He evil and mighty. He kill many humans, elves and dwarves long time ago."
+"Наш володар знаходиться в глибині гор. Він могутній та дуже злий. Він вбив багато людей, ельфів та гномів колись дуже давно."
 #FloodedSewersKoboldExplain3
 /npc 50
-"You sad that kobolds talk about master live in mountains and kill many people long time ago. I tell this our local wizard. You are good mens. May god be with you."
+"Ви кажете що той містичний володар живе десь глибоко у горах та вбив багато людей дуже давно? Я передам цю інформацію нашому чарівнику, може вона йому буде корисна. Ви гарні люди. Хай береже вас господь."
 
 /////////////////////////////
 // CursedDungeon
 
 #CursedDungeon
-Cursed dungeon
+Прокляте підземелля
 
 #CursedDungeonSummary
 /npc 51
-"Hello. Are you ... that ... adventures?" man smoking tabacco sitting in tavern address to you "My name is Dunkan. And I have a job for you."
-"I need you service to take some item from ruin, hauted by evil undead long time ago. That item is my familiy relict. A stone medallion of Tempus."
-"If you can deliver the item to me I will pay you %QuestRewardGold gold pieces."
+"Доброго дня. Ви і є ті самі шукачі пригод?" у таверні до вас звернувся чоловік, який сидів навпроти і курив люльку. "Моє ім'я Дункан. І я маю для вас роботу."
+"Мені потрібна послуга по пошуку однієї речі у давніх руїнах, які населені всілякою злою мертвечиною. Ця річ - моя родова реліквія. Скам'янілий медальон Темпуса."
+"Якщо ви доставите його мені я заплачу вам %QuestRewardGold золотих."
 
 #CursedDungeonAgree
 /npc 51
-"You are good for doing bussiness, men! Meet there when you will get this item."
+"З вами приємно мати справу, друзі! Зустрінимось тут, коли амулет буде у вас."
 
 #CursedDungeonEntering
 /adventure 2
-After a several hours of feet travel to north you found ruins.
+Після декількох годин подорожі на північ ви знайшли древні руїні.
 /adventure 3
-When you search ruins you found an entrance to ruins dungeon.
+Згодом, коли ви обшукали руїни, ви знайшли вхід у підземелля.
 
 #CursedDungeonFinish
 /npc 51
-"At least! I have this ... artefact. Very well! You reward just a gold. Take this."
-"You are good in bussiness. Maybe I found you later."
+"Нарешті! Я буду мати цей ... артефакт. Дуже добре. Врешті, решт ваша нагорода це всього лише гроші. Берить їх."
+"З вами дуже добре мати справу. Можливо, я знайду вас пізніше."
 
 /////////////////////////////
 // ExploreNorthWood
 
 #ExploreNorthWood
-Explore North Woods
+Північний ліс
 
 #ExploreNorthWoodSummary
 /npc 52
-Man in tavern sit to you table. "Hello. My name is Alf Bowmen and I local ranger."
-"As you know, this city is lay on outskirs of civilization. Wast and unexplored forest lay to the north in a week of foot travel. A dangerous and ancient forest."
-He gulp a beer and continue "And what lay in this forest? Forgotten treasures of ancient civilization? Maybe. And I give you chance to explore this for my money."
-"Explore this forest, investigate its forgotten corners and I pay you %QuestRewardGold gold piece for information. I use it to hunt prey and, maybe to settle in those lands."
+Коли ви була у таверні чоловік підсів до вашого столу. "Доброго дня. Мене звати Альф Лучник і я місцевий слідопит."
+"Як ви знаєте наше місце знаходиться на краї цивілізованного світу. Великий, та не обстежений ліс знаходиться на півночі за тиждень пішого ходу. Це дуже небезпечне та стародавне місце."
+Він хлебнув півка і продовжував "І що ж знаходиться у тому лісі? Забиті скарби древніх уивілізацій? Можливо. І я надам вам шанс це з`ясувати за мої гроші"
+"Обслідуйте цей ліс, побудуйте його мапу і я заплачу вам %QuestRewardGold золотих за цю інформацію. Її я використаю для полювання на дивовижних тварин і можливо колись оселюся там."
 
 #ExploreNorthWoodAgree
-"Great! Wait for your reports, when you explore most part of forest entrance to the north."
+"Добре! Чекаю від вас звіт, коли ви розвідаєте більшу частину входу у цей північний ліс."
 
 #ExploreNorthWoodEntering
 /adventure 2
-You move to north several day by foot. Green valley lay around you, but to nothern side you see moutains.
+Декілька днів ви йшли пішки на північ. Зелені луги були навколо вас, але на півночі десь далеко маячили гори.
 /adventure 9
-On eight day of travel you enter into deep forest.
+На восьмий день вашого шляху ви зайшли у дремучій ліс.
 
 #ExploreNorthWoodFinish
 /npc 52
-"At least you back. You see goblins and wolf? What you say they use it as domestic animals? Interesting. Here your %QuestRewardGold gold. Good work."
+"Нарешті ви повернулися. Ви бачили гоблінів та волків? Шо ви кажете? Вони використовували їх як домашніх улюбленців? Цікаво. Ось ваші %QuestRewardGold золотих. Добра робота."
 
 /////////////////////////////
 // DwarfMountains
 
 #DwarfMountains
-Dwarf mountains
+Гори гномів
 
 #DwarfMountainsSummary
 /npc 50
-"And here you again" Chief of local guad Halfast Rodgard meet you in taver "I have new quest for you."
-"You must find a dwarven settlement in old Dwarven mountain" he gulp a beer "We don't know if that settlement exist, but long ago it trade with our settlement."
-"Dwarves don't like visitors and try to hide in those mountain. Find them and route trade with them and I will reward you."
+"І знову ми зустрілися" шеф міської варти Холфаст Родгард зустрів вас у таверні "В мене є для вас нове завдання."
+"Ви повинні знайти поселення гномів в старих Гном'їх горах" він відсьорбнув пива "Нам невідомо чи взагалі це поселення існує, але колись дуже давно наше місто з ним торгувало."
+"Гноми не полюбляють чужаків, тому ховаються у своїх горах. Знайдіть їх, прокладіть торговий шлях і я нагороджу вас."
 
 #DwarfMountainsAgree
-"Good. Helm blessing on you in you difficult mission"
+"Добре. Хай береже вас Гельм у вашої не легкої міссії."
 
 #DwarfMountainsEntering
 /adventure 2
-You move to north about day on two. Green valley lay around you, but you go to nothern side, when you see moutains.
+Ви йшли на північ пару днів. Зелена долина була навколо вас, але ви дійшли до пінічною її частини, де почалися гори.
 /adventure 0
-On third day of travel you enter into mountain dungeon. There is no dwarves, but everything you sence persistent smell of orcs.
+На третій день вашого шляху ви зайшли у підземню печеру, яка виглядала штучно зробленною. Тут не було гномів, але повсюду стояв сморід орків.
 
 #DwarfMountainsOrk1
-Are you looking for dwarves? Theres in none of them. We kill they all. But, you need to look on lower levels of this mountain.
+Ви шукаєте гномів? Тут їх немає. Ми їх всіх вбили. Але, можливо, ви знадете їх глибше, на нижніх рівнях печер у цих горах.
 
 /////////////////////////////
 // EvilTemple
 
 #EvilTemple
-Evil temple
+Злий храм
 
 #EvilTempleSummary
 /npc 64
-"My name is Olsan Brief. I am hight priest of Helm in city Ireaebor. And I need your help."
+У храмі ви побачили дивну людину. "Моє ім'я Олсан Краткий. Я великий жрець Гельма в місті Іреайбор. І мені потрібна ваша допомога."
 "Evil settled in Reching Woods to north of the city. There is evil cult of Dragon, that kindnapping people and kill them."
 "You must find this evil citadel located in the forest and destory their leader. I will pay you church reward %QuestRewardGold gold pieces for that."
 

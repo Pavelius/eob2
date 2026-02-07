@@ -406,6 +406,7 @@ void add_spells(int type, int level, const spellseta* include) {
 			continue;
 		an.add(&e, e.getname());
 	}
+	an.sort();
 }
 
 static int get_spells_count(spellseta* spells, int type, int level) {

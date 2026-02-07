@@ -1,5 +1,9 @@
-// Uncomment string below (remove first two slash and followed space) to use ukranian locale strings.
-// #setlocale "ua" 
+/////////////////
+// LOCALIZATION
+/////////////////
+// Uncomment one of strings below (remove first two slash and followed space) to use different locale strings.
+#setlocale "ua"
+// #setlocale "en"
 
 #include "rules/Races.txt"
 #include "rules/Classes.txt"
@@ -42,6 +46,6 @@ GeneratePartyDebug
 StartGameQuests
  elements FloodedSewers
 StartGameAbilities
- elements Reputation+10 Blessing+20
+ elements Reputation+20 Blessing+20
 StartGame
  elements ClearGame GenerateParty StartGameQuests StartGameAbilities PassHours+7 Message PartyUnlock BaseCity EnterLocation

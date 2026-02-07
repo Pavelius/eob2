@@ -66,5 +66,6 @@ Suggestion: Suggestion
 TurnUndead: Turn undead
 VampiricTouch: Vampiric Touch
 
+SpellsAvailableHeader: Spells available:
 SpellsAvailable: %1i of %2i remaining
 NoSpellsAvailable: Not available any spells on this level

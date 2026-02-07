@@ -1,2 +1,2 @@
-﻿Error in file `locale/en/Campaign.txt`:
+﻿Error in file `locale/ua/Campaign.txt`:
 Not define locale string `DwarfMountainsFinish`

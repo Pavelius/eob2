@@ -71,12 +71,12 @@ BuySpell
  effect MagicSpellsShop ChooseShopItem+1 ConfirmAction PayGold+50 AddItem
 BuyWeapon
  effect BuyWeapons
- required Reputation(30)
+ required Reputation(40)
 BuyDwarvenWeapon
  effect BuyMenu Mace Warhammer BattleAxe
 BuyArmor
  effect BuyArmors
- required Reputation(40)
+ required Reputation(50)
 CastSpellAction
  effect CastSpell
 Donate

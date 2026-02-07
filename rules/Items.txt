@@ -307,11 +307,13 @@ HalflingTheifStartEquipment
 FighterStartEquipment
  elements Longsword LeatherArmor Shield Helm
 FighterClericStartEquipment
- elements Mace LeatherArmor Helm HolySymbol
+ elements Mace LeatherArmor Shield Helm HolySymbol
+FighterTheifStartEquipment
+ elements Longsword LeatherArmor Shield Helm TheifTools
 FighterMageStartEquipment
  elements Longsword LeatherArmor Helm Wand IdentifyItem
 PaladinStartEquipment
- elements Longsword LeatherArmor Helm
+ elements Longsword ChainMail Helm
 RangerStartEquipment
  elements Longsword ShortSword LeatherArmor Bow Arrow Arrow Arrow Arrow Arrow
 ClericStartEquipment

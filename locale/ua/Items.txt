@@ -1,122 +1,122 @@
-п»їAxe: РЎРѕРєРёСЂР°
-Amulet: РђРјСѓР»РµС‚
-Arrow: РЎС‚СЂС–Р»Р°
-BandedMail: Р›Р°С‚Рё
-BattleAxe: Р‘РѕР№РѕРІР° СЃРѕРєРёСЂР°
-BlueCloack: РџР»Р°С‰
-BlueGem: Р”СЂР°РіРѕС†С–РЅРЅРµ РєР°РјС–РЅРЅСЏ
-BluePotion: Р—С–Р»Р»СЏ
-BlueRing: РљС–Р»СЊС†Рµ
-Bones: РљРѕСЃС‚С–
-Boots: Р§РѕР±РѕС‚Рё
-Bow: Р›СѓРє
-Bracers: РќР°СЂСѓС‡С–
-ChainMail: РљРѕР»СЊС‡СѓРіР°
-ChillTouchHand: Р›РµРґСЏРЅР° СЂСѓРєР°
-Club: Р”СѓР±РёРЅР°
-CooperKey: РљР»СЋС‡
-Dagger: РљРёРЅР¶Р°Р»
-DwarvenHelm: РЁРѕР»РѕРј
-DwarvenShield: Р©РёС‚
-Flail: Р¦РµРї
-Halberd: РђР»РµР±Р°СЂРґР°
-Helm: РЁРѕР»РѕРј
-HolySymbol: РЎРІСЏС‚РёР№ СЃРёРјРІРѕР»
-HolySymbolEvil: РЎРІСЏС‚РёР№ СЃРёРјРІРѕР»
-GrapplingHook: РљСЂСЋРє
-GreenGem: Р”СЂР°РіРѕС†С–РЅРЅРµ РєР°РјС–РЅРЅСЏ
-GreenPotion: Р—С–Р»Р»СЏ
-GreenRing: РљС–Р»СЊС†Рµ
-IronKey: РљР»СЋС‡
-LargeRation: Р Р°С†С–РѕРЅ
-LeatherArmor: РљРѕР¶Р°РЅР° Р±СЂРѕРЅСЏ
-Longsword: Р”РѕРІРіРёР№ РњРµС‡
-Mace: Р‘СѓР»Р°РІР°
-MageAbjurationScroll: РЎРІС–С‚РѕРє
-MageDivinationScroll: РЎРІС–С‚РѕРє
-MageEvocationScroll: РЎРІС–С‚РѕРє
-MageIllusionScroll: РЎРІС–С‚РѕРє
-MagicMap: РњР°РїР°
-MageBook: РўРѕРј
-Mandibules: РњР°РЅРґС–Р±СѓР»Рё
-PlateMail: Р›Р°С‚Рё
-PriestScroll: РЎРІС–С‚РѕРє
-PurpleGem: Р”СЂР°РіРѕС†С–РЅРЅРµ РєР°РјС–РЅРЅСЏ
-Ration: Р Р°С†С–РѕРЅ
-RedCloack: РџР»Р°С†
-RedGem: Р СѓР±С–РЅ
-RedPotion: Р—С–Р»Р»СЏ
-RedRing: РљС–Р»СЊС†Рµ
-Robe: Р РѕР±Р°
-ScaleMail: РљРѕР»СЊС‡СѓРіР°
-Sling: РџСЂР°С‰Р°
-Shield: Р©РёС‚
-ShortSword: РљРѕСЂРѕС‚РєРёР№ РјРµС‡
-Spear: РЎРїРёСЃ
-Staff: РџРѕСЃРѕС…
-Stone: РљР°РјС–РЅРЅСЏ
-StoneAmulet: РљР°Рј'СЏРЅРёР№ Р°РјСѓР»РµС‚
-StuddedLeatherArmor: РљР»РµРїР°РЅР° РєРѕР¶Р°РЅР° Р±СЂРѕРЅСЏ
-TheifTools: Р†РЅСЃС‚СЂСѓРјРµРЅС‚Рё РєСЂР°РґС–СЏ
-TwoHandedSword: Р”РІСѓСЂСѓС‡РЅРёР№ РјРµС‡
-Wand: РџР°Р»РѕС‡РєР°
-Warhammer: Р‘РѕР№РѕРІРёР№ РјРѕР»РѕС‚
+Axe: Сокира
+Amulet: Амулет
+Arrow: Стріла
+BandedMail: Лати
+BattleAxe: Бойова сокира
+BlueCloack: Плащ
+BlueGem: Драгоцінне каміння
+BluePotion: Зілля
+BlueRing: Кільце
+Bones: Кості
+Boots: Чоботи
+Bow: Лук
+Bracers: Наручі
+ChainMail: Кольчуга
+ChillTouchHand: Ледяна рука
+Club: Дубина
+CooperKey: Ключ
+Dagger: Кинжал
+DwarvenHelm: Шолом
+DwarvenShield: Щит
+Flail: Цеп
+Halberd: Алебарда
+Helm: Шолом
+HolySymbol: Святий символ
+HolySymbolEvil: Святий символ
+GrapplingHook: Крюк
+GreenGem: Драгоцінне каміння
+GreenPotion: Зілля
+GreenRing: Кільце
+IronKey: Ключ
+LargeRation: Раціон
+LeatherArmor: Кожана броня
+Longsword: Довгий Меч
+Mace: Булава
+MageAbjurationScroll: Світок
+MageDivinationScroll: Світок
+MageEvocationScroll: Світок
+MageIllusionScroll: Світок
+MagicMap: Мапа
+MageBook: Том
+Mandibules: Мандібули
+PlateMail: Лати
+PriestScroll: Світок
+PurpleGem: Драгоцінне каміння
+Ration: Раціон
+RedCloack: Плац
+RedGem: Рубін
+RedPotion: Зілля
+RedRing: Кільце
+Robe: Роба
+ScaleMail: Кольчуга
+Sling: Праща
+Shield: Щит
+ShortSword: Короткий меч
+Spear: Спис
+Staff: Посох
+Stone: Каміння
+StoneAmulet: Кам'яний амулет
+StuddedLeatherArmor: Клепана кожана броня
+TheifTools: Інструменти крадія
+TwoHandedSword: Двуручний меч
+Wand: Палочка
+Warhammer: Бойовий молот
 
-FlameBladeHand: Р’РѕРіРЅСЏРЅРёР№ РјРµС‡
-Bite1d6: РЈРєСѓСЃ
-Claws1d3: РљС–РіС‚С–
-Claws1d4: РљС–РіС‚С–
-Slam1d4: РќР°РІР°Р»Р°
-Slam1d8: РќР°РІР°Р»Р°
-Sting1d8: Р–Р°Р»Рѕ
+FlameBladeHand: Вогняний меч
+Bite1d6: Укус
+Claws1d3: Кігті
+Claws1d4: Кігті
+Slam1d4: Навала
+Slam1d8: Навала
+Sting1d8: Жало
 
-Cursed: РџСЂРѕРєР»СЏС‚Рµ
-Damaged: РџРѕС€РєРѕРґР¶РµРЅРµ
-Rotten: Р—РіРЅРёРІС€РёР№
+Cursed: Прокляте
+Damaged: Пошкоджене
+Rotten: Згнивший
 
 ReadableOfPower: %1
 RodOfPower: %1
-Magical: РњР°РіС–С‡РЅРёР№
+Magical: Магічний
 
-AllLanguages: РІСЃС–С… СЏР·РёРєС–РІ
-Fire: РІРѕРіРЅСЋ
+AllLanguages: всіх язиків
+Fire: вогню
 
 OfAC: %+1i
-OfCharisma: СѓРїСЂР°РІР»С–РЅРЅСЏ Р»СЋРґСЊРјРё
-OfClimbWalls: РїР°РґС–РЅРЅСЏ РїРµСЂР°
-OfDetectMagic: РјР°РіС–С‡РЅРѕРіРѕ С‡СѓС‚С‚СЏ
-OfDexterity: СЃРїСЂРёС‚РЅРѕСЃС‚С– Р»РёСЃР°
-OfDrakonoid: Р·Р°РіРёР±РµР»С– РґСЂР°РєРѕРЅС–РІ
-OfGoblinoid: Р·Р°РіРёР±РµР»С– РѕСЂРєС–РІ
-OfHasted: С€РІРёРґРєРѕСЃС‚С–
-OfHealEffect1: СЃС†С–Р»РµРЅРЅСЏ
-OfHealEffect2: РµРєСЃС‚СЂР°-СЃС†С–Р»РµРЅРЅСЏ
-OfHealth: Р·РґРѕСЂРѕРІ'СЏ
-OfHearNoise: СЏСЃРЅРѕР±Р°С‡РµРЅРЅСЏ
-OfInvisibled: РЅРµР±Р°С‡РµРЅРЅСЏ
-OfInvulnerability: РЅРµРІСЂР°Р·Р»РёРІРѕСЃС‚С–
-OfImmuneCold: С–РјСѓРЅС–С‚РµС‚Сѓ РґРѕ С…РѕР»РѕРґР°
-OfImmuneFire: С–РјСѓРЅС–С‚РµС‚Сѓ РґРѕ РІРѕРіРЅСЋ
-OfLifeWater: РґРѕСЃРІС–РґСѓ
+OfCharisma: управління людьми
+OfClimbWalls: падіння пера
+OfDetectMagic: магічного чуття
+OfDexterity: спритності лиса
+OfDrakonoid: загибелі драконів
+OfGoblinoid: загибелі орків
+OfHasted: швидкості
+OfHealEffect1: сцілення
+OfHealEffect2: екстра-сцілення
+OfHealth: здоров'я
+OfHearNoise: яснобачення
+OfInvisibled: небачення
+OfInvulnerability: невразливості
+OfImmuneCold: імунітету до холода
+OfImmuneFire: імунітету до вогню
+OfLifeWater: досвіду
 OfMagical: %+1i
-OfMoveSilently: СЃРёР»Рё С…Р°РјРµР»С–РѕРЅР°
-OfProtection: Р·Р°С…РёСЃС‚Сѓ%+1i
-OfProtectedFromEvil: РѕР±РµСЂС–РіСѓ РІС–Рґ Р·Р»Р°
-OfRegenerated: СЂРµРіРµРЅРµСЂР°С†С–С—
-OfResistFire: СЃСѓРїСЂРѕС‚РёРІСѓ РІРѕРіРЅСЋ
-OfResistCold: СЃСѓРїСЂРѕС‚РёРІСѓ С…РѕР»РѕРґСѓ
-OfShock: С€РѕРєР°
-OfShockingGrasp: С€РѕРєСѓРІР°РЅРЅСЏ
-OfStrenght1: СЃРёР»Рё Р±РёРєР°
-OfStrenght2: СЃРёР»Рё РіС–РіР°РЅС‚Р°
-OfStrenght3: СЃРёР»Рё С‚С–С‚Р°РЅР°
-OfVampiricAttack: РІРёСЃРјР°РєС‚СѓРІР°РЅРЅСЏ Р¶РёС‚С‚СЏ
-OfWizardy1: С‡Р°СЂС–РІРЅРёС†С‚РІР° I
-OfWizardy2: С‡Р°СЂС–РІРЅРёС†С‚РІР° II
-OfWizardy3: С‡Р°СЂС–РІРЅРёС†С‚РІР° III
+OfMoveSilently: сили хамеліона
+OfProtection: захисту%+1i
+OfProtectedFromEvil: оберігу від зла
+OfRegenerated: регенерації
+OfResistFire: супротиву вогню
+OfResistCold: супротиву холоду
+OfShock: шока
+OfShockingGrasp: шокування
+OfStrenght1: сили бика
+OfStrenght2: сили гіганта
+OfStrenght3: сили тітана
+OfVampiricAttack: висмактування життя
+OfWizardy1: чарівництва I
+OfWizardy2: чарівництва II
+OfWizardy3: чарівництва III
 
-OfCommonTales: РєР°Р·РѕРє
+OfCommonTales: казок
 
 ExamineItem: %1
-ExamineIdentifiedItem: Р¦Рµ %1
-WrongItem: РЇ РЅРµ Р±Р°С‡Сѓ РЅС‹СЏРєРёС… СЂРµС‡РµР№
+ExamineIdentifiedItem: Це %1
+WrongItem: Я не бачу ныяких речей

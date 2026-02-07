@@ -1,5 +1,5 @@
 // Uncomment string below (remove first two slash and followed space) to use ukranian locale strings.
-// #setlocale "ua" 
+#setlocale "ua" 
 
 #include "rules/Races.txt"
 #include "rules/Classes.txt"

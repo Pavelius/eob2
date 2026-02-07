@@ -664,17 +664,12 @@ bool is_party_name(unsigned short value) {
 	return false;
 }
 
-static void set_basic_ability() {
-	player->basic.abilities[Alertness] += 70;
-}
-
 void update_player_hits() {
 	player->hp = player->hpm;
 	player->food = player->getfood();
 }
 
 void create_player_finish() {
-	set_basic_ability();
 	apply_class_ability();
 	update_player();
 	update_player_hits();
@@ -762,7 +757,6 @@ void create_monster(const monsteri * pi) {
 	player->basic.abilities[AC] = (10 - pi->ac);
 	player->alignment = pi->alignment;
 	player->reaction = pi->reaction;
-	set_basic_ability();
 	apply_race_ability();
 	apply_default_ability();
 	update_basic();

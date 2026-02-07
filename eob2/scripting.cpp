@@ -2371,7 +2371,7 @@ void continue_game() {
 }
 
 static void choose_spells(int bonus) {
-	choose_spells("Spells available:", "Cancel", bonus);
+	choose_spells(getnm("SpellsAvailableHeader"), getnm("Cancel"), bonus);
 }
 
 static void choose_wear(int bonus) {

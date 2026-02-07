@@ -982,31 +982,6 @@ void header_yellow(const char* format) {
 	fore = push_fore;
 }
 
-//static void header_yellow_spells_by_level(int level, int max_level) {
-//	auto push_caret = caret;
-//	auto push_with = width; width = 12;
-//	auto push_heigh = height; height = 7;
-//	auto push_fore = fore; fore = colors::yellow;
-//	caret.x -= 2; caret.y -= 2;
-//	for(auto i = 1; i <= max_level; i++) {
-//		button_frame(1, false, (level == i));
-//		caret.y += 2;
-//		texta(str("%1i", i), AlignCenterCenter);
-//		caret.y -= 2;
-//		auto hot_key = '1' + i - 1;
-//		caret.x += width;
-//	}
-//	height = push_heigh;
-//	width = push_with;
-//	caret = push_caret;
-//	fore = push_fore;
-//	caret.y += texth() + 1;
-//}
-//
-//static void header_yellow_spells(const char* format) {
-//	header_yellow_spells_by_level(last_spell_level, 9);
-//}
-
 static void header(const char* format) {
 	auto push_fore = fore;
 	auto push_stroke = fore_stroke;

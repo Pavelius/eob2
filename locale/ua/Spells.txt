@@ -1,0 +1,71 @@
+﻿Aid: Допомога
+Abjure: Оберіг
+Augury: Гадання
+Armor: Обладунок
+Barkskin: Кожа-кора
+BladeBarrier: Барер із леза
+Bless: Благословіння
+Blinding: Осліпління
+Blink: Мигання
+Blur: Мірихтіння
+BurningHands: Вогняні руки
+ChillTouch: Ледяний дотик
+Clairaudience: Clairaudience
+CloackOfBravery: Плащ хоробрости
+CureCriticalWounds: Вилікувати критичні рани
+CureDisease: Вилікувати хворобу
+CureLightWounds: Вилікувати легкі рани
+CurePoison: Вилікувати отруення
+CureSeriousWounds: Вилікувати середні рани
+ComprehendLanguages: Розуміти язики
+CreateFood: Створити їжу
+DetectEvil: Виявити зло
+DetectMagic: Виявити магію
+DispellEvil: Розвіяти зло
+DispellMagic: Розвіяти магію
+Fear: Жах
+FindPath: Знайти шлях
+FindTraps: Знайти пастки
+Fireball: Вогняний шар
+FlameBlade: Вогняний меч
+FlameStrike: Вогняний удар
+FreeAction: Free Action
+Friends: Друзі
+Haste: Прискорення
+HealSpell: Сцілення
+HypnoticPattern: Гіпнотичний визерунок
+HoldPerson: Затримати персону
+HoldPersonGainEffect: %EffectCount creatures stand still!
+HoldUndead: Затримати мертвого
+Identify: Ідентифікувати
+ImprovedInvisibility: Impr. Invisibility
+Invisibility: Невидимість
+Knock: Стук
+LayOnHand: Прикладання рук
+LocateGems: Знайти коштовності
+MagicalVestment: Магічний обладунок
+MagicMissile: Магічна ракета
+MelfAcidArrow: Кислотна стріла
+Mending: Ремонтувати
+MirrorImage: Джеркальне зображення
+NeutralizePoison: Нейтралізувати отруту
+Prayer: Молитва
+ProtectionFromEvil: Захист від зла
+ProtectionFromEvil10ft: Захист від зла на всіх
+PurifyFood: Очистити їжу
+RemoveCurse: Зняти прокляття
+RemoveParalize: Зняти параліч
+ResistColdSpell: Супротив холоду
+ResistFireSpell: Супротив вогню
+Scare: Страх
+ShieldSpell: Щит
+ShockingGrasp: Шокуюча хватка
+SlowPoison: Уповільнити отруту
+StrenghtSpell: Сила
+Suggestion: Пропозиція
+TurnUndead: Відворот мертвого
+VampiricTouch: Вампірічний дотик
+
+SpellsAvailableHeader: Доступні заляття:
+SpellsAvailable: %1i з %2i залишилось
+NoSpellsAvailable: Не доступно жодного закляття цього рівня

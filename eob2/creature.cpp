@@ -364,7 +364,8 @@ static void update_depended_abilities() {
 	player->abilities[DamageMelee] += maptbl(damage_adjustment, k);
 	player->abilities[AC] += maptbl(defence_adjustment, player->abilities[Dexterity]);
 	player->abilities[ReactionBonus] += maptbl(cha_reaction_adjustment, player->abilities[Charisma]);
-	player->abilities[LearnSpell] += maptbl(chance_learn_spell, player->abilities[Intellegence]);
+	if(player->is(UseMage))
+		player->abilities[LearnSpell] += maptbl(chance_learn_spell, player->abilities[Intellegence]);
 	if(player->wears[RightHand])
 		player->abilities[Speed] += player->wears[RightHand].geti().speed;
 	else if(player->wears[LeftHand])

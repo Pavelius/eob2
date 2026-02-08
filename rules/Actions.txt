@@ -147,10 +147,10 @@ Temple avatar(buildngs 8) parent(BaseCity) music(temple)
  options AskForMiracle BuyHealing Donate ReturnToStreet
 Blacksmith avatar(buildngs 0) parent(BaseCity) music(smith)
  options RepairItems BuyWeapon ReturnToStreet
- required Reputation(25)
-WizardTower avatar(buildngs 3) parent(BaseCity)
+ required Reputation(35)
+WizardTower avatar(buildngs 3) parent(BaseCity) music(healer)
  options BuySpell TeleportToDungeon ReturnToStreet
- required Reputation(30)
+ required Reputation(40)
 
 BaseCity avatar(buildngs 15) music(kvirasim)
  options PartyAdventure Inn Tavern Temple Blacksmith WizardTower

@@ -1,0 +1,398 @@
+#AdventurerGroup
+Чарівників
+Лицарів
+Воїнів
+Крадіїв
+
+#CellSecrectButtonAccept
+Секретна дверь! Я знав це!
+Добре, знайшли секретні двері
+
+#CellKeyHoleAbout
+Це замочна скважина
+Я можу засунути сюди вірний ключ
+Це відкриваю найближчі двері
+
+#CellKeyHoleAboutTheif
+Мені потрібен %DungeonKey щоб открити ці двері
+Це замочна скважина, що відкриває найближчі двері
+
+#CellKeyHoleActive
+Вже відчинено
+Зупиниться! Двері вже відчинені
+
+#CellDecor1Dung
+Яка істота це зробила?
+Щось громадне залишило це
+
+#CellDecor1DungFighter
+Здається %Habbitant2 залишило це
+
+#CellDecor1Blue
+Якісь руни
+Я не знаю що це
+
+#CellDecor1Brick
+Якісь знаки крадіїв
+Я не знаю що це може бути
+
+#CellDecor1BlueTheif
+Сходинки знаходяться у %StairsDownSide частині підземелля
+
+#CellDecor1BrickTheif
+Знайдіть дробину у %StairsDownSide частині каналізації
+
+#CellDecor1Silver
+Я думаю це флаг гільдії %-AdventurerGroup
+Якась невідома геральдіка
+
+#CellDecor2Brick
+Злівна решітка. Я гадаю.
+
+#CellDecor2Dung
+Я щось бачи%ла там у пітьмі
+Стара дренажна решітка
+Ці очі дивляться на мене
+
+#CellDecor2Crimson
+Дивний стяг
+Стяг з якоюсь невідомою геральдікою
+
+#CellDecor3Dung
+Схоже на ключ чи кістку
+Цікаво
+
+#CellDecor3Crimson
+Дуже добрий вид
+Ми на схилі скали
+Я бачу небо та облака
+
+#CellDecor3Brick
+Яка вонь!
+
+#CellDecor3BrickMage
+Дуже древній водогін
+
+#CellPortalAbout
+Дуже странний прилад
+Якись вид магії
+
+#CellPortalAboutMage
+Це портал
+
+#CellTrapLauncherAboutTheif
+Звідци вилітає пастка
+Звідци вилітає пастка. Я можу її знешкодити інструментами крадія.
+
+#CellTrapLauncherAbout
+Дирка у стіні
+
+#CellTrapLauncherActive
+Пастка вже знешкоджена
+Ця пастка була знешкоджена
+
+#CellCellarNotFit
+Ця річ не влазить у нішу
+Дуже велика річ
+Треба щось меньше
+
+#CellCellarEmpthy
+Тут нічого немає
+Нічого взяти
+Ця ніша пуста
+
+#CantDropCursedItem
+Це моє!
+Ні! Я це не віддам
+Це мій скарб!
+
+#CantDropQuestItem
+Ні, це важлива річ
+Ця річ коштує більш ніж можна уявити
+Ми несемо цю річ комусь
+
+#CantUse
+Я не можу використовувати це
+Як я це буду робити?
+Ця штука не для мене
+
+#CantUseCity
+Не можна використовувати у місті
+Використовувати це тут? Ви впевнені?
+Тільки не тут!
+
+#TheifToolNoTargets
+Використовувати на пастках або замочних скважинах
+Я не бачу підходячої цілі
+
+#GrapplingHookNoTargets
+Використовувати на ямах на стелі оба на полу
+Я не бачу яму над моєю головою
+
+#MessageMagicWeaponsMiss
+Тут ви не знайдете магічної зброї
+#MessageMagicWeaponsPresent
+Знайдіть %MessageMagicWeapons магічну зброї на цьому рівні
+
+#MessageMagicRingsMiss
+Тут немає магічних кілець
+#MessageMagicRingsPresent
+Знайдіть %MessageMagicWeapons магічне кольцо у цих корридорах
+
+#MessageSecretsMiss
+Це місто виглядає саме таким яким воно є
+#MessageSecretsPresent
+Знайдіть %MessageSecrets захованих кімнат у цьому місці
+
+#MessageTrapsMiss
+Цей рівень безпечний
+#MessageTrapsPresent
+Бережись %MessageTraps смертельних пасток
+
+#MessageLockedMiss
+Це місце відкрито для всіх охочих
+#MessageLockedPresent
+Знайди %MessageLocked ключів щоб відчинити двері з скарбами
+
+#MessageAtifactsMiss
+В цьому місці ти не знайдеш потужних артефактів
+#MessageAtifactsPresent
+Потужний артефакт захований десь у цих коридорах
+
+#MessageCursedItemsMiss
+В цьому місці немає зла
+#MessageCursedItemsPresent
+Бережись проклятих речей
+
+#MessageSpecialItemMiss
+Це місце не ховає якихось незвичайних речей
+#MessageSpecialItemPresent
+Знайди %DungeonSpecial десь у цьому місці
+
+#MessageBossMiss
+Тут немає страшних монстрів
+#MessageBossPresent
+Страшний %DungeonBoss полює на тебе
+
+#MessageHabbitsRead
+%Habbitant1 та %Habbitant2 живуть тут
+
+#CellMessageUnrecognized
+I don't undestand %DungeonOrigin language
+Some kind of %DungeonOrigin shit!
+
+#WhatDoYouSay
+Не розумію що зробити?
+Я не розумію що з цим робити
+
+#MustBeUseInHand
+Потрібно використовувати у руках
+Потрібно взяти цю річ у руки
+
+#MustBeWearingRightHand
+Ця річ використовується коли носиться у правій руці
+Потрібно взяти це у праву руку
+Я повинен взяти цю річ у праву руку
+
+#MustBeWearingLeftHand
+Ця річ використовується коли носиться у лівій руці
+Потрібно взяти це у ліву руку
+Я повинен взяти цю річ у ліву руку
+
+#MustBeWearing
+Ця річ використовується коли носиться
+Річ використовується коли носиться
+Я повинен носити це
+
+#DetectSecretsSuccess
+Я щось бау на стіні
+Стоп! Я щось бачи%ла
+
+#HearNoiseNobody
+За цими дверима нікого
+Нікого немає за цими дверима
+Я нічую не звуку за цими дверима
+
+#HearNoiseLarge
+За цими дверима щось велике
+За двирима якась велика істота
+Якись великий монстер за цими дверима
+
+#HearNoiseMedium
+За цими двирима %1i істота
+
+#GamblerAppearance
+хлопець
+не красива жінка
+грязний бродяга
+
+#GambleVisitorsSuccess
+You found a %GamblerAppearance who play dice game and win. Your profit is %Number gold pieces.
+
+#GambleVisitorsNotEnoughtGold
+"Hey!" sad one customer "you don't have enought money to play this game. Get lost!"
+"You need at least %1i gold pieces to make this bet." say a customer "If you want play, you need money."
+
+#GambleVisitorsFail
+You found some %GamblerAppearance who play dice game and lose. Your lose is your bet %Number gold pieces.
+
+#CastSpellNoCaster
+Я не знаю жодного закляття
+Я не маю заклять, які можна створити
+Закляття? Що це таке?
+
+#CastSpellNoSpells
+Мої закляття закінчилися!
+Я використа%ла останне закляття
+
+#CastSpellNoTargets
+Я не бачу жодної цілі
+Немає цілей для цього закляття
+Створити закляття на що?
+
+#CastSpellWrongUse
+Це закляття використовується тілки в особих випадках
+Використовується тільки при особих умовах
+
+#PurifyFoodGainEffect
+%EffectCount куски їжи були очищені
+#PurifyFoodNoEffect
+Я не бачу жодної гнилої їжі
+
+#NoQuickItem
+I have no items on my belt
+Nothing to switch with
+
+#MendingGainEffect
+The %EffectCount items are as new
+I repair %EffectCount items
+#MendingNoEffect
+I don't see any damaged items
+
+#KnockGainEffect
+The door is open
+Knock-knock
+
+#SurpriseApply
+Who is here?
+What is going on here?
+Oh, shit!
+
+#MakeCampRottenFood
+This food is rotten
+Food is spoiled. We need clean it
+
+#LieFail
+"You liers! You're not who you seem to be. I kill you!"
+
+#LieSuccess
+"Welcome friends!"
+"I know, you are friends!"
+
+#CalmDownSuccess
+%Name is calm down and leave away.
+
+#LocateGemsSuccess
+I sense all gems position
+Revieal all gems nearbe!
+
+#LocateGemsFail
+There is no gems around
+I don't sense any gems on this level
+
+#FindTrapsSuccess
+All trap is visible for me
+I see all traps in area
+Behold all traps
+
+#ClairaudienceSuccess
+I hear monsters
+I hear movement of monsters
+
+#ClairaudienceFail
+I can't hear any monsters movement
+
+#KnockSuccess
+Knock-knock, door is open
+And now - some magical lock trick
+
+#UseMagicMapSuccess
+A secret door! I know it!
+Aha! Secret door
+
+#UseMagicMapFail
+There is no secret doors nearbe
+
+#BonesUseSuccess
+Rest in peace my friend
+Blessed bury this brave fellow
+
+#HolySymbolSuccess
+Oh! Thank you my god, for you assistance
+Helm, you power is blessing!
+Oh holy god!
+
+#HolySymbolFail
+Helm don't answer the call
+Our faith is weak, we must pray more
+
+#RestNeed
+I need rest
+When we make camp?
+I tired
+
+#KillAlmostAllMonstersReward
+We kill almost all of these creatures
+That will be last one
+
+#TakeSpecialItemReward
+We found item, now leave this place
+
+#FindAllSecretsReward
+This secret seems to be last on this level
+We found all secrets
+
+#ExmploreMostAreaReward
+Looks like we explore most part of this place
+Almost all area has been explored
+
+#KillBossReward
+We do this! Kill this ugly monster
+We kill this tought guy
+
+#KillBossMinionsReward
+We kills all minions
+That be last one minion
+
+#ReturnToBase
+This quest is done
+It's time return to base
+Reward is waiting for us
+
+#DonateNotEnoughtGold
+"Come, when you got enought gold" say one priest "and god be with you"
+
+#ScribleScrollsSuccessSpeech
+I learn new spell %SpellName
+%SpellName has been learned
+
+#ScribleScrollsFailSpeech
+I did not manage to learn spell
+Damn, I do not understand this spell
+
+#PickPocketsCoinsAtBarMessage
+You pick pockets of long man who payed on bar and pick %Number gold pieces.
+
+#PickPocketsNothingMessage
+You want steal some money, but all you try is failed.
+
+#PickPocketsFightMessage
+"Theif! I catch theif" cry patrons. Other patrons beet you and take off to street.
+
+#EatAndDrinkMessage
+You taste local food and drink. Not bad. Now you are in good shape.
+
+#MonstersNearbeFail
+Я чую монстрів недалеко. Потрібно знайти безпечне місце.
+Монстри недалеко.
+Це місце небезпечне. Монстри десь поруч.

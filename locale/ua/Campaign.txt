@@ -160,19 +160,19 @@
 #EvilTempleSummary
 /npc 64
 У храмі ви побачили дивну людину. "Моє ім'я Олсан Краткий. Я великий жрець Гельма в місті Іреайбор. І мені потрібна ваша допомога."
-"Evil settled in Reching Woods to north of the city. There is evil cult of Dragon, that kindnapping people and kill them."
-"You must find this evil citadel located in the forest and destory their leader. I will pay you church reward %QuestRewardGold gold pieces for that."
+"Зло оселилось у Простираючихся Лісах на півночі від міста. Там є злий культ Дракона, який похіщає людей і вбиває їх."
+"Ви повинні знайти злу цитадель яка знаходиться у лісі та вбити їх лідера. Я готовий заплатити за це %QuestRewardGold золотих."
 
 #EvilTempleAgree
-"Good. Helm blessing on you in you difficult mission. I belive you make this quick."
+"Добре. Гельм благословить вас у цій міссіі. Я вірю що ви зробите це швидко."
 
 #EvilTempleEntering
 /adventure 2
-You move to north about day. Green valley lay around you, but you go to nothern side.
+Ви йшли на північ десь день. Зелена долина була навколо вас, але ви тримались північної сторони.
 /adventure 6
-On second day of travel you enter into deep forest, where locate citadel of great evil cultist.
+На другий день ви зайшли у густий ліс, де знайшли велику цитадель злих культистів.
 
 #EvilTempleFinish
 /npc 64
-"At least. You destroy this evil cult and back here again. Here you reward a %QuestRewardGold gold pieces and got blessing."
-"Our church is on service for now. Good to work with you, my friends. Visit our church later."
+"Нарешті. Зло знищено, а ви повернулися назад. Ось ваші %QuestRewardGold і благословіння Гельма."
+"Наша церква до ваших послуг. Приємно було працювати з вами, мої друзі. ЗАходьте до нас пізніше."

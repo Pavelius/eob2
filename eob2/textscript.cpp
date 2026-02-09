@@ -15,6 +15,7 @@ static bool parse_gender(stringbuilder& sb, const char* identifier, gendern gend
 	};
 	static gender_change_string source[] = {
 		{"вона", "він", "вони"},
+		{"лась", "вся", "лись"},
 		{"леді", "лорд", "лорди"},
 		{"така", "такий", "такі"},
 		{"неї", "нього", "них"},

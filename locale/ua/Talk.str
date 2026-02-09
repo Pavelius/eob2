@@ -5,7 +5,7 @@
 Крадіїв
 
 #CellSecrectButtonAccept
-Секретна дверь! Я знав це!
+Приховані двері! Я знав це!
 Добре, знайшли секретні двері
 
 #CellKeyHoleAbout
@@ -290,7 +290,7 @@
 "Я знав - ви друзі!"
 
 #CalmDownSuccess
-%Name заспокоїл%ась і зник%ла геть.
+%Name заспокоїлось і зникло геть.
 
 #LocateGemsSuccess
 Я бачу розташування всі драгоцінних каменів
@@ -301,96 +301,96 @@
 Я не бачу ніяких драгоцінних каменів на цьому рівні
 
 #FindTrapsSuccess
-All trap is visible for me
-I see all traps in area
-Behold all traps
+Тепер я бачу всі пастки
+Всі пастки у області відкриті для мене
+Узрійте всі пастки
 
 #ClairaudienceSuccess
-I hear monsters
-I hear movement of monsters
+Я чую монстрів
+Я чую ходу монстрів
 
 #ClairaudienceFail
-I can't hear any monsters movement
+Я не чую жодних монстрів у області
 
 #KnockSuccess
-Knock-knock, door is open
-And now - some magical lock trick
+Тук-тукЮ двері відкриті
+І зараз - деякі магічні трбки с замочком
 
 #UseMagicMapSuccess
-A secret door! I know it!
-Aha! Secret door
+Приховані двері! Я знав це
+Ага! Сховані двері
 
 #UseMagicMapFail
-There is no secret doors nearbe
+Тут немає схованих дверей
 
 #BonesUseSuccess
-Rest in peace my friend
-Blessed bury this brave fellow
+Почивай з миром, любий друже
+Благослови господь цього хороброго незнайомця
 
 #HolySymbolSuccess
-Oh! Thank you my god, for you assistance
-Helm, you power is blessing!
-Oh holy god!
+Ох! Дякую, боже, за твою допомогу
+%Diety, твоя сила надихаэ мене!
+Ох, святий боже!
 
 #HolySymbolFail
-Helm don't answer the call
-Our faith is weak, we must pray more
+%Diety не відповідає на виклик
+Наша віра слабка, ми повинні більше жертвувати
 
 #RestNeed
-I need rest
-When we make camp?
-I tired
+Мені потрібен відпочинок
+Коли ми зробимо привал?
+Я втоми%лась
 
 #KillAlmostAllMonstersReward
-We kill almost all of these creatures
-That will be last one
+Ми вбили майже всіх цих істот
+Це, мабуть, останній
 
 #TakeSpecialItemReward
-We found item, now leave this place
+Ми знайшли цю річ, тепер залишаємо це місто
 
 #FindAllSecretsReward
-This secret seems to be last on this level
-We found all secrets
+Ця схованка схоже остання на цьому рівні
+Ми знайшли всі приховані двері
 
 #ExmploreMostAreaReward
-Looks like we explore most part of this place
-Almost all area has been explored
+Схожа ми відкрили більшу частину цього міста
+Майже всі область була розвідана
 
 #KillBossReward
-We do this! Kill this ugly monster
-We kill this tought guy
+Ми зробили це! Вбили цього страшного монстра
+Ми вбили цього здоровяка
 
 #KillBossMinionsReward
-We kills all minions
-That be last one minion
+Ми вбили всю прислугу зла
+Схоже це останній прислужник
 
 #ReturnToBase
-This quest is done
-It's time return to base
-Reward is waiting for us
+Це завдання виконано
+Час вертатися на базу
+Нагорода нас чекає
 
 #DonateNotEnoughtGold
-"Come, when you got enought gold" say one priest "and god be with you"
+"Приходьте, коли в вас буде достатьньо грошей" сказав один монах "і хранить вас боже"
 
 #ScribleScrollsSuccessSpeech
-I learn new spell %SpellName
-%SpellName has been learned
+Я вивчи%ла закляття %SpellName
+%SpellName було вивчено
 
 #ScribleScrollsFailSpeech
-I did not manage to learn spell
-Damn, I do not understand this spell
+Мені не вдається розшифрувати надписи
+Я не розумію цього закляття
 
 #PickPocketsCoinsAtBarMessage
-You pick pockets of long man who payed on bar and pick %Number gold pieces.
+Ви залізли у карман до якогось відвідувача таверни, який платив на барі, та вкрали %Number золотих.
 
 #PickPocketsNothingMessage
-You want steal some money, but all you try is failed.
+Ви намагались поперти трошки грошенять, але всі ваші намагання були марні.
 
 #PickPocketsFightMessage
-"Theif! I catch theif" cry patrons. Other patrons beet you and take off to street.
+"Крадії! Тримайте крадіїв" зарепетав один з відвідувачів таверни. Інші схопили вас, дали трохи тумаків та викинули на вулицю.
 
 #EatAndDrinkMessage
-You taste local food and drink. Not bad. Now you are in good shape.
+Ви спробовали місцевої випивки та їжі. Не погано. Тепер ви почуваете себе в непоганій формі.
 
 #MonstersNearbeFail
 Я чую монстрів недалеко. Потрібно знайти безпечне місце.

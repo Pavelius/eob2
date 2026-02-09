@@ -18,7 +18,7 @@ CalmDown: Заспокоїти
 CampMenu: Опції лагеря:
 CastSpell: Яке закляття?
 CastSpellAction: Створити закляття
-CastSpellInfo: %Name створив %1
+CastSpellInfo: %Name створи%ла %1
 CastOnWho: Створити на кого?
 CellKeyHoleDisable: Замок взломаний
 CellPitDisable: Яма прибрана

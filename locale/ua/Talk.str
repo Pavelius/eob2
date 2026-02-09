@@ -178,8 +178,8 @@
 %Habbitant1 та %Habbitant2 живуть тут
 
 #CellMessageUnrecognized
-I don't undestand %DungeonOrigin language
-Some kind of %DungeonOrigin shit!
+Я не розумію мову %DungeonOrigin
+Якісь руни, схожі на %DungeonOrigin мову!
 
 #WhatDoYouSay
 Не розумію що зробити?
@@ -222,19 +222,19 @@ Some kind of %DungeonOrigin shit!
 За цими двирима %1i істота
 
 #GamblerAppearance
-хлопець
-не красива жінка
-грязний бродяга
+хлопців
+огидних жінок
+грязних волоцюг
 
 #GambleVisitorsSuccess
-You found a %GamblerAppearance who play dice game and win. Your profit is %Number gold pieces.
+Ви знайшли %GamblerAppearance які грали у куби і перемогли. Ваш виграш %Number золотих.
 
 #GambleVisitorsNotEnoughtGold
-"Hey!" sad one customer "you don't have enought money to play this game. Get lost!"
-"You need at least %1i gold pieces to make this bet." say a customer "If you want play, you need money."
+"Гей!" сказав один з кліентів "у вас не достатньо грошей щоб грати. Убирайтеся звідси!"
+"Вам потрібно хоча б %1i золотих щоб зробити мінімальну ставку." сказав кліент "Якщо хочеш грати - тобі потрібні гроші."
 
 #GambleVisitorsFail
-You found some %GamblerAppearance who play dice game and lose. Your lose is your bet %Number gold pieces.
+Ви знайшли %GamblerAppearance які грали у куби і програли. Ви втратили вашу ставку %Number золотих.
 
 #CastSpellNoCaster
 Я не знаю жодного закляття
@@ -260,45 +260,45 @@ You found some %GamblerAppearance who play dice game and lose. Your lose is your
 Я не бачу жодної гнилої їжі
 
 #NoQuickItem
-I have no items on my belt
-Nothing to switch with
+В мене немає речей на поясі
+Нема на що змінювати
 
 #MendingGainEffect
-The %EffectCount items are as new
-I repair %EffectCount items
+Тепер %EffectCount речей як нові
+Я відремонтував %EffectCount речей
 #MendingNoEffect
-I don't see any damaged items
+Я не бачу жодної зломаною речі
 
 #KnockGainEffect
-The door is open
-Knock-knock
+Двері відчинені
+Тук-тук
 
 #SurpriseApply
-Who is here?
-What is going on here?
-Oh, shit!
+Хто тут?
+Що тут відбувається?
+От лайно!
 
 #MakeCampRottenFood
-This food is rotten
-Food is spoiled. We need clean it
+Ця їжа згнила
+Цю їжу не можна їсти. Потрібно її очистити
 
 #LieFail
-"You liers! You're not who you seem to be. I kill you!"
+"Ви брехуни! Ви не ті кого за себе видаєте. Я вб'ю вас!"
 
 #LieSuccess
-"Welcome friends!"
-"I know, you are friends!"
+"Доброго здоров'я, друзі!"
+"Я знав - ви друзі!"
 
 #CalmDownSuccess
-%Name is calm down and leave away.
+%Name заспокоїл%ась і зник%ла геть.
 
 #LocateGemsSuccess
-I sense all gems position
-Revieal all gems nearbe!
+Я бачу розташування всі драгоцінних каменів
+Всі драгоцінні камені що є тут
 
 #LocateGemsFail
-There is no gems around
-I don't sense any gems on this level
+Тут немає драгоцінних каменів
+Я не бачу ніяких драгоцінних каменів на цьому рівні
 
 #FindTrapsSuccess
 All trap is visible for me

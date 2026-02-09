@@ -1,10 +1,41 @@
 #include "creature.h"
 #include "dungeon.h"
+#include "gender.h"
 #include "textscript.h"
 #include "speech.h"
 
 bool parse_abilities(stringbuilder& sb, const char* id);
 bool parse_speech(stringbuilder& sb, const char* id);
+
+static bool parse_gender(stringbuilder& sb, const char* identifier, gendern gender) {
+	struct gender_change_string {
+		const char*	female;
+		const char*	male;
+		const char*	multiply;
+	};
+	static gender_change_string source[] = {
+		{"вона", "він", "вони"},
+		{"леді", "лорд", "лорди"},
+		{"така", "такий", "такі"},
+		{"неї", "нього", "них"},
+		{"її", "його", "їх"},
+		{"їй", "йому", "їм"},
+		{"ла", "в", "ли"},
+		{"а", "", "и"},
+	};
+	for(auto& e : source) {
+		if(!equal(e.female, identifier))
+			continue;
+		if(gender == NoGender)
+			sb.add(e.multiply);
+		else if(gender == Female)
+			sb.add(e.female);
+		else
+			sb.add(e.male);
+		return true;
+	}
+	return false;
+}
 
 static bool parse_wall_messages(stringbuilder& sb, const char* id) {
 	if(!loc)
@@ -29,6 +60,8 @@ static bool parse_script(stringbuilder& sb, const char* id) {
 
 static void custom_string(stringbuilder& sb, const char* id) {
 	if(parse_script(sb, id))
+		return;
+	if(parse_gender(sb, id, player->gender))
 		return;
 	if(parse_speech(sb, id))
 		return;

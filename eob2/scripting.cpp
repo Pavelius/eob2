@@ -936,7 +936,7 @@ static bool use_rod(creaturei* pn, item* rod, variant v) {
 		auto ps = bsdata<spelli>::elements + v.value;
 		result = cast_spell(ps, 1 + v.counter * 2, 0, true, false, 0, 0);
 		if(result) {
-			consolen("%Name cast %1", ps->getname());
+			consolen(getnm("CastSpellInfo"), ps->getname());
 			rod->identify(1);
 		}
 		player = push_player;

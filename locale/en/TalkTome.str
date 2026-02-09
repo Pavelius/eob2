@@ -45,11 +45,6 @@ terrifying %StoryKind about %GroupAdjustment deeds
 %StoryKind about bravest heroes of %GroupAdjustment %GroupName
 brilliant %StoryKind about %GroupAdjustment deeds
 
-#LearnGoodSuccess
-%StoryKind explain good deeds
-%StoryKind about bravest heroes of %GroupAdjustment %GroupName
-brilliant tale about %GroupAdjustment deeds
-
 #LearnPainSuccess
 long and exhaused tale
 a tale with bad end

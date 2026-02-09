@@ -2024,7 +2024,7 @@ void pick_up_dungeon_item() {
 	}
 	*pi = *gpi;
 	gpi->clear();
-	consolen("%1 picked up", pi->getname());
+	consolen(getnm("PickUpSuccess"), pi->getname());
 }
 
 static void play_dungeon_input() {

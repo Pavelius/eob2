@@ -1,13 +1,13 @@
 #GroupAdjustment
-древній
-забутий
-релігіозний
+древні
+забуті
+релігіозні
 
 #GroupName
-культ
-анклав
-нація
-орден
+культи
+анклави
+держави
+ордена
 
 #MonsterName
 гіганта
@@ -32,31 +32,26 @@
 %GroupAdjustment %GroupName шукачів пригод
 
 #LearnNeutralDoubleSuccess
-Видатна %StoryKind про людей %GroupAdjustment %GroupName
+Видатна %StoryKind про %GroupAdjustment %GroupName
 %StoryKind барда
 
 #LearnEvilSuccess
-%StoryKind explain evil deeds
+Дуже сумна %StoryKind про злі події
 Погана %StoryKind про %GroupAdjustment %GroupName
-terrifying %StoryKind about %GroupAdjustment deeds
+Жахлива %StoryKind про %GroupAdjustment події
 
 #LearnGoodSuccess
-%StoryKind explain good deeds
-%StoryKind about bravest heroes of %GroupAdjustment %GroupName
-brilliant %StoryKind about %GroupAdjustment deeds
-
-#LearnGoodSuccess
-%StoryKind explain good deeds
-%StoryKind about bravest heroes of %GroupAdjustment %GroupName
-brilliant tale about %GroupAdjustment deeds
+Гарна %StoryKind про героїчні події
+%StoryKind про хоробрих героїв та %GroupAdjustment %GroupName
+Видатна %StoryKind про %GroupAdjustment події
 
 #LearnPainSuccess
-long and exhaused tale
-a tale with bad end
+Набридлива та велика казка
+Казка з сумним закінченням
 
 #LearnIntellegenceSuccess
-science work about mathematic and phisic
+Научна робота по математиці та фізиці
 
 #LearnTomeFail
-%Name fail to understand text
-%Name read something mundane
+%Name невдалося зрозуміти текст
+%Name прочитал щось буденне

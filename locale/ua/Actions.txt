@@ -80,9 +80,11 @@ PayGoldConfirm: Ви дійсно бажаєте заплатити за це %2
 PickPockets: Почистити кишені 
 PickPocketsAction: Почистити кишені
 PickPocketsVisit: Почистити деякі кишені
+PickUpSuccess: Піднято %1
 PrayForSpells: Молитися
 PlayerRead: %Name прочита%ла
 QuestGoals: Цілі завдання
+RaiseLevelSuccess: %Name ста%ла %1i рівня %2
 RemoveTrapsFail: Видалити пастку не вдалося
 RepairItems: Вдремонтувати речі
 RepairItemsConfirm: "Я можу відремонтувати всю твою зброю та інструменти. Вони будуть як нові. І це буде коштувати лише %Number золотих для тебе. Наякраща пропизиція, як на мене."

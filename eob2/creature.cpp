@@ -1104,7 +1104,7 @@ void check_levelup() {
 				player->levels[i]++;
 				player->hpr += 1 + (rand() % pi->hd);
 				advance_level(pi, player->levels[i]);
-				consolen("%Name become %1i level %2", player->levels[i], pi->getname());
+				consolen(getnm("RaiseLevelSuccess"), player->levels[i], pi->getname());
 				need_update = true;
 				levelup_occurs = true;
 			}

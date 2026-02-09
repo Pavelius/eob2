@@ -1,0 +1,62 @@
+#GroupAdjustment
+древній
+забутий
+релігіозний
+
+#GroupName
+культ
+анклав
+нація
+орден
+
+#MonsterName
+гіганта
+дракона
+орків
+троллей
+гуганського червя
+
+#StoryType
+цікава
+буденна
+смішна
+сумна
+
+#StoryKind
+казка
+поема
+історія
+
+#LearnNeutralSuccess
+%StoryType %StoryKind про %MonsterName
+%GroupAdjustment %GroupName шукачів пригод
+
+#LearnNeutralDoubleSuccess
+Видатна %StoryKind про людей %GroupAdjustment %GroupName
+%StoryKind барда
+
+#LearnEvilSuccess
+%StoryKind explain evil deeds
+Погана %StoryKind про %GroupAdjustment %GroupName
+terrifying %StoryKind about %GroupAdjustment deeds
+
+#LearnGoodSuccess
+%StoryKind explain good deeds
+%StoryKind about bravest heroes of %GroupAdjustment %GroupName
+brilliant %StoryKind about %GroupAdjustment deeds
+
+#LearnGoodSuccess
+%StoryKind explain good deeds
+%StoryKind about bravest heroes of %GroupAdjustment %GroupName
+brilliant tale about %GroupAdjustment deeds
+
+#LearnPainSuccess
+long and exhaused tale
+a tale with bad end
+
+#LearnIntellegenceSuccess
+science work about mathematic and phisic
+
+#LearnTomeFail
+%Name fail to understand text
+%Name read something mundane

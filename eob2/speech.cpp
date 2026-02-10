@@ -257,6 +257,7 @@ static void check_element(array& origin, const char* id, array& source, bool che
 
 static void read_element(const char* locale) {
 	bsdata<speech>::source.clear();
+	bsdata<speech::element>::source.clear();
 	char temp[260]; stringbuilder sb(temp);
 	sb.add("locale/%1", locale);
 	log::readf(speech_read, temp, "*.str");
@@ -269,5 +270,6 @@ void check_speech(const char* id1, const char* id2) {
 	log::context.clear();
 	check_element(source_origin, id2, bsdata<speech>::source, true);
 	check_element(bsdata<speech>::source, id1, source_origin, false);
+	bsdata<speech::element>::source.clear();
 	bsdata<speech>::source.clear();
 }

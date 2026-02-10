@@ -1,2 +1,2 @@
-﻿In localization folder `ua`:
- Not found `TestLocale`
+﻿In speech with locale `ua`:
+ `HearNoiseLarge` count element must be 2, not 3

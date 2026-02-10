@@ -46,6 +46,7 @@ int main() {
 	bsreq::read("rules/Core.txt");
 	avatar_read("rules/Avatars.txt");
 	check_localizations("en", "ua");
+	check_speech("en", "ua");
 	initialize_translation();
 	initialize_strings();
 	log::readlf(speech_read, "locale", "*.str");

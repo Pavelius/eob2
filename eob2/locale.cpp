@@ -181,10 +181,9 @@ static bool exist_localization(const array& source, const char* id) {
 static void check_locals(array& origin, const char* id, array& source) {
 	log::context.header = "In localization folder `%1`:";
 	log::context.url = id;
-	auto pe = (translate*)origin.end();
-	for(auto p = (translate*)origin.begin(); p < pe; p++) {
-		if(!exist_localization(source, p->id))
-			log::errorp(0, " Not found `%1`", p->id);
+	for(auto& e : origin.records<translate>()) {
+		if(!exist_localization(source, e.id))
+			log::errorp(0, " Not found `%1`", e.id);
 	}
 }
 

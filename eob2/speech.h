@@ -29,6 +29,7 @@ struct speech {
 	elementa	source;
 };
 
+void check_speech(const char* id1, const char* id2);
 void speech_read(const char* url);
 void speech_get(const char*& result, const char* id, const char* action, const char* postfix = 0);
 

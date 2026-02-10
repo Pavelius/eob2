@@ -230,3 +230,44 @@ size_t filter_speech(unsigned short* result, size_t count, fnallowus allow_proc,
 	}
 	return ps - result;
 }
+
+static speech* find_speech(const array& source, const char* id) {
+	for(auto& e : source.records<speech>()) {
+		if(e.id == id)
+			return &e;
+	}
+	return 0;
+}
+
+static void check_element(array& origin, const char* id, array& source, bool check_count) {
+	log::context.header = "In speech with locale `%1`:";
+	log::context.url = id;
+	for(auto& e : origin.records<speech>()) {
+		auto p = find_speech(source, e.id);
+		if(!p) {
+			log::errorp(0, " Not found `%1`", e.id);
+			continue;
+		}
+		if(check_count && p->source.count != e.source.count) {
+			log::errorp(0, " `%1` count element must be %2i, not %3i", e.id, e.source.count, p->source.count);
+			continue;
+		}
+	}
+}
+
+static void read_element(const char* locale) {
+	bsdata<speech>::source.clear();
+	char temp[260]; stringbuilder sb(temp);
+	sb.add("locale/%1", locale);
+	log::readf(speech_read, temp, "*.str");
+}
+
+void check_speech(const char* id1, const char* id2) {
+	read_element(id1);
+	array source_origin; source_origin.copyof(bsdata<speech>::source);
+	read_element(id2);
+	log::context.clear();
+	check_element(source_origin, id2, bsdata<speech>::source, true);
+	check_element(bsdata<speech>::source, id1, source_origin, false);
+	bsdata<speech>::source.clear();
+}

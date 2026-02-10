@@ -73,6 +73,15 @@ void array::clear() {
 	data = 0;
 }
 
+void array::copyof(const array& source) {
+	clear();
+	element_size = source.element_size;
+	count_maximum = source.count_maximum & 0xFFFFFFF;
+	count = source.count;
+	data = malloc(count_maximum * element_size);
+	memcpy(data, source.data, count * element_size);
+}
+
 void array::setup(size_t size) {
 	if(!isgrowable())
 		return;

@@ -1,2 +1,2 @@
-﻿Error in file `locale/ua/Campaign.txt`:
-Not define locale string `DwarfMountainsFinish`
+﻿In localization folder `ua`:
+ Not found `TestLocale`

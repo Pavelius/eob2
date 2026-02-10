@@ -35,6 +35,7 @@ struct array {
 	char* begin() const { return (char*)data; }
 	void change(unsigned offset, int size);
 	void clear();
+	void copyof(const array& source);
 	char* end() const { return (char*)data + element_size * count; }
 	int find(int i1, int i2, void* value, unsigned offset, size_t size) const;
 	int find(void* value, unsigned offset, size_t size) const { return find(0, -1, value, offset, size); }

@@ -126,6 +126,7 @@ int get_line_number(const char* start, const char* position);
 int	szcmpi(const char* p1, const char* p2);
 int szcmp(const char* p1, const char* p2);
 
+void check_localizations(const char* loc1, const char* loc2);
 void default_string(stringbuilder& sb, const char* id);
 bool equal(const char* s1, const char* s2);
 void initialize_translation();

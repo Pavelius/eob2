@@ -127,7 +127,6 @@ Inn: Inn
 InnConfirm: Staying a day in inn cost for you %2i gold pieces. Do you really want pay?
 Tavern: Tavern
 Temple: Temple
-Stables: Stables
 
 Options: Options
 PartyLeave: Leave Settlement

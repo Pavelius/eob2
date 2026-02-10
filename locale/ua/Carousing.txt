@@ -1,0 +1,125 @@
+#AmazingAcrobaticPerfomance
+In the middle of evening %Name jump on the table and start jungling empthy bottles speaking stupid jokes about a king. Local tavern patrons clapped their hands approvingly and drank to your health while enjoying the show.
+#AmazingAcrobaticPerfomanceFail
+But in the end %Name drop down and collapse table. Bottles flies away and hit patrons. In general, no one appreciated the end of your perfomance.
+#AmazingAcrobaticPerfomanceSuccess
+In the end %Name drop down on table and catch all bottles. The crowd shouted with delight. For now, you %Name is hero of this drunken patrons!
+
+#AmazingChanting
+%Name sang a funny song about the king and his retinue.
+#AmazingChantingFail
+King's retinue was in this tavern too.
+
+#AmazingGambling
+Everybody drink and play games. You sence - this is your chance, %Name. After a few moments of hesitation you join a game.
+#AmazingGamblingFail
+You loose a some money, but win much more. After all you win %Number gold pieces. This is your day, but not so lucky as you planned.
+#AmazingGamblingSuccess
+You win a jackpot! Everybody lose to you and you get their stack. After all calcuation you win %Number of gold pieces.
+
+#AmazingPickPockets
+%Name get a jackpot! Many drunked patrons and their pockets. You grab gold pieces and drink. What can be better?
+#AmazingPickPocketsFail
+You get %Number gold pieces from innocent patrons. They smile to you and drink with you. Not bad for this evening.
+#AmazingPickPocketsSuccess
+You get %Number gold pieces from innocent patrons. They smile to you and drink with you. But in the end, you pick very rich jentleman and grab his %ItemName.
+
+#ArmRestlingContest
+%Name and strong men sit at the table and struggle arm restling.
+#ArmRestlingContestFail
+To the laughter of the crowd, you lost, and the winner took his winnings and all the attention.
+#ArmRestlingContestSuccess
+You win!
+
+#DrinkingContest
+An dwarf in a dirty apron proposed a drinking contest. With joyful shouts, the crowd supported the proposals, and %Name just couldn't refuse it.
+#DrinkingContestFail
+After all you wake up under table in puddle of spilled beer and urine. With a hangover, your head hurt terribly.
+#DrinkingContestSuccess
+After all your opponent drop down under table in puddle of spilled beer and urine. You gray all stackes and shout "Barmen? Whhhhere is my orrdered ddrink? How long can I wait?"
+
+#DrinkingIllness
+%Name drink all evening local beer and have fun. But the beer turned out to be sour. You feel very bad.
+#DrinkingIllnessFail
+Another portion of beer be fatal. You drop under table. When you wake up you feel bad.
+#DrinkingIllnessSuccess
+But another portion of beer be mutch better. Your stomach turn off all illness and you be in good shape again.
+
+#FightingVsGuards
+Drunken guards take a fight with %Name.
+#FightingVsGuardsFail
+After all he get you in jail.
+
+#FightingVsPatrons
+"Did you tell me that?" tall patron catch you and drop on table. Another patron hit that patron, but next patron hit them and everithing is start fight.
+#FightingVsPatronsFail
+%Name was hitted in the face and drop on table.
+#FightingVsPatronsSuccess
+%Name fight off from all patrons and crush some tables.
+
+#FireIncident
+You turn a oil lamp into.
+#FireIncidentFail
+Tavern is set a fire.
+#FireIncidentSuccess
+All party run away from incedent and continue drunk in another tavern.
+
+#GatherTreasureMap
+Old man with scars sold to you treasure map.
+#GatherTreasureMapFail
+But, when you examine map close you undestand - this is only fake.
+#GatherTreasureMapSuccess
+It's true map and it show you a new location of interest with many treasure.
+
+#GallopedNackedByCityStreet
+%Name bet with one tavern guest that would ride naked through the city on a horse in the middle of the night. And there is you in the saddle, galloped by city street!
+#GallopedNackedByCityStreetFail
+City guards catch you and stop you perfomance.
+#GallopedNackedByCityStreetSuccess
+After all you scare some street beggars and cats. Nobody can stop your perfomance, but you get a cash and respect from surprised tavern guest.
+
+#JoinAllyFriendPatron
+An adventurer sit to drink with you.
+#JoinAllyFriendPatronFail
+He goes away.
+#JoinAllyFriendPatronSuccess
+He join party.
+
+#RobbedByThief
+In the midst of the fun, %Name discovered that gold was missing somewhere.
+#RobbedByThiefFail
+Theif is disappear. And money too.
+#RobbedByThiefSuccess
+You catch the theif!
+
+#SeduceBeautifulWoman
+When %Name drinking to the end a beautiful madam sit on you table and have a company. You get another drinking ad drink with her. After party you get in inn and be together to the morning.
+#SeduceBeautifulWomanFail
+After all these procedures, you began to feel worse.
+#SeduceBeautifulWomanSuccess
+But, when morning is come woman is disapear.
+
+#SeducedByBeautifulMan
+Noble man offer drink to %Name. You agree.
+#SeducedByBeautifulManFail
+You are broken heart.
+#SeducedByBeautifulManSuccess
+Amazing love experience.
+
+#SeduceLocalPriestess
+When %Name drinking to the end a beautiful local priestess sit on you table and get you a company. You get another drinking ad drink with her. After party you get in inn and be together to the morning.
+#SeduceLocalPriestessSuccess
+Oh, what a night!
+#SeduceLocalPriestessFail
+But, when morning is come woman is disapear. And you fill a bad presence in your items. Apparently, in the evening you said a lot of unnecessary things about her deity.
+
+#WanderedMageDrinking
+All evening you drunk with old man in colorfull robe. All time you have been arguing about the universal universe, the philosophy of good and evil, and the predestination of fate.
+#WanderedMageDrinkingFail
+When morning is coming you wake up in a barn with cows in a pile of manure.
+#WanderedMageDrinkingSuccess
+At the and of your conversation you get a series of good advices from the strangers.
+
+#CarousingEnd
+/scenes 8
+After all you wake up in the morning.

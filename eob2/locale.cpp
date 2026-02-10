@@ -166,10 +166,42 @@ static void check_translation() {
 	}
 }
 
-void initialize_translation() {
+static void read_localization(const char* locale) {
 	char temp[260]; stringbuilder sb(temp);
-	sb.add("locale/%1", current_locale);
+	sb.add("locale/%1", locale);
 	log::readf(read_names, temp, "*.txt");
+}
+
+static bool exist_localization(const array& source, const char* id) {
+	translate key = {id, 0};
+	auto p = (translate*)bsearch(&key, source.data, source.getcount(), source.size(), compare);
+	return p != 0;
+}
+
+static void check_locals(array& origin, const char* id, array& source) {
+	log::context.header = "In localization folder `%1`:";
+	log::context.url = id;
+	auto pe = (translate*)origin.end();
+	for(auto p = (translate*)origin.begin(); p < pe; p++) {
+		if(!exist_localization(source, p->id))
+			log::errorp(0, " Not found `%1`", p->id);
+	}
+}
+
+void check_localizations(const char* loc1, const char* loc2) {
+	source_name.clear();
+	read_localization(loc1);
+	array source_origin; source_origin.copyof(source_name);
+	source_name.clear();
+	read_localization(loc2);
+	log::context.clear();
+	check_locals(source_origin, loc2, source_name);
+	check_locals(source_name, loc1, source_origin);
+	source_name.clear();
+}
+
+void initialize_translation() {
+	read_localization(current_locale);
 #ifdef _DEBUG
 	check_translation();
 	if(!log::errors)

@@ -1624,6 +1624,7 @@ static void common_input() {
 	case Ctrl + 'L': show_sprites(ITEMGL, {32, 24}, {64, 32}); break;
 	case Ctrl + 'P': show_scene_images(); break;
 	case Ctrl + 'F': show_scene_font(); break;
+	case Ctrl + 'T': choose_manual("Keybinding"); break;
 	}
 #endif
 }
@@ -2018,6 +2019,39 @@ static void menu_position(const char* format, point& origin, point& size, int pa
 	size.y = rc.height() + padding * 2 + button_area;
 	origin.x = (getwidth() - size.x) / 2;
 	origin.y = (140 - size.y - button_area) / 2;
+}
+
+static void paint_manual_title(const char* title) {
+	auto push_caret = caret;
+	auto push_width = width;
+	auto dy = texth() + 6; height = dy;
+	button_frame(2, false, false);
+	setoffset(4, 4);
+	texta(title, AlignCenter | TextBold);
+	caret = push_caret;
+	width = push_width;
+	height = dy;
+}
+
+static void button_manual(const char* header, unsigned key, fnevent proc) {
+	auto push_width = width;
+	width = textw(header) + 4 * 2;
+	button_label(0, proc, getnm("Cancel"), KeyEscape, proc);
+	width = push_width;
+}
+
+void* choose_manual(const char* title) {
+	while(ismodal()) {
+		width = getwidth() - 1;
+		paint_manual_title(title); caret.y += height + 1; height = getheight() - height - 2;
+		button_frame(2, false, false);
+		setoffset(4, 4);
+		setpos(caret.x, getheight() - texth() - 8); height = texth() + 3;
+		button_manual(getnm("Cancel"), KeyEscape, buttoncancel);
+		domodal();
+		focus_input();
+	}
+	return (void*)getresult();
 }
 
 void* choose_dialog(const char* title, int padding) {

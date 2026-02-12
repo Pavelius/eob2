@@ -7,10 +7,11 @@ Creating new unique engine to play in AD&D on PC. This engine will be based on g
 
 ## Features
 
-- Rogue-like game.
+- Dungeon-crawling RPG game with party of 4 characters (can be raised to 6). Use `pseudo 3D` sprite rendering engine.
 - Randomly generated dungeons.
 - Radomly generated magic items.
 - Using text description for quest templates.
+- Rich to modding and customizing. Most game mechanics describe in `rules` file folders in special text format. You can create campaign of you own.
 
 ## Release
 

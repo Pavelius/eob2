@@ -420,3 +420,30 @@ void draw::textfs(const char* string) {
 	height = maxcaret.y;
 	maxcaret = push_maxcaret;
 }
+
+void draw::textf(const char* content, const char*& cash_string, int& cash_origin, int& current, int& maximum) {
+	rectpush push;
+	if(current < 0) {
+		cash_string = 0;
+		current = 0;
+	}
+	if(!maximum) {
+		auto push_height = height;
+		textfs(content);
+		maximum = height;
+		height = push_height;
+	}
+	if(current > maximum) {
+		cash_string = 0;
+		current = 0;
+	}
+	auto push_clip = clipping;
+	setcliparea();
+	if(!cash_string)
+		textf(content, cash_string, cash_origin);
+	else {
+		caret.y -= cash_origin;
+		textf(cash_string);
+	}
+	clipping = push_clip;
+}

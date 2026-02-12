@@ -265,6 +265,7 @@ void				textc(const char* string, int count = -1, unsigned flags = 0);
 int					textbc(const char* string, int width, bool* line_feed = 0);
 void				textf(const char* string);
 void				textf(const char* string, const char*& cashe_string, int& cashe_origin);
+void				textf(const char* content, const char*& cashe_string, int& cashe_origin, int& current, int& maximum);
 void				textfs(const char* string);
 int					texth();
 int					texth(const char* string, int width);

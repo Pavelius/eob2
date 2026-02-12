@@ -2034,24 +2034,26 @@ static void paint_manual_title(const char* title) {
 
 static void button_manual(const char* header, unsigned key, fnevent proc) {
 	auto push_width = width;
-	width = textw(header) + 4 * 2;
-	button_label(0, proc, getnm("Cancel"), KeyEscape, proc);
+	width = textw(header) + 4 * 2 - 1;
+	button_label(0, proc, header, KeyEscape, proc);
+	caret.x += width + 2;
 	width = push_width;
 }
 
 static void paint_manual_content(const char* content) {
+	static int current, maximum;
 	static int cashe_origin;
 	static const char* cashe_string;
-	static const char* last_string;
-	auto push_clip = clipping;
 	rectpush push;
 	setoffset(8, 8);
 	height -= texth() + 8;
-	setcliparea();
-	if(last_string != content)
-		textf(content, cashe_string, cashe_origin);
-	caret.y -= cashe_origin; textf(cashe_string);
-	clipping = push_clip;
+	textf(content, cashe_string, cashe_origin, current, maximum);
+}
+
+static void move_up() {
+}
+
+static void move_down() {
 }
 
 void* choose_manual(const char* title, const char* content) {
@@ -2063,6 +2065,8 @@ void* choose_manual(const char* title, const char* content) {
 		paint_manual_title(title); caret.y += height + 1; height = getheight() - height - 2;
 		paint_manual_content(content);
 		setpos(caret.x + 4, getheight() - texth() - 8); height = texth() + 3;
+		// button_manual("\x5e", KeyUp, move_up);
+		// button_manual("\x8b", KeyDown, move_down);
 		button_manual(getnm("Cancel"), KeyEscape, buttoncancel);
 		domodal();
 		focus_input();

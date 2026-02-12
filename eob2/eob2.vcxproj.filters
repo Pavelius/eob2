@@ -291,6 +291,9 @@
     <ClCompile Include="view_util.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="draw_textf.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">

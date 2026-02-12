@@ -2,8 +2,8 @@
 // LOCALIZATION
 /////////////////
 // Uncomment one of strings below (remove first two slash and followed space) to use different locale strings.
-#setlocale "ua"
-// #setlocale "en"
+// #setlocale "ua"
+#setlocale "en"
 
 #include "rules/Races.txt"
 #include "rules/Classes.txt"

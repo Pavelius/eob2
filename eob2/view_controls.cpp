@@ -1624,7 +1624,7 @@ static void common_input() {
 	case Ctrl + 'L': show_sprites(ITEMGL, {32, 24}, {64, 32}); break;
 	case Ctrl + 'P': show_scene_images(); break;
 	case Ctrl + 'F': show_scene_font(); break;
-	case Ctrl + 'T': choose_manual("Keybinding"); break;
+	case Ctrl + 'T': choose_manual("Keybinding", "Test manual content for all cases of life."); break;
 	}
 #endif
 }
@@ -2024,10 +2024,9 @@ static void menu_position(const char* format, point& origin, point& size, int pa
 static void paint_manual_title(const char* title) {
 	auto push_caret = caret;
 	auto push_width = width;
-	auto dy = texth() + 6; height = dy;
-	button_frame(2, false, false);
-	setoffset(4, 4);
-	texta(title, AlignCenter | TextBold);
+	auto dy = texth() + 8; height = dy;
+	setoffset(4, 4); caret.y += 4;
+	texta(title, AlignCenter | TextBold | TextSingleLine);
 	caret = push_caret;
 	width = push_width;
 	height = dy;
@@ -2040,17 +2039,35 @@ static void button_manual(const char* header, unsigned key, fnevent proc) {
 	width = push_width;
 }
 
-void* choose_manual(const char* title) {
+static void paint_manual_content(const char* content) {
+	static int cashe_origin;
+	static const char* cashe_string;
+	static const char* last_string;
+	auto push_clip = clipping;
+	rectpush push;
+	setoffset(8, 8);
+	height -= texth() + 8;
+	setcliparea();
+	if(last_string != content)
+		textf(content, cashe_string, cashe_origin);
+	caret.y -= cashe_origin; textf(cashe_string);
+	clipping = push_clip;
+}
+
+void* choose_manual(const char* title, const char* content) {
+	auto push_flags = text_flags;
+	text_flags = TextBold;
 	while(ismodal()) {
 		width = getwidth() - 1;
-		paint_manual_title(title); caret.y += height + 1; height = getheight() - height - 2;
 		button_frame(2, false, false);
-		setoffset(4, 4);
-		setpos(caret.x, getheight() - texth() - 8); height = texth() + 3;
+		paint_manual_title(title); caret.y += height + 1; height = getheight() - height - 2;
+		paint_manual_content(content);
+		setpos(caret.x + 4, getheight() - texth() - 8); height = texth() + 3;
 		button_manual(getnm("Cancel"), KeyEscape, buttoncancel);
 		domodal();
 		focus_input();
 	}
+	text_flags = push_flags;
 	return (void*)getresult();
 }
 

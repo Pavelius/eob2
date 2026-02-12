@@ -8,8 +8,6 @@
 
 using namespace draw;
 
-unsigned draw::text_flags;
-
 static int getparam(const char*& p) {
 	if(isnum(p[0]) || (p[0] == '-' && isnum(p[1]))) {
 		int result = 0;

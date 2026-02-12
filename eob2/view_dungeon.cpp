@@ -818,6 +818,8 @@ static void create_monsters(int i, pointc index, directions dr, bool flip) {
 			if(flip)
 				flags ^= ImageMirrorH;
 			break;
+		default:
+			break;
 		}
 		for(int i = 0; i < lenghtof(p->flags); i++)
 			p->flags[i] = flags;

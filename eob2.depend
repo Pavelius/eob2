@@ -12,7 +12,7 @@
 1744089661 /home/user-331/projects/eob2/eob2/bsdata.h
 	"array.h"
 
-1744089661 /home/user-331/projects/eob2/eob2/array.h
+1770800692 /home/user-331/projects/eob2/eob2/array.h
 	"slice.h"
 
 1744089954 /home/user-331/projects/eob2/eob2/slice.h
@@ -29,13 +29,13 @@
 	"slice.h"
 	"rand.h"
 
-1744089923 /home/user-331/projects/eob2/eob2/stringbuilder.h
+1770800692 /home/user-331/projects/eob2/eob2/stringbuilder.h
 	"slice.h"
 	<stdarg.h>
 
 1744089661 /home/user-331/projects/eob2/eob2/rand.h
 
-1744089661 source:/home/user-331/projects/eob2/eob2/array.cpp
+1770800692 source:/home/user-331/projects/eob2/eob2/array.cpp
 	"array.h"
 	"math.h"
 	"stringbuilder.h"
@@ -98,7 +98,7 @@
 1744089661 /home/user-331/projects/eob2/eob2/feat.h
 	"nameable.h"
 
-1744089661 /home/user-331/projects/eob2/eob2/log.h
+1770650503 /home/user-331/projects/eob2/eob2/log.h
 
 1744089661 /home/user-331/projects/eob2/eob2/gender.h
 	"nameable.h"
@@ -136,7 +136,7 @@
 1744089661 /home/user-331/projects/eob2/eob2/vector.h
 	"array.h"
 
-1770281577 source:/home/user-331/projects/eob2/eob2/creature.cpp
+1770800692 source:/home/user-331/projects/eob2/eob2/creature.cpp
 	"advancement.h"
 	"alignment.h"
 	"avatar.h"
@@ -222,7 +222,7 @@
 
 1744089661 /home/user-331/projects/eob2/eob2/pushvalue.h
 
-1744089661 /home/user-331/projects/eob2/eob2/speech.h
+1770800692 /home/user-331/projects/eob2/eob2/speech.h
 	"sliceu.h"
 
 1770036033 /home/user-331/projects/eob2/eob2/script.h
@@ -278,7 +278,7 @@
 	"class.h"
 	"levelable.h"
 
-1770036033 source:/home/user-331/projects/eob2/eob2/draw.cpp
+1770362292 source:/home/user-331/projects/eob2/eob2/draw.cpp
 	"color.h"
 	"draw.h"
 	"io_stream.h"
@@ -287,7 +287,7 @@
 	"slice.h"
 	"stringbuilder.h"
 
-1770281418 /home/user-331/projects/eob2/eob2/draw.h
+1770895656 /home/user-331/projects/eob2/eob2/draw.h
 	"color.h"
 	"point.h"
 	"stringbuilder.h"
@@ -307,7 +307,7 @@
 	"list.h"
 	"script.h"
 
-1744089661 source:/home/user-331/projects/eob2/eob2/locale.cpp
+1770800692 source:/home/user-331/projects/eob2/eob2/locale.cpp
 	"array.h"
 	"io_stream.h"
 	"log.h"
@@ -327,7 +327,7 @@
 1744089661 /home/user-331/projects/eob2/eob2/picture.h
 	"color.h"
 
-1744089661 source:/home/user-331/projects/eob2/eob2/log.cpp
+1770650503 source:/home/user-331/projects/eob2/eob2/log.cpp
 	"io_stream.h"
 	"log.h"
 	"slice.h"
@@ -383,7 +383,7 @@
 	"modifier.h"
 	"script.h"
 
-1770281418 source:/home/user-331/projects/eob2/eob2/main.cpp
+1770800692 source:/home/user-331/projects/eob2/eob2/main.cpp
 	"avatar.h"
 	"bsreq.h"
 	"draw.h"
@@ -391,6 +391,7 @@
 	"midi.h"
 	"music.h"
 	"party.h"
+	"quest.h"
 	"rand.h"
 	"speech.h"
 	"timer.h"
@@ -403,7 +404,7 @@
 1728387414 /home/user-331/projects/eob2/eob2/textscript.h
 	"stringbuilder.h"
 
-1770281418 /home/user-331/projects/eob2/eob2/view.h
+1770895656 /home/user-331/projects/eob2/eob2/view.h
 	"point.h"
 
 1744089661 source:/home/user-331/projects/eob2/eob2/nameable.cpp
@@ -470,7 +471,7 @@
 	"rand.h"
 	"script.h"
 
-1770281418 source:/home/user-331/projects/eob2/eob2/scripting.cpp
+1770800692 source:/home/user-331/projects/eob2/eob2/scripting.cpp
 	"action.h"
 	"alignment.h"
 	"answers.h"
@@ -517,7 +518,7 @@
 
 1728387414 /home/user-331/projects/eob2/eob2/view_focus.h
 
-1744089661 source:/home/user-331/projects/eob2/eob2/speech.cpp
+1770800692 source:/home/user-331/projects/eob2/eob2/speech.cpp
 	"bsreq.h"
 	"log.h"
 	"nameable.h"
@@ -533,9 +534,10 @@
 	"stringbuilder.h"
 	"slice.h"
 
-1729491496 source:/home/user-331/projects/eob2/eob2/textscript.cpp
+1770650503 source:/home/user-331/projects/eob2/eob2/textscript.cpp
 	"creature.h"
 	"dungeon.h"
+	"gender.h"
 	"textscript.h"
 	"speech.h"
 
@@ -620,7 +622,7 @@
 	"formula.h"
 	"script.h"
 
-1770036033 source:/home/user-331/projects/eob2/eob2/view_dialog.cpp
+1770895656 source:/home/user-331/projects/eob2/eob2/view_dialog.cpp
 	"answers.h"
 	"bsdata.h"
 	"draw.h"
@@ -727,7 +729,7 @@
 	"screenshoot.h"
 	"view.h"
 
-1770281418 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
+1770895734 source:/home/user-331/projects/eob2/eob2/view_controls.cpp
 	"answers.h"
 	"avatar.h"
 	"boost.h"
@@ -754,7 +756,7 @@
 	"view.h"
 	"view_focus.h"
 
-1744091667 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
+1770895707 source:/home/user-331/projects/eob2/eob2/view_dungeon.cpp
 	"creature.h"
 	"direction.h"
 	"draw.h"
@@ -868,7 +870,7 @@
 	"bsdata.h"
 	"boost.h"
 
-1770036033 source:/home/user-331/projects/eob2/eob2/party_combat.cpp
+1770362292 source:/home/user-331/projects/eob2/eob2/party_combat.cpp
 	"adat.h"
 	"answers.h"
 	"boost.h"
@@ -882,7 +884,7 @@
 	"rand.h"
 	"view.h"
 
-1770281418 source:/home/user-331/projects/eob2/eob2/spell.cpp
+1770650503 source:/home/user-331/projects/eob2/eob2/spell.cpp
 	"answers.h"
 	"boost.h"
 	"bsdata.h"
@@ -1033,4 +1035,9 @@
 	"slice.h"
 	"io_stream.h"
 	"math.h"
+
+1770895656 source:/home/user-331/projects/eob2/eob2/draw_textf.cpp
+	"draw.h"
+	"slice.h"
+	"stringbuilder.h"
 

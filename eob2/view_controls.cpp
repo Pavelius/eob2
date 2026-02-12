@@ -47,7 +47,6 @@ static bool hilite_player;
 static int disp_damage[6];
 static int disp_weapon[6][2];
 static unsigned animate_counter;
-static int last_spell_level;
 static int* table_columns;
 
 bool need_update_animation;
@@ -2035,7 +2034,7 @@ static void paint_manual_title(const char* title) {
 static void button_manual(const char* header, unsigned key, fnevent proc) {
 	auto push_width = width;
 	width = textw(header) + 4 * 2 - 1;
-	button_label(0, proc, header, KeyEscape, proc);
+	button_label(0, (void*)proc, header, KeyEscape, proc);
 	caret.x += width + 2;
 	width = push_width;
 }

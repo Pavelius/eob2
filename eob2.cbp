@@ -83,6 +83,7 @@
 		<Unit filename="eob2/draw.cpp" />
 		<Unit filename="eob2/draw.h" />
 		<Unit filename="eob2/draw_text.cpp" />
+		<Unit filename="eob2/draw_textf.cpp" />
 		<Unit filename="eob2/dungeon.cpp" />
 		<Unit filename="eob2/dungeon.h" />
 		<Unit filename="eob2/dungeon_generate.cpp" />

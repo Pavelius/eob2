@@ -271,6 +271,7 @@
     </ClCompile>
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="item.cpp" />
+    <ClCompile Include="keynaming.cpp" />
     <ClCompile Include="keyvalue.cpp" />
     <ClCompile Include="list.cpp" />
     <ClCompile Include="location.cpp" />
@@ -326,6 +327,7 @@
     <ClCompile Include="party.cpp" />
     <ClCompile Include="view_controls.cpp" />
     <ClCompile Include="view_dialog.cpp" />
+    <ClCompile Include="view_manual.cpp" />
     <ClCompile Include="view_util.cpp" />
     <ClCompile Include="wallmessage.cpp" />
     <ClCompile Include="wearable.cpp" />

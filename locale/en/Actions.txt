@@ -141,9 +141,12 @@ Cancel: Cancel
 Continue: Continue
 Decline: Decline
 ExitGame: Exit game
+ExamineItemAction: Examine current item by character
 LoadGame: Load game
+MakeScreenShootAction: Make screenshoot of game screen
 No: No
 OK: OK
+PickUpItem: Pick up item from floor
 SaveGame: Save game
 Yes: Yes
 WhatCharacter: What character?

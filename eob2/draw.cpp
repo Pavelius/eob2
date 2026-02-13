@@ -34,39 +34,37 @@ extern "C" void	free(void* pointer);
 using namespace draw;
 
 // Default theme colors
-color				colors::active;
-color				colors::text;
-color				colors::border;
-color				colors::h1;
-color				colors::h2;
-color				colors::h3;
-color				colors::special;
-color				colors::tips::text;
-color				colors::tips::back;
+color colors::active;
+color colors::text;
+color colors::border;
+color colors::h1;
+color colors::h2;
+color colors::h3;
+color colors::special;
+color colors::tips::text;
+color colors::tips::back;
 // Color context and font context
-fnevent			draw::domodal, draw::pbackground, draw::pfinish, draw::ptips;
-fnevent			draw::pbeforemodal, draw::pleavemodal, draw::psetfocus;
+fnevent draw::domodal, draw::pbackground, draw::pfinish, draw::ptips;
+fnevent	draw::pbeforemodal, draw::pleavemodal, draw::psetfocus;
 unsigned char  draw::alpha = 255;
-color				draw::fore;
-color				draw::fore_stroke;
-int				draw::width, draw::height, draw::dialog_width = 500;
-int		      draw::fsize = 32;
-bool				draw::text_clipped, draw::control_hilited;
+color draw::fore;
+color draw::fore_stroke;
+int	draw::width, draw::height, draw::dialog_width = 500;
+int	draw::fsize = 32;
+bool draw::text_clipped, draw::control_hilited;
 const sprite*	draw::font;
-double			draw::linw = 1.0;
-color*			draw::palt;
-rect				draw::clipping;
-hoti				draw::hot;
-const void*		draw::hilite_object;
-point				draw::hilite_position;
-int				draw::hilite_size;
+color* draw::palt;
+rect draw::clipping;
+rect sys_static_area;
+hoti draw::hot;
+const void*	draw::hilite_object;
+point draw::hilite_position;
+int	draw::hilite_size;
 // Hot keys and menus
-rect				sys_static_area;
 // Locale draw variables
 static draw::surface default_surface;
 draw::surface*	draw::canvas = &default_surface;
-point				draw::caret, draw::camera, draw::tips_caret, draw::tips_size;
-bool			   line_antialiasing = true;
+point draw::caret, draw::camera, draw::tips_caret, draw::tips_size;
 // Drag
 point				draw::dragmouse;
 // Metrics
@@ -81,7 +79,7 @@ int				metrics::padding = 2, metrics::border = 4;
 static bool		break_modal;
 static long		break_result;
 static fnevent	next_scene;
-awindowi			draw::awindow = {-1, -1, 800, 600, 160, WFMinmax | WFResize};
+//awindowi			draw::awindow = {-1, -1, 800, 600, 160, WFMinmax | WFResize};
 
 static void correct(int& x1, int& y1, int& x2, int& y2) {
 	if(x1 > x2)
@@ -1048,64 +1046,14 @@ void draw::pixel(int x, int y, unsigned char a) {
 	}
 }
 
-static void linew(int x1, int y1, double wd) {
-	int x0 = caret.x, y0 = caret.y;
-	int dx = iabs(x1 - x0), sx = x0 < x1 ? 1 : -1;
-	int dy = iabs(y1 - y0), sy = y0 < y1 ? 1 : -1;
-	int err = dx - dy, e2, x2, y2; /* error value e_xy */
-	float ed = dx + dy == 0 ? 1 : sqrt((float)dx * dx + (float)dy * dy);
-	for(wd = (wd + 1) / 2; ; ) {                                    /* pixel loop */
-		draw::pixel(x0, y0, (unsigned char)imax((int)0, (int)(255 * (iabs(err - dx + dy) / ed - wd + 1))));
-		e2 = err; x2 = x0;
-		if(2 * e2 >= -dx) {                                            /* x step */
-			for(e2 += dy, y2 = y0; e2 < ed * wd && (y1 != y2 || dx > dy); e2 += dx)
-				draw::pixel(x0, y2 += sy, (unsigned char)imax((int)0, (int)(255 * (iabs(e2) / ed - wd + 1))));
-			if(x0 == x1) break;
-			e2 = err; err -= dy; x0 += sx;
-		}
-		if(2 * e2 <= dy) {                                             /* y step */
-			for(e2 = dx - e2; e2 < ed * wd && (x1 != x2 || dx < dy); e2 += dy)
-				draw::pixel(x2 += sx, y0, (unsigned char)imax((int)0, (int)(255 * (iabs(e2) / ed - wd + 1))));
-			if(y0 == y1) break;
-			err += dx; y0 += sy;
-		}
-	}
-}
-
 void draw::line(int xt, int yt) {
 	int x0 = caret.x, y0 = caret.y, x1 = xt, y1 = yt;
-	if(linw != 1.0)
-		linew(x1, y1, linw);
-	else if(caret.x == x1) {
+	if(caret.x == x1) {
 		if(correct(x0, y0, x1, y1, clipping, false))
 			set32h(canvas->ptr(x0, y0), y1 - y0 + 1);
 	} else if(caret.y == y1) {
 		if(correct(x0, y0, x1, y1, clipping, false))
 			set32x(canvas->ptr(x0, y0), canvas->scanline, x1 - x0 + 1, 1);
-	} else if(line_antialiasing) {
-		int x0 = caret.x, y0 = caret.y;
-		int dx = iabs(x1 - x0), sx = x0 < x1 ? 1 : -1;
-		int dy = iabs(y1 - y0), sy = y0 < y1 ? 1 : -1;
-		int err = dx - dy, e2, x2; // error value e_xy
-		int ed = dx + dy == 0 ? 1 : isqrt(dx * dx + dy * dy);
-		for(;;) {
-			pixel(x0, y0, alpha * iabs(err - dx + dy) / ed);
-			e2 = err; x2 = x0;
-			if(2 * e2 >= -dx) {// x step
-				if(x0 == x1)
-					break;
-				if(e2 + dy < ed)
-					pixel(x0, y0 + sy, alpha * (e2 + dy) / ed);
-				err -= dy; x0 += sx;
-			}
-			if(2 * e2 <= dy) {// y step
-				if(y0 == y1)
-					break;
-				if(dx - e2 < ed)
-					pixel(x2 + sx, y0, alpha * (dx - e2) / ed);
-				err += dx; y0 += sy;
-			}
-		}
 	} else {
 		int dx = iabs(x1 - x0), sx = x0 < x1 ? 1 : -1;
 		int dy = -iabs(y1 - y0), sy = y0 < y1 ? 1 : -1;
@@ -1151,62 +1099,11 @@ void draw::rectb() {
 	line(caret.x, caret.y - (height - 1));
 }
 
-void draw::rectb3d() {
-	auto push_caret = caret;
-	auto push_alpha = alpha;
-	line(caret.x + width, caret.y);
-	line(caret.x, caret.y + height);
-	line(caret.x - width, caret.y);
-	line(caret.x, caret.y - height);
-	setoffset(1, 1);
-	alpha = alpha / 2;
-	line(caret.x + width, caret.y);
-	line(caret.x, caret.y + height);
-	alpha = alpha / 2;
-	line(caret.x - width, caret.y);
-	line(caret.x, caret.y - height);
-	alpha = push_alpha;
-	caret = push_caret;
-}
-
 void draw::rectf() {
 	rectpush push;
 	int x1 = caret.x, y1 = caret.y, x2 = caret.x + width, y2 = caret.y + height;
 	if(correct(x1, y1, x2, y2, clipping))
 		set32x(ptr(x1, y1), canvas->scanline, x2 - x1, y2 - y1);
-}
-
-static void rectfpt(int xc1, int yc1, int xc2, int yc2, int r) {
-	if(xc1 - r >= clipping.x2 || xc2 + r < clipping.x1 || yc1 - r >= clipping.y2 || yc2 + r < clipping.y1)
-		return;
-	xc1 += r; xc2 -= r;
-	yc1 += r; yc2 -= r + 1;
-	int x = -r, y = 0, err = 2 - 2 * r, yp = -1000;
-	do {
-		if(yp != y) {
-			yp = y;
-			//rectf({xc1 + x, yc1 - y, xc1, yc1 - y + 1});
-			//rectf({xc2 - x, yc1 - y, xc2, yc1 - y + 1});
-			if(y != 0) {
-				//rectf({xc1 + x, yc2 + y, xc1, yc2 + y + 1});
-				//rectf({xc2 - x, yc2 + y, xc2, yc2 + y + 1});
-			}
-		}
-		r = err;
-		if(r <= y)
-			err += ++y * 2 + 1;
-		if(r > x || err > y)
-			err += ++x * 2 + 1;
-	} while(x < 0);
-}
-
-void draw::rectfe(rect rc, int r) {
-	rectfpt(rc.x1, rc.y1, rc.x2, rc.y2, r);
-	//rectf({rc.x1 + r, rc.y1, rc.x2 - r, rc.y1 + r});
-	//rectf({rc.x1, rc.y1 + r + 1, rc.x1 + r, rc.y2 - r});
-	//rectf({rc.x2 - r, rc.y1 + r + 1, rc.x2, rc.y2 - r});
-	//rectf({rc.x1 + r, rc.y2 - r, rc.x2 - r, rc.y2});
-	//rectf({rc.x1 + r, rc.y1 + r, rc.x2 - r, rc.y2 - r});
 }
 
 void draw::setpos(int x, int y) {
@@ -2213,48 +2110,6 @@ void surface::rotate() {
 	scanline = color_scanline(width, bpp);
 }
 
-void draw::key2str(stringbuilder& sb, int key) {
-	if(key & Ctrl)
-		sb.add("Ctrl+");
-	if(key & Alt)
-		sb.add("Alt+");
-	if(key & Shift)
-		sb.add("Shift+");
-	key = key & CommandMask;
-	switch(key) {
-	case KeyDown: sb.add("Down"); break;
-	case KeyDelete: sb.add("Del"); break;
-	case KeyEnd: sb.add("End"); break;
-	case KeyEnter: sb.add("Enter"); break;
-	case KeyHome: sb.add("Home"); break;
-	case KeyLeft: sb.add("Left"); break;
-	case KeyPageDown: sb.add("Page Down"); break;
-	case KeyPageUp: sb.add("Page Up"); break;
-	case KeyRight: sb.add("Right"); break;
-	case KeyUp: sb.add("Up"); break;
-	case F1: sb.add("F1"); break;
-	case F2: sb.add("F2"); break;
-	case F3: sb.add("F3"); break;
-	case F4: sb.add("F4"); break;
-	case F5: sb.add("F5"); break;
-	case F6: sb.add("F6"); break;
-	case F7: sb.add("F7"); break;
-	case F8: sb.add("F8"); break;
-	case F9: sb.add("F9"); break;
-	case F10: sb.add("F10"); break;
-	case F11: sb.add("F11"); break;
-	case F12: sb.add("F12"); break;
-	case KeySpace: sb.add("Space"); break;
-	case KeyEscape: sb.add("Esc"); break;
-	default:
-		if(key >= 0x20) {
-			char temp[2] = {(char)upper_symbol(key), 0};
-			sb.add(temp);
-		}
-		break;
-	}
-}
-
 void draw::execute(fnevent proc, long value, long value2, const void* object) {
 	domodal = proc;
 	// Это важно, так как мы никогда не обнуляем эту переменную при исполнении не стандартной команды.
@@ -2392,10 +2247,11 @@ void draw::setneedupdate() {
 
 void draw::initialize(const char* title) {
 	draw::width = 320;
+	draw::height = 200;
 	draw::font = metrics::font;
 	draw::fore = colors::text;
 	draw::fore_stroke = colors::border;
-	draw::create(awindow.x, awindow.y, awindow.width, awindow.height, awindow.flags, 32);
+	draw::create(-1, -1, width, height, 0, 32);
 	if(title)
 		draw::setcaption(title);
 }

@@ -156,7 +156,6 @@ static const char* citate(const char* p, int x1, int x2, color new_fore, const s
 static const char* textfln(const char* p, int x1, int x2, color new_fore, const sprite* new_font) {
 	pushfore push_fore(new_fore);
 	pushfont push_font(new_font);
-	// char temp[4096]; temp[0] = 0;
 	unsigned flags = text_flags;
 	while(true) {
 		if(p[0] == '*' && p[1] == '*') {
@@ -170,11 +169,8 @@ static const char* textfln(const char* p, int x1, int x2, color new_fore, const 
 			p++;
 			if(flags & TextItalic)
 				flags &= ~TextItalic;
-			else {
-				if((flags & TextItalic) == 0)
-					caret.x += texth() / 3;
+			else
 				flags |= TextItalic;
-			}
 			continue;
 		} else if(p[0] == '[' && p[1] == '[')
 			p++;
@@ -198,10 +194,6 @@ static const char* textfln(const char* p, int x1, int x2, color new_fore, const 
 			case '#':
 				p++;
 				flags |= TextUscope;
-				fore = colors::special;
-				break;
-			case ' ':
-				p++;
 				fore = colors::special;
 				break;
 			default:
@@ -253,7 +245,7 @@ static const char* parse_widget_command(const char* p) {
 	auto push_width = width;
 	auto push_height = height; height = texth();
 	auto push_alpha = alpha;
-	auto flags = 0;
+	auto flags = text_flags;
 	char temp[4096]; stringbuilder sb(temp);
 	while(*p) {
 		if(equaln(p, "ca")) {
@@ -365,7 +357,7 @@ static const char* bullet_list(const char* p, int x2) {
 	return p;
 }
 
-void draw::textf(const char* p) {
+void textf(const char* p) {
 	maxcaret.clear();
 	text_start_string = 0;
 	text_start_horiz = 0;
@@ -402,18 +394,18 @@ void draw::textf(const char* p) {
 	height = push_height;
 }
 
-void draw::textf(const char* string, const char*& cashe_string, int& cashe_origin) {
-	draw::textf(string);
+void textf(const char* string, const char*& cashe_string, int& cashe_origin) {
+	textf(string);
 	cashe_string = text_start_string;
 	cashe_origin = text_start_horiz;
 }
 
-void draw::textfs(const char* string) {
+void textfs(const char* string) {
 	auto push_caret = caret;
 	auto push_clipping = clipping;
 	auto push_maxcaret = maxcaret;
 	clipping.clear(); caret = {};
-	draw::textf(string);
+	textf(string);
 	clipping = push_clipping;
 	caret = push_caret;
 	width = maxcaret.x;
@@ -421,7 +413,7 @@ void draw::textfs(const char* string) {
 	maxcaret = push_maxcaret;
 }
 
-void draw::textf(const char* content, const char*& cash_string, int& cash_origin, int& current, int& maximum) {
+void textf(const char* content, const char*& cash_string, int& cash_origin, int& current, int& maximum) {
 	rectpush push;
 	if(current < 0) {
 		cash_string = 0;
@@ -437,13 +429,10 @@ void draw::textf(const char* content, const char*& cash_string, int& cash_origin
 		cash_string = 0;
 		current = 0;
 	}
-	auto push_clip = clipping;
-	setcliparea();
 	if(!cash_string)
 		textf(content, cash_string, cash_origin);
 	else {
 		caret.y -= cash_origin;
 		textf(cash_string);
 	}
-	clipping = push_clip;
 }

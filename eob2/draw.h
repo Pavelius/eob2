@@ -16,7 +16,6 @@
 
 #include "color.h"
 #include "point.h"
-#include "stringbuilder.h"
 
 #pragma once
 
@@ -175,12 +174,11 @@ extern unsigned char    alpha;
 extern int				width, height, fsize, dialog_width;
 extern bool				text_clipped, control_hilited;
 extern const sprite*	font; // Currently selected font
-extern double			linw;
 extern long				text_params[16];
 extern color*			palt;
 extern int				tab_pixels;
-extern fnevent          pbackground, ptips, pfinish, pinput;
-extern fnevent          pbeforemodal, pleavemodal, psetfocus;
+extern fnevent pbackground, ptips, pfinish, pinput;
+extern fnevent pbeforemodal, pleavemodal, psetfocus;
 extern unsigned			text_flags;
 struct rectpush {
 	point caret;
@@ -227,7 +225,6 @@ void				image(int x, int y, const sprite* e, int id, int flags);
 inline void			image(const sprite* e, int id, int flags) { image(caret.x, caret.y, e, id, flags); }
 void				image(const sprite* e, int id, int flags, color* pal);
 void				imager(int x, int y, const sprite* p, int id, int radius);
-void				key2str(stringbuilder& sb, int key);
 void				line(int x, int y); // Draw line
 void				linet(int x, int y);
 void				paintstart();
@@ -237,9 +234,7 @@ void				pixel(int x, int y, unsigned char alpha);
 unsigned char*		ptr(int x, int y);
 int					rawinput();
 void				rectb(); // Draw rectangle border
-void				rectb3d(); // Draw rectangle border
 void				rectf(); // Draw rectangle area. Right and bottom side is one pixel less.
-void				rectfe(rect rc, int radius);
 void				rectx();
 void				rectfocus();
 void				set(int x, int y);
@@ -263,10 +258,6 @@ void				texta(const char* string, unsigned state = 0);
 void				textas(const char* string);
 void				textc(const char* string, int count = -1, unsigned flags = 0);
 int					textbc(const char* string, int width, bool* line_feed = 0);
-void				textf(const char* string);
-void				textf(const char* string, const char*& cashe_string, int& cashe_origin);
-void				textf(const char* content, const char*& cashe_string, int& cashe_origin, int& current, int& maximum);
-void				textfs(const char* string);
 int					texth();
 int					texth(const char* string, int width);
 int					textw(int sym);
@@ -276,14 +267,7 @@ void				updatewindow();
 void				write(const char* url, unsigned char* bits, int width, int height, int bpp, int scanline, color* pallette);
 void				vertical(fnevent proc);
 }
-namespace draw {
-struct awindowi {
-	int			x, y, width, height;
-	int			header_width;
-	unsigned	flags;
-};
-extern awindowi awindow;
-}
+
 namespace draw {
 void breakmodal(long result);
 bool button(const char* title, unsigned key, fnbutton proc, bool vertical = true);
@@ -303,6 +287,11 @@ void* scene(fnevent proc);
 void scene();
 void setneedupdate();
 }
+
+void textf(const char* string);
+void textf(const char* string, const char*& cashe_string, int& cashe_origin);
+void textf(const char* content, const char*& cashe_string, int& cashe_origin, int& current, int& maximum);
+void textfs(const char* string);
 
 bool is_next_scene();
 void run_next_scene();

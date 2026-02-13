@@ -1,2 +1,2 @@
-﻿In speech with locale `ua`:
- `HearNoiseLarge` count element must be 2, not 3
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `PickUpItem`

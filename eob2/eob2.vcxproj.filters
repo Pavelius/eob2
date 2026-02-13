@@ -294,6 +294,12 @@
     <ClCompile Include="draw_textf.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="keynaming.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="view_manual.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">

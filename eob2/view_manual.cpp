@@ -15,6 +15,12 @@ static void button_manual(const char* header, unsigned key, fnevent proc) {
 	width = push_width;
 }
 
+static void paint_header(const char* title) {
+	pushfore push(colors::special);
+	texta(title, AlignCenter | TextBold | TextSingleLine);
+	caret.y += texth() + 1; height -= texth() + 1;
+}
+
 static void paint_manual_content(const char* content) {
 	static int current, maximum;
 	static int cashe_origin;
@@ -37,15 +43,16 @@ static void move_down() {
 static void* choose_manual(const char* title, const char* content) {
 	auto push_flags = text_flags;
 	text_flags = TextBold;
+	pushfocus push;
 	while(ismodal()) {
 		width = getwidth() - 1; height = getheight() - 1;
 		button_frame(2, false, false);
-		setoffset(4, 4); texta(title, AlignCenter | TextBold | TextSingleLine);
-		caret.y += texth() + 1; height -= texth() + 1;
+		setoffset(4, 4);
+		paint_header(title);
 		paint_manual_content(content);
 		setpos(caret.x, getheight() - texth() - 8); height = texth() + 3;
-		button_manual("\x5e", KeyUp, move_up);
-		button_manual("\x8b", KeyDown, move_down);
+		// button_manual("\x5e", KeyUp, move_up);
+		// button_manual("\x8b", KeyDown, move_down);
 		button_manual(getnm("Cancel"), KeyEscape, buttoncancel);
 		domodal();
 		focus_input();

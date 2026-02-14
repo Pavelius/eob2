@@ -2398,5 +2398,6 @@ static void main_beforemodal() {
 void initialize_gui() {
 	set_big_font();
 	fore = colors::white;
+	colors::special = color(64, 255, 255);
 	pbeforemodal = main_beforemodal;
 }

@@ -19,6 +19,7 @@ enum directions : unsigned char;
 enum resid : unsigned short;
 enum wearn : unsigned char;
 
+struct sprite;
 struct hotkeyi;
 struct creaturei;
 

@@ -300,6 +300,9 @@
     <ClCompile Include="view_manual.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="keybind.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -589,6 +592,9 @@
     </ClInclude>
     <ClInclude Include="manager.h">
       <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="keybind.h">
+      <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

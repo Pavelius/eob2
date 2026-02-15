@@ -178,6 +178,7 @@
     <ClInclude Include="hotkey.h" />
     <ClInclude Include="index.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="keybind.h" />
     <ClInclude Include="keyvalue.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="location.h" />
@@ -271,6 +272,7 @@
     </ClCompile>
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="item.cpp" />
+    <ClCompile Include="keybind.cpp" />
     <ClCompile Include="keynaming.cpp" />
     <ClCompile Include="keyvalue.cpp" />
     <ClCompile Include="list.cpp" />

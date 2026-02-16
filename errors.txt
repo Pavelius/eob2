@@ -1,2 +1,2 @@
-﻿Error in file `UnknownNames.txt`:
- Define translation for `PickUpItem`
+﻿Error in file `rules/Keyboard.txt`:
+ Line 8: Not found identifier `UseIte1m`

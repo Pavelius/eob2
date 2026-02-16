@@ -1600,7 +1600,7 @@ static int get_file_number(const char* url, const char* mask) {
 	return index;
 }
 
-static void make_screenshoot() {
+void make_screenshoot() {
 	auto index = get_file_number("screenshoots", "scr*.bmp");
 	char temp[260]; stringbuilder sb(temp);
 	sb.add("screenshoots/scr%1.5i.bmp", index);

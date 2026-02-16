@@ -6,6 +6,7 @@
 #include "carousing.h"
 #include "cell.h"
 #include "class.h"
+#include "command.h"
 #include "condition.h"
 #include "console.h"
 #include "creature.h"
@@ -3341,6 +3342,13 @@ static void talk_about(int bonus) {
 	talk_about_proc(true);
 }
 
+BSDATA(commandi) = {
+	{"CastSpell", cast_spell},
+	{"DropCityItem", drop_city_item},
+	{"MakeScreenshoot", make_screenshoot},
+	{"UseItem", use_item},
+};
+BSDATAF(commandi)
 BSDATA(textscript) = {
 	{"Ability", ability_name},
 	{"Class", player_class},

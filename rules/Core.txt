@@ -17,6 +17,7 @@
 #include "rules/Rooms.txt"
 #include "rules/Quests.txt"
 #include "rules/Carousing.txt"
+#include "rules/Keyboard.txt"
 
 #List
 

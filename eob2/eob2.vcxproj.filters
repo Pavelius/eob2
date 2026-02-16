@@ -303,6 +303,9 @@
     <ClCompile Include="keybind.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="command.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ability.h">
@@ -596,6 +599,9 @@
     <ClInclude Include="keybind.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="command.h">
+      <Filter>support</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Races.txt">
@@ -684,6 +690,9 @@
     </Text>
     <Text Include="..\locale\en\Carousing.txt">
       <Filter>locale</Filter>
+    </Text>
+    <Text Include="..\rules\Keyboard.txt">
+      <Filter>rules</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

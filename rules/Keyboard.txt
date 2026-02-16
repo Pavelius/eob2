@@ -1,0 +1,8 @@
+////////////////////////////////
+// Keyboard shortcut in any city
+
+#Keybind
+
+0 "E" CastSpell
+0 "D" DropCityItem
+0 "U" UseItem

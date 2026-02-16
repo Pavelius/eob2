@@ -156,6 +156,7 @@
     <ClInclude Include="cell.h" />
     <ClInclude Include="class.h" />
     <ClInclude Include="color.h" />
+    <ClInclude Include="command.h" />
     <ClInclude Include="condition.h" />
     <ClInclude Include="console.h" />
     <ClInclude Include="corridor.h" />
@@ -252,6 +253,7 @@
     <ClCompile Include="carousing.cpp" />
     <ClCompile Include="cell.cpp" />
     <ClCompile Include="color.cpp" />
+    <ClCompile Include="command.cpp" />
     <ClCompile Include="condition.cpp" />
     <ClCompile Include="console.cpp" />
     <ClCompile Include="creature.cpp" />
@@ -360,6 +362,7 @@
     <Text Include="..\rules\Diety.txt" />
     <Text Include="..\rules\Items.txt" />
     <Text Include="..\rules\Actions.txt" />
+    <Text Include="..\rules\Keyboard.txt" />
     <Text Include="..\rules\Monsters.txt" />
     <Text Include="..\rules\Quests.txt" />
     <Text Include="..\rules\Races.txt" />

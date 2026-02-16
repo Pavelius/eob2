@@ -8,9 +8,11 @@
 #include "cell.h"
 #include "class.h"
 #include "condition.h"
+#include "command.h"
 #include "damage.h"
 #include "dungeon.h"
 #include "item.h"
+#include "keybind.h"
 #include "feat.h"
 #include "formula.h"
 #include "gender.h"
@@ -287,6 +289,7 @@ BSDATA(varianti) = {
 	{"Formula", VAR(formulai, 1), 0, 0, ftscript<formulai>},
 	{"Gender", VAR(genderi, 1), 0, 0, ftscript<genderi>, fttest<genderi>},
 	{"Item", VAR(itemi, 1), 0, 0, ftscript<itemi>},
+	{"Keybind", VAR(keybindi, 3)},
 	{"KeyValue", VAR(keyvaluei, 2)},
 	{"List", VAR(listi, 1), 0, 0, ftscript<listi>, fttest<listi>},
 	{"Location", VAR(locationi, 1), 0, 0, ftscript<locationi>},

@@ -1,12 +1,13 @@
 #pragma once
 
+struct commandi;
 typedef void(*fnevent)();
 
 struct keybindi {
 	unsigned	key;
-	fnevent		proc;
+	const char* id_key; // Named key need to load
+	commandi*	command;
 	int			type; // Numeric type of keyboard group
-	const char* shortcut; // Named key need to load
 };
 
 void initialize_keybind();

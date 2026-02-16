@@ -61,6 +61,7 @@ void fix_monster_damage_end();
 void header_yellow(const char* format);
 bool hotkey_input(const hotkeyi* hotkeys);
 void initialize_gui();
+void make_screenshoot();
 void message_box(const char* format);
 void paint_adventure();
 void paint_arrow(point camera, directions direct, int mpg);

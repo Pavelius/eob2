@@ -245,7 +245,7 @@ static const char* parse_widget_command(const char* p) {
 	auto push_width = width;
 	auto push_height = height; height = texth();
 	auto push_alpha = alpha;
-	auto flags = text_flags;
+	auto push_flags = text_flags;
 	char temp[4096]; stringbuilder sb(temp);
 	while(*p) {
 		if(equaln(p, "ca")) {
@@ -253,6 +253,9 @@ static const char* parse_widget_command(const char* p) {
 			continue;
 		} else if(equaln(p, "ct")) {
 			fore = colors::text;
+			continue;
+		} else if(equaln(p, "cs")) {
+			fore = colors::special;
 			continue;
 		} else if(equaln(p, "red")) {
 			fore = colors::red;
@@ -288,10 +291,10 @@ static const char* parse_widget_command(const char* p) {
 			alpha = getparam(p);
 			continue;
 		} else if(equaln(p, "right")) {
-			flags = AlignRightCenter;
+			text_flags |= AlignRightCenter;
 			continue;
 		} else if(equaln(p, "center")) {
-			flags = AlignCenterCenter;
+			text_flags |= AlignCenterCenter;
 			continue;
 		} else if(equaln(p, "fill")) {
 			rectf();
@@ -302,12 +305,12 @@ static const char* parse_widget_command(const char* p) {
 			fore.b = (unsigned char)getparam(p);
 			continue;
 		} else if(equaln(p, "bold")) {
-			flags |= TextBold | TextItalic;
+			text_flags |= TextBold | TextItalic;
 			continue;
 		} else if(equaln(p, "text")) {
 			sb.clear();
 			p = read_lf(p, sb);
-			texta(temp, flags);
+			texta(temp, text_flags);
 		} else if(equaln(p, "tab"))
 			tab_pixels = getparam(p);
 		p = skip_line(p);
@@ -317,9 +320,9 @@ static const char* parse_widget_command(const char* p) {
 		maxcaret.x = caret.x + width;
 	if(caret.y + height > maxcaret.y)
 		maxcaret.y = caret.y + height;
+	text_flags = push_flags;
 	caret = push_caret;
 	width = push_width;
-	text_flags = flags;
 	alpha = push_alpha;
 	if(next_line) {
 		caret.y += height + metrics::padding;
@@ -369,6 +372,7 @@ void textf(const char* p) {
 	auto push_height = height;
 	auto push_tab = tab_pixels;
 	auto push_x = caret.x;
+	auto push_flags = text_flags;
 	int x1 = caret.x, y1 = caret.y, x2 = caret.x + width;
 	while(p[0]) {
 		if(caret.y < clipping.y1) {
@@ -388,6 +392,7 @@ void textf(const char* p) {
 		maxcaret.y = texth();
 		caret.y += texth();
 	}
+	text_flags = push_flags;
 	tab_pixels = push_tab;
 	caret.x = push_x;
 	width = push_width;

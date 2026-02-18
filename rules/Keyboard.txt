@@ -3,6 +3,8 @@
 
 #Keybind
 
+0 "Escape" ChooseCityMenu
 0 "E" CastSpell
+0 "R" ChangeQuickItem
 0 "D" DropCityItem
 0 "U" UseItem

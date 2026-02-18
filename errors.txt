@@ -1,2 +1,3 @@
-﻿Error in file `rules/Keyboard.txt`:
- Line 8: Not found identifier `UseIte1m`
+﻿Error in file `UnknownNames.txt`:
+ Define translation for `Keybind`
+ Define translation for `KeybindInfo`

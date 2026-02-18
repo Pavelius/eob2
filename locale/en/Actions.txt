@@ -142,6 +142,8 @@ Continue: Continue
 Decline: Decline
 ExitGame: Exit game
 ExamineItemAction: Examine current item by character
+Keybind: Keybind
+KeybindInfo: Information by keybind.
 LoadGame: Load game
 MakeScreenShootAction: Make screenshoot of game screen
 No: No

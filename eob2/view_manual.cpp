@@ -1,5 +1,7 @@
+#include "bsdata.h"
 #include "draw.h"
 #include "stringbuilder.h"
+#include "textscript.h"
 #include "view.h"
 #include "view_focus.h"
 
@@ -48,7 +50,6 @@ static void* choose_manual(const char* title, const char* content) {
 		width = getwidth() - 1; height = getheight() - 1;
 		button_frame(2, false, false);
 		setoffset(4, 4);
-		paint_header(title);
 		paint_manual_content(content);
 		setpos(caret.x, getheight() - texth() - 8); height = texth() + 3;
 		// button_manual("\x5e", KeyUp, move_up);
@@ -82,6 +83,34 @@ static void show_keybind() {
 	choose_manual("Keybinding", temp);
 }
 
+static const char* get_manual_header(const char* id) {
+	auto pn = getnme(ids(id, "Header"));
+	if(pn)
+		return pn;
+	return getnm(id);
+}
+
+static void add_manual_content(stringbuilder& sb, const char* id) {
+	auto pi = bsdata<textscript>::find(ids(id, "Manual"));
+	if(pi) {
+		pi->proc(sb);
+		return;
+	}
+	sb.addn(getnm(ids(id, "Info")));
+}
+
+static void add_manual_text(stringbuilder& sb, const char* id) {
+	sb.addn("/lf cs center text %1", get_manual_header(id));
+	sb.addn("/ct");
+}
+
+static void choose_manual(const char* id) {
+	char temp[2048]; stringbuilder sb(temp);
+	add_manual_text(sb, id);
+	add_manual_content(sb, id);
+	choose_manual(id, temp);
+}
+
 void choose_manual() {
-	show_keybind();
+	choose_manual("Keybind");
 }

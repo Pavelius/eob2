@@ -3095,23 +3095,6 @@ static bool if_party_item(conditioni::fntest proc) {
 	return false;
 }
 
-//static bool if_party_item(conditioni::fntest player_test, conditioni::fntest proc) {
-//	auto push_player = player;
-//	for(auto p : characters) {
-//		if(!p || !p->isready())
-//			continue;
-//		player = p;
-//		if(player_test && !player_test())
-//			continue;
-//		if(if_party_item(proc)) {
-//			player = push_player;
-//			return true;
-//		}
-//	}
-//	player = push_player;
-//	return false;
-//}
-
 static bool if_wounded() {
 	return player->gethp() < player->hpm;
 }
@@ -3344,6 +3327,8 @@ static void talk_about(int bonus) {
 
 BSDATA(commandi) = {
 	{"CastSpell", cast_spell},
+	{"ChangeQuickItem", change_quick_item},
+	{"ChooseCityMenu", choose_city_menu},
 	{"DropCityItem", drop_city_item},
 	{"MakeScreenshoot", make_screenshoot},
 	{"UseItem", use_item},

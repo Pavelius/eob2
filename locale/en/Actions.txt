@@ -19,12 +19,15 @@ CampMenu: Camp Options:
 CastSpell: Cast what spell?
 CastSpellAction: Cast Spell
 CastSpellInfo: %Name cast %1
+CastSpellHelp: Cast prepared spell
 CastOnWho: Cast on who?
 CellKeyHoleDisable: Lock is picked up
 CellPitDisable: Pit is removed
 CellPortalUseConfirm: Do you really want activate portal?
 CellTrapLauncherDisable: Trap is removed
 CellGraveUse: %Name dig the grave
+ChangeQuickItemHelp: Change one item on another
+ChooseCityMenuHelp: Open menu
 ChooseAlignment: Select Alignment
 ChooseBetOptions: Bed how match?
 ChooseClass: Select Class
@@ -45,6 +48,7 @@ Donate: Donation
 DonateMessage: "You donation is accepted. May holy bless be with you, my friends" sad priest
 DoorOpened: Locked door opened
 DrinkPotionAct: %Name drink %ItemName
+DropCityItemHelp: Sell item on local market
 EatAndDrink: Eat and drink
 EatAndDrinkConfirm: Do you really want pay %2i gold piece for food and drink?
 EatAndDrinkNotEnoughtGold: "Return when you will have %2i gold piece" sad bartender "Now, get lost"
@@ -110,6 +114,7 @@ TeleportChooseLevel: Teleport what level?
 TeleportToDungeon: Teleport to Portal
 ToolBroken: %1 is broken
 ToolCrumbleToDust: %1 crumble to dust
+UseItemHelp: Use item
 UseHolySymbolFail: You praying is without answers
 UseHolySymbolNoEffect: Your praing have no sence
 UseHolySymbolSuccessOnPlayer: %Diety %-SpellName on %1

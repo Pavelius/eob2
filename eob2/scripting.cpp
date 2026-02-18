@@ -17,6 +17,7 @@
 #include "gender.h"
 #include "hotkey.h"
 #include "keyvalue.h"
+#include "keybind.h"
 #include "list.h"
 #include "location.h"
 #include "math.h"
@@ -2996,6 +2997,23 @@ static void effect_number(stringbuilder& sb) {
 	sb.add("%1i", last_number);
 }
 
+static void keybind_print(stringbuilder& sb, int value) {
+	for(auto& e : bsdata<keybindi>()) {
+		if(e.type != value)
+			continue;
+		sb.addn("%1\t", e.id_key);
+		auto p = e.command;
+		if(!p)
+			continue;
+		sb.add(getnm(ids(p->id, "Help")));
+	}
+}
+
+static void keybind_manual(stringbuilder& sb) {
+	sb.addn("/tab 68");
+	keybind_print(sb, 0);
+}
+
 static void dungeon_habbitant1(stringbuilder& sb) {
 	sb.addv(getnm(getid<monsteri>(loc->habbits[0])), 0);
 }
@@ -3346,6 +3364,7 @@ BSDATA(textscript) = {
 	{"Habbitant1", dungeon_habbitant1},
 	{"Habbitant2", dungeon_habbitant2},
 	{"ItemName", item_name},
+	{"KeybindManual", keybind_manual},
 	{"Name", player_name},
 	{"OpponentName", opponent_name},
 	{"Number", effect_number},

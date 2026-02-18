@@ -1,3 +1,5 @@
 ﻿Error in file `UnknownNames.txt`:
- Define translation for `Keybind`
- Define translation for `KeybindInfo`
+ Define translation for `ChangeQuickItem`
+ Define translation for `ChooseCityMenu`
+ Define translation for `DropCityItem`
+ Define translation for `UseItem`

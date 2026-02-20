@@ -17,7 +17,6 @@
 #include "gender.h"
 #include "hotkey.h"
 #include "keyvalue.h"
-#include "keybind.h"
 #include "list.h"
 #include "location.h"
 #include "math.h"
@@ -576,7 +575,9 @@ static void apply_result() {
 	else if(bsdata<actioni>::have(last_result)) {
 		last_action = (actioni*)last_result;
 		apply_action(0);
-	} else if(bsdata<variant>::have(last_result))
+	} else if(bsdata<textscript>::have(last_result))
+		choose_manual((textscript*)last_result);
+	else if(bsdata<variant>::have(last_result))
 		script_run(*((variant*)last_result));
 	fix_animate();
 }
@@ -2997,21 +2998,48 @@ static void effect_number(stringbuilder& sb) {
 	sb.add("%1i", last_number);
 }
 
-static void keybind_print(stringbuilder& sb, int value) {
-	for(auto& e : bsdata<keybindi>()) {
-		if(e.type != value)
-			continue;
-		sb.addn("%1\t", e.id_key);
-		auto p = e.command;
-		if(!p)
-			continue;
-		sb.add(getnm(ids(p->id, "Help")));
-	}
+static void addh3(stringbuilder& sb, const char* id) {
+	sb.addn("/lf cs center text %1", getnm(ids(id, "Header")));
+	sb.addn("/ct");
+}
+
+static void addkb(stringbuilder& sb, const char* key, const char* id, int kw = 46) {
+	sb.addn("/w %2i center text %1", key, kw);
+	sb.addn("/lf x %2i w %3i text %1", getnm(ids(id, "Help")), kw + 2, 300 - (kw + 2));
+}
+
+static void keybind_dungeon_manual(stringbuilder& sb) {
+	addh3(sb, "MovementKeybind");
+	addkb(sb, "W", "MoveFocusUp");
+	addkb(sb, "A", "MoveFocusLeft");
+	addkb(sb, "S", "MoveFocusRight");
+	addkb(sb, "Z", "MoveFocusDown");
+	addkb(sb, "E", "CastSpell");
+	addkb(sb, "U", "UseItem");
+	addkb(sb, "P", "PickUpItem");
+	addkb(sb, "D", "DropCityItem");
+	addh3(sb, "CharacterKeybind");
+	addkb(sb, "G", "QuestGoals");
+	addkb(sb, "C", "CharacterInfo");
+	addkb(sb, "I", "CharacterInventory");
+	addkb(sb, "X", "CharacterSkills");
 }
 
 static void keybind_manual(stringbuilder& sb) {
-	sb.addn("/tab 68");
-	keybind_print(sb, 0);
+	addh3(sb, "CityKeybind");
+	addkb(sb, "W or \x5E", "MoveFocusUp");
+	addkb(sb, "A or \x5F", "MoveFocusLeft");
+	addkb(sb, "S or \x9B", "MoveFocusRight");
+	addkb(sb, "Z or \x8B", "MoveFocusDown");
+	addkb(sb, "E", "CastSpell");
+	addkb(sb, "U", "UseItem");
+	addkb(sb, "D", "DropCityItem");
+	addkb(sb, "G", "QuestGoals");
+	addh3(sb, "CharacterKeybind");
+	addkb(sb, "C", "CharacterInfo");
+	addkb(sb, "I", "CharacterInventory");
+	addkb(sb, "X", "CharacterSkills");
+	// addkb(sb, "P", "PickUpItem");
 }
 
 static void dungeon_habbitant1(stringbuilder& sb) {
@@ -3365,6 +3393,7 @@ BSDATA(textscript) = {
 	{"Habbitant2", dungeon_habbitant2},
 	{"ItemName", item_name},
 	{"KeybindManual", keybind_manual},
+	{"KeybindDungeonManual", keybind_dungeon_manual},
 	{"Name", player_name},
 	{"OpponentName", opponent_name},
 	{"Number", effect_number},

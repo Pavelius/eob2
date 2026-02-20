@@ -179,7 +179,6 @@
     <ClInclude Include="hotkey.h" />
     <ClInclude Include="index.h" />
     <ClInclude Include="item.h" />
-    <ClInclude Include="keybind.h" />
     <ClInclude Include="keyvalue.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="location.h" />
@@ -274,7 +273,6 @@
     </ClCompile>
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="item.cpp" />
-    <ClCompile Include="keybind.cpp" />
     <ClCompile Include="keynaming.cpp" />
     <ClCompile Include="keyvalue.cpp" />
     <ClCompile Include="list.cpp" />
@@ -362,7 +360,6 @@
     <Text Include="..\rules\Diety.txt" />
     <Text Include="..\rules\Items.txt" />
     <Text Include="..\rules\Actions.txt" />
-    <Text Include="..\rules\Keyboard.txt" />
     <Text Include="..\rules\Monsters.txt" />
     <Text Include="..\rules\Quests.txt" />
     <Text Include="..\rules\Races.txt" />

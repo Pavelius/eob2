@@ -1,7 +1,6 @@
 #include "avatar.h"
 #include "bsreq.h"
 #include "draw.h"
-#include "keybind.h"
 #include "log.h"
 #include "midi.h"
 #include "music.h"
@@ -48,7 +47,6 @@ int main() {
 	// check_speech("en", "ua");
 	initialize_translation();
 	initialize_strings();
-	initialize_keybind();
 	log::readlf(speech_read, "locale", "*.str");
 	check_quest_locals();
 	if(log::errors > 0)

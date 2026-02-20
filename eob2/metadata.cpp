@@ -12,7 +12,6 @@
 #include "damage.h"
 #include "dungeon.h"
 #include "item.h"
-#include "keybind.h"
 #include "feat.h"
 #include "formula.h"
 #include "gender.h"
@@ -33,6 +32,7 @@
 #include "room.h"
 #include "shop.h"
 #include "spell.h"
+#include "textscript.h"
 #include "trap.h"
 #include "variant.h"
 #include "wearable.h"
@@ -260,6 +260,9 @@ BSMETA(spelli) = {
 	BSREQ(wearing),
 	BSREQ(duration),
 	{}};
+BSMETA(textscript) = {
+	BSREQ(id),
+	{}};
 BSMETA(trapi) = {
 	BSREQ(id),
 	BSENM(type, damagei),
@@ -289,7 +292,6 @@ BSDATA(varianti) = {
 	{"Formula", VAR(formulai, 1), 0, 0, ftscript<formulai>},
 	{"Gender", VAR(genderi, 1), 0, 0, ftscript<genderi>, fttest<genderi>},
 	{"Item", VAR(itemi, 1), 0, 0, ftscript<itemi>},
-	{"Keybind", VAR(keybindi, 3)},
 	{"KeyValue", VAR(keyvaluei, 2)},
 	{"List", VAR(listi, 1), 0, 0, ftscript<listi>, fttest<listi>},
 	{"Location", VAR(locationi, 1), 0, 0, ftscript<locationi>},
@@ -306,6 +308,7 @@ BSDATA(varianti) = {
 	{"Shape", VAR(shapei, 1), 0, 0, 0, 0, shape_read},
 	{"Shop", VAR(shopi, 1), 0, 0, ftscript<shopi>, fttest<shopi>},
 	{"Spell", VAR(spelli, 1), 0, 0, ftscript<spelli>, fttest<spelli>},
+	{"TextScript", VAR(textscript, 1)},
 	{"Trap", VAR(trapi, 1)},
 	{"Race", VAR(racei, 1)},
 };

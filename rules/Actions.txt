@@ -24,7 +24,7 @@ ChooseBet
 ChooseDonation
  elements Set+50 ChooseMenu Mul+2 Mul+4 Mul+10
 GameOptions
- elements ChooseMenu LoadGame SaveGame ExitGame
+ elements ChooseMenu LoadGame SaveGame KeybindDungeonManual ExitGame
 ChooseMageScrolls
  elements ChooseItem+1 IfItemReadable IfItemIdentified IfItemKnownSpell-1 IfMageScroll IfItemCanLearnSpell
 RestorePartySpells

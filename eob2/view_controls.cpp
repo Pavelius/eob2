@@ -1623,7 +1623,6 @@ static void common_input() {
 	case Ctrl + 'L': show_sprites(ITEMGL, {32, 24}, {64, 32}); break;
 	case Ctrl + 'P': show_scene_images(); break;
 	case Ctrl + 'F': show_scene_font(); break;
-	case Ctrl + 'T': choose_manual(); break;
 	}
 #endif
 }
@@ -1775,18 +1774,15 @@ void city_input(const hotkeyi* hotkeys) {
 		return;
 	if(character_input())
 		return;
-	if(hotkey_input(hotkeys))
-		return;
+	hotkey_input(hotkeys);
 }
 
-bool adventure_input(const hotkeyi* hotkeys) {
+void adventure_input(const hotkeyi* hotkeys) {
 	if(alternate_focus_input())
-		return true;
+		return;
 	if(character_input())
-		return true;
-	if(hotkey_input(hotkeys))
-		return true;
-	return false;
+		return;
+	hotkey_input(hotkeys);
 }
 
 static bool answer_input() {

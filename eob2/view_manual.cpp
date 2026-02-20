@@ -17,12 +17,6 @@ static void button_manual(const char* header, unsigned key, fnevent proc) {
 	width = push_width;
 }
 
-static void paint_header(const char* title) {
-	pushfore push(colors::special);
-	texta(title, AlignCenter | TextBold | TextSingleLine);
-	caret.y += texth() + 1; height -= texth() + 1;
-}
-
 static void paint_manual_content(const char* content) {
 	static int current, maximum;
 	static int cashe_origin;
@@ -42,7 +36,7 @@ static void move_up() {
 static void move_down() {
 }
 
-static void* choose_manual(const char* title, const char* content) {
+static void* choose_manual(const char* content) {
 	auto push_flags = text_flags;
 	text_flags = TextBold;
 	pushfocus push;
@@ -72,24 +66,6 @@ static void add_keybind(stringbuilder& sb, int key, const char* id) {
 	sb.add(pn);
 }
 
-static void show_keybind() {
-	char temp[2048]; stringbuilder sb(temp);
-	sb.addn("/tab 52");
-	add_keybind(sb, 'C', "Characterinfo");
-	add_keybind(sb, 'X', "CharacterSkills");
-	add_keybind(sb, 'P', "PickUpItem");
-	add_keybind(sb, 'Q', "ExamineItem");
-	add_keybind(sb, Ctrl + F5, "MakeScreenShoot");
-	choose_manual("Keybinding", temp);
-}
-
-static const char* get_manual_header(const char* id) {
-	auto pn = getnme(ids(id, "Header"));
-	if(pn)
-		return pn;
-	return getnm(id);
-}
-
 static void add_manual_content(stringbuilder& sb, const char* id) {
 	auto pi = bsdata<textscript>::find(ids(id, "Manual"));
 	if(pi) {
@@ -99,18 +75,10 @@ static void add_manual_content(stringbuilder& sb, const char* id) {
 	sb.addn(getnm(ids(id, "Info")));
 }
 
-static void add_manual_text(stringbuilder& sb, const char* id) {
-	sb.addn("/lf cs center text %1", get_manual_header(id));
-	sb.addn("/ct");
-}
-
-static void choose_manual(const char* id) {
-	char temp[2048]; stringbuilder sb(temp);
-	add_manual_text(sb, id);
-	add_manual_content(sb, id);
-	choose_manual(id, temp);
-}
-
-void choose_manual() {
-	choose_manual("Keybind");
+void choose_manual(const textscript* p) {
+	char temp[4096]; stringbuilder sb(temp);
+	if(!p)
+		return;
+	p->proc(sb);
+	choose_manual(temp);
 }

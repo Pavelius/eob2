@@ -46,9 +46,18 @@ Disabled: Disabled
 Diseased: Diseased
 Poisoned: Poisoned
 
+CityKeybindHeader: City keyboard shortcuts
+
+CharacterKeybindHeader: Character information keys
 CharacterFeats: Character Feats
-Characterinfo: Character Information
+CharacterFeatsHelp: Show character feats
+CharacterInfo: Character Information
+CharacterInfoHelp: Show summary character abilities
+CharacterInventory: Character inventory
+CharacterInventoryHelp: Show character items
 CharacterSkills: Character Skills
+CharacterSkillsHelp: Show character skills
+QuestGoalsHelp: Show current quest goals progress
 
 Blessing: Blessing
 Reputation: Reputation

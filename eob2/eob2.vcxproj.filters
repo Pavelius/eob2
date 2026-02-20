@@ -300,9 +300,6 @@
     <ClCompile Include="view_manual.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="keybind.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="command.cpp">
       <Filter>support</Filter>
     </ClCompile>
@@ -596,9 +593,6 @@
     <ClInclude Include="manager.h">
       <Filter>support</Filter>
     </ClInclude>
-    <ClInclude Include="keybind.h">
-      <Filter>logic</Filter>
-    </ClInclude>
     <ClInclude Include="command.h">
       <Filter>support</Filter>
     </ClInclude>
@@ -690,9 +684,6 @@
     </Text>
     <Text Include="..\locale\en\Carousing.txt">
       <Filter>locale</Filter>
-    </Text>
-    <Text Include="..\rules\Keyboard.txt">
-      <Filter>rules</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

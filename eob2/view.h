@@ -19,9 +19,10 @@ enum directions : unsigned char;
 enum resid : unsigned short;
 enum wearn : unsigned char;
 
-struct sprite;
-struct hotkeyi;
 struct creaturei;
+struct hotkeyi;
+struct sprite;
+struct textscript;
 
 extern unsigned long current_cpu_time;
 extern bool need_update_animation;
@@ -41,13 +42,13 @@ void* dialog(const char* cancel, const char* format, ...);
 void choose_spells(const char* title, const char* cancel, int spell_type);
 void show_scene(fnevent before_paint, fnevent input, void* focus);
 
-bool adventure_input(const hotkeyi* hotkeys);
+void adventure_input(const hotkeyi* hotkeys);
 bool alternate_focus_input();
 void animation_update();
 void button_frame(int count, bool focused, bool pressed);
 void button_label(int index, const void* data, const char* format, unsigned key, fnevent proc);
 bool choose_avatar();
-void choose_manual();
+void choose_manual(const textscript* p);
 void city_input(const hotkeyi* hotkeys);
 void clear_input();
 bool confirm(const char* format);

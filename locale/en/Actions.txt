@@ -48,7 +48,7 @@ Donate: Donation
 DonateMessage: "You donation is accepted. May holy bless be with you, my friends" sad priest
 DoorOpened: Locked door opened
 DrinkPotionAct: %Name drink %ItemName
-DropCityItemHelp: Sell item on local market
+DropCityItemHelp: Sell selected item on local market
 EatAndDrink: Eat and drink
 EatAndDrinkConfirm: Do you really want pay %2i gold piece for food and drink?
 EatAndDrinkNotEnoughtGold: "Return when you will have %2i gold piece" sad bartender "Now, get lost"
@@ -67,11 +67,18 @@ GlobalCampMenu: Camp menu
 GlobalOptions: What %Name want?
 GlobalVisit: Visit %1
 Hunt: Hunt
+KeybindManual: Keyboard shortcuts
+KeybindDungeonManual: Keyboard shortcuts
 Leave: Leave
 Lie: Lie
 MakeCampConfirm: Do you want to make camp?
 ManipulateAction: Manipulate
 MemorizeSpells: Memorize Spells
+MoveFocusDownHelp: Move focus rect down
+MoveFocusLeftHelp: Move focus rect left
+MoveFocusRightHelp: Move focus rect right
+MoveFocusUpHelp: Move focus rect up
+MovementKeybindHeader: Party & Focus movement keys
 MulChooseBet: Bet %1i gold pieces
 MulChooseDonation: Donate %1i golds
 OpenLocksFail: Pick locks fail
@@ -86,6 +93,7 @@ PayGoldConfirm: Do you really want to pay %2i golds for this?
 PickPockets: Pick pockets
 PickPocketsAction: Pick pockets
 PickPocketsVisit: Pick some pockets
+PickUpItemHelp: Pick up items from floor
 PickUpSuccess: %1 picked up
 PrayForSpells: Pray for Spells
 PlayerRead: %Name read

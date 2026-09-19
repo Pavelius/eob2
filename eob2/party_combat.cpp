@@ -140,7 +140,7 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 	if(!weapon.isweapon())
 		return;
 	auto power = weapon.getpower();
-	auto chance_critical = 20;
+	auto chance_critical = 0;
 	auto attack_damage = player->getdamage(bonus, slot, defender->is(Large));
 	auto damage_type = weapon.geti().damage_type;
 	auto isrange = weapon.isranged();
@@ -191,9 +191,9 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 	auto hits = -1;
 	tohit = imax(2, imin(20, tohit));
 	is_critical_hit = false;
-	if(rolls >= tohit || rolls >= chance_critical) {
+	if(rolls >= tohit || (rolls >= (20 - chance_critical))) {
 		// If weapon hits
-		if(rolls >= tohit && rolls >= chance_critical) {
+		if(rolls >= tohit && (rolls >= (20 - chance_critical))) {
 			// RULE: crtitical hit can apply only if attack hit and can be deflected
 			if(!defender->roll(CriticalDeflect))
 				is_critical_hit = true;

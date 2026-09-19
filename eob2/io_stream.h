@@ -30,8 +30,6 @@ struct stream {
 	stream&				operator<<(const char* t); // Post text string into stream data in correct coding.
 	stream&				operator<<(const int n); // Post number as string into stream data in correct coding.
 	unsigned char		get();
-	unsigned short		getLE16();
-	unsigned			getLE32();
 	virtual int			read(void* result, int count) = 0;
 	template<class T> void read(T& object) { read(&object, sizeof(object)); }
 	virtual int			seek(int count, int rel = SeekCur) { return 0; };

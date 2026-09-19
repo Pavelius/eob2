@@ -81,7 +81,7 @@ void midi_repeat(bool value) {
 
 #ifdef _WIN32
 
-//#define USE_WIN_HEADER
+// #define USE_WIN_HEADER
 
 #ifdef USE_WIN_HEADER
 

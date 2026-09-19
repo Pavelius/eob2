@@ -43,20 +43,6 @@ unsigned char io::stream::get() {
 	return r;
 }
 
-unsigned short io::stream::getLE16() {
-	unsigned char u2 = get();
-	unsigned char u1 = get();
-	return (u2 << 8) | u1;
-}
-
-unsigned io::stream::getLE32() {
-	unsigned char u4 = get();
-	unsigned char u3 = get();
-	unsigned char u2 = get();
-	unsigned char u1 = get();
-	return (u4 << 24) | (u3 << 16) | (u2 << 8) | u1;
-}
-
 void* loadb(const char* url, int* size, int additional) {
 	void* p = 0;
 	if(size)

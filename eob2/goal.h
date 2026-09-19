@@ -4,7 +4,7 @@
 #include "flagable.h"
 
 enum goaln : unsigned char {
-	ExmploreMostArea,
+	ExploreMostArea,
 	FindAllSecrets, TakeSpecialItem, OpenAllLockedDoors, DisableAllTraps,
 	KillBoss, KillBossMinions, KillAlmostAllMonsters,
 };

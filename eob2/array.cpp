@@ -136,13 +136,13 @@ int array::find(int i1, int i2, void* value, unsigned offset, size_t size) const
 		break;
 	case 2:
 		for(auto i = i1; i <= i2; i++) {
-			if(*((int*)value) == *((int*)((char*)ptr(i) + offset)))
+			if(*((short*)value) == *((short*)((char*)ptr(i) + offset)))
 				return i;
 		}
 		break;
 	case 1:
 		for(auto i = i1; i <= i2; i++) {
-			if(*((int*)value) == *((int*)((char*)ptr(i) + offset)))
+			if(*((char*)value) == *((char*)((char*)ptr(i) + offset)))
 				return i;
 		}
 		break;

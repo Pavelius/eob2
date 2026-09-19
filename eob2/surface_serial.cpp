@@ -33,6 +33,7 @@ struct info {
 color* output_pallette;
 
 void draw::write(const char* url, unsigned char* bits, int width, int height, int bpp, int scanline, color* pallette) {
+	const unsigned palette_size = (bpp == 8) ? 256 * sizeof(color) : 0;
 	bmp::header bmf = {0};
 	bmp::info bmi = {0};
 	//
@@ -40,13 +41,17 @@ void draw::write(const char* url, unsigned char* bits, int width, int height, in
 	bmf.signature = 0x4D42;
 	bmf.bits = sizeof(bmp::header) + sizeof(bmp::info);
 	//
+	bmf.bits = sizeof(bmp::header) + sizeof(bmp::info) + palette_size;
+	bmf.size = bmf.bits + width * height;
+	bmi.size_image = width * height;
+	//
 	bmi.size = sizeof(bmi);
 	bmi.width = width;
 	bmi.height = height;
 	bmi.planes = 1;
 	bmi.bpp = bpp;
-	bmi.pels_per_meter_x = 96;
-	bmi.pels_per_meter_y = 96;
+	bmi.pels_per_meter_x = 3780;
+	bmi.pels_per_meter_y = 3780;
 	switch(bpp) {
 	case 8:
 		bmi.color_used = 256;

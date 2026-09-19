@@ -23,7 +23,7 @@ BSDATA(feati) = {
 	{"BonusSaveVsSpells"},
 	{"BonusVsElfWeapon"},
 	{"BonusAttackVsHated"},
-	{"BonusDamageVsEnemy"},
+	{"BonusAttackVsEnemy"},
 	{"BonusACVsLargeEnemy"},
 	{"BonusHP"},
 	{"UseMetal"},

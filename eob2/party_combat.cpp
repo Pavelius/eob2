@@ -176,7 +176,7 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 	if(player->hate.is(defender->race)) {
 		if(player->is(BonusAttackVsHated))
 			bonus += 1;
-		if(player->is(BonusDamageVsEnemy))
+		if(player->is(BonusAttackVsEnemy))
 			bonus += 4;
 	}
 	if((power.iskind<racei>() && defender->race == power.value)
@@ -191,9 +191,10 @@ static void single_attack(creaturei* defender, wearn slot, int bonus, int multip
 	auto hits = -1;
 	tohit = imax(2, imin(20, tohit));
 	is_critical_hit = false;
-	if(rolls >= tohit || (rolls >= (20 - chance_critical))) {
+	auto critical_threshold = 20 - chance_critical;
+	if(rolls >= tohit) {
 		// If weapon hits
-		if(rolls >= tohit && (rolls >= (20 - chance_critical))) {
+		if(rolls >= tohit && rolls >= critical_threshold) {
 			// RULE: crtitical hit can apply only if attack hit and can be deflected
 			if(!defender->roll(CriticalDeflect))
 				is_critical_hit = true;

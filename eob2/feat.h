@@ -21,7 +21,7 @@
 enum featn : unsigned char {
 	NoExeptionalStrenght,
 	BonusSaveVsPoison, BonusSaveVsSpells,
-	BonusVsElfWeapon, BonusAttackVsHated, BonusDamageVsEnemy, BonusACVsLargeEnemy, BonusHP,
+	BonusVsElfWeapon, BonusAttackVsHated, BonusAttackVsEnemy, BonusACVsLargeEnemy, BonusHP,
 	UseMetal, UseLeather, UseShield,
 	UseMartial, UseElvish, UseRogish, UsePriest, UseMage, TheifSkills, StealthSkills, Sneaky, Alertness,
 	TwoHanded, Precise, Deadly, Unique,

@@ -20,7 +20,7 @@ Recent release is [here](https://github.com/Pavelius/eob2/blob/master/install/wi
 # How to play
 You are party of adventurers who are just arrived in the city of Iriaebor - in the Western Heartlands region of Faerun. Explore dungeons near, complete quests.
 
-We try to follow original rules of advanced dungeon and dragons second edition.
+We try to follow original rules of advanced dungeon and dragons second edition. But with some restriction.
 
 ### Hot keys
 

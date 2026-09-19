@@ -160,7 +160,7 @@ void array::remove(int index, int elements_count) {
 	if(((unsigned)index) >= count)
 		return;
 	if((unsigned)index < count - elements_count)
-		memcpy(ptr(index), ptr(index + elements_count), (count - (index + elements_count)) * size());
+		memmove(ptr(index), ptr(index + elements_count), (count - (index + elements_count)) * size());
 	count -= elements_count;
 }
 

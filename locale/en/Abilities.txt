@@ -51,7 +51,7 @@ CityKeybindHeader: City keyboard shortcuts
 CharacterKeybindHeader: Character information keys
 CharacterFeats: Character Feats
 CharacterFeatsHelp: Show character feats
-CharacterInfo: Character Information
+Characterinfo: Character Information
 CharacterInfoHelp: Show summary character abilities
 CharacterInventory: Character inventory
 CharacterInventoryHelp: Show character items

@@ -270,7 +270,7 @@ void color_convert(void* output, int width, int height, int output_bpp, const vo
 		ip += isc;
 	}
 	if(input_static)
-		delete (char*)input;
+		delete[] (char*)input;
 }
 
 void color_flipv(unsigned char* bits, unsigned scanline, int height) {

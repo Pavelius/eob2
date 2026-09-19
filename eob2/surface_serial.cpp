@@ -112,7 +112,7 @@ bool draw::surface::read(const char* url, color* pallette, int need_bpp) {
 		}
 	}
 	output_pallette = push_pallette;
-	delete pin;
+	delete[] pin;
 	return result;
 }
 

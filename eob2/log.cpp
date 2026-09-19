@@ -76,7 +76,7 @@ const char* log::read(const char* url, bool error_if_not_exist) {
 
 void log::close() {
 	if(context.file)
-		delete context.file;
+		delete[] context.file;
 	context.file = 0;
 }
 

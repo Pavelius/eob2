@@ -1623,6 +1623,7 @@ static void common_input() {
 	case Ctrl + 'L': show_sprites(ITEMGL, {32, 24}, {64, 32}); break;
 	case Ctrl + 'P': show_scene_images(); break;
 	case Ctrl + 'F': show_scene_font(); break;
+	case Ctrl + 'E': loc->set({20, 20}, CellExplored, 20); break;
 	}
 #endif
 }

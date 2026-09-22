@@ -37,7 +37,7 @@ static void apply_carousing() {
 	last_id = last_carousing->id;
 	dialog(getnm("Continue"), getnm(last_id));
 	party.abilities[EffectCount] = 0;
-	if(player->roll(last_carousing->ability)) {
+	if(!player->roll(last_carousing->ability)) {
 		script_run(last_carousing->fail);
 		player->addexp(50);
 		dialog(getnm("Continue"), getnm(ids(last_id, "Fail")));

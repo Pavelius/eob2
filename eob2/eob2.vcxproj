@@ -278,7 +278,9 @@
     <ClCompile Include="list.cpp" />
     <ClCompile Include="location.cpp" />
     <ClCompile Include="logvalue.cpp" />
-    <ClCompile Include="main_util.cpp" />
+    <ClCompile Include="main_util.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="manager.cpp" />
     <ClCompile Include="metadata.cpp" />
     <ClCompile Include="midi.cpp" />
@@ -305,7 +307,9 @@
     <ClCompile Include="shop.cpp" />
     <ClCompile Include="speech.cpp" />
     <ClCompile Include="spell.cpp" />
-    <ClCompile Include="sprite_util.cpp" />
+    <ClCompile Include="sprite_util.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="statable.cpp" />
     <ClCompile Include="surface_serial.cpp" />
     <ClCompile Include="talking.cpp" />
